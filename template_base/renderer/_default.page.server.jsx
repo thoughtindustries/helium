@@ -6,10 +6,11 @@ import logoUrl from "./logo.svg";
 import memCache from 'graphql-hooks-memcache';
 import { GraphQLClient, ClientContext } from 'graphql-hooks';
 import { getInitialState } from 'graphql-hooks-ssr';
+import devalue from 'devalue';
 
 export { render };
 // See https://vite-plugin-ssr.com/data-fetching
-export const passToClient = ["pageProps", "urlPathname"];
+export const passToClient = ["pageProps", "urlPathname", "initialState"];
 
 async function render(pageContext) {
   const { Page, pageProps, tiInstance } = pageContext;
@@ -50,10 +51,7 @@ async function render(pageContext) {
       <body>
         <div id="page-view">${html.dangerouslySkipEscape(pageHtml)}</div>
         <script type="text/javascript">
-            window.__INITIAL_STATE__=${JSON.stringify(initialState).replace(
-              /</g,
-              '\\u003c'
-            )};
+            window.__INITIAL_STATE__=${devalue(initialState)};
           </script>
       </body>
     </html>`;
