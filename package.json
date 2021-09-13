@@ -4,9 +4,7 @@
   "description": "",
   "main": "lib/index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "node dev.js",
-    "deploy": "node deploy.js"
+    "test": "echo \"Error: no test specified\" && exit 1"
   },
   "bin": {
     "ti": "lib/index.js"
@@ -16,6 +14,7 @@
     "prettier": "2.3.2"
   },
   "dependencies": {
+    "fs-extra": "^10.0.0",
     "inquirer": "^8.1.2",
     "request": "^2.88.2",
     "request-promise": "^4.2.6",
