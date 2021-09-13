@@ -4,7 +4,7 @@ import { PageWrapper } from "./PageWrapper";
 import { html } from "vite-plugin-ssr";
 import logoUrl from "./logo.svg";
 import memCache from 'graphql-hooks-memcache';
-import GraphQLClient, { ClientContext } from 'graphql-hooks';
+import { GraphQLClient, ClientContext } from 'graphql-hooks';
 import { getInitialState } from 'graphql-hooks-ssr';
 
 export { render };
@@ -12,7 +12,7 @@ export { render };
 export const passToClient = ["pageProps", "urlPathname"];
 
 async function render(pageContext) {
-  const { tiInstance } = pageContext;
+  const { Page, pageProps, tiInstance } = pageContext;
   const { instanceUrl } = tiInstance;
 
   const client = new GraphQLClient({
@@ -22,17 +22,13 @@ async function render(pageContext) {
 
   const App = (
     <ClientContext.Provider value={client}>
-      <ServerLocation url={pageContext.url}>
-        <PageWrapper pageContext={pageContext}>
-          <Page {...pageProps} />
-        </PageWrapper>
-      </ServerLocation>
+      <PageWrapper pageContext={pageContext}>
+        <Page {...pageProps} />
+      </PageWrapper>
     </ClientContext.Provider>
   )
 
   const initialState = await getInitialState({ App, client })
-
-  const { Page, pageProps } = pageContext;
   const pageHtml = ReactDOMServer.renderToString(
     App
   );
