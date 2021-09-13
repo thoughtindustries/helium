@@ -1,31 +1,49 @@
-const express = require("express");
-const { createPageRender } = require("vite-plugin-ssr");
+const express = require('express');
+const { createPageRender } = require('vite-plugin-ssr');
 
-const isProduction = process.env.NODE_ENV === "production";
+const isProduction = process.env.NODE_ENV === 'production';
 const root = `${__dirname}/..`;
+const instanceName = process.env.INSTANCE;
+const configJson = require('./../ti-config');
+
+function findTInstance(instanceName) {
+  const { instances = [] } = configJson;
+  let instance = instances[0];
+
+  if (instanceName) {
+    const possibleMatch = instances.find(instance => instance.nickname === instanceName);
+    if (possibleMatch && possibleMatch.apiKey) {
+      instance = possibleMatch;
+    }
+  }
+
+  return instance;
+}
 
 startServer();
 
 async function startServer() {
   const app = express();
+  const tiInstance = findTInstance(instanceName);
 
   let viteDevServer;
   if (isProduction) {
     app.use(express.static(`${root}/dist/client`, { index: false }));
   } else {
-    const vite = require("vite");
+    const vite = require('vite');
     viteDevServer = await vite.createServer({
       root,
-      server: { middlewareMode: true },
+      server: { middlewareMode: true }
     });
     app.use(viteDevServer.middlewares);
   }
 
   const renderPage = createPageRender({ viteDevServer, isProduction, root });
-  app.get("*", async (req, res, next) => {
+  app.get('*', async (req, res, next) => {
     const url = req.originalUrl;
     const pageContext = {
       url,
+      tiInstance
     };
     const result = await renderPage(pageContext);
     if (result.nothingRendered) return next();
