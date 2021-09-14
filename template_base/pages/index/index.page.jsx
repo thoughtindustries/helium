@@ -1,4 +1,5 @@
-import React from "react";
+import React, { useContext } from 'react'
+import { ClientContext, useQuery } from 'graphql-hooks'
 import { Counter } from "./Counter";
 
 export { Page };
