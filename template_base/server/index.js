@@ -1,7 +1,5 @@
 const express = require('express');
 const { createPageRender } = require('vite-plugin-ssr');
-const memCache = require('graphql-hooks-memcache');
-const { GraphQLClient } = require('graphql-hooks');
 
 const isProduction = process.env.NODE_ENV === 'production';
 const root = `${__dirname}/..`;
@@ -27,11 +25,6 @@ startServer();
 async function startServer() {
   const app = express();
   const tiInstance = findTInstance(instanceName);
-  const { instanceUrl } = tiInstance;
-  const graphqlClient = new GraphQLClient({
-    url: `${instanceUrl}/graphql`,
-    cache: memCache()
-  });
 
   let viteDevServer;
   if (isProduction) {
@@ -50,8 +43,9 @@ async function startServer() {
     const url = req.originalUrl;
     const pageContext = {
       url,
-      graphqlClient
+      tiInstance
     };
+
     const result = await renderPage(pageContext);
     if (result.nothingRendered) return next();
     res.status(result.statusCode).send(result.renderResult);

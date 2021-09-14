@@ -22,18 +22,9 @@ function PageWrapper({ pageContext, children }) {
           </Sidebar>
           <Content>{children}</Content>
         </Layout>
-        <InitialStateScript initialState={pageContext.initialState} />
       </PageContextProvider>
     </React.StrictMode>
   );
-}
-
-function InitialStateScript({ initialState }) {
-  return (
-    <script type="text/javascript">
-      window.__INITIAL_STATE__={JSON.stringify(initialState)};
-    </script> 
-  )
 }
 
 function Layout({ children }) {

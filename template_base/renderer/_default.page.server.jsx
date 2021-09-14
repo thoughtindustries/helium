@@ -3,16 +3,18 @@ import React from "react";
 import { PageWrapper } from "./PageWrapper";
 import { html } from "vite-plugin-ssr";
 import logoUrl from "./logo.svg";
-import { ClientContext } from 'graphql-hooks';
-import { getInitialState } from 'graphql-hooks-ssr';
 
 export { render };
-export { addPageContext }
 // See https://vite-plugin-ssr.com/data-fetching
-export const passToClient = ["pageProps", "urlPathname", "initialState"];
+export const passToClient = ["pageProps", "urlPathname", "tiInstance"];
 
 async function render(pageContext) {
-  const { pageHtml } = pageContext;
+  const { Page, pageProps } = pageContext;
+  const pageHtml = ReactDOMServer.renderToString(
+    <PageWrapper pageContext={pageContext}>
+      <Page {...pageProps} />
+    </PageWrapper>
+  );
 
   // See https://vite-plugin-ssr.com/html-head
   const { documentProps } = pageContext;
@@ -32,21 +34,4 @@ async function render(pageContext) {
         <div id="page-view">${html.dangerouslySkipEscape(pageHtml)}</div>
       </body>
     </html>`;
-}
-
-async function addPageContext(pageContext) {
-  const { Page, graphqlClient, pageProps } = pageContext;
-  const App = (
-    <ClientContext.Provider value={graphqlClient}>
-      <PageWrapper pageContext={pageContext}>
-        <Page {...pageProps} />
-      </PageWrapper>
-    </ClientContext.Provider>
-  );
-
-  const initialState = await getInitialState({ App, client: graphqlClient })
-  const pageHtml = ReactDOMServer.renderToString(
-    App
-  );
-  return { pageHtml, initialState };
 }
