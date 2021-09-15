@@ -12,8 +12,8 @@ async function hydrate() {
   // For Client Routing we should use `useClientRouter()` instead of `getPage()`.
   // See https://vite-plugin-ssr.com/useClientRouter
   const pageContext = await getPage();
-  const { Page, pageProps, tiInstance, graphQLInitialState } = pageContext;
-  const graphQLClient = makeGraphQLClient(tiInstance, graphQLInitialState);
+  const { Page, pageProps, heliumEndpoint, graphQLInitialState } = pageContext;
+  const graphQLClient = makeGraphQLClient(heliumEndpoint, graphQLInitialState);
 
   ReactDOM.hydrate(
       <ClientContext.Provider value={graphQLClient}>
@@ -25,9 +25,9 @@ async function hydrate() {
   );
 }
 
-function makeGraphQLClient(tiInstance, graphQLInitialState) {
+function makeGraphQLClient(heliumEndpoint, graphQLInitialState) {
   return new GraphQLClient({
-    url: `${tiInstance.instanceUrl}/graphql`,
+    url: heliumEndpoint,
     cache: memCache({ initialState: graphQLInitialState})
   })
 }

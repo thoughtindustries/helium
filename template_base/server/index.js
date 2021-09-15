@@ -44,11 +44,12 @@ async function startServer() {
   const renderPage = createPageRender({ viteDevServer, isProduction, root });
   app.get('*', async (req, res, next) => {
     const url = req.originalUrl;
-    const graphQLClient = makeGraphQLClient(tiInstance);
+    const { graphQLClient, heliumEndpoint } = makeGraphQLClient(tiInstance);
     const pageContext = {
       url,
       tiInstance,
-      graphQLClient
+      graphQLClient,
+      heliumEndpoint
     };
 
     const result = await renderPage(pageContext);
@@ -62,10 +63,14 @@ async function startServer() {
 }
 
 function makeGraphQLClient(tiInstance) {
-  return new GraphQLClient({
-    ssrMode: true,
-    url: `${tiInstance.instanceUrl}/graphql`, // Server URL (must be absolute)
-    cache: memCache(),
-    fetch
-  });
+  const heliumEndpoint = `${tiInstance.instanceUrl}/helium?apiKey=${tiInstance.apiKey}`;
+  return {
+    heliumEndpoint,
+    graphQLClient: new GraphQLClient({
+      ssrMode: true,
+      url: heliumEndpoint,
+      cache: memCache(),
+      fetch
+    })
+  };
 }

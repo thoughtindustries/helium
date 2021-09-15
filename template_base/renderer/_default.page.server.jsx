@@ -8,8 +8,9 @@ import { getInitialState } from 'graphql-hooks-ssr';
 
 export { render };
 export { addPageContext };
+
 // See https://vite-plugin-ssr.com/data-fetching
-export const passToClient = ["pageProps", "urlPathname", "tiInstance", "graphQLInitialState"];
+export const passToClient = ["pageProps", "urlPathname", "graphQLInitialState", "heliumEndpoint"];
 
 async function render(pageContext) {
   const { pageHtml } = pageContext;
