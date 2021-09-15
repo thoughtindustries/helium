@@ -4,12 +4,12 @@ import { Counter } from "./Counter";
 
 export { Page };
 
-const query = `
-query LanguagesQuery {
-  Languages {
-    id
-    label
-  }
+const query = /* GraphQL */`
+  query LanguagesQuery {
+    Languages {
+      id
+      label
+    }
 }
 `
 
