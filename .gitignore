@@ -103,4 +103,4 @@ dist
 # TernJS port file
 .tern-port
 
-ti-config.json
+**/ti-config.json
