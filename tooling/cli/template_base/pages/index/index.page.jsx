@@ -2,7 +2,7 @@ import React from 'react'
 import { useQuery } from 'graphql-hooks'
 import { Counter } from "./Counter";
 
-import { Hero } from '@ti/hero';
+import { Hero } from '@thoughtindustries/hero';
 export { Page };
 
 const query = /* GraphQL */`

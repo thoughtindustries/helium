@@ -1,16 +1,14 @@
 {
-  "name": "@ti/hero",
+  "name": "@thoughtindustries/hero",
   "version": "1.0.0",
   "description": "A base component for a hero image",
-  "author": "Rob Schillinger <schillinger.rob@gmail.com>",
-  "homepage": "https://github.com/thoughtindustries/ti-cli#readme",
+  "author": "Rob Schillinger <robert.schillinger@thoughtindustries>",
+  "homepage": "https://github.com/thoughtindustries/helium#readme",
   "license": "ISC",
-  "main": "dist/cj/hero.js",
-  "module": "dist/esm/hero.js",
+  "module": "./src/hero.js",
   "exports": {
     ".": {
-      "require": "./dist/cjs/hero.js",
-      "default": "./dist/esm/hero.js"
+      "default": "./src/hero.js"
     }
   },
   "directories": {
@@ -25,7 +23,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/thoughtindustries/ti-cli.git"
+    "url": "git+https://github.com/thoughtindustries/helium.git"
   },
   "scripts": {
     "test": "echo \"Error: run tests from root\" && exit 1",
@@ -34,7 +32,7 @@
     "build:cjs": "cross-env BABEL_ENV=cjs babel src --root-mode upward --extensions .js,.jsx -d dist/cjs --source-maps"
   },
   "bugs": {
-    "url": "https://github.com/thoughtindustries/ti-cli/issues"
+    "url": "https://github.com/thoughtindustries/helium/issues"
   },
   "dependencies": {
     "cross-env": "^7.0.3",
