@@ -1,0 +1,49 @@
+{
+  "name": "@ti/hero",
+  "version": "1.0.0",
+  "description": "A base component for a hero image",
+  "author": "Rob Schillinger <schillinger.rob@gmail.com>",
+  "homepage": "https://github.com/thoughtindustries/ti-cli#readme",
+  "license": "ISC",
+  "main": "dist/cj/hero.js",
+  "module": "dist/esm/hero.js",
+  "exports": {
+    ".": {
+      "require": "./dist/cjs/hero.js",
+      "default": "./dist/esm/hero.js"
+    }
+  },
+  "directories": {
+    "lib": "dist",
+    "test": "__tests__"
+  },
+  "files": [
+    "dist"
+  ],
+  "publishConfig": {
+    "access": "public"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/thoughtindustries/ti-cli.git"
+  },
+  "scripts": {
+    "test": "echo \"Error: run tests from root\" && exit 1",
+    "build": "concurrently yarn:build:*",
+    "build:esm": "cross-env BABEL_ENV=esm babel src --root-mode upward --extensions .js,.jsx -d dist/esm --source-maps",
+    "build:cjs": "cross-env BABEL_ENV=cjs babel src --root-mode upward --extensions .js,.jsx -d dist/cjs --source-maps"
+  },
+  "bugs": {
+    "url": "https://github.com/thoughtindustries/ti-cli/issues"
+  },
+  "dependencies": {
+    "cross-env": "^7.0.3",
+    "react": "^17.0.2"
+  },
+  "devDependencies": {
+    "@babel/cli": "^7.15.4",
+    "@babel/core": "^7.15.5",
+    "@babel/preset-env": "^7.15.6",
+    "@babel/preset-react": "^7.14.5"
+  }
+}
