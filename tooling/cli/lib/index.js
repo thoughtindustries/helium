@@ -18,8 +18,6 @@ const createCli = argv => {
   return (
     cli
       .commandDir('command-modules')
-      // .command(require('./command-modules/dev'))
-      // .command(require('./command-modules/deploy'))
       .wrap(cli.terminalWidth())
       .parse()
   );
