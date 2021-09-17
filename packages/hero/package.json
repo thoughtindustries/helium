@@ -5,18 +5,18 @@
   "author": "Rob Schillinger <robert.schillinger@thoughtindustries>",
   "homepage": "https://github.com/thoughtindustries/helium#readme",
   "license": "ISC",
-  "module": "./src/hero.js",
+  "module": "./src/hero.jsx",
   "exports": {
     ".": {
-      "default": "./src/hero.js"
+      "default": "./src/hero.jsx"
     }
   },
   "directories": {
-    "lib": "dist",
+    "lib": "src",
     "test": "__tests__"
   },
   "files": [
-    "dist"
+    "src"
   ],
   "publishConfig": {
     "access": "public"
@@ -38,10 +38,5 @@
     "cross-env": "^7.0.3",
     "react": "^17.0.2"
   },
-  "devDependencies": {
-    "@babel/cli": "^7.15.4",
-    "@babel/core": "^7.15.5",
-    "@babel/preset-env": "^7.15.6",
-    "@babel/preset-react": "^7.14.5"
-  }
+  "devDependencies": {}
 }

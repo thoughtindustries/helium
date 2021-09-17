@@ -1,11 +1,11 @@
-# `@ti/hero`
+# `@thoughtindustries/hero`
 
 > TODO: description
 
 ## Usage
 
 ```
-import hero from '@ti/hero';
+import hero from '@thoughtindustries/hero';
 
 // TODO: DEMONSTRATE API
 ```

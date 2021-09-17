@@ -1,5 +1,5 @@
 import hero from '../src/hero';
 
-describe('@ti/hero', () => {
+describe('@thoughtindustries/hero', () => {
     it('needs tests');
 });

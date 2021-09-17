@@ -1,5 +1,5 @@
 {
-  "name": "@ti/cli",
+  "name": "@thoughtindustries/cli",
   "version": "1.0.1",
   "description": "",
   "main": "lib/index.js",
