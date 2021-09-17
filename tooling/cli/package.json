@@ -1,5 +1,5 @@
 {
-  "name": "@thoughtindustries/cli",
+  "name": "@thoughtindustries/helium",
   "version": "1.0.1",
   "description": "",
   "main": "lib/index.js",
@@ -7,7 +7,7 @@
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "bin": {
-    "ti": "lib/index.js"
+    "helium": "lib/index.js"
   },
   "devDependencies": {
     "eslint": "^7.32.0",
