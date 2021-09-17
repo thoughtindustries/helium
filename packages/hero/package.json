@@ -1,0 +1,42 @@
+{
+  "name": "@thoughtindustries/hero",
+  "version": "1.0.1",
+  "description": "A base component for a hero image",
+  "author": "Rob Schillinger <robert.schillinger@thoughtindustries>",
+  "homepage": "https://github.com/thoughtindustries/helium#readme",
+  "license": "ISC",
+  "module": "./src/hero.jsx",
+  "exports": {
+    ".": {
+      "default": "./src/hero.jsx"
+    }
+  },
+  "directories": {
+    "lib": "src",
+    "test": "__tests__"
+  },
+  "files": [
+    "src"
+  ],
+  "publishConfig": {
+    "access": "public"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/thoughtindustries/helium.git"
+  },
+  "scripts": {
+    "test": "echo \"Error: run tests from root\" && exit 1",
+    "build": "concurrently yarn:build:*",
+    "build:esm": "cross-env BABEL_ENV=esm babel src --root-mode upward --extensions .js,.jsx -d dist/esm --source-maps",
+    "build:cjs": "cross-env BABEL_ENV=cjs babel src --root-mode upward --extensions .js,.jsx -d dist/cjs --source-maps"
+  },
+  "bugs": {
+    "url": "https://github.com/thoughtindustries/helium/issues"
+  },
+  "dependencies": {
+    "cross-env": "^7.0.3",
+    "react": "^17.0.2"
+  },
+  "devDependencies": {}
+}

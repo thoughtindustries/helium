@@ -1,0 +1,12 @@
+{
+  "npmClient": "npm",
+  "packages": [
+    "packages/*", "tooling/*", "tooling/cli/template_base"
+  ],
+  "command": {
+    "publish": {
+      "ignoreChanges": ["*.md"] 
+    }
+  },
+  "version": "independent"
+}
