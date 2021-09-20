@@ -12,7 +12,7 @@ exports.builder = cmd => {
 exports.handler = function () {
   const exec = childProcess.exec;
   //TODO: Replace w/ Deploy Process when created
-  const devProcess = exec('npm run build && npm run dev');
+  const devProcess = exec('npm run deploy');
   devProcess.stdout.pipe(process.stdout);
   devProcess.stderr.pipe(process.stderr);
   devProcess.on('exit', code => console.log(`Child process exited with code ${code.toString()}`));
