@@ -1,12 +1,18 @@
 {
+  "name": "@thoughtindustries/helium_template",
   "scripts": {
-    "dev": "npm run server",
-    "prod": "npm run build && npm run server:prod",
-    "build": "vite build && vite build --ssr",
-    "server": "node ./server",
-    "server:prod": "cross-env NODE_ENV=production node ./server"
+    "dev": "node ./server",
+    "// To build and try the worker locally": "",
+    "prod": "npm run build && wrangler dev --verbose",
+    "// To build and deploy the worker to Cloudflare Workers": "",
+    "deploy": "npm run build:vite && wrangler publish",
+    "// Build process": "",
+    "build": "npm run build:vite && npm run build:worker",
+    "build:vite": "vite build && vite build --ssr",
+    "build:worker": "wrangler build"
   },
   "dependencies": {
+    "@cloudflare/kv-asset-handler": "^0.1.3",
     "@mdx-js/mdx": "^2.0.0-next.9",
     "@mdx-js/react": "^1.6.22",
     "@thoughtindustries/hero": "^1.0.1",

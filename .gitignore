@@ -106,3 +106,5 @@ dist
 **/ti-config.json
 **/dist
 **/node_modules
+**/worker/worker
+**/worker/script.js
