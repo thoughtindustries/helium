@@ -9,6 +9,5 @@ const mdxOptions = {
 };
 
 export default {
-  plugins: [reactRefresh(), ssr(), mdx(mdxOptions), WindiCSS()],
-  base: 'https://helium.rjschill.workers.dev/'
+  plugins: [reactRefresh(), ssr(), mdx(mdxOptions), WindiCSS()]
 };

@@ -6,8 +6,7 @@ import { initPageContext } from './../lib/init-page-context';
 export { handleSsr };
 
 const renderPage = createPageRenderer({
-  isProduction: true,
-  base: 'https://helium.rjschill.workers.dev/'
+  isProduction: true
 });
 
 async function handleSsr(url) {
