@@ -1,7 +1,7 @@
 {
   "npmClient": "npm",
   "packages": [
-    "packages/*", "tooling/*", "tooling/cli/template_base"
+    "packages/**", "tooling/**"
   ],
   "command": {
     "publish": {
