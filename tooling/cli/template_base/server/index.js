@@ -1,5 +1,5 @@
 const express = require('express');
-const { createPageRender } = require('vite-plugin-ssr');
+const { createPageRenderer } = require('vite-plugin-ssr');
 
 const isProduction = process.env.NODE_ENV === 'production';
 const root = `${__dirname}/..`;
@@ -23,13 +23,14 @@ async function startServer() {
     app.use(viteDevServer.middlewares);
   }
 
-  const renderPage = createPageRender({ viteDevServer, isProduction, root });
+  const renderPage = createPageRenderer({ viteDevServer, isProduction, root });
   app.get('*', async (req, res, next) => {
     const url = req.originalUrl;
     const result = await initPageContext(url, instanceName, renderPage);
-
-    if (result.nothingRendered) return next();
-    res.status(result.statusCode).send(result.renderResult);
+    const { httpResponse } = result;
+    if (!httpResponse) return next();
+    const { statusCode, body } = httpResponse;
+    res.status(statusCode).send(body);
   });
 
   const port = process.env.PORT || 3000;
