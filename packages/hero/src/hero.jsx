@@ -7,6 +7,9 @@ function Hero(props, ref) {
   
   return (
     <div>
+      {props.title && (
+        <h2>{props.title}</h2>
+      )}
       {imageSrc && (
         <img src={imageSrc}/>
       )}
