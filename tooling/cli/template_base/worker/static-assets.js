@@ -41,6 +41,8 @@ async function handleStaticAssets(event) {
     response.headers.set('X-Frame-Options', 'DENY');
     response.headers.set('Referrer-Policy', 'unsafe-url');
     response.headers.set('Feature-Policy', 'none');
+    response.headers.set('Access-Control-Allow-Origin', '*');
+    response.headers.set('Vary', 'Origin');
 
     return response;
   } catch (e) {
