@@ -26,7 +26,7 @@ async function handleSsr(url) {
       : '';
 
     return new Response(resolveAssetUrls(url, responseString), {
-      headers: { 'content-type': 'text/html', 'Access-Control-Allow-Origin': '*', Vary: 'Origin' },
+      headers: { 'content-type': 'text/html' },
       status: statusCode
     });
   }
