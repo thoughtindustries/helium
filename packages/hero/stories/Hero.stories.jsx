@@ -5,13 +5,6 @@ export default {
   title: 'Example/Hero',
   component: Hero,
   argTypes: {
-    className: {
-      name: 'className',
-      type: { name: 'string', required: false },
-      defaultValue: 'overflow-hidden relative',
-      description: 'CSS class selector for Hero Image wrapper.',
-      control: { type: 'text' }
-    },
     title: {
       name: 'title',
       type: { name: 'string', required: false },
@@ -64,12 +57,7 @@ export default {
   }
 }
 
-const Template = (args) => (
-  <Hero {...args}>
-    <Hero.Asset />
-    <Hero.Caption />
-  </Hero>
-);
+const Template = (args) => (<Hero {...args} />);
 
 export const Base = Template.bind({});
 Base.args = {
