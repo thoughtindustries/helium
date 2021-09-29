@@ -23,7 +23,7 @@ function Hero({
   let caption;
   if (title) {
     let link;
-    if (linkText) {
+    if (linkText && linkUrl) {
       const linkProps = {
         className: 'border border-solid rounded-sm cursor-pointer inline-block text-sm font-normal leading-normal mt-0 mb-0 mr-0 ml-4 pt-2 pb-2 pl-4 pr-4 relative text-center no-underline transition-colors ease-in-out duration-200 bg-teal-300 border-teal-300 text-black hover:text-black hover:bg-teal-400 hover:border-teal-400 focus:bg-teal-400 focus:border-teal-400 active:bg-teal-400 active:border-teal-40',
         href: linkUrl
