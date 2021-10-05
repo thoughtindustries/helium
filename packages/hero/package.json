@@ -5,18 +5,19 @@
   "author": "Rob Schillinger <robert.schillinger@thoughtindustries>",
   "homepage": "https://github.com/thoughtindustries/helium#readme",
   "license": "ISC",
-  "module": "./src/hero.jsx",
+  "source": "src/index.ts",
+  "main": "dist/cjs/index.js",
+  "module": "dist/esm/index.js",
+  "types": "dist/types/index.d.ts",
+  "typings": "dist/types/index.d.ts",
   "exports": {
     ".": {
-      "default": "./src/hero.jsx"
+      "require": "./dist/cjs/index.js",
+      "default": "./dist/esm/index.js"
     }
   },
-  "directories": {
-    "lib": "src",
-    "test": "__tests__"
-  },
   "files": [
-    "src"
+    "dist"
   ],
   "publishConfig": {
     "access": "public"
@@ -26,10 +27,10 @@
     "url": "git+https://github.com/thoughtindustries/helium.git"
   },
   "scripts": {
-    "test": "echo \"Error: run tests from root\" && exit 1",
     "build": "concurrently yarn:build:*",
-    "build:esm": "cross-env BABEL_ENV=esm babel src --root-mode upward --extensions .js,.jsx -d dist/esm --source-maps",
-    "build:cjs": "cross-env BABEL_ENV=cjs babel src --root-mode upward --extensions .js,.jsx -d dist/cjs --source-maps"
+    "build:esm": "cross-env BABEL_ENV=esm babel src --root-mode upward --extensions .ts,.tsx -d dist/esm --source-maps",
+    "build:cjs": "cross-env BABEL_ENV=cjs babel src --root-mode upward --extensions .ts,.tsx -d dist/cjs --source-maps",
+    "build:types": "tsc --outDir ./dist/types"
   },
   "bugs": {
     "url": "https://github.com/thoughtindustries/helium/issues"
