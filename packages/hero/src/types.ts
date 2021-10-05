@@ -13,6 +13,6 @@ export interface HeroProps {
     asset?: string;
     /** optional asset for hero image in large screen */
     largeAsset?: string;
-    /** ptional asset for hero image in small screen */
+    /** optional asset for hero image in small screen */
     smallAsset?: string;
 }
