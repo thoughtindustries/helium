@@ -1,0 +1,12 @@
+{
+    "extends": "./tsconfig.json",
+    "emitDeclarationOnly": false,
+    "exclude": [
+        "node_modules",
+        "dist",
+        "**/__tests__/**"
+    ],
+    "include": [
+        "./packages/**/src/**/*.stories.tsx"
+    ]
+}

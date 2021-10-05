@@ -1,7 +1,6 @@
+const baseConfig = require("../../jest.config")
+
 module.exports = {
-    roots: ['src'],
-    testEnvironment: 'jsdom',
-    transform: {
-        '\\.[jt]sx?$': ['babel-jest', { cwd: __dirname }],
-    },
-};
+  ...baseConfig,
+  testEnvironment: 'jsdom'
+}

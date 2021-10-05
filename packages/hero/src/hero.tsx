@@ -1,19 +1,19 @@
 import React from 'react';
+import { HeroProps } from './types';
 
-export { Hero };
-
-function Hero({ 
-  title, 
-  subtitle, 
-  linkText, 
-  linkOpenInNewTab, 
-  linkUrl, 
-  asset, 
-  largeAsset, 
-  smallAsset
-}) {
+const Hero = (props: HeroProps): JSX.Element => {
+  const { 
+    title, 
+    subtitle, 
+    linkText, 
+    linkOpenInNewTab, 
+    linkUrl, 
+    asset, 
+    largeAsset, 
+    smallAsset
+  } = props;
   const image = title && (
-    <picture src={asset} alt={title} className='inline-block w-full'>
+    <picture className='inline-block w-full'>
       {largeAsset && <source srcSet={largeAsset} media="(min-width: 64.063em)" />}
       <source srcSet={asset} media="(min-width: 48em)" />
       {smallAsset && <source srcSet={smallAsset} media="(max-width: 48em)" />}
@@ -24,7 +24,7 @@ function Hero({
   if (title) {
     let link;
     if (linkText && linkUrl) {
-      const linkProps = {
+      const linkProps: { className: string, href: string, target?: string } = {
         className: 'border border-solid rounded-sm cursor-pointer inline-block text-sm font-normal leading-normal mt-0 mb-0 mr-0 ml-4 pt-2 pb-2 pl-4 pr-4 relative text-center no-underline transition-colors ease-in-out duration-200 bg-accent border-accent text-accent-contrast hover:text-accent-contrast hover:bg-accent-hover hover:border-accent-hover focus:bg-accent-hover focus:border-accent-hover active:bg-accent-hover active:border-accent-hover',
         href: linkUrl
       };
@@ -53,3 +53,5 @@ function Hero({
 }
 
 Hero.displayName = 'Hero';
+
+export default Hero;

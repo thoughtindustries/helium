@@ -1,5 +1,5 @@
 import React from 'react';
-import { Hero } from '../src/hero';
+import { Hero } from '../src';
 
 export default {
   title: 'Example/Hero',
@@ -45,13 +45,13 @@ export default {
     largeAsset: {
       name: 'largeAsset',
       type: { name: 'string', required: false },
-      description: 'Opotional asset for Hero Image in large screen.',
+      description: 'Optional asset for Hero Image in large screen.',
       control: { type: 'text' }
     },
     smallAsset: {
       name: 'smallAsset',
       type: { name: 'string', required: false },
-      description: 'Opotional asset for Hero Image in small screen.',
+      description: 'Optional asset for Hero Image in small screen.',
       control: { type: 'text' }
     }
   }
