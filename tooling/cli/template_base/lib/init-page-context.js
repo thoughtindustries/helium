@@ -7,12 +7,15 @@ module.exports = { initPageContext };
 
 async function initPageContext(url, instanceName, renderPage) {
   const tiInstance = findTInstance(instanceName);
+  const { accentColor, secondaryColor, linkColor, font, altFont, logoAsset } = tiInstance;
+  const appearanceSettings = { accentColor, secondaryColor, linkColor, font, altFont, logoAsset };
   const { graphQLClient, heliumEndpoint } = makeGraphQLClient(tiInstance);
   const pageContextInit = {
     url,
     tiInstance,
     graphQLClient,
-    heliumEndpoint
+    heliumEndpoint,
+    appearanceSettings
   };
 
   const pageContext = await renderPage(pageContextInit);

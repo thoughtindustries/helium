@@ -5,6 +5,7 @@ import { PageWrapper } from "./PageWrapper";
 import { ClientContext } from 'graphql-hooks';
 import { GraphQLClient } from 'graphql-hooks';
 import memCache from 'graphql-hooks-memcache';
+import 'virtual:windi.css'
 
 hydrate();
 
@@ -12,13 +13,14 @@ async function hydrate() {
   // For Client Routing we should use `useClientRouter()` instead of `getPage()`.
   // See https://vite-plugin-ssr.com/useClientRouter
   const pageContext = await getPage();
-  const { Page, pageProps, heliumEndpoint, graphQLInitialState } = pageContext;
+  const { Page, pageProps, heliumEndpoint, graphQLInitialState, appearanceSettings } = pageContext;
+  const propsAndAppearance = { ...pageProps, ...appearanceSettings };
   const graphQLClient = makeGraphQLClient(heliumEndpoint, graphQLInitialState);
 
   ReactDOM.hydrate(
       <ClientContext.Provider value={graphQLClient}>
         <PageWrapper pageContext={pageContext}>
-          <Page {...pageProps} />
+          <Page {...propsAndAppearance} />
         </PageWrapper>
       </ClientContext.Provider>,
     document.getElementById("page-view")

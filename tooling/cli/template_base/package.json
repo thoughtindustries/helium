@@ -28,10 +28,8 @@
     "react-dom": "^17.0.2",
     "vite": "^2.5.2",
     "vite-plugin-mdx": "^3.5.6",
-    "vite-plugin-ssr": "^0.3.2"
-  },
-  "devDependencies": {
-    "vite-plugin-windicss": "^1.4.2",
-    "windicss": "^3.1.7"
+    "vite-plugin-ssr": "^0.3.2",
+    "vite-plugin-windicss": "^1.4.9",
+    "windicss": "^3.1.9"
   }
 }

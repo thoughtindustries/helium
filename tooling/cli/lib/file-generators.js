@@ -1,5 +1,24 @@
 const fs = require('fs-extra');
 const path = require('path');
+const rp = require('request-promise');
+
+const SETTINGS_QUERY = `
+  query CompanyDetailsQuery {
+    CompanyDetails {
+      settings {
+        backgroundAsset
+        backgroundAssetTiled
+        logoAsset
+        retinaLogo
+        altFont
+        font
+        accentColor
+        secondaryColor
+        linkColor
+      }
+    }
+  }
+`;
 
 const initProject = async (dir, instances) => {
   await fs.mkdir(dir);
@@ -22,11 +41,35 @@ const generateEnvFile = async (dir, instances) => {
 
 const generateConfigFile = async (dir, instances) => {
   const fileName = path.resolve(dir, 'ti-config.json');
-  const data = instances.map(instance => ({
-    nickname: instance.nickname,
-    url: instance.instanceUrl,
-    email: instance.testUserEmail
-  }));
+  const data = [];
+
+  for (const instance of instances) {
+    const endpoint = `${instance.instanceUrl}/helium?apiKey=${instance.apiKey}`;
+    const options = {
+      method: 'POST',
+      url: endpoint,
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ query: SETTINGS_QUERY })
+    };
+
+    const resp = await rp(options);
+    const companyData = JSON.parse(resp)[0];
+
+    let appearanceData = {};
+    if (companyData) {
+      const {
+        data: { CompanyDetails }
+      } = companyData;
+      appearanceData = CompanyDetails && CompanyDetails.settings ? CompanyDetails.settings : {};
+    }
+
+    data.push({
+      nickname: instance.nickname,
+      url: instance.instanceUrl,
+      email: instance.testUserEmail,
+      ...appearanceData
+    });
+  }
 
   return fs.writeFile(fileName, JSON.stringify({ instances: data }));
 };

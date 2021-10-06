@@ -9,12 +9,7 @@
   "bin": {
     "helium": "lib/index.js"
   },
-  "devDependencies": {
-    "eslint": "^7.32.0",
-    "prettier": "2.3.2"
-  },
   "dependencies": {
-    "babel": "^6.23.0",
     "cross-env": "^7.0.3",
     "fs-extra": "^10.0.0",
     "inquirer": "^8.1.2",
