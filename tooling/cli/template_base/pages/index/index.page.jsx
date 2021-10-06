@@ -2,7 +2,7 @@ import React from 'react'
 import { useQuery } from 'graphql-hooks'
 import { Counter } from "./Counter";
 
-// import { Hero } from '@thoughtindustries/hero';
+import { Hero } from '@thoughtindustries/hero';
 export { Page };
 
 const query = /* GraphQL */`
@@ -25,7 +25,7 @@ function Page(pageProps) {
 
   return (
     <>
-      {/* <Hero img="https://d36ai2hkxl16us.cloudfront.net/thoughtindustries/image/upload/a_exif,c_lfill,h_150/v1494856803/krk0kc4dlidrctj7xddh.png" /> */}
+      <Hero img="https://d36ai2hkxl16us.cloudfront.net/thoughtindustries/image/upload/a_exif,c_lfill,h_150/v1494856803/krk0kc4dlidrctj7xddh.png" />
       <h1 style={headerStyle}>Welcome</h1>
       This page is:
       <ul>
