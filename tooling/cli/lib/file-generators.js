@@ -1,10 +1,11 @@
 const fs = require('fs-extra');
 const path = require('path');
-const rp = require('request-promise');
+const fetch = require('isomorphic-unfetch');
 
 const SETTINGS_QUERY = `
   query CompanyDetailsQuery {
     CompanyDetails {
+      name
       settings {
         backgroundAsset
         backgroundAssetTiled
@@ -47,27 +48,29 @@ const generateConfigFile = async (dir, instances) => {
     const endpoint = `${instance.instanceUrl}/helium?apiKey=${instance.apiKey}`;
     const options = {
       method: 'POST',
-      url: endpoint,
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ query: SETTINGS_QUERY })
     };
 
-    const resp = await rp(options);
+    const resp = await fetch(endpoint, options);
     const companyData = JSON.parse(resp)[0];
 
-    let appearanceData = {};
+    let companyProps = {};
     if (companyData) {
       const {
         data: { CompanyDetails }
       } = companyData;
-      appearanceData = CompanyDetails && CompanyDetails.settings ? CompanyDetails.settings : {};
+      companyProps = {
+        name: CompanyDetails.name,
+        ...CompanyDetails.settings
+      };
     }
 
     data.push({
       nickname: instance.nickname,
       url: instance.instanceUrl,
       email: instance.testUserEmail,
-      ...appearanceData
+      ...companyProps
     });
   }
 
