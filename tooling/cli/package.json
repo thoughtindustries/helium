@@ -9,18 +9,12 @@
   "bin": {
     "helium": "lib/index.js"
   },
-  "devDependencies": {
-    "eslint": "^7.32.0",
-    "prettier": "2.3.2"
-  },
   "dependencies": {
-    "babel": "^6.23.0",
     "cross-env": "^7.0.3",
     "fs-extra": "^10.0.0",
     "inquirer": "^8.1.2",
+    "isomorphic-unfetch": "^3.1.0",
     "react": "^17.0.2",
-    "request": "^2.88.2",
-    "request-promise": "^4.2.6",
     "yargs": "^17.1.1"
   }
 }

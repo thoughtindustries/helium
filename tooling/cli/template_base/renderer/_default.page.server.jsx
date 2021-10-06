@@ -10,7 +10,7 @@ export { render };
 export { onBeforeRender };
 
 // See https://vite-plugin-ssr.com/data-fetching
-export const passToClient = ["pageProps", "urlPathname", "graphQLInitialState", "heliumEndpoint"];
+export const passToClient = ["pageProps", "urlPathname", "graphQLInitialState", "heliumEndpoint", "appearanceSettings"];
 
 async function render(pageContext) {
   const { pageHtml } = pageContext;
@@ -36,11 +36,12 @@ async function render(pageContext) {
 }
 
 async function onBeforeRender(pageContext) {
-  const { Page, pageProps, graphQLClient } = pageContext;
+  const { Page, pageProps, graphQLClient, appearanceSettings } = pageContext;
+  const propsAndAppearance = { ...pageProps, ...appearanceSettings };
   const App = (
     <ClientContext.Provider value={graphQLClient}>
       <PageWrapper pageContext={pageContext}>
-        <Page {...pageProps} />
+        <Page {...propsAndAppearance} />
       </PageWrapper>
     </ClientContext.Provider>
   );

@@ -2,7 +2,6 @@
 
 const yargs = require('yargs');
 const { hideBin } = require('yargs/helpers');
-const path = require('path');
 
 const createCli = argv => {
   const cli = yargs(hideBin(argv)).parserConfiguration({
@@ -10,17 +9,15 @@ const createCli = argv => {
   });
 
   cli
-    .scriptName('ti')
+    .scriptName('helium')
     .usage(`Usage: $0 <command> [options]`)
     .alias(`h`, `help`)
     .alias(`v`, `version`);
 
-  return (
-    cli
-      .commandDir('command-modules')
-      .wrap(cli.terminalWidth())
-      .parse()
-  );
+  return cli
+    .commandDir('command-modules')
+    .wrap(cli.terminalWidth())
+    .parse();
 };
 
 createCli(process.argv);
