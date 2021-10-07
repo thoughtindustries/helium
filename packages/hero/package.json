@@ -5,17 +5,7 @@
   "author": "Rob Schillinger <robert.schillinger@thoughtindustries>",
   "homepage": "https://github.com/thoughtindustries/helium#readme",
   "license": "ISC",
-  "source": "src/index.ts",
-  "main": "dist/cjs/index.js",
-  "module": "dist/esm/index.js",
-  "types": "dist/types/index.d.ts",
-  "typings": "dist/types/index.d.ts",
-  "exports": {
-    ".": {
-      "require": "./dist/cjs/index.js",
-      "default": "./dist/esm/index.js"
-    }
-  },
+  "main": "src/index.ts",
   "files": [
     "dist"
   ],
