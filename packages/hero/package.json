@@ -5,17 +5,7 @@
   "author": "Rob Schillinger <robert.schillinger@thoughtindustries>",
   "homepage": "https://github.com/thoughtindustries/helium#readme",
   "license": "ISC",
-  "source": "src/index.ts",
-  "main": "dist/cjs/index.js",
-  "module": "dist/esm/index.js",
-  "types": "dist/types/index.d.ts",
-  "typings": "dist/types/index.d.ts",
-  "exports": {
-    ".": {
-      "require": "./dist/cjs/index.js",
-      "default": "./dist/esm/index.js"
-    }
-  },
+  "main": "src/index.ts",
   "files": [
     "dist"
   ],
@@ -28,15 +18,12 @@
   },
   "scripts": {
     "build": "concurrently yarn:build:*",
-    "build:esm": "cross-env BABEL_ENV=esm babel src --root-mode upward --extensions .ts,.tsx -d dist/esm --source-maps",
-    "build:cjs": "cross-env BABEL_ENV=cjs babel src --root-mode upward --extensions .ts,.tsx -d dist/cjs --source-maps",
     "build:types": "tsc --outDir ./dist/types"
   },
   "bugs": {
     "url": "https://github.com/thoughtindustries/helium/issues"
   },
   "dependencies": {
-    "cross-env": "^7.0.3",
     "react": "^17.0.2"
   }
 }
