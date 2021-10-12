@@ -5,7 +5,7 @@
   "author": "Rob Schillinger <robert.schillinger@thoughtindustries>",
   "homepage": "https://github.com/thoughtindustries/helium#readme",
   "license": "ISC",
-  "main": "./src/index.ts",
+  "main": "src/index.ts",
   "files": [
     "dist"
   ],
@@ -18,8 +18,6 @@
   },
   "scripts": {
     "build": "concurrently yarn:build:*",
-    "build:esm": "cross-env BABEL_ENV=esm babel src --root-mode upward --extensions .ts,.tsx -d dist/esm --source-maps --ignore **/__tests__/**",
-    "build:cjs": "cross-env BABEL_ENV=cjs babel src --root-mode upward --extensions .ts,.tsx -d dist/cjs --source-maps --ignore **/__tests__/**",
     "build:types": "tsc --outDir ./dist/types"
   },
   "bugs": {
