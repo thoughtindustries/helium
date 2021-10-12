@@ -7,6 +7,6 @@
         "**/__tests__/**"
     ],
     "include": [
-        "./packages/**/src/**/*.stories.tsx"
+        "./packages/**/*.stories.tsx"
     ]
 }
