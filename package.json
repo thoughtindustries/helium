@@ -33,5 +33,9 @@
     "build-storybook": "build-storybook",
     "test": "jest",
     "build": "lerna run build"
-  }
+  },
+  "workspaces": [
+    "packages/**",
+    "tooling/**"
+  ]
 }
