@@ -23,7 +23,7 @@ exports.builder = cmd => {
     });
 };
 
-exports.handler = function (argv) {
+exports.handler = function(argv) {
   const exec = childProcess.exec;
   const env = {
     ...process.env,
@@ -31,7 +31,8 @@ exports.handler = function (argv) {
     PORT: argv.port,
     NODE_TLS_REJECT_UNAUTHORIZED: argv.insecure ? '0' : '1'
   };
-  const devProcess = exec('npm run build && npm run dev', { env });
+
+  const devProcess = exec('npm run build:vite && npm run dev', { env });
 
   devProcess.stdout.pipe(process.stdout);
   devProcess.stderr.pipe(process.stderr);

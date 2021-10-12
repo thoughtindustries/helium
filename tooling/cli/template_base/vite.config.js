@@ -9,5 +9,10 @@ const mdxOptions = {
 };
 
 export default {
-  plugins: [reactRefresh(), ssr(), mdx(mdxOptions), WindiCSS()]
+  plugins: [
+    reactRefresh(),
+    ssr(),
+    mdx(mdxOptions),
+    WindiCSS({ scan: { dirs: ['pages'], fileExtensions: ['js', 'ts', 'jsx', 'tsx'] } })
+  ]
 };

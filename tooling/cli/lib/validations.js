@@ -1,4 +1,4 @@
-const rp = require('request-promise');
+const fetch = require('isomorphic-unfetch');
 const url = require('url');
 
 const isAbsoluteUrl = url => {
@@ -45,14 +45,13 @@ const isInstance = instance => {
   const pingUrl = url.resolve(instance.instanceUrl, '/incoming/v2/ping');
   const options = {
     method: 'GET',
-    url: pingUrl,
     headers: {
       Authorization: `Bearer ${instance.apiKey}`
-    },
-    json: true
+    }
   };
 
-  return rp(options)
+  return fetch(pingUrl, options)
+    .then(res => res.json())
     .then(({ valid }) => {
       return !!valid;
     })
