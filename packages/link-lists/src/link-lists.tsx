@@ -1,4 +1,4 @@
-import React, { useState, useCallback, useEffect } from 'react';
+import React, { useState, useCallback } from 'react';
 import { 
     LinkListsSubCategory,
     LinkListsCategory,
@@ -64,19 +64,10 @@ const Category = (props: {
     const { label, subcategories = [] } = item;
     const isLimited = displayCutoff !== undefined && subcategories.length > displayCutoff;
     const [expanded, setExpanded] = useState<boolean>(!isLimited);
-    const [filteredSubcategories, setFilteredSubcategories] = useState<LinkListsSubCategory[]>(
-        isLimited ? [...subcategories].slice(0, displayCutoff) : [...subcategories]
-    );
-
-    useEffect(() => {
-        const isLimitedNew = displayCutoff !== undefined && subcategories.length > displayCutoff;
-        setExpanded(!isLimitedNew);
-        setFilteredSubcategories(isLimitedNew ? [...subcategories].slice(0, displayCutoff) : [...subcategories]);
-    }, [displayCutoff, subcategories.length]);
+    const filteredSubcategories = isLimited && !expanded ? [...subcategories].slice(0, displayCutoff) : [...subcategories];
 
     const onExpand = useCallback(() => {
         setExpanded(true);
-        setFilteredSubcategories([...subcategories]);
     }, []);
 
     return (
