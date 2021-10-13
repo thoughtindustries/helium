@@ -1,6 +1,6 @@
 # `@thoughtindustries/link-lists`
 
-> TODO: description
+> The Link Lists component is a nifty option for footers or when you just need to offer a cluster of navigation options. Choose from a variety of multi-column configurations for the one perfectly suited to your needs.
 
 ## Import component
 
