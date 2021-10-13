@@ -1,5 +1,4 @@
 import React, { useState, useCallback, useEffect } from 'react';
-import './styles.css';
 import { 
     LinkListsSubCategory,
     LinkListsCategory,
@@ -81,11 +80,11 @@ const Category = (props: {
     }, []);
 
     return (
-        <div className="pl-8 pr-8 link-matrix-category">
+        <div className="border-r">
             <h4 className="text-sm font-bold">{label}</h4>
             <ul className="m-0 p-0 list-none">
                 {filteredSubcategories.map((subcategory, index) => (
-                    <li key={`subcategory-${index}`} className="pl-5 link-matrix-category__subcategory">
+                    <li key={`subcategory-${index}`} className="pl-5 before:content-['\2022\20']">
                         <Subcategory item={subcategory} />
                     </li>
                 ))}
@@ -112,9 +111,9 @@ const LinkLists = (props: LinkListsProps): JSX.Element => {
         <div className="w-auto -ml-4 -mr-4 mt-0 mb-0 max-w-none">
             <div className="w-full relative pl-4 pr-4 float-left">
                 <Header title={title} alternateTitleDisplay={alternateTitleDisplay} />
-                <ul className="grid grid-cols-2 md:grid-cols-3 link-matrix-category__container">
+                <ul className="grid grid-cols-2 md:grid-cols-3 gap-x-8">
                     {categories.map((category, index) => (
-                        <li key={`category-${index}`} className="border-r border-solid border-gray-300 mb-4">
+                        <li key={`category-${index}`} className="mb-4">
                             <Category item={category} displayCutoff={displayCutoff} />
                         </li>
                     ))}

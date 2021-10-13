@@ -1,5 +1,6 @@
 module.exports = {
-  purge: ['./packages/**/*.{js,jsx}',],
+  mode: 'jit',
+  purge: ['./packages/**/*.{ts,tsx}',],
   darkMode: false, // or 'media' or 'class'
   theme: {
     screens: {
