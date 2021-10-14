@@ -62,7 +62,7 @@ async function uploadHeliumProject(heliumAccessKey, heliumSecretKey, bucketPath)
   expiration.setMinutes(expiration.getMinutes() + 15);
   expiration = expiration.toISOString();
 
-  const filePaths = await getFilePaths(__dirname);
+  const filePaths = await getFilePaths(process.cwd());
   const uploadPromises = filePaths.map(filePath => uploadToS3(s3, bucketPath, filePath));
 
   return Promise.all(uploadPromises);
@@ -128,7 +128,7 @@ async function getHeliumKeys(instance) {
 
 function uploadToS3(s3, bucketPath, filePath) {
   return new Promise((resolve, reject) => {
-    const sanitizedFilePath = filePath.split(__dirname)[1];
+    const sanitizedFilePath = filePath.split(process.cwd())[1];
     const key = path.join(bucketPath, sanitizedFilePath);
     const params = {
       Bucket: BUCKET,
@@ -157,7 +157,7 @@ async function getFilePaths(dir, filePaths = []) {
     if (stat.isFile()) {
       newFilePaths.push(filePath);
     } else {
-      const baseDir = filePath.split(`${__dirname}/`)[1];
+      const baseDir = filePath.split(`${process.cwd()}/`)[1];
       if (!['pages', 'renderer', 'server'].includes(baseDir)) {
         await getFilePaths(filePath, newFilePaths);
       }

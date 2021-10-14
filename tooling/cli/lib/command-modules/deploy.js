@@ -12,8 +12,8 @@ exports.builder = cmd => {
 };
 exports.handler = function(argv) {
   const exec = childProcess.exec;
-  //TODO: Replace w/ Deploy Process when created
   const env = { ...process.env, INSTANCE_NAME: argv.instance };
+
   const devProcess = exec('npm run build:vite', { env });
   devProcess.stdout.pipe(process.stdout);
   devProcess.stderr.pipe(process.stderr);
