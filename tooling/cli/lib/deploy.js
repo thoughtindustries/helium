@@ -1,10 +1,9 @@
-// const config = require('ti-config');
 const path = require('path');
-const configPath = path.join(process.cwd(), '/ti-config');
 const fs = require('fs-extra');
 const AWS = require('aws-sdk');
 const fetch = require('isomorphic-unfetch');
 
+const configPath = path.join(process.cwd(), '/ti-config');
 const config = require(configPath);
 
 const INSTANCE_NAME = process.env.INSTANCE_NAME;
