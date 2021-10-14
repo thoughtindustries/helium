@@ -24,6 +24,7 @@
     "url": "https://github.com/thoughtindustries/helium/issues"
   },
   "dependencies": {
+    "@thoughtindustries/header": "^1.0.0",
     "react": "^17.0.2"
   }
 }

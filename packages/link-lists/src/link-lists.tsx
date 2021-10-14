@@ -1,38 +1,10 @@
 import React, { useState, useCallback } from 'react';
+import { Header } from '@thoughtindustries/header';
 import { 
     LinkListsSubCategory,
     LinkListsCategory,
     LinkListsProps
 } from './types';
-
-const Header = (props: { 
-    title?: string, 
-    alternateTitleDisplay?: boolean
-}): JSX.Element | null => {
-    const { 
-        title, 
-        alternateTitleDisplay
-    } = props;
-
-    if (!title) {
-        return null;
-    }
-
-    if (alternateTitleDisplay) {
-        return (
-            <>
-                <div>
-                    <h3>{title}</h3>
-                </div>
-                <hr className="relative" />
-            </>
-        );
-    }
-
-    return (
-        <h2 className="text-2xl text-center text-gray-700 mb-4 font-header">{title}</h2>
-    );
-}
 
 const Subcategory = (props: { item: LinkListsSubCategory }): JSX.Element => {
     const { item } = props;
@@ -101,7 +73,7 @@ const LinkLists = (props: LinkListsProps): JSX.Element => {
     return (
         <div className="w-auto -ml-4 -mr-4 mt-0 mb-0 max-w-none">
             <div className="w-full relative pl-4 pr-4 float-left">
-                <Header title={title} alternateTitleDisplay={alternateTitleDisplay} />
+                {title && <Header title={title} alternateTitleDisplay={alternateTitleDisplay} />}
                 <ul className="grid grid-cols-2 md:grid-cols-3 gap-x-8">
                     {categories.map((category, index) => (
                         <li key={`category-${index}`} className="mb-4">
