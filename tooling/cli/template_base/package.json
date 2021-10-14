@@ -1,11 +1,12 @@
 {
   "name": "@thoughtindustries/helium_template",
+  "version": "1.0.0",
   "scripts": {
     "dev": "node ./server",
     "// To build and try the worker locally": "",
     "prod": "npm run build && wrangler dev --verbose",
-    "// To build and deploy the worker to Cloudflare Workers": "",
-    "deploy": "npm run build && wrangler publish",
+    "// To build, upload to S3, and trigger Lambda to deploy to Cloudflare Workers": "",
+    "deploy": "npm run build:vite && node deploy",
     "// Build process": "",
     "build": "npm run build:vite && npm run build:worker",
     "build:vite": "vite build && vite build --ssr",
@@ -31,5 +32,8 @@
     "vite-plugin-ssr": "^0.3.2",
     "vite-plugin-windicss": "^1.4.9",
     "windicss": "^3.1.9"
+  },
+  "devDependencies": {
+    "aws-sdk": "^2.1006.0"
   }
 }
