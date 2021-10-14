@@ -10,7 +10,7 @@ const LAMBDA_FUNCTION = 'helium-deploy';
 const KEY_QUERY = `
   query CompanyDetailsQuery {
     CompanyDetails {
-      cloudFlareWorkerAccountId
+      subdomain
       heliumSecretKey
       heliumAccessKey
     }
@@ -24,20 +24,18 @@ const KEY_QUERY = `
     throw new Error('Could not locate instance in configuration file.');
   }
 
-  const { heliumAccessKey, heliumSecretKey, cloudFlareWorkerAccountId } = await getHeliumKeys(
-    instance
-  );
+  const { heliumAccessKey, heliumSecretKey } = await getHeliumKeys(instance);
 
   if (!heliumAccessKey || !heliumSecretKey) {
     throw new Error('Could not retrieve helium keys.');
   }
 
   const prefixTime = new Date();
-  const bucketPath = `${prefixTime.getTime()}_${instance.id}`;
+  const bucketPath = `${prefixTime.getTime()}_${instance.id}/`;
 
   try {
     await uploadHeliumProject(heliumAccessKey, heliumSecretKey, bucketPath);
-    await triggerLambda(heliumAccessKey, heliumSecretKey, cloudFlareWorkerAccountId, bucketPath);
+    await triggerLambda(heliumAccessKey, heliumSecretKey, bucketPath);
   } catch (e) {
     throw new Error(e);
   }
@@ -68,14 +66,9 @@ async function uploadHeliumProject(heliumAccessKey, heliumSecretKey, bucketPath)
   return Promise.all(uploadPromises);
 }
 
-async function triggerLambda(
-  heliumAccessKey,
-  heliumSecretKey,
-  cloudFlareWorkerAccountId,
-  bucketPath
-) {
+async function triggerLambda(heliumAccessKey, heliumSecretKey, bucketPath) {
   return new Promise((resolve, reject) => {
-    const lambdaPayload = { cloudFlareWorkerAccountId, bucketPath };
+    const lambdaPayload = { subdomain, bucketPath };
     const lambdaParams = { FunctionName: LAMBDA_FUNCTION, Payload: JSON.stringify(lambdaPayload) };
     const lambda = new AWS.Lambda({
       region: 'us-east-1',
@@ -116,7 +109,7 @@ async function getHeliumKeys(instance) {
 
   let heliumAccessKey;
   let heliumSecretKey;
-  let cloudFlareWorkerAccountId;
+  let subdomain;
 
   if (companyData) {
     const {
@@ -125,10 +118,10 @@ async function getHeliumKeys(instance) {
 
     heliumAccessKey = CompanyDetails.heliumAccessKey;
     heliumSecretKey = CompanyDetails.heliumSecretKey;
-    cloudFlareWorkerAccountId = CompanyDetails.cloudFlareWorkerAccountId;
+    subdomain = CompanyDetails.subdomain;
   }
 
-  return { heliumAccessKey, heliumSecretKey, cloudFlareWorkerAccountId };
+  return { heliumAccessKey, heliumSecretKey, subdomain };
 }
 
 function uploadToS3(s3, bucketPath, filePath) {
@@ -162,7 +155,7 @@ async function getFilePaths(dir, filePaths = []) {
     if (stat.isFile()) {
       newFilePaths.push(filePath);
     } else {
-      const baseDir = filePath.split('/')[0];
+      const baseDir = filePath.split(`${__dirname}/`)[1];
       if (!['pages', 'renderer', 'server'].includes(baseDir)) {
         await getFilePaths(filePath, newFilePaths);
       }
