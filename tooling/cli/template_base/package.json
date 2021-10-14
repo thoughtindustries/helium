@@ -5,8 +5,7 @@
     "dev": "node ./server",
     "// To build and try the worker locally": "",
     "prod": "npm run build && wrangler dev --verbose",
-    "// To build and deploy to Cloudflare Workers": "",
-    "deploy": "npm run build && wrangler publish",
+    "// To build and deploy the worker to Cloudflare Workers": "",    "deploy": "npm run build && wrangler publish",
     "// Build process": "",
     "build": "npm run build:vite && npm run build:worker",
     "build:vite": "vite build && vite build --ssr",
@@ -32,8 +31,5 @@
     "vite-plugin-ssr": "^0.3.2",
     "vite-plugin-windicss": "^1.4.9",
     "windicss": "^3.1.9"
-  },
-  "devDependencies": {
-    "aws-sdk": "^2.1006.0"
   }
 }
