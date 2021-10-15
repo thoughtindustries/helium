@@ -3,7 +3,8 @@ const fs = require('fs-extra');
 const AWS = require('aws-sdk');
 const fetch = require('isomorphic-unfetch');
 
-const configPath = path.join(process.cwd(), '/ti-config');
+const OP_DIR = process.cwd();
+const configPath = path.join(OP_DIR, '/ti-config');
 const config = require(configPath);
 
 const INSTANCE_NAME = process.env.INSTANCE_NAME;
@@ -26,18 +27,18 @@ const KEY_QUERY = `
     throw new Error('Could not locate instance in configuration file.');
   }
 
-  const { heliumAccessKey, heliumSecretKey } = await getHeliumKeys(instance);
+  const { heliumAccessKey, heliumSecretKey, subdomain } = await getHeliumKeys(instance);
 
   if (!heliumAccessKey || !heliumSecretKey) {
     throw new Error('Could not retrieve helium keys.');
   }
 
   const prefixTime = new Date();
-  const bucketPath = `${prefixTime.getTime()}_${instance.id}/`;
+  const projectKey = `${prefixTime.getTime()}_${instance.id}/`;
 
   try {
-    await uploadHeliumProject(heliumAccessKey, heliumSecretKey, bucketPath);
-    await triggerLambda(heliumAccessKey, heliumSecretKey, bucketPath);
+    await uploadHeliumProject(heliumAccessKey, heliumSecretKey, projectKey);
+    await triggerLambda(heliumAccessKey, heliumSecretKey, projectKey, subdomain, instance.nickname);
   } catch (e) {
     throw new Error(e);
   }
@@ -51,7 +52,7 @@ const KEY_QUERY = `
     process.exit(1);
   });
 
-async function uploadHeliumProject(heliumAccessKey, heliumSecretKey, bucketPath) {
+async function uploadHeliumProject(heliumAccessKey, heliumSecretKey, projectKey) {
   const s3 = new AWS.S3({
     region: 'us-east-1',
     accessKeyId: heliumAccessKey,
@@ -62,15 +63,15 @@ async function uploadHeliumProject(heliumAccessKey, heliumSecretKey, bucketPath)
   expiration.setMinutes(expiration.getMinutes() + 15);
   expiration = expiration.toISOString();
 
-  const filePaths = await getFilePaths(process.cwd());
-  const uploadPromises = filePaths.map(filePath => uploadToS3(s3, bucketPath, filePath));
+  const filePaths = await getFilePaths(OP_DIR);
+  const uploadPromises = filePaths.map(filePath => uploadToS3(s3, projectKey, filePath));
 
   return Promise.all(uploadPromises);
 }
 
-async function triggerLambda(heliumAccessKey, heliumSecretKey, bucketPath) {
+async function triggerLambda(heliumAccessKey, heliumSecretKey, projectKey, subdomain, nickname) {
   return new Promise((resolve, reject) => {
-    const lambdaPayload = { subdomain, bucketPath };
+    const lambdaPayload = { projectKey, subdomain, nickname };
     const lambdaParams = { FunctionName: LAMBDA_FUNCTION, Payload: JSON.stringify(lambdaPayload) };
     const lambda = new AWS.Lambda({
       region: 'us-east-1',
@@ -126,10 +127,10 @@ async function getHeliumKeys(instance) {
   return { heliumAccessKey, heliumSecretKey, subdomain };
 }
 
-function uploadToS3(s3, bucketPath, filePath) {
+function uploadToS3(s3, projectKey, filePath) {
   return new Promise((resolve, reject) => {
-    const sanitizedFilePath = filePath.split(process.cwd())[1];
-    const key = path.join(bucketPath, sanitizedFilePath);
+    const sanitizedFilePath = filePath.split(OP_DIR)[1];
+    const key = path.join(projectKey, sanitizedFilePath);
     const params = {
       Bucket: BUCKET,
       Key: key,
