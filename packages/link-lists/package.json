@@ -1,0 +1,30 @@
+{
+  "name": "@thoughtindustries/link-lists",
+  "version": "1.0.0",
+  "description": "A base component for link lists",
+  "author": "Rob Schillinger <robert.schillinger@thoughtindustries>",
+  "homepage": "https://github.com/thoughtindustries/helium#readme",
+  "license": "ISC",
+  "main": "src/index.ts",
+  "files": [
+    "dist"
+  ],
+  "publishConfig": {
+    "access": "public"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/thoughtindustries/helium.git"
+  },
+  "scripts": {
+    "build": "concurrently yarn:build:*",
+    "build:types": "tsc --outDir ./dist/types"
+  },
+  "bugs": {
+    "url": "https://github.com/thoughtindustries/helium/issues"
+  },
+  "dependencies": {
+    "@thoughtindustries/header": "^1.0.0",
+    "react": "^17.0.2"
+  }
+}
