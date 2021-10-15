@@ -1,81 +1,61 @@
-import { Meta, Story } from '@storybook/react';
 import React from 'react';
-import { 
-    LinkListsCategory,
-    LinkListsSubCategory,
-    LinkListsProps,
-    LinkLists
+import {
+    LinkLists,
+    LinkList
 } from '../src';
 
 export default {
-  title: 'Example/LinkLists',
-  component: LinkLists,
-  argTypes: {
-    title: {
-      name: 'title',
-      type: { name: 'string', required: false },
-      description: 'Title that appears on the Link Lists.',
-      control: { type: 'text' }
-    },
-    alternateTitleDisplay: {
-      name: 'alternateTitleDisplay',
-      type: { name: 'boolean', required: false },
-      defaultValue: false,
-      description: 'Display alternate title.',
-      control: { type: 'boolean' }
-    },
-    displayCutoff: {
-      name: 'displayCutoff',
-      type: { name: 'number', required: false },
-      defaultValue: 0,
-      description: 'Display subcategories at the cutoff with a toggle to display all.',
-      control: { type: 'number' }
-    },
-    categories: {
-      name: 'categories',
-      type: { name: 'array', required: false },
-      defaultValue: [],
-      description: 'Categories of link lists.',
-      control: { type: 'array' }
-    }
-  }
-} as Meta;
-
-const Template: Story<LinkListsProps> = (args) => <LinkLists {...args} />;
-
-const getCategories = (
-    number: number, 
-    numberOfSubcategories: number,
-    openLinkInNewTab: boolean = false
-): LinkListsCategory[] => {
-    const items: LinkListsCategory[] = [];
-    for (let i = 0; i < number; i++) {
-        items.push({
-            label: `List category ${i + 1}`,
-            subcategories: getSubcategories(numberOfSubcategories, openLinkInNewTab)
-        });
-    }
-    return items;
+  title: "Example/LinkLists"
 }
 
-const getSubcategories = (
-    number: number, 
-    openLinkInNewTab: boolean = false
-): LinkListsSubCategory[] => {
-    const items: LinkListsSubCategory[] = [];
-    for (let i = 0; i < number; i++) {
-        items.push({
-            label: `List subcategory ${i + 1}`,
-            href: `/subcategory-link${i + 1}`,
-            linkOpenInNewTab: openLinkInNewTab
-        });
-    }
-    return items;
-}
+export const Base = () => (
+  <LinkLists title="Dolor Nullam Mattis Sem">
+    <LinkList label="Category 1">
+      <LinkList.Link href="/subcategory-link1">List subcategory 1</LinkList.Link>
+      <LinkList.Link href="/subcategory-link2">List subcategory 2</LinkList.Link>
+      <LinkList.Link href="/subcategory-link3">List subcategory 3</LinkList.Link>
+    </LinkList>
 
-export const Base = Template.bind({});
-Base.args = {
-  title: 'Dolor Nullam Mattis Sem',
-  displayCutoff: 2,
-  categories: getCategories(4, 3, true)
-}
+    <LinkList label="Category 2">
+      <LinkList.Link href="/subcategory-link1">List subcategory 1</LinkList.Link>
+      <LinkList.Link href="/subcategory-link2">List subcategory 2</LinkList.Link>
+    </LinkList>
+
+    <LinkList label="Category 3">
+      <LinkList.Link href="/subcategory-link1">List subcategory 1</LinkList.Link>
+      <LinkList.Link href="/subcategory-link2">List subcategory 2</LinkList.Link>
+      <LinkList.Link href="/subcategory-link3">List subcategory 3</LinkList.Link>
+      <LinkList.Link href="/subcategory-link4">List subcategory 4</LinkList.Link>
+    </LinkList>
+
+    <LinkList label="Category 4">
+      <LinkList.Link href="/subcategory-link1">List subcategory 1</LinkList.Link>
+    </LinkList>
+  </LinkLists>
+)
+
+export const withDisplayCutoff = () => (
+  <LinkLists title="Dolor Nullam Mattis Sem" alternateTitleDisplay>
+    <LinkList label="Category 1" totalItems={3} displayCutoff={2}>
+      <LinkList.Link index={0} href="/subcategory-link1">List subcategory 1</LinkList.Link>
+      <LinkList.Link index={1} href="/subcategory-link2">List subcategory 2</LinkList.Link>
+      <LinkList.Link index={2} href="/subcategory-link3">List subcategory 3</LinkList.Link>
+    </LinkList>
+
+    <LinkList label="Category 2" totalItems={2} displayCutoff={2}>
+      <LinkList.Link index={0} href="/subcategory-link1">List subcategory 1</LinkList.Link>
+      <LinkList.Link index={1} href="/subcategory-link2">List subcategory 2</LinkList.Link>
+    </LinkList>
+
+    <LinkList label="Category 3" totalItems={4} displayCutoff={2}>
+      <LinkList.Link index={0} href="/subcategory-link1">List subcategory 1</LinkList.Link>
+      <LinkList.Link index={1} href="/subcategory-link2">List subcategory 2</LinkList.Link>
+      <LinkList.Link index={2} href="/subcategory-link3">List subcategory 3</LinkList.Link>
+      <LinkList.Link index={3} href="/subcategory-link4">List subcategory 4</LinkList.Link>
+    </LinkList>
+
+    <LinkList label="Category 4" totalItems={1} displayCutoff={2}>
+      <LinkList.Link index={0} href="/subcategory-link1">List subcategory 1</LinkList.Link>
+    </LinkList>
+  </LinkLists>
+)

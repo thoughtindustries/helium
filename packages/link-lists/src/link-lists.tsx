@@ -1,73 +1,12 @@
-import React, { useState, useCallback } from 'react';
+import React from 'react';
 import { Header } from '@thoughtindustries/header';
-import { 
-    LinkListsSubCategory,
-    LinkListsCategory,
-    LinkListsProps
-} from './types';
-
-const Subcategory = (props: { item: LinkListsSubCategory }): JSX.Element => {
-    const { item } = props;
-    const { label, href, linkOpenInNewTab } = item;
-
-    const linkProps: { className: string, href: string, target?: string } = {
-        className: 'text-sm text-link underline',
-        href,
-    };
-    if (linkOpenInNewTab) {
-        linkProps.target = "_blank";
-    }
-    return (
-        <a {...linkProps}>{label}</a>
-    );
-}
-
-const Icon = (): JSX.Element => (
-    <svg xmlns="http://www.w3.org/2000/svg" className="leading-none text-xs border border-solid border-gray-300 pr-0 inline-block" width="15" height="15" aria-label="expand" viewBox="0 0 20 20" fill="currentColor">
-        <path fillRule="evenodd" d="M10 5a1 1 0 011 1v3h3a1 1 0 110 2h-3v3a1 1 0 11-2 0v-3H6a1 1 0 110-2h3V6a1 1 0 011-1z" clipRule="evenodd" />
-    </svg>
-)
-
-const Category = (props: {
-    item: LinkListsCategory,
-    displayCutoff?: number
-}): JSX.Element => {
-    const { item, displayCutoff } = props;
-    const { label, subcategories = [] } = item;
-    const isLimited = displayCutoff !== undefined && subcategories.length > displayCutoff;
-    const [expanded, setExpanded] = useState<boolean>(!isLimited);
-    const filteredSubcategories = isLimited && !expanded ? [...subcategories].slice(0, displayCutoff) : [...subcategories];
-
-    const onExpand = useCallback(() => {
-        setExpanded(true);
-    }, []);
-
-    return (
-        <div className="border-r">
-            <h4 className="text-sm font-bold">{label}</h4>
-            <ul className="m-0 p-0 list-none">
-                {filteredSubcategories.map((subcategory, index) => (
-                    <li key={`subcategory-${index}`} className="pl-5 before:content-['\2022\20']">
-                        <Subcategory item={subcategory} />
-                    </li>
-                ))}
-            </ul>
-            {!expanded && (
-                <button className="border-0 text-link cursor-pointer inline-block font-normal text-xs leading-normal p-0 relative m-0 text-left no-underline shadow-none h-auto font-primary hover:text-link-hover focus:outline-blue focus:shadow" onClick={onExpand}>
-                    <Icon />
-                    <span className="ml-1">more</span>
-                </button>
-            )}
-        </div>
-    );
-}
+import { LinkListsProps } from './types';
 
 const LinkLists = (props: LinkListsProps): JSX.Element => {
     const { 
         title, 
         alternateTitleDisplay,
-        displayCutoff,
-        categories = [] 
+        children
     } = props;
 
     return (
@@ -75,11 +14,7 @@ const LinkLists = (props: LinkListsProps): JSX.Element => {
             <div className="w-full relative pl-4 pr-4 float-left">
                 {title && <Header title={title} alternateTitleDisplay={alternateTitleDisplay} />}
                 <ul className="grid grid-cols-2 md:grid-cols-3 gap-x-8">
-                    {categories.map((category, index) => (
-                        <li key={`category-${index}`} className="mb-4">
-                            <Category item={category} displayCutoff={displayCutoff} />
-                        </li>
-                    ))}
+                    {children}
                 </ul>
             </div>
         </div>
