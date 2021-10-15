@@ -20,9 +20,9 @@ import { LinkLists, LinkList } from '@thoughtindustries/link-lists';
 
 # With display cutoff
 <LinkLists title="Dolor Nullam Mattis Sem">
-    <LinkList label="Category 1" totalItems={2} displayCutoff={1}>
-        <LinkList.Link index={0} href="/subcategory-link1">List subcategory 1</LinkList.Link>
-        <LinkList.Link index={1} href="/subcategory-link2">List subcategory 2</LinkList.Link>
+    <LinkList label="Category 1" displayCutoff={1}>
+        <LinkList.Link href="/subcategory-link1">List subcategory 1</LinkList.Link>
+        <LinkList.Link href="/subcategory-link2">List subcategory 2</LinkList.Link>
     </LinkList>
 </LinkLists>
 ```

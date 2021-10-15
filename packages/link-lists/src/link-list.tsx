@@ -1,4 +1,6 @@
 import React, { 
+    Children,
+    cloneElement,
     createContext, 
     useContext, 
     useMemo, 
@@ -31,10 +33,10 @@ const LinkList = ({
     children,
     key,
     label,
-    totalItems,
     displayCutoff
 }: LinkListProps): JSX.Element => {
-    const isLimited = displayCutoff !== undefined && totalItems !== undefined && totalItems > displayCutoff;
+    const totalItems = Children.count(children);
+    const isLimited = displayCutoff !== undefined && totalItems > displayCutoff;
     const [expanded, setExpanded] = useState<boolean>(!isLimited);
     const onExpand = useCallback(() => {
         setExpanded(true);
@@ -51,7 +53,9 @@ const LinkList = ({
                 <div className="border-r">
                     <h4 className="text-sm font-bold">{label}</h4>
                     <ul className="m-0 p-0 list-none">
-                        {children}
+                        {Children.map(children, (child, index) => {
+                            return cloneElement(child, { index });
+                        })}
                     </ul>
                     {!expanded && (
                         <button className="border-0 text-link cursor-pointer inline-block font-normal text-xs leading-normal p-0 relative m-0 text-left no-underline shadow-none h-auto font-primary hover:text-link-hover focus:outline-blue focus:shadow" onClick={onExpand}>

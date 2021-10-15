@@ -1,4 +1,4 @@
-import {ReactNode} from "react";
+import { ReactNode, ReactElement } from "react";
 
 export interface LinkListsProps {
     /** title that appears on top of the link lists */
@@ -14,12 +14,10 @@ export interface LinkListProps {
     key?: string;
     /** label for category */
     label: string;
-    /** total number of items */
-    totalItems?: number;
     /** display links at the cutoff with a toggle to display all  */
     displayCutoff?: number;
     /** list of categories */
-    children: ReactNode;
+    children: ReactElement | ReactElement[];
 }
 
 export interface LinkListLinkProps {
@@ -37,7 +35,7 @@ export interface LinkListLinkProps {
 
 export interface LinkListContextType {
     /** total number of items */
-    totalItems?: number;
+    totalItems: number;
     /** display links at the cutoff with a toggle to display all  */
     displayCutoff?: number;
     /** expanded links state */

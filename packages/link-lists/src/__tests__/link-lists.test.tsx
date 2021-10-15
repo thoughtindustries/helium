@@ -151,11 +151,11 @@ describe("@thoughtindustries/link-lists", () => {
 
     it("should display list cutoff and interact with expand button", () => {
       const { queryByText, getByText, queryByRole, getByRole } = render(
-        <LinkList label="Category 1" totalItems={2} displayCutoff={1}>
-          <LinkList.Link index={0} href="/subcategory-link1">
+        <LinkList label="Category 1" displayCutoff={1}>
+          <LinkList.Link href="/subcategory-link1">
             List subcategory 1
           </LinkList.Link>
-          <LinkList.Link index={1} href="/subcategory-link2">
+          <LinkList.Link href="/subcategory-link2">
             List subcategory 2
           </LinkList.Link>
         </LinkList>
