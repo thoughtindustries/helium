@@ -5,24 +5,24 @@
 ## Import component
 
 ```
-import { LinkLists } from '@thoughtindustries/link-lists';
+import { LinkLists, LinkList } from '@thoughtindustries/link-lists';
 ```
 
 ## Usage
 
 ```
-<LinkLists
-    title="Dolor Nullam Mattis Sem"
-    displayCutoff={2}
-    categories={[
-        {
-            label: "Category 1",
-            subcategories: [
-                {
-                    label: "Subcategory 1",
-                    href: "http://sample.com"
-                }
-            ]
-        }
-    ]} />
+# Base
+<LinkLists title="Dolor Nullam Mattis Sem">
+    <LinkList label="Category 1">
+        <LinkList.Link href="/subcategory-link1">List subcategory 1</LinkList.Link>
+    </LinkList>
+</LinkLists>
+
+# With display cutoff
+<LinkLists title="Dolor Nullam Mattis Sem">
+    <LinkList label="Category 1" totalItems={2} displayCutoff={1}>
+        <LinkList.Link index={0} href="/subcategory-link1">List subcategory 1</LinkList.Link>
+        <LinkList.Link index={1} href="/subcategory-link2">List subcategory 2</LinkList.Link>
+    </LinkList>
+</LinkLists>
 ```
