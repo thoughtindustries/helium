@@ -34,8 +34,6 @@ export interface LinkListLinkProps {
 }
 
 export interface LinkListContextType {
-    /** total number of items */
-    totalItems: number;
     /** display links at the cutoff with a toggle to display all  */
     displayCutoff?: number;
     /** expanded links state */

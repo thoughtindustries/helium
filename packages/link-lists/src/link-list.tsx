@@ -43,9 +43,8 @@ const LinkList = ({
     }, []);
     const value = useMemo(() => ({
         expanded,
-        totalItems,
         displayCutoff
-    }), [totalItems, displayCutoff, expanded]);
+    }), [displayCutoff, expanded]);
 
     return (
         <LinkListContext.Provider value={value}>
