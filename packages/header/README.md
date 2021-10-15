@@ -1,6 +1,6 @@
 # `@thoughtindustries/header`
 
-> TODO: description
+> The Header displays a user-provided title, commonly used above another component.
 
 ## Import component
 
