@@ -2,6 +2,7 @@ const path = require('path');
 const fs = require('fs-extra');
 const AWS = require('aws-sdk');
 const fetch = require('isomorphic-unfetch');
+const FormData = require('form-data');
 
 const OP_DIR = process.cwd();
 const configPath = path.join(OP_DIR, '/ti-config');
@@ -10,13 +11,26 @@ const config = require(configPath);
 const INSTANCE_NAME = process.env.INSTANCE_NAME;
 const BUCKET = 'ti-helium-deploy';
 const LAMBDA_FUNCTION = 'helium-deploy';
+
 const KEY_QUERY = `
   query CompanyDetailsQuery {
     CompanyDetails {
       subdomain
-      heliumSecretKey
-      heliumAccessKey
     }
+    HeliumLaunchData {
+      key
+      AWSAccessKeyId
+      signature
+      policy
+      acl
+      success_action_status
+    }
+  }
+`;
+
+const LAMBDA_QUERY = `
+  query HeliumLambdaQuery($subdomain: String!, $key: String!, $nickname: String!) {
+    HeliumLambda(subdomain: $subdomain, key: $key, nickname: $nickname)
   }
 `;
 
@@ -27,18 +41,16 @@ const KEY_QUERY = `
     throw new Error('Could not locate instance in configuration file.');
   }
 
-  const { heliumAccessKey, heliumSecretKey, subdomain } = await getHeliumKeys(instance);
+  const policyData = await getHeliumUploadData(instance);
+  const { subdomain, key } = policyData;
 
-  if (!heliumAccessKey || !heliumSecretKey) {
+  if (!policyData.key || !policyData.AWSAccessKeyId || !policyData.signature) {
     throw new Error('Could not retrieve helium keys.');
   }
 
-  const prefixTime = new Date();
-  const projectKey = `${prefixTime.getTime()}_${instance.id}/`;
-
   try {
-    await uploadHeliumProject(heliumAccessKey, heliumSecretKey, projectKey);
-    await triggerLambda(heliumAccessKey, heliumSecretKey, projectKey, subdomain, instance.nickname);
+    await uploadHeliumProject(policyData);
+    // await triggerLambda(instance, key, subdomain, instance.nickname);
   } catch (e) {
     throw new Error(e);
   }
@@ -52,54 +64,62 @@ const KEY_QUERY = `
     process.exit(1);
   });
 
-async function uploadHeliumProject(heliumAccessKey, heliumSecretKey, projectKey) {
-  const s3 = new AWS.S3({
-    region: 'us-east-1',
-    accessKeyId: heliumAccessKey,
-    secretAccessKey: heliumSecretKey
-  });
-
-  let expiration = new Date();
-  expiration.setMinutes(expiration.getMinutes() + 15);
-  expiration = expiration.toISOString();
-
+async function uploadHeliumProject(policyData) {
   const filePaths = await getFilePaths(OP_DIR);
-  const uploadPromises = filePaths.map(filePath => uploadToS3(s3, projectKey, filePath));
+  const uploadPromises = filePaths.map(filePath => uploadToS3(filePath, policyData));
 
   return Promise.all(uploadPromises);
 }
 
-async function triggerLambda(heliumAccessKey, heliumSecretKey, projectKey, subdomain, nickname) {
+async function triggerLambda(instance, key, subdomain, nickname) {
   return new Promise((resolve, reject) => {
-    const lambdaPayload = { projectKey, subdomain, nickname };
-    const lambdaParams = { FunctionName: LAMBDA_FUNCTION, Payload: JSON.stringify(lambdaPayload) };
-    const lambda = new AWS.Lambda({
-      region: 'us-east-1',
-      apiVersion: '2015-03-31',
-      accessKeyId: heliumAccessKey,
-      secretAccessKey: heliumSecretKey
-    });
+    const endpoint = `${instance.instanceUrl}/helium?apiKey=${instance.apiKey}`;
+    const options = {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ query: LAMBDA_QUERY, variables: { subdomain, key, nickname } })
+    };
 
-    lambda.invoke(lambdaParams, (err, res) => {
-      if (err) {
+    fetch(endpoint, options)
+      .then(r => r.json())
+      .then(res => {
+        console.log('>>> lambda: ', res);
+        resolve(res);
+      })
+      .catch(err => {
+        console.error('>>> lambda err: ', err.message);
         reject(err);
-      } else {
-        if (res.StatusCode === 202) {
-          resolve(res.Payload);
-        } else {
-          const payload = JSON.parse(res.Payload);
-          if (payload.errorMessage) {
-            reject(payload.errorMessage);
-          } else {
-            resolve(payload);
-          }
-        }
-      }
-    });
+      });
+
+    // const lambdaPayload = { projectKey, subdomain, nickname };
+    // const lambdaParams = { FunctionName: LAMBDA_FUNCTION, Payload: JSON.stringify(lambdaPayload) };
+    // const lambda = new AWS.Lambda({
+    //   region: 'us-east-1',
+    //   apiVersion: '2015-03-31',
+    //   accessKeyId: heliumAccessKey,
+    //   secretAccessKey: heliumSecretKey
+    // });
+
+    // lambda.invoke(lambdaParams, (err, res) => {
+    //   if (err) {
+    //     reject(err);
+    //   } else {
+    //     if (res.StatusCode === 202) {
+    //       resolve(res.Payload);
+    //     } else {
+    //       const payload = JSON.parse(res.Payload);
+    //       if (payload.errorMessage) {
+    //         reject(payload.errorMessage);
+    //       } else {
+    //         resolve(payload);
+    //       }
+    //     }
+    //   }
+    // });
   });
 }
 
-async function getHeliumKeys(instance) {
+async function getHeliumUploadData(instance) {
   const endpoint = `${instance.instanceUrl}/helium?apiKey=${instance.apiKey}`;
   const options = {
     method: 'POST',
@@ -107,43 +127,65 @@ async function getHeliumKeys(instance) {
     body: JSON.stringify({ query: KEY_QUERY })
   };
 
-  const resp = await fetch(endpoint, options);
-  const companyData = JSON.parse(resp)[0];
+  const resp = await fetch(endpoint, options).then(r => r.json());
+  const launchData = resp[0];
+  let responseData = {};
 
-  let heliumAccessKey;
-  let heliumSecretKey;
-  let subdomain;
-
-  if (companyData) {
+  if (launchData) {
     const {
-      data: { CompanyDetails }
-    } = companyData;
+      data: {
+        CompanyDetails: { subdomain },
+        HeliumLaunchData: { key, AWSAccessKeyId, signature, policy, acl, success_action_status }
+      }
+    } = launchData;
 
-    heliumAccessKey = CompanyDetails.heliumAccessKey;
-    heliumSecretKey = CompanyDetails.heliumSecretKey;
-    subdomain = CompanyDetails.subdomain;
+    responseData = {
+      subdomain,
+      key,
+      AWSAccessKeyId,
+      signature,
+      policy,
+      acl,
+      success_action_status
+    };
   }
 
-  return { heliumAccessKey, heliumSecretKey, subdomain };
+  return responseData;
 }
 
-function uploadToS3(s3, projectKey, filePath) {
+function uploadToS3(filePath, policyData) {
   return new Promise((resolve, reject) => {
+    const { key } = policyData;
     const sanitizedFilePath = filePath.split(OP_DIR)[1];
-    const key = path.join(projectKey, sanitizedFilePath);
-    const params = {
-      Bucket: BUCKET,
-      Key: key,
-      Body: fs.readFileSync(filePath)
+    const fullFileKey = path.join(key, sanitizedFilePath);
+
+    const objPolicy = Object.assign({}, policyData, { key: fullFileKey });
+    // const form = buildFormData(objPolicy, filePath);
+
+    const form = new FormData();
+    for (const prop in objPolicy) {
+      form.append(prop, objPolicy[prop]);
+    }
+
+    form.append('file', fs.createReadStream(filePath));
+
+    const endpoint = `https://${BUCKET}.s3.amazonaws.com/`;
+    const options = {
+      method: 'POST',
+      headers: form.getHeaders(),
+      body: form
     };
 
-    s3.putObject(params, err => {
-      if (err) {
+    fetch(endpoint, options)
+      // .then(res => res.json())
+      .then(res => {
+        console.log('>>> fetch res', res);
+        resolve();
+      })
+      .catch(err => {
+        console.error('error fetching: ', err.message);
         reject(err);
-      } else {
-        resolve(filePath);
-      }
-    });
+      });
   });
 }
 
