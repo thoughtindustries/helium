@@ -1,18 +1,30 @@
 const childProcess = require('child_process');
 const path = require('path');
 
-exports.command = 'deploy <instance>';
+exports.command = 'deploy <instance> [k]';
 exports.describe = 'Compile and deploy a specified instance';
+
 exports.builder = cmd => {
-  cmd.positional('i', {
-    alias: 'instance',
-    type: 'string',
-    describe: 'Nickname of instance to deploy'
-  });
+  cmd
+    .positional('i', {
+      alias: 'instance',
+      type: 'string',
+      describe: 'Nickname of instance to deploy'
+    })
+    .option('k', {
+      alias: 'insecure',
+      type: 'boolean',
+      describe: 'Accept untrusted SSL certificates'
+    });
 };
+
 exports.handler = function(argv) {
   const exec = childProcess.exec;
-  const env = { ...process.env, INSTANCE_NAME: argv.instance };
+  const env = {
+    ...process.env,
+    INSTANCE_NAME: argv.instance,
+    NODE_TLS_REJECT_UNAUTHORIZED: argv.insecure ? '0' : '1'
+  };
 
   const devProcess = exec('npm run build:vite', { env });
   devProcess.stdout.pipe(process.stdout);

@@ -52,8 +52,8 @@ const generateConfigFile = async (dir, instances) => {
       body: JSON.stringify({ query: SETTINGS_QUERY })
     };
 
-    const resp = await fetch(endpoint, options);
-    const companyData = JSON.parse(resp)[0];
+    const resp = await fetch(endpoint, options).then(r => r.json());
+    const companyData = resp[0];
 
     let companyProps = {};
     if (companyData) {
@@ -68,8 +68,9 @@ const generateConfigFile = async (dir, instances) => {
 
     data.push({
       nickname: instance.nickname,
-      url: instance.instanceUrl,
+      instanceUrl: instance.instanceUrl,
       email: instance.testUserEmail,
+      apiKey: instance.apiKey,
       ...companyProps
     });
   }

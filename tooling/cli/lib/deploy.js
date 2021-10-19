@@ -50,7 +50,7 @@ const LAMBDA_QUERY = `
 
   try {
     await uploadHeliumProject(policyData);
-    // await triggerLambda(instance, key, subdomain, instance.nickname);
+    await triggerLambda(instance, key, subdomain, instance.nickname);
   } catch (e) {
     throw new Error(e);
   }
@@ -66,9 +66,14 @@ const LAMBDA_QUERY = `
 
 async function uploadHeliumProject(policyData) {
   const filePaths = await getFilePaths(OP_DIR);
-  const uploadPromises = filePaths.map(filePath => uploadToS3(filePath, policyData));
+  const chunkedFilePaths = chunkArray(filePaths, 1);
 
-  return Promise.all(uploadPromises);
+  for (const chunkOfFilePaths of chunkedFilePaths) {
+    const uploadPromises = chunkOfFilePaths.map(filePath => uploadToS3(filePath, policyData));
+    await Promise.all(uploadPromises);
+  }
+
+  return true;
 }
 
 async function triggerLambda(instance, key, subdomain, nickname) {
@@ -90,32 +95,6 @@ async function triggerLambda(instance, key, subdomain, nickname) {
         console.error('>>> lambda err: ', err.message);
         reject(err);
       });
-
-    // const lambdaPayload = { projectKey, subdomain, nickname };
-    // const lambdaParams = { FunctionName: LAMBDA_FUNCTION, Payload: JSON.stringify(lambdaPayload) };
-    // const lambda = new AWS.Lambda({
-    //   region: 'us-east-1',
-    //   apiVersion: '2015-03-31',
-    //   accessKeyId: heliumAccessKey,
-    //   secretAccessKey: heliumSecretKey
-    // });
-
-    // lambda.invoke(lambdaParams, (err, res) => {
-    //   if (err) {
-    //     reject(err);
-    //   } else {
-    //     if (res.StatusCode === 202) {
-    //       resolve(res.Payload);
-    //     } else {
-    //       const payload = JSON.parse(res.Payload);
-    //       if (payload.errorMessage) {
-    //         reject(payload.errorMessage);
-    //       } else {
-    //         resolve(payload);
-    //       }
-    //     }
-    //   }
-    // });
   });
 }
 
@@ -160,14 +139,7 @@ function uploadToS3(filePath, policyData) {
     const fullFileKey = path.join(key, sanitizedFilePath);
 
     const objPolicy = Object.assign({}, policyData, { key: fullFileKey });
-    // const form = buildFormData(objPolicy, filePath);
-
-    const form = new FormData();
-    for (const prop in objPolicy) {
-      form.append(prop, objPolicy[prop]);
-    }
-
-    form.append('file', fs.createReadStream(filePath));
+    const form = buildFormData(objPolicy, filePath);
 
     const endpoint = `https://${BUCKET}.s3.amazonaws.com/`;
     const options = {
@@ -177,9 +149,12 @@ function uploadToS3(filePath, policyData) {
     };
 
     fetch(endpoint, options)
-      // .then(res => res.json())
       .then(res => {
-        console.log('>>> fetch res', res);
+        if (res.status && res.status === 201) {
+          resolve();
+        } else {
+          reject(new Error('Could not upload to S3.'));
+        }
         resolve();
       })
       .catch(err => {
@@ -187,6 +162,19 @@ function uploadToS3(filePath, policyData) {
         reject(err);
       });
   });
+}
+
+function buildFormData(policyData, filePath) {
+  const form = new FormData();
+  for (const prop in policyData) {
+    if (prop !== 'subdomain') {
+      form.append(prop, policyData[prop]);
+    }
+  }
+
+  form.append('file', fs.readFileSync(filePath, 'utf8'));
+
+  return form;
 }
 
 async function getFilePaths(dir, filePaths = []) {
@@ -222,4 +210,14 @@ function findTIInstance() {
   }
 
   return instance;
+}
+
+function chunkArray(array, size) {
+  const chunkedArray = [];
+
+  for (let i = 0; i < array.length; i += size) {
+    chunkedArray.push(array.slice(i, i + size));
+  }
+
+  return chunkedArray;
 }
