@@ -18,7 +18,26 @@ export default {
       defaultValue: false,
       description: 'Show alternate title display.',
       control: { type: 'boolean' }
-    }
+    },
+    linkOpenInNewTab: {
+      name: 'linkOpenInNewTab',
+      type: { name: 'boolean', required: false },
+      defaultValue: false,
+      description: 'Open link in new tab.',
+      control: { type: 'boolean' }
+    },
+    linkUrl: {
+      name: 'linkUrl',
+      type: { name: 'string', required: false },
+      description: 'Url for link that appears next to the title.',
+      control: { type: 'text' }
+    },
+    linkText: {
+      name: 'linkOpenInNewTab',
+      type: { name: 'string', required: false },
+      description: 'Text for link that appears next to the title.',
+      control: { type: 'text' }
+    },
   }
 } as Meta;
 
@@ -33,4 +52,12 @@ export const Alternate = Template.bind({});
 Alternate.args = {
   title: 'Dolor Nullam Mattis Sem',
   alternateTitleDisplay: true
+};
+
+export const AlternateWithLink = Template.bind({});
+AlternateWithLink.args = {
+  title: 'Dolor Nullam Mattis Sem',
+  alternateTitleDisplay: true,
+  linkText: 'Test',
+  linkUrl: '/'
 };
