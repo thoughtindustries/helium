@@ -1,7 +1,9 @@
 import { ReactNode } from "react";
 
 export interface FeaturedContentSidebarProps {
+    /** title of sidebar */
     title?: string;
+    /** children */
     children: ReactNode | ReactNode[];
 }
 
@@ -30,30 +32,11 @@ type HeaderOptions = {
     linkUrl?: string;
 }
 
-type DisplayOptions = {
-    /** option to show item authors (if applied) */
-    showAuthors?: boolean;
-    /** option to show item content type (if applied) */
-    showContentType?: boolean;
-    /** option to show item description */
-    showDescription?: boolean;
-    /** option to show item asset */
-    showImageAsset?: boolean;
-    /** option to show item source (if applied) */
-    showSource?: boolean;
-    /** option to show item start date (if applied) */
-    showStartDate?: boolean;
-    /** option to show item title */
-    showTitle?: boolean;
-}
-
 export interface FeaturedContentContentProps {
     /** row item count in desktop view */
     desktopColumnCount: number;
     /** options to display header */
     headerOptions?: HeaderOptions;
-    /** options to display content item */
-    displayOptions?: DisplayOptions;
     /** add applicaple item to queue event handler */
     onAddedToQueue: (item: FeaturedContentContentItem) => Promise<void>;
     /** children */
@@ -61,31 +44,54 @@ export interface FeaturedContentContentProps {
 }
 
 export type FeaturedContentContentItemRibbon = {
+    /** background color */
     bgColor: string;
+    /** text color */
     contrastColor: string;
+    /** corner color */
     darkerColor: string;
+    /** label */
     label: string;
 }
 
 export type FeaturedContentContentItem = {
+    /** title */
     title?: string;
+    /** description */
     description?: string;
+    /** image asset */
     asset?: string;
+    /** link url */
     linkUrl?: string;
+    /** option to open link in new tab */
     linkOpenInNewTab?: boolean;
+    /** is completed flag */
     isCompleted?: boolean;
+    /** start date of course */
     courseStartDate?: string;
+    /** label for content type */
     contentTypeLabel?: string;
+    /** source */
     source?: string;
+    /** authors */
     authors?: string;
+    /** short description */
     shortDescription?: string;
+    /** rating (from 0 to 100) */
     rating?: number;
+    /** can item be added to queue */
     canAddToQueue: boolean;
+    /** active status */
     isActive?: boolean;
+    /** call to action text */
     callToAction?: string;
+    /** price (in cents) */
     priceInCents?: number;
+    /** has availability */
     hasAvailability?: boolean;
+    /** suggested price (in cents) */
     suggestedRetailPriceInCents?: number;
+    /** ribbon */
     ribbon?: FeaturedContentContentItemRibbon;
 }
 
