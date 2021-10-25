@@ -126,7 +126,7 @@ const Stars = ({ gradePercentage }: { gradePercentage: number }) => {
     return (
         <div>
             {Array.from({ length: 5 }, (v, i) => (
-                <Star marked={starCount > i} />
+                <Star key={`star-${i}`} marked={starCount > i} />
             ))}
         </div>
     )
