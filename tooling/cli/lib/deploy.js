@@ -117,24 +117,30 @@ async function getHeliumUploadData(instance) {
   };
 
   const resp = await fetch(endpoint, options).then(r => r.json());
-  const launchData = resp[0];
+
   let responseData = {};
 
-  if (launchData) {
-    const {
-      data: {
-        HeliumLaunchData: { key, AWSAccessKeyId, signature, policy, acl, success_action_status }
-      }
-    } = launchData;
+  if (resp && resp.graphqlResponse) {
+    if (JSON.parse(resp.graphqlResponse).length) {
+      const launchData = JSON.parse(resp.graphqlResponse)[0];
 
-    responseData = {
-      key,
-      AWSAccessKeyId,
-      signature,
-      policy,
-      acl,
-      success_action_status
-    };
+      if (launchData) {
+        const {
+          data: {
+            HeliumLaunchData: { key, AWSAccessKeyId, signature, policy, acl, success_action_status }
+          }
+        } = launchData;
+
+        responseData = {
+          key,
+          AWSAccessKeyId,
+          signature,
+          policy,
+          acl,
+          success_action_status
+        };
+      }
+    }
   }
 
   return responseData;

@@ -53,17 +53,22 @@ const generateConfigFile = async (dir, instances) => {
     };
 
     const resp = await fetch(endpoint, options).then(r => r.json());
-    const companyData = resp[0];
-
     let companyProps = {};
-    if (companyData) {
-      const {
-        data: { CompanyDetails }
-      } = companyData;
-      companyProps = {
-        name: CompanyDetails.name,
-        ...CompanyDetails.settings
-      };
+
+    if (resp && resp.graphqlResponse) {
+      if (JSON.parse(resp.graphqlResponse).length) {
+        const companyData = JSON.parse(resp.graphqlResponse)[0];
+
+        if (companyData) {
+          const {
+            data: { CompanyDetails }
+          } = companyData;
+          companyProps = {
+            name: CompanyDetails.name,
+            ...CompanyDetails.settings
+          };
+        }
+      }
     }
 
     data.push({
