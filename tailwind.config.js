@@ -1,5 +1,6 @@
 module.exports = {
-  purge: ['./packages/**/*.{js,jsx}',],
+  mode: 'jit',
+  purge: ['./packages/**/*.{ts,tsx}',],
   darkMode: false, // or 'media' or 'class'
   theme: {
     screens: {
@@ -8,6 +9,10 @@ module.exports = {
       lg: '1024px',
       xl: '1440px',
       '2xl': '1920px'
+    },
+    boxShadow: {
+      DEFAULT: '0px 0px 5px #4d90fe',
+      none: 'none'
     },
     extend: {
       screens: {
@@ -36,6 +41,9 @@ module.exports = {
         header: ['Sintony', 'Nunito', 'sans-serif'],
         secondary: ['Nunito', 'sans-serif']
       },
+      outline: {
+        blue: '1px solid #4d90fe',
+      }
     },
   },
   variants: {
