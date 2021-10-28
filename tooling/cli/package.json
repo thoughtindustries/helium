@@ -10,7 +10,6 @@
     "helium": "lib/index.js"
   },
   "dependencies": {
-    "aws-sdk": "^2.1007.0",
     "cross-env": "^7.0.3",
     "form-data": "^4.0.0",
     "fs-extra": "^10.0.0",

@@ -1,6 +1,5 @@
 const path = require('path');
 const fs = require('fs-extra');
-const AWS = require('aws-sdk');
 const fetch = require('isomorphic-unfetch');
 const FormData = require('form-data');
 
@@ -10,13 +9,9 @@ const config = require(configPath);
 
 const INSTANCE_NAME = process.env.INSTANCE_NAME;
 const BUCKET = 'ti-helium-deploy';
-const LAMBDA_FUNCTION = 'helium-deploy';
 
 const KEY_QUERY = `
   query CompanyDetailsQuery {
-    CompanyDetails {
-      subdomain
-    }
     HeliumLaunchData {
       key
       AWSAccessKeyId
@@ -29,8 +24,8 @@ const KEY_QUERY = `
 `;
 
 const LAMBDA_QUERY = `
-  query HeliumLambdaQuery($subdomain: String!, $key: String!, $nickname: String!) {
-    HeliumLambda(subdomain: $subdomain, key: $key, nickname: $nickname)
+  query HeliumLambdaQuery($key: String!, $nickname: String!) {
+    HeliumLambda(key: $key, nickname: $nickname)
   }
 `;
 
@@ -42,7 +37,7 @@ const LAMBDA_QUERY = `
   }
 
   const policyData = await getHeliumUploadData(instance);
-  const { subdomain, key } = policyData;
+  const { key } = policyData;
 
   if (!policyData.key || !policyData.AWSAccessKeyId || !policyData.signature) {
     throw new Error('Could not retrieve helium keys.');
@@ -50,7 +45,7 @@ const LAMBDA_QUERY = `
 
   try {
     await uploadHeliumProject(policyData);
-    await triggerLambda(instance, key, subdomain, instance.nickname);
+    await triggerLambda(instance, key);
   } catch (e) {
     throw new Error(e);
   }
@@ -66,33 +61,48 @@ const LAMBDA_QUERY = `
 
 async function uploadHeliumProject(policyData) {
   const filePaths = await getFilePaths(OP_DIR);
-  const chunkedFilePaths = chunkArray(filePaths, 1);
+  const chunkedFilePaths = chunkArray(filePaths, 5);
+  let i = 0;
 
   for (const chunkOfFilePaths of chunkedFilePaths) {
+    i = i + 1;
     const uploadPromises = chunkOfFilePaths.map(filePath => uploadToS3(filePath, policyData));
     await Promise.all(uploadPromises);
+    console.log(
+      '>>> uploaded:: ',
+      Math.floor((parseInt(i) / parseInt(chunkedFilePaths.length)) * 100),
+      '%'
+    );
   }
 
   return true;
 }
 
-async function triggerLambda(instance, key, subdomain, nickname) {
+async function triggerLambda(instance, key) {
   return new Promise((resolve, reject) => {
     const endpoint = `${instance.instanceUrl}/helium?apiKey=${instance.apiKey}`;
     const options = {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ query: LAMBDA_QUERY, variables: { subdomain, key, nickname } })
+      body: JSON.stringify({
+        query: LAMBDA_QUERY,
+        variables: { key, nickname: instance.nickname }
+      })
     };
 
     fetch(endpoint, options)
       .then(r => r.json())
       .then(res => {
-        console.log('>>> lambda: ', res);
+        const resObj = res[0];
+        if (resObj.data) {
+          resolve(resObj.data);
+        } else {
+          const err = resObj.errors[0];
+          reject(err.message);
+        }
         resolve(res);
       })
       .catch(err => {
-        console.error('>>> lambda err: ', err.message);
         reject(err);
       });
   });
@@ -113,13 +123,11 @@ async function getHeliumUploadData(instance) {
   if (launchData) {
     const {
       data: {
-        CompanyDetails: { subdomain },
         HeliumLaunchData: { key, AWSAccessKeyId, signature, policy, acl, success_action_status }
       }
     } = launchData;
 
     responseData = {
-      subdomain,
       key,
       AWSAccessKeyId,
       signature,
@@ -167,9 +175,7 @@ function uploadToS3(filePath, policyData) {
 function buildFormData(policyData, filePath) {
   const form = new FormData();
   for (const prop in policyData) {
-    if (prop !== 'subdomain') {
-      form.append(prop, policyData[prop]);
-    }
+    form.append(prop, policyData[prop]);
   }
 
   form.append('file', fs.readFileSync(filePath, 'utf8'));
@@ -189,7 +195,7 @@ async function getFilePaths(dir, filePaths = []) {
       newFilePaths.push(filePath);
     } else {
       const baseDir = filePath.split(`${process.cwd()}/`)[1];
-      if (!['pages', 'renderer', 'server'].includes(baseDir)) {
+      if (!['pages', 'renderer', 'server', 'node_modules'].includes(baseDir)) {
         await getFilePaths(filePath, newFilePaths);
       }
     }
