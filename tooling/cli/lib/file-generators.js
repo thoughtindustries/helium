@@ -56,8 +56,9 @@ const generateConfigFile = async (dir, instances) => {
     let companyProps = {};
 
     if (resp && resp.graphqlResponse) {
-      if (JSON.parse(resp.graphqlResponse).length) {
-        const companyData = JSON.parse(resp.graphqlResponse)[0];
+      const companyDataResponse = JSON.parse(resp.graphqlResponse);
+      if (companyDataResponse && companyDataResponse.length) {
+        const companyData = companyDataResponse[0];
 
         if (companyData) {
           const {

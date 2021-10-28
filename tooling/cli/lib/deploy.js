@@ -93,7 +93,9 @@ async function triggerLambda(instance, key) {
     fetch(endpoint, options)
       .then(r => r.json())
       .then(res => {
+        console.log('>>> res', res);
         const resObj = res[0];
+        console.log('>>> resObj', resObj);
         if (resObj.data) {
           resolve(resObj.data);
         } else {
@@ -121,8 +123,9 @@ async function getHeliumUploadData(instance) {
   let responseData = {};
 
   if (resp && resp.graphqlResponse) {
-    if (JSON.parse(resp.graphqlResponse).length) {
-      const launchData = JSON.parse(resp.graphqlResponse)[0];
+    const launchDataResponse = JSON.parse(resp.graphqlResponse);
+    if (launchDataResponse && launchDataResponse.length) {
+      const launchData = launchDataResponse[0];
 
       if (launchData) {
         const {
