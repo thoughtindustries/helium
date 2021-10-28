@@ -93,9 +93,7 @@ async function triggerLambda(instance, key) {
     fetch(endpoint, options)
       .then(r => r.json())
       .then(res => {
-        console.log('>>> res', res);
         const resObj = res[0];
-        console.log('>>> resObj', resObj);
         if (resObj.data) {
           resolve(resObj.data);
         } else {
