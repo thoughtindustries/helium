@@ -1,16 +1,15 @@
-import ReactDOMServer from "react-dom/server";
 import React from "react";
 import { PageWrapper } from "./PageWrapper";
 import { escapeInject, dangerouslySkipEscape } from "vite-plugin-ssr";
 import logoUrl from "./logo.svg";
-import { ClientContext } from 'graphql-hooks';
-import { getInitialState } from 'graphql-hooks-ssr';
+import { ApolloProvider } from "@apollo/client";
+import { getDataFromTree } from "@apollo/client/react/ssr";
 
 export { render };
 export { onBeforeRender };
 
 // See https://vite-plugin-ssr.com/data-fetching
-export const passToClient = ["pageProps", "urlPathname", "graphQLInitialState", "heliumEndpoint", "appearanceSettings"];
+export const passToClient = ["pageProps", "urlPathname", "apolloIntialState", "heliumEndpoint", "appearanceSettings"];
 
 async function render(pageContext) {
   const { pageHtml } = pageContext;
@@ -36,18 +35,18 @@ async function render(pageContext) {
 }
 
 async function onBeforeRender(pageContext) {
-  const { Page, pageProps, graphQLClient, appearanceSettings } = pageContext;
+  const { Page, pageProps, apolloClient, appearanceSettings } = pageContext;
   const propsAndAppearance = { ...pageProps, ...appearanceSettings };
   const App = (
-    <ClientContext.Provider value={graphQLClient}>
+    <ApolloProvider client={apolloClient}>
       <PageWrapper pageContext={pageContext}>
         <Page {...propsAndAppearance} />
       </PageWrapper>
-    </ClientContext.Provider>
+    </ApolloProvider>
   );
-  
-  const graphQLInitialState = await getInitialState({App, client: graphQLClient});
-  const pageHtml = ReactDOMServer.renderToString(App);
 
-  return {pageContext: { pageHtml, graphQLInitialState }};
+  const pageHtml = await getDataFromTree(App);
+  const apolloIntialState = apolloClient.extract();
+
+  return {pageContext: { pageHtml, apolloIntialState }};
 }

@@ -2,9 +2,7 @@ import ReactDOM from "react-dom";
 import React from "react";
 import { getPage } from "vite-plugin-ssr/client";
 import { PageWrapper } from "./PageWrapper";
-import { ClientContext } from 'graphql-hooks';
-import { GraphQLClient } from 'graphql-hooks';
-import memCache from 'graphql-hooks-memcache';
+import { ApolloClient, InMemoryCache, ApolloProvider } from "@apollo/client";
 import 'virtual:windi.css'
 
 hydrate();
@@ -13,23 +11,23 @@ async function hydrate() {
   // For Client Routing we should use `useClientRouter()` instead of `getPage()`.
   // See https://vite-plugin-ssr.com/useClientRouter
   const pageContext = await getPage();
-  const { Page, pageProps, heliumEndpoint, graphQLInitialState, appearanceSettings } = pageContext;
+  const { Page, pageProps, heliumEndpoint, apolloIntialState, appearanceSettings } = pageContext;
   const propsAndAppearance = { ...pageProps, ...appearanceSettings };
-  const graphQLClient = makeGraphQLClient(heliumEndpoint, graphQLInitialState);
+  const apolloClient = makeApolloClient(heliumEndpoint, apolloIntialState);
 
   ReactDOM.hydrate(
-      <ClientContext.Provider value={graphQLClient}>
-        <PageWrapper pageContext={pageContext}>
-          <Page {...propsAndAppearance} />
-        </PageWrapper>
-      </ClientContext.Provider>,
+    <ApolloProvider client={apolloClient}>
+      <PageWrapper pageContext={pageContext}>
+        <Page {...propsAndAppearance} />
+      </PageWrapper>
+    </ApolloProvider>,
     document.getElementById("page-view")
   );
 }
 
-function makeGraphQLClient(heliumEndpoint, graphQLInitialState) {
-  return new GraphQLClient({
-    url: heliumEndpoint,
-    cache: memCache({ initialState: graphQLInitialState})
+function makeApolloClient(heliumEndpoint, apolloIntialState) {
+  return new ApolloClient({
+    uri: heliumEndpoint,
+    cache: new InMemoryCache().restore(apolloIntialState),
   })
 }
