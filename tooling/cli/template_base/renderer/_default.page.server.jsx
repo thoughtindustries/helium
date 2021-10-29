@@ -3,7 +3,7 @@ import { PageWrapper } from "./PageWrapper";
 import { escapeInject, dangerouslySkipEscape } from "vite-plugin-ssr";
 import logoUrl from "./logo.svg";
 import { ApolloProvider } from "@apollo/client";
-import { getDataFromTree } from "@apollo/client/react/ssr";
+import { renderToStringWithData } from "@apollo/client/react/ssr";
 
 export { render };
 export { onBeforeRender };
@@ -45,7 +45,7 @@ async function onBeforeRender(pageContext) {
     </ApolloProvider>
   );
 
-  const pageHtml = await getDataFromTree(App);
+  const pageHtml = await renderToStringWithData(App);
   const apolloIntialState = apolloClient.extract();
 
   return {pageContext: { pageHtml, apolloIntialState }};
