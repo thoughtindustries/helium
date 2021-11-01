@@ -5,12 +5,13 @@ import { escapeInject, dangerouslySkipEscape } from "vite-plugin-ssr";
 import logoUrl from "./logo.svg";
 import { ClientContext } from 'graphql-hooks';
 import { getInitialState } from 'graphql-hooks-ssr';
+import { getPageMeta } from './getPageMeta';
 
 export { render };
 export { onBeforeRender };
 
 // See https://vite-plugin-ssr.com/data-fetching
-export const passToClient = ["pageProps", "urlPathname", "graphQLInitialState", "heliumEndpoint", "appearanceSettings"];
+export const passToClient = ["pageProps", "urlPathname", "graphQLInitialState", "heliumEndpoint", "appearanceSettings", "documentProps"];
 
 async function render(pageContext) {
   const { pageHtml } = pageContext;
@@ -38,6 +39,8 @@ async function render(pageContext) {
 async function onBeforeRender(pageContext) {
   const { Page, pageProps, graphQLClient, appearanceSettings } = pageContext;
   const propsAndAppearance = { ...pageProps, ...appearanceSettings };
+  const documentProps = getPageMeta(pageContext);
+
   const App = (
     <ClientContext.Provider value={graphQLClient}>
       <PageWrapper pageContext={pageContext}>
@@ -49,5 +52,5 @@ async function onBeforeRender(pageContext) {
   const graphQLInitialState = await getInitialState({App, client: graphQLClient});
   const pageHtml = ReactDOMServer.renderToString(App);
 
-  return {pageContext: { pageHtml, graphQLInitialState }};
+  return { pageContext: { pageHtml, graphQLInitialState, documentProps } };
 }

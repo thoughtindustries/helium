@@ -3,7 +3,9 @@ import { useQuery } from 'graphql-hooks'
 import { Counter } from "./Counter";
 
 import { Hero } from '@thoughtindustries/hero';
+
 export { Page };
+export { documentProps };
 
 const query = /* GraphQL */`
   query LanguagesQuery {
@@ -13,6 +15,11 @@ const query = /* GraphQL */`
     }
 }
 `
+
+const documentProps = {
+  title: 'Home Page',
+  description: 'The home page'
+}
 
 function Page(pageProps) {
   // const { data } = useQuery(query, { variables: { limit: 10 } });
@@ -27,7 +34,7 @@ function Page(pageProps) {
     <>
       <Hero img="https://d36ai2hkxl16us.cloudfront.net/thoughtindustries/image/upload/a_exif,c_lfill,h_150/v1494856803/krk0kc4dlidrctj7xddh.png" />
       <h1 style={headerStyle}>Welcome</h1>
-      Testing the build and deploy process.
+      Testing the build and deploy process (now with meta!).
       <ul>
         <li className="text-accent">Rendered to HTML.</li>
         <li>

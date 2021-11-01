@@ -18,15 +18,11 @@ async function handleSsr(url) {
     return null;
   } else {
     const { statusCode, body } = httpResponse;
-    const root = parse(body);
-    const bodyNode = root.querySelector('body');
-    const childNodes = bodyNode.childNodes || [];
-    const responseString = childNodes.length
-      ? childNodes.map(childNode => childNode.toString()).join('')
-      : '';
+    const responseString = parseHtmlBody(body);
+    const headers = assembleHeaders(pageContext);
 
     return new Response(resolveAssetUrls(url, responseString), {
-      headers: { 'content-type': 'text/html' },
+      headers,
       status: statusCode
     });
   }
@@ -36,4 +32,24 @@ function resolveAssetUrls(url, htmlString) {
   const urlObj = new URL(url);
   const resolvedString = htmlString.replace(/ src="\/(.*?)">/g, ` src="${urlObj.origin}/$1">`);
   return resolvedString;
+}
+
+function parseHtmlBody(body) {
+  const root = parse(body);
+  const bodyNode = root.querySelector('body');
+  const childNodes = bodyNode.childNodes || [];
+
+  return childNodes.length ? childNodes.map(childNode => childNode.toString()).join('') : '';
+}
+
+function assembleHeaders(pageContext) {
+  const headers = { 'content-type': 'text/html' };
+
+  if (pageContext && pageContext.documentProps) {
+    for (const key of Object.keys(pageContext.documentProps)) {
+      headers[`-x-page-${key}`] = pageContext.documentProps[key];
+    }
+  }
+
+  return headers;
 }
