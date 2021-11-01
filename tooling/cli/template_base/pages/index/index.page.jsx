@@ -1,5 +1,5 @@
 import React from 'react'
-import { useQuery } from 'graphql-hooks'
+import { gql, useQuery } from "@apollo/client";
 import { Counter } from "./Counter";
 
 import { Hero } from '@thoughtindustries/hero';
@@ -7,7 +7,7 @@ import { Hero } from '@thoughtindustries/hero';
 export { Page };
 export { documentProps };
 
-const query = /* GraphQL */`
+const query = gql`
   query LanguagesQuery {
     Languages {
       id
