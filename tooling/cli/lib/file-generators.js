@@ -52,24 +52,18 @@ const generateConfigFile = async (dir, instances) => {
       body: JSON.stringify({ query: SETTINGS_QUERY })
     };
 
-    const resp = await fetch(endpoint, options).then(r => r.json());
+    const companyData = await fetch(endpoint, options).then(r => r.json());
     let companyProps = {};
 
-    if (resp && resp.graphqlResponse) {
-      const companyDataResponse = JSON.parse(resp.graphqlResponse);
-      if (companyDataResponse && companyDataResponse.length) {
-        const companyData = companyDataResponse[0];
+    if (companyData && companyData[0].data && companyData[0].data) {
+      const {
+        data: { CompanyDetails }
+      } = companyData[0];
 
-        if (companyData) {
-          const {
-            data: { CompanyDetails }
-          } = companyData;
-          companyProps = {
-            name: CompanyDetails.name,
-            ...CompanyDetails.settings
-          };
-        }
-      }
+      companyProps = {
+        name: CompanyDetails.name,
+        ...CompanyDetails.settings
+      };
     }
 
     data.push({

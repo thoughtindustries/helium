@@ -4,12 +4,13 @@ import { escapeInject, dangerouslySkipEscape } from "vite-plugin-ssr";
 import logoUrl from "./logo.svg";
 import { ApolloProvider } from "@apollo/client";
 import { renderToStringWithData } from "@apollo/client/react/ssr";
+import { getPageMeta } from './getPageMeta';
 
 export { render };
 export { onBeforeRender };
 
 // See https://vite-plugin-ssr.com/data-fetching
-export const passToClient = ["pageProps", "urlPathname", "apolloIntialState", "heliumEndpoint", "appearanceSettings"];
+export const passToClient = ["pageProps", "urlPathname", "apolloIntialState", "heliumEndpoint", "appearanceSettings", "documentProps"];
 
 async function render(pageContext) {
   const { pageHtml } = pageContext;
@@ -37,6 +38,8 @@ async function render(pageContext) {
 async function onBeforeRender(pageContext) {
   const { Page, pageProps, apolloClient, appearanceSettings } = pageContext;
   const propsAndAppearance = { ...pageProps, ...appearanceSettings };
+  const documentProps = getPageMeta(pageContext);
+
   const App = (
     <ApolloProvider client={apolloClient}>
       <PageWrapper pageContext={pageContext}>
@@ -48,5 +51,5 @@ async function onBeforeRender(pageContext) {
   const pageHtml = await renderToStringWithData(App);
   const apolloIntialState = apolloClient.extract();
 
-  return {pageContext: { pageHtml, apolloIntialState }};
+  return { pageContext: { pageHtml, apolloIntialState, documentProps } };
 }
