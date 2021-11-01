@@ -1,9 +1,9 @@
 const fetch = require('isomorphic-unfetch');
 const {
   ApolloClient,
-  createHttpLink,
   InMemoryCache,
 } = require("@apollo/client");
+const { BatchHttpLink } = require("@apollo/client/link/batch-http");
 const configJson = require('./../ti-config');
 
 module.exports = { initPageContext };
@@ -45,9 +45,9 @@ function makeApolloClient(tiInstance) {
     heliumEndpoint,
     apolloClient: new ApolloClient({
       ssrMode: true,
-      link: createHttpLink({
+      link: new BatchHttpLink({ 
         uri: heliumEndpoint,
-        fetch,
+        fetch
       }),
       cache: new InMemoryCache(),
     })

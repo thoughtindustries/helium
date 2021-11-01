@@ -3,6 +3,7 @@ import React from "react";
 import { getPage } from "vite-plugin-ssr/client";
 import { PageWrapper } from "./PageWrapper";
 import { ApolloClient, InMemoryCache, ApolloProvider } from "@apollo/client";
+import { BatchHttpLink } from "@apollo/client/link/batch-http";
 import 'virtual:windi.css'
 
 hydrate();
@@ -27,7 +28,9 @@ async function hydrate() {
 
 function makeApolloClient(heliumEndpoint, apolloIntialState) {
   return new ApolloClient({
-    uri: heliumEndpoint,
+    link: new BatchHttpLink({ 
+      uri: heliumEndpoint
+    }),
     cache: new InMemoryCache().restore(apolloIntialState),
   })
 }
