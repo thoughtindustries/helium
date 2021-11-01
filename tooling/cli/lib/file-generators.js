@@ -55,10 +55,10 @@ const generateConfigFile = async (dir, instances) => {
     const companyData = await fetch(endpoint, options).then(r => r.json());
     let companyProps = {};
 
-    if (companyData && companyData.data) {
+    if (companyData && companyData[0].data && companyData[0].data) {
       const {
         data: { CompanyDetails }
-      } = companyData;
+      } = companyData[0];
 
       companyProps = {
         name: CompanyDetails.name,

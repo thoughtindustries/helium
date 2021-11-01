@@ -119,12 +119,12 @@ async function getHeliumUploadData(instance) {
   let responseData = {};
   const launchData = await fetch(endpoint, options).then(r => r.json());
 
-  if (launchData && launchData.data) {
+  if (launchData && launchData[0] && launchData[0].data) {
     const {
       data: {
         HeliumLaunchData: { key, AWSAccessKeyId, signature, policy, acl, success_action_status }
       }
-    } = launchData;
+    } = launchData[0];
 
     responseData = {
       key,
