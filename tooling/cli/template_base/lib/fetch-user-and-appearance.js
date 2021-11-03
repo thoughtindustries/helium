@@ -3,8 +3,8 @@ const fetch = require('isomorphic-unfetch');
 module.exports = { fetchUserAndAppearance };
 
 const USER_QUERY = /* GraphQL */ `
-  query UserAndAppearanceQuery($email: String!) {
-    UserByEmail(email: $email) {
+  query UserAndAppearanceQuery {
+    CurrentUser {
       id
       firstName
       lastName
@@ -65,10 +65,10 @@ async function fetchUserAndAppearance(tiInstance) {
 
     if (userDataResponse && userDataResponse[0].data) {
       const {
-        data: { UserByEmail, CompanyDetails }
+        data: { CurrentUser, CompanyDetails }
       } = userDataResponse[0];
 
-      currentUser = UserByEmail || {};
+      currentUser = CurrentUser || {};
 
       if (CompanyDetails && CompanyDetails.settings) {
         appearanceBlock = CompanyDetails.settings;
