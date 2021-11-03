@@ -14,8 +14,14 @@ const renderPage = createPageRenderer({
 
 async function handleSsr(url) {
   const tiInstance = findTiInstance(INSTANCE_NAME);
-  const currentUser = addCurrentUser(url, tiInstance);
-  const pageContext = await initPageContext(url, tiInstance, renderPage, currentUser);
+  const { currentUser, appearanceBlock } = decryptUserAndAppearance(url, tiInstance);
+  const pageContext = await initPageContext(
+    url,
+    tiInstance,
+    renderPage,
+    currentUser,
+    appearanceBlock
+  );
   const { httpResponse } = pageContext;
 
   if (!httpResponse) {
@@ -32,8 +38,9 @@ async function handleSsr(url) {
   }
 }
 
-function addCurrentUser(url, tiInstance) {
+function decryptUserAndAppearance(url, tiInstance) {
   let currentUser = {};
+  let appearanceBlock = {};
 
   const urlObj = new URL(url);
   if (urlObj.searchParams && urlObj.searchParams.get('jwt')) {
@@ -45,11 +52,15 @@ function addCurrentUser(url, tiInstance) {
         if (decryptedJWT.currentUser) {
           currentUser = decryptedJWT.currentUser;
         }
+
+        if (decryptedJWT.appearanceBlock) {
+          appearanceBlock = decryptedJWT.appearanceBlock;
+        }
       }
     }
   }
 
-  return currentUser;
+  return { currentUser, appearanceBlock };
 }
 
 function resolveAssetUrls(url, htmlString) {

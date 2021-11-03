@@ -1,7 +1,7 @@
 const express = require('express');
 const { createPageRenderer } = require('vite-plugin-ssr');
 const { initPageContext } = require('./../lib/init-page-context');
-const { fetchTestUser } = require('./../lib/fetch-test-user');
+const { fetchUserAndAppearance } = require('../lib/fetch-user-and-appearance');
 const { findTiInstance } = require('./../lib/find-ti-instance');
 
 const isProduction = process.env.NODE_ENV === 'production';
@@ -27,16 +27,19 @@ async function startServer() {
 
   const renderPage = createPageRenderer({ viteDevServer, isProduction, root });
   let currentUser;
+  let appearanceBlock;
 
   app.get('*', async (req, res, next) => {
     const tiInstance = findTiInstance(instanceName);
 
-    if (!currentUser) {
-      currentUser = await fetchTestUser(tiInstance);
+    if (!currentUser || !appearanceBlock) {
+      const userAndAppearance = await fetchUserAndAppearance(tiInstance);
+      currentUser = userAndAppearance.currentUser;
+      appearanceBlock = userAndAppearance.appearanceBlock;
     }
 
     const url = req.originalUrl;
-    const result = await initPageContext(url, tiInstance, renderPage, currentUser);
+    const result = await initPageContext(url, tiInstance, renderPage, currentUser, appearanceBlock);
     const { httpResponse } = result;
 
     if (!httpResponse) return next();

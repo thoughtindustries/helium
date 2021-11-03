@@ -10,7 +10,7 @@ export { render };
 export { onBeforeRender };
 
 // See https://vite-plugin-ssr.com/data-fetching
-export const passToClient = ["pageProps", "urlPathname", "apolloIntialState", "heliumEndpoint", "appearanceSettings", "documentProps", "currentUser"];
+export const passToClient = ["pageProps", "urlPathname", "apolloIntialState", "heliumEndpoint", "appearance", "documentProps", "currentUser"];
 
 async function render(pageContext) {
   const { pageHtml } = pageContext;
@@ -36,14 +36,13 @@ async function render(pageContext) {
 }
 
 async function onBeforeRender(pageContext) {
-  const { Page, pageProps, apolloClient, appearanceSettings, currentUser } = pageContext;
-  const propsAndAppearance = { ...pageProps, ...appearanceSettings };
+  const { Page, pageProps, apolloClient, appearance, currentUser } = pageContext;
   const documentProps = getPageMeta(pageContext);
 
   const App = (
     <ApolloProvider client={apolloClient}>
       <PageWrapper pageContext={pageContext}>
-        <Page {...propsAndAppearance} currentUser={currentUser} />
+        <Page {...pageProps} appearance={appearance} currentUser={currentUser} />
       </PageWrapper>
     </ApolloProvider>
   );

@@ -1,9 +1,9 @@
 const fetch = require('isomorphic-unfetch');
 
-module.exports = { fetchTestUser };
+module.exports = { fetchUserAndAppearance };
 
 const USER_QUERY = /* GraphQL */ `
-  query UserByEmailQuery($email: String!) {
+  query UserAndAppearanceQuery($email: String!) {
     UserByEmail(email: $email) {
       id
       firstName
@@ -29,11 +29,25 @@ const USER_QUERY = /* GraphQL */ `
       ref9
       ref10
     }
+    CompanyDetails {
+      settings {
+        backgroundAsset
+        backgroundAssetTiled
+        logoAsset
+        retinaLogo
+        altFont
+        font
+        accentColor
+        secondaryColor
+        linkColor
+      }
+    }
   }
 `;
 
-async function fetchTestUser(tiInstance) {
-  let user = {};
+async function fetchUserAndAppearance(tiInstance) {
+  let currentUser = {};
+  let appearanceBlock = {};
 
   if (tiInstance) {
     const endpoint = `${tiInstance.instanceUrl}/helium?apiKey=${tiInstance.apiKey}`;
@@ -42,7 +56,8 @@ async function fetchTestUser(tiInstance) {
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
         query: USER_QUERY,
-        variables: { email: tiInstance.email }
+        variables: { email: tiInstance.email },
+        user: tiInstance.email
       })
     };
 
@@ -50,12 +65,16 @@ async function fetchTestUser(tiInstance) {
 
     if (userDataResponse && userDataResponse[0].data) {
       const {
-        data: { UserByEmail }
+        data: { UserByEmail, CompanyDetails }
       } = userDataResponse[0];
 
-      user = UserByEmail || {};
+      currentUser = UserByEmail || {};
+
+      if (CompanyDetails && CompanyDetails.settings) {
+        appearanceBlock = CompanyDetails.settings;
+      }
     }
   }
 
-  return user;
+  return { currentUser, appearanceBlock };
 }
