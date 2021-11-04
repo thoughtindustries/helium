@@ -1,6 +1,6 @@
 import React from "react";
 import { render } from "@testing-library/react";
-import { Header, HeaderProps } from "..";
+import { Header, HeaderProps } from "../src";
 
 const setupProps = (alternateTitleDisplay: boolean = false): HeaderProps => ({
   title: "Header title",
