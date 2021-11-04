@@ -1,4 +1,4 @@
-# Helium
+# Helium (ALPHA)
 
 ## About
 
@@ -31,7 +31,8 @@ Used when the Thought Industries instance is behind an untrusted SSL certificate
 ### `dev`
 
 ```sh
-$ helium dev [i] [p] [k]
+$ helium dev [i] [p] [-k]
+$ helium dev sandbox 3000 -k
 ```
 
 Starts up the development server for your project.
@@ -40,7 +41,7 @@ Starts up the development server for your project.
 
 `-i`, `-instance` (optional)
 
-Which instance from your `ti-config.json` file to be used, as noted by the instance nickname provided during initialization.
+Which instance from your `ti-config.json` file to be used, as noted by the instance nickname provided during initialization. If no instance is specified, the first instance in the `instances` array will be used.
 
 `-p`, `-port` (optional)
 
@@ -53,7 +54,8 @@ Used when the Thought Industries instance is behind an untrusted SSL certificate
 ### `deploy`
 
 ```sh
-$ helium deploy <i> [k]
+$ helium deploy <i> [-k]
+$ helium deploy sandbox -k
 ```
 
 Builds and deploys the project
@@ -62,7 +64,7 @@ Builds and deploys the project
 
 `-i`, `-instance` (required)
 
-Which instance from your `ti-config.json` file to be used, as noted by the instance nickname provided during initialization.
+Which instance from your `ti-config.json` file to be used, as noted by the instance nickname provided during initialization. If no instance is specified, the first instance in the `instances` array will be used.
 
 `-k`, `-insecure` (optional)
 

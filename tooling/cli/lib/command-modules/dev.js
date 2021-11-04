@@ -1,6 +1,6 @@
 const childProcess = require('child_process');
 
-exports.command = 'dev [i] [p] [k]';
+exports.command = 'dev [i] [p] [-k]';
 exports.describe = 'Start a local dev server';
 
 exports.builder = cmd => {
