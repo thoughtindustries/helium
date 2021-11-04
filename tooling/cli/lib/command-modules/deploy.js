@@ -1,7 +1,7 @@
 const childProcess = require('child_process');
 const path = require('path');
 
-exports.command = 'deploy <instance> [k]';
+exports.command = 'deploy <instance> [-k]';
 exports.describe = 'Compile and deploy a specified instance';
 
 exports.builder = cmd => {
