@@ -35,7 +35,7 @@ exports.builder = cmd => {
   });
 };
 
-exports.command = 'init [k]';
+exports.command = 'init [-k]';
 exports.describe = 'Create new TI Template Project';
 exports.handler = async function(argv) {
   const { dir } = await promptQuestions(TARGET_DIR_QUESTION);

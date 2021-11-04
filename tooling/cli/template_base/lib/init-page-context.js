@@ -1,50 +1,36 @@
 const fetch = require('isomorphic-unfetch');
-const memCache = require('graphql-hooks-memcache');
-const { GraphQLClient } = require('graphql-hooks');
-const configJson = require('./../ti-config');
+const { ApolloClient, InMemoryCache } = require('@apollo/client');
+const { BatchHttpLink } = require('@apollo/client/link/batch-http');
 
 module.exports = { initPageContext };
 
-async function initPageContext(url, instanceName, renderPage) {
-  const tiInstance = findTInstance(instanceName);
-  const { accentColor, secondaryColor, linkColor, font, altFont, logoAsset } = tiInstance;
-  const appearanceSettings = { accentColor, secondaryColor, linkColor, font, altFont, logoAsset };
-  const { graphQLClient, heliumEndpoint } = makeGraphQLClient(tiInstance);
+async function initPageContext(url, tiInstance, renderPage, currentUser, appearance) {
+  const { apolloClient, heliumEndpoint } = makeApolloClient(tiInstance);
   const pageContextInit = {
     url,
     tiInstance,
-    graphQLClient,
+    apolloClient,
     heliumEndpoint,
-    appearanceSettings
+    appearance,
+    currentUser
   };
 
   const pageContext = await renderPage(pageContextInit);
+
   return pageContext;
 }
 
-function findTInstance(instanceName) {
-  const { instances = [] } = configJson;
-  let instance = instances[0];
-
-  if (instanceName) {
-    const possibleMatch = instances.find(instance => instance.nickname === instanceName);
-    if (possibleMatch && possibleMatch.apiKey) {
-      instance = possibleMatch;
-    }
-  }
-
-  return instance;
-}
-
-function makeGraphQLClient(tiInstance) {
+function makeApolloClient(tiInstance) {
   const heliumEndpoint = `${tiInstance.instanceUrl}/helium?apiKey=${tiInstance.apiKey}`;
   return {
     heliumEndpoint,
-    graphQLClient: new GraphQLClient({
+    apolloClient: new ApolloClient({
       ssrMode: true,
-      url: heliumEndpoint,
-      cache: memCache(),
-      fetch
+      link: new BatchHttpLink({
+        uri: heliumEndpoint,
+        fetch
+      }),
+      cache: new InMemoryCache()
     })
   };
 }

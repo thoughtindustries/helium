@@ -1,6 +1,6 @@
 import React from "react";
 import { render } from "@testing-library/react";
-import { Header, HeaderProps } from "..";
+import { Header, HeaderProps } from "../src";
 
 const setupProps = (
   alternateTitleDisplay: boolean = false,
@@ -39,7 +39,7 @@ describe("@thoughtindustries/header", () => {
           </h3>
         </div>
         <hr
-          class="relative"
+          class="relative my-4"
         />
       </div>
     `);
@@ -64,7 +64,7 @@ describe("@thoughtindustries/header", () => {
           /
         </a>
         <hr
-          class="relative"
+          class="relative my-4"
         />
       </div>
     `);

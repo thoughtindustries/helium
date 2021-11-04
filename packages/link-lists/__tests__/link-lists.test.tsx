@@ -1,6 +1,6 @@
 import React from "react";
 import { render, fireEvent } from "@testing-library/react";
-import { LinkLists, LinkList } from "..";
+import { LinkLists, LinkList } from "../src";
 
 describe("@thoughtindustries/link-lists", () => {
   describe("LinkLists", () => {

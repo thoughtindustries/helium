@@ -7,7 +7,7 @@
   "license": "ISC",
   "main": "src/index.ts",
   "files": [
-    "dist"
+    "src"
   ],
   "publishConfig": {
     "access": "public"
@@ -16,10 +16,7 @@
     "type": "git",
     "url": "git+https://github.com/thoughtindustries/helium.git"
   },
-  "scripts": {
-    "build": "concurrently yarn:build:*",
-    "build:types": "tsc --outDir ./dist/types"
-  },
+  "scripts": {},
   "bugs": {
     "url": "https://github.com/thoughtindustries/helium/issues"
   },

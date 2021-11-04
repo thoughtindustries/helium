@@ -1,7 +1,7 @@
 {
   "name": "@thoughtindustries/helium",
-  "version": "1.0.1",
-  "description": "",
+  "version": "1.0.1-alpha.3",
+  "description": "The Helium CLI",
   "main": "lib/index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -9,8 +9,12 @@
   "bin": {
     "helium": "lib/index.js"
   },
+  "publishConfig": {
+    "access": "public"
+  },
   "dependencies": {
     "cross-env": "^7.0.3",
+    "form-data": "^4.0.0",
     "fs-extra": "^10.0.0",
     "inquirer": "^8.1.2",
     "isomorphic-unfetch": "^3.1.0",

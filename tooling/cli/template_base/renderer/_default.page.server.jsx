@@ -1,16 +1,16 @@
-import ReactDOMServer from "react-dom/server";
 import React from "react";
 import { PageWrapper } from "./PageWrapper";
 import { escapeInject, dangerouslySkipEscape } from "vite-plugin-ssr";
 import logoUrl from "./logo.svg";
-import { ClientContext } from 'graphql-hooks';
-import { getInitialState } from 'graphql-hooks-ssr';
+import { ApolloProvider } from "@apollo/client";
+import { renderToStringWithData } from "@apollo/client/react/ssr";
+import { getPageMeta } from './getPageMeta';
 
 export { render };
 export { onBeforeRender };
 
 // See https://vite-plugin-ssr.com/data-fetching
-export const passToClient = ["pageProps", "urlPathname", "graphQLInitialState", "heliumEndpoint", "appearanceSettings"];
+export const passToClient = ["pageProps", "urlPathname", "apolloIntialState", "heliumEndpoint", "appearance", "documentProps", "currentUser"];
 
 async function render(pageContext) {
   const { pageHtml } = pageContext;
@@ -36,18 +36,19 @@ async function render(pageContext) {
 }
 
 async function onBeforeRender(pageContext) {
-  const { Page, pageProps, graphQLClient, appearanceSettings } = pageContext;
-  const propsAndAppearance = { ...pageProps, ...appearanceSettings };
-  const App = (
-    <ClientContext.Provider value={graphQLClient}>
-      <PageWrapper pageContext={pageContext}>
-        <Page {...propsAndAppearance} />
-      </PageWrapper>
-    </ClientContext.Provider>
-  );
-  
-  const graphQLInitialState = await getInitialState({App, client: graphQLClient});
-  const pageHtml = ReactDOMServer.renderToString(App);
+  const { Page, pageProps, apolloClient, appearance, currentUser } = pageContext;
+  const documentProps = getPageMeta(pageContext);
 
-  return {pageContext: { pageHtml, graphQLInitialState }};
+  const App = (
+    <ApolloProvider client={apolloClient}>
+      <PageWrapper pageContext={pageContext}>
+        <Page {...pageProps} appearance={appearance} currentUser={currentUser} />
+      </PageWrapper>
+    </ApolloProvider>
+  );
+
+  const pageHtml = await renderToStringWithData(App);
+  const apolloIntialState = apolloClient.extract();
+
+  return { pageContext: { pageHtml, apolloIntialState, documentProps } };
 }

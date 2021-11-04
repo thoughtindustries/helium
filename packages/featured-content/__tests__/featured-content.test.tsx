@@ -6,7 +6,7 @@ import {
   SidebarRss,
   ContentDefault,
   FeaturedContentContentItem,
-} from "..";
+} from "../src";
 
 const headerOptions = {
   title: "Feature Content Header",
@@ -161,7 +161,7 @@ describe("@thoughtindustries/featured-content", () => {
                             <span
                               class="text-xs text-gray-700"
                             >
-                              10/25/2021
+                              11/04/2021
                             </span>
                           </p>
                           <div
