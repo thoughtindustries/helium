@@ -1,5 +1,5 @@
 {
-  "name": "@thoughtindustries/helium_template",
+  "name": "@thoughtindustries/helium-template",
   "version": "1.0.0-alpha.0",
   "scripts": {
     "dev": "node ./server",
