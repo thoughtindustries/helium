@@ -11,7 +11,6 @@
     "@testing-library/react": "^12.1.2",
     "@types/jest": "^27.0.2",
     "autoprefixer": "^10.3.6",
-    "concurrently": "^6.3.0",
     "jest": "^27.2.4",
     "lerna": "^4.0.0",
     "postcss": "^8.3.8",
@@ -24,8 +23,7 @@
   "scripts": {
     "storybook": "start-storybook -p 6006",
     "build-storybook": "build-storybook",
-    "test": "jest",
-    "build": "lerna run build"
+    "test": "jest"
   },
   "workspaces": [
     "packages/**",
