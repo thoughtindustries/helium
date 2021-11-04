@@ -1,7 +1,6 @@
 import React from "react";
 import { render } from "@testing-library/react";
-import { Hero } from "..";
-import { HeroProps } from "../types";
+import { Hero, HeroProps } from "../src";
 
 describe("@thoughtindustries/hero", () => {
   it("should render", () => {
