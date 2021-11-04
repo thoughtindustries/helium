@@ -53,7 +53,7 @@ Used when the Thought Industries instance is behind an untrusted SSL certificate
 ### `deploy`
 
 ```sh
-$ helium deploy \<instance\> [k]
+$ helium deploy <instance> [k]
 ```
 
 Builds and deploys the project
