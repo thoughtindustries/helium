@@ -22,7 +22,7 @@
   },
   "dependencies": {
     "@thoughtindustries/header": "^1.0.0",
-    "moment": "^2.29.1",
+    "date-fns": "^2.25.0",
     "react": "^17.0.2"
   }
 }

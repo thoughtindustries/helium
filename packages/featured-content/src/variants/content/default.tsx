@@ -6,7 +6,7 @@ import React, {
     useState, 
     SyntheticEvent
 } from "react";
-import Moment from "moment";
+import { format, parseISO } from "date-fns";
 import { Header } from "@thoughtindustries/header";
 import { 
     FeaturedContentContentProps,
@@ -78,7 +78,7 @@ const ItemTitleBlock = ({
             <>
                 <br />
                 <span className="text-xs text-gray-700">
-                    {Moment(courseStartDate).format("L")}
+                    {format(parseISO(courseStartDate), "MM/dd/yyyy")}
                 </span>
             </>
         )}
