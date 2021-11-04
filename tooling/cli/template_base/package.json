@@ -1,6 +1,6 @@
 {
-  "name": "@thoughtindustries/helium_template",
-  "version": "1.0.0",
+  "name": "@thoughtindustries/helium-template",
+  "version": "1.0.0-alpha.0",
   "scripts": {
     "dev": "node ./server",
     "// To build and try the worker locally": "",
