@@ -12,14 +12,13 @@ async function hydrate() {
   // For Client Routing we should use `useClientRouter()` instead of `getPage()`.
   // See https://vite-plugin-ssr.com/useClientRouter
   const pageContext = await getPage();
-  const { Page, pageProps, heliumEndpoint, apolloIntialState, appearanceSettings } = pageContext;
-  const propsAndAppearance = { ...pageProps, ...appearanceSettings };
+  const { Page, pageProps, heliumEndpoint, apolloIntialState, appearance, currentUser } = pageContext;
   const apolloClient = makeApolloClient(heliumEndpoint, apolloIntialState);
 
   ReactDOM.hydrate(
     <ApolloProvider client={apolloClient}>
       <PageWrapper pageContext={pageContext}>
-        <Page {...propsAndAppearance} />
+        <Page {...pageProps} appearance={appearance} currentUser={currentUser} />
       </PageWrapper>
     </ApolloProvider>,
     document.getElementById("page-view")

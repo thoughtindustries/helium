@@ -1,42 +1,23 @@
 const fetch = require('isomorphic-unfetch');
-const {
-  ApolloClient,
-  InMemoryCache,
-} = require("@apollo/client");
-const { BatchHttpLink } = require("@apollo/client/link/batch-http");
-const configJson = require('./../ti-config');
+const { ApolloClient, InMemoryCache } = require('@apollo/client');
+const { BatchHttpLink } = require('@apollo/client/link/batch-http');
 
 module.exports = { initPageContext };
 
-async function initPageContext(url, instanceName, renderPage) {
-  const tiInstance = findTInstance(instanceName);
-  const { accentColor, secondaryColor, linkColor, font, altFont, logoAsset } = tiInstance;
-  const appearanceSettings = { accentColor, secondaryColor, linkColor, font, altFont, logoAsset };
+async function initPageContext(url, tiInstance, renderPage, currentUser, appearance) {
   const { apolloClient, heliumEndpoint } = makeApolloClient(tiInstance);
   const pageContextInit = {
     url,
     tiInstance,
     apolloClient,
     heliumEndpoint,
-    appearanceSettings
+    appearance,
+    currentUser
   };
 
   const pageContext = await renderPage(pageContextInit);
+
   return pageContext;
-}
-
-function findTInstance(instanceName) {
-  const { instances = [] } = configJson;
-  let instance = instances[0];
-
-  if (instanceName) {
-    const possibleMatch = instances.find(instance => instance.nickname === instanceName);
-    if (possibleMatch && possibleMatch.apiKey) {
-      instance = possibleMatch;
-    }
-  }
-
-  return instance;
 }
 
 function makeApolloClient(tiInstance) {
@@ -45,11 +26,11 @@ function makeApolloClient(tiInstance) {
     heliumEndpoint,
     apolloClient: new ApolloClient({
       ssrMode: true,
-      link: new BatchHttpLink({ 
+      link: new BatchHttpLink({
         uri: heliumEndpoint,
         fetch
       }),
-      cache: new InMemoryCache(),
+      cache: new InMemoryCache()
     })
   };
 }

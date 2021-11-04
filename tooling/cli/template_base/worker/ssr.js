@@ -1,8 +1,10 @@
 import { createPageRenderer } from 'vite-plugin-ssr';
+import { parse } from 'node-html-parser';
+import jwt_decode from 'jwt-decode';
 // We load `importBuild.js` so that the worker code can be bundled into a single file
 import '../dist/server/importBuild.js';
 import { initPageContext } from './../lib/init-page-context';
-import { parse } from 'node-html-parser';
+import { findTiInstance } from './../lib/find-ti-instance';
 
 export { handleSsr };
 
@@ -11,7 +13,15 @@ const renderPage = createPageRenderer({
 });
 
 async function handleSsr(url) {
-  const pageContext = await initPageContext(url, INSTANCE_NAME, renderPage);
+  const tiInstance = findTiInstance(INSTANCE_NAME);
+  const { currentUser, appearanceBlock } = decryptUserAndAppearance(url, tiInstance);
+  const pageContext = await initPageContext(
+    url,
+    tiInstance,
+    renderPage,
+    currentUser,
+    appearanceBlock
+  );
   const { httpResponse } = pageContext;
 
   if (!httpResponse) {
@@ -26,6 +36,31 @@ async function handleSsr(url) {
       status: statusCode
     });
   }
+}
+
+function decryptUserAndAppearance(url, tiInstance) {
+  let currentUser = {};
+  let appearanceBlock = {};
+
+  const urlObj = new URL(url);
+  if (urlObj.searchParams && urlObj.searchParams.get('jwt')) {
+    if (tiInstance && tiInstance.apiKey) {
+      const signedJwt = urlObj.searchParams.get('jwt');
+      const decryptedJWT = jwt_decode(signedJwt);
+
+      if (decryptedJWT) {
+        if (decryptedJWT.currentUser) {
+          currentUser = decryptedJWT.currentUser;
+        }
+
+        if (decryptedJWT.appearanceBlock) {
+          appearanceBlock = decryptedJWT.appearanceBlock;
+        }
+      }
+    }
+  }
+
+  return { currentUser, appearanceBlock };
 }
 
 function resolveAssetUrls(url, htmlString) {
