@@ -26,5 +26,6 @@
   "dependencies": {
     "@thoughtindustries/header": "^1.0.0",
     "react": "^17.0.2"
-  }
+  },
+  "gitHead": "8e33358778915b9915591931d98e63a020525072"
 }

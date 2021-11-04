@@ -1,6 +1,6 @@
 {
   "name": "@thoughtindustries/helium",
-  "version": "1.0.1-alpha.1",
+  "version": "1.0.1-alpha.0",
   "description": "",
   "main": "lib/index.js",
   "scripts": {
@@ -8,6 +8,9 @@
   },
   "bin": {
     "helium": "lib/index.js"
+  },
+  "publishConfig": {
+    "access": "public"
   },
   "dependencies": {
     "cross-env": "^7.0.3",
