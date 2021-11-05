@@ -17,7 +17,7 @@ const INSTANCE_QUESTIONS = [
     validate: isAbsoluteUrl
   },
   {
-    type: 'input',
+    type: 'password',
     name: 'apiKey',
     message: 'What is the API Key for this instance?',
     validate: hasInput

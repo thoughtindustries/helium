@@ -49,4 +49,8 @@ exports.handler = async function(argv) {
   if (instances.length) {
     await initProject(dir, instances);
   }
+
+  console.log('\nReady to get started? Just run:\n');
+  console.log(`$ cd ${dir}`);
+  console.log('$ npm i && helium dev');
 };
