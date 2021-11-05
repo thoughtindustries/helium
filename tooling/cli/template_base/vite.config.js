@@ -1,6 +1,6 @@
 import reactRefresh from '@vitejs/plugin-react-refresh';
 import ssr from 'vite-plugin-ssr/plugin';
-import mdx from 'vite-plugin-mdx';
+import mdx from './vendor/mdx';
 import WindiCSS from 'vite-plugin-windicss';
 
 const mdxOptions = {
