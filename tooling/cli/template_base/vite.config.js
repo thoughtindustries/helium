@@ -1,7 +1,12 @@
 import reactRefresh from '@vitejs/plugin-react-refresh';
 import ssr from 'vite-plugin-ssr/plugin';
-import mdx from './vendor/mdx';
 import WindiCSS from 'vite-plugin-windicss';
+
+/**
+ * because of cjs/esm issues, mdx file generated via:
+ * `npx esbuild @mdx-js/rollup --bundle --platform=node --outfile=vendor/mdx.js`
+ */
+import mdx from './vendor/mdx';
 
 const mdxOptions = {
   remarkPlugins: [],
