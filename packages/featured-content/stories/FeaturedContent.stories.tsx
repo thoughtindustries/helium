@@ -6,6 +6,7 @@ import {
     ContentDefault,
     FeaturedContentContentItem
 } from '../src';
+import { RSS_ITEMS_QUERY } from '../src/variants/sidebar/rss';
 
 export default {
   title: "Example/FeaturedContent"
@@ -50,6 +51,27 @@ const mockItems = {
   }
 };
 
+const mockFeedUrl = 'https://foo/bar';
+const mockApolloResults = {
+  sidebarRss: {
+    request: {
+      query: RSS_ITEMS_QUERY,
+      variables: {
+        feedUrl: mockFeedUrl,
+      },
+    },
+    result: {
+      data: {
+        RssItems: [
+            { title: 'Link 1', link: '/rss-link1' },
+            { title: 'Link 2', link: '/rss-link2' },
+            { title: 'Link 3', link: '/rss-link3' },
+        ],
+      },
+    },
+  },
+}
+
 const handleAddedToQueue = (item: FeaturedContentContentItem): Promise<void> => {
   return Promise.resolve();
 }
@@ -67,11 +89,7 @@ export const StandardLayout = () => (
 
 export const withLeftSidebar = () => (
   <FeaturedContent sidebar={
-      <SidebarRss title="RSS">
-          <SidebarRss.Link href="/rss-link1">Link 1</SidebarRss.Link>
-          <SidebarRss.Link href="/rss-link2">Link 2</SidebarRss.Link>
-          <SidebarRss.Link href="/rss-link3">Link 3</SidebarRss.Link>
-      </SidebarRss>
+    <SidebarRss title="RSS" feedUrl={mockFeedUrl} />
   } sidebarPosition={SidebarPosition.Left}>
     <ContentDefault headerOptions={headerOptions} desktopColumnCount={2} onAddedToQueue={handleAddedToQueue}>
       <ContentDefault.Item item={mockItems.manual} />
@@ -80,14 +98,15 @@ export const withLeftSidebar = () => (
     </ContentDefault>
   </FeaturedContent>
 )
+withLeftSidebar.parameters = {
+  apolloClient: {
+    mocks: [ mockApolloResults.sidebarRss ]
+  }
+}
 
 export const withRightSidebar = () => (
   <FeaturedContent sidebar={
-      <SidebarRss title="RSS">
-          <SidebarRss.Link href="/rss-link1">Link 1</SidebarRss.Link>
-          <SidebarRss.Link href="/rss-link2">Link 2</SidebarRss.Link>
-          <SidebarRss.Link href="/rss-link3">Link 3</SidebarRss.Link>
-      </SidebarRss>
+    <SidebarRss title="RSS" feedUrl={mockFeedUrl} />
   } sidebarPosition={SidebarPosition.Right}>
     <ContentDefault headerOptions={headerOptions} desktopColumnCount={2} onAddedToQueue={handleAddedToQueue}>
       <ContentDefault.Item item={mockItems.manual} />
@@ -96,3 +115,4 @@ export const withRightSidebar = () => (
     </ContentDefault>
   </FeaturedContent>
 )
+withRightSidebar.parameters = { ...withLeftSidebar.parameters };

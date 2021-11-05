@@ -1,5 +1,6 @@
 import React from "react";
-import { render } from "@testing-library/react";
+import { render, waitFor } from "@testing-library/react";
+import { MockedProvider } from "@apollo/client/testing";
 import {
   FeaturedContent,
   SidebarPosition,
@@ -7,6 +8,7 @@ import {
   ContentDefault,
   FeaturedContentContentItem,
 } from "../src";
+import { RSS_ITEMS_QUERY } from "../src/variants/sidebar/rss";
 
 const headerOptions = {
   title: "Feature Content Header",
@@ -45,6 +47,27 @@ const mockItems = {
     hasAvailability: false,
     priceInCents: 6500,
     suggestedRetailPriceInCents: 8000,
+  },
+};
+
+const mockFeedUrl = "https://foo/bar";
+const mockApolloResults = {
+  sidebarRss: {
+    request: {
+      query: RSS_ITEMS_QUERY,
+      variables: {
+        feedUrl: mockFeedUrl,
+      },
+    },
+    result: {
+      data: {
+        RssItems: [
+          { title: "Link 1", link: "/rss-link1" },
+          { title: "Link 2", link: "/rss-link2" },
+          { title: "Link 3", link: "/rss-link3" },
+        ],
+      },
+    },
   },
 };
 
@@ -161,7 +184,7 @@ describe("@thoughtindustries/featured-content", () => {
                             <span
                               class="text-xs text-gray-700"
                             >
-                              11/04/2021
+                              11/05/2021
                             </span>
                           </p>
                           <div
@@ -392,28 +415,28 @@ describe("@thoughtindustries/featured-content", () => {
         </div>
       `);
     });
-    it("should render with sidebar", () => {
+    it("should render with sidebar", async () => {
       const { container } = render(
-        <FeaturedContent
-          sidebar={
-            <SidebarRss title="RSS">
-              <SidebarRss.Link href="/rss-link1">Link 1</SidebarRss.Link>
-              <SidebarRss.Link href="/rss-link2">Link 2</SidebarRss.Link>
-              <SidebarRss.Link href="/rss-link3">Link 3</SidebarRss.Link>
-            </SidebarRss>
-          }
-          sidebarPosition={SidebarPosition.Left}
+        <MockedProvider
+          mocks={[mockApolloResults.sidebarRss]}
+          addTypename={false}
         >
-          <ContentDefault
-            headerOptions={headerOptions}
-            desktopColumnCount={2}
-            onAddedToQueue={handleAddedToQueue}
+          <FeaturedContent
+            sidebar={<SidebarRss title="RSS" feedUrl={mockFeedUrl} />}
+            sidebarPosition={SidebarPosition.Left}
           >
-            <ContentDefault.Item item={mockItems.manual} />
-            <ContentDefault.Item item={mockItems.manual} />
-          </ContentDefault>
-        </FeaturedContent>
+            <ContentDefault
+              headerOptions={headerOptions}
+              desktopColumnCount={2}
+              onAddedToQueue={handleAddedToQueue}
+            >
+              <ContentDefault.Item item={mockItems.manual} />
+              <ContentDefault.Item item={mockItems.manual} />
+            </ContentDefault>
+          </FeaturedContent>
+        </MockedProvider>
       );
+      await waitFor(() => new Promise((res) => setTimeout(res, 0)));
       expect(container).toMatchInlineSnapshot(`
         <div>
           <div
@@ -576,14 +599,16 @@ describe("@thoughtindustries/featured-content", () => {
   });
 
   describe("SidebarRss", () => {
-    it("should render", () => {
+    it("should render", async () => {
       const { container } = render(
-        <SidebarRss title="RSS">
-          <SidebarRss.Link href="/rss-link1">Link 1</SidebarRss.Link>
-          <SidebarRss.Link href="/rss-link2">Link 2</SidebarRss.Link>
-          <SidebarRss.Link href="/rss-link3">Link 3</SidebarRss.Link>
-        </SidebarRss>
+        <MockedProvider
+          mocks={[mockApolloResults.sidebarRss]}
+          addTypename={false}
+        >
+          <SidebarRss title="RSS" feedUrl={mockFeedUrl} />
+        </MockedProvider>
       );
+      await waitFor(() => new Promise((res) => setTimeout(res, 0)));
       expect(container).toMatchInlineSnapshot(`
         <div>
           <div

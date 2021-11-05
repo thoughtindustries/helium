@@ -36,11 +36,7 @@ import {
 
 # With left sidebar
 <FeaturedContent sidebar={
-    <SidebarRss title="RSS">
-        <SidebarRss.Link href="/rss-link1">Link 1</SidebarRss.Link>
-        <SidebarRss.Link href="/rss-link2">Link 2</SidebarRss.Link>
-        <SidebarRss.Link href="/rss-link3">Link 3</SidebarRss.Link>
-    </SidebarRss>
+    <SidebarRss title="RSS" feedUrl="https://foo.com/rss" />
 } sidebarPosition={SidebarPosition.Left}>
     <ContentDefault headerOptions={...headerOptions} desktopColumnCount={3} onAddedToQueue={(item) => Promise.resolve()}>
         <ContentDefault.Item item={...itemOne} />

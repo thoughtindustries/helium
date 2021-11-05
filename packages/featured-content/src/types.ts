@@ -1,19 +1,15 @@
 import { ReactNode } from "react";
 
-export interface FeaturedContentSidebarProps {
+export interface FeaturedContentSidebarBaseProps {
     /** title of sidebar */
     title?: string;
     /** children */
-    children: ReactNode | ReactNode[];
+    children?: ReactNode;
 }
 
-export interface FeaturedContentSidebarRssLinkProps {
-    /** key index of link in sidebar rss */
-    key?: string;
-    /** url for link */
-    href: string;
-    /** child of link */
-    children: ReactNode;
+export interface FeaturedContentSidebarRssProps extends FeaturedContentSidebarBaseProps {
+    /** url of rss feed */
+    feedUrl: string
 }
 
 export enum SidebarPosition {
