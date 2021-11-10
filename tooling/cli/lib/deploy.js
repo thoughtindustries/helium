@@ -40,17 +40,17 @@ const LAMBDA_QUERY = `
     throw new Error('Could not locate instance in configuration file.');
   }
 
-  // const policyData = await getHeliumUploadData(instance);
-  // const { key } = policyData;
+  const policyData = await getHeliumUploadData(instance);
+  const { key } = policyData;
 
-  // if (!policyData.key || !policyData.AWSAccessKeyId || !policyData.signature) {
-  //   throw new Error('Could not retrieve helium keys.');
-  // }
+  if (!policyData.key || !policyData.AWSAccessKeyId || !policyData.signature) {
+    throw new Error('Could not retrieve helium keys.');
+  }
 
   try {
     await writeGraphqlManifest();
-    // await uploadHeliumProject(policyData);
-    // await triggerLambda(instance, key);
+    await uploadHeliumProject(policyData);
+    await triggerLambda(instance, key);
   } catch (e) {
     throw new Error(e);
   }
