@@ -26,7 +26,9 @@ async function initPageContext(url, tiInstance, renderPage, currentUser, appeara
 }
 
 function makeApolloClient(tiInstance, isProduction) {
-  const heliumEndpoint = `${tiInstance.instanceUrl}/helium`;
+  const qs = isProduction ? '' : `?apiKey=${tiInstance.apiKey}`;
+  const heliumEndpoint = `${tiInstance.instanceUrl}/helium${qs}`;
+
   let link = new BatchHttpLink({
     uri: heliumEndpoint,
     fetch
