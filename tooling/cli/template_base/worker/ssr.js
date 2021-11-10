@@ -17,11 +17,11 @@ async function handleSsr(url) {
   const { currentUser, appearanceBlock } = decryptUserAndAppearance(url, tiInstance);
   const pageContext = await initPageContext(
     url,
-    tiInstance,
     renderPage,
     currentUser,
     appearanceBlock,
-    true
+    true,
+    HELIUM_ENDPOINT
   );
   const { httpResponse } = pageContext;
 

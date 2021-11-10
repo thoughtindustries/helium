@@ -8,11 +8,17 @@ const { parse } = require('graphql/language');
 
 module.exports = { initPageContext };
 
-async function initPageContext(url, tiInstance, renderPage, currentUser, appearance, isProduction) {
-  const { apolloClient, heliumEndpoint } = makeApolloClient(tiInstance, isProduction);
+async function initPageContext(
+  url,
+  renderPage,
+  currentUser,
+  appearance,
+  heliumEndpoint,
+  isProduction
+) {
+  const { apolloClient } = makeApolloClient(heliumEndpoint, isProduction);
   const pageContextInit = {
     url,
-    tiInstance,
     apolloClient,
     heliumEndpoint,
     appearance,
@@ -25,10 +31,7 @@ async function initPageContext(url, tiInstance, renderPage, currentUser, appeara
   return pageContext;
 }
 
-function makeApolloClient(tiInstance, isProduction) {
-  const qs = isProduction ? '' : `?apiKey=${tiInstance.apiKey}`;
-  const heliumEndpoint = `${tiInstance.instanceUrl}/helium${qs}`;
-
+function makeApolloClient(heliumEndpoint, isProduction) {
   let link = new BatchHttpLink({
     uri: heliumEndpoint,
     fetch
