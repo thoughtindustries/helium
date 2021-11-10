@@ -20,7 +20,8 @@ async function handleSsr(url) {
     tiInstance,
     renderPage,
     currentUser,
-    appearanceBlock
+    appearanceBlock,
+    true
   );
   const { httpResponse } = pageContext;
 

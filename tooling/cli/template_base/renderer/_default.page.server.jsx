@@ -10,7 +10,7 @@ export { render };
 export { onBeforeRender };
 
 // See https://vite-plugin-ssr.com/data-fetching
-export const passToClient = ["pageProps", "urlPathname", "apolloIntialState", "heliumEndpoint", "appearance", "documentProps", "currentUser"];
+export const passToClient = ["pageProps", "urlPathname", "apolloIntialState", "heliumEndpoint", "appearance", "documentProps", "currentUser", "isProduction"];
 
 async function render(pageContext) {
   const { pageHtml } = pageContext;

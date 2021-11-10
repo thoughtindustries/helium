@@ -60,5 +60,5 @@ async function handleFetchEvent(event) {
 
 function isAssetUrl(url) {
   const { pathname } = new URL(url);
-  return pathname.startsWith('/assets/') || pathname === '/manifest.json';
+  return pathname.startsWith('/assets/') || pathname.endsWith('manifest.json');
 }

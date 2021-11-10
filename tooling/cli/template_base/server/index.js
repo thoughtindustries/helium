@@ -39,7 +39,15 @@ async function startServer() {
     }
 
     const url = req.originalUrl;
-    const result = await initPageContext(url, tiInstance, renderPage, currentUser, appearanceBlock);
+    const result = await initPageContext(
+      url,
+      tiInstance,
+      renderPage,
+      currentUser,
+      appearanceBlock,
+      isProduction
+    );
+
     const { httpResponse } = result;
 
     if (!httpResponse) return next();

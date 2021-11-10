@@ -2,6 +2,10 @@ const path = require('path');
 const fs = require('fs-extra');
 const fetch = require('isomorphic-unfetch');
 const FormData = require('form-data');
+const { gqlPluckFromCodeString } = require('@graphql-tools/graphql-tag-pluck');
+const { print } = require('graphql/language/printer');
+const { parse } = require('graphql/language');
+const crypto = require('crypto');
 
 const OP_DIR = process.cwd();
 const configPath = path.join(OP_DIR, '/ti-config');
@@ -36,16 +40,17 @@ const LAMBDA_QUERY = `
     throw new Error('Could not locate instance in configuration file.');
   }
 
-  const policyData = await getHeliumUploadData(instance);
-  const { key } = policyData;
+  // const policyData = await getHeliumUploadData(instance);
+  // const { key } = policyData;
 
-  if (!policyData.key || !policyData.AWSAccessKeyId || !policyData.signature) {
-    throw new Error('Could not retrieve helium keys.');
-  }
+  // if (!policyData.key || !policyData.AWSAccessKeyId || !policyData.signature) {
+  //   throw new Error('Could not retrieve helium keys.');
+  // }
 
   try {
-    await uploadHeliumProject(policyData);
-    await triggerLambda(instance, key);
+    await writeGraphqlManifest();
+    // await uploadHeliumProject(policyData);
+    // await triggerLambda(instance, key);
   } catch (e) {
     throw new Error(e);
   }
@@ -58,6 +63,55 @@ const LAMBDA_QUERY = `
     console.error('>>> Error deploying: ', err);
     process.exit(1);
   });
+
+async function writeGraphqlManifest() {
+  const queryHashMap = await hashGraphqlQueries();
+  const distDir = path.join(OP_DIR, 'dist/client');
+  await fs.writeFile(path.join(distDir, 'graphql-manifest.json'), JSON.stringify(queryHashMap));
+  return;
+}
+
+async function hashGraphqlQueries() {
+  const pagesFilePaths = await getFilePaths(path.join(OP_DIR, 'pages'));
+  const queryHashMap = {};
+
+  for (const filePath of pagesFilePaths) {
+    if (filePathIsValid(filePath)) {
+      const querySources = await gqlPluckFromCodeString(
+        filePath,
+        fs.readFileSync(filePath, 'utf8')
+      );
+
+      if (querySources && querySources.length > 0) {
+        for (const querySource of querySources) {
+          const { hash, query } = hashQuery(querySource);
+          queryHashMap[hash] = query;
+        }
+      }
+    }
+  }
+
+  return queryHashMap;
+}
+
+function hashQuery(querySource) {
+  const query = print(parse(querySource));
+  const hash = crypto
+    .createHash('sha256')
+    .update(query)
+    .digest('hex');
+
+  return { hash, query };
+}
+
+function filePathIsValid(filePath) {
+  return (
+    filePath.endsWith('.js') ||
+    filePath.endsWith('.jsx') ||
+    filePath.endsWith('.ts') ||
+    filePath.endsWith('.tsx')
+  );
+}
 
 async function uploadHeliumProject(policyData) {
   const filePaths = await getFilePaths(OP_DIR);
