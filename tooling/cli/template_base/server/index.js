@@ -7,6 +7,7 @@ const { findTiInstance } = require('./../lib/find-ti-instance');
 const isProduction = process.env.NODE_ENV === 'production';
 const root = `${__dirname}/..`;
 const instanceName = process.env.INSTANCE;
+const heliumEndpoint = process.env.HELIUM_ENDPOINT;
 
 startServer();
 
@@ -39,7 +40,15 @@ async function startServer() {
     }
 
     const url = req.originalUrl;
-    const result = await initPageContext(url, tiInstance, renderPage, currentUser, appearanceBlock);
+    const result = await initPageContext(
+      url,
+      renderPage,
+      currentUser,
+      appearanceBlock,
+      heliumEndpoint,
+      isProduction
+    );
+
     const { httpResponse } = result;
 
     if (!httpResponse) return next();
