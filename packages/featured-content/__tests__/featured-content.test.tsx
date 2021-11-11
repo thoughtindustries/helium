@@ -1,11 +1,12 @@
-import React from "react";
+import React, { SyntheticEvent } from "react";
 import { render, waitFor } from "@testing-library/react";
 import { MockedProvider } from "@apollo/client/testing";
 import {
   FeaturedContent,
   SidebarPosition,
   SidebarRss,
-  ContentDefault,
+  SidebarDefault,
+  ContentTileStandardLayout,
   FeaturedContentContentItem,
 } from "../src";
 import { RSS_ITEMS_QUERY } from "../src/variants/sidebar/rss";
@@ -24,7 +25,7 @@ const mockItems = {
   },
   dynamic: {
     title: "Dynamic item",
-    courseStartDate: new Date().toISOString(),
+    courseStartDate: new Date(2020, 0, 1),
     contentTypeLabel: "Course",
     source: "Test source",
     authors: "Test Author",
@@ -42,6 +43,7 @@ const mockItems = {
       contrastColor: "#fff",
       darkerColor: "#2c872c",
       label: "Test ribbon",
+      slug: "test-ribbon"
     },
     rating: 36,
     hasAvailability: false,
@@ -77,21 +79,27 @@ const handleAddedToQueue = (
   return Promise.resolve();
 };
 
+const handleClick = (
+  evt: SyntheticEvent,
+  item: FeaturedContentContentItem
+): void => {};
+
 describe("@thoughtindustries/featured-content", () => {
   describe("FeaturedContent", () => {
     it("should render", () => {
       const { container } = render(
         <FeaturedContent>
-          <ContentDefault
+          <ContentTileStandardLayout
             headerOptions={headerOptions}
             desktopColumnCount={3}
             onAddedToQueue={handleAddedToQueue}
+            onClick={handleClick}
           >
-            <ContentDefault.Item item={mockItems.dynamic} />
-            <ContentDefault.Item item={mockItems.manual} />
-            <ContentDefault.Item item={mockItems.manual} />
-            <ContentDefault.Item item={mockItems.manual} />
-          </ContentDefault>
+            <ContentTileStandardLayout.Item item={mockItems.dynamic} />
+            <ContentTileStandardLayout.Item item={mockItems.manual} />
+            <ContentTileStandardLayout.Item item={mockItems.manual} />
+            <ContentTileStandardLayout.Item item={mockItems.manual} />
+          </ContentTileStandardLayout>
         </FeaturedContent>
       );
       expect(container).toMatchInlineSnapshot(`
@@ -184,7 +192,7 @@ describe("@thoughtindustries/featured-content", () => {
                             <span
                               class="text-xs text-gray-700"
                             >
-                              11/05/2021
+                              01/01/2020
                             </span>
                           </p>
                           <div
@@ -425,14 +433,15 @@ describe("@thoughtindustries/featured-content", () => {
             sidebar={<SidebarRss title="RSS" feedUrl={mockFeedUrl} />}
             sidebarPosition={SidebarPosition.Left}
           >
-            <ContentDefault
+            <ContentTileStandardLayout
               headerOptions={headerOptions}
               desktopColumnCount={2}
               onAddedToQueue={handleAddedToQueue}
+              onClick={handleClick}
             >
-              <ContentDefault.Item item={mockItems.manual} />
-              <ContentDefault.Item item={mockItems.manual} />
-            </ContentDefault>
+              <ContentTileStandardLayout.Item item={mockItems.manual} />
+              <ContentTileStandardLayout.Item item={mockItems.manual} />
+            </ContentTileStandardLayout>
           </FeaturedContent>
         </MockedProvider>
       );
@@ -650,26 +659,56 @@ describe("@thoughtindustries/featured-content", () => {
     });
   });
 
-  describe("ContentDefault", () => {
-    it("should error when rendered without a parent <ContentDefault />", () => {
+  describe("SidebarDefault", () => {
+    it("should render", () => {
+      const { container } = render(
+        <SidebarDefault title="Default">Static sidebar content</SidebarDefault>
+      );
+      expect(container).toMatchInlineSnapshot(`
+        <div>
+          <div
+            class="h-full absolute left-0 w-full"
+          >
+            <div>
+              <h3>
+                Default
+              </h3>
+            </div>
+            <hr
+              class="relative my-4"
+            />
+            <div
+              class="overflow-y-scroll text-sm h-full"
+            >
+              Static sidebar content
+            </div>
+          </div>
+        </div>
+      `);
+    });
+  });
+
+  describe("ContentTileStandardLayout", () => {
+    it("should error when rendered without a parent <ContentTileStandardLayout />", () => {
       const spy = jest
         .spyOn(global.console, "error")
         .mockImplementation(jest.fn());
       expect(() =>
-        render(<ContentDefault.Item item={mockItems.manual} />)
+        render(<ContentTileStandardLayout.Item item={mockItems.manual} />)
       ).toThrowError();
       spy.mockRestore();
     });
 
     it("should render", () => {
       const { container } = render(
-        <ContentDefault
+        <ContentTileStandardLayout
           headerOptions={headerOptions}
           desktopColumnCount={2}
           onAddedToQueue={handleAddedToQueue}
+          onClick={handleClick}
         >
-          <ContentDefault.Item item={mockItems.manual} />
-        </ContentDefault>
+          <ContentTileStandardLayout.Item item={mockItems.manual} />
+        </ContentTileStandardLayout>
       );
       expect(container).toMatchInlineSnapshot(`
         <div>

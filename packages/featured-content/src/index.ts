@@ -1,12 +1,13 @@
 import FeaturedContent from './featured-content';
-import { SidebarRss } from './variants/sidebar'; 
+import { SidebarRss, SidebarDefault } from './variants/sidebar'; 
 import {
-    ContentDefault
+    ContentTileStandardLayout
 } from './variants/content';
 
 export * from './types';
 export { 
     FeaturedContent, 
     SidebarRss,
-    ContentDefault
+    SidebarDefault,
+    ContentTileStandardLayout
 };

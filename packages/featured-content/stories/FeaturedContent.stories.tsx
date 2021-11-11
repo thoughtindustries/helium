@@ -1,9 +1,10 @@
-import React from 'react';
+import React, { SyntheticEvent } from 'react';
 import {
     FeaturedContent,
     SidebarRss,
+    SidebarDefault,
     SidebarPosition,
-    ContentDefault,
+    ContentTileStandardLayout,
     FeaturedContentContentItem
 } from '../src';
 import { RSS_ITEMS_QUERY } from '../src/variants/sidebar/rss';
@@ -26,7 +27,7 @@ const mockItems = {
   },
   dynamic: {
     title: 'Dynamic item',
-    courseStartDate: new Date().toISOString(),
+    courseStartDate: new Date(2020, 0, 1),
     contentTypeLabel: 'Course',
     source: 'Test source',
     authors: 'Test Author',
@@ -42,7 +43,8 @@ const mockItems = {
       bgColor: "#39ad39",
       contrastColor: "#fff",
       darkerColor: "#2c872c",
-      label: "Test ribbon"
+      label: "Test ribbon",
+      slug: "test-ribbon"
     },
     rating: 36,
     hasAvailability: false,
@@ -76,14 +78,21 @@ const handleAddedToQueue = (item: FeaturedContentContentItem): Promise<void> => 
   return Promise.resolve();
 }
 
-export const StandardLayout = () => (
+const handleClick = (evt: SyntheticEvent, item: FeaturedContentContentItem): void => {}
+
+export const TileStandardLayout = () => (
   <FeaturedContent>
-    <ContentDefault headerOptions={headerOptions} desktopColumnCount={3} onAddedToQueue={handleAddedToQueue}>
-      <ContentDefault.Item item={mockItems.dynamic} />
-      <ContentDefault.Item item={mockItems.manual} />
-      <ContentDefault.Item item={mockItems.manual} />
-      <ContentDefault.Item item={mockItems.manual} />
-    </ContentDefault>
+    <ContentTileStandardLayout 
+      headerOptions={headerOptions} 
+      desktopColumnCount={3} 
+      onAddedToQueue={handleAddedToQueue}
+      onClick={handleClick}
+    >
+      <ContentTileStandardLayout.Item item={mockItems.dynamic} />
+      <ContentTileStandardLayout.Item item={mockItems.manual} />
+      <ContentTileStandardLayout.Item item={mockItems.manual} />
+      <ContentTileStandardLayout.Item item={mockItems.manual} />
+    </ContentTileStandardLayout>
   </FeaturedContent>
 )
 
@@ -91,11 +100,16 @@ export const withLeftSidebar = () => (
   <FeaturedContent sidebar={
     <SidebarRss title="RSS" feedUrl={mockFeedUrl} />
   } sidebarPosition={SidebarPosition.Left}>
-    <ContentDefault headerOptions={headerOptions} desktopColumnCount={2} onAddedToQueue={handleAddedToQueue}>
-      <ContentDefault.Item item={mockItems.manual} />
-      <ContentDefault.Item item={mockItems.manual} />
-      <ContentDefault.Item item={mockItems.manual} />
-    </ContentDefault>
+    <ContentTileStandardLayout 
+      headerOptions={headerOptions} 
+      desktopColumnCount={2} 
+      onAddedToQueue={handleAddedToQueue}
+      onClick={handleClick}
+    >
+      <ContentTileStandardLayout.Item item={mockItems.manual} />
+      <ContentTileStandardLayout.Item item={mockItems.manual} />
+      <ContentTileStandardLayout.Item item={mockItems.manual} />
+    </ContentTileStandardLayout>
   </FeaturedContent>
 )
 withLeftSidebar.parameters = {
@@ -106,13 +120,19 @@ withLeftSidebar.parameters = {
 
 export const withRightSidebar = () => (
   <FeaturedContent sidebar={
-    <SidebarRss title="RSS" feedUrl={mockFeedUrl} />
+    <SidebarDefault title="Default">
+      Static sidebar content
+    </SidebarDefault>
   } sidebarPosition={SidebarPosition.Right}>
-    <ContentDefault headerOptions={headerOptions} desktopColumnCount={2} onAddedToQueue={handleAddedToQueue}>
-      <ContentDefault.Item item={mockItems.manual} />
-      <ContentDefault.Item item={mockItems.manual} />
-      <ContentDefault.Item item={mockItems.manual} />
-    </ContentDefault>
+    <ContentTileStandardLayout 
+      headerOptions={headerOptions} 
+      desktopColumnCount={2} 
+      onAddedToQueue={handleAddedToQueue}
+      onClick={handleClick}
+    >
+      <ContentTileStandardLayout.Item item={mockItems.manual} />
+      <ContentTileStandardLayout.Item item={mockItems.manual} />
+      <ContentTileStandardLayout.Item item={mockItems.manual} />
+    </ContentTileStandardLayout>
   </FeaturedContent>
 )
-withRightSidebar.parameters = { ...withLeftSidebar.parameters };

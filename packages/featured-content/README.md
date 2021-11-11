@@ -17,31 +17,45 @@ We offer the following Featured Content widgets:
 import {
     FeaturedContent,
     SidebarRss,
+    SidebarDefault,
     SidebarPosition,
-    ContentDefault,
+    ContentTileStandardLayout,
 } from '@thoughtindustries/featured-content';
 ```
 
 ## Usage
 
 ```
-# Standard layout
+# Tile standard layout
 <FeaturedContent>
-    <ContentDefault headerOptions={...headerOptions} desktopColumnCount={3} onAddedToQueue={(item) => Promise.resolve()}>
-        <ContentDefault.Item item={...itemOne} />
-        <ContentDefault.Item item={...itemOne} />
-        <ContentDefault.Item item={...itemOne} />
-    </ContentDefault>
+    <ContentTileStandardLayout headerOptions={...headerOptions} desktopColumnCount={3} onAddedToQueue={(item) => Promise.resolve()}>
+        <ContentTileStandardLayout.Item item={...itemOne} />
+        <ContentTileStandardLayout.Item item={...itemOne} />
+        <ContentTileStandardLayout.Item item={...itemOne} />
+    </ContentTileStandardLayout>
 </FeaturedContent>
 
-# With left sidebar
+# With left sidebar (RSS)
 <FeaturedContent sidebar={
     <SidebarRss title="RSS" feedUrl="https://foo.com/rss" />
 } sidebarPosition={SidebarPosition.Left}>
-    <ContentDefault headerOptions={...headerOptions} desktopColumnCount={3} onAddedToQueue={(item) => Promise.resolve()}>
-        <ContentDefault.Item item={...itemOne} />
-        <ContentDefault.Item item={...itemOne} />
-        <ContentDefault.Item item={...itemOne} />
-    </ContentDefault>
+    <ContentTileStandardLayout headerOptions={...headerOptions} desktopColumnCount={3} onAddedToQueue={(item) => Promise.resolve()}>
+        <ContentTileStandardLayout.Item item={...itemOne} />
+        <ContentTileStandardLayout.Item item={...itemOne} />
+        <ContentTileStandardLayout.Item item={...itemOne} />
+    </ContentTileStandardLayout>
+</FeaturedContent>
+
+# With right sidebar (default)
+<FeaturedContent sidebar={
+    <SidebarDefault title="Default">
+        Static sidebar content
+    </SidebarDefault>
+} sidebarPosition={SidebarPosition.Left}>
+    <ContentTileStandardLayout headerOptions={...headerOptions} desktopColumnCount={3} onAddedToQueue={(item) => Promise.resolve()}>
+        <ContentTileStandardLayout.Item item={...itemOne} />
+        <ContentTileStandardLayout.Item item={...itemOne} />
+        <ContentTileStandardLayout.Item item={...itemOne} />
+    </ContentTileStandardLayout>
 </FeaturedContent>
 ```

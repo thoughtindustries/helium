@@ -1,3 +1,3 @@
-import ContentDefault from "./default";
+import ContentTileStandardLayout from "./tile-standard-layout";
 
-export { ContentDefault };
+export { ContentTileStandardLayout };

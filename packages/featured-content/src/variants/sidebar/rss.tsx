@@ -5,15 +5,16 @@ import {
 } from "../../types";
 import SidebarWrapper from "./wrapper";
 
-export interface RssItemsData {
+interface RssItemsData {
     RssItems: RssItem[]
 }
-export interface RssItem {
+
+interface RssItem {
     title: string;
     link: string;
 }
 
-export interface RssItemsVars {
+interface RssItemsVars {
     feedUrl: string;
 }
 

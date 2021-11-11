@@ -1,4 +1,4 @@
-import { ReactNode } from "react";
+import { ReactNode, SyntheticEvent } from "react";
 
 export interface FeaturedContentSidebarBaseProps {
     /** title of sidebar */
@@ -17,7 +17,7 @@ export enum SidebarPosition {
     Right = "right"
 }
 
-type HeaderOptions = {
+export type HeaderOptions = {
     /** title that appears on the item group */
     title?: string;
     /** open link in new tab */
@@ -35,19 +35,23 @@ export interface FeaturedContentContentProps {
     headerOptions?: HeaderOptions;
     /** add applicaple item to queue event handler */
     onAddedToQueue: (item: FeaturedContentContentItem) => Promise<void>;
+    /** on item click event handler */
+    onClick: (evt: SyntheticEvent, item: FeaturedContentContentItem) => void;
     /** children */
     children: ReactNode;
 }
 
 export type FeaturedContentContentItemRibbon = {
     /** background color */
-    bgColor: string;
+    bgColor?: string;
     /** text color */
-    contrastColor: string;
+    contrastColor?: string;
     /** corner color */
-    darkerColor: string;
+    darkerColor?: string;
     /** label */
-    label: string;
+    label?: string;
+    /** slug */
+    slug: string;
 }
 
 export type FeaturedContentContentItem = {
@@ -64,7 +68,7 @@ export type FeaturedContentContentItem = {
     /** is completed flag */
     isCompleted?: boolean;
     /** start date of course */
-    courseStartDate?: string;
+    courseStartDate?: Date;
     /** label for content type */
     contentTypeLabel?: string;
     /** source */
@@ -76,7 +80,7 @@ export type FeaturedContentContentItem = {
     /** rating (from 0 to 100) */
     rating?: number;
     /** can item be added to queue */
-    canAddToQueue: boolean;
+    canAddToQueue?: boolean;
     /** active status */
     isActive?: boolean;
     /** call to action text */
@@ -89,20 +93,26 @@ export type FeaturedContentContentItem = {
     suggestedRetailPriceInCents?: number;
     /** ribbon */
     ribbon?: FeaturedContentContentItemRibbon;
+    /** content item kind */
+    kind?: string;
+    /** slug */
+    slug?: string;
+    /** display course id */
+    displayCourse?: string;
 }
 
 export interface FeaturedContentContentItemProps {
-    /** key index of content item */
-    key?: string;
     /** featured content item payload */
     item: FeaturedContentContentItem;
 }
 
-export interface FeaturedContentContentDefaultContextType {
+export interface FeaturedContentTileStandardLayoutContextType {
     /** row item count in desktop view */
     desktopColumnCount: number;
     /** add applicaple item to queue event handler */
     onAddedToQueue: (item: FeaturedContentContentItem) => Promise<void>;
+    /** on item click event handler */
+    onClick: (evt: SyntheticEvent, item: FeaturedContentContentItem) => void;
 }
 
 export interface FeaturedContentProps {

@@ -6,45 +6,47 @@ import React, {
     useState, 
     SyntheticEvent
 } from "react";
-import { format, parseISO } from "date-fns";
-import { Header } from "@thoughtindustries/header";
+import { format } from "date-fns";
 import { 
     FeaturedContentContentProps,
     FeaturedContentContentItemProps,
     FeaturedContentContentItem,
-    FeaturedContentContentDefaultContextType,
+    FeaturedContentTileStandardLayoutContextType,
     FeaturedContentContentItemRibbon
 } from "../../types";
+import ContentWrapper from "./wrapper";
 
-const ContentDefaultContext = createContext<FeaturedContentContentDefaultContextType | undefined>(undefined);
+const ContentTileStandardLayoutContext = createContext<FeaturedContentTileStandardLayoutContextType | undefined>(undefined);
 
-function useContentDefaultContext() {
-    const context = useContext(ContentDefaultContext);
+function useContentTileStandardLayoutContext() {
+    const context = useContext(ContentTileStandardLayoutContext);
     if (!context) {
-        throw new Error("No context found for ContentDefault");
+        throw new Error("No context found for ContentTileStandardLayout");
     }
     return context;
 }
 
-const ContentDefault = ({
+const ContentTileStandardLayout = ({
     headerOptions = {},
     desktopColumnCount,
     children,
     onAddedToQueue,
+    onClick,
 }: FeaturedContentContentProps): JSX.Element => {
-    const { title, ...restHeaderProps } = headerOptions;
     const value = useMemo(() => ({
         desktopColumnCount,
-        onAddedToQueue
-    }), [desktopColumnCount, onAddedToQueue]);
+        onAddedToQueue,
+        onClick
+    }), [desktopColumnCount, onAddedToQueue, onClick]);
 
     return (
-        <ContentDefaultContext.Provider value={value}>
-            {title && <Header title={title} {...restHeaderProps} alternateTitleDisplay />}
-            <ul className={`grid grid-cols-1 md:grid-cols-${desktopColumnCount} gap-5`}>
-                {children}
-            </ul>
-        </ContentDefaultContext.Provider>
+        <ContentTileStandardLayoutContext.Provider value={value}>
+            <ContentWrapper headerOptions={headerOptions}>
+                <ul className={`grid grid-cols-1 md:grid-cols-${desktopColumnCount} gap-5`}>
+                    {children}
+                </ul>
+            </ContentWrapper>
+        </ContentTileStandardLayoutContext.Provider>
     );
 }
 
@@ -70,7 +72,7 @@ const ItemTitleBlock = ({
     courseStartDate
 }: { 
     title: string, 
-    courseStartDate?: string
+    courseStartDate?: Date
 }) => (
     <p className="mb-1">
         {title}
@@ -78,7 +80,7 @@ const ItemTitleBlock = ({
             <>
                 <br />
                 <span className="text-xs text-gray-700">
-                    {format(parseISO(courseStartDate), "MM/dd/yyyy")}
+                    {format(courseStartDate, "MM/dd/yyyy")}
                 </span>
             </>
         )}
@@ -239,7 +241,6 @@ const ItemPriceBlock = ({
 }
 
 const Item = ({
-    key,
     item
 }: FeaturedContentContentItemProps): JSX.Element => {
     const {
@@ -262,10 +263,20 @@ const Item = ({
         hasAvailability,
         suggestedRetailPriceInCents
     } = item;
-    const { onAddedToQueue, desktopColumnCount } = useContentDefaultContext();
+    const { onAddedToQueue, onClick, desktopColumnCount } = useContentTileStandardLayoutContext();
     const itemIsActiveOrWebinarOrEvent = !!isActive;
-    const linkProps: { className: string, href?: string, target?: string } = {
+
+    const handleClick = useCallback((evt: SyntheticEvent) => {
+        onClick(evt, item);
+    }, []);
+    const linkProps: { 
+        className: string, 
+        href?: string, 
+        onClick: (evt: SyntheticEvent) => void, 
+        target?: string
+    } = {
         href: linkUrl,
+        onClick: handleClick,
         className: `block text-gray-800 ${!itemIsActiveOrWebinarOrEvent ? "cursor-default" : ""}`
     };
     if (linkOpenInNewTab) {
@@ -277,10 +288,9 @@ const Item = ({
         " md:grid-cols-2 md:gap-x-2" : "";
     const assetWrapperDesktopClassnames = columnCountIsOneOrTwo ?
         " md:p-2" : "";
-    
 
     return (
-        <li key={key}>
+        <li>
             <a {...linkProps}>
                 <div className={`grid grid-cols-1${gridItemDesktopClassnames} border border-solid border-gray-300 relative`}>
                     {ribbon && <ItemRibbon ribbon={ribbon} attached />}
@@ -329,7 +339,7 @@ const Item = ({
     )
 };
 
-ContentDefault.displayName = "ContentDefault";
-ContentDefault.Item = Item;
+ContentTileStandardLayout.displayName = "ContentTileStandardLayout";
+ContentTileStandardLayout.Item = Item;
 
-export default ContentDefault;
+export default ContentTileStandardLayout;
