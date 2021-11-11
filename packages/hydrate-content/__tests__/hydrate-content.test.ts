@@ -3,6 +3,7 @@ import { hydrateContent, ContentKind } from "../src";
 describe('@thoughtindustries/hydrate-content/hydrateContent', () => {
     const courseStartDate = new Date(2020, 0, 1, 12);
     const baseContentItem = {
+        id: "test-item",
         coursePresold: false,
         courseGracePeriodEnded: false,
         courseStartDate,

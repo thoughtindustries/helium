@@ -29,7 +29,23 @@ export enum AlternativePricingType {
     Membership = "membership"
 }
 
+export type Ribbon = {
+    /** background color */
+    bgColor?: string;
+    /** text color */
+    contrastColor?: string;
+    /** corner color */
+    darkerColor?: string;
+    /** label */
+    label?: string;
+    /** slug */
+    slug: string;
+}
+
 export interface ContentItem {
+    id: string;
+    asset?: string;
+    authors?: string[];
     currentUserUnmetCoursePrerequisites?: string[];
     currentUserUnmetLearningPathPrerequisites?: string[];
     coursePresold: boolean;
@@ -51,6 +67,12 @@ export interface ContentItem {
     alternativePricingType?: AlternativePricingType;
     priceInCents?: number;
     suggestedRetailPriceInCents?: number;
+    canAddToQueue?: boolean;
+    description?: string;
+    rating?: number;
+    title?: string;
+    source?: string;
+    ribbon?: Ribbon;
 }
 
 export interface HydratedContentItem extends ContentItem {
