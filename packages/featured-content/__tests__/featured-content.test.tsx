@@ -1,4 +1,4 @@
-import React, { SyntheticEvent } from "react";
+import React from "react";
 import { render, waitFor } from "@testing-library/react";
 import { MockedProvider } from "@apollo/client/testing";
 import {
@@ -79,11 +79,6 @@ const handleAddedToQueue = (
   return Promise.resolve();
 };
 
-const handleClick = (
-  evt: SyntheticEvent,
-  item: FeaturedContentContentItem
-): void => {};
-
 describe("@thoughtindustries/featured-content", () => {
   describe("FeaturedContent", () => {
     it("should render", () => {
@@ -93,7 +88,6 @@ describe("@thoughtindustries/featured-content", () => {
             headerOptions={headerOptions}
             desktopColumnCount={3}
             onAddedToQueue={handleAddedToQueue}
-            onClick={handleClick}
           >
             <ContentTileStandardLayout.Item item={mockItems.dynamic} />
             <ContentTileStandardLayout.Item item={mockItems.manual} />
@@ -437,7 +431,6 @@ describe("@thoughtindustries/featured-content", () => {
               headerOptions={headerOptions}
               desktopColumnCount={2}
               onAddedToQueue={handleAddedToQueue}
-              onClick={handleClick}
             >
               <ContentTileStandardLayout.Item item={mockItems.manual} />
               <ContentTileStandardLayout.Item item={mockItems.manual} />
@@ -705,7 +698,6 @@ describe("@thoughtindustries/featured-content", () => {
           headerOptions={headerOptions}
           desktopColumnCount={2}
           onAddedToQueue={handleAddedToQueue}
-          onClick={handleClick}
         >
           <ContentTileStandardLayout.Item item={mockItems.manual} />
         </ContentTileStandardLayout>

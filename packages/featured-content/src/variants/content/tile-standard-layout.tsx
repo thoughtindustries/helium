@@ -267,7 +267,7 @@ const Item = ({
     const itemIsActiveOrWebinarOrEvent = !!isActive;
 
     const handleClick = useCallback((evt: SyntheticEvent) => {
-        onClick(evt, item);
+        onClick && onClick(evt, item);
     }, []);
     const linkProps: { 
         className: string, 

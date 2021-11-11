@@ -35,8 +35,8 @@ export interface FeaturedContentContentProps {
     headerOptions?: HeaderOptions;
     /** add applicaple item to queue event handler */
     onAddedToQueue: (item: FeaturedContentContentItem) => Promise<void>;
-    /** on item click event handler */
-    onClick: (evt: SyntheticEvent, item: FeaturedContentContentItem) => void;
+    /** optional on item click event handler */
+    onClick?: (evt: SyntheticEvent, item: FeaturedContentContentItem) => void;
     /** children */
     children: ReactNode;
 }
@@ -111,8 +111,8 @@ export interface FeaturedContentTileStandardLayoutContextType {
     desktopColumnCount: number;
     /** add applicaple item to queue event handler */
     onAddedToQueue: (item: FeaturedContentContentItem) => Promise<void>;
-    /** on item click event handler */
-    onClick: (evt: SyntheticEvent, item: FeaturedContentContentItem) => void;
+    /** optional on item click event handler */
+    onClick?: (evt: SyntheticEvent, item: FeaturedContentContentItem) => void;
 }
 
 export interface FeaturedContentProps {

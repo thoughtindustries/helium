@@ -78,15 +78,12 @@ const handleAddedToQueue = (item: FeaturedContentContentItem): Promise<void> => 
   return Promise.resolve();
 }
 
-const handleClick = (evt: SyntheticEvent, item: FeaturedContentContentItem): void => {}
-
 export const TileStandardLayout = () => (
   <FeaturedContent>
     <ContentTileStandardLayout 
       headerOptions={headerOptions} 
       desktopColumnCount={3} 
       onAddedToQueue={handleAddedToQueue}
-      onClick={handleClick}
     >
       <ContentTileStandardLayout.Item item={mockItems.dynamic} />
       <ContentTileStandardLayout.Item item={mockItems.manual} />
@@ -104,7 +101,6 @@ export const withLeftSidebar = () => (
       headerOptions={headerOptions} 
       desktopColumnCount={2} 
       onAddedToQueue={handleAddedToQueue}
-      onClick={handleClick}
     >
       <ContentTileStandardLayout.Item item={mockItems.manual} />
       <ContentTileStandardLayout.Item item={mockItems.manual} />
@@ -128,7 +124,6 @@ export const withRightSidebar = () => (
       headerOptions={headerOptions} 
       desktopColumnCount={2} 
       onAddedToQueue={handleAddedToQueue}
-      onClick={handleClick}
     >
       <ContentTileStandardLayout.Item item={mockItems.manual} />
       <ContentTileStandardLayout.Item item={mockItems.manual} />
