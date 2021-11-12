@@ -1,14 +1,14 @@
-import React from "react";
-import { render } from "@testing-library/react";
-import { Header, HeaderProps } from "../src";
+import React from 'react';
+import { render } from '@testing-library/react';
+import { Header, HeaderProps } from '../src';
 
 const setupProps = (alternateTitleDisplay: boolean = false): HeaderProps => ({
-  title: "Header title",
-  alternateTitleDisplay,
+  title: 'Header title',
+  alternateTitleDisplay
 });
 
-describe("@thoughtindustries/header", () => {
-  it("should render", () => {
+describe('@thoughtindustries/header', () => {
+  it('should render', () => {
     const props: HeaderProps = setupProps();
     const { container } = render(<Header {...props} />);
     expect(container).toMatchInlineSnapshot(`
@@ -22,7 +22,7 @@ describe("@thoughtindustries/header", () => {
     `);
   });
 
-  it("should render alternate header", () => {
+  it('should render alternate header', () => {
     const props: HeaderProps = setupProps(true);
     const { container } = render(<Header {...props} />);
     expect(container).toMatchInlineSnapshot(`

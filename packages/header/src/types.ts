@@ -1,4 +1,4 @@
 export interface HeaderProps {
-    title: string, 
-    alternateTitleDisplay?: boolean
+  title: string;
+  alternateTitleDisplay?: boolean;
 }

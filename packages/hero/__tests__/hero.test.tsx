@@ -1,16 +1,16 @@
-import React from "react";
-import { render } from "@testing-library/react";
-import { Hero, HeroProps } from "../src";
+import React from 'react';
+import { render } from '@testing-library/react';
+import { Hero, HeroProps } from '../src';
 
-describe("@thoughtindustries/hero", () => {
-  it("should render", () => {
+describe('@thoughtindustries/hero', () => {
+  it('should render', () => {
     const props: HeroProps = {
-      title: "Title text",
-      subtitle: "Subtitle text",
-      asset: "https://asset.com/1.png",
-      linkText: "This is a link",
-      linkUrl: "https://www.google.com",
-      linkOpenInNewTab: true,
+      title: 'Title text',
+      subtitle: 'Subtitle text',
+      asset: 'https://asset.com/1.png',
+      linkText: 'This is a link',
+      linkUrl: 'https://www.google.com',
+      linkOpenInNewTab: true
     };
     const { container } = render(<Hero {...props} />);
     expect(container).toMatchInlineSnapshot(`
