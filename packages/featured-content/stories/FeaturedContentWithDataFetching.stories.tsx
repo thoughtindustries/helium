@@ -218,35 +218,26 @@ const mockApolloResults = {
 }
 
 export const withCatalogQuery = () => {
-    const [updateLearningPathAccess, { error: updateLPaccessError }] = useMutation<
+    const [updateLearningPathAccess] = useMutation<
         UpdateLearningPathAccessData,
         UpdateLearningPathAccessVars
     >(UPDATE_LEARNING_PATH_ACCESS_MUTATION);
-    const [addCourseToQueue, { error: addCourseToQueueError }] = useMutation<
+    const [addCourseToQueue] = useMutation<
         AddCourseToQueMutationData,
         AddCourseToQueMutationVars
     >(ADD_COURSE_TO_QUEUE_MUTATION);
     const handleAddedToQueue = (item: FeaturedContentContentItem): Promise<void> => {
-        return new Promise((resolve, reject) => {
-            if (item.kind === "learningPath") {
-                updateLearningPathAccess({
-                    variables: {
-                        slug: item.slug as any,
-                        status: 'not-started'
-                    }
-                })
-            } else {
-                addCourseToQueue({
-                    variables: { courseId: item.displayCourse as any }
-                })
-            }
-
-            if (updateLPaccessError || addCourseToQueueError) {
-                reject(updateLPaccessError || addCourseToQueueError)
-            }
-
-            resolve();
-        });
+        if (item.kind === "learningPath") {
+            return updateLearningPathAccess({
+                variables: {
+                    slug: item.slug as any,
+                    status: 'not-started'
+                }
+            }).then();
+        } 
+        return addCourseToQueue({
+            variables: { courseId: item.displayCourse as any }
+        }).then();
     }
 
     const { data, loading, error } = useQuery<CatalogQueryData, CatalogQueryVars>(
@@ -293,35 +284,27 @@ withCatalogQuery.parameters = {
 }
 
 export const withQueryContentsQuery = () => {
-    const [updateLearningPathAccess, { error: updateLPaccessError }] = useMutation<
+    const [updateLearningPathAccess] = useMutation<
         UpdateLearningPathAccessData,
         UpdateLearningPathAccessVars
     >(UPDATE_LEARNING_PATH_ACCESS_MUTATION);
-    const [addCourseToQueue, { error: addCourseToQueueError }] = useMutation<
+    const [addCourseToQueue] = useMutation<
         AddCourseToQueMutationData,
         AddCourseToQueMutationVars
     >(ADD_COURSE_TO_QUEUE_MUTATION);
     const handleAddedToQueue = (item: FeaturedContentContentItem): Promise<void> => {
-        return new Promise((resolve, reject) => {
-            if (item.kind === "learningPath") {
-                updateLearningPathAccess({
-                    variables: {
-                        slug: item.slug as any,
-                        status: 'not-started'
-                    }
-                })
-            } else {
-                addCourseToQueue({
-                    variables: { courseId: item.displayCourse as any }
-                })
-            }
-
-            if (updateLPaccessError || addCourseToQueueError) {
-                reject(updateLPaccessError || addCourseToQueueError)
-            }
-
-            resolve();
-        });
+        if (item.kind === "learningPath") {
+            return updateLearningPathAccess({
+                variables: {
+                    slug: item.slug as any,
+                    status: 'not-started'
+                }
+            }).then();
+        }
+        
+        return addCourseToQueue({
+            variables: { courseId: item.displayCourse as any }
+        }).then();
     }
 
     const { data, loading, error } = useQuery<QueryContentsData, QueryContentsVars>(
