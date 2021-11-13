@@ -261,7 +261,7 @@ export const withCatalogQuery = () => {
                 shortDescription: description && `${description.substring(0, 75)} ...`,
                 linkUrl: href
             }
-            return <ContentTileStandardLayout.Item key={`item-${index}`} item={transformedItem} />
+            return <ContentTileStandardLayout.Item key={`item-${index}`} {...transformedItem} />
         })
     }
     return (
@@ -328,7 +328,7 @@ export const withQueryContentsQuery = () => {
                 shortDescription: description && `${description.substring(0, 75)} ...`,
                 linkUrl: href
             }
-            return <ContentTileStandardLayout.Item key={`item-${index}`} item={transformedItem} />
+            return <ContentTileStandardLayout.Item key={`item-${index}`} {...transformedItem} />
         })
     }
     return (

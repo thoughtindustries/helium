@@ -89,10 +89,10 @@ describe("@thoughtindustries/featured-content", () => {
             desktopColumnCount={3}
             onAddedToQueue={handleAddedToQueue}
           >
-            <ContentTileStandardLayout.Item item={mockItems.dynamic} />
-            <ContentTileStandardLayout.Item item={mockItems.manual} />
-            <ContentTileStandardLayout.Item item={mockItems.manual} />
-            <ContentTileStandardLayout.Item item={mockItems.manual} />
+            <ContentTileStandardLayout.Item {...mockItems.dynamic} />
+            <ContentTileStandardLayout.Item {...mockItems.manual} />
+            <ContentTileStandardLayout.Item {...mockItems.manual} />
+            <ContentTileStandardLayout.Item {...mockItems.manual} />
           </ContentTileStandardLayout>
         </FeaturedContent>
       );
@@ -432,8 +432,8 @@ describe("@thoughtindustries/featured-content", () => {
               desktopColumnCount={2}
               onAddedToQueue={handleAddedToQueue}
             >
-              <ContentTileStandardLayout.Item item={mockItems.manual} />
-              <ContentTileStandardLayout.Item item={mockItems.manual} />
+              <ContentTileStandardLayout.Item {...mockItems.manual} />
+              <ContentTileStandardLayout.Item {...mockItems.manual} />
             </ContentTileStandardLayout>
           </FeaturedContent>
         </MockedProvider>
@@ -687,7 +687,7 @@ describe("@thoughtindustries/featured-content", () => {
         .spyOn(global.console, "error")
         .mockImplementation(jest.fn());
       expect(() =>
-        render(<ContentTileStandardLayout.Item item={mockItems.manual} />)
+        render(<ContentTileStandardLayout.Item {...mockItems.manual} />)
       ).toThrowError();
       spy.mockRestore();
     });
@@ -699,7 +699,7 @@ describe("@thoughtindustries/featured-content", () => {
           desktopColumnCount={2}
           onAddedToQueue={handleAddedToQueue}
         >
-          <ContentTileStandardLayout.Item item={mockItems.manual} />
+          <ContentTileStandardLayout.Item {...mockItems.manual} />
         </ContentTileStandardLayout>
       );
       expect(container).toMatchInlineSnapshot(`

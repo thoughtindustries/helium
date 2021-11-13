@@ -1,4 +1,4 @@
-import React, { SyntheticEvent } from 'react';
+import React from 'react';
 import {
     FeaturedContent,
     SidebarRss,
@@ -85,10 +85,10 @@ export const TileStandardLayout = () => (
       desktopColumnCount={3} 
       onAddedToQueue={handleAddedToQueue}
     >
-      <ContentTileStandardLayout.Item item={mockItems.dynamic} />
-      <ContentTileStandardLayout.Item item={mockItems.manual} />
-      <ContentTileStandardLayout.Item item={mockItems.manual} />
-      <ContentTileStandardLayout.Item item={mockItems.manual} />
+      <ContentTileStandardLayout.Item {...mockItems.dynamic} />
+      <ContentTileStandardLayout.Item {...mockItems.manual} />
+      <ContentTileStandardLayout.Item {...mockItems.manual} />
+      <ContentTileStandardLayout.Item {...mockItems.manual} />
     </ContentTileStandardLayout>
   </FeaturedContent>
 )
@@ -102,9 +102,9 @@ export const withLeftSidebar = () => (
       desktopColumnCount={2} 
       onAddedToQueue={handleAddedToQueue}
     >
-      <ContentTileStandardLayout.Item item={mockItems.manual} />
-      <ContentTileStandardLayout.Item item={mockItems.manual} />
-      <ContentTileStandardLayout.Item item={mockItems.manual} />
+      <ContentTileStandardLayout.Item {...mockItems.manual} />
+      <ContentTileStandardLayout.Item {...mockItems.manual} />
+      <ContentTileStandardLayout.Item {...mockItems.manual} />
     </ContentTileStandardLayout>
   </FeaturedContent>
 )
@@ -125,9 +125,9 @@ export const withRightSidebar = () => (
       desktopColumnCount={2} 
       onAddedToQueue={handleAddedToQueue}
     >
-      <ContentTileStandardLayout.Item item={mockItems.manual} />
-      <ContentTileStandardLayout.Item item={mockItems.manual} />
-      <ContentTileStandardLayout.Item item={mockItems.manual} />
+      <ContentTileStandardLayout.Item {...mockItems.manual} />
+      <ContentTileStandardLayout.Item {...mockItems.manual} />
+      <ContentTileStandardLayout.Item {...mockItems.manual} />
     </ContentTileStandardLayout>
   </FeaturedContent>
 )

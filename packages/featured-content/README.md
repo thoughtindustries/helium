@@ -29,9 +29,9 @@ import {
 # Tile standard layout
 <FeaturedContent>
     <ContentTileStandardLayout headerOptions={...headerOptions} desktopColumnCount={3} onAddedToQueue={(item) => Promise.resolve()}>
-        <ContentTileStandardLayout.Item item={...itemOne} />
-        <ContentTileStandardLayout.Item item={...itemOne} />
-        <ContentTileStandardLayout.Item item={...itemOne} />
+        <ContentTileStandardLayout.Item {...itemOne} />
+        <ContentTileStandardLayout.Item {...itemTwo} />
+        <ContentTileStandardLayout.Item {...itemThree} />
     </ContentTileStandardLayout>
 </FeaturedContent>
 
@@ -40,9 +40,9 @@ import {
     <SidebarRss title="RSS" feedUrl="https://foo.com/rss" />
 } sidebarPosition={SidebarPosition.Left}>
     <ContentTileStandardLayout headerOptions={...headerOptions} desktopColumnCount={3} onAddedToQueue={(item) => Promise.resolve()}>
-        <ContentTileStandardLayout.Item item={...itemOne} />
-        <ContentTileStandardLayout.Item item={...itemOne} />
-        <ContentTileStandardLayout.Item item={...itemOne} />
+        <ContentTileStandardLayout.Item {...itemOne} />
+        <ContentTileStandardLayout.Item {...itemTwo} />
+        <ContentTileStandardLayout.Item {...itemThree} />
     </ContentTileStandardLayout>
 </FeaturedContent>
 
@@ -53,9 +53,9 @@ import {
     </SidebarDefault>
 } sidebarPosition={SidebarPosition.Left}>
     <ContentTileStandardLayout headerOptions={...headerOptions} desktopColumnCount={3} onAddedToQueue={(item) => Promise.resolve()}>
-        <ContentTileStandardLayout.Item item={...itemOne} />
-        <ContentTileStandardLayout.Item item={...itemOne} />
-        <ContentTileStandardLayout.Item item={...itemOne} />
+        <ContentTileStandardLayout.Item {...itemOne} />
+        <ContentTileStandardLayout.Item {...itemTwo} />
+        <ContentTileStandardLayout.Item {...itemThree} />
     </ContentTileStandardLayout>
 </FeaturedContent>
 ```

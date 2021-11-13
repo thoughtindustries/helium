@@ -241,7 +241,7 @@ const ItemPriceBlock = ({
 }
 
 const Item = ({
-    item
+    ...item
 }: FeaturedContentContentItemProps): JSX.Element => {
     const {
         linkOpenInNewTab,

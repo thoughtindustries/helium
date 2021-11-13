@@ -101,10 +101,7 @@ export type FeaturedContentContentItem = {
     displayCourse?: string;
 }
 
-export interface FeaturedContentContentItemProps {
-    /** featured content item payload */
-    item: FeaturedContentContentItem;
-}
+export interface FeaturedContentContentItemProps extends FeaturedContentContentItem {}
 
 export interface FeaturedContentTileStandardLayoutContextType {
     /** row item count in desktop view */
