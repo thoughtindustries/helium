@@ -33,7 +33,7 @@ const LAMBDA_QUERY = `
   }
 `;
 
-(async function() {
+(async function () {
   const instance = findTIInstance();
 
   if (!instance) {
@@ -96,10 +96,7 @@ async function hashGraphqlQueries() {
 
 function hashQuery(querySource) {
   const query = print(parse(querySource));
-  const hash = crypto
-    .createHash('sha256')
-    .update(query)
-    .digest('hex');
+  const hash = crypto.createHash('sha256').update(query).digest('hex');
 
   return { hash, query };
 }

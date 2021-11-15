@@ -14,10 +14,7 @@ const createCli = argv => {
     .alias(`h`, `help`)
     .alias(`v`, `version`);
 
-  return cli
-    .commandDir('command-modules')
-    .wrap(cli.terminalWidth())
-    .parse();
+  return cli.commandDir('command-modules').wrap(cli.terminalWidth()).parse();
 };
 
 createCli(process.argv);
