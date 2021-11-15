@@ -27,7 +27,7 @@
     "crypto-hash": "^2.0.0",
     "express": "^4.17.1",
     "form-data": "^4.0.0",
-    "graphql": "^15.0.0",
+    "graphql": "^16.0.0",
     "i18next": "^21.4.2",
     "isomorphic-unfetch": "^3.1.0",
     "jwt-decode": "^3.1.2",
