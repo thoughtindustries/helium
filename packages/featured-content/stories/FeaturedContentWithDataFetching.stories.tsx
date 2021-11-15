@@ -83,30 +83,17 @@ const QUERY_CONTENTS_QUERY = gql`
   }
 `;
 
-// mutation for AddCourseToQueue
-interface AddCourseToQueMutationData {
-  AddCourseToQueue: boolean;
+// mutation for AddResourceToQueue
+interface AddResourceToQueueMutationData {
+  AddResourceToQueue: boolean;
 }
-interface AddCourseToQueMutationVars {
-  courseId: string;
+interface AddResourceToQueueMutationVars {
+  resourceId: string;
+  resourceType?: ContentKind;
 }
-const ADD_COURSE_TO_QUEUE_MUTATION = gql`
-  mutation AddCourseToQueueMutation($courseId: ID!) {
-    AddCourseToQueue(courseId: $courseId)
-  }
-`;
-
-// mutation for UpdateLearningPathAccess
-interface UpdateLearningPathAccessData {
-  UpdateLearningPathAccess: boolean;
-}
-interface UpdateLearningPathAccessVars {
-  slug: string;
-  status: string;
-}
-const UPDATE_LEARNING_PATH_ACCESS_MUTATION = gql`
-  mutation UpdateLearningPathAccessMutation($slug: Slug!, $status: String!) {
-    UpdateLearningPathAccess(slug: $slug, status: $status)
+const ADD_RESOURCE_TO_QUEUE_MUTATION = gql`
+  mutation AddResourceToQueueMutation($resourceType: ContentKind, $resourceId: ID!) {
+    AddResourceToQueue(resourceType: $resourceType, resourceId: $resourceId)
   }
 `;
 
@@ -170,49 +157,35 @@ const mockApolloResults = {
   },
   addCourseToQueueMutation: {
     request: {
-      query: ADD_COURSE_TO_QUEUE_MUTATION,
-      variables: { courseId: 'display-course-id' }
+      query: ADD_RESOURCE_TO_QUEUE_MUTATION,
+      variables: { resourceId: 'display-course-id' }
     },
     result: {
       data: {
-        AddCourseToQueue: true
+        AddResourceToQueue: true
       }
     }
   },
-  updateLearningPathAccessMutation: {
+  addLearningPathToQueueMutation: {
     request: {
-      query: UPDATE_LEARNING_PATH_ACCESS_MUTATION,
-      variables: { slug: 'perverted-rabbit-warfare', status: 'not-started' }
+      query: ADD_RESOURCE_TO_QUEUE_MUTATION,
+      variables: { resourceId: 'perverted-rabbit-warfare', resourceType: ContentKind.LearningPath }
     },
     result: {
       data: {
-        UpdateLearningPathAccess: true
+        AddResourceToQueue: true
       }
     }
   }
 };
 
 export const withCatalogQuery = () => {
-  const [updateLearningPathAccess] = useMutation<
-    UpdateLearningPathAccessData,
-    UpdateLearningPathAccessVars
-  >(UPDATE_LEARNING_PATH_ACCESS_MUTATION);
-  const [addCourseToQueue] = useMutation<AddCourseToQueMutationData, AddCourseToQueMutationVars>(
-    ADD_COURSE_TO_QUEUE_MUTATION
-  );
-  const handleAddedToQueue = (item: FeaturedContentContentItem): Promise<void> => {
-    if (item.kind === 'learningPath') {
-      return updateLearningPathAccess({
-        variables: {
-          slug: item.slug as any,
-          status: 'not-started'
-        }
-      }).then();
-    }
-    return addCourseToQueue({
-      variables: { courseId: item.displayCourse as any }
-    }).then();
-  };
+  const [addResourceToQueue] = useMutation<
+    AddResourceToQueueMutationData,
+    AddResourceToQueueMutationVars
+  >(ADD_RESOURCE_TO_QUEUE_MUTATION);
+  const handleAddedToQueue = (item: FeaturedContentContentItem): Promise<void> =>
+    addResourceToQueue({ variables: { resourceId: item.displayCourse as any } }).then();
 
   const { data, loading, error } = useQuery<CatalogQueryData, CatalogQueryVars>(
     CATLOG_QUERY_QUERY,
@@ -258,27 +231,17 @@ withCatalogQuery.parameters = {
 };
 
 export const withQueryContentsQuery = () => {
-  const [updateLearningPathAccess] = useMutation<
-    UpdateLearningPathAccessData,
-    UpdateLearningPathAccessVars
-  >(UPDATE_LEARNING_PATH_ACCESS_MUTATION);
-  const [addCourseToQueue] = useMutation<AddCourseToQueMutationData, AddCourseToQueMutationVars>(
-    ADD_COURSE_TO_QUEUE_MUTATION
-  );
-  const handleAddedToQueue = (item: FeaturedContentContentItem): Promise<void> => {
-    if (item.kind === 'learningPath') {
-      return updateLearningPathAccess({
-        variables: {
-          slug: item.slug as any,
-          status: 'not-started'
-        }
-      }).then();
-    }
-
-    return addCourseToQueue({
-      variables: { courseId: item.displayCourse as any }
+  const [addResourceToQueue] = useMutation<
+    AddResourceToQueueMutationData,
+    AddResourceToQueueMutationVars
+  >(ADD_RESOURCE_TO_QUEUE_MUTATION);
+  const handleAddedToQueue = (item: FeaturedContentContentItem): Promise<void> =>
+    addResourceToQueue({
+      variables: {
+        resourceType: item.kind as any,
+        resourceId: item.slug as any
+      }
     }).then();
-  };
 
   const { data, loading, error } = useQuery<QueryContentsData, QueryContentsVars>(
     QUERY_CONTENTS_QUERY,
@@ -319,9 +282,6 @@ export const withQueryContentsQuery = () => {
 };
 withQueryContentsQuery.parameters = {
   apolloClient: {
-    mocks: [
-      mockApolloResults.queryContentsQuery,
-      mockApolloResults.updateLearningPathAccessMutation
-    ]
+    mocks: [mockApolloResults.queryContentsQuery, mockApolloResults.addLearningPathToQueueMutation]
   }
 };
