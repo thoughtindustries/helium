@@ -1,6 +1,7 @@
 import React from 'react'
 import { gql, useQuery } from "@apollo/client";
 import { Counter } from "./Counter";
+import { useTranslation } from 'react-i18next';
 
 import { Hero } from '@thoughtindustries/hero';
 
@@ -22,6 +23,7 @@ const documentProps = {
 }
 
 function Page(pageProps) {
+  const { t } = useTranslation();
   const { data } = useQuery(query);
   const name = data && data.CompanyDetails ? data.CompanyDetails.name : 'No name';
   // const languages = data ? data.Languages : [];
@@ -34,7 +36,7 @@ function Page(pageProps) {
   return (
     <>
       <Hero img="https://d36ai2hkxl16us.cloudfront.net/thoughtindustries/image/upload/a_exif,c_lfill,h_150/v1494856803/krk0kc4dlidrctj7xddh.png" />
-      <h1 style={headerStyle}>Welcome, {name} </h1>
+      <h1 style={headerStyle}>{t('hello.user')}, {name} </h1>
       Testing the build and deploy process (now with meta!).
       <ul>
         <li className="text-accent">Rendered to HTML.</li>

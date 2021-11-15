@@ -5,6 +5,8 @@ import logoUrl from "./logo.svg";
 import { ApolloProvider } from "@apollo/client";
 import { renderToStringWithData } from "@apollo/client/react/ssr";
 import { getPageMeta } from './getPageMeta';
+import { I18nextProvider } from 'react-i18next';
+import i18n from './i18n';
 
 export { render };
 export { onBeforeRender };
@@ -39,11 +41,17 @@ async function onBeforeRender(pageContext) {
   const { Page, pageProps, apolloClient, appearance, currentUser } = pageContext;
   const documentProps = getPageMeta(pageContext);
 
+  if (currentUser && currentUser.lang) {
+    i18n.changeLanguage(currentUser.lang);
+  }
+
   const App = (
     <ApolloProvider client={apolloClient}>
-      <PageWrapper pageContext={pageContext}>
-        <Page {...pageProps} appearance={appearance} currentUser={currentUser} />
-      </PageWrapper>
+      <I18nextProvider i18n={i18n}>
+        <PageWrapper pageContext={pageContext}>
+          <Page {...pageProps} appearance={appearance} currentUser={currentUser} />
+        </PageWrapper>
+      </I18nextProvider>
     </ApolloProvider>
   );
 
