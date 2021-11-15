@@ -24,7 +24,7 @@ exports.builder = cmd => {
     });
 };
 
-exports.handler = function(argv) {
+exports.handler = function (argv) {
   const exec = childProcess.exec;
   const instance = findTiInstance(argv.instance);
   const heliumUrl = `${instance.instanceUrl}/helium?apiKey=${instance.apiKey}`;

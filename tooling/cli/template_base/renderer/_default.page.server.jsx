@@ -1,9 +1,9 @@
-import React from "react";
-import { PageWrapper } from "./PageWrapper";
-import { escapeInject, dangerouslySkipEscape } from "vite-plugin-ssr";
-import logoUrl from "./logo.svg";
-import { ApolloProvider } from "@apollo/client";
-import { renderToStringWithData } from "@apollo/client/react/ssr";
+import React from 'react';
+import { PageWrapper } from './PageWrapper';
+import { escapeInject, dangerouslySkipEscape } from 'vite-plugin-ssr';
+import logoUrl from './logo.svg';
+import { ApolloProvider } from '@apollo/client';
+import { renderToStringWithData } from '@apollo/client/react/ssr';
 import { getPageMeta } from './getPageMeta';
 import { I18nextProvider } from 'react-i18next';
 import i18n from './i18n';
@@ -12,15 +12,24 @@ export { render };
 export { onBeforeRender };
 
 // See https://vite-plugin-ssr.com/data-fetching
-export const passToClient = ["pageProps", "urlPathname", "apolloIntialState", "heliumEndpoint", "appearance", "documentProps", "currentUser", "isProduction"];
+export const passToClient = [
+  'pageProps',
+  'urlPathname',
+  'apolloIntialState',
+  'heliumEndpoint',
+  'appearance',
+  'documentProps',
+  'currentUser',
+  'isProduction'
+];
 
 async function render(pageContext) {
   const { pageHtml } = pageContext;
 
   // See https://vite-plugin-ssr.com/html-head
   const { documentProps } = pageContext;
-  const title = (documentProps && documentProps.title) || "Vite SSR app";
-  const desc = (documentProps && documentProps.description) || "App using Vite + vite-plugin-ssr";
+  const title = (documentProps && documentProps.title) || 'Vite SSR app';
+  const desc = (documentProps && documentProps.description) || 'App using Vite + vite-plugin-ssr';
 
   return escapeInject`<!DOCTYPE html>
     <html lang="en">

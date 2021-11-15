@@ -5,10 +5,7 @@ const { initProject } = require('./../file-generators');
 
 const promptQuestions = async questions => {
   return new Promise((resolve, reject) => {
-    inquirer
-      .prompt(questions)
-      .then(resolve)
-      .catch(reject);
+    inquirer.prompt(questions).then(resolve).catch(reject);
   });
 };
 
@@ -37,7 +34,7 @@ exports.builder = cmd => {
 
 exports.command = 'init [-k]';
 exports.describe = 'Create new TI Template Project';
-exports.handler = async function(argv) {
+exports.handler = async function (argv) {
   const { dir } = await promptQuestions(TARGET_DIR_QUESTION);
 
   if (argv.insecure) {

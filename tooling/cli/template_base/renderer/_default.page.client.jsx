@@ -1,15 +1,15 @@
-import ReactDOM from "react-dom";
-import React from "react";
-import { getPage } from "vite-plugin-ssr/client";
-import { PageWrapper } from "./PageWrapper";
-import { ApolloClient, InMemoryCache, ApolloProvider } from "@apollo/client";
-import { BatchHttpLink } from "@apollo/client/link/batch-http";
+import ReactDOM from 'react-dom';
+import React from 'react';
+import { getPage } from 'vite-plugin-ssr/client';
+import { PageWrapper } from './PageWrapper';
+import { ApolloClient, InMemoryCache, ApolloProvider } from '@apollo/client';
+import { BatchHttpLink } from '@apollo/client/link/batch-http';
 import { createPersistedQueryLink } from '@apollo/client/link/persisted-queries';
 import { sha256 } from 'crypto-hash';
 import { I18nextProvider } from 'react-i18next';
 import i18n from './i18n';
 
-import 'virtual:windi.css'
+import 'virtual:windi.css';
 
 hydrate();
 
@@ -17,7 +17,15 @@ async function hydrate() {
   // For Client Routing we should use `useClientRouter()` instead of `getPage()`.
   // See https://vite-plugin-ssr.com/useClientRouter
   const pageContext = await getPage();
-  const { Page, pageProps, heliumEndpoint, apolloIntialState, appearance, currentUser, isProduction } = pageContext;
+  const {
+    Page,
+    pageProps,
+    heliumEndpoint,
+    apolloIntialState,
+    appearance,
+    currentUser,
+    isProduction
+  } = pageContext;
   const apolloClient = makeApolloClient(heliumEndpoint, apolloIntialState, isProduction);
   
   if (currentUser && currentUser.lang) {
@@ -32,7 +40,7 @@ async function hydrate() {
         </PageWrapper>
       </I18nextProvider>
     </ApolloProvider>,
-    document.getElementById("page-view")
+    document.getElementById('page-view')
   );
 }
 
@@ -47,6 +55,6 @@ function makeApolloClient(heliumEndpoint, apolloIntialState, isProduction) {
 
   return new ApolloClient({
     link,
-    cache: new InMemoryCache().restore(apolloIntialState),
-  })
+    cache: new InMemoryCache().restore(apolloIntialState)
+  });
 }

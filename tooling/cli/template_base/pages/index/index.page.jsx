@@ -1,7 +1,7 @@
-import React from 'react'
-import { gql, useQuery } from "@apollo/client";
-import { Counter } from "./Counter";
+import React from 'react';
+import { gql, useQuery } from '@apollo/client';
 import { useTranslation } from 'react-i18next';
+import { Counter } from './Counter';
 
 import { Hero } from '@thoughtindustries/hero';
 
@@ -14,20 +14,20 @@ const query = gql`
       __typename
       name
     }
-}
-`
+  }
+`;
 
 const documentProps = {
   title: 'Home Page',
   description: 'The home page'
-}
+};
 
 function Page(pageProps) {
   const { t } = useTranslation();
   const { data } = useQuery(query);
   const name = data && data.CompanyDetails ? data.CompanyDetails.name : 'No name';
   // const languages = data ? data.Languages : [];
-  const languages = []
+  const languages = [];
   const { accentColor } = pageProps;
   const headerStyle = {
     color: accentColor
