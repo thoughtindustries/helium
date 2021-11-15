@@ -1,20 +1,20 @@
-import React from "react";
-import { render } from "@testing-library/react";
-import { Header, HeaderProps } from "../src";
+import React from 'react';
+import { render } from '@testing-library/react';
+import { Header, HeaderProps } from '../src';
 
 const setupProps = (
   alternateTitleDisplay: boolean = false,
   linkUrl?: string,
   linkText?: string
 ): HeaderProps => ({
-  title: "Header title",
+  title: 'Header title',
   alternateTitleDisplay,
   linkUrl,
-  linkText,
+  linkText
 });
 
-describe("@thoughtindustries/header", () => {
-  it("should render", () => {
+describe('@thoughtindustries/header', () => {
+  it('should render', () => {
     const props: HeaderProps = setupProps();
     const { container } = render(<Header {...props} />);
     expect(container).toMatchInlineSnapshot(`
@@ -28,7 +28,7 @@ describe("@thoughtindustries/header", () => {
     `);
   });
 
-  it("should render alternate header", () => {
+  it('should render alternate header', () => {
     const props: HeaderProps = setupProps(true);
     const { container } = render(<Header {...props} />);
     expect(container).toMatchInlineSnapshot(`
@@ -45,8 +45,8 @@ describe("@thoughtindustries/header", () => {
     `);
   });
 
-  it("should render alternate header with link", () => {
-    const props: HeaderProps = setupProps(true, "test", "/");
+  it('should render alternate header with link', () => {
+    const props: HeaderProps = setupProps(true, 'test', '/');
     const { container } = render(<Header {...props} />);
     expect(container).toMatchInlineSnapshot(`
       <div>

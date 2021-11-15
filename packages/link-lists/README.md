@@ -13,16 +13,16 @@ import { LinkLists, LinkList } from '@thoughtindustries/link-lists';
 ```
 # Base
 <LinkLists title="Dolor Nullam Mattis Sem">
-    <LinkList label="Category 1">
-        <LinkList.Link href="/subcategory-link1">List subcategory 1</LinkList.Link>
-    </LinkList>
+  <LinkList label="Category 1">
+    <LinkList.Link href="/subcategory-link1">List subcategory 1</LinkList.Link>
+  </LinkList>
 </LinkLists>
 
 # With display cutoff
 <LinkLists title="Dolor Nullam Mattis Sem">
-    <LinkList label="Category 1" displayCutoff={1}>
-        <LinkList.Link href="/subcategory-link1">List subcategory 1</LinkList.Link>
-        <LinkList.Link href="/subcategory-link2">List subcategory 2</LinkList.Link>
-    </LinkList>
+  <LinkList label="Category 1" displayCutoff={1}>
+    <LinkList.Link href="/subcategory-link1">List subcategory 1</LinkList.Link>
+    <LinkList.Link href="/subcategory-link2">List subcategory 2</LinkList.Link>
+  </LinkList>
 </LinkLists>
 ```

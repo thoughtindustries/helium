@@ -1,12 +1,9 @@
 import React from 'react';
-import {
-    LinkLists,
-    LinkList
-} from '../src';
+import { LinkLists, LinkList } from '../src';
 
 export default {
-  title: "Example/LinkLists"
-}
+  title: 'Example/LinkLists'
+};
 
 export const Base = () => (
   <LinkLists title="Dolor Nullam Mattis Sem">
@@ -32,7 +29,7 @@ export const Base = () => (
       <LinkList.Link href="/subcategory-link1">List subcategory 1</LinkList.Link>
     </LinkList>
   </LinkLists>
-)
+);
 
 export const withDisplayCutoff = () => (
   <LinkLists title="Dolor Nullam Mattis Sem" alternateTitleDisplay>
@@ -58,4 +55,4 @@ export const withDisplayCutoff = () => (
       <LinkList.Link href="/subcategory-link1">List subcategory 1</LinkList.Link>
     </LinkList>
   </LinkLists>
-)
+);

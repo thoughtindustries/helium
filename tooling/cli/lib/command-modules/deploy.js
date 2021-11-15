@@ -18,7 +18,7 @@ exports.builder = cmd => {
     });
 };
 
-exports.handler = function(argv) {
+exports.handler = function (argv) {
   const exec = childProcess.exec;
   const env = {
     ...process.env,

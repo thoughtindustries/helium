@@ -37,11 +37,11 @@ export default {
       type: { name: 'string', required: false },
       description: 'Text for link that appears next to the title.',
       control: { type: 'text' }
-    },
+    }
   }
 } as Meta;
 
-const Template: Story<HeaderProps> = (args) => <Header {...args} />;
+const Template: Story<HeaderProps> = args => <Header {...args} />;
 
 export const Base = Template.bind({});
 Base.args = {

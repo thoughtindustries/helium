@@ -1,21 +1,17 @@
-import React from "react";
-import { render, fireEvent } from "@testing-library/react";
-import { LinkLists, LinkList } from "../src";
+import React from 'react';
+import { render, fireEvent } from '@testing-library/react';
+import { LinkLists, LinkList } from '../src';
 
-describe("@thoughtindustries/link-lists", () => {
-  describe("LinkLists", () => {
-    it("should render", () => {
+describe('@thoughtindustries/link-lists', () => {
+  describe('LinkLists', () => {
+    it('should render', () => {
       const { container } = render(
         <LinkLists title="Title text">
           <LinkList label="Category 1">
-            <LinkList.Link href="/subcategory-link1">
-              List subcategory 1
-            </LinkList.Link>
+            <LinkList.Link href="/subcategory-link1">List subcategory 1</LinkList.Link>
           </LinkList>
           <LinkList label="Category 2">
-            <LinkList.Link href="/subcategory-link1">
-              List subcategory 1
-            </LinkList.Link>
+            <LinkList.Link href="/subcategory-link1">List subcategory 1</LinkList.Link>
           </LinkList>
         </LinkLists>
       );
@@ -97,23 +93,17 @@ describe("@thoughtindustries/link-lists", () => {
     });
   });
 
-  describe("LinkList", () => {
-    it("should error when rendered without a parent <LinkList />", () => {
-      const spy = jest
-        .spyOn(global.console, "error")
-        .mockImplementation(jest.fn());
-      expect(() =>
-        render(<LinkList.Link href="/">Link</LinkList.Link>)
-      ).toThrowError();
+  describe('LinkList', () => {
+    it('should error when rendered without a parent <LinkList />', () => {
+      const spy = jest.spyOn(global.console, 'error').mockImplementation(jest.fn());
+      expect(() => render(<LinkList.Link href="/">Link</LinkList.Link>)).toThrowError();
       spy.mockRestore();
     });
 
-    it("should render", () => {
+    it('should render', () => {
       const { container } = render(
         <LinkList label="Category 1">
-          <LinkList.Link href="/subcategory-link1">
-            List subcategory 1
-          </LinkList.Link>
+          <LinkList.Link href="/subcategory-link1">List subcategory 1</LinkList.Link>
         </LinkList>
       );
       expect(container).toMatchInlineSnapshot(`
@@ -149,23 +139,19 @@ describe("@thoughtindustries/link-lists", () => {
       `);
     });
 
-    it("should display list cutoff and interact with expand button", () => {
+    it('should display list cutoff and interact with expand button', () => {
       const { queryByText, getByText, queryByRole, getByRole } = render(
         <LinkList label="Category 1" displayCutoff={1}>
-          <LinkList.Link href="/subcategory-link1">
-            List subcategory 1
-          </LinkList.Link>
-          <LinkList.Link href="/subcategory-link2">
-            List subcategory 2
-          </LinkList.Link>
+          <LinkList.Link href="/subcategory-link1">List subcategory 1</LinkList.Link>
+          <LinkList.Link href="/subcategory-link2">List subcategory 2</LinkList.Link>
         </LinkList>
       );
-      expect(queryByText("List subcategory 2")).not.toBeInTheDocument();
-      const expandBtn = getByRole("button");
+      expect(queryByText('List subcategory 2')).not.toBeInTheDocument();
+      const expandBtn = getByRole('button');
 
       fireEvent.click(expandBtn);
-      getByText("List subcategory 2");
-      expect(queryByRole("button")).not.toBeInTheDocument();
-    })
+      getByText('List subcategory 2');
+      expect(queryByRole('button')).not.toBeInTheDocument();
+    });
   });
 });
