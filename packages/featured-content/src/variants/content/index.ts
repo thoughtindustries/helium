@@ -1,3 +1,3 @@
-import ContentTileStandardLayout from "./tile-standard-layout";
+import ContentTileStandardLayout from './tile-standard-layout';
 
 export { ContentTileStandardLayout };

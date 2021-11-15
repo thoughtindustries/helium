@@ -1,87 +1,85 @@
-import React from "react";
-import { render, waitFor } from "@testing-library/react";
-import { MockedProvider } from "@apollo/client/testing";
+import React from 'react';
+import { render, waitFor } from '@testing-library/react';
+import { MockedProvider } from '@apollo/client/testing';
 import {
   FeaturedContent,
   SidebarPosition,
   SidebarRss,
   SidebarDefault,
   ContentTileStandardLayout,
-  FeaturedContentContentItem,
-} from "../src";
-import { RSS_ITEMS_QUERY } from "../src/variants/sidebar/rss";
+  FeaturedContentContentItem
+} from '../src';
+import { RSS_ITEMS_QUERY } from '../src/variants/sidebar/rss';
 
 const headerOptions = {
-  title: "Feature Content Header",
+  title: 'Feature Content Header'
 };
 
 const mockItems = {
   manual: {
-    title: "Manual item",
-    description: "description",
-    shortDescription: "short description",
-    linkUrl: "/",
-    canAddToQueue: false,
+    title: 'Manual item',
+    description: 'description',
+    shortDescription: 'short description',
+    linkUrl: '/',
+    canAddToQueue: false
   },
   dynamic: {
-    title: "Dynamic item",
+    title: 'Dynamic item',
     courseStartDate: new Date(2020, 0, 1),
-    contentTypeLabel: "Course",
-    source: "Test source",
-    authors: "Test Author",
-    description: "description",
-    shortDescription: "short description",
-    linkUrl: "/",
+    contentTypeLabel: 'Course',
+    source: 'Test source',
+    authors: 'Test Author',
+    description: 'description',
+    shortDescription: 'short description',
+    linkUrl: '/',
     isCompleted: true,
     asset:
-      "https://d36ai2hkxl16us.cloudfront.net/thoughtindustries/image/upload/a_exif,c_fill,w_800/v1416438573/placeholder_kcjvxm.jpg",
+      'https://d36ai2hkxl16us.cloudfront.net/thoughtindustries/image/upload/a_exif,c_fill,w_800/v1416438573/placeholder_kcjvxm.jpg',
     canAddToQueue: true,
     isActive: true,
-    callToAction: "View Details",
+    callToAction: 'View Details',
     ribbon: {
-      bgColor: "#39ad39",
-      contrastColor: "#fff",
-      darkerColor: "#2c872c",
-      label: "Test ribbon",
-      slug: "test-ribbon"
+      bgColor: '#39ad39',
+      contrastColor: '#fff',
+      darkerColor: '#2c872c',
+      label: 'Test ribbon',
+      slug: 'test-ribbon'
     },
     rating: 36,
     hasAvailability: false,
     priceInCents: 6500,
-    suggestedRetailPriceInCents: 8000,
-  },
+    suggestedRetailPriceInCents: 8000
+  }
 };
 
-const mockFeedUrl = "https://foo/bar";
+const mockFeedUrl = 'https://foo/bar';
 const mockApolloResults = {
   sidebarRss: {
     request: {
       query: RSS_ITEMS_QUERY,
       variables: {
-        feedUrl: mockFeedUrl,
-      },
+        feedUrl: mockFeedUrl
+      }
     },
     result: {
       data: {
         RssItems: [
-          { title: "Link 1", link: "/rss-link1" },
-          { title: "Link 2", link: "/rss-link2" },
-          { title: "Link 3", link: "/rss-link3" },
-        ],
-      },
-    },
-  },
+          { title: 'Link 1', link: '/rss-link1' },
+          { title: 'Link 2', link: '/rss-link2' },
+          { title: 'Link 3', link: '/rss-link3' }
+        ]
+      }
+    }
+  }
 };
 
-const handleAddedToQueue = (
-  item: FeaturedContentContentItem
-): Promise<void> => {
+const handleAddedToQueue = (item: FeaturedContentContentItem): Promise<void> => {
   return Promise.resolve();
 };
 
-describe("@thoughtindustries/featured-content", () => {
-  describe("FeaturedContent", () => {
-    it("should render", () => {
+describe('@thoughtindustries/featured-content', () => {
+  describe('FeaturedContent', () => {
+    it('should render', () => {
       const { container } = render(
         <FeaturedContent>
           <ContentTileStandardLayout
@@ -255,7 +253,8 @@ describe("@thoughtindustries/featured-content", () => {
                                       aria-label="plus"
                                       class="-top-px pr-0 relative text-xs not-italic before:content-['\\\\002B']"
                                     />
-                                     Add to Queue
+                                     
+                                    Add to Queue
                                   </span>
                                 </button>
                               </span>
@@ -417,12 +416,9 @@ describe("@thoughtindustries/featured-content", () => {
         </div>
       `);
     });
-    it("should render with sidebar", async () => {
+    it('should render with sidebar', async () => {
       const { container } = render(
-        <MockedProvider
-          mocks={[mockApolloResults.sidebarRss]}
-          addTypename={false}
-        >
+        <MockedProvider mocks={[mockApolloResults.sidebarRss]} addTypename={false}>
           <FeaturedContent
             sidebar={<SidebarRss title="RSS" feedUrl={mockFeedUrl} />}
             sidebarPosition={SidebarPosition.Left}
@@ -438,7 +434,7 @@ describe("@thoughtindustries/featured-content", () => {
           </FeaturedContent>
         </MockedProvider>
       );
-      await waitFor(() => new Promise((res) => setTimeout(res, 0)));
+      await waitFor(() => new Promise(res => setTimeout(res, 0)));
       expect(container).toMatchInlineSnapshot(`
         <div>
           <div
@@ -600,17 +596,14 @@ describe("@thoughtindustries/featured-content", () => {
     });
   });
 
-  describe("SidebarRss", () => {
-    it("should render", async () => {
+  describe('SidebarRss', () => {
+    it('should render', async () => {
       const { container } = render(
-        <MockedProvider
-          mocks={[mockApolloResults.sidebarRss]}
-          addTypename={false}
-        >
+        <MockedProvider mocks={[mockApolloResults.sidebarRss]} addTypename={false}>
           <SidebarRss title="RSS" feedUrl={mockFeedUrl} />
         </MockedProvider>
       );
-      await waitFor(() => new Promise((res) => setTimeout(res, 0)));
+      await waitFor(() => new Promise(res => setTimeout(res, 0)));
       expect(container).toMatchInlineSnapshot(`
         <div>
           <div
@@ -652,8 +645,8 @@ describe("@thoughtindustries/featured-content", () => {
     });
   });
 
-  describe("SidebarDefault", () => {
-    it("should render", () => {
+  describe('SidebarDefault', () => {
+    it('should render', () => {
       const { container } = render(
         <SidebarDefault title="Default">Static sidebar content</SidebarDefault>
       );
@@ -681,18 +674,14 @@ describe("@thoughtindustries/featured-content", () => {
     });
   });
 
-  describe("ContentTileStandardLayout", () => {
-    it("should error when rendered without a parent <ContentTileStandardLayout />", () => {
-      const spy = jest
-        .spyOn(global.console, "error")
-        .mockImplementation(jest.fn());
-      expect(() =>
-        render(<ContentTileStandardLayout.Item {...mockItems.manual} />)
-      ).toThrowError();
+  describe('ContentTileStandardLayout', () => {
+    it('should error when rendered without a parent <ContentTileStandardLayout />', () => {
+      const spy = jest.spyOn(global.console, 'error').mockImplementation(jest.fn());
+      expect(() => render(<ContentTileStandardLayout.Item {...mockItems.manual} />)).toThrowError();
       spy.mockRestore();
     });
 
-    it("should render", () => {
+    it('should render', () => {
       const { container } = render(
         <ContentTileStandardLayout
           headerOptions={headerOptions}
