@@ -1,5 +1,4 @@
 import React from 'react';
-import './i18n';
 import { LinkLists, LinkList } from '../src';
 
 export default {
