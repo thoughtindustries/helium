@@ -11,6 +11,10 @@ i18n.use(initReactI18next).init({
   resources: {
     en: {
       translation: {
+        'course-add-to-queue': 'Add to Queue',
+        'course-added-to-queue': 'Added to Queue',
+        'course-completed-decal': 'Completed!',
+        'course-view-details': 'View Details',
         more: 'more'
       }
     }

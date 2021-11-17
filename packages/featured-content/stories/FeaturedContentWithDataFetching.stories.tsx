@@ -1,5 +1,6 @@
 import React, { SyntheticEvent } from 'react';
 import { gql, useQuery, useMutation } from '@apollo/client';
+import { useTranslation } from 'react-i18next';
 import { hydrateContent, ContentItem, ContentKind } from '@thoughtindustries/hydrate-content';
 import { FeaturedContent, ContentTileStandardLayout, FeaturedContentContentItem } from '../src';
 
@@ -180,6 +181,7 @@ const mockApolloResults = {
 };
 
 export const withCatalogQuery = () => {
+  const { i18n } = useTranslation();
   const [addResourceToQueue] = useMutation<
     AddResourceToQueueMutationData,
     AddResourceToQueueMutationVars
@@ -200,7 +202,7 @@ export const withCatalogQuery = () => {
   }
   if (data) {
     content = data.CatalogQuery.contentItems.map((item, index) => {
-      const hydratedItem = hydrateContent(item);
+      const hydratedItem = hydrateContent(i18n, item);
       const { authors, description, href, ...restItemProps } = hydratedItem;
       const transformedItem = {
         ...restItemProps,
@@ -231,6 +233,7 @@ withCatalogQuery.parameters = {
 };
 
 export const withQueryContentsQuery = () => {
+  const { i18n } = useTranslation();
   const [addResourceToQueue] = useMutation<
     AddResourceToQueueMutationData,
     AddResourceToQueueMutationVars
@@ -256,7 +259,7 @@ export const withQueryContentsQuery = () => {
   }
   if (data) {
     content = data.QueryContents.map((item, index) => {
-      const hydratedItem = hydrateContent(item);
+      const hydratedItem = hydrateContent(i18n, item);
       const { authors, description, href, ...restItemProps } = hydratedItem;
       const transformedItem = {
         ...restItemProps,

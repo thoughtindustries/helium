@@ -1,5 +1,6 @@
 import React from 'react';
 import { gql, useQuery } from '@apollo/client';
+import { useTranslation } from 'react-i18next';
 import { FeaturedContentSidebarRssProps } from '../../types';
 import SidebarWrapper from './wrapper';
 
@@ -26,14 +27,13 @@ export const RSS_ITEMS_QUERY = gql`
 `;
 
 const SidebarRss = ({ title, feedUrl }: FeaturedContentSidebarRssProps): JSX.Element => {
+  const { t } = useTranslation();
   const { data, loading, error } = useQuery<RssItemsData, RssItemsVars>(RSS_ITEMS_QUERY, {
     variables: { feedUrl }
   });
   let content;
-  if (loading) {
-    content = <h5>Please Wait...</h5>;
-  } else if (error) {
-    content = <h5>We are having trouble loading your RSS items.</h5>;
+  if (loading || error) {
+    content = <h5>{t('please-wait')}</h5>;
   } else {
     content = (
       <>
