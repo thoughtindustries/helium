@@ -7,5 +7,5 @@
 ```
 import { hydrateContent } from '@thoughtindustries/hydrate-content';
 
-// TODO: DEMONSTRATE API
+hydrateContent(i18n, contentItem, customFields);
 ```
