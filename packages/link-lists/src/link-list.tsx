@@ -7,6 +7,7 @@ import React, {
   useState,
   useCallback
 } from 'react';
+import { useTranslation } from 'react-i18next';
 import { LinkListContextType, LinkListProps, LinkListLinkProps } from './types';
 
 const LinkListContext = createContext<LinkListContextType | undefined>(undefined);
