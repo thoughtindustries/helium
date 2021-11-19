@@ -2,6 +2,14 @@ import React from 'react';
 import { render, fireEvent } from '@testing-library/react';
 import { LinkLists, LinkList } from '../src';
 
+jest.mock('react-i18next', () => ({
+  useTranslation: () => {
+    return {
+      t: (key: string) => key
+    };
+  }
+}));
+
 describe('@thoughtindustries/link-lists', () => {
   describe('LinkLists', () => {
     it('should render', () => {

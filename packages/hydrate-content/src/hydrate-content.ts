@@ -1,5 +1,6 @@
 import { zonedTimeToUtc } from 'date-fns-tz';
 import { format } from 'date-fns';
+import { i18n as I18n } from 'i18next';
 import {
   ContentItem,
   HydratedContentItem,
@@ -9,7 +10,15 @@ import {
 } from './types';
 import courseRuns from './course-run';
 
+/**
+ * Hydrate queried content item
+ * @param i18n I18n instance
+ * @param contentItem Content Item
+ * @param customFields Custom fields
+ * @returns Hydrated content item
+ */
 const hydrateContentItem = (
+  i18n: I18n,
   contentItem: ContentItem,
   customFields: any = {}
 ): HydratedContentItem => {
@@ -83,7 +92,7 @@ const hydrateContentItem = (
     usesContentAccessText
   };
 
-  const callToAction = getCallToAction(partialHydratedContentItem);
+  const callToAction = getCallToAction(i18n, partialHydratedContentItem);
 
   let href = getHref(partialHydratedContentItem);
   if (Object.keys(customFields).length && href.length > 1) {
@@ -113,7 +122,10 @@ const hydrateContentItem = (
 
 type PartialHydratedContentItem = Omit<HydratedContentItem, 'callToAction' | 'href'>;
 
-const getCallToAction = (partialHydratedContentItem: PartialHydratedContentItem): string => {
+const getCallToAction = (
+  i18n: I18n,
+  partialHydratedContentItem: PartialHydratedContentItem
+): string => {
   if (
     partialHydratedContentItem.hasAvailability &&
     !partialHydratedContentItem.waitlistingTriggered
@@ -127,51 +139,55 @@ const getCallToAction = (partialHydratedContentItem: PartialHydratedContentItem)
       );
 
       const runStringPrefix = partialHydratedContentItem.usesContentAccessText
-        ? 'Content Access:'
-        : `${partialHydratedContentItem.contentTypeLabel} Runs:}`;
+        ? i18n.t('content-access')
+        : `${partialHydratedContentItem.contentTypeLabel} ${i18n.t('runs')}`;
 
       return `${runStringPrefix} ${runs}`;
     } else if (partialHydratedContentItem.courseGracePeriodEnded) {
-      return `Course ended: ${format(
+      return `${i18n.t('course-ended')} ${format(
         (partialHydratedContentItem.courseGracePeriodEndDate ||
           partialHydratedContentItem.courseEndDate) as Date,
         'MMM do YYYY'
       )}`;
     } else if (partialHydratedContentItem.hasUnmetPrerequisites) {
-      return 'You have not met the prerequisites.';
+      return i18n.t('course.prerequisites');
     } else if (partialHydratedContentItem.bulkPurchasingEnabled) {
-      return 'View Details';
+      return i18n.t('course-view-details');
     } else if (partialHydratedContentItem.isCompleted) {
       if (partialHydratedContentItem.kind === ContentKind.LearningPath) {
-        return 'View Learning Path';
+        return i18n.t('learning-path.view');
       }
 
-      return `View ${partialHydratedContentItem.contentTypeLabel}`;
+      return i18n.t('view-course', {
+        contentType: partialHydratedContentItem.contentTypeLabel
+      });
     } else if (partialHydratedContentItem.isStarted) {
       if (partialHydratedContentItem.kind === ContentKind.LearningPath) {
-        return 'Continue Learning Path';
+        return i18n.t('learning-path.continue');
       }
 
-      return 'Continue';
+      return i18n.t('continue-course');
     } else if (partialHydratedContentItem.isNotStarted) {
       if (partialHydratedContentItem.kind === ContentKind.LearningPath) {
-        return 'Start Learning Path';
+        return i18n.t('learning-path.start');
       }
 
-      return `Start ${partialHydratedContentItem.contentTypeLabel}`;
+      return i18n.t('start-course', {
+        contentType: partialHydratedContentItem.contentTypeLabel
+      });
     } else if (partialHydratedContentItem.isNotCompleted) {
-      return 'Not Completed';
+      return i18n.t('not-completed-course');
     }
 
-    return 'View Details';
+    return i18n.t('course-view-details');
   } else if (
     partialHydratedContentItem.waitlistingTriggered &&
     partialHydratedContentItem.waitlistingEnabled
   ) {
-    return 'Join Waitlist';
+    return i18n.t('join-waitlist');
   }
 
-  return 'View Details';
+  return i18n.t('course-view-details');
 };
 
 const getHref = (partialHydratedContentItem: PartialHydratedContentItem): string => {

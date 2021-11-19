@@ -11,6 +11,14 @@ import {
 } from '../src';
 import { RSS_ITEMS_QUERY } from '../src/variants/sidebar/rss';
 
+jest.mock('react-i18next', () => ({
+  useTranslation: () => {
+    return {
+      t: (key: string) => key
+    };
+  }
+}));
+
 const headerOptions = {
   title: 'Feature Content Header'
 };
@@ -164,7 +172,7 @@ describe('@thoughtindustries/featured-content', () => {
                               <p
                                 class="mt-1 text-base"
                               >
-                                Completed!
+                                course-completed-decal
                               </p>
                             </div>
                           </div>
@@ -254,7 +262,7 @@ describe('@thoughtindustries/featured-content', () => {
                                       class="-top-px pr-0 relative text-xs not-italic before:content-['\\\\002B']"
                                     />
                                      
-                                    Add to Queue
+                                    course-add-to-queue
                                   </span>
                                 </button>
                               </span>
@@ -638,6 +646,38 @@ describe('@thoughtindustries/featured-content', () => {
               >
                 Link 3
               </a>
+            </div>
+          </div>
+        </div>
+      `);
+    });
+
+    it('should render loading or error state', async () => {
+      const { container } = render(
+        <MockedProvider mocks={[]} addTypename={false}>
+          <SidebarRss title="RSS" feedUrl={mockFeedUrl} />
+        </MockedProvider>
+      );
+      await waitFor(() => new Promise(res => setTimeout(res, 0)));
+      expect(container).toMatchInlineSnapshot(`
+        <div>
+          <div
+            class="h-full absolute left-0 w-full"
+          >
+            <div>
+              <h3>
+                RSS
+              </h3>
+            </div>
+            <hr
+              class="relative my-4"
+            />
+            <div
+              class="overflow-y-scroll text-sm h-full"
+            >
+              <h5>
+                please-wait
+              </h5>
             </div>
           </div>
         </div>
