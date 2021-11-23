@@ -7,6 +7,10 @@ i18n.use(initReactI18next).init({
   fallbackLng: 'en',
   ns: ['lms'],
   defaultNS: 'lms',
+  interpolation: {
+    prefix: '%{',
+    suffix: '}'
+  },
   resources: translationResources,
   react: { useSuspense: false }
 });

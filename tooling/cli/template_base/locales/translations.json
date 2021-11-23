@@ -1,12 +1,1 @@
-{
-  "en": {
-    "lms": {
-      "hello.user": "Hello!"
-    }
-  },
-  "de": {
-    "lms": {
-      "hello.user": "Hallo!"
-    }
-  }
-}
+{ "en": { "lms": {} } }
