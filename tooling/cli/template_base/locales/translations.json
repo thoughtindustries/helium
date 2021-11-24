@@ -1,1 +1,10 @@
-{ "en": { "lms": {} } }
+{
+  "en": {
+    "lms": {
+      "reset-password-title": "Reset Password",
+      "home.meta-title": "%{companyName}",
+      "course-group-authors": "Author:",
+      "course-group-authors_other": "Authors:"
+    }
+  }
+}

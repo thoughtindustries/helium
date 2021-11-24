@@ -53,9 +53,9 @@ const writeTranslationFile = async (dir, translations) => {
     return hash;
   }, {});
 
-  const fileName = path.join(dirPath, 'translations.json');
+  const fileName = path.join(dirPath, 'translations-source.json');
 
-  return fs.writeFile(fileName, JSON.stringify(translationsHash));
+  return fs.writeFile(fileName, JSON.stringify(translationsHash, null, 2));
 };
 
 // react-i18next handles pluralizations differently than the
@@ -65,11 +65,8 @@ const reKeyPluralizations = translations => {
     const translationValue = translations[key];
     if (translationValue.includes('||||')) {
       const [singular, plural] = translationValue.split('||||');
-
-      translations[`${key}_one`] = singular;
-      translations[`${key}_other`] = plural;
-
-      delete translations[key];
+      translations[key] = singular.trim();
+      translations[`${key}_other`] = plural.trim();
     }
   }
 

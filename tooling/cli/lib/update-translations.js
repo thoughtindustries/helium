@@ -34,5 +34,9 @@ function findTIInstance() {
     }
   }
 
+  if (!instance) {
+    instance = instances[0];
+  }
+
   return instance;
 }

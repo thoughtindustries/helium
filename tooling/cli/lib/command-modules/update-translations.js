@@ -33,6 +33,14 @@ exports.handler = argv => {
   updateProcess.stderr.pipe(process.stderr);
 
   updateProcess.on('exit', code => {
-    console.log(`updateProcess exited with code ${code.toString()}`);
+    const parseScriptPath = path.resolve(__dirname, './../parse-translations.js');
+    const parseProcess = exec(`npm run build:vite && node ${parseScriptPath}`, { env });
+
+    parseProcess.stdout.pipe(process.stdout);
+    parseProcess.stderr.pipe(process.stderr);
+
+    parseProcess.on('exit', code =>
+      console.log(`parseProcess exited with code ${code.toString()}`)
+    );
   });
 };
