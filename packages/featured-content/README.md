@@ -20,6 +20,7 @@ import {
   SidebarDefault,
   SidebarPosition,
   ContentTileStandardLayout,
+  ContentTileDescriptiveLayout,
 } from '@thoughtindustries/featured-content';
 ```
 
@@ -33,6 +34,15 @@ import {
     <ContentTileStandardLayout.Item {...itemTwo} />
     <ContentTileStandardLayout.Item {...itemThree} />
   </ContentTileStandardLayout>
+</FeaturedContent>
+
+# Tile descriptive layout
+<FeaturedContent>
+  <ContentTileDescriptiveLayout headerOptions={...headerOptions} desktopColumnCount={3} onAddedToQueue={(item) => Promise.resolve()}>
+    <ContentTileDescriptiveLayout.Item {...itemOne} />
+    <ContentTileDescriptiveLayout.Item {...itemTwo} />
+    <ContentTileDescriptiveLayout.Item {...itemThree} />
+  </ContentTileDescriptiveLayout>
 </FeaturedContent>
 
 # With left sidebar (RSS)

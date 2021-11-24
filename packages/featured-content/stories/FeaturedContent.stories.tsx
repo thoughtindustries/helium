@@ -5,6 +5,7 @@ import {
   SidebarDefault,
   SidebarPosition,
   ContentTileStandardLayout,
+  ContentTileDescriptiveLayout,
   FeaturedContentContentItem
 } from '../src';
 import { RSS_ITEMS_QUERY } from '../src/variants/sidebar/rss';
@@ -83,7 +84,7 @@ export const TileStandardLayout = () => (
   <FeaturedContent>
     <ContentTileStandardLayout
       headerOptions={headerOptions}
-      desktopColumnCount={3}
+      desktopColumnCount={2}
       onAddedToQueue={handleAddedToQueue}
     >
       <ContentTileStandardLayout.Item {...mockItems.dynamic} />
@@ -91,6 +92,21 @@ export const TileStandardLayout = () => (
       <ContentTileStandardLayout.Item {...mockItems.manual} />
       <ContentTileStandardLayout.Item {...mockItems.manual} />
     </ContentTileStandardLayout>
+  </FeaturedContent>
+);
+
+export const TileDescriptiveLayout = () => (
+  <FeaturedContent>
+    <ContentTileDescriptiveLayout
+      headerOptions={headerOptions}
+      desktopColumnCount={2}
+      onAddedToQueue={handleAddedToQueue}
+    >
+      <ContentTileDescriptiveLayout.Item {...mockItems.dynamic} />
+      <ContentTileDescriptiveLayout.Item {...mockItems.manual} />
+      <ContentTileDescriptiveLayout.Item {...mockItems.manual} />
+      <ContentTileDescriptiveLayout.Item {...mockItems.manual} />
+    </ContentTileDescriptiveLayout>
   </FeaturedContent>
 );
 

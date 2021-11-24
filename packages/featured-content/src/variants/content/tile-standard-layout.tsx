@@ -16,6 +16,9 @@ import {
   FeaturedContentContentItemRibbon
 } from '../../types';
 import ContentWrapper from './wrapper';
+import ItemLinkWrapper from './item-link-wrapper';
+import ItemQueueButton from './item-queue-button';
+import ItemAssetBlock from './item-asset-block';
 
 const ContentTileStandardLayoutContext = createContext<
   FeaturedContentTileStandardLayoutContextType | undefined
@@ -81,16 +84,6 @@ const ItemCompletedBlock = () => {
   );
 };
 
-const ItemAssetBlock = ({ asset }: { asset?: string }) => (
-  <img
-    className="max-w-full h-auto"
-    src={
-      asset ||
-      'https://d36ai2hkxl16us.cloudfront.net/thoughtindustries/image/upload/v1440546308/qj7eo4nseeiigiec5huh.png'
-    }
-  />
-);
-
 const ItemTitleBlock = ({ title, courseStartDate }: { title: string; courseStartDate?: Date }) => (
   <p className="mb-1">
     {title}
@@ -140,69 +133,6 @@ const Stars = ({ gradePercentage }: { gradePercentage: number }) => {
         <Star key={`star-${i}`} marked={starCount > i} />
       ))}
     </div>
-  );
-};
-
-// TODO: might consider extracting as common component
-const ItemQueueButton = ({
-  item,
-  onClickAsync
-}: {
-  item: FeaturedContentContentItem;
-  onClickAsync: (item: FeaturedContentContentItem) => Promise<void>;
-}) => {
-  const [isLoading, setIsLoading] = useState<boolean>(false);
-  const [wasAddedToQueue, setWasAddedToQueue] = useState<boolean>(false);
-  const { t } = useTranslation();
-  const handleClick = useCallback(
-    async (evt: SyntheticEvent) => {
-      evt.preventDefault();
-      evt.stopPropagation();
-
-      if (!!wasAddedToQueue || isLoading) {
-        return;
-      }
-
-      setIsLoading(true);
-
-      try {
-        await onClickAsync(item);
-        setWasAddedToQueue(true);
-      } catch (e: unknown) {
-        // handle error
-      } finally {
-        setIsLoading(false);
-      }
-    },
-    [wasAddedToQueue, isLoading]
-  );
-
-  return (
-    <button
-      onClick={handleClick}
-      className={`inline-block pl-0 mb-1 text-xs border-none rounded-sm cursor-pointer inline-block font-normal leading-normal m-0 p-0 relative text-center no-underline transition-colors ease-in-out duration-200 hover:text-blue-700 ${
-        wasAddedToQueue ? 'cursor-default' : ''
-      }`}
-    >
-      {wasAddedToQueue && (
-        <span className="inline-block align-top">
-          <i
-            className="-top-px pr-0 relative text-xs not-italic before:content-['\2705']"
-            aria-label="check"
-          ></i>{' '}
-          {t('course-added-to-queue')}
-        </span>
-      )}
-      {!wasAddedToQueue && (
-        <span className="inline-block align-top">
-          <i
-            className="-top-px pr-0 relative text-xs not-italic before:content-['\002B']"
-            aria-label="plus"
-          ></i>{' '}
-          {t('course-add-to-queue')}
-        </span>
-      )}
-    </button>
   );
 };
 
@@ -291,8 +221,6 @@ const ItemPriceBlock = ({
 
 const Item = ({ ...item }: FeaturedContentContentItemProps): JSX.Element => {
   const {
-    linkOpenInNewTab,
-    linkUrl,
     ribbon,
     isCompleted,
     asset,
@@ -311,24 +239,6 @@ const Item = ({ ...item }: FeaturedContentContentItemProps): JSX.Element => {
     suggestedRetailPriceInCents
   } = item;
   const { onAddedToQueue, onClick, desktopColumnCount } = useContentTileStandardLayoutContext();
-  const itemIsActiveOrWebinarOrEvent = !!isActive;
-
-  const handleClick = useCallback((evt: SyntheticEvent) => {
-    onClick && onClick(evt, item);
-  }, []);
-  const linkProps: {
-    className: string;
-    href?: string;
-    onClick: (evt: SyntheticEvent) => void;
-    target?: string;
-  } = {
-    href: linkUrl,
-    onClick: handleClick,
-    className: `block text-gray-800 ${!itemIsActiveOrWebinarOrEvent ? 'cursor-default' : ''}`
-  };
-  if (linkOpenInNewTab) {
-    linkProps.target = '_blank';
-  }
 
   const columnCountIsOneOrTwo = desktopColumnCount === 1 || desktopColumnCount === 2;
   const gridItemDesktopClassnames = columnCountIsOneOrTwo ? ' md:grid-cols-2 md:gap-x-2' : '';
@@ -336,7 +246,7 @@ const Item = ({ ...item }: FeaturedContentContentItemProps): JSX.Element => {
 
   return (
     <li>
-      <a {...linkProps}>
+      <ItemLinkWrapper item={item} onClick={onClick}>
         <div
           className={`grid grid-cols-1${gridItemDesktopClassnames} border border-solid border-gray-300 relative`}
         >
@@ -381,7 +291,7 @@ const Item = ({ ...item }: FeaturedContentContentItemProps): JSX.Element => {
             </div>
           </div>
         </div>
-      </a>
+      </ItemLinkWrapper>
     </li>
   );
 };

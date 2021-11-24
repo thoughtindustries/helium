@@ -103,7 +103,7 @@ export type FeaturedContentContentItem = {
 
 export interface FeaturedContentContentItemProps extends FeaturedContentContentItem {}
 
-export interface FeaturedContentTileStandardLayoutContextType {
+interface FeaturedContentBaseContextType {
   /** row item count in desktop view */
   desktopColumnCount: number;
   /** add applicaple item to queue event handler */
@@ -111,6 +111,12 @@ export interface FeaturedContentTileStandardLayoutContextType {
   /** optional on item click event handler */
   onClick?: (evt: SyntheticEvent, item: FeaturedContentContentItem) => void;
 }
+
+export interface FeaturedContentTileStandardLayoutContextType
+  extends FeaturedContentBaseContextType {}
+
+export interface FeaturedContentTileDescriptiveLayoutContextType
+  extends FeaturedContentBaseContextType {}
 
 export interface FeaturedContentProps {
   /** node for sidebar */

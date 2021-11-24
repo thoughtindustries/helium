@@ -7,6 +7,7 @@ import {
   SidebarRss,
   SidebarDefault,
   ContentTileStandardLayout,
+  ContentTileDescriptiveLayout,
   FeaturedContentContentItem
 } from '../src';
 import { RSS_ITEMS_QUERY } from '../src/variants/sidebar/rss';
@@ -786,6 +787,83 @@ describe('@thoughtindustries/featured-content', () => {
                         class="text-xs"
                       />
                     </div>
+                  </div>
+                </div>
+              </a>
+            </li>
+          </ul>
+        </div>
+      `);
+    });
+  });
+
+  describe('ContentTileDescriptiveLayout', () => {
+    it('should error when rendered without a parent <ContentTileDescriptiveLayout />', () => {
+      const spy = jest.spyOn(global.console, 'error').mockImplementation(jest.fn());
+      expect(() =>
+        render(<ContentTileDescriptiveLayout.Item {...mockItems.manual} />)
+      ).toThrowError();
+      spy.mockRestore();
+    });
+
+    it('should render', () => {
+      const { container } = render(
+        <ContentTileDescriptiveLayout
+          headerOptions={headerOptions}
+          desktopColumnCount={2}
+          onAddedToQueue={handleAddedToQueue}
+        >
+          <ContentTileDescriptiveLayout.Item {...mockItems.manual} />
+        </ContentTileDescriptiveLayout>
+      );
+      expect(container).toMatchInlineSnapshot(`
+        <div>
+          <div>
+            <h3>
+              Feature Content Header
+            </h3>
+          </div>
+          <hr
+            class="relative my-4"
+          />
+          <ul
+            class="grid grid-cols-1 md:grid-cols-2 gap-5"
+          >
+            <li>
+              <a
+                class="block text-gray-800 cursor-default"
+                href="/"
+              >
+                <div
+                  class="grid grid-cols-1 md:grid-cols-2 md:gap-x-2 border border-solid border-gray-300 relative"
+                >
+                  <div
+                    class="relative md:p-2"
+                  >
+                    <img
+                      class="max-w-full h-auto"
+                      src="https://d36ai2hkxl16us.cloudfront.net/thoughtindustries/image/upload/v1440546308/qj7eo4nseeiigiec5huh.png"
+                    />
+                  </div>
+                  <div
+                    class="p-2.5"
+                  >
+                    <p
+                      class="mt-4 mb-0 text-base font-bold"
+                    >
+                      Manual item
+                    </p>
+                    <p
+                      class="text-xs text-gray-700 mb-1"
+                    />
+                    <p
+                      class="mt-4 text-xs relative before:content-[' '] before:border-text-accent before:border-t-2 before:absolute before:left-0 before:border-solid before:w-8 before:h-0 before:-top-1.5"
+                    >
+                      short description
+                    </p>
+                    <div
+                      class="text-base leading-none flex justify-end"
+                    />
                   </div>
                 </div>
               </a>
