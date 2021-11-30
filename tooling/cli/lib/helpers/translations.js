@@ -59,7 +59,7 @@ const writeTranslationFile = async (dir, translations) => {
 };
 
 // react-i18next handles pluralizations differently than the
-// i18 library used in the TI app, so plurals have to be reformatted
+// i18n library used in the TI app, so plurals have to be reformatted
 const reKeyPluralizations = translations => {
   for (const key of Object.keys(translations)) {
     const translationValue = translations[key];
