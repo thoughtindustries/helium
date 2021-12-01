@@ -6,6 +6,8 @@ const { gqlPluckFromCodeString } = require('@graphql-tools/graphql-tag-pluck');
 const { print } = require('graphql/language/printer');
 const { parse } = require('graphql/language');
 const crypto = require('crypto');
+const childProcess = require('child_process');
+const { getFilePaths, filePathIsValid } = require('./helpers/filepaths');
 
 const OP_DIR = process.cwd();
 const configPath = path.join(OP_DIR, '/ti-config');
@@ -48,6 +50,7 @@ const LAMBDA_QUERY = `
   }
 
   try {
+    await gatherUsedTranslations();
     await writeGraphqlManifest();
     await uploadHeliumProject(policyData);
     await triggerLambda(instance, key);
@@ -63,6 +66,19 @@ const LAMBDA_QUERY = `
     console.error('>>> Error deploying: ', err);
     process.exit(1);
   });
+
+async function gatherUsedTranslations() {
+  return new Promise((resolve, reject) => {
+    const parserScript = path.join(__dirname, 'parse-translations.js');
+    const exec = childProcess.exec;
+    const parseProcess = exec(`node ${parserScript} && npm run build:vite`);
+
+    parseProcess.stdout.pipe(process.stdout);
+    parseProcess.stderr.pipe(process.stderr);
+
+    parseProcess.on('error', err => reject(err)).on('exit', () => resolve());
+  });
+}
 
 async function writeGraphqlManifest() {
   const queryHashMap = await hashGraphqlQueries();
@@ -99,15 +115,6 @@ function hashQuery(querySource) {
   const hash = crypto.createHash('sha256').update(query).digest('hex');
 
   return { hash, query };
-}
-
-function filePathIsValid(filePath) {
-  return (
-    filePath.endsWith('.js') ||
-    filePath.endsWith('.jsx') ||
-    filePath.endsWith('.ts') ||
-    filePath.endsWith('.tsx')
-  );
 }
 
 async function uploadHeliumProject(policyData) {
@@ -231,27 +238,6 @@ function buildFormData(policyData, filePath) {
   form.append('file', fs.readFileSync(filePath, 'utf8'));
 
   return form;
-}
-
-async function getFilePaths(dir, filePaths = []) {
-  const newFilePaths = filePaths;
-  const contents = await fs.readdir(dir);
-
-  for (const content of contents) {
-    const filePath = path.join(dir, content);
-    const stat = await fs.stat(filePath);
-
-    if (stat.isFile()) {
-      newFilePaths.push(filePath);
-    } else {
-      const baseDir = filePath.split(`${process.cwd()}/`)[1];
-      if (!['pages', 'renderer', 'server', 'node_modules'].includes(baseDir)) {
-        await getFilePaths(filePath, newFilePaths);
-      }
-    }
-  }
-
-  return newFilePaths;
 }
 
 function findTIInstance() {

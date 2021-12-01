@@ -64,6 +64,25 @@ Builds and deploys the project
 
 `-i`, `-instance` (required)
 
+Which instance from your `ti-config.json` file to be used, as noted by the instance nickname provided during initialization.
+
+`-k`, `-insecure` (optional)
+
+Used when the Thought Industries instance is behind an untrusted SSL certificate (e.g., local development).
+
+### `update-translations`
+
+```sh
+$ helium update-translations [i] [-k]
+$ helium update-translations sandbox -k
+```
+
+Fetches translations from Thought Industries instance and updates the `locales/translations-source.json` and `locales/translations.json` files.
+
+#### Options
+
+`-i`, `-instance` (optional)
+
 Which instance from your `ti-config.json` file to be used, as noted by the instance nickname provided during initialization. If no instance is specified, the first instance in the `instances` array will be used.
 
 `-k`, `-insecure` (optional)

@@ -41,9 +41,11 @@ exports.handler = async function (argv) {
     process.env['NODE_TLS_REJECT_UNAUTHORIZED'] = '0';
   }
 
+  console.log('Gathering instances...');
   const instances = await gatherInstances();
 
   if (instances.length) {
+    console.log('Initializing project...');
     await initProject(dir, instances);
   }
 

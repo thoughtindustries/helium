@@ -1,6 +1,6 @@
 module.exports = {
   mode: 'jit',
-  purge: ['./packages/**/*.{ts,tsx}',],
+  purge: ['./packages/**/*.{ts,tsx}'],
   darkMode: false, // or 'media' or 'class'
   theme: {
     screens: {
@@ -15,9 +15,9 @@ module.exports = {
       none: 'none'
     },
     maxWidth: {
-     '1/4': '25%',
-     '1/2': '50%',
-     '3/4': '75%',
+      '1/4': '25%',
+      '1/2': '50%',
+      '3/4': '75%'
     },
     extend: {
       screens: {
@@ -39,7 +39,7 @@ module.exports = {
         'accent-hover': '#2b2b2b',
         'secondary-hover': '#2b2b2b',
         'secondary-contrast': '#ffffff',
-        'link-hover': '#767676',
+        'link-hover': '#767676'
       },
       fontFamily: {
         primary: ['Sintony', 'Nunito', 'sans-serif'],
@@ -47,12 +47,12 @@ module.exports = {
         secondary: ['Nunito', 'sans-serif']
       },
       outline: {
-        blue: '1px solid #4d90fe',
+        blue: '1px solid #4d90fe'
       }
-    },
+    }
   },
   variants: {
-    extend: {},
+    extend: {}
   },
-  plugins: [],
-}
+  plugins: []
+};

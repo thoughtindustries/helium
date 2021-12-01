@@ -6,6 +6,8 @@ import { ApolloClient, InMemoryCache, ApolloProvider } from '@apollo/client';
 import { BatchHttpLink } from '@apollo/client/link/batch-http';
 import { createPersistedQueryLink } from '@apollo/client/link/persisted-queries';
 import { sha256 } from 'crypto-hash';
+import { I18nextProvider } from 'react-i18next';
+import i18n from './i18n';
 
 import 'virtual:windi.css';
 
@@ -25,12 +27,18 @@ async function hydrate() {
     isProduction
   } = pageContext;
   const apolloClient = makeApolloClient(heliumEndpoint, apolloIntialState, isProduction);
-
+  
+  if (currentUser && currentUser.lang) {
+    i18n.changeLanguage(currentUser.lang);
+  }
+  
   ReactDOM.hydrate(
     <ApolloProvider client={apolloClient}>
-      <PageWrapper pageContext={pageContext}>
-        <Page {...pageProps} appearance={appearance} currentUser={currentUser} />
-      </PageWrapper>
+      <I18nextProvider i18n={i18n}>
+        <PageWrapper pageContext={pageContext}>
+          <Page {...pageProps} appearance={appearance} currentUser={currentUser} />
+        </PageWrapper>
+      </I18nextProvider>
     </ApolloProvider>,
     document.getElementById('page-view')
   );
