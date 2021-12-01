@@ -1,6 +1,6 @@
 {
   "name": "@thoughtindustries/hydrate-content",
-  "version": "1.0.0",
+  "version": "1.0.1-alpha.0",
   "description": "An utility to hydrate catalog content to content item.",
   "author": "Lu Jiang <lu.jiang@thoughtindustries.com>",
   "homepage": "https://github.com/thoughtindustries/helium#readme",
