@@ -14,6 +14,11 @@ module.exports = {
       DEFAULT: '0px 0px 5px #4d90fe',
       none: 'none'
     },
+    maxWidth: {
+     '1/4': '25%',
+     '1/2': '50%',
+     '3/4': '75%',
+    },
     extend: {
       screens: {
         '3xl': '2560px'
