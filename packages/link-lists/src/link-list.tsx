@@ -7,6 +7,7 @@ import React, {
   useState,
   useCallback
 } from 'react';
+import { useTranslation } from 'react-i18next';
 import { LinkListContextType, LinkListProps, LinkListLinkProps } from './types';
 
 const LinkListContext = createContext<LinkListContextType | undefined>(undefined);
@@ -41,6 +42,7 @@ const LinkList = ({ children, key, label, displayCutoff }: LinkListProps): JSX.E
   const totalItems = Children.count(children);
   const isLimited = displayCutoff !== undefined && totalItems > displayCutoff;
   const [expanded, setExpanded] = useState<boolean>(!isLimited);
+  const { t } = useTranslation();
   const onExpand = useCallback(() => {
     setExpanded(true);
   }, []);
@@ -68,7 +70,7 @@ const LinkList = ({ children, key, label, displayCutoff }: LinkListProps): JSX.E
               onClick={onExpand}
             >
               <Icon />
-              <span className="ml-1">more</span>
+              <span className="ml-1">{t('more')}</span>
             </button>
           )}
         </div>

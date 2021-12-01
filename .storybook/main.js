@@ -12,7 +12,9 @@ module.exports = {
           implementation: require('postcss')
         }
       }
-    }
+    },
+    'storybook-addon-apollo-client',
+    'storybook-react-i18next'
   ],
   typescript: {
     check: true,

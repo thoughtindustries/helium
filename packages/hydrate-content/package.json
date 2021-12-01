@@ -1,8 +1,8 @@
 {
-  "name": "@thoughtindustries/link-lists",
-  "version": "1.0.0-alpha.3",
-  "description": "A base component for link lists",
-  "author": "Rob Schillinger <robert.schillinger@thoughtindustries>",
+  "name": "@thoughtindustries/hydrate-content",
+  "version": "1.0.0",
+  "description": "An utility to hydrate catalog content to content item.",
+  "author": "Lu Jiang <lu.jiang@thoughtindustries.com>",
   "homepage": "https://github.com/thoughtindustries/helium#readme",
   "license": "ISC",
   "main": "src/index.ts",
@@ -21,10 +21,8 @@
     "url": "https://github.com/thoughtindustries/helium/issues"
   },
   "dependencies": {
-    "@thoughtindustries/header": "^1.0.0-alpha.3",
-    "i18next": "^21.5.2",
-    "react": "^17.0.2",
-    "react-i18next": "^11.14.2"
-  },
-  "gitHead": "8e33358778915b9915591931d98e63a020525072"
+    "date-fns": "^2.25.0",
+    "date-fns-tz": "^1.1.6",
+    "i18next": "^21.5.2"
+  }
 }
