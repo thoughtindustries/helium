@@ -1,6 +1,7 @@
 const fetch = require('isomorphic-unfetch');
 const path = require('path');
 const fs = require('fs-extra');
+const { instanceEndpoint } = require('./urls');
 
 const TRANSLATIONS_QUERY = /* GraphQL */ `
   query CompanyTranslationsQuery($namespace: String!) {
@@ -14,7 +15,7 @@ const TRANSLATIONS_QUERY = /* GraphQL */ `
 
 const fetchTranslations = async instance => {
   return new Promise((resolve, reject) => {
-    const endpoint = `${instance.instanceUrl}/helium?apiKey=${instance.apiKey}`;
+    const endpoint = instanceEndpoint(instance);
     const options = {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
@@ -42,7 +43,7 @@ const fetchTranslations = async instance => {
   });
 };
 
-const writeTranslationFile = async (dir, translations) => {
+const writeTranslationFile = async (dir, translations, generateDevFile) => {
   const dirPath = path.join(dir, 'locales');
 
   const translationsHash = translations.reduce((hash, translationObj) => {
@@ -53,9 +54,16 @@ const writeTranslationFile = async (dir, translations) => {
     return hash;
   }, {});
 
+  const stringifiedTranslations = JSON.stringify(translationsHash, null, 2);
+
+  if (generateDevFile) {
+    const devFileName = path.join(dirPath, 'translations.json');
+    await fs.writeFile(devFileName, stringifiedTranslations);
+  }
+
   const fileName = path.join(dirPath, 'translations-source.json');
 
-  return fs.writeFile(fileName, JSON.stringify(translationsHash, null, 2));
+  return fs.writeFile(fileName, stringifiedTranslations);
 };
 
 // react-i18next handles pluralizations differently than the

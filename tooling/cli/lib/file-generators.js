@@ -35,7 +35,7 @@ const generateTranslationFile = async (dir, instances) => {
   const instanceTranslations = await fetchTranslations(instance);
 
   if (instanceTranslations && instanceTranslations.length) {
-    await writeTranslationFile(dir, instanceTranslations);
+    await writeTranslationFile(dir, instanceTranslations, true);
   }
 
   return;

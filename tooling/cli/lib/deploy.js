@@ -8,6 +8,7 @@ const { parse } = require('graphql/language');
 const crypto = require('crypto');
 const childProcess = require('child_process');
 const { getFilePaths, filePathIsValid } = require('./helpers/filepaths');
+const { instanceEndpoint } = require('./helpers/urls');
 
 const OP_DIR = process.cwd();
 const configPath = path.join(OP_DIR, '/ti-config');
@@ -138,7 +139,7 @@ async function uploadHeliumProject(policyData) {
 
 async function triggerLambda(instance, key) {
   return new Promise((resolve, reject) => {
-    const endpoint = `${instance.instanceUrl}/helium?apiKey=${instance.apiKey}`;
+    const endpoint = instanceEndpoint(instance);
     const options = {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
@@ -167,7 +168,7 @@ async function triggerLambda(instance, key) {
 }
 
 async function getHeliumUploadData(instance) {
-  const endpoint = `${instance.instanceUrl}/helium?apiKey=${instance.apiKey}`;
+  const endpoint = instanceEndpoint(instance);
   const options = {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
