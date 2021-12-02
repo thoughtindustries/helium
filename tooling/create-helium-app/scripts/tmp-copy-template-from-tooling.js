@@ -1,6 +1,6 @@
 /**
  * This is a temporary script meant to copy `tooling/template-base` to `./template-base`
- * while we are actively developing H2 in `dev`. Eventually, the template will just
+ * while we are actively developing Helium in 'tooling'. Eventually, the template will just
  * live in this folder.
  */
 
