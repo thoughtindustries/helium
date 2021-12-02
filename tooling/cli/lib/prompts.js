@@ -1,14 +1,5 @@
 const { hasInput, isAbsoluteUrl, containsOnlyLetters, isEmail } = require('./validations');
 
-const TARGET_DIR_QUESTION = [
-  {
-    type: 'input',
-    name: 'dir',
-    message: 'What directory should this project live in?',
-    validate: hasInput
-  }
-];
-
 const INSTANCE_QUESTIONS = [
   {
     type: 'input',
@@ -42,6 +33,5 @@ const INSTANCE_QUESTIONS = [
 ];
 
 module.exports = {
-  TARGET_DIR_QUESTION,
   INSTANCE_QUESTIONS
 };

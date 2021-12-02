@@ -1,7 +1,7 @@
 const inquirer = require('inquirer');
-const { TARGET_DIR_QUESTION, INSTANCE_QUESTIONS } = require('./../prompts');
-const { isInstance } = require('./../validations');
-const { initProject } = require('./../file-generators');
+const { INSTANCE_QUESTIONS } = require('../prompts');
+const { isInstance } = require('../validations');
+const { initProject } = require('../file-generators');
 
 const promptQuestions = async questions => {
   return new Promise((resolve, reject) => {
@@ -32,11 +32,9 @@ exports.builder = cmd => {
   });
 };
 
-exports.command = 'init [-k]';
+exports.command = 'authenticate [-k]';
 exports.describe = 'Create new TI Template Project';
 exports.handler = async function (argv) {
-  const { dir } = await promptQuestions(TARGET_DIR_QUESTION);
-
   if (argv.insecure) {
     process.env['NODE_TLS_REJECT_UNAUTHORIZED'] = '0';
   }
@@ -46,10 +44,9 @@ exports.handler = async function (argv) {
 
   if (instances.length) {
     console.log('Initializing project...');
-    await initProject(dir, instances);
+    await initProject(process.cwd(), instances);
   }
 
   console.log('\nReady to get started? Just run:\n');
-  console.log(`$ cd ${dir}`);
-  console.log('$ npm i && helium dev');
+  console.log(`$ helium dev`);
 };
