@@ -1,0 +1,26 @@
+{
+  "name": "create-helium-app",
+  "publishConfig": {
+    "access": "public"
+  },
+  "version": "0.0.1-alpha.0",
+  "main": "index.js",
+  "license": "MIT",
+  "bin": {
+    "create-helium": "index.js",
+    "create-helium-app": "index.js"
+  },
+  "files": [
+    "index.js",
+    "scripts",
+    "template-base"
+  ],
+  "scripts": {
+    "prepack": "node ./scripts/tmp-copy-template-from-tooling.js"
+  },
+  "dependencies": {
+    "inquirer": "^8.2.0",
+    "kolorist": "^1.5.0",
+    "minimist": "^1.2.5"
+  }
+}
