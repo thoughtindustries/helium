@@ -8,6 +8,7 @@ import {
   SidebarDefault,
   ContentTileStandardLayout,
   ContentTileDescriptiveLayout,
+  ContentMultiCarousel,
   FeaturedContentContentItem
 } from '../src';
 import { RSS_ITEMS_QUERY } from '../src/variants/sidebar/rss';
@@ -19,6 +20,18 @@ jest.mock('react-i18next', () => ({
     };
   }
 }));
+
+Object.defineProperty(window, 'matchMedia', {
+  writable: true,
+  value: jest.fn().mockImplementation(query => ({
+    matches: false,
+    media: query,
+    onchange: null,
+    addEventListener: jest.fn(),
+    removeEventListener: jest.fn(),
+    dispatchEvent: jest.fn()
+  }))
+});
 
 const headerOptions = {
   title: 'Feature Content Header'
@@ -869,6 +882,85 @@ describe('@thoughtindustries/featured-content', () => {
               </a>
             </li>
           </ul>
+        </div>
+      `);
+    });
+  });
+
+  describe('ContentMultiCarousel', () => {
+    it('should error when rendered without a parent <ContentMultiCarousel />', () => {
+      const spy = jest.spyOn(global.console, 'error').mockImplementation(jest.fn());
+      expect(() => render(<ContentMultiCarousel.Item {...mockItems.manual} />)).toThrowError();
+      spy.mockRestore();
+    });
+
+    it('should render', () => {
+      const { container } = render(
+        <ContentMultiCarousel
+          headerOptions={headerOptions}
+          desktopColumnCount={2}
+          onAddedToQueue={handleAddedToQueue}
+        >
+          <ContentMultiCarousel.Item {...mockItems.manual} />
+        </ContentMultiCarousel>
+      );
+      expect(container).toMatchInlineSnapshot(`
+        <div>
+          <div>
+            <h3>
+              Feature Content Header
+            </h3>
+          </div>
+          <hr
+            class="relative my-4"
+          />
+          <div
+            class="whitespace-nowrap overflow-hidden relative"
+          >
+            <ul
+              class="transition-all duration-500 flex"
+              style="transform: translateX(-0%);"
+            >
+              <li
+                class="px-5 pb-5 text-base flex-none w-full md:w-1/2"
+              >
+                <a
+                  class="block text-gray-800 cursor-default"
+                  href="/"
+                >
+                  <div
+                    class="border-r-2 border-solid border-white relative bg-gray-100"
+                  >
+                    <div
+                      class="relative"
+                    >
+                      <img
+                        class="max-w-full h-auto p-2.5 pb-0"
+                        src="https://d36ai2hkxl16us.cloudfront.net/thoughtindustries/image/upload/v1440546308/qj7eo4nseeiigiec5huh.png"
+                      />
+                    </div>
+                    <div
+                      class="text-center py-3 px-1"
+                    >
+                      <h4
+                        class="text-sm font-bold mb-2"
+                      >
+                        Manual item
+                      </h4>
+                      <p
+                        class="text-xs text-gray-700 mb-1.5"
+                      />
+                      <p
+                        class="mt-1.5 mb-0 text-xs relative text-left py-0 px-2"
+                      >
+                        short description
+                      </p>
+                    </div>
+                  </div>
+                </a>
+              </li>
+            </ul>
+          </div>
         </div>
       `);
     });

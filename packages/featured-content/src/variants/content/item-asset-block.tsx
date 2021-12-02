@@ -2,11 +2,12 @@ import React from 'react';
 
 interface ItemAssetBlockProps {
   asset?: string;
+  classNames?: string;
 }
 
-const ItemAssetBlock = ({ asset }: ItemAssetBlockProps): JSX.Element => (
+const ItemAssetBlock = ({ asset, classNames = '' }: ItemAssetBlockProps): JSX.Element => (
   <img
-    className="max-w-full h-auto"
+    className={`max-w-full h-auto${classNames}`}
     src={
       asset ||
       'https://d36ai2hkxl16us.cloudfront.net/thoughtindustries/image/upload/v1440546308/qj7eo4nseeiigiec5huh.png'

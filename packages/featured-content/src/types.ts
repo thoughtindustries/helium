@@ -118,6 +118,8 @@ export interface FeaturedContentTileStandardLayoutContextType
 export interface FeaturedContentTileDescriptiveLayoutContextType
   extends FeaturedContentBaseContextType {}
 
+export interface FeaturedContentMultiCarouselContextType extends FeaturedContentBaseContextType {}
+
 export interface FeaturedContentProps {
   /** node for sidebar */
   sidebar?: ReactNode;
