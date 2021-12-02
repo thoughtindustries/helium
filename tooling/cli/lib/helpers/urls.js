@@ -3,7 +3,7 @@ const instanceEndpoint = instance => {
   const base = new URL(instanceUrl);
 
   base.pathname = 'helium';
-  base.searchParams.set('api_key', apiKey);
+  base.searchParams.set('apiKey', apiKey);
 
   return base.href;
 };
