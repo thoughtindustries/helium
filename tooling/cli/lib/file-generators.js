@@ -3,10 +3,6 @@ const path = require('path');
 const { fetchTranslations, writeTranslationFile } = require('./helpers/translations');
 
 const initProject = async (dir, instances) => {
-  await fs.mkdir(dir);
-  const basePath = path.resolve(__dirname, './../template_base');
-  await fs.copy(basePath, dir);
-
   console.log('Generating env file...');
   await generateEnvFile(dir, instances);
 

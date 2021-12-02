@@ -6,21 +6,27 @@ Helium is an initiative to open up the Thought Industries architecture, providin
 
 ## Getting Started
 
-Get started by installing the Helium CLI.
+Get started by creating a new Helium app.
 
 ```sh
-$ npm i @thoughtindustries/helium
+$ npm init helium-app
+```
+
+Or with yarn:
+
+```sh
+$ yarn create helium-app
 ```
 
 ## Commands
 
-### `init`
+### `authenticate`
 
 ```sh
-$ helium init [k]
+$ helium authenticate [k]
 ```
 
-Initalizes a new project by validating against your Thought Industries instance and creating a boilerplate project.
+Authenticates a new project by validating against your Thought Industries instance and writing your `ti-config.json`. Note: re-running the command will overwrite existing data in your `ti-config.json`
 
 #### Options
 
