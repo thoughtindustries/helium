@@ -18,6 +18,6 @@ export default {
     reactRefresh(),
     ssr(),
     mdx(mdxOptions),
-    WindiCSS({ scan: { dirs: ['pages'], fileExtensions: ['js', 'ts', 'jsx', 'tsx'] } })
+    WindiCSS({ scan: { dirs: ['dist'], fileExtensions: ['js', 'ts', 'jsx', 'tsx'] } })
   ]
 };
