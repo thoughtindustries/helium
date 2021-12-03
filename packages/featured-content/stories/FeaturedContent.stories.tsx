@@ -6,6 +6,7 @@ import {
   SidebarPosition,
   ContentTileStandardLayout,
   ContentTileDescriptiveLayout,
+  ContentMultiCarousel,
   FeaturedContentContentItem
 } from '../src';
 import { RSS_ITEMS_QUERY } from '../src/variants/sidebar/rss';
@@ -107,6 +108,21 @@ export const TileDescriptiveLayout = () => (
       <ContentTileDescriptiveLayout.Item {...mockItems.manual} />
       <ContentTileDescriptiveLayout.Item {...mockItems.manual} />
     </ContentTileDescriptiveLayout>
+  </FeaturedContent>
+);
+
+export const MultiCarousel = () => (
+  <FeaturedContent>
+    <ContentMultiCarousel
+      headerOptions={headerOptions}
+      desktopColumnCount={2}
+      onAddedToQueue={handleAddedToQueue}
+    >
+      <ContentMultiCarousel.Item {...mockItems.dynamic} />
+      <ContentMultiCarousel.Item {...mockItems.manual} />
+      <ContentMultiCarousel.Item {...mockItems.manual} />
+      <ContentMultiCarousel.Item {...mockItems.manual} />
+    </ContentMultiCarousel>
   </FeaturedContent>
 );
 

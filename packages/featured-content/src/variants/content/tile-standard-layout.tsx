@@ -1,17 +1,8 @@
-import React, {
-  createContext,
-  useCallback,
-  useContext,
-  useMemo,
-  useState,
-  SyntheticEvent
-} from 'react';
+import React, { createContext, useContext, useMemo } from 'react';
 import { format } from 'date-fns';
-import { useTranslation } from 'react-i18next';
 import {
   FeaturedContentContentProps,
   FeaturedContentContentItemProps,
-  FeaturedContentContentItem,
   FeaturedContentTileStandardLayoutContextType,
   FeaturedContentContentItemRibbon
 } from '../../types';
@@ -19,6 +10,7 @@ import ContentWrapper from './wrapper';
 import ItemLinkWrapper from './item-link-wrapper';
 import ItemQueueButton from './item-queue-button';
 import ItemAssetBlock from './item-asset-block';
+import ItemCompletedBlock from './item-completed-block';
 
 const ContentTileStandardLayoutContext = createContext<
   FeaturedContentTileStandardLayoutContextType | undefined
@@ -54,33 +46,6 @@ const ContentTileStandardLayout = ({
         <ul className={`grid grid-cols-1 md:grid-cols-${desktopColumnCount} gap-5`}>{children}</ul>
       </ContentWrapper>
     </ContentTileStandardLayoutContext.Provider>
-  );
-};
-
-const ItemCompletedBlock = () => {
-  const { t } = useTranslation();
-  return (
-    <div className="block absolute h-full left-0 top-0 w-full text-center bg-white bg-opacity-80 z-1">
-      <div className="absolute w-full top-1/2 transform -translate-y-1/2">
-        <div>
-          <i
-            className="bg-white text-3xl inline-block p-4 rounded-full border-4 border-solid border-white border-opacity-50 my-0 mx-auto bg-clip-padding"
-            aria-label="Completed"
-          >
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              width="30"
-              height="30"
-              viewBox="0 0 24 24"
-              fill="#5bb65c"
-            >
-              <path d="M20.285 2l-11.285 11.567-5.286-5.011-3.714 3.716 9 8.728 15-15.285z" />
-            </svg>
-          </i>
-        </div>
-        <p className="mt-1 text-base">{t('course-completed-decal')}</p>
-      </div>
-    </div>
   );
 };
 

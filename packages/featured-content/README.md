@@ -21,6 +21,7 @@ import {
   SidebarPosition,
   ContentTileStandardLayout,
   ContentTileDescriptiveLayout,
+  ContentMultiCarousel,
 } from '@thoughtindustries/featured-content';
 ```
 
@@ -43,6 +44,15 @@ import {
     <ContentTileDescriptiveLayout.Item {...itemTwo} />
     <ContentTileDescriptiveLayout.Item {...itemThree} />
   </ContentTileDescriptiveLayout>
+</FeaturedContent>
+
+# Multi carousel
+<FeaturedContent>
+  <ContentMultiCarousel headerOptions={...headerOptions} desktopColumnCount={3} onAddedToQueue={(item) => Promise.resolve()}>
+    <ContentMultiCarousel.Item {...itemOne} />
+    <ContentMultiCarousel.Item {...itemTwo} />
+    <ContentMultiCarousel.Item {...itemThree} />
+  </ContentMultiCarousel>
 </FeaturedContent>
 
 # With left sidebar (RSS)
