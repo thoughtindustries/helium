@@ -39,7 +39,11 @@ function Page(pageProps) {
 
   return (
     <>
-      <Hero img="https://d36ai2hkxl16us.cloudfront.net/thoughtindustries/image/upload/a_exif,c_lfill,h_150/v1494856803/krk0kc4dlidrctj7xddh.png" />
+      <Hero
+        title="Dolor Nullam Mattis Sem"
+        subtitle="Maecenas sed diam eget risus varius blandit sit amet non magna. Praesent commodo cursus magna, vel scelerisque nisl consectetur et."
+        asset="https://d36ai2hkxl16us.cloudfront.net/thoughtindustries/image/upload/a_exif,c_fill,w_800/v1416438573/placeholder_kcjvxm.jpg"
+      />
       <h1 style={headerStyle}>Welcome to {translatedCompanyNameString}!</h1>
       <h2>
         {translatedAuthorString} {authors.join(' and ')}
