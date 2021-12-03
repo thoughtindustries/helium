@@ -39,5 +39,8 @@
     "vite-plugin-ssr": "^0.3.2",
     "vite-plugin-windicss": "^1.4.9",
     "windicss": "^3.1.9"
+  },
+  "devDependencies": {
+    "@thoughtindustries/helium": "^1.0.1-alpha.6"
   }
 }
