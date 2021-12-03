@@ -60,7 +60,7 @@ const ContentMultiCarousel = ({
     <ContentMultiCarouselContext.Provider value={value}>
       <ContentWrapper headerOptions={headerOptions}>
         <div className="whitespace-nowrap overflow-hidden relative">
-          <ul ref={scrollableRef} style={styles} className={`transition-all duration-500 flex`}>
+          <ul ref={scrollableRef} style={styles} className="transition-all duration-500 flex">
             {children}
           </ul>
           {hasPrevItem && (
@@ -168,10 +168,10 @@ const Item = ({ ...item }: FeaturedContentContentItemProps): JSX.Element => {
   return (
     <li className={classNames}>
       <ItemLinkWrapper item={item} onClick={onClick}>
-        <div className={`border-r-2 border-solid border-white relative bg-gray-100`}>
+        <div className="border-r-2 border-solid border-white relative bg-gray-100">
           <div className="relative">
             {isCompleted && <ItemCompletedBlock />}
-            <ItemAssetBlock asset={asset} classNames=" p-2.5 pb-0" />
+            <ItemAssetBlock asset={asset} classNames="p-2.5 pb-0" />
           </div>
           <div className="text-center py-3 px-1">
             <ItemTitleBlock title={title} courseStartDate={courseStartDate} />
