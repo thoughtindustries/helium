@@ -60,7 +60,7 @@ async function init() {
   };
 
   const files = fs.readdirSync(templateDir);
-  const skipFiles = ['package.json', 'node_modules', 'dist'];
+  const skipFiles = ['package.json', 'node_modules', 'dist', 'ti-config.json', '.env'];
   for (const file of files.filter(f => !skipFiles.includes(f))) {
     write(file);
   }
