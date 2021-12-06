@@ -101,7 +101,7 @@ export type FeaturedContentContentItem = {
   displayCourse?: string;
 };
 
-export interface FeaturedContentContentItemProps extends FeaturedContentContentItem {}
+export type FeaturedContentContentItemProps = FeaturedContentContentItem;
 
 interface FeaturedContentBaseContextType {
   /** row item count in desktop view */
@@ -112,13 +112,11 @@ interface FeaturedContentBaseContextType {
   onClick?: (evt: SyntheticEvent, item: FeaturedContentContentItem) => void;
 }
 
-export interface FeaturedContentTileStandardLayoutContextType
-  extends FeaturedContentBaseContextType {}
+export type FeaturedContentTileStandardLayoutContextType = FeaturedContentBaseContextType;
 
-export interface FeaturedContentTileDescriptiveLayoutContextType
-  extends FeaturedContentBaseContextType {}
+export type FeaturedContentTileDescriptiveLayoutContextType = FeaturedContentBaseContextType;
 
-export interface FeaturedContentMultiCarouselContextType extends FeaturedContentBaseContextType {}
+export type FeaturedContentMultiCarouselContextType = FeaturedContentBaseContextType;
 
 export interface FeaturedContentProps {
   /** node for sidebar */

@@ -81,10 +81,9 @@ const Star = ({ marked }: { marked: boolean }) => (
 );
 const Stars = ({ gradePercentage }: { gradePercentage: number }) => {
   let stars;
-  let remainder;
 
   stars = gradePercentage * 0.05;
-  remainder = stars % 0.5;
+  const remainder = stars % 0.5;
 
   if (remainder > 0) {
     stars = stars - remainder + 0.5;

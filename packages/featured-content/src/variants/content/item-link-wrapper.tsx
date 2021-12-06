@@ -12,9 +12,12 @@ const ItemLinkWrapper = ({ children, onClick, item }: ItemLinkWrapperProps): JSX
 
   const itemIsActiveOrWebinarOrEvent = !!isActive;
 
-  const handleClick = useCallback((evt: SyntheticEvent) => {
-    onClick && onClick(evt, item);
-  }, []);
+  const handleClick = useCallback(
+    (evt: SyntheticEvent) => {
+      onClick && onClick(evt, item);
+    },
+    [item, onClick]
+  );
   const linkProps: {
     className: string;
     href?: string;

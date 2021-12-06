@@ -3,7 +3,7 @@ import { render } from '@testing-library/react';
 import { Header, HeaderProps } from '../src';
 
 const setupProps = (
-  alternateTitleDisplay: boolean = false,
+  alternateTitleDisplay = false,
   linkUrl?: string,
   linkText?: string
 ): HeaderProps => ({

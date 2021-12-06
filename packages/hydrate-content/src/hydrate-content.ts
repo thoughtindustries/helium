@@ -20,7 +20,7 @@ import courseRuns from './course-run';
 const hydrateContentItem = (
   i18n: I18n,
   contentItem: ContentItem,
-  customFields: any = {}
+  customFields = {}
 ): HydratedContentItem => {
   const hasUnmetPrerequisites =
     (contentItem.currentUserUnmetCoursePrerequisites || []).length > 0 ||
@@ -191,8 +191,8 @@ const getCallToAction = (
 };
 
 const getHref = (partialHydratedContentItem: PartialHydratedContentItem): string => {
-  var itemKind = partialHydratedContentItem.kind;
-  var itemSlug = partialHydratedContentItem.slug;
+  const itemKind = partialHydratedContentItem.kind;
+  const itemSlug = partialHydratedContentItem.slug;
 
   if (itemKind === ContentKind.Product) {
     return `/products/${itemSlug}`;
