@@ -31,7 +31,7 @@ const ItemQueueButton = ({ item, onClickAsync }: ItemQueueButtonProps): JSX.Elem
         setIsLoading(false);
       }
     },
-    [wasAddedToQueue, isLoading]
+    [wasAddedToQueue, isLoading, item, onClickAsync]
   );
 
   return (

@@ -6,8 +6,7 @@ import {
   SidebarPosition,
   ContentTileStandardLayout,
   ContentTileDescriptiveLayout,
-  ContentMultiCarousel,
-  FeaturedContentContentItem
+  ContentMultiCarousel
 } from '../src';
 import { RSS_ITEMS_QUERY } from '../src/variants/sidebar/rss';
 
@@ -77,7 +76,7 @@ const mockApolloResults = {
   }
 };
 
-const handleAddedToQueue = (item: FeaturedContentContentItem): Promise<void> => {
+const handleAddedToQueue = (): Promise<void> => {
   return Promise.resolve();
 };
 
@@ -126,7 +125,7 @@ export const MultiCarousel = () => (
   </FeaturedContent>
 );
 
-export const withLeftSidebar = () => (
+export const WithLeftSidebar = () => (
   <FeaturedContent
     sidebar={<SidebarRss title="RSS" feedUrl={mockFeedUrl} />}
     sidebarPosition={SidebarPosition.Left}
@@ -142,13 +141,13 @@ export const withLeftSidebar = () => (
     </ContentTileStandardLayout>
   </FeaturedContent>
 );
-withLeftSidebar.parameters = {
+WithLeftSidebar.parameters = {
   apolloClient: {
     mocks: [mockApolloResults.sidebarRss]
   }
 };
 
-export const withRightSidebar = () => (
+export const WithRightSidebar = () => (
   <FeaturedContent
     sidebar={<SidebarDefault title="Default">Static sidebar content</SidebarDefault>}
     sidebarPosition={SidebarPosition.Right}

@@ -1,4 +1,4 @@
-import React, { SyntheticEvent } from 'react';
+import React from 'react';
 import { gql, useQuery, useMutation } from '@apollo/client';
 import { useTranslation } from 'react-i18next';
 import { hydrateContent, ContentItem, ContentKind } from '@thoughtindustries/hydrate-content';
@@ -12,7 +12,9 @@ const headerOptions = {
   title: 'Feature Content Header'
 };
 
-const handleClick = (evt: SyntheticEvent, item: FeaturedContentContentItem): void => {};
+const handleClick = (): void => {
+  // do something
+};
 
 const CORE_CONTENT_FIELDS = gql`
   fragment CoreContentFields on Content {
@@ -106,7 +108,7 @@ const mockCatalogQueryVariables = {
 const mockQueryContentsQueryVariables = {
   ids: ['item-id']
 };
-const mockContentItemFactory = (isLearningPath: boolean = false) => ({
+const mockContentItemFactory = (isLearningPath = false) => ({
   __typename: 'Content',
   id: 'item-id',
   asset:
@@ -180,14 +182,16 @@ const mockApolloResults = {
   }
 };
 
-export const withCatalogQuery = () => {
+export const WithCatalogQuery = () => {
   const { i18n } = useTranslation();
   const [addResourceToQueue] = useMutation<
     AddResourceToQueueMutationData,
     AddResourceToQueueMutationVars
   >(ADD_RESOURCE_TO_QUEUE_MUTATION);
   const handleAddedToQueue = (item: FeaturedContentContentItem): Promise<void> =>
-    addResourceToQueue({ variables: { resourceId: item.displayCourse as any } }).then();
+    item.displayCourse
+      ? addResourceToQueue({ variables: { resourceId: item.displayCourse } }).then()
+      : Promise.resolve();
 
   const { data, loading, error } = useQuery<CatalogQueryData, CatalogQueryVars>(
     CATLOG_QUERY_QUERY,
@@ -226,25 +230,27 @@ export const withCatalogQuery = () => {
     </FeaturedContent>
   );
 };
-withCatalogQuery.parameters = {
+WithCatalogQuery.parameters = {
   apolloClient: {
     mocks: [mockApolloResults.catalogQuery, mockApolloResults.addCourseToQueueMutation]
   }
 };
 
-export const withQueryContentsQuery = () => {
+export const WithQueryContentsQuery = () => {
   const { i18n } = useTranslation();
   const [addResourceToQueue] = useMutation<
     AddResourceToQueueMutationData,
     AddResourceToQueueMutationVars
   >(ADD_RESOURCE_TO_QUEUE_MUTATION);
   const handleAddedToQueue = (item: FeaturedContentContentItem): Promise<void> =>
-    addResourceToQueue({
-      variables: {
-        resourceType: item.kind as any,
-        resourceId: item.slug as any
-      }
-    }).then();
+    item.slug
+      ? addResourceToQueue({
+          variables: {
+            resourceType: item.kind as ContentKind,
+            resourceId: item.slug
+          }
+        }).then()
+      : Promise.resolve();
 
   const { data, loading, error } = useQuery<QueryContentsData, QueryContentsVars>(
     QUERY_CONTENTS_QUERY,
@@ -283,7 +289,7 @@ export const withQueryContentsQuery = () => {
     </FeaturedContent>
   );
 };
-withQueryContentsQuery.parameters = {
+WithQueryContentsQuery.parameters = {
   apolloClient: {
     mocks: [mockApolloResults.queryContentsQuery, mockApolloResults.addLearningPathToQueueMutation]
   }

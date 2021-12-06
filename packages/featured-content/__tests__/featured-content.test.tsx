@@ -8,8 +8,7 @@ import {
   SidebarDefault,
   ContentTileStandardLayout,
   ContentTileDescriptiveLayout,
-  ContentMultiCarousel,
-  FeaturedContentContentItem
+  ContentMultiCarousel
 } from '../src';
 import { RSS_ITEMS_QUERY } from '../src/variants/sidebar/rss';
 
@@ -95,7 +94,7 @@ const mockApolloResults = {
   }
 };
 
-const handleAddedToQueue = (item: FeaturedContentContentItem): Promise<void> => {
+const handleAddedToQueue = (): Promise<void> => {
   return Promise.resolve();
 };
 

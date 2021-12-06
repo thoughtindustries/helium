@@ -31,7 +31,7 @@ export const Base = () => (
   </LinkLists>
 );
 
-export const withDisplayCutoff = () => (
+export const WithDisplayCutoff = () => (
   <LinkLists title="Dolor Nullam Mattis Sem" alternateTitleDisplay>
     <LinkList label="Category 1" displayCutoff={2}>
       <LinkList.Link href="/subcategory-link1">List subcategory 1</LinkList.Link>
