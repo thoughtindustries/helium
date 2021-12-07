@@ -125,6 +125,8 @@ export type FeaturedContentMultiCarouselContextType = FeaturedContentBaseContext
 
 export type FeaturedContentCarouselContextType = Pick<FeaturedContentBaseContextType, 'onClick'>;
 
+export type FeaturedContentTileImageOverlayContextType = FeaturedContentBaseContextType;
+
 export interface FeaturedContentProps {
   /** node for sidebar */
   sidebar?: ReactNode;

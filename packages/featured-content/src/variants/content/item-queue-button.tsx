@@ -5,9 +5,14 @@ import { FeaturedContentContentItem } from '../../types';
 interface ItemQueueButtonProps {
   item: FeaturedContentContentItem;
   onClickAsync: (item: FeaturedContentContentItem) => Promise<void>;
+  classNames?: string;
 }
 
-const ItemQueueButton = ({ item, onClickAsync }: ItemQueueButtonProps): JSX.Element => {
+const ItemQueueButton = ({
+  item,
+  onClickAsync,
+  classNames = ''
+}: ItemQueueButtonProps): JSX.Element => {
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [wasAddedToQueue, setWasAddedToQueue] = useState<boolean>(false);
   const { t } = useTranslation();
@@ -34,13 +39,16 @@ const ItemQueueButton = ({ item, onClickAsync }: ItemQueueButtonProps): JSX.Elem
     [wasAddedToQueue, isLoading, item, onClickAsync]
   );
 
+  const btnClassNames = [
+    'inline-block pl-0 mb-1 text-xs border-none rounded-sm cursor-pointer inline-block font-normal leading-normal m-0 p-0 relative text-center no-underline transition-colors ease-in-out duration-200 hover:text-blue-700',
+    wasAddedToQueue ? 'cursor-default' : '',
+    classNames
+  ]
+    .filter(c => c)
+    .join(' ');
+
   return (
-    <button
-      onClick={handleClick}
-      className={`inline-block pl-0 mb-1 text-xs border-none rounded-sm cursor-pointer inline-block font-normal leading-normal m-0 p-0 relative text-center no-underline transition-colors ease-in-out duration-200 hover:text-blue-700 ${
-        wasAddedToQueue ? 'cursor-default' : ''
-      }`}
-    >
+    <button onClick={handleClick} className={btnClassNames}>
       {wasAddedToQueue && (
         <span className="inline-block align-top">
           <i

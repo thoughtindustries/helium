@@ -7,7 +7,8 @@ import {
   ContentTileStandardLayout,
   ContentTileDescriptiveLayout,
   ContentMultiCarousel,
-  ContentCarousel
+  ContentCarousel,
+  ContentTileImageOverlay
 } from '../src';
 import { RSS_ITEMS_QUERY } from '../src/variants/sidebar/rss';
 
@@ -152,6 +153,19 @@ export const Carousel = () => (
       <ContentCarousel.Item {...mockItems.dynamic} />
       <ContentCarousel.Item {...mockItems.dynamicTwo} />
     </ContentCarousel>
+  </FeaturedContent>
+);
+
+export const TileImageOverlay = () => (
+  <FeaturedContent>
+    <ContentTileImageOverlay
+      headerOptions={headerOptions}
+      desktopColumnCount={2}
+      onAddedToQueue={handleAddedToQueue}
+    >
+      <ContentTileImageOverlay.Item {...mockItems.dynamic} />
+      <ContentTileImageOverlay.Item {...mockItems.dynamicTwo} />
+    </ContentTileImageOverlay>
   </FeaturedContent>
 );
 

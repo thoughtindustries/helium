@@ -4,7 +4,8 @@ import {
   ContentTileStandardLayout,
   ContentTileDescriptiveLayout,
   ContentMultiCarousel,
-  ContentCarousel
+  ContentCarousel,
+  ContentTileImageOverlay
 } from './variants/content';
 
 export * from './types';
@@ -15,5 +16,6 @@ export {
   ContentTileStandardLayout,
   ContentTileDescriptiveLayout,
   ContentMultiCarousel,
-  ContentCarousel
+  ContentCarousel,
+  ContentTileImageOverlay
 };

@@ -9,7 +9,8 @@ import {
   ContentTileStandardLayout,
   ContentTileDescriptiveLayout,
   ContentMultiCarousel,
-  ContentCarousel
+  ContentCarousel,
+  ContentTileImageOverlay
 } from '../src';
 import { RSS_ITEMS_QUERY } from '../src/variants/sidebar/rss';
 
@@ -266,7 +267,7 @@ describe('@thoughtindustries/featured-content', () => {
                             >
                               <span>
                                 <button
-                                  class="inline-block pl-0 mb-1 text-xs border-none rounded-sm cursor-pointer inline-block font-normal leading-normal m-0 p-0 relative text-center no-underline transition-colors ease-in-out duration-200 hover:text-blue-700 "
+                                  class="inline-block pl-0 mb-1 text-xs border-none rounded-sm cursor-pointer inline-block font-normal leading-normal m-0 p-0 relative text-center no-underline transition-colors ease-in-out duration-200 hover:text-blue-700"
                                 >
                                   <span
                                     class="inline-block align-top"
@@ -1077,6 +1078,71 @@ describe('@thoughtindustries/featured-content', () => {
               </button>
             </div>
           </div>
+        </div>
+      `);
+    });
+  });
+
+  describe('ContentTileImageOverlay', () => {
+    it('should error when rendered without a parent <ContentTileImageOverlay />', () => {
+      const spy = jest.spyOn(global.console, 'error').mockImplementation(jest.fn());
+      expect(() => render(<ContentTileImageOverlay.Item {...mockItems.manual} />)).toThrowError();
+      spy.mockRestore();
+    });
+
+    it('should render', () => {
+      const { container } = render(
+        <ContentTileImageOverlay
+          headerOptions={headerOptions}
+          desktopColumnCount={2}
+          onAddedToQueue={handleAddedToQueue}
+        >
+          <ContentTileImageOverlay.Item {...mockItems.manual} />
+        </ContentTileImageOverlay>
+      );
+      expect(container).toMatchInlineSnapshot(`
+        <div>
+          <div>
+            <h3>
+              Feature Content Header
+            </h3>
+          </div>
+          <hr
+            class="relative my-4"
+          />
+          <ul
+            class="grid grid-cols-1 md:grid-cols-2 gap-5"
+          >
+            <li>
+              <a
+                class="block text-gray-800 cursor-default"
+                href="/"
+              >
+                <div
+                  class="relative"
+                >
+                  <img
+                    class="max-w-full h-auto"
+                    src="https://d36ai2hkxl16us.cloudfront.net/thoughtindustries/image/upload/v1440546308/qj7eo4nseeiigiec5huh.png"
+                  />
+                  <div
+                    class="absolute bottom-0 left-0 p-4 w-full bg-gray-900 bg-opacity-80"
+                  >
+                    <h4
+                      class="mb-0 text-sm text-white"
+                    >
+                      Manual item
+                    </h4>
+                    <p
+                      class="mt-1 mb-0 text-xs text-white"
+                    >
+                      short description
+                    </p>
+                  </div>
+                </div>
+              </a>
+            </li>
+          </ul>
         </div>
       `);
     });
