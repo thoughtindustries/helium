@@ -1039,7 +1039,7 @@ describe('@thoughtindustries/featured-content', () => {
             >
               <button
                 aria-label="left"
-                class="transition-colors relative text-center no-underline inline-block text-accent-contrast bg-accent border border-solid border-accent p-0.5 cursor-default pointer-events-none opacity-25"
+                class="transition-colors relative text-center no-underline inline-block text-accent-contrast bg-accent hover:bg-accent-hover border border-solid border-accent hover:border-accent-hover p-0.5 cursor-default pointer-events-none opacity-25"
               >
                 <svg
                   class="h-5 w-5"
@@ -1058,7 +1058,7 @@ describe('@thoughtindustries/featured-content', () => {
               </button>
               <button
                 aria-label="right"
-                class="transition-colors relative text-center no-underline inline-block text-accent-contrast bg-accent border border-solid border-accent p-0.5 cursor-default pointer-events-none opacity-25"
+                class="transition-colors relative text-center no-underline inline-block text-accent-contrast bg-accent hover:bg-accent-hover border border-solid border-accent hover:border-accent-hover p-0.5 cursor-default pointer-events-none opacity-25"
               >
                 <svg
                   class="h-5 w-5"

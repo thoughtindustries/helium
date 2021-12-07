@@ -50,7 +50,7 @@ const ContentCarousel = ({
     touchAction: 'none'
   };
   const navBtnBaseClassNames =
-    'transition-colors relative text-center no-underline inline-block text-accent-contrast bg-accent border border-solid border-accent p-0.5';
+    'transition-colors relative text-center no-underline inline-block text-accent-contrast bg-accent hover:bg-accent-hover border border-solid border-accent hover:border-accent-hover p-0.5';
   const enabledBtnClassNames = `${navBtnBaseClassNames} cursor-pointer`;
   const disabledBtnClassNames = `${navBtnBaseClassNames} cursor-default pointer-events-none opacity-25`;
   const prevNavClassNames = hasPrevItem ? enabledBtnClassNames : disabledBtnClassNames;
