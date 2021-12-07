@@ -22,6 +22,7 @@ import {
   ContentTileStandardLayout,
   ContentTileDescriptiveLayout,
   ContentMultiCarousel,
+  ContentCarousel
 } from '@thoughtindustries/featured-content';
 ```
 
@@ -53,6 +54,15 @@ import {
     <ContentMultiCarousel.Item {...itemTwo} />
     <ContentMultiCarousel.Item {...itemThree} />
   </ContentMultiCarousel>
+</FeaturedContent>
+
+# Carousel
+<FeaturedContent>
+  <ContentCarousel headerOptions={...headerOptions}>
+    <ContentCarousel.Item {...itemOne} />
+    <ContentCarousel.Item {...itemTwo} />
+    <ContentCarousel.Item {...itemThree} />
+  </ContentCarousel>
 </FeaturedContent>
 
 # With left sidebar (RSS)

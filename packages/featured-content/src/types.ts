@@ -41,6 +41,11 @@ export interface FeaturedContentContentProps {
   children: ReactNode;
 }
 
+export type FeaturedContentContentCarouselProps = Omit<
+  FeaturedContentContentProps,
+  'desktopColumnCount' | 'onAddedToQueue'
+>;
+
 export type FeaturedContentContentItemRibbon = {
   /** background color */
   bgColor?: string;
@@ -117,6 +122,8 @@ export type FeaturedContentTileStandardLayoutContextType = FeaturedContentBaseCo
 export type FeaturedContentTileDescriptiveLayoutContextType = FeaturedContentBaseContextType;
 
 export type FeaturedContentMultiCarouselContextType = FeaturedContentBaseContextType;
+
+export type FeaturedContentCarouselContextType = Pick<FeaturedContentBaseContextType, 'onClick'>;
 
 export interface FeaturedContentProps {
   /** node for sidebar */

@@ -8,7 +8,8 @@ import {
   SidebarDefault,
   ContentTileStandardLayout,
   ContentTileDescriptiveLayout,
-  ContentMultiCarousel
+  ContentMultiCarousel,
+  ContentCarousel
 } from '../src';
 import { RSS_ITEMS_QUERY } from '../src/variants/sidebar/rss';
 
@@ -959,6 +960,122 @@ describe('@thoughtindustries/featured-content', () => {
                 </a>
               </li>
             </ul>
+          </div>
+        </div>
+      `);
+    });
+  });
+
+  describe('ContentCarousel', () => {
+    it('should error when rendered without a parent <ContentCarousel />', () => {
+      const spy = jest.spyOn(global.console, 'error').mockImplementation(jest.fn());
+      expect(() => render(<ContentCarousel.Item {...mockItems.manual} />)).toThrowError();
+      spy.mockRestore();
+    });
+
+    it('should render', () => {
+      const { container } = render(
+        <ContentCarousel headerOptions={headerOptions}>
+          <ContentCarousel.Item {...mockItems.manual} />
+        </ContentCarousel>
+      );
+      expect(container).toMatchInlineSnapshot(`
+        <div>
+          <div>
+            <h3>
+              Feature Content Header
+            </h3>
+          </div>
+          <hr
+            class="relative my-4"
+          />
+          <div
+            class="whitespace-nowrap overflow-hidden relative"
+          >
+            <ul
+              class="transition-all duration-500 m-0 flex"
+            >
+              <li
+                class="flex-none w-full whitespace-normal text-base"
+              >
+                <a
+                  class="block text-gray-800 cursor-default"
+                  href="/"
+                >
+                  <div
+                    class="relative bg-gray-100"
+                  >
+                    <img
+                      class="max-w-full h-auto w-full"
+                      src="https://d36ai2hkxl16us.cloudfront.net/thoughtindustries/image/upload/v1440546308/qj7eo4nseeiigiec5huh.png"
+                    />
+                    <div
+                      class="absolute bottom-0 left-0 w-full p-4 pb-11 bg-gray-900 bg-opacity-60"
+                    >
+                      <h4
+                        class="mb-0 text-base font-bold text-white"
+                      >
+                        Manual item
+                      </h4>
+                      <p
+                        class="mt-1.5 mb-0 text-xs text-white"
+                      >
+                        short description
+                      </p>
+                    </div>
+                  </div>
+                </a>
+              </li>
+            </ul>
+            <div
+              class="absolute text-center left-0 w-full bottom-2"
+            >
+              <div
+                class="rounded-full inline-block mr-1 h-1 w-1 bg-accent"
+              />
+            </div>
+            <div
+              class="absolute bottom-2 right-6"
+            >
+              <button
+                aria-label="left"
+                class="transition-colors relative text-center no-underline inline-block text-accent-contrast bg-accent border border-solid border-accent p-0.5 cursor-default pointer-events-none opacity-25"
+              >
+                <svg
+                  class="h-5 w-5"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="M15 19l-7-7 7-7"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                  />
+                </svg>
+              </button>
+              <button
+                aria-label="right"
+                class="transition-colors relative text-center no-underline inline-block text-accent-contrast bg-accent border border-solid border-accent p-0.5 cursor-default pointer-events-none opacity-25"
+              >
+                <svg
+                  class="h-5 w-5"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="M9 5l7 7-7 7"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                  />
+                </svg>
+              </button>
+            </div>
           </div>
         </div>
       `);

@@ -10,6 +10,7 @@ import ItemLinkWrapper from './item-link-wrapper';
 import ItemAssetBlock from './item-asset-block';
 import ItemCompletedBlock from './item-completed-block';
 import ItemQueueButton from './item-queue-button';
+import { IconLeft, IconRight } from './icons';
 import { useMultiCarouselBehavior } from './use-multi-carousel-behavior';
 
 const ContentMultiCarouselContext = createContext<
@@ -65,38 +66,12 @@ const ContentMultiCarousel = ({
           </ul>
           {hasPrevItem && (
             <button className={prevNavClassNames} onClick={() => navigate(-1)} aria-label="left">
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                className="h-5 w-5"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke="currentColor"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                  d="M15 19l-7-7 7-7"
-                />
-              </svg>
+              <IconLeft />
             </button>
           )}
           {hasNextItem && (
             <button className={nextNavClassNames} onClick={() => navigate(1)} aria-label="right">
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                className="h-5 w-5"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke="currentColor"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                  d="M9 5l7 7-7 7"
-                />
-              </svg>
+              <IconRight />
             </button>
           )}
         </div>
