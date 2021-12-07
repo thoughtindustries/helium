@@ -1,5 +1,4 @@
 import React, { createContext, useContext, useMemo } from 'react';
-import { format } from 'date-fns';
 import {
   FeaturedContentContentProps,
   FeaturedContentContentItemProps,
@@ -49,11 +48,7 @@ const ContentTileImageOverlay = ({
 
 const Item = ({ ...item }: FeaturedContentContentItemProps): JSX.Element => {
   const { asset, title, shortDescription, canAddToQueue } = item;
-  const { onAddedToQueue, onClick, desktopColumnCount } = useContentTileImageOverlayContext();
-
-  const columnCountIsOneOrTwo = desktopColumnCount === 1 || desktopColumnCount === 2;
-  const gridItemDesktopClassnames = columnCountIsOneOrTwo ? ' md:grid-cols-2 md:gap-x-2' : '';
-  const assetWrapperDesktopClassnames = columnCountIsOneOrTwo ? ' md:p-2' : '';
+  const { onAddedToQueue, onClick } = useContentTileImageOverlayContext();
 
   return (
     <li>
