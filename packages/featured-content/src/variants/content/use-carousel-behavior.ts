@@ -1,4 +1,4 @@
-import { RefObject, useCallback, useEffect, useRef, useState } from 'react';
+import { RefObject, useCallback, useRef, useState } from 'react';
 import { createUseGesture, dragAction } from '@use-gesture/react';
 import { ScreenSize, useScreenSize } from './use-screen-size';
 import { usePrevious } from './use-previous';
@@ -10,12 +10,12 @@ interface CarouselProps {
 export interface CarouselBehavior<TRef extends HTMLElement> {
   scrollableRef: RefObject<TRef>;
   navigate: (direction: number) => void;
+  reset: () => void;
   hasPrevItem: boolean;
   hasNextItem: boolean;
   screenSize: ScreenSize;
   prevScreenSize?: ScreenSize;
   currentPosition: number;
-  setCurrentPosition: (pos: number) => void;
 }
 
 export function useCarouselBehavior<TRef extends HTMLElement>({
@@ -40,6 +40,13 @@ export function useCarouselBehavior<TRef extends HTMLElement>({
     },
     [currentPosition]
   );
+
+  const reset = useCallback(() => {
+    if (scrollableRef.current) {
+      scrollableRef.current.style.transform = 'translateX(-0%)';
+      setCurrentPosition(0);
+    }
+  }, []);
 
   const useGesture = createUseGesture([dragAction]);
   useGesture(
@@ -67,7 +74,7 @@ export function useCarouselBehavior<TRef extends HTMLElement>({
     screenSize,
     prevScreenSize,
     navigate,
-    currentPosition,
-    setCurrentPosition
+    reset,
+    currentPosition
   };
 }

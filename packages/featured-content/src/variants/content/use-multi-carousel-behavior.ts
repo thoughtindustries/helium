@@ -8,7 +8,7 @@ interface MultiCarouselProps {
 }
 
 interface MultiCarouselBehavior<TRef extends HTMLElement>
-  extends Omit<CarouselBehavior<TRef>, 'currentPosition' | 'setCurrentPosition'> {
+  extends Omit<CarouselBehavior<TRef>, 'currentPosition'> {
   countPerSlide: number;
 }
 
@@ -16,14 +16,8 @@ export function useMultiCarouselBehavior<TRef extends HTMLElement>({
   desktopColumnCount,
   itemCount
 }: MultiCarouselProps): MultiCarouselBehavior<TRef> {
-  const {
-    scrollableRef,
-    screenSize,
-    prevScreenSize,
-    navigate,
-    currentPosition,
-    setCurrentPosition
-  } = useCarouselBehavior<TRef>({ itemCount });
+  const { scrollableRef, screenSize, prevScreenSize, navigate, reset, currentPosition } =
+    useCarouselBehavior<TRef>({ itemCount });
 
   const isSmallScreen = screenSize === ScreenSize.Small;
   const countPerSlide = isSmallScreen ? 1 : desktopColumnCount;
@@ -36,12 +30,9 @@ export function useMultiCarouselBehavior<TRef extends HTMLElement>({
     const changedFromSmallScreen = isPreviousSmallScreen && !isCurrentSmallScreen;
     const changedToSmallScreen = !isPreviousSmallScreen && isCurrentSmallScreen;
     if (changedFromSmallScreen || changedToSmallScreen) {
-      setCurrentPosition(0);
-      if (scrollableRef.current) {
-        scrollableRef.current.style.transform = `translateX(-0%)`;
-      }
+      reset();
     }
-  }, [screenSize, prevScreenSize]);
+  }, [screenSize, prevScreenSize, reset]);
 
   return {
     scrollableRef,
@@ -50,6 +41,7 @@ export function useMultiCarouselBehavior<TRef extends HTMLElement>({
     hasNextItem,
     screenSize,
     prevScreenSize,
-    navigate
+    navigate,
+    reset
   };
 }
