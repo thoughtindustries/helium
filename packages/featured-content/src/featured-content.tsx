@@ -8,7 +8,7 @@ const FeaturedContent = ({
 }: FeaturedContentProps): JSX.Element => {
   const wrappedSidebar = sidebar && <div className="relative">{sidebar}</div>;
   const wrappedChildren = (
-    <div className={sidebar ? 'col-span-3' : 'col-span-full'}>{children}</div>
+    <div className={sidebar ? 'md:col-span-3' : 'md:col-span-full'}>{children}</div>
   );
   return (
     <div className="w-auto -ml-4 -mr-4 mt-0 mb-0 max-w-none">

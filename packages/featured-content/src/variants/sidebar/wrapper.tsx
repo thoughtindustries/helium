@@ -5,9 +5,9 @@ import { FeaturedContentSidebarBaseProps } from '../../types';
 type FeaturedContentSidebarWrapperProps = FeaturedContentSidebarBaseProps;
 
 const SidebarWrapper = ({ title, children }: FeaturedContentSidebarWrapperProps): JSX.Element => (
-  <div className="h-full absolute left-0 w-full">
+  <div className="md:h-full md:absolute md:left-0 w-full">
     {title && <Header title={title} alternateTitleDisplay />}
-    <div className="overflow-y-scroll text-sm h-full">{children}</div>
+    <div className="overflow-y-scroll text-sm md:h-full">{children}</div>
   </div>
 );
 
