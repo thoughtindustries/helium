@@ -38,7 +38,9 @@
     "storybook": "start-storybook -p 6006",
     "build-storybook": "build-storybook",
     "test": "jest",
-    "prepare": "husky install"
+    "prepare": "husky install",
+    "lint": "eslint --ext .ts,.tsx packages --fix",
+    "format": "prettier --write --ignore-unknown ."
   },
   "lint-staged": {
     "*.{js,jsx}": [

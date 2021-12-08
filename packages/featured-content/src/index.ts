@@ -3,7 +3,9 @@ import { SidebarRss, SidebarDefault } from './variants/sidebar';
 import {
   ContentTileStandardLayout,
   ContentTileDescriptiveLayout,
-  ContentMultiCarousel
+  ContentMultiCarousel,
+  ContentCarousel,
+  ContentTileImageOverlay
 } from './variants/content';
 
 export * from './types';
@@ -13,5 +15,7 @@ export {
   SidebarDefault,
   ContentTileStandardLayout,
   ContentTileDescriptiveLayout,
-  ContentMultiCarousel
+  ContentMultiCarousel,
+  ContentCarousel,
+  ContentTileImageOverlay
 };

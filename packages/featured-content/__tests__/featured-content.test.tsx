@@ -8,7 +8,9 @@ import {
   SidebarDefault,
   ContentTileStandardLayout,
   ContentTileDescriptiveLayout,
-  ContentMultiCarousel
+  ContentMultiCarousel,
+  ContentCarousel,
+  ContentTileImageOverlay
 } from '../src';
 import { RSS_ITEMS_QUERY } from '../src/variants/sidebar/rss';
 
@@ -124,7 +126,7 @@ describe('@thoughtindustries/featured-content', () => {
               class="w-full relative pl-4 pr-4 float-left grid grid-cols-1 md:grid-cols-4 gap-8"
             >
               <div
-                class="col-span-full"
+                class="md:col-span-full"
               >
                 <div>
                   <h3>
@@ -135,7 +137,7 @@ describe('@thoughtindustries/featured-content', () => {
                   class="relative my-4"
                 />
                 <ul
-                  class="grid grid-cols-1 md:grid-cols-3 gap-5"
+                  class="grid gap-5 grid-cols-1 md:grid-cols-3"
                 >
                   <li>
                     <a
@@ -265,7 +267,7 @@ describe('@thoughtindustries/featured-content', () => {
                             >
                               <span>
                                 <button
-                                  class="inline-block pl-0 mb-1 text-xs border-none rounded-sm cursor-pointer inline-block font-normal leading-normal m-0 p-0 relative text-center no-underline transition-colors ease-in-out duration-200 hover:text-blue-700 "
+                                  class="inline-block pl-0 mb-1 text-xs border-none rounded-sm cursor-pointer inline-block font-normal leading-normal m-0 p-0 relative text-center no-underline transition-colors ease-in-out duration-200 hover:text-link-hover"
                                 >
                                   <span
                                     class="inline-block align-top"
@@ -468,7 +470,7 @@ describe('@thoughtindustries/featured-content', () => {
                 class="relative"
               >
                 <div
-                  class="h-full absolute left-0 w-full"
+                  class="md:h-full md:absolute md:left-0 w-full"
                 >
                   <div>
                     <h3>
@@ -479,7 +481,7 @@ describe('@thoughtindustries/featured-content', () => {
                     class="relative my-4"
                   />
                   <div
-                    class="overflow-y-scroll text-sm h-full"
+                    class="overflow-y-scroll text-sm md:h-full"
                   >
                     <a
                       class="block mb-4"
@@ -503,7 +505,7 @@ describe('@thoughtindustries/featured-content', () => {
                 </div>
               </div>
               <div
-                class="col-span-3"
+                class="md:col-span-3"
               >
                 <div>
                   <h3>
@@ -514,7 +516,7 @@ describe('@thoughtindustries/featured-content', () => {
                   class="relative my-4"
                 />
                 <ul
-                  class="grid grid-cols-1 md:grid-cols-2 gap-5"
+                  class="grid gap-5 grid-cols-1 md:grid-cols-2"
                 >
                   <li>
                     <a
@@ -628,7 +630,7 @@ describe('@thoughtindustries/featured-content', () => {
       expect(container).toMatchInlineSnapshot(`
         <div>
           <div
-            class="h-full absolute left-0 w-full"
+            class="md:h-full md:absolute md:left-0 w-full"
           >
             <div>
               <h3>
@@ -639,7 +641,7 @@ describe('@thoughtindustries/featured-content', () => {
               class="relative my-4"
             />
             <div
-              class="overflow-y-scroll text-sm h-full"
+              class="overflow-y-scroll text-sm md:h-full"
             >
               <a
                 class="block mb-4"
@@ -675,7 +677,7 @@ describe('@thoughtindustries/featured-content', () => {
       expect(container).toMatchInlineSnapshot(`
         <div>
           <div
-            class="h-full absolute left-0 w-full"
+            class="md:h-full md:absolute md:left-0 w-full"
           >
             <div>
               <h3>
@@ -686,7 +688,7 @@ describe('@thoughtindustries/featured-content', () => {
               class="relative my-4"
             />
             <div
-              class="overflow-y-scroll text-sm h-full"
+              class="overflow-y-scroll text-sm md:h-full"
             >
               <h5>
                 please-wait
@@ -706,7 +708,7 @@ describe('@thoughtindustries/featured-content', () => {
       expect(container).toMatchInlineSnapshot(`
         <div>
           <div
-            class="h-full absolute left-0 w-full"
+            class="md:h-full md:absolute md:left-0 w-full"
           >
             <div>
               <h3>
@@ -717,7 +719,7 @@ describe('@thoughtindustries/featured-content', () => {
               class="relative my-4"
             />
             <div
-              class="overflow-y-scroll text-sm h-full"
+              class="overflow-y-scroll text-sm md:h-full"
             >
               Static sidebar content
             </div>
@@ -755,7 +757,7 @@ describe('@thoughtindustries/featured-content', () => {
             class="relative my-4"
           />
           <ul
-            class="grid grid-cols-1 md:grid-cols-2 gap-5"
+            class="grid gap-5 grid-cols-1 md:grid-cols-2"
           >
             <li>
               <a
@@ -839,7 +841,7 @@ describe('@thoughtindustries/featured-content', () => {
             class="relative my-4"
           />
           <ul
-            class="grid grid-cols-1 md:grid-cols-2 gap-5"
+            class="grid gap-5 grid-cols-1 md:grid-cols-2"
           >
             <li>
               <a
@@ -960,6 +962,187 @@ describe('@thoughtindustries/featured-content', () => {
               </li>
             </ul>
           </div>
+        </div>
+      `);
+    });
+  });
+
+  describe('ContentCarousel', () => {
+    it('should error when rendered without a parent <ContentCarousel />', () => {
+      const spy = jest.spyOn(global.console, 'error').mockImplementation(jest.fn());
+      expect(() => render(<ContentCarousel.Item {...mockItems.manual} />)).toThrowError();
+      spy.mockRestore();
+    });
+
+    it('should render', () => {
+      const { container } = render(
+        <ContentCarousel headerOptions={headerOptions}>
+          <ContentCarousel.Item {...mockItems.manual} />
+        </ContentCarousel>
+      );
+      expect(container).toMatchInlineSnapshot(`
+        <div>
+          <div>
+            <h3>
+              Feature Content Header
+            </h3>
+          </div>
+          <hr
+            class="relative my-4"
+          />
+          <div
+            class="whitespace-nowrap overflow-hidden relative"
+          >
+            <ul
+              class="transition-all duration-500 m-0 flex"
+            >
+              <li
+                class="flex-none w-full whitespace-normal text-base"
+              >
+                <a
+                  class="block text-gray-800 cursor-default"
+                  href="/"
+                >
+                  <div
+                    class="relative bg-gray-100"
+                  >
+                    <img
+                      class="max-w-full h-auto w-full"
+                      src="https://d36ai2hkxl16us.cloudfront.net/thoughtindustries/image/upload/v1440546308/qj7eo4nseeiigiec5huh.png"
+                    />
+                    <div
+                      class="absolute bottom-0 left-0 w-full p-4 pb-11 bg-gray-900 bg-opacity-60"
+                    >
+                      <h4
+                        class="mb-0 text-base font-bold text-white"
+                      >
+                        Manual item
+                      </h4>
+                      <p
+                        class="mt-1.5 mb-0 text-xs text-white"
+                      >
+                        short description
+                      </p>
+                    </div>
+                  </div>
+                </a>
+              </li>
+            </ul>
+            <div
+              class="absolute text-center left-0 w-full bottom-2"
+            >
+              <div
+                class="rounded-full inline-block mr-1 h-1 w-1 bg-accent"
+              />
+            </div>
+            <div
+              class="absolute bottom-2 right-6"
+            >
+              <button
+                aria-label="left"
+                class="transition-colors relative text-center no-underline inline-block text-accent-contrast bg-accent hover:bg-accent-hover border border-solid border-accent hover:border-accent-hover p-0.5 cursor-default pointer-events-none opacity-25"
+              >
+                <svg
+                  class="h-5 w-5"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="M15 19l-7-7 7-7"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                  />
+                </svg>
+              </button>
+              <button
+                aria-label="right"
+                class="transition-colors relative text-center no-underline inline-block text-accent-contrast bg-accent hover:bg-accent-hover border border-solid border-accent hover:border-accent-hover p-0.5 cursor-default pointer-events-none opacity-25"
+              >
+                <svg
+                  class="h-5 w-5"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="M9 5l7 7-7 7"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                  />
+                </svg>
+              </button>
+            </div>
+          </div>
+        </div>
+      `);
+    });
+  });
+
+  describe('ContentTileImageOverlay', () => {
+    it('should error when rendered without a parent <ContentTileImageOverlay />', () => {
+      const spy = jest.spyOn(global.console, 'error').mockImplementation(jest.fn());
+      expect(() => render(<ContentTileImageOverlay.Item {...mockItems.manual} />)).toThrowError();
+      spy.mockRestore();
+    });
+
+    it('should render', () => {
+      const { container } = render(
+        <ContentTileImageOverlay
+          headerOptions={headerOptions}
+          desktopColumnCount={2}
+          onAddedToQueue={handleAddedToQueue}
+        >
+          <ContentTileImageOverlay.Item {...mockItems.manual} />
+        </ContentTileImageOverlay>
+      );
+      expect(container).toMatchInlineSnapshot(`
+        <div>
+          <div>
+            <h3>
+              Feature Content Header
+            </h3>
+          </div>
+          <hr
+            class="relative my-4"
+          />
+          <ul
+            class="grid gap-5 grid-cols-1 md:grid-cols-2"
+          >
+            <li>
+              <a
+                class="block text-gray-800 cursor-default"
+                href="/"
+              >
+                <div
+                  class="relative"
+                >
+                  <img
+                    class="max-w-full h-auto"
+                    src="https://d36ai2hkxl16us.cloudfront.net/thoughtindustries/image/upload/v1440546308/qj7eo4nseeiigiec5huh.png"
+                  />
+                  <div
+                    class="absolute bottom-0 left-0 p-4 w-full bg-gray-900 bg-opacity-80"
+                  >
+                    <h4
+                      class="mb-0 text-sm text-white"
+                    >
+                      Manual item
+                    </h4>
+                    <p
+                      class="mt-1 mb-0 text-xs text-white"
+                    >
+                      short description
+                    </p>
+                  </div>
+                </div>
+              </a>
+            </li>
+          </ul>
         </div>
       `);
     });

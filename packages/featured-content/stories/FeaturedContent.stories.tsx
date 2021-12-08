@@ -6,7 +6,9 @@ import {
   SidebarPosition,
   ContentTileStandardLayout,
   ContentTileDescriptiveLayout,
-  ContentMultiCarousel
+  ContentMultiCarousel,
+  ContentCarousel,
+  ContentTileImageOverlay
 } from '../src';
 import { RSS_ITEMS_QUERY } from '../src/variants/sidebar/rss';
 
@@ -49,6 +51,26 @@ const mockItems = {
       slug: 'test-ribbon'
     },
     rating: 36,
+    hasAvailability: false,
+    priceInCents: 6500,
+    suggestedRetailPriceInCents: 8000
+  },
+  dynamicTwo: {
+    title: 'Dynamic item 2',
+    courseStartDate: new Date(2020, 0, 1),
+    contentTypeLabel: 'Course',
+    source: 'Test source',
+    authors: 'Test Author',
+    description: 'description',
+    shortDescription: 'short description',
+    linkUrl: '/',
+    isCompleted: true,
+    asset:
+      'https://d36ai2hkxl16us.cloudfront.net/thoughtindustries/image/upload/a_exif,c_fit,w_800/v1/course-uploads/5fea45fb-d8cb-4f0a-b048-932cc361b20a/pfg9202pfzkd-test-image-5_800x600.jpg',
+    canAddToQueue: true,
+    isActive: true,
+    callToAction: 'View Details',
+    rating: 87,
     hasAvailability: false,
     priceInCents: 6500,
     suggestedRetailPriceInCents: 8000
@@ -122,6 +144,28 @@ export const MultiCarousel = () => (
       <ContentMultiCarousel.Item {...mockItems.manual} />
       <ContentMultiCarousel.Item {...mockItems.manual} />
     </ContentMultiCarousel>
+  </FeaturedContent>
+);
+
+export const Carousel = () => (
+  <FeaturedContent>
+    <ContentCarousel headerOptions={headerOptions}>
+      <ContentCarousel.Item {...mockItems.dynamic} />
+      <ContentCarousel.Item {...mockItems.dynamicTwo} />
+    </ContentCarousel>
+  </FeaturedContent>
+);
+
+export const TileImageOverlay = () => (
+  <FeaturedContent>
+    <ContentTileImageOverlay
+      headerOptions={headerOptions}
+      desktopColumnCount={2}
+      onAddedToQueue={handleAddedToQueue}
+    >
+      <ContentTileImageOverlay.Item {...mockItems.dynamic} />
+      <ContentTileImageOverlay.Item {...mockItems.dynamicTwo} />
+    </ContentTileImageOverlay>
   </FeaturedContent>
 );
 

@@ -6,10 +6,9 @@ We offer the following Featured Content widgets:
 
 - Tile (Standard Layout)
 - Tile (Descriptive Layout)
+- Multi Carousel
 - Carousel
-- Overlay
-- Catalog
-- Recently viewed
+- Tile (Image Overlay)
 
 ## Import component
 
@@ -22,6 +21,8 @@ import {
   ContentTileStandardLayout,
   ContentTileDescriptiveLayout,
   ContentMultiCarousel,
+  ContentCarousel,
+  ContentTileImageOverlay
 } from '@thoughtindustries/featured-content';
 ```
 
@@ -53,6 +54,24 @@ import {
     <ContentMultiCarousel.Item {...itemTwo} />
     <ContentMultiCarousel.Item {...itemThree} />
   </ContentMultiCarousel>
+</FeaturedContent>
+
+# Carousel
+<FeaturedContent>
+  <ContentCarousel headerOptions={...headerOptions}>
+    <ContentCarousel.Item {...itemOne} />
+    <ContentCarousel.Item {...itemTwo} />
+    <ContentCarousel.Item {...itemThree} />
+  </ContentCarousel>
+</FeaturedContent>
+
+# Tile image overlay
+<FeaturedContent>
+  <ContentTileImageOverlay headerOptions={...headerOptions} desktopColumnCount={3} onAddedToQueue={(item) => Promise.resolve()}>
+    <ContentTileImageOverlay.Item {...itemOne} />
+    <ContentTileImageOverlay.Item {...itemTwo} />
+    <ContentTileImageOverlay.Item {...itemThree} />
+  </ContentTileImageOverlay>
 </FeaturedContent>
 
 # With left sidebar (RSS)

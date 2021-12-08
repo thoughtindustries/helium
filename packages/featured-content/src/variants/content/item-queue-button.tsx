@@ -1,13 +1,19 @@
 import React, { SyntheticEvent, useCallback, useState } from 'react';
+import clsx from 'clsx';
 import { useTranslation } from 'react-i18next';
 import { FeaturedContentContentItem } from '../../types';
 
 interface ItemQueueButtonProps {
   item: FeaturedContentContentItem;
   onClickAsync: (item: FeaturedContentContentItem) => Promise<void>;
+  classNames?: string;
 }
 
-const ItemQueueButton = ({ item, onClickAsync }: ItemQueueButtonProps): JSX.Element => {
+const ItemQueueButton = ({
+  item,
+  onClickAsync,
+  classNames = ''
+}: ItemQueueButtonProps): JSX.Element => {
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [wasAddedToQueue, setWasAddedToQueue] = useState<boolean>(false);
   const { t } = useTranslation();
@@ -34,13 +40,14 @@ const ItemQueueButton = ({ item, onClickAsync }: ItemQueueButtonProps): JSX.Elem
     [wasAddedToQueue, isLoading, item, onClickAsync]
   );
 
+  const btnClassNames = clsx([
+    'inline-block pl-0 mb-1 text-xs border-none rounded-sm cursor-pointer inline-block font-normal leading-normal m-0 p-0 relative text-center no-underline transition-colors ease-in-out duration-200 hover:text-link-hover',
+    { 'cursor-default': wasAddedToQueue },
+    classNames
+  ]);
+
   return (
-    <button
-      onClick={handleClick}
-      className={`inline-block pl-0 mb-1 text-xs border-none rounded-sm cursor-pointer inline-block font-normal leading-normal m-0 p-0 relative text-center no-underline transition-colors ease-in-out duration-200 hover:text-blue-700 ${
-        wasAddedToQueue ? 'cursor-default' : ''
-      }`}
-    >
+    <button onClick={handleClick} className={btnClassNames}>
       {wasAddedToQueue && (
         <span className="inline-block align-top">
           <i
