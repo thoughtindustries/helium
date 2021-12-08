@@ -1,4 +1,5 @@
 import React, { SyntheticEvent, useCallback, useState } from 'react';
+import clsx from 'clsx';
 import { useTranslation } from 'react-i18next';
 import { FeaturedContentContentItem } from '../../types';
 
@@ -39,13 +40,11 @@ const ItemQueueButton = ({
     [wasAddedToQueue, isLoading, item, onClickAsync]
   );
 
-  const btnClassNames = [
+  const btnClassNames = clsx([
     'inline-block pl-0 mb-1 text-xs border-none rounded-sm cursor-pointer inline-block font-normal leading-normal m-0 p-0 relative text-center no-underline transition-colors ease-in-out duration-200 hover:text-link-hover',
-    wasAddedToQueue ? 'cursor-default' : '',
+    { 'cursor-default': wasAddedToQueue },
     classNames
-  ]
-    .filter(c => c)
-    .join(' ');
+  ]);
 
   return (
     <button onClick={handleClick} className={btnClassNames}>

@@ -1,5 +1,6 @@
 import React, { Children, createContext, useContext, useMemo } from 'react';
 import { format } from 'date-fns';
+import clsx from 'clsx';
 import {
   FeaturedContentContentProps,
   FeaturedContentContentItemProps,
@@ -137,8 +138,10 @@ const Item = ({ ...item }: FeaturedContentContentItemProps): JSX.Element => {
   } = item;
   const { onAddedToQueue, onClick, desktopColumnCount } = useContentMultiCarouselContext();
 
-  const classNameByDesktopColumn = itemClassnameByDesktopColumnCount(desktopColumnCount);
-  const classNames = `px-5 pb-5 text-base flex-none w-full ${classNameByDesktopColumn}`;
+  const classNames = clsx([
+    'px-5 pb-5 text-base flex-none w-full',
+    itemClassnameByDesktopColumnCount(desktopColumnCount)
+  ]);
 
   return (
     <li className={classNames}>

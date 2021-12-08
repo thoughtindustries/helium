@@ -1,11 +1,13 @@
 import React, { createContext, useContext, useMemo } from 'react';
 import { format } from 'date-fns';
+import clsx from 'clsx';
 import {
   FeaturedContentContentProps,
   FeaturedContentContentItemProps,
   FeaturedContentTileStandardLayoutContextType,
   FeaturedContentContentItemRibbon
 } from '../../types';
+import { tileClassnameByDesktopColumnCount } from './utils';
 import ContentWrapper from './wrapper';
 import ItemLinkWrapper from './item-link-wrapper';
 import ItemQueueButton from './item-queue-button';
@@ -43,7 +45,14 @@ const ContentTileStandardLayout = ({
   return (
     <ContentTileStandardLayoutContext.Provider value={value}>
       <ContentWrapper headerOptions={headerOptions}>
-        <ul className={`grid grid-cols-1 md:grid-cols-${desktopColumnCount} gap-5`}>{children}</ul>
+        <ul
+          className={clsx([
+            'grid gap-5 grid-cols-1',
+            tileClassnameByDesktopColumnCount(desktopColumnCount)
+          ])}
+        >
+          {children}
+        </ul>
       </ContentWrapper>
     </ContentTileStandardLayoutContext.Provider>
   );

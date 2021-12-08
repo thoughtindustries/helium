@@ -137,7 +137,7 @@ describe('@thoughtindustries/featured-content', () => {
                   class="relative my-4"
                 />
                 <ul
-                  class="grid grid-cols-1 md:grid-cols-3 gap-5"
+                  class="grid gap-5 grid-cols-1 md:grid-cols-3"
                 >
                   <li>
                     <a
@@ -516,7 +516,7 @@ describe('@thoughtindustries/featured-content', () => {
                   class="relative my-4"
                 />
                 <ul
-                  class="grid grid-cols-1 md:grid-cols-2 gap-5"
+                  class="grid gap-5 grid-cols-1 md:grid-cols-2"
                 >
                   <li>
                     <a
@@ -757,7 +757,7 @@ describe('@thoughtindustries/featured-content', () => {
             class="relative my-4"
           />
           <ul
-            class="grid grid-cols-1 md:grid-cols-2 gap-5"
+            class="grid gap-5 grid-cols-1 md:grid-cols-2"
           >
             <li>
               <a
@@ -841,7 +841,7 @@ describe('@thoughtindustries/featured-content', () => {
             class="relative my-4"
           />
           <ul
-            class="grid grid-cols-1 md:grid-cols-2 gap-5"
+            class="grid gap-5 grid-cols-1 md:grid-cols-2"
           >
             <li>
               <a
@@ -1111,7 +1111,7 @@ describe('@thoughtindustries/featured-content', () => {
             class="relative my-4"
           />
           <ul
-            class="grid grid-cols-1 md:grid-cols-2 gap-5"
+            class="grid gap-5 grid-cols-1 md:grid-cols-2"
           >
             <li>
               <a
