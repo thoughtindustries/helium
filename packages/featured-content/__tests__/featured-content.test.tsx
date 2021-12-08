@@ -126,7 +126,7 @@ describe('@thoughtindustries/featured-content', () => {
               class="w-full relative pl-4 pr-4 float-left grid grid-cols-1 md:grid-cols-4 gap-8"
             >
               <div
-                class="col-span-full"
+                class="md:col-span-full"
               >
                 <div>
                   <h3>
@@ -267,7 +267,7 @@ describe('@thoughtindustries/featured-content', () => {
                             >
                               <span>
                                 <button
-                                  class="inline-block pl-0 mb-1 text-xs border-none rounded-sm cursor-pointer inline-block font-normal leading-normal m-0 p-0 relative text-center no-underline transition-colors ease-in-out duration-200 hover:text-blue-700"
+                                  class="inline-block pl-0 mb-1 text-xs border-none rounded-sm cursor-pointer inline-block font-normal leading-normal m-0 p-0 relative text-center no-underline transition-colors ease-in-out duration-200 hover:text-link-hover"
                                 >
                                   <span
                                     class="inline-block align-top"
@@ -470,7 +470,7 @@ describe('@thoughtindustries/featured-content', () => {
                 class="relative"
               >
                 <div
-                  class="h-full absolute left-0 w-full"
+                  class="md:h-full md:absolute md:left-0 w-full"
                 >
                   <div>
                     <h3>
@@ -481,7 +481,7 @@ describe('@thoughtindustries/featured-content', () => {
                     class="relative my-4"
                   />
                   <div
-                    class="overflow-y-scroll text-sm h-full"
+                    class="overflow-y-scroll text-sm md:h-full"
                   >
                     <a
                       class="block mb-4"
@@ -505,7 +505,7 @@ describe('@thoughtindustries/featured-content', () => {
                 </div>
               </div>
               <div
-                class="col-span-3"
+                class="md:col-span-3"
               >
                 <div>
                   <h3>
@@ -630,7 +630,7 @@ describe('@thoughtindustries/featured-content', () => {
       expect(container).toMatchInlineSnapshot(`
         <div>
           <div
-            class="h-full absolute left-0 w-full"
+            class="md:h-full md:absolute md:left-0 w-full"
           >
             <div>
               <h3>
@@ -641,7 +641,7 @@ describe('@thoughtindustries/featured-content', () => {
               class="relative my-4"
             />
             <div
-              class="overflow-y-scroll text-sm h-full"
+              class="overflow-y-scroll text-sm md:h-full"
             >
               <a
                 class="block mb-4"
@@ -677,7 +677,7 @@ describe('@thoughtindustries/featured-content', () => {
       expect(container).toMatchInlineSnapshot(`
         <div>
           <div
-            class="h-full absolute left-0 w-full"
+            class="md:h-full md:absolute md:left-0 w-full"
           >
             <div>
               <h3>
@@ -688,7 +688,7 @@ describe('@thoughtindustries/featured-content', () => {
               class="relative my-4"
             />
             <div
-              class="overflow-y-scroll text-sm h-full"
+              class="overflow-y-scroll text-sm md:h-full"
             >
               <h5>
                 please-wait
@@ -708,7 +708,7 @@ describe('@thoughtindustries/featured-content', () => {
       expect(container).toMatchInlineSnapshot(`
         <div>
           <div
-            class="h-full absolute left-0 w-full"
+            class="md:h-full md:absolute md:left-0 w-full"
           >
             <div>
               <h3>
@@ -719,7 +719,7 @@ describe('@thoughtindustries/featured-content', () => {
               class="relative my-4"
             />
             <div
-              class="overflow-y-scroll text-sm h-full"
+              class="overflow-y-scroll text-sm md:h-full"
             >
               Static sidebar content
             </div>

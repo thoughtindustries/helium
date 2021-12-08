@@ -40,7 +40,7 @@ const ItemQueueButton = ({
   );
 
   const btnClassNames = [
-    'inline-block pl-0 mb-1 text-xs border-none rounded-sm cursor-pointer inline-block font-normal leading-normal m-0 p-0 relative text-center no-underline transition-colors ease-in-out duration-200 hover:text-blue-700',
+    'inline-block pl-0 mb-1 text-xs border-none rounded-sm cursor-pointer inline-block font-normal leading-normal m-0 p-0 relative text-center no-underline transition-colors ease-in-out duration-200 hover:text-link-hover',
     wasAddedToQueue ? 'cursor-default' : '',
     classNames
   ]
