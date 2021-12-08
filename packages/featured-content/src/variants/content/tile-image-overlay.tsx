@@ -53,7 +53,7 @@ const Item = ({ ...item }: FeaturedContentContentItemProps): JSX.Element => {
   return (
     <li>
       <ItemLinkWrapper item={item} onClick={onClick}>
-        <div className={`relative`}>
+        <div className="relative">
           <ItemAssetBlock asset={asset} />
           <div className="absolute bottom-0 left-0 p-4 w-full bg-gray-900 bg-opacity-80">
             <h4 className="mb-0 text-sm text-white">{title}</h4>
