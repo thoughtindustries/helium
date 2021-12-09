@@ -1,4 +1,4 @@
-const fs = require('fs-extra');
+const { writeFile } = require('fs/promises');
 const path = require('path');
 const { fetchTranslations, writeTranslationFile } = require('./helpers/translations');
 
@@ -21,7 +21,7 @@ const generateEnvFile = async (dir, instances) => {
     data += `TI_${instance.nickname}_API_KEY=${instance.apiKey}\n`;
   });
 
-  return fs.writeFile(fileName, data);
+  return writeFile(fileName, data);
 };
 
 const generateTranslationFile = async (dir, instances) => {
@@ -50,7 +50,7 @@ const generateConfigFile = async (dir, instances) => {
     });
   }
 
-  return fs.writeFile(fileName, JSON.stringify({ instances: data }));
+  return writeFile(fileName, JSON.stringify({ instances: data }));
 };
 
 module.exports = { initProject };
