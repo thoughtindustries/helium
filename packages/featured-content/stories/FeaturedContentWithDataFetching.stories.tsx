@@ -100,6 +100,37 @@ const ADD_RESOURCE_TO_QUEUE_MUTATION = gql`
   }
 `;
 
+// query for UserRecentContent
+interface UserRecentContentData {
+  UserRecentContent: ContentItem[];
+}
+interface UserRecentContentVars {
+  limit?: number;
+}
+const USER_RECENT_CONTENT_QUERY = gql`
+  query UserRecentContentQuery($limit: Int) {
+    UserRecentContent(limit: $limit) {
+      asset
+      authors
+      availabilityStatus
+      contentTypeLabel
+      courseEndDate
+      courseGracePeriodEnded
+      coursePresold
+      courseStartDate
+      description
+      displayCourseSlug
+      isActive
+      kind
+      sku
+      slug
+      source
+      timeZone
+      title
+    }
+  }
+`;
+
 const mockCatalogQueryVariables = {
   query: 'test query',
   querySignature: 'test query signature',
@@ -107,6 +138,9 @@ const mockCatalogQueryVariables = {
 };
 const mockQueryContentsQueryVariables = {
   ids: ['item-id']
+};
+const mockUserRecentContentQueryVariables = {
+  limit: 2
 };
 const mockContentItemFactory = (isLearningPath = false) => ({
   __typename: 'Content',
@@ -120,10 +154,10 @@ const mockContentItemFactory = (isLearningPath = false) => ({
   courseGracePeriodEnded: false,
   coursePresold: false,
   courseStartDate: '2016-11-07T05:51:02.856Z',
-  description: 'We need to compress the auxiliary COM pixel!',
+  description: 'Test description',
   rating: 78,
-  slug: 'perverted-rabbit-warfare',
-  title: 'Perverted Rabbit Warfare',
+  slug: 'test-course-slug',
+  title: 'Test title',
   kind: isLearningPath ? ContentKind.LearningPath : null,
   currentUserUnmetCoursePrerequisites: [],
   currentUserUnmetLearningPathPrerequisites: [],
@@ -133,6 +167,27 @@ const mockContentItemFactory = (isLearningPath = false) => ({
   ribbon: null,
   displayCourse: 'display-course-id'
 });
+const mockRecentContentItem = {
+  __typename: 'Content',
+  asset:
+    'https://d36ai2hkxl16us.cloudfront.net/thoughtindustries/image/upload/a_exif,c_fill,w_800/v1416438573/placeholder_kcjvxm.jpg',
+  authors: ['Author A', 'Author B'],
+  availabilityStatus: 'available',
+  contentTypeLabel: 'Guide',
+  courseEndDate: null,
+  courseGracePeriodEnded: false,
+  coursePresold: false,
+  courseStartDate: '2016-11-07T05:51:02.856Z',
+  description: 'Test description',
+  displayCourseSlug: 'test-display-course-slug',
+  isActive: true,
+  kind: ContentKind.CourseGroup,
+  sku: null,
+  slug: 'test-course-slug',
+  source: null,
+  timeZone: 'America/New_York',
+  title: 'Test title'
+};
 const mockApolloResults = {
   catalogQuery: {
     request: {
@@ -172,11 +227,22 @@ const mockApolloResults = {
   addLearningPathToQueueMutation: {
     request: {
       query: ADD_RESOURCE_TO_QUEUE_MUTATION,
-      variables: { resourceId: 'perverted-rabbit-warfare', resourceType: ContentKind.LearningPath }
+      variables: { resourceId: 'test-course-slug', resourceType: ContentKind.LearningPath }
     },
     result: {
       data: {
         AddResourceToQueue: true
+      }
+    }
+  },
+  userRecentContentQuery: {
+    request: {
+      query: USER_RECENT_CONTENT_QUERY,
+      variables: { ...mockUserRecentContentQueryVariables }
+    },
+    result: {
+      data: {
+        UserRecentContent: [{ ...mockRecentContentItem }]
       }
     }
   }
@@ -292,5 +358,53 @@ export const WithQueryContentsQuery = () => {
 WithQueryContentsQuery.parameters = {
   apolloClient: {
     mocks: [mockApolloResults.queryContentsQuery, mockApolloResults.addLearningPathToQueueMutation]
+  }
+};
+
+export const WithUserRecentContentQuery = () => {
+  const { i18n } = useTranslation();
+  const { data, loading, error } = useQuery<UserRecentContentData, UserRecentContentVars>(
+    USER_RECENT_CONTENT_QUERY,
+    { variables: { ...mockUserRecentContentQueryVariables } }
+  );
+  const handleAddedToQueue = (): Promise<void> => {
+    return Promise.resolve();
+  };
+  let content;
+  if (loading) {
+    content = <p>Loading content</p>;
+  }
+  if (error) {
+    content = <p>Error loading content</p>;
+  }
+  if (data) {
+    content = data.UserRecentContent.map((item, index) => {
+      const hydratedItem = hydrateContent(i18n, item);
+      const { authors, description, href, ...restItemProps } = hydratedItem;
+      const transformedItem = {
+        ...restItemProps,
+        authors: authors?.join(', '),
+        shortDescription: description && `${description.substring(0, 75)} ...`,
+        linkUrl: href
+      };
+      return <ContentTileStandardLayout.Item key={`item-${index}`} {...transformedItem} />;
+    });
+  }
+  return (
+    <FeaturedContent>
+      <ContentTileStandardLayout
+        headerOptions={headerOptions}
+        desktopColumnCount={3}
+        onAddedToQueue={handleAddedToQueue}
+        onClick={handleClick}
+      >
+        {content}
+      </ContentTileStandardLayout>
+    </FeaturedContent>
+  );
+};
+WithUserRecentContentQuery.parameters = {
+  apolloClient: {
+    mocks: [mockApolloResults.userRecentContentQuery]
   }
 };
