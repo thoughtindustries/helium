@@ -154,10 +154,10 @@ const mockContentItemFactory = (isLearningPath = false) => ({
   courseGracePeriodEnded: false,
   coursePresold: false,
   courseStartDate: '2016-11-07T05:51:02.856Z',
-  description: 'We need to compress the auxiliary COM pixel!',
+  description: 'Test description',
   rating: 78,
-  slug: 'perverted-rabbit-warfare',
-  title: 'Perverted Rabbit Warfare',
+  slug: 'test-course-slug',
+  title: 'Test title',
   kind: isLearningPath ? ContentKind.LearningPath : null,
   currentUserUnmetCoursePrerequisites: [],
   currentUserUnmetLearningPathPrerequisites: [],
@@ -178,15 +178,15 @@ const mockRecentContentItem = {
   courseGracePeriodEnded: false,
   coursePresold: false,
   courseStartDate: '2016-11-07T05:51:02.856Z',
-  description: 'We need to compress the auxiliary COM pixel!',
-  displayCourseSlug: 'perverted-rabbit-warfare',
+  description: 'Test description',
+  displayCourseSlug: 'test-display-course-slug',
   isActive: true,
   kind: ContentKind.CourseGroup,
   sku: null,
-  slug: 'perverted-rabbit-warfare',
+  slug: 'test-course-slug',
   source: null,
   timeZone: 'America/New_York',
-  title: 'Perverted Rabbit Warfare'
+  title: 'Test title'
 };
 const mockApolloResults = {
   catalogQuery: {
@@ -227,7 +227,7 @@ const mockApolloResults = {
   addLearningPathToQueueMutation: {
     request: {
       query: ADD_RESOURCE_TO_QUEUE_MUTATION,
-      variables: { resourceId: 'perverted-rabbit-warfare', resourceType: ContentKind.LearningPath }
+      variables: { resourceId: 'test-course-slug', resourceType: ContentKind.LearningPath }
     },
     result: {
       data: {
