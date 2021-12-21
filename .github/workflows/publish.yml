@@ -1,0 +1,35 @@
+name: Publish
+
+on:
+  push:
+    branches: [ $default-branch ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    env:
+        GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+    
+    steps:
+    - uses: actions/checkout@v2
+    - uses: actions/setup-node@v2
+        with:
+          node-version: '14.x'
+          registry-url: 'http://registry.npmjs.org'
+          scope: '@thoughtindustries'
+
+      - name: Verify Registry Authentication
+        run: 
+          npm whoami
+
+      - name: Install Packages
+        run: npm ci
+
+      - name: Version Changes
+        run: lerna version --yes --conventional-commits
+
+      - name: Publish Package
+        run: lerna publish from-git --yes --message 'chore: release new versions'

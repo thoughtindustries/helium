@@ -1,0 +1,29 @@
+#!/bin/sh
+. "$(dirname "$0")/_/husky.sh"
+
+if ! head -1 "$1" | grep -qE "^(feat|fix|ci|chore|docs|test|style|refactor)(\(.+?\))?: .{1,}$"; then
+    echo "Your commit message does not follow Conventional Commits formatting
+https://www.conventionalcommits.org/
+
+Conventional Commits start with one of the below types, followed by a colon,
+followed by the commit message:
+
+    feat fix ci chore docs test style refactor
+
+Example commit message adding a feature:
+
+    feat: implement new API
+
+Example commit message fixing an issue:
+
+    fix: remove infinite loop
+
+Optionally, include a scope in parentheses after the type for more context:
+
+    fix(account): remove infinite loop" >&2
+    exit 1
+fi
+if ! head -1 "$1" | grep -qE "^.{1,100}$"; then
+    echo "Aborting commit. Your commit message is too long." >&2
+    exit 1
+fi
