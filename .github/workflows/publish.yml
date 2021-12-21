@@ -2,7 +2,8 @@ name: Publish
 
 on:
   push:
-    branches: [ $default-branch ]
+    branches:
+      - main
 
 jobs:
   build:
@@ -31,5 +32,6 @@ jobs:
     - name: Version Changes
       run: lerna version --yes --conventional-commits
 
-    - name: Publish Package
-      run: lerna publish from-git --yes --message 'chore: release new versions'
+    - name: Version Changes
+      run: |
+        lerna publish from-git --yes --message "chore: release new versions"
