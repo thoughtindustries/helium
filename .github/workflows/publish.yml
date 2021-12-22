@@ -29,6 +29,13 @@ jobs:
     - name: Install Packages
       run: npm ci
 
+    # actions bot email: https://github.community/t/github-actions-bot-email-address/17204/6
+    # lerna will mod package metadata and push to remote, so git user is needed
+    - name: Configure CI Git User
+      run: |
+        git config --global user.email 41898282+github-actions[bot]@users.noreply.github.com
+        git config --global user.name GitHub Actions
+
     - name: Version Changes
       run: lerna version --yes --conventional-commits
 
