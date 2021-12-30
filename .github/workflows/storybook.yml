@@ -3,8 +3,8 @@ name: Publish Storybook Pages
 on:
   push:
     branches:
-      - storybook-pages-implementation
-    # paths: ["packages/**/stories/**", "packages/**/src/**"]
+      - main
+    paths: ["packages/**/stories/**", "packages/**/src/**"]
 
 jobs:
   build-and-deploy:
