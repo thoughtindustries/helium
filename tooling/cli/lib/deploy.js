@@ -198,13 +198,15 @@ async function getHeliumUploadData(instance) {
   return responseData;
 }
 
-function uploadToS3(filePath, policyData) {
+const UPLOAD_TRIES = 3;
+function uploadToS3(filePath, policyData, tryCount = 0) {
   return new Promise((resolve, reject) => {
     const { key } = policyData;
     const sanitizedFilePath = filePath.split(OP_DIR)[1];
     const fullFileKey = path.join(key, sanitizedFilePath);
 
     const objPolicy = Object.assign({}, policyData, { key: fullFileKey });
+
     const form = buildFormData(objPolicy, filePath);
 
     const endpoint = `https://${BUCKET}.s3.amazonaws.com/`;
@@ -224,8 +226,14 @@ function uploadToS3(filePath, policyData) {
         resolve();
       })
       .catch(err => {
-        console.error('error fetching: ', err.message);
-        reject(err);
+        if (tryCount < UPLOAD_TRIES) {
+          tryCount++;
+          console.log('>>> Retrying upload...');
+          uploadToS3(filePath, policyData, tryCount).then(resolve).catch(reject);
+        } else {
+          console.error('error while uploading: ', err.message);
+          reject(err);
+        }
       });
   });
 }
