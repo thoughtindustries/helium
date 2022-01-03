@@ -1,6 +1,5 @@
 import reactRefresh from '@vitejs/plugin-react-refresh';
 import ssr from 'vite-plugin-ssr/plugin';
-import WindiCSS from 'vite-plugin-windicss';
 
 /**
  * because of cjs/esm issues, mdx file generated via:
@@ -14,10 +13,5 @@ const mdxOptions = {
 };
 
 export default {
-  plugins: [
-    reactRefresh(),
-    ssr(),
-    mdx(mdxOptions),
-    WindiCSS({ scan: { dirs: ['dist'], fileExtensions: ['js', 'ts', 'jsx', 'tsx'] } })
-  ]
+  plugins: [reactRefresh(), ssr(), mdx(mdxOptions)]
 };
