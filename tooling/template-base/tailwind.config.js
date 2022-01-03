@@ -1,5 +1,4 @@
-import { defineConfig } from 'windicss/helpers';
-import tiConfig from './ti-config';
+const tiConfig = require('./ti-config.json');
 
 const INSTANCE_NAME = process.env.INSTANCE;
 let instanceSettings = {};
@@ -22,20 +21,22 @@ function getInstanceSetting(settingName, defaultSetting) {
   return instanceSettings[settingName] || defaultSetting;
 }
 
-export default defineConfig({
-  darkMode: false, // or 'media' or 'class'
+module.exports = {
+  content: [
+    './pages/**/*.{js,jsx,ts,tsx}',
+    './components/**/*.{js,jsx,ts,tsx}',
+    './dist/**/*.{js,jsx,ts,tsx}'
+  ],
   theme: {
     screens: {
       sm: '640px',
       md: '768px',
       lg: '1024px',
       xl: '1440px',
-      '2xl': '1920px'
+      '2xl': '1920px',
+      '3xl': '2560px'
     },
     extend: {
-      screens: {
-        '3xl': '2560px'
-      },
       colors: {
         accent: getInstanceSetting('accentColor', '#111111'),
         secondary: getInstanceSetting('secondaryColor', '#111111'),
@@ -61,4 +62,4 @@ export default defineConfig({
       }
     }
   }
-});
+};
