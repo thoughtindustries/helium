@@ -10,7 +10,7 @@ import {
   ContentCarousel,
   ContentTileImageOverlay
 } from '../src';
-import { RSS_ITEMS_QUERY } from '../src/core/graphql/RssItemsQuery';
+import { RSS_ITEMS_QUERY } from '../src/core/graphql';
 
 export default {
   title: 'Example/FeaturedContent'
