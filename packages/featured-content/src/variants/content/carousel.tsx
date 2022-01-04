@@ -9,6 +9,7 @@ import ItemLinkWrapper from './item-link-wrapper';
 import ItemAssetBlock from './item-asset-block';
 import { IconLeft, IconRight } from './icons';
 import { useCarouselBehavior } from './use-carousel-behavior';
+import { limitText } from './utils';
 
 const ContentCarouselContext = createContext<FeaturedContentCarouselContextType | undefined>(
   undefined
@@ -83,7 +84,7 @@ const ContentCarousel = ({
 };
 
 const Item = ({ ...item }: FeaturedContentContentItemProps): JSX.Element => {
-  const { asset, title, shortDescription } = item;
+  const { asset, title, description } = item;
   const { onClick } = useContentCarouselContext();
 
   return (
@@ -93,8 +94,8 @@ const Item = ({ ...item }: FeaturedContentContentItemProps): JSX.Element => {
           <ItemAssetBlock asset={asset} classNames="w-full" />
           <div className="absolute bottom-0 left-0 w-full p-4 pb-11 bg-gray-900 bg-opacity-60">
             <h4 className="mb-0 text-base font-bold text-white">{title}</h4>
-            {shortDescription && (
-              <p className="mt-1.5 mb-0 text-xs text-white">{shortDescription}</p>
+            {description && (
+              <p className="mt-1.5 mb-0 text-xs text-white">{limitText(description, 75)}</p>
             )}
           </div>
         </div>

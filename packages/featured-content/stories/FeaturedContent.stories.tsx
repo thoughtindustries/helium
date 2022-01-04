@@ -10,7 +10,7 @@ import {
   ContentCarousel,
   ContentTileImageOverlay
 } from '../src';
-import { RSS_ITEMS_QUERY } from '../src/variants/sidebar/rss';
+import { RSS_ITEMS_QUERY } from '../src/core/graphql/RssItemsQuery';
 
 export default {
   title: 'Example/FeaturedContent'
@@ -24,19 +24,17 @@ const mockItems = {
   manual: {
     title: 'Manual item',
     description: 'description',
-    shortDescription: 'short description',
-    linkUrl: '/',
-    canAddToQueue: false
+    href: '/manual-item',
+    isActive: true
   },
   dynamic: {
     title: 'Dynamic item',
     courseStartDate: new Date(2020, 0, 1),
     contentTypeLabel: 'Course',
     source: 'Test source',
-    authors: 'Test Author',
+    authors: ['Test Author'],
     description: 'description',
-    shortDescription: 'short description',
-    linkUrl: '/',
+    href: '/',
     isCompleted: true,
     asset:
       'https://d36ai2hkxl16us.cloudfront.net/thoughtindustries/image/upload/a_exif,c_fill,w_800/v1416438573/placeholder_kcjvxm.jpg',
@@ -44,7 +42,7 @@ const mockItems = {
     isActive: true,
     callToAction: 'View Details',
     ribbon: {
-      bgColor: '#39ad39',
+      color: '#39ad39',
       contrastColor: '#fff',
       darkerColor: '#2c872c',
       label: 'Test ribbon',
@@ -60,10 +58,9 @@ const mockItems = {
     courseStartDate: new Date(2020, 0, 1),
     contentTypeLabel: 'Course',
     source: 'Test source',
-    authors: 'Test Author',
+    authors: ['Test Author'],
     description: 'description',
-    shortDescription: 'short description',
-    linkUrl: '/',
+    href: '/',
     isCompleted: true,
     asset:
       'https://d36ai2hkxl16us.cloudfront.net/thoughtindustries/image/upload/a_exif,c_fit,w_800/v1/course-uploads/5fea45fb-d8cb-4f0a-b048-932cc361b20a/pfg9202pfzkd-test-image-5_800x600.jpg',
