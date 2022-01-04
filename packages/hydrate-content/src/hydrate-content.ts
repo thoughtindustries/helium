@@ -9,6 +9,7 @@ import {
   AlternativePricingType
 } from './types';
 import courseRuns from './course-run';
+import { DEFAULT_TIMEZONE } from './constants';
 
 /**
  * Hydrate queried content item
@@ -29,15 +30,16 @@ const hydrateContentItem = (
   const isActive =
     !contentItem.coursePresold && !contentItem.courseGracePeriodEnded && !hasUnmetPrerequisites;
 
+  const timeZone = contentItem.timeZone ?? DEFAULT_TIMEZONE;
   const meetingStartDate = contentItem.meetingStartDate
-    ? zonedTimeToUtc(contentItem.meetingStartDate, contentItem.timeZone)
+    ? zonedTimeToUtc(contentItem.meetingStartDate, timeZone)
     : undefined;
-  const courseStartDate = zonedTimeToUtc(contentItem.courseStartDate, contentItem.timeZone);
+  const courseStartDate = zonedTimeToUtc(contentItem.courseStartDate, timeZone);
   const courseEndDate = contentItem.courseEndDate
-    ? zonedTimeToUtc(contentItem.courseEndDate, contentItem.timeZone)
+    ? zonedTimeToUtc(contentItem.courseEndDate, timeZone)
     : undefined;
   const courseGracePeriodEndDate = contentItem.courseGracePeriodEndDate
-    ? zonedTimeToUtc(contentItem.courseGracePeriodEndDate, contentItem.timeZone)
+    ? zonedTimeToUtc(contentItem.courseGracePeriodEndDate, timeZone)
     : undefined;
 
   let hasAvailability, isCompleted, isAvailable, isStarted, isNotStarted, isNotCompleted;
@@ -60,15 +62,24 @@ const hydrateContentItem = (
     kindIsScormOrXApi = true;
   }
 
-  if ([ContentKind.Webinar, ContentKind.WebinarCourse].includes(contentItem.kind)) {
+  if (
+    contentItem.kind &&
+    [ContentKind.Webinar, ContentKind.WebinarCourse].includes(contentItem.kind)
+  ) {
     locationIsOnline = true;
   }
 
-  if ([ContentKind.InPersonEvent, ContentKind.InPersonEventCourse].includes(contentItem.kind)) {
+  if (
+    contentItem.kind &&
+    [ContentKind.InPersonEvent, ContentKind.InPersonEventCourse].includes(contentItem.kind)
+  ) {
     locationIsInPerson = true;
   }
 
-  if ([ContentKind.WebinarCourse, ContentKind.InPersonEventCourse].includes(contentItem.kind)) {
+  if (
+    contentItem.kind &&
+    [ContentKind.WebinarCourse, ContentKind.InPersonEventCourse].includes(contentItem.kind)
+  ) {
     usesContentAccessText = true;
   }
 

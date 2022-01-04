@@ -1,3 +1,5 @@
+import { Content, ContentKind, AlternativePricingType, Ribbon } from '@thoughtindustries/data';
+
 export enum AvailabilityStatus {
   Completed = 'completed',
   Available = 'available',
@@ -6,73 +8,8 @@ export enum AvailabilityStatus {
   NotCompleted = 'not-completed'
 }
 
-export enum ContentKind {
-  CourseGroup = 'courseGroup',
-  Article = 'article',
-  Webinar = 'webinar',
-  WebinarCourse = 'webinarCourse',
-  Video = 'video',
-  ShareableContentObject = 'shareableContentObject',
-  XApiObject = 'xApiObject',
-  Course = 'course',
-  Bundle = 'bundle',
-  DiscountGroup = 'discountGroup',
-  PickableGroup = 'pickableGroup',
-  Product = 'product',
-  LearningPath = 'learningPath',
-  InPersonEvent = 'inPersonEvent',
-  InPersonEventCourse = 'inPersonEventCourse',
-  Sellable = 'sellable'
-}
-
-export enum AlternativePricingType {
-  Membership = 'membership'
-}
-
-export type Ribbon = {
-  /** background color */
-  bgColor?: string;
-  /** text color */
-  contrastColor?: string;
-  /** corner color */
-  darkerColor?: string;
-  /** label */
-  label?: string;
-  /** slug */
-  slug: string;
-};
-
-export interface ContentItem {
-  id: string;
-  asset?: string;
-  authors?: string[];
-  currentUserUnmetCoursePrerequisites?: string[];
-  currentUserUnmetLearningPathPrerequisites?: string[];
-  coursePresold: boolean;
-  courseGracePeriodEnded: boolean;
-  timeZone: string;
-  meetingStartDate?: Date;
-  courseStartDate: Date;
-  courseEndDate?: Date;
+export interface ContentItem extends Content {
   courseGracePeriodEndDate?: Date;
-  availabilityStatus?: AvailabilityStatus;
-  kind: ContentKind;
-  waitlistingTriggered: boolean;
-  bulkPurchasingEnabled?: boolean;
-  contentTypeLabel: string;
-  waitlistingEnabled: boolean;
-  slug: string;
-  displayCourse?: string;
-  displayCourseSlug?: string;
-  alternativePricingType?: AlternativePricingType;
-  priceInCents?: number;
-  suggestedRetailPriceInCents?: number;
-  canAddToQueue?: boolean;
-  description?: string;
-  rating?: number;
-  title?: string;
-  source?: string;
-  ribbon?: Ribbon;
 }
 
 export interface HydratedContentItem extends ContentItem {
@@ -93,3 +30,6 @@ export interface HydratedContentItem extends ContentItem {
   priceInCents?: number;
   suggestedRetailPriceInCents?: number;
 }
+
+export type { Ribbon };
+export { ContentKind, AlternativePricingType };

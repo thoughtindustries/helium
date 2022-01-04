@@ -39,7 +39,11 @@ describe('@thoughtindustries/hydrate-content/hydrateContent', () => {
     timeZone: '',
     waitlistingTriggered: false,
     waitlistingEnabled: false,
-    contentTypeLabel: 'test type'
+    contentTypeLabel: 'test type',
+    currentUserMayReschedule: false,
+    hasChildren: false,
+    hideCourseDescription: false,
+    isActive: false
   };
   const testCases = [
     {
