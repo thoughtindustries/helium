@@ -1,0 +1,23 @@
+overwrite: true
+schema: "graphql.schema.json"
+documents: ["src/**/*.{graphql,ts}"]
+generates:
+  src/global-types.ts:
+    config:
+      avoidOptionals: false
+      maybeValue: T
+    plugins:
+      - "typescript"
+  src/:
+    preset: near-operation-file
+    presetConfig:
+      baseTypesPath: global-types.ts
+      extension: .generated.ts
+    config:
+      avoidOptionals: false
+      maybeValue: T
+    plugins:
+      - "typescript-operations"
+  ./graphql.schema.json:
+    plugins:
+      - "introspection"
