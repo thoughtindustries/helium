@@ -1,6 +1,6 @@
 {
   "name": "@thoughtindustries/helium-template",
-  "version": "1.0.0-alpha.5",
+  "version": "1.0.0-alpha.6",
   "scripts": {
     "dev": "concurrently \"npm run dev:css\" \"node ./server\"",
     "dev:css": "tailwindcss -o ./renderer/tailwind.css --watch",
@@ -43,7 +43,7 @@
     "vite-plugin-ssr": "^0.3.2"
   },
   "devDependencies": {
-    "@thoughtindustries/helium": "^1.0.1-alpha.6"
+    "@thoughtindustries/helium": "^1.0.1-alpha.7"
   },
   "volta": {
     "node": "16.13.1",
