@@ -50,7 +50,7 @@ function Page(pageProps) {
       </h2>
       Testing the build and deploy process (now with meta!).
       <ul>
-        <li className="text-accent">Rendered to HTML.</li>
+        <li className="text-gray-400">Rendered to HTML.</li>
         <li>
           Interactive. <Counter />
         </li>
