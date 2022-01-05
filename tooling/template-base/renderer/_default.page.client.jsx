@@ -24,7 +24,8 @@ async function hydrate() {
     apolloIntialState,
     appearance,
     currentUser,
-    isProduction
+    isProduction,
+    queryParams
   } = pageContext;
   const apolloClient = makeApolloClient(heliumEndpoint, apolloIntialState, isProduction);
 
@@ -36,7 +37,12 @@ async function hydrate() {
     <ApolloProvider client={apolloClient}>
       <I18nextProvider i18n={i18n}>
         <PageWrapper pageContext={pageContext}>
-          <Page {...pageProps} appearance={appearance} currentUser={currentUser} />
+          <Page
+            {...pageProps}
+            appearance={appearance}
+            currentUser={currentUser}
+            queryParams={queryParams}
+          />
         </PageWrapper>
       </I18nextProvider>
     </ApolloProvider>,

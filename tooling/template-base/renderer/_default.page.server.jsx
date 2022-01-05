@@ -20,7 +20,8 @@ export const passToClient = [
   'appearance',
   'documentProps',
   'currentUser',
-  'isProduction'
+  'isProduction',
+  'queryParams'
 ];
 
 async function render(pageContext) {
@@ -47,7 +48,8 @@ async function render(pageContext) {
 }
 
 async function onBeforeRender(pageContext) {
-  const { Page, pageProps, apolloClient, appearance, currentUser } = pageContext;
+  const { Page, pageProps, apolloClient, appearance, currentUser, urlParsed } = pageContext;
+  const queryParams = urlParsed.search || {};
   const documentProps = getPageMeta(pageContext);
 
   if (currentUser && currentUser.lang) {
@@ -58,7 +60,12 @@ async function onBeforeRender(pageContext) {
     <ApolloProvider client={apolloClient}>
       <I18nextProvider i18n={i18n}>
         <PageWrapper pageContext={pageContext}>
-          <Page {...pageProps} appearance={appearance} currentUser={currentUser} />
+          <Page
+            {...pageProps}
+            appearance={appearance}
+            currentUser={currentUser}
+            queryParams={queryParams}
+          />
         </PageWrapper>
       </I18nextProvider>
     </ApolloProvider>
@@ -67,5 +74,5 @@ async function onBeforeRender(pageContext) {
   const pageHtml = await renderToStringWithData(App);
   const apolloIntialState = apolloClient.extract();
 
-  return { pageContext: { pageHtml, apolloIntialState, documentProps } };
+  return { pageContext: { pageHtml, apolloIntialState, documentProps, queryParams } };
 }
