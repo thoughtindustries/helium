@@ -3,8 +3,9 @@ const path = require('path');
 module.exports = {
   stories: ['../packages/**/stories/*.stories.mdx', '../packages/**/stories/*.stories.tsx'],
   addons: [
+    '@storybook/addon-storysource',
     '@storybook/addon-links',
-    '@storybook/addon-essentials',
+    '@storybook/addon-controls',
     {
       name: '@storybook/addon-postcss',
       options: {
