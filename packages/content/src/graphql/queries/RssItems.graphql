@@ -1,0 +1,6 @@
+query RssItems($feedUrl: String!) {
+  RssItems(feedUrl: $feedUrl) {
+    title
+    link
+  }
+}

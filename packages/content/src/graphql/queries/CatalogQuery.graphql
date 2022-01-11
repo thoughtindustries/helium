@@ -1,0 +1,7 @@
+query Catalog($query: String, $querySignature: String, $querySort: String) {
+  CatalogQuery(query: $query, querySignature: $querySignature, querySort: $querySort) {
+    contentItems {
+      ...ContentFragment
+    }
+  }
+}
