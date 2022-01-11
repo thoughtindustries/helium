@@ -37,46 +37,24 @@ const hydrateContentItem = (
     ? zonedTimeToUtc(contentItem.courseGracePeriodEndDate, timeZone)
     : undefined;
 
-  let hasAvailability, isCompleted, isAvailable, isStarted, isNotStarted, isNotCompleted;
-  if (contentItem.availabilityStatus) {
-    hasAvailability = true;
-    isCompleted = contentItem.availabilityStatus === AvailabilityStatus.Completed;
-    isAvailable = contentItem.availabilityStatus === AvailabilityStatus.Available;
-    isStarted = contentItem.availabilityStatus === AvailabilityStatus.Started;
-    isNotStarted = contentItem.availabilityStatus === AvailabilityStatus.NotStarted;
-    isNotCompleted = contentItem.availabilityStatus === AvailabilityStatus.NotCompleted;
-  } else {
-    hasAvailability = false;
-  }
+  const hasAvailability = !!contentItem.availabilityStatus;
+  const isCompleted = contentItem.availabilityStatus === AvailabilityStatus.Completed;
+  const isAvailable = contentItem.availabilityStatus === AvailabilityStatus.Available;
+  const isStarted = contentItem.availabilityStatus === AvailabilityStatus.Started;
+  const isNotStarted = contentItem.availabilityStatus === AvailabilityStatus.NotStarted;
+  const isNotCompleted = contentItem.availabilityStatus === AvailabilityStatus.NotCompleted;
 
-  let kindIsScormOrXApi, locationIsOnline, locationIsInPerson, usesContentAccessText;
-  if (
+  const kindIsScormOrXApi =
     contentItem.kind === ContentKind.ShareableContentObject ||
-    contentItem.kind === ContentKind.XApiObject
-  ) {
-    kindIsScormOrXApi = true;
-  }
-
-  if (
-    contentItem.kind &&
-    [ContentKind.Webinar, ContentKind.WebinarCourse].includes(contentItem.kind)
-  ) {
-    locationIsOnline = true;
-  }
-
-  if (
-    contentItem.kind &&
-    [ContentKind.InPersonEvent, ContentKind.InPersonEventCourse].includes(contentItem.kind)
-  ) {
-    locationIsInPerson = true;
-  }
-
-  if (
-    contentItem.kind &&
-    [ContentKind.WebinarCourse, ContentKind.InPersonEventCourse].includes(contentItem.kind)
-  ) {
-    usesContentAccessText = true;
-  }
+    contentItem.kind === ContentKind.XApiObject;
+  const locationIsOnline =
+    contentItem.kind === ContentKind.Webinar || contentItem.kind === ContentKind.WebinarCourse;
+  const locationIsInPerson =
+    contentItem.kind === ContentKind.InPersonEvent ||
+    contentItem.kind === ContentKind.InPersonEventCourse;
+  const usesContentAccessText =
+    contentItem.kind === ContentKind.WebinarCourse ||
+    contentItem.kind === ContentKind.InPersonEventCourse;
 
   const partialHydratedContentItem = {
     ...contentItem,
