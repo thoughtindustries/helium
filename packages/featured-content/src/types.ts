@@ -1,4 +1,4 @@
-import { HydratedContentItem, Ribbon } from '@thoughtindustries/hydrate-content';
+import { HydratedContentItem, GlobalTypes } from '@thoughtindustries/content';
 import { ReactNode, SyntheticEvent } from 'react';
 
 export interface FeaturedContentSidebarBaseProps {
@@ -47,7 +47,7 @@ export type FeaturedContentContentCarouselProps = Omit<
   'desktopColumnCount' | 'onAddedToQueue'
 >;
 
-export type FeaturedContentContentItemRibbon = Ribbon;
+export type FeaturedContentContentItemRibbon = GlobalTypes.Ribbon;
 
 export type FeaturedContentHydratedContentItem = HydratedContentItem;
 

@@ -1,27 +1,23 @@
 import React from 'react';
-import { useQuery, useMutation } from '@apollo/client';
 import { useTranslation } from 'react-i18next';
-import { hydrateContent, ContentKind } from '@thoughtindustries/hydrate-content';
+import {
+  hydrateContent,
+  GlobalTypes,
+  CatalogDocument,
+  useCatalogQuery,
+  ContentsDocument,
+  useContentsQuery,
+  UserRecentContentDocument,
+  useUserRecentContentQuery,
+  AddResourceToQueueDocument,
+  useAddResourceToQueueMutation
+} from '@thoughtindustries/content';
 import {
   FeaturedContent,
   ContentTileStandardLayout,
   FeaturedContentContentItem,
   FeaturedContentHydratedContentItem
 } from '../src';
-import {
-  CATALOG_QUERY,
-  CatalogQuery,
-  CatalogQueryVariables,
-  QUERY_CONTENTS_QUERY,
-  ContentsQuery,
-  ContentsQueryVariables,
-  USER_RECENT_CONTENT_QUERY,
-  UserRecentContentQuery,
-  UserRecentContentQueryVariables,
-  ADD_RESOURCE_TO_QUEUE_MUTATION,
-  AddResourceToQueueMutation,
-  AddResourceToQueueMutationVariables
-} from '../src/core/graphql';
 
 export default {
   title: 'Example/FeaturedContent (data fetching)'
@@ -62,7 +58,7 @@ const mockContentItemFactory = (isLearningPath = false) => ({
   rating: 78,
   slug: 'test-course-slug',
   title: 'Test title',
-  kind: isLearningPath ? ContentKind.LearningPath : null,
+  kind: isLearningPath ? GlobalTypes.ContentKind.LearningPath : null,
   currentUserUnmetCoursePrerequisites: [],
   currentUserUnmetLearningPathPrerequisites: [],
   priceInCents: null,
@@ -80,7 +76,7 @@ const mockContentItemFactory = (isLearningPath = false) => ({
 const mockApolloResults = {
   catalogQuery: {
     request: {
-      query: CATALOG_QUERY,
+      query: CatalogDocument,
       variables: { ...mockCatalogQueryVariables }
     },
     result: {
@@ -93,7 +89,7 @@ const mockApolloResults = {
   },
   queryContentsQuery: {
     request: {
-      query: QUERY_CONTENTS_QUERY,
+      query: ContentsDocument,
       variables: { ...mockQueryContentsQueryVariables }
     },
     result: {
@@ -104,7 +100,7 @@ const mockApolloResults = {
   },
   addCourseToQueueMutation: {
     request: {
-      query: ADD_RESOURCE_TO_QUEUE_MUTATION,
+      query: AddResourceToQueueDocument,
       variables: { resourceId: 'display-course-id' }
     },
     result: {
@@ -115,8 +111,11 @@ const mockApolloResults = {
   },
   addLearningPathToQueueMutation: {
     request: {
-      query: ADD_RESOURCE_TO_QUEUE_MUTATION,
-      variables: { resourceId: 'test-course-slug', resourceType: ContentKind.LearningPath }
+      query: AddResourceToQueueDocument,
+      variables: {
+        resourceId: 'test-course-slug',
+        resourceType: GlobalTypes.ContentKind.LearningPath
+      }
     },
     result: {
       data: {
@@ -126,7 +125,7 @@ const mockApolloResults = {
   },
   userRecentContentQuery: {
     request: {
-      query: USER_RECENT_CONTENT_QUERY,
+      query: UserRecentContentDocument,
       variables: { ...mockUserRecentContentQueryVariables }
     },
     result: {
@@ -139,10 +138,7 @@ const mockApolloResults = {
 
 export const WithCatalogQuery = () => {
   const { i18n } = useTranslation();
-  const [addResourceToQueue] = useMutation<
-    AddResourceToQueueMutation,
-    AddResourceToQueueMutationVariables
-  >(ADD_RESOURCE_TO_QUEUE_MUTATION);
+  const [addResourceToQueue] = useAddResourceToQueueMutation();
   const handleAddedToQueue = (item: FeaturedContentContentItem): Promise<void> => {
     const { displayCourse } = item as FeaturedContentHydratedContentItem;
     return displayCourse
@@ -150,7 +146,7 @@ export const WithCatalogQuery = () => {
       : Promise.resolve();
   };
 
-  const { data, loading, error } = useQuery<CatalogQuery, CatalogQueryVariables>(CATALOG_QUERY, {
+  const { data, loading, error } = useCatalogQuery({
     variables: { ...mockCatalogQueryVariables }
   });
   let content;
@@ -187,10 +183,7 @@ WithCatalogQuery.parameters = {
 
 export const WithQueryContentsQuery = () => {
   const { i18n } = useTranslation();
-  const [addResourceToQueue] = useMutation<
-    AddResourceToQueueMutation,
-    AddResourceToQueueMutationVariables
-  >(ADD_RESOURCE_TO_QUEUE_MUTATION);
+  const [addResourceToQueue] = useAddResourceToQueueMutation();
   const handleAddedToQueue = (item: FeaturedContentContentItem): Promise<void> => {
     const { slug, kind } = item as FeaturedContentHydratedContentItem;
     return slug
@@ -203,10 +196,9 @@ export const WithQueryContentsQuery = () => {
       : Promise.resolve();
   };
 
-  const { data, loading, error } = useQuery<ContentsQuery, ContentsQueryVariables>(
-    QUERY_CONTENTS_QUERY,
-    { variables: { ...mockQueryContentsQueryVariables } }
-  );
+  const { data, loading, error } = useContentsQuery({
+    variables: { ...mockQueryContentsQueryVariables }
+  });
   let content;
   if (loading) {
     content = <p>Loading content</p>;
@@ -241,10 +233,9 @@ WithQueryContentsQuery.parameters = {
 
 export const WithUserRecentContentQuery = () => {
   const { i18n } = useTranslation();
-  const { data, loading, error } = useQuery<
-    UserRecentContentQuery,
-    UserRecentContentQueryVariables
-  >(USER_RECENT_CONTENT_QUERY, { variables: { ...mockUserRecentContentQueryVariables } });
+  const { data, loading, error } = useUserRecentContentQuery({
+    variables: { ...mockUserRecentContentQueryVariables }
+  });
   const handleAddedToQueue = (): Promise<void> => {
     return Promise.resolve();
   };

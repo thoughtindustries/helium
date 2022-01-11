@@ -22,18 +22,13 @@
   },
   "dependencies": {
     "@apollo/client": "^3.5.4",
-    "@thoughtindustries/data": "^1.0.0",
+    "@thoughtindustries/content": "^1.0.0",
     "@thoughtindustries/header": "^1.0.0-alpha.4",
-    "@thoughtindustries/hydrate-content": "^1.0.1-alpha.0",
     "@use-gesture/react": "^10.1.6",
     "clsx": "^1.1.1",
     "date-fns": "^2.25.0",
-    "graphql": "^16.0.1",
     "i18next": "^21.5.2",
     "react": "^17.0.2",
     "react-i18next": "^11.14.2"
-  },
-  "devDependencies": {
-    "@thoughtindustries/hydrate-content": "^1.0.1-alpha.1"
   }
 }

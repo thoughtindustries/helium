@@ -1,22 +1,14 @@
 import React from 'react';
-import { useQuery } from '@apollo/client';
 import { useTranslation } from 'react-i18next';
 import { FeaturedContentSidebarRssProps } from '../../types';
 import SidebarWrapper from './wrapper';
-import {
-  RSS_ITEMS_QUERY,
-  RssItemsQueryQueryVariables,
-  RssItemsQueryQuery
-} from '../../core/graphql';
+import { useRssItemsQuery } from '@thoughtindustries/content';
 
 const SidebarRss = ({ title, feedUrl }: FeaturedContentSidebarRssProps): JSX.Element => {
   const { t } = useTranslation();
-  const { data, loading, error } = useQuery<RssItemsQueryQuery, RssItemsQueryQueryVariables>(
-    RSS_ITEMS_QUERY,
-    {
-      variables: { feedUrl }
-    }
-  );
+  const { data, loading, error } = useRssItemsQuery({
+    variables: { feedUrl }
+  });
   let content;
   if (loading || error) {
     content = <h5>{t('please-wait')}</h5>;

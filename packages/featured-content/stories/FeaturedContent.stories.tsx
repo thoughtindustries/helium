@@ -10,7 +10,7 @@ import {
   ContentCarousel,
   ContentTileImageOverlay
 } from '../src';
-import { RSS_ITEMS_QUERY } from '../src/core/graphql';
+import { RssItemsDocument } from '@thoughtindustries/content';
 
 export default {
   title: 'Example/FeaturedContent'
@@ -78,7 +78,7 @@ const mockFeedUrl = 'https://foo/bar';
 const mockApolloResults = {
   sidebarRss: {
     request: {
-      query: RSS_ITEMS_QUERY,
+      query: RssItemsDocument,
       variables: {
         feedUrl: mockFeedUrl
       }

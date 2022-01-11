@@ -12,7 +12,7 @@ import {
   ContentCarousel,
   ContentTileImageOverlay
 } from '../src';
-import { RSS_ITEMS_QUERY } from '../src/core/graphql';
+import { RssItemsDocument } from '@thoughtindustries/content';
 
 jest.mock('react-i18next', () => ({
   useTranslation: () => {
@@ -77,7 +77,7 @@ const mockFeedUrl = 'https://foo/bar';
 const mockApolloResults = {
   sidebarRss: {
     request: {
-      query: RSS_ITEMS_QUERY,
+      query: RssItemsDocument,
       variables: {
         feedUrl: mockFeedUrl
       }
