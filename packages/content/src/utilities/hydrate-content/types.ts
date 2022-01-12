@@ -8,11 +8,9 @@ export enum AvailabilityStatus {
   NotCompleted = 'not-completed'
 }
 
-export interface ContentItem extends Content {
-  courseGracePeriodEndDate?: Date;
-}
+export type ContentItem = Content;
 
-export interface HydratedContentItem extends ContentItem {
+export type HydratedContentItem = ContentItem & {
   hasUnmetPrerequisites: boolean;
   isActive: boolean;
   hasAvailability: boolean;
@@ -29,4 +27,4 @@ export interface HydratedContentItem extends ContentItem {
   href: string;
   priceInCents?: number;
   suggestedRetailPriceInCents?: number;
-}
+};

@@ -33,9 +33,6 @@ const hydrateContentItem = (
   const courseEndDate = contentItem.courseEndDate
     ? zonedTimeToUtc(contentItem.courseEndDate, timeZone)
     : undefined;
-  const courseGracePeriodEndDate = contentItem.courseGracePeriodEndDate
-    ? zonedTimeToUtc(contentItem.courseGracePeriodEndDate, timeZone)
-    : undefined;
 
   const hasAvailability = !!contentItem.availabilityStatus;
   const isCompleted = contentItem.availabilityStatus === AvailabilityStatus.Completed;
@@ -63,7 +60,6 @@ const hydrateContentItem = (
     meetingStartDate,
     courseStartDate,
     courseEndDate,
-    courseGracePeriodEndDate,
     hasAvailability,
     isCompleted,
     isAvailable,
@@ -129,8 +125,7 @@ const getCallToAction = (
       return `${runStringPrefix} ${runs}`;
     } else if (partialHydratedContentItem.courseGracePeriodEnded) {
       return `${i18n.t('course-ended')} ${format(
-        (partialHydratedContentItem.courseGracePeriodEndDate ||
-          partialHydratedContentItem.courseEndDate) as Date,
+        partialHydratedContentItem.courseEndDate as Date,
         'MMM do YYYY'
       )}`;
     } else if (partialHydratedContentItem.hasUnmetPrerequisites) {
