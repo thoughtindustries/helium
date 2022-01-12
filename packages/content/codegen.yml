@@ -2,15 +2,17 @@ overwrite: true
 schema: "graphql.schema.json"
 documents: "src/**/*.graphql"
 generates:
-  src/graphql/global-types.ts:
-    config:
-      avoidOptionals: false
-      maybeValue: T
-    plugins:
-      - "typescript"
+  # # use this to re-generate global types from schema
+  # src/graphql/global-types.ts:
+  #   config:
+  #     avoidOptionals: false
+  #     maybeValue: T
+  #   plugins:
+  #     - "typescript"
   src/:
     preset: near-operation-file
     presetConfig:
+      # use a reduced global types scoped for content
       baseTypesPath: graphql/global-types.ts
       extension: .generated.tsx
     config:
@@ -19,6 +21,7 @@ generates:
     plugins:
       - "typescript-operations"
       - "typescript-react-apollo"
-  ./graphql.schema.json:
-    plugins:
-      - "introspection"
+  # # use this to re-generate schema from remote schema
+  # ./graphql.schema.json:
+  #   plugins:
+  #     - "introspection"
