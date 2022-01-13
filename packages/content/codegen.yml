@@ -18,6 +18,16 @@ generates:
     config:
       avoidOptionals: false
       maybeValue: T
+      inlineFragmentTypes: 'combine'
+      scalars:
+        Slug: 'string'
+        Date: 'Date'
+        JSON: 'JSON'
+        AbsoluteOrRelativeURL: 'string'
+        HexColor: 'string'
+        RelativeURL: 'string'
+        URL: 'string'
+      strictScalars: true
     plugins:
       - "typescript-operations"
       - "typescript-react-apollo"

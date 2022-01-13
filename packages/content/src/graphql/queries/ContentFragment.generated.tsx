@@ -10,7 +10,7 @@ export type ContentFragmentFragment = {
   contentTypeLabel?: string;
   courseGracePeriodEnded: boolean;
   coursePresold: boolean;
-  courseStartDate?: any;
+  courseStartDate?: Date;
   currentUserMayReschedule: boolean;
   currentUserUnmetCoursePrerequisites?: Array<string>;
   currentUserUnmetLearningPathPrerequisites?: Array<string>;
@@ -23,7 +23,7 @@ export type ContentFragmentFragment = {
   isActive: boolean;
   priceInCents?: number;
   rating?: number;
-  slug: any;
+  slug: string;
   source?: string;
   suggestedRetailPriceInCents?: number;
   title?: string;
@@ -35,7 +35,7 @@ export type ContentFragmentFragment = {
     contrastColor?: string;
     darkerColor?: string;
     label?: string;
-    slug: any;
+    slug: string;
   };
 };
 

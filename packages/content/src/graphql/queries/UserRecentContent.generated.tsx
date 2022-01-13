@@ -1,5 +1,6 @@
 import * as Types from '../global-types';
 
+import { ContentFragmentFragment } from './ContentFragment.generated';
 import { gql } from '@apollo/client';
 import { ContentFragmentFragmentDoc } from './ContentFragment.generated';
 import * as Apollo from '@apollo/client';
@@ -10,43 +11,7 @@ export type UserRecentContentQueryVariables = Types.Exact<{
 
 export type UserRecentContentQuery = {
   __typename?: 'Query';
-  UserRecentContent: Array<{
-    __typename?: 'Content';
-    asset?: string;
-    authors?: Array<string>;
-    availabilityStatus?: string;
-    canAddToQueue?: boolean;
-    contentTypeLabel?: string;
-    courseGracePeriodEnded: boolean;
-    coursePresold: boolean;
-    courseStartDate?: any;
-    currentUserMayReschedule: boolean;
-    currentUserUnmetCoursePrerequisites?: Array<string>;
-    currentUserUnmetLearningPathPrerequisites?: Array<string>;
-    description?: string;
-    displayCourse?: string;
-    kind?: Types.ContentKind;
-    hasChildren: boolean;
-    hideCourseDescription: boolean;
-    id: string;
-    isActive: boolean;
-    priceInCents?: number;
-    rating?: number;
-    slug: any;
-    source?: string;
-    suggestedRetailPriceInCents?: number;
-    title?: string;
-    waitlistingEnabled: boolean;
-    waitlistingTriggered: boolean;
-    ribbon?: {
-      __typename?: 'Ribbon';
-      color?: string;
-      contrastColor?: string;
-      darkerColor?: string;
-      label?: string;
-      slug: any;
-    };
-  }>;
+  UserRecentContent: Array<{ __typename?: 'Content' } & ContentFragmentFragment>;
 };
 
 export const UserRecentContentDocument = gql`
