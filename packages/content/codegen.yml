@@ -1,12 +1,22 @@
 overwrite: true
 schema: "graphql-content.schema.json"
 documents: "src/**/*.graphql"
+config:
+  avoidOptionals: false
+  maybeValue: T
+  inlineFragmentTypes: 'combine'
+  scalars:
+    Slug: 'string'
+    Date: 'Date'
+    JSON: 'JSON'
+    AbsoluteOrRelativeURL: 'string'
+    HexColor: 'string'
+    RelativeURL: 'string'
+    URL: 'string'
+  strictScalars: true
 generates:
   # use this to re-generate global types from schema
   src/graphql/global-types.ts:
-    config:
-      avoidOptionals: false
-      maybeValue: T
     plugins:
       - "typescript"
   src/:
@@ -15,19 +25,6 @@ generates:
       # use a reduced global types scoped for content
       baseTypesPath: graphql/global-types.ts
       extension: .generated.tsx
-    config:
-      avoidOptionals: false
-      maybeValue: T
-      inlineFragmentTypes: 'combine'
-      scalars:
-        Slug: 'string'
-        Date: 'Date'
-        JSON: 'JSON'
-        AbsoluteOrRelativeURL: 'string'
-        HexColor: 'string'
-        RelativeURL: 'string'
-        URL: 'string'
-      strictScalars: true
     plugins:
       - "typescript-operations"
       - "typescript-react-apollo"

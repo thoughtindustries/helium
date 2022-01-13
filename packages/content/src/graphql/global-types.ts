@@ -11,19 +11,19 @@ export type Scalars = {
   Int: number;
   Float: number;
   /** A valid absolute (starting with either a valid protocol or a leading www) or relative (with a leading slash) URL string */
-  AbsoluteOrRelativeURL: any;
+  AbsoluteOrRelativeURL: string;
   /** Date scalar type */
-  Date: any;
+  Date: Date;
   /** Hex Color scalar type */
-  HexColor: any;
+  HexColor: string;
   /** The `JSON` scalar type represents JSON values as specified by [ECMA-404](http://www.ecma-international.org/publications/files/ECMA-ST/ECMA-404.pdf). */
-  JSON: any;
+  JSON: JSON;
   /** A valid relative URL string with a leading slash (/) */
-  RelativeURL: any;
+  RelativeURL: string;
   /** Slug scalar type */
-  Slug: any;
+  Slug: string;
   /** A valid absolute URL string starting with either a valid protocol or a leading www */
-  URL: any;
+  URL: string;
 };
 
 export type Aggregation = {
