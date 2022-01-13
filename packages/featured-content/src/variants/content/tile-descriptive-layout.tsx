@@ -4,9 +4,10 @@ import clsx from 'clsx';
 import {
   FeaturedContentContentProps,
   FeaturedContentContentItemProps,
-  FeaturedContentTileDescriptiveLayoutContextType
+  FeaturedContentTileDescriptiveLayoutContextType,
+  FeaturedContentHydratedContentItem
 } from '../../types';
-import { tileClassnameByDesktopColumnCount } from './utils';
+import { tileClassnameByDesktopColumnCount, limitText } from './utils';
 import ContentWrapper from './wrapper';
 import ItemLinkWrapper from './item-link-wrapper';
 import ItemQueueButton from './item-queue-button';
@@ -80,22 +81,16 @@ const ItemSourceBlock = ({
 );
 
 const Item = ({ ...item }: FeaturedContentContentItemProps): JSX.Element => {
-  const {
-    asset,
-    title,
-    courseStartDate,
-    contentTypeLabel,
-    source,
-    authors,
-    shortDescription,
-    canAddToQueue
-  } = item;
+  const { asset, title, description } = item;
+  const { courseStartDate, contentTypeLabel, source, authors, canAddToQueue } =
+    item as FeaturedContentHydratedContentItem;
   const { onAddedToQueue, onClick, desktopColumnCount } = useContentTileDescriptiveLayoutContext();
 
   const columnCountIsOneOrTwo = desktopColumnCount === 1 || desktopColumnCount === 2;
   const gridItemDesktopClassnames = columnCountIsOneOrTwo ? ' md:grid-cols-2 md:gap-x-2' : '';
   const assetWrapperDesktopClassnames = columnCountIsOneOrTwo ? ' md:p-2' : '';
   const addToQueueClassnames = columnCountIsOneOrTwo ? ' justify-end' : ' justify-start';
+  const displayAuthors = authors?.length ? authors.join(', ') : null;
 
   return (
     <li>
@@ -109,10 +104,10 @@ const Item = ({ ...item }: FeaturedContentContentItemProps): JSX.Element => {
           <div className="p-2.5">
             <ItemTitleBlock title={title} courseStartDate={courseStartDate} />
             <ItemSourceBlock contentTypeLabel={contentTypeLabel} source={source} />
-            {authors && <p className="text-xs mb-1 text-gray-700">{authors}</p>}
-            {shortDescription && (
+            {displayAuthors && <p className="text-xs mb-1 text-gray-700">{displayAuthors}</p>}
+            {description && (
               <p className="mt-4 text-xs relative before:content-[' '] before:border-text-accent before:border-t-2 before:absolute before:left-0 before:border-solid before:w-8 before:h-0 before:-top-1.5">
-                {shortDescription}
+                {limitText(description, 150)}
               </p>
             )}
             <div className={`text-base leading-none flex${addToQueueClassnames}`}>

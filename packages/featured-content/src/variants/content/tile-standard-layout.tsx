@@ -5,9 +5,10 @@ import {
   FeaturedContentContentProps,
   FeaturedContentContentItemProps,
   FeaturedContentTileStandardLayoutContextType,
-  FeaturedContentContentItemRibbon
+  FeaturedContentContentItemRibbon,
+  FeaturedContentHydratedContentItem
 } from '../../types';
-import { tileClassnameByDesktopColumnCount } from './utils';
+import { tileClassnameByDesktopColumnCount, limitText } from './utils';
 import ContentWrapper from './wrapper';
 import ItemLinkWrapper from './item-link-wrapper';
 import ItemQueueButton from './item-queue-button';
@@ -117,10 +118,10 @@ const ItemRibbon = ({
   ribbon: FeaturedContentContentItemRibbon;
   attached: boolean;
 }) => {
-  const { contrastColor, bgColor, darkerColor, label } = ribbon;
+  const { contrastColor, color, darkerColor, label } = ribbon;
   const wrapperStyles = {
     color: contrastColor,
-    backgroundColor: bgColor
+    backgroundColor: color
   };
   const wrapperClassnames = `text-xs font-normal leading-none absolute right-0 uppercase max-w-1/2 overflow-ellipsis z-10 px-1.5 py-1 -top-1 whitespace-no-wrap ${
     attached ? '-right-2' : ''
@@ -193,29 +194,27 @@ const ItemPriceBlock = ({
 };
 
 const Item = ({ ...item }: FeaturedContentContentItemProps): JSX.Element => {
+  const { asset, title, description, isActive } = item;
   const {
     ribbon,
     isCompleted,
-    asset,
-    title,
     courseStartDate,
     contentTypeLabel,
     source,
     authors,
-    shortDescription,
     rating,
     canAddToQueue,
-    isActive,
     callToAction,
     priceInCents,
     hasAvailability,
     suggestedRetailPriceInCents
-  } = item;
+  } = item as FeaturedContentHydratedContentItem;
   const { onAddedToQueue, onClick, desktopColumnCount } = useContentTileStandardLayoutContext();
 
   const columnCountIsOneOrTwo = desktopColumnCount === 1 || desktopColumnCount === 2;
   const gridItemDesktopClassnames = columnCountIsOneOrTwo ? ' md:grid-cols-2 md:gap-x-2' : '';
   const assetWrapperDesktopClassnames = columnCountIsOneOrTwo ? ' md:p-2' : '';
+  const displayAuthors = authors?.length ? authors.join(', ') : null;
 
   return (
     <li>
@@ -231,9 +230,11 @@ const Item = ({ ...item }: FeaturedContentContentItemProps): JSX.Element => {
           <div className="p-2.5">
             {title && <ItemTitleBlock title={title} courseStartDate={courseStartDate} />}
             <ItemSourceBlock contentTypeLabel={contentTypeLabel} source={source} />
-            {authors && <p className="text-xs mb-1 text-gray-700">{authors}</p>}
-            {shortDescription && (
-              <p className="text-xs text-gray-700 pt-1 mb-0 overflow-hidden">{shortDescription}</p>
+            {displayAuthors && <p className="text-xs mb-1 text-gray-700">{displayAuthors}</p>}
+            {description && (
+              <p className="text-xs text-gray-700 pt-1 mb-0 overflow-hidden">
+                {limitText(description, 75)}
+              </p>
             )}
             {rating && <Stars gradePercentage={rating} />}
             <hr className="my-3" />

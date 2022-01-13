@@ -4,7 +4,8 @@ import clsx from 'clsx';
 import {
   FeaturedContentContentProps,
   FeaturedContentContentItemProps,
-  FeaturedContentMultiCarouselContextType
+  FeaturedContentMultiCarouselContextType,
+  FeaturedContentHydratedContentItem
 } from '../../types';
 import ContentWrapper from './wrapper';
 import ItemLinkWrapper from './item-link-wrapper';
@@ -13,6 +14,7 @@ import ItemCompletedBlock from './item-completed-block';
 import ItemQueueButton from './item-queue-button';
 import { IconLeft, IconRight } from './icons';
 import { useMultiCarouselBehavior } from './use-multi-carousel-behavior';
+import { limitText } from './utils';
 
 const ContentMultiCarouselContext = createContext<
   FeaturedContentMultiCarouselContextType | undefined
@@ -125,23 +127,16 @@ const itemClassnameByDesktopColumnCount = (desktopColumnCount: number): string =
 };
 
 const Item = ({ ...item }: FeaturedContentContentItemProps): JSX.Element => {
-  const {
-    asset,
-    title,
-    courseStartDate,
-    contentTypeLabel,
-    source,
-    authors,
-    shortDescription,
-    canAddToQueue,
-    isCompleted
-  } = item;
+  const { asset, title, description } = item;
+  const { courseStartDate, contentTypeLabel, source, authors, canAddToQueue, isCompleted } =
+    item as FeaturedContentHydratedContentItem;
   const { onAddedToQueue, onClick, desktopColumnCount } = useContentMultiCarouselContext();
 
   const classNames = clsx([
     'px-5 pb-5 text-base flex-none w-full',
     itemClassnameByDesktopColumnCount(desktopColumnCount)
   ]);
+  const displayAuthors = authors?.length ? authors.join(', ') : null;
 
   return (
     <li className={classNames}>
@@ -154,9 +149,11 @@ const Item = ({ ...item }: FeaturedContentContentItemProps): JSX.Element => {
           <div className="text-center py-3 px-1">
             <ItemTitleBlock title={title} courseStartDate={courseStartDate} />
             <ItemSourceBlock contentTypeLabel={contentTypeLabel} source={source} />
-            {authors && <p className="text-xs mb-1 text-gray-700">{authors}</p>}
-            {shortDescription && (
-              <p className="mt-1.5 mb-0 text-xs relative text-left py-0 px-2">{shortDescription}</p>
+            {displayAuthors && <p className="text-xs mb-1 text-gray-700">{displayAuthors}</p>}
+            {description && (
+              <p className="mt-1.5 mb-0 text-xs relative text-left py-0 px-2">
+                {limitText(description, 150)}
+              </p>
             )}
             {canAddToQueue && (
               <p className="text-xs text-gray-700 text-left mt-1.5 mr-0 -mb-1.5 ml-1.5">

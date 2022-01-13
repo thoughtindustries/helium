@@ -1,5 +1,5 @@
 import React, { ReactNode, SyntheticEvent, useCallback } from 'react';
-import { FeaturedContentContentItem } from '../../types';
+import { FeaturedContentContentItem, FeaturedContentStaticContentItem } from '../../types';
 
 interface ItemLinkWrapperProps {
   children: ReactNode;
@@ -8,7 +8,8 @@ interface ItemLinkWrapperProps {
 }
 
 const ItemLinkWrapper = ({ children, onClick, item }: ItemLinkWrapperProps): JSX.Element => {
-  const { isActive, linkUrl, linkOpenInNewTab } = item;
+  const { isActive, href } = item;
+  const { linkOpenInNewTab } = item as FeaturedContentStaticContentItem;
 
   const itemIsActiveOrWebinarOrEvent = !!isActive;
 
@@ -24,7 +25,7 @@ const ItemLinkWrapper = ({ children, onClick, item }: ItemLinkWrapperProps): JSX
     onClick: (evt: SyntheticEvent) => void;
     target?: string;
   } = {
-    href: linkUrl,
+    href,
     onClick: handleClick,
     className: `block text-gray-800 ${!itemIsActiveOrWebinarOrEvent ? 'cursor-default' : ''}`
   };

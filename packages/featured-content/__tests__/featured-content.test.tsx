@@ -12,7 +12,7 @@ import {
   ContentCarousel,
   ContentTileImageOverlay
 } from '../src';
-import { RSS_ITEMS_QUERY } from '../src/variants/sidebar/rss';
+import { RssItemsDocument } from '@thoughtindustries/content';
 
 jest.mock('react-i18next', () => ({
   useTranslation: () => {
@@ -42,19 +42,17 @@ const mockItems = {
   manual: {
     title: 'Manual item',
     description: 'description',
-    shortDescription: 'short description',
-    linkUrl: '/',
-    canAddToQueue: false
+    href: '/',
+    isActive: true
   },
   dynamic: {
     title: 'Dynamic item',
     courseStartDate: new Date(2020, 0, 1),
     contentTypeLabel: 'Course',
     source: 'Test source',
-    authors: 'Test Author',
+    authors: ['Test Author'],
     description: 'description',
-    shortDescription: 'short description',
-    linkUrl: '/',
+    href: '/',
     isCompleted: true,
     asset:
       'https://d36ai2hkxl16us.cloudfront.net/thoughtindustries/image/upload/a_exif,c_fill,w_800/v1416438573/placeholder_kcjvxm.jpg',
@@ -62,7 +60,7 @@ const mockItems = {
     isActive: true,
     callToAction: 'View Details',
     ribbon: {
-      bgColor: '#39ad39',
+      color: '#39ad39',
       contrastColor: '#fff',
       darkerColor: '#2c872c',
       label: 'Test ribbon',
@@ -79,7 +77,7 @@ const mockFeedUrl = 'https://foo/bar';
 const mockApolloResults = {
   sidebarRss: {
     request: {
-      query: RSS_ITEMS_QUERY,
+      query: RssItemsDocument,
       variables: {
         feedUrl: mockFeedUrl
       }
@@ -227,7 +225,7 @@ describe('@thoughtindustries/featured-content', () => {
                           <p
                             class="text-xs text-gray-700 pt-1 mb-0 overflow-hidden"
                           >
-                            short description
+                            description
                           </p>
                           <div>
                             <span
@@ -296,7 +294,7 @@ describe('@thoughtindustries/featured-content', () => {
                   </li>
                   <li>
                     <a
-                      class="block text-gray-800 cursor-default"
+                      class="block text-gray-800 "
                       href="/"
                     >
                       <div
@@ -324,7 +322,7 @@ describe('@thoughtindustries/featured-content', () => {
                           <p
                             class="text-xs text-gray-700 pt-1 mb-0 overflow-hidden"
                           >
-                            short description
+                            description
                           </p>
                           <hr
                             class="my-3"
@@ -333,7 +331,7 @@ describe('@thoughtindustries/featured-content', () => {
                             class="text-base leading-none"
                           >
                             <span
-                              class="text-xs"
+                              class="border-none rounded-sm cursor-pointer inline-block text-sm font-normal leading-normal m-0 p-0 relative text-center no-underline transition-colors ease-in-out duration-200 text-accent float-right text-left h-auto hover:text-accent"
                             />
                           </div>
                         </div>
@@ -342,7 +340,7 @@ describe('@thoughtindustries/featured-content', () => {
                   </li>
                   <li>
                     <a
-                      class="block text-gray-800 cursor-default"
+                      class="block text-gray-800 "
                       href="/"
                     >
                       <div
@@ -370,7 +368,7 @@ describe('@thoughtindustries/featured-content', () => {
                           <p
                             class="text-xs text-gray-700 pt-1 mb-0 overflow-hidden"
                           >
-                            short description
+                            description
                           </p>
                           <hr
                             class="my-3"
@@ -379,7 +377,7 @@ describe('@thoughtindustries/featured-content', () => {
                             class="text-base leading-none"
                           >
                             <span
-                              class="text-xs"
+                              class="border-none rounded-sm cursor-pointer inline-block text-sm font-normal leading-normal m-0 p-0 relative text-center no-underline transition-colors ease-in-out duration-200 text-accent float-right text-left h-auto hover:text-accent"
                             />
                           </div>
                         </div>
@@ -388,7 +386,7 @@ describe('@thoughtindustries/featured-content', () => {
                   </li>
                   <li>
                     <a
-                      class="block text-gray-800 cursor-default"
+                      class="block text-gray-800 "
                       href="/"
                     >
                       <div
@@ -416,7 +414,7 @@ describe('@thoughtindustries/featured-content', () => {
                           <p
                             class="text-xs text-gray-700 pt-1 mb-0 overflow-hidden"
                           >
-                            short description
+                            description
                           </p>
                           <hr
                             class="my-3"
@@ -425,7 +423,7 @@ describe('@thoughtindustries/featured-content', () => {
                             class="text-base leading-none"
                           >
                             <span
-                              class="text-xs"
+                              class="border-none rounded-sm cursor-pointer inline-block text-sm font-normal leading-normal m-0 p-0 relative text-center no-underline transition-colors ease-in-out duration-200 text-accent float-right text-left h-auto hover:text-accent"
                             />
                           </div>
                         </div>
@@ -520,7 +518,7 @@ describe('@thoughtindustries/featured-content', () => {
                 >
                   <li>
                     <a
-                      class="block text-gray-800 cursor-default"
+                      class="block text-gray-800 "
                       href="/"
                     >
                       <div
@@ -548,7 +546,7 @@ describe('@thoughtindustries/featured-content', () => {
                           <p
                             class="text-xs text-gray-700 pt-1 mb-0 overflow-hidden"
                           >
-                            short description
+                            description
                           </p>
                           <hr
                             class="my-3"
@@ -557,7 +555,7 @@ describe('@thoughtindustries/featured-content', () => {
                             class="text-base leading-none"
                           >
                             <span
-                              class="text-xs"
+                              class="border-none rounded-sm cursor-pointer inline-block text-sm font-normal leading-normal m-0 p-0 relative text-center no-underline transition-colors ease-in-out duration-200 text-accent float-right text-left h-auto hover:text-accent"
                             />
                           </div>
                         </div>
@@ -566,7 +564,7 @@ describe('@thoughtindustries/featured-content', () => {
                   </li>
                   <li>
                     <a
-                      class="block text-gray-800 cursor-default"
+                      class="block text-gray-800 "
                       href="/"
                     >
                       <div
@@ -594,7 +592,7 @@ describe('@thoughtindustries/featured-content', () => {
                           <p
                             class="text-xs text-gray-700 pt-1 mb-0 overflow-hidden"
                           >
-                            short description
+                            description
                           </p>
                           <hr
                             class="my-3"
@@ -603,7 +601,7 @@ describe('@thoughtindustries/featured-content', () => {
                             class="text-base leading-none"
                           >
                             <span
-                              class="text-xs"
+                              class="border-none rounded-sm cursor-pointer inline-block text-sm font-normal leading-normal m-0 p-0 relative text-center no-underline transition-colors ease-in-out duration-200 text-accent float-right text-left h-auto hover:text-accent"
                             />
                           </div>
                         </div>
@@ -761,7 +759,7 @@ describe('@thoughtindustries/featured-content', () => {
           >
             <li>
               <a
-                class="block text-gray-800 cursor-default"
+                class="block text-gray-800 "
                 href="/"
               >
                 <div
@@ -789,7 +787,7 @@ describe('@thoughtindustries/featured-content', () => {
                     <p
                       class="text-xs text-gray-700 pt-1 mb-0 overflow-hidden"
                     >
-                      short description
+                      description
                     </p>
                     <hr
                       class="my-3"
@@ -798,7 +796,7 @@ describe('@thoughtindustries/featured-content', () => {
                       class="text-base leading-none"
                     >
                       <span
-                        class="text-xs"
+                        class="border-none rounded-sm cursor-pointer inline-block text-sm font-normal leading-normal m-0 p-0 relative text-center no-underline transition-colors ease-in-out duration-200 text-accent float-right text-left h-auto hover:text-accent"
                       />
                     </div>
                   </div>
@@ -845,7 +843,7 @@ describe('@thoughtindustries/featured-content', () => {
           >
             <li>
               <a
-                class="block text-gray-800 cursor-default"
+                class="block text-gray-800 "
                 href="/"
               >
                 <div
@@ -873,7 +871,7 @@ describe('@thoughtindustries/featured-content', () => {
                     <p
                       class="mt-4 text-xs relative before:content-[' '] before:border-text-accent before:border-t-2 before:absolute before:left-0 before:border-solid before:w-8 before:h-0 before:-top-1.5"
                     >
-                      short description
+                      description
                     </p>
                     <div
                       class="text-base leading-none flex justify-end"
@@ -926,7 +924,7 @@ describe('@thoughtindustries/featured-content', () => {
                 class="px-5 pb-5 text-base flex-none w-full md:w-1/2"
               >
                 <a
-                  class="block text-gray-800 cursor-default"
+                  class="block text-gray-800 "
                   href="/"
                 >
                   <div
@@ -954,7 +952,7 @@ describe('@thoughtindustries/featured-content', () => {
                       <p
                         class="mt-1.5 mb-0 text-xs relative text-left py-0 px-2"
                       >
-                        short description
+                        description
                       </p>
                     </div>
                   </div>
@@ -1000,7 +998,7 @@ describe('@thoughtindustries/featured-content', () => {
                 class="flex-none w-full whitespace-normal text-base"
               >
                 <a
-                  class="block text-gray-800 cursor-default"
+                  class="block text-gray-800 "
                   href="/"
                 >
                   <div
@@ -1021,7 +1019,7 @@ describe('@thoughtindustries/featured-content', () => {
                       <p
                         class="mt-1.5 mb-0 text-xs text-white"
                       >
-                        short description
+                        description
                       </p>
                     </div>
                   </div>
@@ -1115,7 +1113,7 @@ describe('@thoughtindustries/featured-content', () => {
           >
             <li>
               <a
-                class="block text-gray-800 cursor-default"
+                class="block text-gray-800 "
                 href="/"
               >
                 <div
@@ -1136,7 +1134,7 @@ describe('@thoughtindustries/featured-content', () => {
                     <p
                       class="mt-1 mb-0 text-xs text-white"
                     >
-                      short description
+                      description
                     </p>
                   </div>
                 </div>

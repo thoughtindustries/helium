@@ -1,4 +1,5 @@
-import { hydrateContent, ContentKind } from '../src';
+import { hydrateContent } from '../../../src/utilities/hydrate-content';
+import { GlobalTypes } from '../../../src/graphql';
 import i18n from 'i18next';
 
 i18n.init({
@@ -29,7 +30,7 @@ i18n.init({
   }
 });
 
-describe('@thoughtindustries/hydrate-content/hydrateContent', () => {
+describe('@thoughtindustries/content/hydrateContent', () => {
   const courseStartDate = new Date(2020, 0, 1, 12);
   const baseContentItem = {
     id: 'test-item',
@@ -39,13 +40,17 @@ describe('@thoughtindustries/hydrate-content/hydrateContent', () => {
     timeZone: '',
     waitlistingTriggered: false,
     waitlistingEnabled: false,
-    contentTypeLabel: 'test type'
+    contentTypeLabel: 'test type',
+    currentUserMayReschedule: false,
+    hasChildren: false,
+    hideCourseDescription: false,
+    isActive: false
   };
   const testCases = [
     {
       contentItem: {
         ...baseContentItem,
-        kind: ContentKind.Product,
+        kind: GlobalTypes.ContentKind.Product,
         slug: 'test-product'
       },
       customFields: undefined,
