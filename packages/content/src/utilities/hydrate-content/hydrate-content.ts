@@ -29,7 +29,9 @@ const hydrateContentItem = (
   const meetingStartDate = contentItem.meetingStartDate
     ? zonedTimeToUtc(contentItem.meetingStartDate, timeZone)
     : undefined;
-  const courseStartDate = zonedTimeToUtc(contentItem.courseStartDate, timeZone);
+  const courseStartDate = contentItem.courseStartDate
+    ? zonedTimeToUtc(contentItem.courseStartDate, timeZone)
+    : undefined;
   const courseEndDate = contentItem.courseEndDate
     ? zonedTimeToUtc(contentItem.courseEndDate, timeZone)
     : undefined;
@@ -110,7 +112,7 @@ const getCallToAction = (
     partialHydratedContentItem.hasAvailability &&
     !partialHydratedContentItem.waitlistingTriggered
   ) {
-    if (partialHydratedContentItem.coursePresold) {
+    if (partialHydratedContentItem.coursePresold && partialHydratedContentItem.courseStartDate) {
       const runs = courseRuns(
         partialHydratedContentItem.kind,
         partialHydratedContentItem.courseStartDate,
