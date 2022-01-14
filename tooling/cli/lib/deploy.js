@@ -29,8 +29,6 @@ const KEY_QUERY = `
       policy
       acl
       success_action_status
-      contentType
-      contentEncoding
     }
   }
 `;
@@ -142,7 +140,7 @@ async function uploadHeliumProject(policyData) {
       gzip: true,
       file: filePath
     },
-    [OP_DIR]
+    ['.']
   );
 
   console.log('>>> Compressed!');
@@ -197,16 +195,7 @@ async function getHeliumUploadData(instance) {
   if (launchData && launchData[0] && launchData[0].data) {
     const {
       data: {
-        HeliumLaunchData: {
-          key,
-          AWSAccessKeyId,
-          signature,
-          policy,
-          acl,
-          success_action_status,
-          contentType,
-          contentEncoding
-        }
+        HeliumLaunchData: { key, AWSAccessKeyId, signature, policy, acl, success_action_status }
       }
     } = launchData[0];
 
@@ -216,9 +205,7 @@ async function getHeliumUploadData(instance) {
       signature,
       policy,
       acl,
-      success_action_status,
-      contentType,
-      contentEncoding
+      success_action_status
     };
   }
 
