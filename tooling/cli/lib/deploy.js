@@ -28,9 +28,9 @@ const KEY_QUERY = `
   }
 `;
 
-const LAMBDA_QUERY = `
-  query HeliumLambdaQuery($key: String!, $nickname: String!) {
-    HeliumLambda(key: $key, nickname: $nickname)
+const BATCH_QUERY = `
+  query HeliumBatchQuery($key: String!, $nickname: String!) {
+    HeliumBatch(key: $key, nickname: $nickname)
   }
 `;
 
@@ -58,7 +58,7 @@ const JOB_QUERY = `
     await gatherUsedTranslations();
     await writeGraphqlManifest();
     await uploadHeliumProject(policyData);
-    const batchJobId = await triggerLambda(instance, key);
+    const batchJobId = await triggerBatch(instance, key);
     const fetchStatus = () => checkDeploymentJobStatus(instance, batchJobId);
     const processing = result => result !== 'SUCCEEDED' && result !== 'FAILED';
     await poll(fetchStatus, processing, 3000);
@@ -145,14 +145,14 @@ async function uploadHeliumProject(policyData) {
   return true;
 }
 
-async function triggerLambda(instance, key) {
+async function triggerBatch(instance, key) {
   return new Promise((resolve, reject) => {
     const endpoint = instanceEndpoint(instance);
     const options = {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
-        query: LAMBDA_QUERY,
+        query: BATCH_QUERY,
         variables: { key, nickname: instance.nickname }
       })
     };
@@ -162,7 +162,7 @@ async function triggerLambda(instance, key) {
       .then(res => {
         const resObj = res[0];
         if (resObj.data) {
-          resolve(resObj.data.HeliumLambda);
+          resolve(resObj.data.HeliumBatch);
         } else {
           const err = resObj.errors[0];
           reject(err.message);
