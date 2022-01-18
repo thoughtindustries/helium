@@ -1,7 +1,6 @@
 const path = require('path');
 const fs = require('fs-extra');
 const fetch = require('isomorphic-unfetch');
-const FormData = require('form-data');
 const { gqlPluckFromCodeString } = require('@graphql-tools/graphql-tag-pluck');
 const { print } = require('graphql/language/printer');
 const { parse } = require('graphql/language');
@@ -9,6 +8,7 @@ const crypto = require('crypto');
 const childProcess = require('child_process');
 const tar = require('tar');
 const os = require('os');
+
 const { getFilePaths, filePathIsValid } = require('./helpers/filepaths');
 const { instanceEndpoint } = require('./helpers/urls');
 
@@ -18,17 +18,12 @@ const configPath = path.join(OP_DIR, '/ti-config');
 const config = require(configPath);
 
 const INSTANCE_NAME = process.env.INSTANCE_NAME;
-const BUCKET = 'ti-helium-deploy';
 
 const KEY_QUERY = `
-  query CompanyDetailsQuery {
-    HeliumLaunchData {
+  query CompanyDetailsQuery($nickname: String!) {
+    HeliumLaunchData(nickname: $nickname) {
       key
-      AWSAccessKeyId
-      signature
-      policy
-      acl
-      success_action_status
+      signedUrl
     }
   }
 `;
@@ -55,7 +50,7 @@ const JOB_QUERY = `
   const policyData = await getHeliumUploadData(instance);
   const { key } = policyData;
 
-  if (!policyData.key || !policyData.AWSAccessKeyId || !policyData.signature) {
+  if (!policyData.key || !policyData.signedUrl) {
     throw new Error('Could not retrieve helium keys.');
   }
 
@@ -144,7 +139,6 @@ async function uploadHeliumProject(policyData) {
   );
 
   console.log('>>> Compressed!');
-  console.log('>>> filePath', filePath);
 
   await uploadToS3(filePath, policyData);
 
@@ -183,10 +177,11 @@ async function triggerLambda(instance, key) {
 
 async function getHeliumUploadData(instance) {
   const endpoint = instanceEndpoint(instance);
+
   const options = {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ query: KEY_QUERY })
+    body: JSON.stringify({ query: KEY_QUERY, variables: { nickname: instance.nickname } })
   };
 
   let responseData = {};
@@ -195,17 +190,13 @@ async function getHeliumUploadData(instance) {
   if (launchData && launchData[0] && launchData[0].data) {
     const {
       data: {
-        HeliumLaunchData: { key, AWSAccessKeyId, signature, policy, acl, success_action_status }
+        HeliumLaunchData: { key, signedUrl }
       }
     } = launchData[0];
 
     responseData = {
       key,
-      AWSAccessKeyId,
-      signature,
-      policy,
-      acl,
-      success_action_status
+      signedUrl
     };
   }
 
@@ -215,24 +206,17 @@ async function getHeliumUploadData(instance) {
 const UPLOAD_TRIES = 3;
 function uploadToS3(filePath, policyData, tryCount = 0) {
   return new Promise((resolve, reject) => {
-    const { key } = policyData;
-    const sanitizedFilePath = filePath.split(TMP_DIR)[1];
-    const fullFileKey = path.join(key, sanitizedFilePath);
+    const { signedUrl } = policyData;
 
-    const objPolicy = Object.assign({}, policyData, { key: fullFileKey });
-
-    const form = buildFormData(objPolicy, filePath);
-
-    const endpoint = `https://${BUCKET}.s3.amazonaws.com/`;
     const options = {
-      method: 'POST',
-      headers: form.getHeaders(),
-      body: form
+      method: 'PUT',
+      body: fs.createReadStream(filePath),
+      headers: { 'Content-Length': fs.statSync(filePath).size }
     };
 
-    fetch(endpoint, options)
+    fetch(signedUrl, options)
       .then(res => {
-        if (res.status && res.status === 201) {
+        if (res.status && res.status === 200) {
           resolve();
         } else {
           reject(new Error('Could not upload to S3.'));
@@ -250,17 +234,6 @@ function uploadToS3(filePath, policyData, tryCount = 0) {
         }
       });
   });
-}
-
-function buildFormData(policyData, filePath) {
-  const form = new FormData();
-  for (const prop in policyData) {
-    form.append(prop, policyData[prop]);
-  }
-
-  form.append('file', fs.readFileSync(filePath, 'utf8'));
-
-  return form;
 }
 
 function findTIInstance() {
@@ -293,7 +266,7 @@ async function checkDeploymentJobStatus(instance, jobId) {
       .then(r => r.json())
       .then(res => {
         const resObj = res[0];
-        console.log('>> resObj.data', resObj.data);
+
         if (resObj.data) {
           resolve(resObj.data.HeliumDeploymentStatus);
         } else {
@@ -309,12 +282,19 @@ async function checkDeploymentJobStatus(instance, jobId) {
 
 async function poll(fn, processingFn, ms) {
   let result = await fn();
-  console.log(`>>> Deployment Status: ${result.toLowerCase()}`);
+  let status = result.toLowerCase();
+
+  console.log(`>>> Deployment status: ${status}`);
 
   while (processingFn(result)) {
     await wait(ms);
     result = await fn();
-    console.log(`>>> Deployment Status: ${result.toLowerCase()}`);
+    const latestStatus = result.toLowerCase();
+
+    if (latestStatus !== status) {
+      status = latestStatus;
+      console.log(`>>> Deployment status: ${status}`);
+    }
   }
 
   return result;
