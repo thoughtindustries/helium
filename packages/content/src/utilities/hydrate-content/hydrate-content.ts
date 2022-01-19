@@ -1,14 +1,10 @@
 import { zonedTimeToUtc } from 'date-fns-tz';
 import { format } from 'date-fns';
 import { i18n as I18n } from 'i18next';
-import {
-  ContentItem,
-  HydratedContentItem,
-  AvailabilityStatus,
-  ContentKind,
-  AlternativePricingType
-} from './types';
+import { ContentItem, HydratedContentItem, AvailabilityStatus } from './types';
+import { ContentKind, AlternativePricingType } from '../../graphql/global-types';
 import courseRuns from './course-run';
+import { DEFAULT_TIMEZONE } from './constants';
 
 /**
  * Hydrate queried content item
@@ -29,48 +25,35 @@ const hydrateContentItem = (
   const isActive =
     !contentItem.coursePresold && !contentItem.courseGracePeriodEnded && !hasUnmetPrerequisites;
 
+  const timeZone = contentItem.timeZone ?? DEFAULT_TIMEZONE;
   const meetingStartDate = contentItem.meetingStartDate
-    ? zonedTimeToUtc(contentItem.meetingStartDate, contentItem.timeZone)
+    ? zonedTimeToUtc(contentItem.meetingStartDate, timeZone)
     : undefined;
-  const courseStartDate = zonedTimeToUtc(contentItem.courseStartDate, contentItem.timeZone);
+  const courseStartDate = contentItem.courseStartDate
+    ? zonedTimeToUtc(contentItem.courseStartDate, timeZone)
+    : undefined;
   const courseEndDate = contentItem.courseEndDate
-    ? zonedTimeToUtc(contentItem.courseEndDate, contentItem.timeZone)
-    : undefined;
-  const courseGracePeriodEndDate = contentItem.courseGracePeriodEndDate
-    ? zonedTimeToUtc(contentItem.courseGracePeriodEndDate, contentItem.timeZone)
+    ? zonedTimeToUtc(contentItem.courseEndDate, timeZone)
     : undefined;
 
-  let hasAvailability, isCompleted, isAvailable, isStarted, isNotStarted, isNotCompleted;
-  if (contentItem.availabilityStatus) {
-    hasAvailability = true;
-    isCompleted = contentItem.availabilityStatus === AvailabilityStatus.Completed;
-    isAvailable = contentItem.availabilityStatus === AvailabilityStatus.Available;
-    isStarted = contentItem.availabilityStatus === AvailabilityStatus.Started;
-    isNotStarted = contentItem.availabilityStatus === AvailabilityStatus.NotStarted;
-    isNotCompleted = contentItem.availabilityStatus === AvailabilityStatus.NotCompleted;
-  } else {
-    hasAvailability = false;
-  }
+  const hasAvailability = !!contentItem.availabilityStatus;
+  const isCompleted = contentItem.availabilityStatus === AvailabilityStatus.Completed;
+  const isAvailable = contentItem.availabilityStatus === AvailabilityStatus.Available;
+  const isStarted = contentItem.availabilityStatus === AvailabilityStatus.Started;
+  const isNotStarted = contentItem.availabilityStatus === AvailabilityStatus.NotStarted;
+  const isNotCompleted = contentItem.availabilityStatus === AvailabilityStatus.NotCompleted;
 
-  let kindIsScormOrXApi, locationIsOnline, locationIsInPerson, usesContentAccessText;
-  if (
+  const kindIsScormOrXApi =
     contentItem.kind === ContentKind.ShareableContentObject ||
-    contentItem.kind === ContentKind.XApiObject
-  ) {
-    kindIsScormOrXApi = true;
-  }
-
-  if ([ContentKind.Webinar, ContentKind.WebinarCourse].includes(contentItem.kind)) {
-    locationIsOnline = true;
-  }
-
-  if ([ContentKind.InPersonEvent, ContentKind.InPersonEventCourse].includes(contentItem.kind)) {
-    locationIsInPerson = true;
-  }
-
-  if ([ContentKind.WebinarCourse, ContentKind.InPersonEventCourse].includes(contentItem.kind)) {
-    usesContentAccessText = true;
-  }
+    contentItem.kind === ContentKind.XApiObject;
+  const locationIsOnline =
+    contentItem.kind === ContentKind.Webinar || contentItem.kind === ContentKind.WebinarCourse;
+  const locationIsInPerson =
+    contentItem.kind === ContentKind.InPersonEvent ||
+    contentItem.kind === ContentKind.InPersonEventCourse;
+  const usesContentAccessText =
+    contentItem.kind === ContentKind.WebinarCourse ||
+    contentItem.kind === ContentKind.InPersonEventCourse;
 
   const partialHydratedContentItem = {
     ...contentItem,
@@ -79,7 +62,6 @@ const hydrateContentItem = (
     meetingStartDate,
     courseStartDate,
     courseEndDate,
-    courseGracePeriodEndDate,
     hasAvailability,
     isCompleted,
     isAvailable,
@@ -130,7 +112,7 @@ const getCallToAction = (
     partialHydratedContentItem.hasAvailability &&
     !partialHydratedContentItem.waitlistingTriggered
   ) {
-    if (partialHydratedContentItem.coursePresold) {
+    if (partialHydratedContentItem.coursePresold && partialHydratedContentItem.courseStartDate) {
       const runs = courseRuns(
         partialHydratedContentItem.kind,
         partialHydratedContentItem.courseStartDate,
@@ -145,8 +127,7 @@ const getCallToAction = (
       return `${runStringPrefix} ${runs}`;
     } else if (partialHydratedContentItem.courseGracePeriodEnded) {
       return `${i18n.t('course-ended')} ${format(
-        (partialHydratedContentItem.courseGracePeriodEndDate ||
-          partialHydratedContentItem.courseEndDate) as Date,
+        partialHydratedContentItem.courseEndDate as Date,
         'MMM do YYYY'
       )}`;
     } else if (partialHydratedContentItem.hasUnmetPrerequisites) {

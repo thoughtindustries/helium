@@ -1,6 +1,7 @@
-import { courseRuns, ContentKind } from '../src';
+import { courseRuns } from '../../../src/utilities/hydrate-content';
+import { GlobalTypes } from '../../../src/graphql';
 
-describe('@thoughtindustries/hydrate-content/courseRuns', () => {
+describe('@thoughtindustries/content/courseRuns', () => {
   const startDate = new Date(2020, 0, 1, 12);
   const endDateInSameDay = new Date(startDate);
   endDateInSameDay.setHours(endDateInSameDay.getHours() + 1);
@@ -10,31 +11,31 @@ describe('@thoughtindustries/hydrate-content/courseRuns', () => {
   const testData = [
     {
       expected: 'Wed, Jan 1st 2020 05:00 pm – 06:00 pm GMT+0',
-      kind: ContentKind.Webinar,
+      kind: GlobalTypes.ContentKind.Webinar,
       startDate,
       endDate: endDateInSameDay
     },
     {
       expected: 'Wed, Jan 1st 2020 05:00 pm – Thu, Jan 2nd 2020 05:00 pm GMT+0',
-      kind: ContentKind.WebinarCourse,
+      kind: GlobalTypes.ContentKind.WebinarCourse,
       startDate,
       endDate: endDateInNextDay
     },
     {
       expected: 'Wed, Jan 1st 2020 05:00 pm GMT+0',
-      kind: ContentKind.InPersonEvent,
+      kind: GlobalTypes.ContentKind.InPersonEvent,
       startDate,
       endDate: undefined
     },
     {
       expected: 'Jan 1st 2020 – Jan 2nd 2020',
-      kind: ContentKind.Product,
+      kind: GlobalTypes.ContentKind.Product,
       startDate,
       endDate: endDateInNextDay
     },
     {
       expected: 'Jan 1st 2020',
-      kind: ContentKind.LearningPath,
+      kind: GlobalTypes.ContentKind.LearningPath,
       startDate,
       endDate: undefined
     }

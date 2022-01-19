@@ -1,16 +1,16 @@
 import { zonedTimeToUtc } from 'date-fns-tz';
 import { isSameDay, format } from 'date-fns';
-import { ContentKind } from './types';
+import { ContentKind } from '../../graphql/global-types';
+import { DEFAULT_TIMEZONE } from './constants';
 
-const VILT_KINDS = [ContentKind.Webinar, ContentKind.WebinarCourse];
-const ILT_KINDS = [ContentKind.InPersonEvent, ContentKind.InPersonEventCourse];
-const DEFAULT_TIMEZONE = 'America/New_York';
+export const VILT_KINDS = [ContentKind.Webinar, ContentKind.WebinarCourse];
+export const ILT_KINDS = [ContentKind.InPersonEvent, ContentKind.InPersonEventCourse];
 
 export default function courseRunsPhrase(
-  kind: ContentKind,
+  kind: ContentKind | undefined,
   startDate: Date,
   endDate: Date | undefined,
-  timeZone: string
+  timeZone: string | undefined
 ): string {
   if (!timeZone) {
     timeZone = DEFAULT_TIMEZONE;
@@ -19,7 +19,7 @@ export default function courseRunsPhrase(
   const parsedStartDate = zonedTimeToUtc(startDate, timeZone);
   const parsedEndDate = endDate ? zonedTimeToUtc(endDate, timeZone) : null;
 
-  if (ILT_KINDS.includes(kind) || VILT_KINDS.includes(kind)) {
+  if (kind && (ILT_KINDS.includes(kind) || VILT_KINDS.includes(kind))) {
     if (parsedEndDate) {
       if (isSameDay(parsedStartDate, parsedEndDate)) {
         return `${format(parsedStartDate, 'eee, MMM do yyyy hh:mm aaa')} – ${format(

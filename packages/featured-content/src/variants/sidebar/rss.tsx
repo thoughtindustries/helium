@@ -1,34 +1,12 @@
 import React from 'react';
-import { gql, useQuery } from '@apollo/client';
 import { useTranslation } from 'react-i18next';
 import { FeaturedContentSidebarRssProps } from '../../types';
 import SidebarWrapper from './wrapper';
-
-interface RssItemsData {
-  RssItems: RssItem[];
-}
-
-interface RssItem {
-  title: string;
-  link: string;
-}
-
-interface RssItemsVars {
-  feedUrl: string;
-}
-
-export const RSS_ITEMS_QUERY = gql`
-  query RssItemsQuery($feedUrl: String!) {
-    RssItems(feedUrl: $feedUrl) {
-      title
-      link
-    }
-  }
-`;
+import { useRssItemsQuery } from '@thoughtindustries/content';
 
 const SidebarRss = ({ title, feedUrl }: FeaturedContentSidebarRssProps): JSX.Element => {
   const { t } = useTranslation();
-  const { data, loading, error } = useQuery<RssItemsData, RssItemsVars>(RSS_ITEMS_QUERY, {
+  const { data, loading, error } = useRssItemsQuery({
     variables: { feedUrl }
   });
   let content;
