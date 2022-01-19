@@ -34,9 +34,11 @@ async function startServer() {
     const tiInstance = findTiInstance(instanceName);
 
     if (!currentUser || !appearanceBlock) {
-      const userAndAppearance = await fetchUserAndAppearance(tiInstance);
-      currentUser = userAndAppearance.currentUser;
-      appearanceBlock = userAndAppearance.appearanceBlock;
+      // const userAndAppearance = await fetchUserAndAppearance(tiInstance);
+      currentUser = {};
+      appearanceBlock = {};
+      // currentUser = userAndAppearance.currentUser;
+      // appearanceBlock = userAndAppearance.appearanceBlock;
     }
 
     const url = req.originalUrl;

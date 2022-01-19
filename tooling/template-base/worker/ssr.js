@@ -1,5 +1,4 @@
 import { createPageRenderer } from 'vite-plugin-ssr';
-import { parse } from 'node-html-parser';
 import jwt_decode from 'jwt-decode';
 // We load `importBuild.js` so that the worker code can be bundled into a single file
 import '../dist/server/importBuild.js';
@@ -20,8 +19,8 @@ async function handleSsr(url) {
     renderPage,
     currentUser,
     appearanceBlock,
-    true,
-    HELIUM_ENDPOINT
+    HELIUM_ENDPOINT,
+    true
   );
   const { httpResponse } = pageContext;
 
@@ -29,10 +28,9 @@ async function handleSsr(url) {
     return null;
   } else {
     const { statusCode, body } = httpResponse;
-    const responseString = parseHtmlBody(body);
     const headers = assembleHeaders(pageContext);
 
-    return new Response(resolveAssetUrls(url, responseString), {
+    return new Response(resolveAssetUrls(url, body), {
       headers,
       status: statusCode
     });
@@ -66,16 +64,11 @@ function decryptUserAndAppearance(url, tiInstance) {
 
 function resolveAssetUrls(url, htmlString) {
   const urlObj = new URL(url);
-  const resolvedString = htmlString.replace(/ src="\/(.*?)">/g, ` src="${urlObj.origin}/$1">`);
+  const resolvedString = htmlString.replace(
+    / (src|href)="\/assets\/(.*?)">/g,
+    ` $1="${urlObj.origin}/assets/$2">`
+  );
   return resolvedString;
-}
-
-function parseHtmlBody(body) {
-  const root = parse(body);
-  const bodyNode = root.querySelector('body');
-  const childNodes = bodyNode.childNodes || [];
-
-  return childNodes.length ? childNodes.map(childNode => childNode.toString()).join('') : '';
 }
 
 function assembleHeaders(pageContext) {

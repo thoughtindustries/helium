@@ -56,5 +56,5 @@ function makeApolloClient(heliumEndpoint, isProduction) {
 function hashQuerySource(querySource) {
   const query = print(parse(querySource));
 
-  return crypto.createHash('sha256').update(query).digest('hex');
+  return crypto.createHash('sha256').update(query.trim()).digest('hex');
 }
