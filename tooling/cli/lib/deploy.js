@@ -97,9 +97,11 @@ async function writeGraphqlManifest() {
 
 async function hashGraphqlQueries() {
   const pagesFilePaths = await getFilePaths(path.join(OP_DIR, 'pages'));
+  const componentsFilePaths = await getFilePaths(path.join(OP_DIR, 'components'));
+  const filePaths = pagesFilePaths.concat(componentsFilePaths);
   const queryHashMap = {};
 
-  for (const filePath of pagesFilePaths) {
+  for (const filePath of filePaths) {
     if (filePathIsValid(filePath)) {
       const querySources = await gqlPluckFromCodeString(
         filePath,
@@ -120,7 +122,7 @@ async function hashGraphqlQueries() {
 
 function hashQuery(querySource) {
   const query = print(parse(querySource));
-  const hash = crypto.createHash('sha256').update(query).digest('hex');
+  const hash = crypto.createHash('sha256').update(query.trim()).digest('hex');
 
   return { hash, query };
 }

@@ -1,5 +1,4 @@
 import { createPageRenderer } from 'vite-plugin-ssr';
-import { parse } from 'node-html-parser';
 import jwt_decode from 'jwt-decode';
 // We load `importBuild.js` so that the worker code can be bundled into a single file
 import '../dist/server/importBuild.js';
@@ -12,6 +11,31 @@ const renderPage = createPageRenderer({
   isProduction: true
 });
 
+const bufferToHex = buffer => {
+  const view = new DataView(buffer);
+
+  let hexCodes = '';
+  for (let index = 0; index < view.byteLength; index += 4) {
+    hexCodes += view.getUint32(index).toString(16).padStart(8, '0');
+  }
+
+  return hexCodes;
+};
+
+const create =
+  algorithm =>
+  async (buffer, { outputFormat = 'hex' } = {}) => {
+    if (typeof buffer === 'string') {
+      buffer = new globalThis.TextEncoder().encode(buffer);
+    }
+
+    const hash = await globalThis.crypto.subtle.digest(algorithm, buffer);
+
+    return outputFormat === 'hex' ? bufferToHex(hash) : hash;
+  };
+
+const sha256 = create('SHA-256');
+
 async function handleSsr(url) {
   const tiInstance = findTiInstance(INSTANCE_NAME);
   const { currentUser, appearanceBlock } = decryptUserAndAppearance(url, tiInstance);
@@ -20,8 +44,9 @@ async function handleSsr(url) {
     renderPage,
     currentUser,
     appearanceBlock,
+    HELIUM_ENDPOINT,
     true,
-    HELIUM_ENDPOINT
+    sha256
   );
   const { httpResponse } = pageContext;
 
@@ -29,10 +54,9 @@ async function handleSsr(url) {
     return null;
   } else {
     const { statusCode, body } = httpResponse;
-    const responseString = parseHtmlBody(body);
     const headers = assembleHeaders(pageContext);
 
-    return new Response(resolveAssetUrls(url, responseString), {
+    return new Response(resolveAssetUrls(url, body), {
       headers,
       status: statusCode
     });
@@ -66,16 +90,11 @@ function decryptUserAndAppearance(url, tiInstance) {
 
 function resolveAssetUrls(url, htmlString) {
   const urlObj = new URL(url);
-  const resolvedString = htmlString.replace(/ src="\/(.*?)">/g, ` src="${urlObj.origin}/$1">`);
+  const resolvedString = htmlString.replace(
+    / (src|href)="\/assets\/(.*?)">/g,
+    ` $1="${urlObj.origin}/assets/$2">`
+  );
   return resolvedString;
-}
-
-function parseHtmlBody(body) {
-  const root = parse(body);
-  const bodyNode = root.querySelector('body');
-  const childNodes = bodyNode.childNodes || [];
-
-  return childNodes.length ? childNodes.map(childNode => childNode.toString()).join('') : '';
 }
 
 function assembleHeaders(pageContext) {
