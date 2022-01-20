@@ -2,9 +2,6 @@ const fetch = require('isomorphic-unfetch');
 const { ApolloClient, InMemoryCache } = require('@apollo/client');
 const { BatchHttpLink } = require('@apollo/client/link/batch-http');
 const { createPersistedQueryLink } = require('@apollo/client/link/persisted-queries');
-const crypto = require('crypto');
-const { print } = require('graphql/language/printer');
-const { parse } = require('graphql/language');
 
 module.exports = { initPageContext };
 
@@ -14,9 +11,10 @@ async function initPageContext(
   currentUser,
   appearance,
   heliumEndpoint,
-  isProduction
+  isProduction,
+  sha256
 ) {
-  const { apolloClient } = makeApolloClient(heliumEndpoint, isProduction);
+  const { apolloClient } = makeApolloClient(heliumEndpoint, isProduction, sha256);
   const pageContextInit = {
     url,
     apolloClient,
@@ -31,15 +29,15 @@ async function initPageContext(
   return pageContext;
 }
 
-function makeApolloClient(heliumEndpoint, isProduction) {
+function makeApolloClient(heliumEndpoint, isProduction, sha256) {
   let link = new BatchHttpLink({
     uri: heliumEndpoint,
     fetch
   });
 
-  if (isProduction) {
+  if (isProduction && sha256) {
     link = createPersistedQueryLink({
-      sha256: source => hashQuerySource(source)
+      sha256
     }).concat(link);
   }
 
@@ -51,10 +49,4 @@ function makeApolloClient(heliumEndpoint, isProduction) {
       cache: new InMemoryCache()
     })
   };
-}
-
-function hashQuerySource(querySource) {
-  const query = print(parse(querySource));
-
-  return crypto.createHash('sha256').update(query.trim()).digest('hex');
 }

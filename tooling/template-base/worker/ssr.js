@@ -11,6 +11,31 @@ const renderPage = createPageRenderer({
   isProduction: true
 });
 
+const bufferToHex = buffer => {
+  const view = new DataView(buffer);
+
+  let hexCodes = '';
+  for (let index = 0; index < view.byteLength; index += 4) {
+    hexCodes += view.getUint32(index).toString(16).padStart(8, '0');
+  }
+
+  return hexCodes;
+};
+
+const create =
+  algorithm =>
+  async (buffer, { outputFormat = 'hex' } = {}) => {
+    if (typeof buffer === 'string') {
+      buffer = new globalThis.TextEncoder().encode(buffer);
+    }
+
+    const hash = await globalThis.crypto.subtle.digest(algorithm, buffer);
+
+    return outputFormat === 'hex' ? bufferToHex(hash) : hash;
+  };
+
+const sha256 = create('SHA-256');
+
 async function handleSsr(url) {
   const tiInstance = findTiInstance(INSTANCE_NAME);
   const { currentUser, appearanceBlock } = decryptUserAndAppearance(url, tiInstance);
@@ -20,7 +45,8 @@ async function handleSsr(url) {
     currentUser,
     appearanceBlock,
     HELIUM_ENDPOINT,
-    true
+    true,
+    sha256
   );
   const { httpResponse } = pageContext;
 
