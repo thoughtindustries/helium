@@ -81,6 +81,7 @@ export type CatalogMeta = {
   debug?: Maybe<Scalars['Boolean']>;
   displayAuthorsEnabled: Scalars['Boolean'];
   displayBundle?: Maybe<Bundle>;
+  displayDescriptionOnCalendar: Scalars['Boolean'];
   displayStartDateEnabled: Scalars['Boolean'];
   displayTypeCalendarEnabled: Scalars['Boolean'];
   displayTypeGridEnabled: Scalars['Boolean'];
@@ -215,14 +216,14 @@ export type Query = {
 export type QueryCatalogContentArgs = {
   contentTypes?: InputMaybe<Array<ContentKind>>;
   labels?: InputMaybe<Array<Scalars['String']>>;
-  layoutId: Scalars['ID'];
+  layoutId?: InputMaybe<Scalars['ID']>;
   page: Scalars['Int'];
   query?: InputMaybe<Scalars['String']>;
   resultsDisplayType?: InputMaybe<ContentItemDisplayType>;
   sort?: InputMaybe<Scalars['String']>;
   token?: InputMaybe<Scalars['String']>;
   values?: InputMaybe<Array<Scalars['String']>>;
-  widgetId: Scalars['ID'];
+  widgetId?: InputMaybe<Scalars['ID']>;
 };
 
 export type QueryCatalogQueryArgs = {

@@ -1,0 +1,41 @@
+fragment CatalogMetaFragment on CatalogMeta {
+  aggregations {
+    key
+    label
+    buckets {
+      query
+      value
+      label
+      description
+      count
+    }
+  }
+  contentTypeFilterEnabled
+  contentTypes
+  displayAuthorsEnabled
+  displayBundle {
+    id
+    name
+    slug
+    priceInCents
+    annualPriceInCents
+  }
+  displayStartDateEnabled
+  displayDescriptionOnCalendar
+  displayTypeCalendarEnabled
+  displayTypeGridEnabled
+  displayTypeListEnabled
+  hasMore
+  isCurated
+  queryCustomFields
+  resultsDisplayType
+  selectedSort
+  sortCourseStartDateEnabled
+  sortCreatedAtEnabled
+  sortPublishDateEnabled
+  sortRelevanceEnabled
+  sortTitleEnabled
+  sortUpdatedAtEnabled
+  tokenLabel
+  total
+}

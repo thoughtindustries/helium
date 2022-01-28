@@ -1,0 +1,32 @@
+query CatalogContent(
+  $layoutId: ID
+  $widgetId: ID
+  $sort: String
+  $resultsDisplayType: ContentItemDisplayType
+  $page: Int!
+  $token: String
+  $labels: [String!]
+  $values: [String!]
+  $contentTypes: [ContentKind!]
+  $query: String
+) {
+  CatalogContent(
+    layoutId: $layoutId
+    widgetId: $widgetId
+    sort: $sort
+    resultsDisplayType: $resultsDisplayType
+    page: $page
+    token: $token
+    labels: $labels
+    values: $values
+    contentTypes: $contentTypes
+    query: $query
+  ) {
+    contentItems {
+      ...ContentFragment
+    }
+    meta {
+      ...CatalogMetaFragment
+    }
+  }
+}
