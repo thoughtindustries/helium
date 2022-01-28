@@ -1,0 +1,39 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`@thoughtindustries/catalog/CatalogDriver#URLManager getStateFromURL should correctly handle multiple instances of the same parameter (take first instance) 1`] = `
+Object {
+  "aggregationFilters": Array [
+    Object {
+      "label": "label",
+      "value": "value",
+    },
+  ],
+  "page": 3,
+  "searchTerm": "test",
+  "token": "abc",
+}
+`;
+
+exports[`@thoughtindustries/catalog/CatalogDriver#URLManager getStateFromURL should ignore unrecognized parameters 1`] = `
+Object {
+  "searchTerm": "test",
+}
+`;
+
+exports[`@thoughtindustries/catalog/CatalogDriver#URLManager getStateFromURL should parse the current state from the URL 1`] = `
+Object {
+  "aggregationFilters": Array [
+    Object {
+      "label": "label1",
+      "value": "value1",
+    },
+    Object {
+      "label": "label2",
+      "value": "value2",
+    },
+  ],
+  "page": 3,
+  "searchTerm": "test",
+  "token": "abc",
+}
+`;
