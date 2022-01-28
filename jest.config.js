@@ -71,20 +71,13 @@ module.exports = {
   // ],
 
   // An array of file extensions your modules use
-  moduleFileExtensions: [
-    "ts",
-    "tsx",
-    "js",
-    "jsx"
-  ],
+  moduleFileExtensions: ['ts', 'tsx', 'js', 'jsx'],
 
   // A map from regular expressions to module names or to arrays of module names that allow to stub out resources with a single module
   // moduleNameMapper: {},
 
   // An array of regexp pattern strings, matched against all module paths before considered 'visible' to the module loader
-  modulePathIgnorePatterns: [
-    "<rootDir>/tooling/cli/template_base*",
-  ],
+  modulePathIgnorePatterns: ['<rootDir>/tooling/cli/template_base*'],
 
   // Activates notifications for test results
   // notify: false,
@@ -137,7 +130,7 @@ module.exports = {
   // snapshotSerializers: [],
 
   // The test environment that will be used for testing
-  testEnvironment: "jsdom",
+  testEnvironment: 'jsdom',
 
   // Options that will be passed to the testEnvironment
   // testEnvironmentOptions: {},
@@ -146,10 +139,7 @@ module.exports = {
   // testLocationInResults: false,
 
   // The glob patterns Jest uses to detect test files
-  // testMatch: [
-  //   "**/__tests__/**/*.[jt]s?(x)",
-  //   "**/?(*.)+(spec|test).[tj]s?(x)"
-  // ],
+  testMatch: ['**/__tests__/**/?(*.)+(spec|test).[jt]s?(x)'],
 
   // An array of regexp pattern strings that are matched against all test paths, matched tests are skipped
   // testPathIgnorePatterns: [
@@ -173,11 +163,11 @@ module.exports = {
 
   // A map from regular expressions to paths to transformers
   transform: {
-    "^.+\\.(ts|tsx)?$": "ts-jest",
+    '^.+\\.(ts|tsx)?$': 'ts-jest'
   },
 
   // An array of regexp pattern strings that are matched against all source file paths, matched files will skip transformation
-  transformIgnorePatterns: ["[/\\\\]node_modules[/\\\\].+\\.(js|jsx)$"],
+  transformIgnorePatterns: ['[/\\\\]node_modules[/\\\\].+\\.(js|jsx)$']
 
   // An array of regexp pattern strings that are matched against all modules before the module loader will automatically return a mock for them
   // unmockedModulePathPatterns: undefined,
