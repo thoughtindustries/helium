@@ -1,16 +1,18 @@
 const path = require('path');
 const fs = require('fs-extra');
 const fetch = require('isomorphic-unfetch');
-const { gqlPluckFromCodeString } = require('@graphql-tools/graphql-tag-pluck');
-const { print } = require('graphql/language/printer');
-const { parse } = require('graphql/language');
-const crypto = require('crypto');
 const childProcess = require('child_process');
 const tar = require('tar');
 const os = require('os');
 
-const { getFilePaths, filePathIsValid } = require('./helpers/filepaths');
+const { getFilePaths } = require('./helpers/filepaths');
 const { instanceEndpoint } = require('./helpers/urls');
+const {
+  gatherQuerySources,
+  buildFragmentMap,
+  transformDoc,
+  hashQuery
+} = require('./helpers/graphql');
 
 const OP_DIR = process.cwd();
 const TMP_DIR = os.tmpdir();
@@ -98,33 +100,24 @@ async function writeGraphqlManifest() {
 async function hashGraphqlQueries() {
   const pagesFilePaths = await getFilePaths(path.join(OP_DIR, 'pages'));
   const componentsFilePaths = await getFilePaths(path.join(OP_DIR, 'components'));
-  const filePaths = pagesFilePaths.concat(componentsFilePaths);
+  const tiFilepaths = await getFilePaths(path.join(OP_DIR, 'node_modules/@thoughtindustries'));
+  const filePaths = pagesFilePaths.concat(componentsFilePaths).concat(tiFilepaths);
+
   const queryHashMap = {};
+  const querySources = await gatherQuerySources(filePaths);
 
-  for (const filePath of filePaths) {
-    if (filePathIsValid(filePath)) {
-      const querySources = await gqlPluckFromCodeString(
-        filePath,
-        fs.readFileSync(filePath, 'utf8')
-      );
+  if (querySources.length > 0) {
+    const fragmentMap = buildFragmentMap(querySources);
 
-      if (querySources && querySources.length > 0) {
-        for (const querySource of querySources) {
-          const { hash, query } = hashQuery(querySource);
-          queryHashMap[hash] = query;
-        }
-      }
+    for (const querySource of querySources) {
+      const modifiedDoc = transformDoc(querySource, fragmentMap);
+      const { hash, query } = hashQuery(modifiedDoc);
+
+      queryHashMap[hash] = query;
     }
   }
 
   return queryHashMap;
-}
-
-function hashQuery(querySource) {
-  const query = print(parse(querySource));
-  const hash = crypto.createHash('sha256').update(query.trim()).digest('hex');
-
-  return { hash, query };
 }
 
 async function uploadHeliumProject(policyData) {
