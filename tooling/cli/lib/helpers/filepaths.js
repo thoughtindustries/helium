@@ -1,15 +1,15 @@
-const fs = require('fs-extra');
+const { readdir, stat } = require('fs/promises');
 const path = require('path');
 
 const getFilePaths = async (dir, filePaths = []) => {
   const newFilePaths = filePaths;
-  const contents = await fs.readdir(dir);
+  const contents = await readdir(dir);
 
   for (const content of contents) {
     const filePath = path.join(dir, content);
-    const stat = await fs.stat(filePath);
+    const fileStat = await stat(filePath);
 
-    if (stat.isFile()) {
+    if (fileStat.isFile()) {
       newFilePaths.push(filePath);
     } else {
       await getFilePaths(filePath, newFilePaths);
