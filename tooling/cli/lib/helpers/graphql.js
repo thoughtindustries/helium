@@ -1,4 +1,4 @@
-const fs = require('fs-extra');
+const fs = require('fs/promises');
 const { gqlPluckFromCodeString } = require('@graphql-tools/graphql-tag-pluck');
 const { filePathIsValid } = require('./filepaths');
 const { parse, visit } = require('graphql/language');
@@ -12,7 +12,7 @@ const gatherQuerySources = async filePaths => {
     if (filePathIsValid(filePath)) {
       const fileQuerySources = await gqlPluckFromCodeString(
         filePath,
-        fs.readFileSync(filePath, 'utf8')
+        await fs.readFile(filePath, 'utf8')
       );
 
       querySources = querySources.concat(fileQuerySources);

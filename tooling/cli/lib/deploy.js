@@ -1,5 +1,8 @@
 const path = require('path');
-const fs = require('fs-extra');
+const {
+  createReadStream,
+  promises: { stat, writeFile }
+} = require('fs');
 const fetch = require('isomorphic-unfetch');
 const childProcess = require('child_process');
 const tar = require('tar');
@@ -93,7 +96,7 @@ async function gatherUsedTranslations() {
 async function writeGraphqlManifest() {
   const queryHashMap = await hashGraphqlQueries();
   const distDir = path.join(OP_DIR, 'dist/client');
-  await fs.writeFile(path.join(distDir, 'graphql-manifest.json'), JSON.stringify(queryHashMap));
+  await writeFile(path.join(distDir, 'graphql-manifest.json'), JSON.stringify(queryHashMap));
   return;
 }
 
@@ -135,7 +138,8 @@ async function uploadHeliumProject(policyData) {
 
   console.log('>>> Compressed!');
 
-  await uploadToS3(filePath, policyData);
+  const fileSize = (await stat(filePath)).size;
+  await uploadToS3(filePath, fileSize, policyData);
 
   return true;
 }
@@ -199,14 +203,14 @@ async function getHeliumUploadData(instance) {
 }
 
 const UPLOAD_TRIES = 3;
-function uploadToS3(filePath, policyData, tryCount = 0) {
+function uploadToS3(filePath, fileSize, policyData, tryCount = 0) {
   return new Promise((resolve, reject) => {
     const { signedUrl } = policyData;
 
     const options = {
       method: 'PUT',
-      body: fs.createReadStream(filePath),
-      headers: { 'Content-Length': fs.statSync(filePath).size }
+      body: createReadStream(filePath),
+      headers: { 'Content-Length': fileSize }
     };
 
     fetch(signedUrl, options)
@@ -222,7 +226,7 @@ function uploadToS3(filePath, policyData, tryCount = 0) {
         if (tryCount < UPLOAD_TRIES) {
           tryCount++;
           console.log('>>> Retrying upload...');
-          uploadToS3(filePath, policyData, tryCount).then(resolve).catch(reject);
+          uploadToS3(filePath, fileSize, policyData, tryCount).then(resolve).catch(reject);
         } else {
           console.error('error while uploading: ', err.message);
           reject(err);
