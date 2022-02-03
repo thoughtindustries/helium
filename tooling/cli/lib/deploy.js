@@ -1,38 +1,42 @@
 const path = require('path');
 const fs = require('fs-extra');
 const fetch = require('isomorphic-unfetch');
-const FormData = require('form-data');
 const { gqlPluckFromCodeString } = require('@graphql-tools/graphql-tag-pluck');
 const { print } = require('graphql/language/printer');
 const { parse } = require('graphql/language');
 const crypto = require('crypto');
 const childProcess = require('child_process');
+const tar = require('tar');
+const os = require('os');
+
 const { getFilePaths, filePathIsValid } = require('./helpers/filepaths');
 const { instanceEndpoint } = require('./helpers/urls');
 
 const OP_DIR = process.cwd();
+const TMP_DIR = os.tmpdir();
 const configPath = path.join(OP_DIR, '/ti-config');
 const config = require(configPath);
 
 const INSTANCE_NAME = process.env.INSTANCE_NAME;
-const BUCKET = 'ti-helium-deploy';
 
 const KEY_QUERY = `
-  query CompanyDetailsQuery {
-    HeliumLaunchData {
+  query CompanyDetailsQuery($nickname: String!) {
+    HeliumLaunchData(nickname: $nickname) {
       key
-      AWSAccessKeyId
-      signature
-      policy
-      acl
-      success_action_status
+      signedUrl
     }
   }
 `;
 
-const LAMBDA_QUERY = `
-  query HeliumLambdaQuery($key: String!, $nickname: String!) {
-    HeliumLambda(key: $key, nickname: $nickname)
+const BATCH_QUERY = `
+  query HeliumBatchQuery($key: String!, $nickname: String!) {
+    HeliumBatch(key: $key, nickname: $nickname)
+  }
+`;
+
+const JOB_QUERY = `
+  query HeliumDeploymentStatusQuery($jobId: ID!) {
+    HeliumDeploymentStatus(jobId: $jobId)
   }
 `;
 
@@ -46,7 +50,7 @@ const LAMBDA_QUERY = `
   const policyData = await getHeliumUploadData(instance);
   const { key } = policyData;
 
-  if (!policyData.key || !policyData.AWSAccessKeyId || !policyData.signature) {
+  if (!policyData.key || !policyData.signedUrl) {
     throw new Error('Could not retrieve helium keys.');
   }
 
@@ -54,7 +58,10 @@ const LAMBDA_QUERY = `
     await gatherUsedTranslations();
     await writeGraphqlManifest();
     await uploadHeliumProject(policyData);
-    await triggerLambda(instance, key);
+    const batchJobId = await triggerBatch(instance, key);
+    const fetchStatus = () => checkDeploymentJobStatus(instance, batchJobId);
+    const processing = result => result !== 'SUCCEEDED' && result !== 'FAILED';
+    await poll(fetchStatus, processing, 3000);
   } catch (e) {
     throw new Error(e);
   }
@@ -90,9 +97,11 @@ async function writeGraphqlManifest() {
 
 async function hashGraphqlQueries() {
   const pagesFilePaths = await getFilePaths(path.join(OP_DIR, 'pages'));
+  const componentsFilePaths = await getFilePaths(path.join(OP_DIR, 'components'));
+  const filePaths = pagesFilePaths.concat(componentsFilePaths);
   const queryHashMap = {};
 
-  for (const filePath of pagesFilePaths) {
+  for (const filePath of filePaths) {
     if (filePathIsValid(filePath)) {
       const querySources = await gqlPluckFromCodeString(
         filePath,
@@ -113,38 +122,39 @@ async function hashGraphqlQueries() {
 
 function hashQuery(querySource) {
   const query = print(parse(querySource));
-  const hash = crypto.createHash('sha256').update(query).digest('hex');
+  const hash = crypto.createHash('sha256').update(query.trim()).digest('hex');
 
   return { hash, query };
 }
 
 async function uploadHeliumProject(policyData) {
-  const filePaths = await getFilePaths(OP_DIR);
-  const chunkedFilePaths = chunkArray(filePaths, 5);
-  let i = 0;
+  const filePath = path.join(TMP_DIR, INSTANCE_NAME + '.tgz');
 
-  for (const chunkOfFilePaths of chunkedFilePaths) {
-    i = i + 1;
-    const uploadPromises = chunkOfFilePaths.map(filePath => uploadToS3(filePath, policyData));
-    await Promise.all(uploadPromises);
-    console.log(
-      '>>> uploaded:: ',
-      Math.floor((parseInt(i) / parseInt(chunkedFilePaths.length)) * 100),
-      '%'
-    );
-  }
+  console.log('>>> Compressing project.');
+
+  await tar.c(
+    {
+      gzip: true,
+      file: filePath
+    },
+    ['.']
+  );
+
+  console.log('>>> Compressed!');
+
+  await uploadToS3(filePath, policyData);
 
   return true;
 }
 
-async function triggerLambda(instance, key) {
+async function triggerBatch(instance, key) {
   return new Promise((resolve, reject) => {
     const endpoint = instanceEndpoint(instance);
     const options = {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
-        query: LAMBDA_QUERY,
+        query: BATCH_QUERY,
         variables: { key, nickname: instance.nickname }
       })
     };
@@ -154,7 +164,7 @@ async function triggerLambda(instance, key) {
       .then(res => {
         const resObj = res[0];
         if (resObj.data) {
-          resolve(resObj.data);
+          resolve(resObj.data.HeliumBatch);
         } else {
           const err = resObj.errors[0];
           reject(err.message);
@@ -169,10 +179,11 @@ async function triggerLambda(instance, key) {
 
 async function getHeliumUploadData(instance) {
   const endpoint = instanceEndpoint(instance);
+
   const options = {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ query: KEY_QUERY })
+    body: JSON.stringify({ query: KEY_QUERY, variables: { nickname: instance.nickname } })
   };
 
   let responseData = {};
@@ -181,42 +192,33 @@ async function getHeliumUploadData(instance) {
   if (launchData && launchData[0] && launchData[0].data) {
     const {
       data: {
-        HeliumLaunchData: { key, AWSAccessKeyId, signature, policy, acl, success_action_status }
+        HeliumLaunchData: { key, signedUrl }
       }
     } = launchData[0];
 
     responseData = {
       key,
-      AWSAccessKeyId,
-      signature,
-      policy,
-      acl,
-      success_action_status
+      signedUrl
     };
   }
 
   return responseData;
 }
 
-function uploadToS3(filePath, policyData) {
+const UPLOAD_TRIES = 3;
+function uploadToS3(filePath, policyData, tryCount = 0) {
   return new Promise((resolve, reject) => {
-    const { key } = policyData;
-    const sanitizedFilePath = filePath.split(OP_DIR)[1];
-    const fullFileKey = path.join(key, sanitizedFilePath);
+    const { signedUrl } = policyData;
 
-    const objPolicy = Object.assign({}, policyData, { key: fullFileKey });
-    const form = buildFormData(objPolicy, filePath);
-
-    const endpoint = `https://${BUCKET}.s3.amazonaws.com/`;
     const options = {
-      method: 'POST',
-      headers: form.getHeaders(),
-      body: form
+      method: 'PUT',
+      body: fs.createReadStream(filePath),
+      headers: { 'Content-Length': fs.statSync(filePath).size }
     };
 
-    fetch(endpoint, options)
+    fetch(signedUrl, options)
       .then(res => {
-        if (res.status && res.status === 201) {
+        if (res.status && res.status === 200) {
           resolve();
         } else {
           reject(new Error('Could not upload to S3.'));
@@ -224,21 +226,16 @@ function uploadToS3(filePath, policyData) {
         resolve();
       })
       .catch(err => {
-        console.error('error fetching: ', err.message);
-        reject(err);
+        if (tryCount < UPLOAD_TRIES) {
+          tryCount++;
+          console.log('>>> Retrying upload...');
+          uploadToS3(filePath, policyData, tryCount).then(resolve).catch(reject);
+        } else {
+          console.error('error while uploading: ', err.message);
+          reject(err);
+        }
       });
   });
-}
-
-function buildFormData(policyData, filePath) {
-  const form = new FormData();
-  for (const prop in policyData) {
-    form.append(prop, policyData[prop]);
-  }
-
-  form.append('file', fs.readFileSync(filePath, 'utf8'));
-
-  return form;
 }
 
 function findTIInstance() {
@@ -255,12 +252,58 @@ function findTIInstance() {
   return instance;
 }
 
-function chunkArray(array, size) {
-  const chunkedArray = [];
+async function checkDeploymentJobStatus(instance, jobId) {
+  return new Promise((resolve, reject) => {
+    const endpoint = instanceEndpoint(instance);
+    const options = {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        query: JOB_QUERY,
+        variables: { jobId }
+      })
+    };
 
-  for (let i = 0; i < array.length; i += size) {
-    chunkedArray.push(array.slice(i, i + size));
+    fetch(endpoint, options)
+      .then(r => r.json())
+      .then(res => {
+        const resObj = res[0];
+
+        if (resObj.data) {
+          resolve(resObj.data.HeliumDeploymentStatus);
+        } else {
+          const err = resObj.errors[0];
+          reject(err.message);
+        }
+      })
+      .catch(err => {
+        reject(err);
+      });
+  });
+}
+
+async function poll(fn, processingFn, ms) {
+  let result = await fn();
+  let status = result.toLowerCase();
+
+  console.log(`>>> Deployment status: ${status}`);
+
+  while (processingFn(result)) {
+    await wait(ms);
+    result = await fn();
+    const latestStatus = result.toLowerCase();
+
+    if (latestStatus !== status) {
+      status = latestStatus;
+      console.log(`>>> Deployment status: ${status}`);
+    }
   }
 
-  return chunkedArray;
+  return result;
+}
+
+function wait(ms = 1000) {
+  return new Promise(resolve => {
+    setTimeout(resolve, ms);
+  });
 }

@@ -1,0 +1,5 @@
+query Contents($ids: [ID!]!) {
+  QueryContents(ids: $ids) {
+    ...ContentFragment
+  }
+}

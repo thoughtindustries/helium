@@ -3,9 +3,10 @@
   "private": true,
   "devDependencies": {
     "@storybook/addon-actions": "^6.3.8",
-    "@storybook/addon-essentials": "^6.3.8",
+    "@storybook/addon-controls": "^6.4.9",
     "@storybook/addon-links": "^6.3.8",
     "@storybook/addon-postcss": "^2.0.0",
+    "@storybook/addon-storysource": "^6.4.9",
     "@storybook/react": "^6.3.8",
     "@testing-library/jest-dom": "^5.14.1",
     "@testing-library/react": "^12.1.2",
@@ -37,6 +38,7 @@
   "scripts": {
     "storybook": "start-storybook -p 6006",
     "build-storybook": "build-storybook",
+    "build-storybook-ci": "build-storybook -o docs-build",
     "test": "jest",
     "prepare": "husky install",
     "lint": "eslint --ext .ts,.tsx packages --fix",

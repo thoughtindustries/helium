@@ -1,0 +1,3 @@
+mutation AddResourceToQueue($resourceType: ContentKind, $resourceId: ID!) {
+  AddResourceToQueue(resourceType: $resourceType, resourceId: $resourceId)
+}

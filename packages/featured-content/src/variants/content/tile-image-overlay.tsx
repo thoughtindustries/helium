@@ -3,9 +3,10 @@ import clsx from 'clsx';
 import {
   FeaturedContentContentProps,
   FeaturedContentContentItemProps,
-  FeaturedContentTileImageOverlayContextType
+  FeaturedContentTileImageOverlayContextType,
+  FeaturedContentHydratedContentItem
 } from '../../types';
-import { tileClassnameByDesktopColumnCount } from './utils';
+import { tileClassnameByDesktopColumnCount, limitText } from './utils';
 import ContentWrapper from './wrapper';
 import ItemLinkWrapper from './item-link-wrapper';
 import ItemQueueButton from './item-queue-button';
@@ -56,7 +57,8 @@ const ContentTileImageOverlay = ({
 };
 
 const Item = ({ ...item }: FeaturedContentContentItemProps): JSX.Element => {
-  const { asset, title, shortDescription, canAddToQueue } = item;
+  const { asset, title, description } = item;
+  const { canAddToQueue } = item as FeaturedContentHydratedContentItem;
   const { onAddedToQueue, onClick } = useContentTileImageOverlayContext();
 
   return (
@@ -66,7 +68,9 @@ const Item = ({ ...item }: FeaturedContentContentItemProps): JSX.Element => {
           <ItemAssetBlock asset={asset} />
           <div className="absolute bottom-0 left-0 p-4 w-full bg-gray-900 bg-opacity-80">
             <h4 className="mb-0 text-sm text-white">{title}</h4>
-            {shortDescription && <p className="mt-1 mb-0 text-xs text-white">{shortDescription}</p>}
+            {description && (
+              <p className="mt-1 mb-0 text-xs text-white">{limitText(description, 150)}</p>
+            )}
             {canAddToQueue && (
               <p className="mt-1 -mb-1 text-xs text-white text-left">
                 <ItemQueueButton

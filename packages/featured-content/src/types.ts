@@ -1,3 +1,4 @@
+import { HydratedContentItem, GlobalTypes } from '@thoughtindustries/content';
 import { ReactNode, SyntheticEvent } from 'react';
 
 export interface FeaturedContentSidebarBaseProps {
@@ -46,65 +47,22 @@ export type FeaturedContentContentCarouselProps = Omit<
   'desktopColumnCount' | 'onAddedToQueue'
 >;
 
-export type FeaturedContentContentItemRibbon = {
-  /** background color */
-  bgColor?: string;
-  /** text color */
-  contrastColor?: string;
-  /** corner color */
-  darkerColor?: string;
-  /** label */
-  label?: string;
-  /** slug */
-  slug: string;
-};
+export type FeaturedContentContentItemRibbon = GlobalTypes.Ribbon;
 
-export type FeaturedContentContentItem = {
-  /** title */
-  title?: string;
-  /** description */
-  description?: string;
-  /** image asset */
+export type FeaturedContentHydratedContentItem = HydratedContentItem;
+
+export interface FeaturedContentStaticContentItem {
   asset?: string;
-  /** link url */
-  linkUrl?: string;
-  /** option to open link in new tab */
+  description?: string;
+  href?: string;
+  isActive: boolean;
+  title?: string;
   linkOpenInNewTab?: boolean;
-  /** is completed flag */
-  isCompleted?: boolean;
-  /** start date of course */
-  courseStartDate?: Date;
-  /** label for content type */
-  contentTypeLabel?: string;
-  /** source */
-  source?: string;
-  /** authors */
-  authors?: string;
-  /** short description */
-  shortDescription?: string;
-  /** rating (from 0 to 100) */
-  rating?: number;
-  /** can item be added to queue */
-  canAddToQueue?: boolean;
-  /** active status */
-  isActive?: boolean;
-  /** call to action text */
-  callToAction?: string;
-  /** price (in cents) */
-  priceInCents?: number;
-  /** has availability */
-  hasAvailability?: boolean;
-  /** suggested price (in cents) */
-  suggestedRetailPriceInCents?: number;
-  /** ribbon */
-  ribbon?: FeaturedContentContentItemRibbon;
-  /** content item kind */
-  kind?: string;
-  /** slug */
-  slug?: string;
-  /** display course id */
-  displayCourse?: string;
-};
+}
+
+export type FeaturedContentContentItem =
+  | FeaturedContentStaticContentItem
+  | FeaturedContentHydratedContentItem;
 
 export type FeaturedContentContentItemProps = FeaturedContentContentItem;
 
