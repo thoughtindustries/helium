@@ -2,9 +2,9 @@ name: Run Test Suite
 
 on:
   push:
-    branches: [main]
+    branches: [staging]
   pull_request:
-    branches: [main]
+    branches: [staging]
 
 jobs:
   build:
@@ -24,3 +24,16 @@ jobs:
 
       - name: Run Test Suite
         run: npm run test
+
+      # actions bot email: https://github.community/t/github-actions-bot-email-address/17204/6    
+      # lerna will mod package metadata and push to remote, so git user is needed
+      - name: Merge Staging->Main
+        env:
+          GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
+        run: |
+          git config --global user.email 41898282+github-actions[bot]@users.noreply.github.com
+          git config --global user.name GitHub Actions
+          git fetch origin main
+          git checkout main
+          git merge staging --ff-only
+          git push origin main
