@@ -19,7 +19,7 @@ jobs:
     - uses: actions/checkout@v2
       with: 
         fetch-depth: 0
-        persist-credentials: false
+        token: ${{ secrets.GH_TOKEN }}
         
     - uses: actions/setup-node@v2
       with:
@@ -45,6 +45,8 @@ jobs:
         git config --global user.name ti-bot
 
     - name: Version Changes
+      env:
+        GH_TOKEN: ${{ secrets.GH_TOKEN }}
       run: lerna version --yes --conventional-commits
 
     - name: Publish
