@@ -38,15 +38,13 @@ jobs:
 
     # actions bot email: https://github.community/t/github-actions-bot-email-address/17204/6
     # lerna will mod package metadata and push to remote, so git user is needed
-    - name: Configure CI Git User
-      run: |
-        git config --global user.email sre@thoughtindustries.com
-        git config --global user.name ti-bot
-
-    - name: Version Changes
+    - name: Configure CI Git User and Version
       env:
         GH_TOKEN: ${{ secrets.GH_TOKEN }}
-      run: lerna version --yes --conventional-commits
+      run: |
+        git config user.name "${{ github.actor }}"
+        git config user.email "${{ github.actor}}@users.noreply.github.com"
+        lerna version --yes --conventional-commits
 
     - name: Publish
       run: |
