@@ -29,6 +29,7 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
         run: |
+          git remote set-url origin https://x-access-token:${{ secrets.GH_TOKEN }}@github.com/${{ github.respository }}.git
           git config --global user.email sre@thoughtindustries.com
           git config --global user.name ti-bot
           git fetch origin main
