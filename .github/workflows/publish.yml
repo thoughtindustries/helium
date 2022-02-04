@@ -10,16 +10,17 @@ jobs:
     runs-on: ubuntu-latest
 
     env:
-        GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        GH_TOKEN: ${{ secrets.GH_TOKEN }}
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
         HUSKY: 0
     
     steps:
     - uses: actions/checkout@v2
+      with:
+        token: ${{ env.GH_TOKEN }}
     - uses: actions/setup-node@v2
       with:
-        persist-credentials: false
         node-version: '14.x'
         registry-url: 'https://registry.npmjs.org'
         scope: '@thoughtindustries'
