@@ -25,11 +25,19 @@ jobs:
 
       - name: Run Test Suite
         run: npm run test
-
+      
       - name: Merge Staging->Main
-        uses: s0/git-publish-subdir-action@develop
-        env:
-          REPO: self
-          BRANCH: main
-          GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
-          MESSAGE: "merge: {{sha}}"
+        run: |
+          git config --global user.email 41898282+github-actions[bot]@users.noreply.github.com
+          git config --global user.name GitHub Actions
+          git remote set-url origin https://x-access-token:${{ secrets.GH_TOKEN }}@github.com/${{ github.repository }}
+          git checkout main
+          git merge --ff-only staging
+          git push origin production
+      #- name: Merge Staging->Main
+      #  uses: s0/git-publish-subdir-action@develop
+      #  env:
+      #    REPO: self
+      #    BRANCH: main
+      #    GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
+      #    MESSAGE: "merge: {{sha}}"
