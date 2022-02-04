@@ -27,7 +27,7 @@ jobs:
         npm whoami
 
     - name: Install Packages
-      run: npm i --production
+      run: npm ci --production
 
     # actions bot email: https://github.community/t/github-actions-bot-email-address/17204/6
     # lerna will mod package metadata and push to remote, so git user is needed
@@ -39,6 +39,6 @@ jobs:
     - name: Version Changes
       run: lerna version --yes --conventional-commits
 
-    - name: Version Changes
+    - name: Publish
       run: |
-        lerna publish from-git --yes --message "chore: release new versions"
+        lerna publish from-git --yes --message "chore: release new versions" --no-verify-access
