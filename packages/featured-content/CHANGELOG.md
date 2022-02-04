@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 1.1.1-alpha.1 (2022-02-04)
+
+
+### Bug Fixes
+
+* install specific node version ([2b1fe85](https://github.com/thoughtindustries/helium/commit/2b1fe85d14445bd7abc67de5f3b6fa9b58786d09))
+
+
+
+
+
 # [1.1.0-alpha.0](https://github.com/thoughtindustries/helium/compare/@thoughtindustries/featured-content@1.0.1-alpha.1...@thoughtindustries/featured-content@1.1.0-alpha.0) (2022-01-04)
 
 
