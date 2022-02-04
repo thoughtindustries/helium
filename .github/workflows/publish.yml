@@ -40,8 +40,8 @@ jobs:
     # lerna will mod package metadata and push to remote, so git user is needed
     - name: Configure CI Git User
       run: |
-        git config --global user.email 41898282+github-actions[bot]@users.noreply.github.com
-        git config --global user.name GitHub Actions
+        git config --global user.email sre@thoughtindustries.com
+        git config --global user.name ti-bot
 
     - name: Version Changes
       run: lerna version --yes --conventional-commits
