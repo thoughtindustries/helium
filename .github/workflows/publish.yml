@@ -30,7 +30,7 @@ jobs:
         npm whoami
 
     - name: Install Packages
-      run: npm ci --production
+      run: npm ci
 
     # actions bot email: https://github.community/t/github-actions-bot-email-address/17204/6
     # lerna will mod package metadata and push to remote, so git user is needed
