@@ -21,5 +21,8 @@
     "react": "^17.0.2",
     "tar": "^6.1.11",
     "yargs": "^17.1.1"
+  },
+  "devDependencies": {
+    "@apollo/client": "^3.5.8"
   }
 }
