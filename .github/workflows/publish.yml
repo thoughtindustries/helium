@@ -1,0 +1,44 @@
+name: Publish
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    env:
+        GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+    
+    steps:
+    - uses: actions/checkout@v2
+    - uses: actions/setup-node@v2
+      with:
+        node-version: '14.x'
+        registry-url: 'http://registry.npmjs.org'
+        scope: '@thoughtindustries'
+
+    - name: Verify Registry Authentication
+      run: 
+        npm whoami
+
+    - name: Install Packages
+      run: npm ci
+
+    # actions bot email: https://github.community/t/github-actions-bot-email-address/17204/6
+    # lerna will mod package metadata and push to remote, so git user is needed
+    - name: Configure CI Git User
+      run: |
+        git config --global user.email 41898282+github-actions[bot]@users.noreply.github.com
+        git config --global user.name GitHub Actions
+
+    - name: Version Changes
+      run: lerna version --yes --conventional-commits
+
+    - name: Version Changes
+      run: |
+        lerna publish from-git --yes --message "chore: release new versions"
