@@ -1,6 +1,6 @@
 const fetch = require('isomorphic-unfetch');
 const path = require('path');
-const fs = require('fs-extra');
+const { writeFile } = require('fs/promises');
 const { instanceEndpoint } = require('./urls');
 
 const TRANSLATIONS_QUERY = /* GraphQL */ `
@@ -58,12 +58,12 @@ const writeTranslationFile = async (dir, translations, generateDevFile) => {
 
   if (generateDevFile) {
     const devFileName = path.join(dirPath, 'translations.json');
-    await fs.writeFile(devFileName, stringifiedTranslations);
+    await writeFile(devFileName, stringifiedTranslations);
   }
 
   const fileName = path.join(dirPath, 'translations-source.json');
 
-  return fs.writeFile(fileName, stringifiedTranslations);
+  return writeFile(fileName, stringifiedTranslations);
 };
 
 // react-i18next handles pluralizations differently than the

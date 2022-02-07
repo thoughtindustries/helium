@@ -1,5 +1,5 @@
 const path = require('path');
-const fs = require('fs-extra');
+const { readFile, writeFile } = require('fs/promises');
 const Parser = require('i18next-scanner').Parser;
 const { getFilePaths, filePathIsValid } = require('./helpers/filepaths');
 
@@ -24,7 +24,7 @@ const KEYS_WITH_PLURALS = [];
 
   for (const filePath of compiledProjectFiles) {
     if (filePathIsValid(filePath)) {
-      const fileContents = await fs.readFile(filePath, 'utf8');
+      const fileContents = await readFile(filePath, 'utf8');
       parser.parseFuncFromString(fileContents, { list: ['t'] });
     }
   }
@@ -59,7 +59,7 @@ const KEYS_WITH_PLURALS = [];
     }
   }
 
-  await fs.writeFile(
+  await writeFile(
     path.join(OP_DIR, 'locales/translations.json'),
     JSON.stringify(FINAL_TRANSLATIONS, null, 2)
   );

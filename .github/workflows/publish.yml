@@ -1,0 +1,51 @@
+name: Publish
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    env:
+        GH_TOKEN: ${{ secrets.GH_TOKEN }}
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+        HUSKY: 0
+    
+    steps:
+    - uses: actions/checkout@v2
+      with: 
+        fetch-depth: 0
+        
+    - uses: actions/setup-node@v2
+      with:
+        node-version: '14.x'
+        registry-url: 'https://registry.npmjs.org'
+        scope: '@thoughtindustries'
+
+    - name: Update npm
+      run: npm i -g npm@8.4.0
+
+    - name: Verify Registry Authentication
+      run: 
+        npm whoami
+
+    - name: Install Packages
+      run: npm ci
+
+    # actions bot email: https://github.community/t/github-actions-bot-email-address/17204/6
+    # lerna will mod package metadata and push to remote, so git user is needed
+    - name: Configure CI Git User and Version
+      env:
+        GH_TOKEN: ${{ secrets.GH_TOKEN }}
+      run: |
+        git config user.name "ti-bot"
+        git config user.email "ti-bot@users.noreply.github.com"
+        lerna version --yes --conventional-commits
+
+    - name: Publish
+      run: |
+        lerna publish from-git --yes --message "chore: release new versions" --no-verify-access

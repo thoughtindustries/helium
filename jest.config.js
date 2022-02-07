@@ -77,7 +77,10 @@ module.exports = {
   // moduleNameMapper: {},
 
   // An array of regexp pattern strings, matched against all module paths before considered 'visible' to the module loader
-  modulePathIgnorePatterns: ['<rootDir>/tooling/cli/template_base*'],
+  modulePathIgnorePatterns: [
+    '<rootDir>/tooling/cli/template_base*',
+    '<rootDir>/tooling/cli/__tests__/test-query-files*'
+  ],
 
   // Activates notifications for test results
   // notify: false,
@@ -142,9 +145,7 @@ module.exports = {
   testMatch: ['**/__tests__/**/?(*.)+(spec|test).[jt]s?(x)'],
 
   // An array of regexp pattern strings that are matched against all test paths, matched tests are skipped
-  // testPathIgnorePatterns: [
-  //   "/node_modules/"
-  // ],
+  // testPathIgnorePatterns: ['/node_modules/'],
 
   // The regexp pattern or array of patterns that Jest uses to detect test files
   // testRegex: [],
