@@ -36,7 +36,6 @@ When it comes to translations, we are utilizing [i18next](https://www.i18next.co
 Which brings us to [Stories](https://github.com/thoughtindustries/helium/blob/staging/packages/header/stories/Header.stories.tsx)! Helpful for seeing components without needing to add/link them to an existing Helium project, Storybook can be run from the root with:
 
 ```bash
-$ npm run build-storybook
 $ npm run storybook
 ```
 
