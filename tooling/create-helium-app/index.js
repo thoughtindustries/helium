@@ -11,6 +11,10 @@ const { copy } = require('./scripts/utils');
 
 const cwd = process.cwd();
 
+const renameFiles = {
+  _gitignore: '.gitignore'
+};
+
 async function init() {
   let targetDir = argv._[0];
   if (!targetDir) {
@@ -51,7 +55,10 @@ async function init() {
   const templateDir = path.join(__dirname, `template-base`);
 
   const write = (file, content) => {
-    const targetPath = path.join(root, file);
+    const targetPath = renameFiles[file]
+      ? path.join(root, renameFiles[file])
+      : path.join(root, file);
+    console.log('>>> targetpath', targetPath);
     if (content) {
       fs.writeFileSync(targetPath, content);
     } else {
@@ -84,7 +91,7 @@ async function init() {
    */
   const usesYarn = pkgManager === 'yarn' || process.env.LOCAL;
 
-  console.log(`  ${usesYarn ? `yarn` : `npm install --legacy-peer-deps`}`);
+  console.log(`  ${usesYarn ? `yarn` : `npm install`}`);
   console.log(
     `\n Finally, run ${yellow(
       'helium authenticate'
