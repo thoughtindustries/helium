@@ -58,7 +58,6 @@ async function init() {
     const targetPath = renameFiles[file]
       ? path.join(root, renameFiles[file])
       : path.join(root, file);
-    console.log('>>> targetpath', targetPath);
     if (content) {
       fs.writeFileSync(targetPath, content);
     } else {
