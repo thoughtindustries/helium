@@ -12,6 +12,13 @@ const heliumEndpoint = process.env.HELIUM_ENDPOINT;
 startServer();
 
 async function startServer() {
+  if (!heliumEndpoint) {
+    throw new Error(`
+    HELIUM_ENDPOINT environment variable is not set.
+    The development server should be started 'helium dev'
+    `);
+  }
+
   const app = express();
 
   let viteDevServer;

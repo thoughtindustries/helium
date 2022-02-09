@@ -41,7 +41,11 @@ const generateConfigFile = async (dir, instances) => {
   const fileName = path.resolve(dir, 'ti-config.json');
   const data = [];
 
-  for (const instance of instances) {
+  for (let instance of instances) {
+    if (instance.instanceUrl.endsWith('/')) {
+      instance.instanceUrl = instance.instanceUrl.slice(0, -1);
+    }
+
     data.push({
       nickname: instance.nickname,
       instanceUrl: instance.instanceUrl,
