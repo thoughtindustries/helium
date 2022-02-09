@@ -21,6 +21,7 @@ async function startServer() {
     app.use(express.json());
 
     app.get('/graphiql', expressPlayground({ endpoint: '/graphql' }));
+    // proxy GraphQL Playground's requests because of CORS errors
     app.post('/graphql', async (req, res) => {
       const options = {
         method: 'POST',

@@ -39,7 +39,7 @@ const BATCH_QUERY = /* GraphQL */ `
   }
 `;
 
-const JOB_QUERY = /*GraphQL */ `
+const JOB_QUERY = /* GraphQL */ `
   query HeliumDeploymentStatusQuery($jobId: ID!) {
     HeliumDeploymentStatus(jobId: $jobId)
   }
