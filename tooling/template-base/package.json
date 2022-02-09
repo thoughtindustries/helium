@@ -43,7 +43,8 @@
     "vite-plugin-ssr": "^0.3.2"
   },
   "devDependencies": {
-    "@thoughtindustries/helium": "^1.1.0-alpha.0"
+    "@thoughtindustries/helium": "^1.1.0-alpha.0",
+    "graphql-playground-middleware-express": "^1.7.23"
   },
   "volta": {
     "node": "16.13.1",

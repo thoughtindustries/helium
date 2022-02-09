@@ -24,7 +24,7 @@ const config = require(configPath);
 
 const INSTANCE_NAME = process.env.INSTANCE_NAME;
 
-const KEY_QUERY = `
+const KEY_QUERY = /* GraphQL */ `
   query CompanyDetailsQuery($nickname: String!) {
     HeliumLaunchData(nickname: $nickname) {
       key
@@ -33,13 +33,13 @@ const KEY_QUERY = `
   }
 `;
 
-const BATCH_QUERY = `
+const BATCH_QUERY = /* GraphQL */ `
   query HeliumBatchQuery($key: String!, $nickname: String!) {
     HeliumBatch(key: $key, nickname: $nickname)
   }
 `;
 
-const JOB_QUERY = `
+const JOB_QUERY = /*GraphQL */ `
   query HeliumDeploymentStatusQuery($jobId: ID!) {
     HeliumDeploymentStatus(jobId: $jobId)
   }
@@ -159,11 +159,11 @@ async function triggerBatch(instance, key) {
     fetch(endpoint, options)
       .then(r => r.json())
       .then(res => {
-        const resObj = res[0];
+        const resObj = res;
         if (resObj.data) {
           resolve(resObj.data.HeliumBatch);
         } else {
-          const err = resObj.errors[0];
+          const err = resObj.errors;
           reject(err.message);
         }
         resolve(res);
@@ -186,12 +186,12 @@ async function getHeliumUploadData(instance) {
   let responseData = {};
   const launchData = await fetch(endpoint, options).then(r => r.json());
 
-  if (launchData && launchData[0] && launchData[0].data) {
+  if (launchData && launchData[0] && launchData.data) {
     const {
       data: {
         HeliumLaunchData: { key, signedUrl }
       }
-    } = launchData[0];
+    } = launchData;
 
     responseData = {
       key,
@@ -264,12 +264,12 @@ async function checkDeploymentJobStatus(instance, jobId) {
     fetch(endpoint, options)
       .then(r => r.json())
       .then(res => {
-        const resObj = res[0];
+        const resObj = res;
 
         if (resObj.data) {
           resolve(resObj.data.HeliumDeploymentStatus);
         } else {
-          const err = resObj.errors[0];
+          const err = resObj.errors;
           reject(err.message);
         }
       })
