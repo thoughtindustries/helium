@@ -21,6 +21,33 @@ async function startServer() {
 
   const app = express();
 
+  if (!isProduction) {
+    const expressPlayground = require('graphql-playground-middleware-express').default;
+    const fetch = require('isomorphic-unfetch');
+
+    app.use(express.json());
+
+    app.get('/graphiql', expressPlayground({ endpoint: '/graphql' }));
+    // proxy GraphQL Playground's requests because of CORS errors
+    app.post('/graphql', async (req, res) => {
+      const options = {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(req.body)
+      };
+
+      fetch(heliumEndpoint, options)
+        .then(tiRes => {
+          res.status(tiRes.status);
+          return tiRes;
+        })
+        .then(r => r.json())
+        .then(data => {
+          res.send(data);
+        });
+    });
+  }
+
   let viteDevServer;
   if (isProduction) {
     app.use(express.static(`${root}/dist/client`, { index: false }));
