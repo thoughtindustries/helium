@@ -63,10 +63,10 @@ async function fetchUserAndAppearance(tiInstance) {
 
     const userDataResponse = await fetch(endpoint, options).then(r => r.json());
 
-    if (userDataResponse && userDataResponse[0].data) {
+    if (userDataResponse && userDataResponse.data) {
       const {
         data: { CurrentUser, CompanyDetails }
-      } = userDataResponse[0];
+      } = userDataResponse;
 
       currentUser = CurrentUser || {};
 
