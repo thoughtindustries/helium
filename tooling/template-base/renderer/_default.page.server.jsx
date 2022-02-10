@@ -21,7 +21,8 @@ export const passToClient = [
   'documentProps',
   'currentUser',
   'isProduction',
-  'queryParams'
+  'queryParams',
+  'authToken'
 ];
 
 async function render(pageContext) {
@@ -48,7 +49,8 @@ async function render(pageContext) {
 }
 
 async function onBeforeRender(pageContext) {
-  const { Page, pageProps, apolloClient, appearance, currentUser, urlParsed } = pageContext;
+  const { Page, pageProps, apolloClient, appearance, currentUser, urlParsed, authToken } =
+    pageContext;
   const queryParams = urlParsed.search || {};
   const documentProps = getPageMeta(pageContext);
 
@@ -74,5 +76,5 @@ async function onBeforeRender(pageContext) {
   const pageHtml = await renderToStringWithData(App);
   const apolloIntialState = apolloClient.extract();
 
-  return { pageContext: { pageHtml, apolloIntialState, documentProps, queryParams } };
+  return { pageContext: { pageHtml, apolloIntialState, documentProps, queryParams, authToken } };
 }

@@ -36,7 +36,7 @@ const create =
 
 const sha256 = create('SHA-256');
 
-async function handleSsr(url) {
+async function handleSsr(url, authToken = null) {
   const tiInstance = findTiInstance(INSTANCE_NAME);
   const { currentUser, appearanceBlock } = decryptUserAndAppearance(url, tiInstance);
   const pageContext = await initPageContext(
@@ -46,7 +46,8 @@ async function handleSsr(url) {
     appearanceBlock,
     HELIUM_ENDPOINT,
     true,
-    sha256
+    sha256,
+    authToken
   );
   const { httpResponse } = pageContext;
 

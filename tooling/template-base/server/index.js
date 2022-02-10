@@ -20,6 +20,7 @@ async function startServer() {
   }
 
   const app = express();
+  const tiInstance = findTiInstance(instanceName);
 
   if (!isProduction) {
     const expressPlayground = require('graphql-playground-middleware-express').default;
@@ -28,12 +29,20 @@ async function startServer() {
     app.use(express.json());
 
     app.get('/graphiql', expressPlayground({ endpoint: '/graphql' }));
-    // proxy GraphQL Playground's requests because of CORS errors
+    // proxying graphql requests in dev environment because of CORS errors
     app.post('/graphql', async (req, res) => {
+      const reqBody = req.body;
+
+      if (Array.isArray(reqBody)) {
+        reqBody.push({ user: tiInstance.email });
+      } else {
+        reqBody.user = tiInstance.email;
+      }
+
       const options = {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(req.body)
+        body: JSON.stringify(reqBody)
       };
 
       fetch(heliumEndpoint, options)
@@ -65,8 +74,6 @@ async function startServer() {
   let appearanceBlock;
 
   app.get('*', async (req, res, next) => {
-    const tiInstance = findTiInstance(instanceName);
-
     if (!currentUser || !appearanceBlock) {
       const userAndAppearance = await fetchUserAndAppearance(tiInstance);
       currentUser = userAndAppearance.currentUser;

@@ -5,6 +5,7 @@ import { PageWrapper } from './PageWrapper';
 import { ApolloClient, InMemoryCache, ApolloProvider } from '@apollo/client';
 import { BatchHttpLink } from '@apollo/client/link/batch-http';
 import { createPersistedQueryLink } from '@apollo/client/link/persisted-queries';
+import { setContext } from '@apollo/client/link/context';
 import { sha256 } from 'crypto-hash';
 import { I18nextProvider } from 'react-i18next';
 import i18n from './i18n';
@@ -23,9 +24,11 @@ async function hydrate() {
     appearance,
     currentUser,
     isProduction,
-    queryParams
+    queryParams,
+    authToken
   } = pageContext;
-  const apolloClient = makeApolloClient(heliumEndpoint, apolloIntialState, isProduction);
+
+  const apolloClient = makeApolloClient(heliumEndpoint, apolloIntialState, isProduction, authToken);
 
   if (currentUser && currentUser.lang) {
     i18n.changeLanguage(currentUser.lang);
@@ -48,13 +51,34 @@ async function hydrate() {
   );
 }
 
-function makeApolloClient(heliumEndpoint, apolloIntialState, isProduction) {
+function makeApolloClient(heliumEndpoint, apolloIntialState, isProduction, authToken) {
   let link = new BatchHttpLink({
-    uri: heliumEndpoint
+    uri: heliumEndpoint,
+    fetch: (uri, options) => {
+      let endpoint = uri;
+
+      if (!isProduction) {
+        // proxy mutations in dev to avoid CORS errors
+        const body = JSON.parse(options.body);
+        const hasMutation = body.some(doc => doc.query.includes('mutation '));
+        endpoint = hasMutation ? '/graphql' : uri;
+      }
+
+      return fetch(endpoint, options);
+    }
   });
 
   if (isProduction) {
-    link = createPersistedQueryLink({ sha256 }).concat(link);
+    const persistedLink = createPersistedQueryLink({ sha256 }).concat(link);
+    link = setContext((_, { headers }) => {
+      // return the headers to the context so httpLink can read them
+      return {
+        headers: {
+          ...headers,
+          authToken: authToken ? `${authToken}` : ''
+        }
+      };
+    }).concat(persistedLink);
   }
 
   return new ApolloClient({
