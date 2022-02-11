@@ -2,8 +2,7 @@ import { createPageRenderer } from 'vite-plugin-ssr';
 import jwt_decode from 'jwt-decode';
 // We load `importBuild.js` so that the worker code can be bundled into a single file
 import '../dist/server/importBuild.js';
-import { initPageContext } from './../lib/init-page-context';
-import { findTiInstance } from './../lib/find-ti-instance';
+import { initPageContext, findTiInstance } from '@thoughtindustries/helium-server';
 
 export { handleSsr };
 
@@ -37,7 +36,7 @@ const create =
 const sha256 = create('SHA-256');
 
 async function handleSsr(url, authToken = null) {
-  const tiInstance = findTiInstance(INSTANCE_NAME);
+  const tiInstance = await findTiInstance(INSTANCE_NAME);
   const { currentUser, appearanceBlock } = decryptUserAndAppearance(url, tiInstance);
   const pageContext = await initPageContext(
     url,
