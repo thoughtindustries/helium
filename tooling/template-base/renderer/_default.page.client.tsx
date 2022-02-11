@@ -61,7 +61,7 @@ function makeApolloClient(
   heliumEndpoint: string,
   apolloIntialState: Record<string, any>,
   isProduction: boolean,
-  authToken: string
+  authToken: string | undefined
 ) {
   let link = new BatchHttpLink({
     uri: heliumEndpoint,

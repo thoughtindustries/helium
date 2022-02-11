@@ -1,4 +1,5 @@
 import { ReactNode } from 'react';
+import { ApolloClient, NormalizedCacheObject } from '@apollo/client';
 
 export type PageProps = any;
 
@@ -65,7 +66,7 @@ export type PageContext = {
   authToken?: string;
   currentUser?: CurrentUser;
   appearance?: Appearance;
-  apolloClient: any;
+  apolloClient: ApolloClient<NormalizedCacheObject>;
 };
 
 export type PageWrapperProps = {

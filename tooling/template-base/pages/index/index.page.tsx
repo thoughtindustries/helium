@@ -52,7 +52,7 @@ function FeaturedItems() {
     }
   });
 
-  const handleClick = (evt, item: FeaturedContentContentItem): void => {
+  const handleClick = (evt, item: FeaturedContentContentItem) => {
     console.log('clicked!', item);
   };
 

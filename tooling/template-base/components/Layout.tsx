@@ -11,7 +11,7 @@ export default function Layout({
   appearance: Appearance;
   currentUser: CurrentUser;
   children: React.ReactNode;
-}): JSX.Element {
+}) {
   return (
     <div className="h-full bg-gray-100">
       <div className="h-full max-w-screen-lg mx-auto bg-white shadow-sm font-primary">
@@ -23,13 +23,7 @@ export default function Layout({
   );
 }
 
-function Header({
-  appearance,
-  currentUser
-}: {
-  appearance: Appearance;
-  currentUser: CurrentUser;
-}): JSX.Element {
+function Header({ appearance, currentUser }: { appearance: Appearance; currentUser: CurrentUser }) {
   const { t } = useTranslation();
   const dashboard = t('student-dashboard');
   const signIn = t('login');
@@ -59,7 +53,7 @@ const query = gql`
   }
 `;
 
-function Footer(): JSX.Element {
+function Footer() {
   const { t } = useTranslation();
   const { data } = useQuery(query);
   const companyName = data && data.CompanyDetails ? data.CompanyDetails.name : 'No name';

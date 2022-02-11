@@ -12,11 +12,11 @@ function PageContextProvider({
 }: {
   pageContext: PageContext;
   children: React.ReactNode;
-}): JSX.Element {
+}) {
   return <Context.Provider value={pageContext}>{children}</Context.Provider>;
 }
 
-function usePageContext(): PageContext {
+function usePageContext() {
   const pageContext = useContext(Context);
   return pageContext;
 }
