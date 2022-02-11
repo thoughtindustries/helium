@@ -14,9 +14,7 @@
       "import": "./dist/index.mjs",
       "types": "./dist/index.d.ts"
     },
-    "./mdx": {
-      "import": "./mdx/mdx.js"
-    }
+    "./mdx": "./mdx/mdx.js"
   },
   
   "scripts": {
@@ -26,7 +24,9 @@
   },
   "files": [
     "src",
-    "mdx"
+    "mdx",
+    "worker",
+    "webpack.config.js"
   ],
   "repository": {
     "type": "git",

@@ -1,12 +1,6 @@
 import reactRefresh from '@vitejs/plugin-react-refresh';
 import ssr from 'vite-plugin-ssr/plugin';
-
-/**
- * because of cjs/esm issues, mdx file generated via:
- * `npx esbuild @mdx-js/rollup --bundle --platform=node --outfile=vendor/mdx.js`
- */
-// import mdx from './vendor/mdx';
-import { mdx } from '@thoughtindustries/helium-server';
+import mdx from '@thoughtindustries/helium-server/mdx';
 
 const mdxOptions = {
   remarkPlugins: [],
