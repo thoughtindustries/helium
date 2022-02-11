@@ -43,33 +43,33 @@ const ContactBlock = (props: ContactBlockProps): JSX.Element => {
   };
 
   const getButton = () => {
-    if (actionText && (url || contactEmail)) {
-      const anchorProps: { className: string; href?: string; target?: string } = {
-        className:
-          'text-white bg-indigo-700 hover:bg-indigo-600  rounded-sm border-solid border cursor-pointer inline-block font-normal text-sm leading-tight py-2 px-5 relative text-center no-underline ease-in-out duration-200 transition font-sans mx-auto mb-0',
-        href: url || 'mailto:' + contactEmail
-      };
-      if (linkOpenInNewTab) {
-        anchorProps.target = '_blank';
-      }
-      return <a {...anchorProps}>{actionText}</a>;
-    }
-    return '';
+    const anchorProps: { className: string; href?: string; target?: string } = {
+      className:
+        'text-white bg-indigo-700 hover:bg-indigo-600  rounded-sm border-solid border cursor-pointer inline-block font-normal text-sm leading-tight py-2 px-5 relative text-center no-underline ease-in-out duration-200 transition font-sans mx-auto mb-0',
+      target: linkOpenInNewTab ? '_blank' : ''
+    };
+    if (url) anchorProps.href = url;
+    if (contactEmail) anchorProps.href = 'mailto:' + contactEmail;
+    return actionText ? (
+      <button>
+        <a {...anchorProps}>{actionText}</a>
+      </button>
+    ) : (
+      ''
+    );
   };
   const button = getButton();
   return (
-    <>
-      <div className="px-4 py-12 text-center" style={contactBloacStyle}>
-        <div className="row">
-          <div className="w-8/12 md:w-6/12 float-none mx-auto px-4 relative">
-            {image}
-            {description}
-            {nameBlock}
-            {button}
-          </div>
+    <div className="px-4 py-12 text-center" style={contactBloacStyle}>
+      <div className="row">
+        <div className="w-8/12 md:w-6/12 float-none mx-auto px-4 relative">
+          {image}
+          {description}
+          {nameBlock}
+          {button}
         </div>
       </div>
-    </>
+    </div>
   );
 };
 

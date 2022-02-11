@@ -12,11 +12,9 @@ import { ContactBlock } from '@thoughtindustries/ContactBlock';
 
 ```
 <ContactBlock
-  contactDescription="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus tristique metus nec sagittis euismod lorem ipsum forte contiuum" 
+  contactDescription="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus tristique metus nec sagittis euismod lorem ipsum forte contiuum"
   contactSubtitle="Subtitle"
   contactName="Jane Jacobs"
   actionText="Contact"
    />
 ```
-
-
