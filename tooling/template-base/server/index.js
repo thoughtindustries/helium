@@ -70,11 +70,11 @@ async function startServer() {
   }
 
   const renderPage = createPageRenderer({ viteDevServer, isProduction, root });
-  let currentUser;
-  let appearanceBlock;
+  let currentUser = {};
+  let appearanceBlock = {};
 
   app.get('*', async (req, res, next) => {
-    if (!currentUser || !appearanceBlock) {
+    if (!currentUser.length || !appearanceBlock.length) {
       const userAndAppearance = await fetchUserAndAppearance(tiInstance);
       currentUser = userAndAppearance.currentUser;
       appearanceBlock = userAndAppearance.appearanceBlock;

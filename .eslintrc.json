@@ -23,7 +23,8 @@
   "plugins": ["react", "@typescript-eslint"],
   "rules": {
     "react/jsx-curly-brace-presence": ["error", { "props": "never" }],
-    "@typescript-eslint/no-var-requires": 0
+    "@typescript-eslint/no-var-requires": 0,
+    "@typescript-eslint/no-explicit-any": ["off"]
   },
   "settings": {
     "react": {

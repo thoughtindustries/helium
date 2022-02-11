@@ -1,9 +1,17 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { gql, useQuery } from '@apollo/client';
-import PropTypes from 'prop-types';
+import { Appearance, CurrentUser } from '../types';
 
-export default function Layout({ appearance, currentUser, children }) {
+export default function Layout({
+  appearance,
+  currentUser,
+  children
+}: {
+  appearance: Appearance;
+  currentUser: CurrentUser;
+  children: React.ReactNode;
+}): JSX.Element {
   return (
     <div className="h-full bg-gray-100">
       <div className="h-full max-w-screen-lg mx-auto bg-white shadow-sm font-primary">
@@ -15,13 +23,13 @@ export default function Layout({ appearance, currentUser, children }) {
   );
 }
 
-Layout.propTypes = {
-  appearance: PropTypes.object,
-  currentUser: PropTypes.object,
-  children: PropTypes.node
-};
-
-function Header({ appearance, currentUser }) {
+function Header({
+  appearance,
+  currentUser
+}: {
+  appearance: Appearance;
+  currentUser: CurrentUser;
+}): JSX.Element {
   const { t } = useTranslation();
   const dashboard = t('student-dashboard');
   const signIn = t('login');
@@ -36,16 +44,11 @@ function Header({ appearance, currentUser }) {
         )}
       </div>
       <div className="text-right">
-        {currentUser ? <a href="/learn/">{dashboard}</a> : <a href="/sign_in">{signIn}</a>}
+        {currentUser.id ? <a href="/learn/">{dashboard}</a> : <a href="/sign_in">{signIn}</a>}
       </div>
     </div>
   );
 }
-
-Header.propTypes = {
-  appearance: PropTypes.object,
-  currentUser: PropTypes.object
-};
 
 const query = gql`
   query CompanyDetailsQuery {
@@ -56,7 +59,7 @@ const query = gql`
   }
 `;
 
-function Footer() {
+function Footer(): JSX.Element {
   const { t } = useTranslation();
   const { data } = useQuery(query);
   const companyName = data && data.CompanyDetails ? data.CompanyDetails.name : 'No name';

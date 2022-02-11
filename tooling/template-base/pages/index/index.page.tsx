@@ -1,11 +1,18 @@
 import React from 'react';
-import { gql, useMutation } from '@apollo/client';
 import { useTranslation } from 'react-i18next';
 import Layout from '../../components/Layout';
 import { Hero } from '@thoughtindustries/hero';
-import { FeaturedContent, ContentTileStandardLayout } from '@thoughtindustries/featured-content';
-import { hydrateContent, useCatalogQuery } from '@thoughtindustries/content';
-import PropTypes from 'prop-types';
+import {
+  FeaturedContent,
+  ContentTileStandardLayout,
+  FeaturedContentContentItem
+} from '@thoughtindustries/featured-content';
+import {
+  hydrateContent,
+  useCatalogQuery,
+  useAddResourceToQueueMutation
+} from '@thoughtindustries/content';
+import { Appearance, CurrentUser } from '../../types';
 
 export { Page };
 export { documentProps };
@@ -15,7 +22,8 @@ const documentProps = {
   description: 'The home page'
 };
 
-function Page({ appearance, currentUser }) {
+function Page({ appearance, currentUser }: { appearance: Appearance; currentUser: CurrentUser }) {
+  console.log('>>> currentUser', currentUser);
   return (
     <Layout appearance={appearance} currentUser={currentUser}>
       <div className="flex flex-col items-start space-y-2">
@@ -30,21 +38,10 @@ function Page({ appearance, currentUser }) {
   );
 }
 
-Page.propTypes = {
-  appearance: PropTypes.object,
-  currentUser: PropTypes.object
-};
-
-const ADD_RESOURCE_TO_QUEUE_MUTATION = gql`
-  mutation AddResourceToQueueMutation($resourceType: ContentKind, $resourceId: ID!) {
-    AddResourceToQueue(resourceType: $resourceType, resourceId: $resourceId)
-  }
-`;
-
 function FeaturedItems() {
   const { i18n } = useTranslation();
-  const [addResourceToQueue] = useMutation(ADD_RESOURCE_TO_QUEUE_MUTATION);
-  const handleAddedToQueue = item =>
+  const [addResourceToQueue] = useAddResourceToQueueMutation();
+  const handleAddedToQueue = (item: FeaturedContentContentItem): Promise<boolean | void> =>
     item.displayCourse
       ? addResourceToQueue({ variables: { resourceId: item.displayCourse } }).then()
       : Promise.resolve(undefined);
@@ -56,7 +53,7 @@ function FeaturedItems() {
     }
   });
 
-  const handleClick = (evt, item) => {
+  const handleClick = (evt, item: FeaturedContentContentItem): void => {
     console.log('clicked!', item);
   };
 

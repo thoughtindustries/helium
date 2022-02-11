@@ -1,12 +1,12 @@
 import React from 'react';
 import { PageWrapper } from './PageWrapper';
 import { escapeInject, dangerouslySkipEscape } from 'vite-plugin-ssr';
-import logoUrl from './logo.svg';
 import { ApolloProvider } from '@apollo/client';
 import { renderToStringWithData } from '@apollo/client/react/ssr';
 import { getPageMeta } from './getPageMeta';
 import { I18nextProvider } from 'react-i18next';
 import i18n from './i18n';
+import { PageContext } from '../types';
 
 export { render };
 export { onBeforeRender };
@@ -25,7 +25,7 @@ export const passToClient = [
   'authToken'
 ];
 
-async function render(pageContext) {
+async function render(pageContext: PageContext) {
   const { pageHtml } = pageContext;
 
   // See https://vite-plugin-ssr.com/html-head
@@ -37,7 +37,6 @@ async function render(pageContext) {
     <html lang="en">
       <head>
         <meta charset="UTF-8" />
-        <link rel="icon" href="${logoUrl}" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <meta name="description" content="${desc}" />
         <title>${title}</title>
@@ -48,7 +47,7 @@ async function render(pageContext) {
     </html>`;
 }
 
-async function onBeforeRender(pageContext) {
+async function onBeforeRender(pageContext: PageContext) {
   const { Page, pageProps, apolloClient, appearance, currentUser, urlParsed, authToken } =
     pageContext;
   const queryParams = urlParsed.search || {};

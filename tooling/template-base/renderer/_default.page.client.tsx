@@ -9,18 +9,19 @@ import { setContext } from '@apollo/client/link/context';
 import { sha256 } from 'crypto-hash';
 import { I18nextProvider } from 'react-i18next';
 import i18n from './i18n';
+import { PageContext } from './../types';
 
 hydrate();
 
 async function hydrate() {
   // For Client Routing we should use `useClientRouter()` instead of `getPage()`.
   // See https://vite-plugin-ssr.com/useClientRouter
-  const pageContext = await getPage();
+  const pageContext = await getPage<PageContext>();
   const {
     Page,
     pageProps,
     heliumEndpoint,
-    apolloIntialState,
+    apolloInitialState,
     appearance,
     currentUser,
     isProduction,
@@ -28,7 +29,12 @@ async function hydrate() {
     authToken
   } = pageContext;
 
-  const apolloClient = makeApolloClient(heliumEndpoint, apolloIntialState, isProduction, authToken);
+  const apolloClient = makeApolloClient(
+    heliumEndpoint,
+    apolloInitialState,
+    isProduction,
+    authToken
+  );
 
   if (currentUser && currentUser.lang) {
     i18n.changeLanguage(currentUser.lang);
@@ -51,7 +57,12 @@ async function hydrate() {
   );
 }
 
-function makeApolloClient(heliumEndpoint, apolloIntialState, isProduction, authToken) {
+function makeApolloClient(
+  heliumEndpoint: string,
+  apolloIntialState: Record<string, any>,
+  isProduction: boolean,
+  authToken: string
+) {
   let link = new BatchHttpLink({
     uri: heliumEndpoint,
     fetch: (uri, options) => {
