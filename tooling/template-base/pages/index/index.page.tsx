@@ -23,7 +23,6 @@ const documentProps = {
 };
 
 function Page({ appearance, currentUser }: { appearance: Appearance; currentUser: CurrentUser }) {
-  console.log('>>> currentUser', currentUser);
   return (
     <Layout appearance={appearance} currentUser={currentUser}>
       <div className="flex flex-col items-start space-y-2">
