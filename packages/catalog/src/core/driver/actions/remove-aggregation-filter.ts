@@ -1,3 +1,4 @@
+import { DEFAULT_PAGE } from '../constants';
 import CatalogDriverBase from '../catalog-driver-base';
 import { AggregationFilter } from '../types';
 
@@ -20,6 +21,7 @@ export default async function removeAggregationFilter(
   );
 
   await this.updateResults({
-    aggregationFilters: newFilters
+    aggregationFilters: newFilters,
+    page: DEFAULT_PAGE
   });
 }

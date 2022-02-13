@@ -3,13 +3,13 @@ import { CatalogDriverConfig } from './types';
 import * as actions from './actions';
 
 /**
- * The CatalogDriver is a framework agnostic catalog state manager that is capable
- * syncing state to the url.
+ * The CatalogDriver is a framework agnostic catalog state manager
  */
 export default class CatalogDriver extends CatalogDriverBase {
   private readonly _actions;
   constructor(config: CatalogDriverConfig) {
     super(config);
+    console.log('CatalogDriver', config);
 
     this._actions = Object.entries(actions).reduce(
       (acc, [actionName, action]) => ({

@@ -1,43 +1,18 @@
 import { GlobalTypes } from '@thoughtindustries/content';
 import { SortDirection, SortField, DEFAULT_STATE } from '../../../../src';
-import { getMockSearchResponse, setupDriver } from '../helper';
-
-// We mock this so no state is actually written to the URL
-jest.mock('../../../../src/core/driver/url-manager');
-import URLManager from '../../../../src/core/driver/url-manager';
-const mockURLManager = URLManager as jest.MockedClass<typeof URLManager>;
+import { setupDriver } from '../helper';
 
 describe('@thoughtindustries/catalog/CatalogDriver#getActions#addAggregationFilter', () => {
-  beforeEach(() => {
-    jest.clearAllMocks();
-  });
-
-  it('should push state to url', async () => {
-    const { driver } = setupDriver();
-    const actions = driver.getActions();
-    const newFilter = { label: 'label', value: 'value' };
-
-    await actions.addAggregationFilter(newFilter);
-
-    expect(mockURLManager.mock.instances[0].pushStateToURL).toHaveBeenCalledTimes(1);
-    expect(mockURLManager.mock.instances[0].pushStateToURL).toHaveBeenCalledWith(
-      expect.objectContaining({ aggregationFilters: [newFilter] }),
-      expect.objectContaining({ replaceUrl: undefined })
-    );
-  });
-
   it('should update state', async () => {
     const initialState = {
       aggregationFilters: [{ label: 'label1', value: 'value1' }]
     };
     const { driver, stateAfterAction } = setupDriver({
-      initialState,
-      skipInit: true
+      initialState
     });
     const actions = driver.getActions();
     const newFilter = { label: 'label2', value: 'value2' };
 
-    await driver.init();
     await actions.addAggregationFilter(newFilter);
 
     expect(stateAfterAction.state?.aggregationFilters).toEqual([
@@ -56,13 +31,11 @@ describe('@thoughtindustries/catalog/CatalogDriver#getActions#addAggregationFilt
       contentTypes: [GlobalTypes.ContentKind.Article]
     };
     const { driver, stateAfterAction } = setupDriver({
-      initialState,
-      skipInit: true
+      initialState
     });
     const actions = driver.getActions();
     const newFilter = { label: 'label', value: 'value' };
 
-    await driver.init();
     await actions.addAggregationFilter(newFilter);
 
     expect(stateAfterAction.state).toEqual(expect.objectContaining(initialState));
@@ -74,19 +47,15 @@ describe('@thoughtindustries/catalog/CatalogDriver#getActions#addAggregationFilt
       page: 3,
       token: 'foo',
       contentTypes: [GlobalTypes.ContentKind.Article],
-      aggregationFilters: [{ label: 'label1', value: 'value1' }]
+      aggregationFilters: [{ label: 'label1', value: 'value1' }],
+      isCurated: true
     };
     const { driver, stateAfterAction } = setupDriver({
-      initialState,
-      mockSearchResponse: getMockSearchResponse({
-        isCurated: true
-      }),
-      skipInit: true
+      initialState
     });
     const actions = driver.getActions();
     const newFilter = { label: 'label2', value: 'value2' };
 
-    await driver.init();
     await actions.addAggregationFilter(newFilter);
 
     const { contentTypes, searchTerm, token, tokenLabel, page } = DEFAULT_STATE;

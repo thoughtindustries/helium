@@ -9,8 +9,7 @@ describe('@thoughtindustries/catalog/CatalogDriver#getActions#removeContentType'
       contentTypes: [contentTypeToRemove]
     };
     const { driver, stateAfterAction } = setupDriver({
-      initialState,
-      trackUrlState: false
+      initialState
     });
     const actions = driver.getActions();
 
@@ -34,13 +33,10 @@ describe('@thoughtindustries/catalog/CatalogDriver#getActions#removeContentType'
       initialState: {
         ...initialState,
         contentTypes
-      },
-      skipInit: true,
-      trackUrlState: false
+      }
     });
     const actions = driver.getActions();
 
-    await driver.init();
     await actions.removeContentType(contentTypeToRemove);
 
     expect(stateAfterAction.state).toEqual(expect.objectContaining(initialState));
@@ -51,24 +47,14 @@ describe('@thoughtindustries/catalog/CatalogDriver#getActions#removeContentType'
       searchTerm: 'test',
       contentTypes: [GlobalTypes.ContentKind.Course, GlobalTypes.ContentKind.CourseGroup]
     };
-    const { driver, stateAfterAction, mockOnSearch } = setupDriver({
-      initialState,
-      trackUrlState: false,
-      skipInit: true
+    const { driver, mockOnSearch } = setupDriver({
+      initialState
     });
     const actions = driver.getActions();
     const contentTypeNonExist = GlobalTypes.ContentKind.Bundle;
 
-    await driver.init();
     await actions.removeContentType(contentTypeNonExist);
 
-    expect(mockOnSearch).toHaveBeenLastCalledWith(
-      expect.objectContaining({
-        variables: expect.objectContaining({
-          contentTypes: initialState.contentTypes
-        })
-      })
-    );
-    expect(stateAfterAction.state).toEqual(expect.objectContaining(initialState));
+    expect(mockOnSearch).toHaveBeenCalledTimes(0);
   });
 });

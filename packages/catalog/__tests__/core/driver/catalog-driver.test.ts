@@ -1,11 +1,6 @@
 import { GlobalTypes } from '@thoughtindustries/content';
 import { CatalogDriver, DEFAULT_STATE, SortDirection, SortField } from '../../../src';
-import { getMockSearchResponse, setupDriver, stateContainsResponseData } from './helper';
-
-// We mock this so no state is actually written to the URL
-jest.mock('../../../src/core/driver/url-manager');
-import URLManager from '../../../src/core/driver/url-manager';
-const mockURLManager = URLManager as jest.MockedClass<typeof URLManager>;
+import { getMockSearchResponse, setupDriver } from './helper';
 
 describe('@thoughtindustries/catalog/CatalogDriver', () => {
   beforeEach(() => {
@@ -32,84 +27,6 @@ describe('@thoughtindustries/catalog/CatalogDriver', () => {
     });
   });
 
-  it('should trigger initial search when initialState has one of searchTerm, aggregationFilters, token', async () => {
-    const initialState = {
-      aggregationFilters: [{ label: 'test-label', value: 'test-value' }],
-      searchTerm: 'query me',
-      token: 'test token'
-    };
-
-    const { driver } = setupDriver({ initialState, skipInit: true });
-    await driver.init();
-    expect(stateContainsResponseData(driver.getState())).toBeTruthy();
-  });
-
-  it('should not trigger initial search when alwaysSearchOnInitialLoad is not set', async () => {
-    const { driver } = setupDriver({ skipInit: true });
-    await driver.init();
-    expect(stateContainsResponseData(driver.getState())).toBeFalsy();
-  });
-
-  it('should trigger initial search when alwaysSearchOnInitialLoad is set', async () => {
-    const { driver } = setupDriver({
-      alwaysSearchOnInitialLoad: true,
-      skipInit: true
-    });
-    await driver.init();
-    expect(stateContainsResponseData(driver.getState())).toBeTruthy();
-  });
-
-  it('should trigger search with custom catalog settings', async () => {
-    const customSettings = {
-      layoutId: 'layout id',
-      widgetId: 'widget id'
-    };
-    const { driver, mockOnSearch } = setupDriver({
-      ...customSettings,
-      alwaysSearchOnInitialLoad: true,
-      skipInit: true
-    });
-    await driver.init();
-    expect(mockOnSearch).toHaveBeenCalledWith(
-      expect.objectContaining({
-        variables: expect.objectContaining({
-          layoutId: customSettings.layoutId,
-          widgetId: customSettings.widgetId
-        })
-      })
-    );
-  });
-
-  it('should sync initialState to URL', async () => {
-    const initialState = {
-      aggregationFilters: [{ label: 'test label', value: 'test value' }],
-      searchTerm: 'test search term',
-      token: 'test token'
-    };
-
-    const { driver } = setupDriver({ initialState, skipInit: true });
-    expect(mockURLManager.mock.instances).toHaveLength(1);
-
-    await driver.init();
-    expect(mockURLManager.mock.instances[0].pushStateToURL).toHaveBeenCalledTimes(1);
-    // "will sync to the url with 'replace' rather than 'push'"
-    expect(mockURLManager.mock.instances[0].pushStateToURL).toHaveBeenCalledWith(
-      expect.objectContaining(initialState),
-      expect.objectContaining({ replaceUrl: true })
-    );
-  });
-
-  it('should not sync initialState to URL when trackURLState is not set', () => {
-    const initialState = {
-      aggregationFilters: [{ label: 'test label', value: 'test value' }],
-      searchTerm: 'test search term',
-      token: 'test token'
-    };
-
-    setupDriver({ initialState, trackUrlState: false });
-    expect(mockURLManager.mock.instances).toHaveLength(0);
-  });
-
   describe('getState', () => {
     it('should return the current state', () => {
       const { stateAfterCreation } = setupDriver();
@@ -134,34 +51,23 @@ describe('@thoughtindustries/catalog/CatalogDriver', () => {
       expect(actions.setSort).toBeInstanceOf(Function);
     });
 
-    it('should skip action when not initialized', () => {
-      const { driver, mockOnSearch } = setupDriver({ skipInit: true });
-      const actions = driver.getActions();
-      actions.setSearchTerm('term');
-      expect(mockOnSearch).toHaveBeenCalledTimes(0);
-    });
-
     it('should handle one async action at a time', () => {
       const { driver, mockOnSearch } = setupDriver();
-      driver.init();
       const actions = driver.getActions();
       actions.setSearchTerm('term');
       actions.addAggregationFilter({ label: 'label', value: 'value' });
       expect(mockOnSearch).toHaveBeenCalledTimes(1);
       expect(mockOnSearch).toHaveBeenCalledWith(
         expect.objectContaining({
-          variables: expect.objectContaining({
-            query: 'term',
-            labels: [],
-            values: []
-          })
+          query: 'term',
+          labels: [],
+          values: []
         })
       );
     });
 
     it('should handle synchronized actions', async () => {
-      const { driver, mockOnSearch } = setupDriver({ skipInit: true });
-      await driver.init();
+      const { driver, mockOnSearch } = setupDriver();
       const actions = driver.getActions();
       await actions.setSearchTerm('term');
       await actions.addAggregationFilter({ label: 'label', value: 'value' });
@@ -169,21 +75,17 @@ describe('@thoughtindustries/catalog/CatalogDriver', () => {
       expect(mockOnSearch).toHaveBeenNthCalledWith(
         1,
         expect.objectContaining({
-          variables: expect.objectContaining({
-            query: 'term',
-            labels: [],
-            values: []
-          })
+          query: 'term',
+          labels: [],
+          values: []
         })
       );
       expect(mockOnSearch).toHaveBeenNthCalledWith(
         2,
         expect.objectContaining({
-          variables: expect.objectContaining({
-            query: 'term',
-            labels: ['label'],
-            values: ['value']
-          })
+          query: 'term',
+          labels: ['label'],
+          values: ['value']
         })
       );
     });
@@ -239,8 +141,7 @@ describe('@thoughtindustries/catalog/CatalogDriver', () => {
 
   describe('unsubscribeToStateChanges', () => {
     it('should remove subscription', async () => {
-      const { driver } = setupDriver({ skipInit: true });
-      await driver.init();
+      const { driver } = setupDriver();
       const actions = driver.getActions();
 
       let called1 = false;
@@ -265,9 +166,8 @@ describe('@thoughtindustries/catalog/CatalogDriver', () => {
   });
 
   describe('tearDown', () => {
-    it('should remove subscriptions and stop listening for URL changes', async () => {
-      const { driver } = setupDriver({ skipInit: true });
-      await driver.init();
+    it('should remove subscriptions', async () => {
+      const { driver } = setupDriver();
       const actions = driver.getActions();
 
       let called1 = false;
@@ -280,7 +180,6 @@ describe('@thoughtindustries/catalog/CatalogDriver', () => {
 
       expect(called1).toBeTruthy();
       expect(called2).toBeTruthy();
-      expect(mockURLManager.mock.instances[0].tearDown).toHaveBeenCalledTimes(0);
 
       called1 = false;
       called2 = false;
@@ -289,7 +188,6 @@ describe('@thoughtindustries/catalog/CatalogDriver', () => {
 
       expect(called1).toBeFalsy();
       expect(called2).toBeFalsy();
-      expect(mockURLManager.mock.instances[0].tearDown).toHaveBeenCalledTimes(1);
     });
   });
 
@@ -298,26 +196,24 @@ describe('@thoughtindustries/catalog/CatalogDriver', () => {
       const error = new Error('mock error');
       const mockOnSearch = jest.fn().mockResolvedValue({ error });
       const { driver } = setupDriver({
-        alwaysSearchOnInitialLoad: true,
-        mockOnSearch,
-        skipInit: true
+        mockOnSearch
       });
-      await driver.init();
+      const actions = driver.getActions();
+      await actions.setSearchTerm('test');
       const updatedState = driver.getState();
       expect(updatedState.error).toContain(error.message);
     });
 
     it('should transform enabled sorts from response', async () => {
       const { driver } = setupDriver({
-        alwaysSearchOnInitialLoad: true,
         mockSearchResponse: getMockSearchResponse({
           sortTitleEnabled: false,
           sortCourseStartDateEnabled: false,
           sortCreatedAtEnabled: false
-        }),
-        skipInit: true
+        })
       });
-      await driver.init();
+      const actions = driver.getActions();
+      await actions.setSearchTerm('test');
       const updatedState = driver.getState();
       expect(updatedState.enabledSorts).toHaveLength(3);
       expect(updatedState.enabledSorts).toEqual(
@@ -331,14 +227,13 @@ describe('@thoughtindustries/catalog/CatalogDriver', () => {
 
     it('should transform enabled display types from response', async () => {
       const { driver } = setupDriver({
-        alwaysSearchOnInitialLoad: true,
         mockSearchResponse: getMockSearchResponse({
           displayTypeCalendarEnabled: false,
           displayTypeListEnabled: false
-        }),
-        skipInit: true
+        })
       });
-      await driver.init();
+      const actions = driver.getActions();
+      await actions.setSearchTerm('test');
       const updatedState = driver.getState();
       expect(updatedState.enabledDisplayTypes).toHaveLength(1);
       expect(updatedState.enabledDisplayTypes).toContain(GlobalTypes.ContentItemDisplayType.Grid);
@@ -393,18 +288,16 @@ describe('@thoughtindustries/catalog/CatalogDriver', () => {
 
       const { driver } = setupDriver({
         mockOnSearch,
-        alwaysSearchOnInitialLoad: true,
         initialState: {
           searchTerm: 'test 1',
           aggregationFilters: [{ label: 'label 1', value: 'value 1' }]
-        },
-        skipInit: true
+        }
       });
-      await driver.init();
       const actions = driver.getActions();
 
       // initial search
       // should always use response data for 1st search
+      await actions.setSearchTerm('test');
       expect(driver.getState().resultContentTypes).toEqual(mockSearchResponseContentTypes1);
 
       // 2nd search - use different filters

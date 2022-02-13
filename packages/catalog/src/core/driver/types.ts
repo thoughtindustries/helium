@@ -1,4 +1,4 @@
-import { GlobalTypes, CatalogContentLazyQueryHookResult } from '@thoughtindustries/content';
+import { GlobalTypes, CatalogContentQueryHookResult } from '@thoughtindustries/content';
 
 export type AggregationFilter = {
   label: string;
@@ -26,15 +26,15 @@ export type Sort = {
 
 export type CatalogDriverRequestURLState = {
   page?: number;
-  searchTerm?: string;
   aggregationFilters: AggregationFilter[];
   token?: string;
 };
 
 export type CatalogDriverRequestState = CatalogDriverRequestURLState & {
-  sort?: Sort;
+  searchTerm?: string;
+  sort?: Sort | string;
   displayType?: GlobalTypes.ContentItemDisplayType;
-  contentTypes: GlobalTypes.ContentKind[];
+  contentTypes: string[];
 };
 
 export type CatalogDriverResponseState = {
@@ -48,7 +48,7 @@ export type CatalogDriverResponseState = {
   resultsDisplayType?: GlobalTypes.ContentItemDisplayType;
   enabledSorts: Sort[];
   enabledDisplayTypes: GlobalTypes.ContentItemDisplayType[];
-  resultContentTypes: GlobalTypes.ContentKind[];
+  resultContentTypes: string[];
   contentTypeFilterEnabled: boolean;
   displayBundle?: GlobalTypes.Bundle;
   // TODO: check if the followings can be handled on server side
@@ -70,24 +70,13 @@ export type CatalogDriverState = CatalogDriverRequestState &
   CatalogDriverGeneralState;
 
 export type CatalogDriverConfig = {
-  layoutId?: string;
-  widgetId?: string;
-  onSearch: CatalogContentLazyQueryHookResult[0];
-  initialState?: Partial<CatalogDriverRequestState>;
-  trackUrlState?: boolean;
-  alwaysSearchOnInitialLoad?: boolean;
+  onSearch: CatalogContentQueryHookResult['refetch'];
+  initialState?: Partial<CatalogDriverState>;
 };
 
-type CatalogDriverUpdateResultsOptions = {
-  skipPushToUrl?: boolean;
-  replaceUrl?: boolean;
-};
 export type CatalogDriverUpdateResultsFn = (
-  requestParams: Partial<CatalogDriverState>,
-  options?: CatalogDriverUpdateResultsOptions
+  requestParams: Partial<CatalogDriverState>
 ) => Promise<void>;
 export type CatalogDriverSubscriptionFn = (state: CatalogDriverState) => void;
 
-export type CatalogDriverMakeRequestFn = (
-  options: CatalogDriverUpdateResultsOptions
-) => Promise<void>;
+export type CatalogDriverMakeRequestFn = () => Promise<void>;

@@ -11,8 +11,7 @@ describe('@thoughtindustries/catalog/CatalogDriver#getActions#setSort', () => {
       }
     };
     const { driver, stateAfterAction } = setupDriver({
-      initialState,
-      trackUrlState: false
+      initialState
     });
     const actions = driver.getActions();
     const newSort = {
@@ -42,9 +41,7 @@ describe('@thoughtindustries/catalog/CatalogDriver#getActions#setSort', () => {
       initialState: {
         ...initialState,
         sort: initialSort
-      },
-      skipInit: true,
-      trackUrlState: false
+      }
     });
     const actions = driver.getActions();
     const newSort = {
@@ -52,7 +49,6 @@ describe('@thoughtindustries/catalog/CatalogDriver#getActions#setSort', () => {
       direction: SortDirection.Desc
     };
 
-    await driver.init();
     await actions.setSort(newSort);
 
     expect(stateAfterAction.state).toEqual(expect.objectContaining(initialState));

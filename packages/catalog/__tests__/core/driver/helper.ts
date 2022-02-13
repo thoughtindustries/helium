@@ -1,5 +1,4 @@
 import { CatalogContentQuery, GlobalTypes } from '@thoughtindustries/content';
-import { ContentKind } from '@thoughtindustries/content/src/graphql/global-types';
 import { CatalogDriver, CatalogDriverConfig, CatalogDriverState } from '../../../src';
 
 const mockAggregations = [
@@ -66,7 +65,7 @@ export const getMockSearchResponse = ({
   displayAuthorsEnabled?: boolean;
   displayDescriptionOnCalendar?: boolean;
   contentTypeFilterEnabled?: boolean;
-  contentTypes?: ContentKind[];
+  contentTypes?: GlobalTypes.ContentKind[];
 } = {}): CatalogContentQuery => ({
   CatalogContent: {
     meta: {
@@ -104,12 +103,10 @@ export function getMockOnSearch() {
 export function setupDriver({
   mockSearchResponse,
   mockOnSearch,
-  skipInit,
   ...rest
 }: Omit<CatalogDriverConfig, 'onSearch'> & {
   mockSearchResponse?: CatalogContentQuery;
   mockOnSearch?: jest.Mock;
-  skipInit?: boolean;
 } = {}) {
   let overrideMockOnSearch = mockOnSearch || getMockOnSearch();
 
@@ -123,10 +120,6 @@ export function setupDriver({
     ...rest
   });
 
-  if (!skipInit) {
-    driver.init();
-  }
-
   const stateAfterAction: { state?: CatalogDriverState } = {};
   driver.subscribeToStateChanges(newState => {
     stateAfterAction.state = newState;
@@ -138,21 +131,4 @@ export function setupDriver({
     stateAfterAction,
     mockOnSearch: overrideMockOnSearch
   };
-}
-
-export function stateContainsResponseData(state: CatalogDriverState): boolean {
-  const { results, total, aggregations } = state;
-  return !!results.length && !!total && total > 0 && !!aggregations.length;
-}
-
-export function stateIsLoadingData({ isLoading }: CatalogDriverState) {
-  return isLoading;
-}
-
-export function stateHasError({ error }: CatalogDriverState) {
-  return !!error;
-}
-
-export function getSearchCalls(mockOnSearch: jest.MockedFunction<CatalogDriverConfig['onSearch']>) {
-  return mockOnSearch.mock.calls;
 }

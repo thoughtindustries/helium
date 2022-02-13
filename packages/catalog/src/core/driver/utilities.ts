@@ -1,4 +1,8 @@
-import { GlobalTypes, CatalogContentQueryVariables } from '@thoughtindustries/content';
+import {
+  GlobalTypes,
+  CatalogContentQueryVariables,
+  CatalogContentQuery
+} from '@thoughtindustries/content';
 import { DEFAULT_PAGE } from './constants';
 import { AggregationFilter, CatalogDriverState, Sort, SortDirection, SortField } from './types';
 
@@ -18,6 +22,13 @@ export const aggregationFiltersToParams = (filters: AggregationFilter[]): LabelV
     { labels: [], values: [] } as LabelValueParam
   );
 };
+export const serializeSort = (sort: Sort | string): string => {
+  if (typeof sort === 'string') {
+    return sort;
+  }
+  const { field, direction } = sort;
+  return [field, direction].filter(truthyFilter).join(':');
+};
 export const stateToSearchParams = (state: CatalogDriverState): CatalogContentQueryVariables => {
   const {
     page = DEFAULT_PAGE,
@@ -29,7 +40,7 @@ export const stateToSearchParams = (state: CatalogDriverState): CatalogContentQu
     searchTerm,
     contentTypes
   } = state;
-  const sortParam = sort && [sort.field, sort.direction].filter(truthyFilter).join(':');
+  const sortParam = sort && serializeSort(sort);
   const displayTypeParam = displayType || resultsDisplayType;
   const transformedFilters = aggregationFiltersToParams(aggregationFilters);
   return {
@@ -111,4 +122,80 @@ export const shouldUpdateContentTypes = (
   const { values: prevValues, query: prevQuery } = prevSearchParams || {};
   const areValuesTheSame = JSON.stringify(values) === JSON.stringify(prevValues);
   return !prevSearchParams || !areValuesTheSame || query !== prevQuery;
+};
+
+export const searchResultsToState = (
+  data?: CatalogContentQuery,
+  error?: Error
+): Partial<CatalogDriverState> => {
+  if (error || !data) {
+    return {
+      error: `An unexpected error occurred: ${error ? error.message : 'empty data'}`
+    };
+  }
+
+  const {
+    meta: {
+      displayBundle,
+      tokenLabel,
+      total,
+      hasMore,
+      isCurated,
+      aggregations,
+      contentTypes = [],
+      resultsDisplayType,
+      sortUpdatedAtEnabled,
+      sortCreatedAtEnabled,
+      sortTitleEnabled,
+      sortPublishDateEnabled,
+      sortCourseStartDateEnabled,
+      sortRelevanceEnabled,
+      displayTypeListEnabled,
+      displayTypeGridEnabled,
+      displayTypeCalendarEnabled,
+      displayStartDateEnabled,
+      displayAuthorsEnabled,
+      displayDescriptionOnCalendar,
+      contentTypeFilterEnabled,
+      queryCustomFields
+    },
+    contentItems
+  } = data.CatalogContent;
+
+  // transform result meta to enabled sorts
+  const enabledSorts = toEnabledSorts({
+    sortUpdatedAtEnabled,
+    sortCreatedAtEnabled,
+    sortTitleEnabled,
+    sortPublishDateEnabled,
+    sortCourseStartDateEnabled,
+    sortRelevanceEnabled
+  });
+
+  // transform result meta to enabled display types
+  const enabledDisplayTypes = toEnabledDisplayTypes({
+    displayTypeListEnabled,
+    displayTypeGridEnabled,
+    displayTypeCalendarEnabled
+  });
+
+  return {
+    error: undefined,
+    results: contentItems,
+    queryCustomFields,
+    aggregations,
+    total,
+    hasMore,
+    isCurated,
+    tokenLabel,
+    resultsDisplayType,
+    enabledSorts,
+    enabledDisplayTypes,
+    resultContentTypes: contentTypes as GlobalTypes.ContentKind[],
+    displayStartDateEnabled,
+    displayAuthorsEnabled,
+    displayDescriptionOnCalendar,
+    contentTypeFilterEnabled,
+    displayBundle
+  };
 };

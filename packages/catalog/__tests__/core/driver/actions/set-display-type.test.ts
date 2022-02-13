@@ -8,8 +8,7 @@ describe('@thoughtindustries/catalog/CatalogDriver#getActions#setDisplayType', (
       displayType: GlobalTypes.ContentItemDisplayType.List
     };
     const { driver, stateAfterAction } = setupDriver({
-      initialState,
-      trackUrlState: false
+      initialState
     });
     const actions = driver.getActions();
     const newDisplayType = GlobalTypes.ContentItemDisplayType.Grid;
@@ -33,14 +32,11 @@ describe('@thoughtindustries/catalog/CatalogDriver#getActions#setDisplayType', (
       initialState: {
         ...initialState,
         displayType: initialDisplayType
-      },
-      skipInit: true,
-      trackUrlState: false
+      }
     });
     const actions = driver.getActions();
     const newDisplayType = GlobalTypes.ContentItemDisplayType.Grid;
 
-    await driver.init();
     await actions.setDisplayType(newDisplayType);
 
     expect(stateAfterAction.state).toEqual(expect.objectContaining(initialState));
@@ -60,14 +56,11 @@ describe('@thoughtindustries/catalog/CatalogDriver#getActions#setDisplayType', (
       initialState: {
         ...initialState,
         displayType: initialDisplayType
-      },
-      skipInit: true,
-      trackUrlState: false
+      }
     });
     const actions = driver.getActions();
     const newDisplayType = GlobalTypes.ContentItemDisplayType.Calendar;
 
-    await driver.init();
     await actions.setDisplayType(newDisplayType);
 
     expect(stateAfterAction.state).toEqual(

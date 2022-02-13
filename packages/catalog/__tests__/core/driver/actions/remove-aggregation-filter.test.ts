@@ -1,61 +1,29 @@
 import { GlobalTypes } from '@thoughtindustries/content';
-import { SortDirection, SortField } from '../../../../src';
+import { DEFAULT_STATE, SortDirection, SortField } from '../../../../src';
 import { setupDriver } from '../helper';
 
-// We mock this so no state is actually written to the URL
-jest.mock('../../../../src/core/driver/url-manager');
-import URLManager from '../../../../src/core/driver/url-manager';
-const mockURLManager = URLManager as jest.MockedClass<typeof URLManager>;
-
 describe('@thoughtindustries/catalog/CatalogDriver#getActions#removeAggregationFilter', () => {
-  beforeEach(() => {
-    jest.clearAllMocks();
-  });
-
-  it('should push state to url', async () => {
+  it('should update state and reset page', async () => {
     const filterToKeep = { label: 'label1', value: 'value1' };
     const filterToRemove = { label: 'label2', value: 'value2' };
     const initialState = {
-      aggregationFilters: [{ ...filterToKeep }, { ...filterToRemove }]
-    };
-    const { driver } = setupDriver({
-      initialState,
-      skipInit: true
-    });
-    const actions = driver.getActions();
-
-    await driver.init();
-    await actions.removeAggregationFilter(filterToRemove);
-
-    expect(mockURLManager.mock.instances[0].pushStateToURL).toHaveBeenCalledTimes(2);
-    expect(mockURLManager.mock.instances[0].pushStateToURL).toHaveBeenLastCalledWith(
-      expect.objectContaining({ aggregationFilters: [filterToKeep] }),
-      expect.objectContaining({ replaceUrl: undefined })
-    );
-  });
-
-  it('should update state', async () => {
-    const filterToKeep = { label: 'label1', value: 'value1' };
-    const filterToRemove = { label: 'label2', value: 'value2' };
-    const initialState = {
-      aggregationFilters: [{ ...filterToKeep }, { ...filterToRemove }]
+      aggregationFilters: [{ ...filterToKeep }, { ...filterToRemove }],
+      page: 3
     };
     const { driver, stateAfterAction } = setupDriver({
-      initialState,
-      skipInit: true
+      initialState
     });
     const actions = driver.getActions();
 
-    await driver.init();
     await actions.removeAggregationFilter(filterToRemove);
 
     expect(stateAfterAction.state?.aggregationFilters).toEqual([filterToKeep]);
+    expect(stateAfterAction.state?.page).toEqual(DEFAULT_STATE.page);
   });
 
   it('should not update other request state', async () => {
     const initialState = {
       searchTerm: 'test',
-      page: 3,
       token: 'abc',
       sort: { field: SortField.Title, direction: SortDirection.Asc },
       displayType: GlobalTypes.ContentItemDisplayType.Grid,
@@ -68,12 +36,10 @@ describe('@thoughtindustries/catalog/CatalogDriver#getActions#removeAggregationF
       initialState: {
         ...initialState,
         aggregationFilters
-      },
-      skipInit: true
+      }
     });
     const actions = driver.getActions();
 
-    await driver.init();
     await actions.removeAggregationFilter(filterToRemove);
 
     expect(stateAfterAction.state).toEqual(expect.objectContaining(initialState));
@@ -83,24 +49,14 @@ describe('@thoughtindustries/catalog/CatalogDriver#getActions#removeAggregationF
     const initialState = {
       aggregationFilters: [{ label: 'label1', value: 'value1' }]
     };
-    const { driver, stateAfterAction, mockOnSearch } = setupDriver({
-      initialState,
-      skipInit: true
+    const { driver, mockOnSearch } = setupDriver({
+      initialState
     });
     const actions = driver.getActions();
     const filterNonExist = { label: 'foo', value: 'bar' };
 
-    await driver.init();
     await actions.removeAggregationFilter(filterNonExist);
 
-    expect(mockOnSearch).toHaveBeenLastCalledWith(
-      expect.objectContaining({
-        variables: expect.objectContaining({
-          labels: ['label1'],
-          values: ['value1']
-        })
-      })
-    );
-    expect(stateAfterAction.state).toEqual(expect.objectContaining(initialState));
+    expect(mockOnSearch).toHaveBeenCalledTimes(0);
   });
 });

@@ -8,8 +8,7 @@ describe('@thoughtindustries/catalog/CatalogDriver#getActions#addContentType', (
       contentTypes: [GlobalTypes.ContentKind.Course]
     };
     const { driver, stateAfterAction } = setupDriver({
-      initialState,
-      trackUrlState: false
+      initialState
     });
     const actions = driver.getActions();
     const newContentType = GlobalTypes.ContentKind.Bundle;
@@ -32,14 +31,11 @@ describe('@thoughtindustries/catalog/CatalogDriver#getActions#addContentType', (
       displayType: GlobalTypes.ContentItemDisplayType.Grid
     };
     const { driver, stateAfterAction } = setupDriver({
-      initialState,
-      skipInit: true,
-      trackUrlState: false
+      initialState
     });
     const actions = driver.getActions();
     const newContentType = GlobalTypes.ContentKind.Bundle;
 
-    await driver.init();
     await actions.addContentType(newContentType);
 
     expect(stateAfterAction.state).toEqual(expect.objectContaining(initialState));
