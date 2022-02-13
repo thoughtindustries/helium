@@ -214,7 +214,7 @@ export type Query = {
 };
 
 export type QueryCatalogContentArgs = {
-  contentTypes?: InputMaybe<Array<ContentKind>>;
+  contentTypes?: InputMaybe<Array<Scalars['String']>>;
   labels?: InputMaybe<Array<Scalars['String']>>;
   layoutId?: InputMaybe<Scalars['ID']>;
   page: Scalars['Int'];

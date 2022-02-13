@@ -16,7 +16,7 @@ export type CatalogContentQueryVariables = Types.Exact<{
   token?: Types.InputMaybe<Types.Scalars['String']>;
   labels?: Types.InputMaybe<Array<Types.Scalars['String']> | Types.Scalars['String']>;
   values?: Types.InputMaybe<Array<Types.Scalars['String']> | Types.Scalars['String']>;
-  contentTypes?: Types.InputMaybe<Array<Types.ContentKind> | Types.ContentKind>;
+  contentTypes?: Types.InputMaybe<Array<Types.Scalars['String']> | Types.Scalars['String']>;
   query?: Types.InputMaybe<Types.Scalars['String']>;
 }>;
 
@@ -39,7 +39,7 @@ export const CatalogContentDocument = gql`
     $token: String
     $labels: [String!]
     $values: [String!]
-    $contentTypes: [ContentKind!]
+    $contentTypes: [String!]
     $query: String
   ) {
     CatalogContent(

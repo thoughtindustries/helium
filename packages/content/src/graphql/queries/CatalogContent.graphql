@@ -7,7 +7,7 @@ query CatalogContent(
   $token: String
   $labels: [String!]
   $values: [String!]
-  $contentTypes: [ContentKind!]
+  $contentTypes: [String!]
   $query: String
 ) {
   CatalogContent(
