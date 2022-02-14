@@ -1,8 +1,10 @@
 const express = require('express');
 const { createPageRenderer } = require('vite-plugin-ssr');
-const { initPageContext } = require('./../lib/init-page-context');
-const { fetchUserAndAppearance } = require('../lib/fetch-user-and-appearance');
-const { findTiInstance } = require('./../lib/find-ti-instance');
+const {
+  fetchUserAndAppearance,
+  findTiInstance,
+  initPageContext
+} = require('@thoughtindustries/helium-server');
 
 const isProduction = process.env.NODE_ENV === 'production';
 const root = `${__dirname}/..`;
@@ -20,7 +22,7 @@ async function startServer() {
   }
 
   const app = express();
-  const tiInstance = findTiInstance(instanceName);
+  const tiInstance = await findTiInstance(instanceName);
 
   if (!isProduction) {
     const expressPlayground = require('graphql-playground-middleware-express').default;

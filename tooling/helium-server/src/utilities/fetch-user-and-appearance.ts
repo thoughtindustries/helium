@@ -1,6 +1,4 @@
-const fetch = require('isomorphic-unfetch');
-
-module.exports = { fetchUserAndAppearance };
+import fetch from 'isomorphic-unfetch';
 
 const USER_QUERY = /* GraphQL */ `
   query UserAndAppearanceQuery {
@@ -45,7 +43,7 @@ const USER_QUERY = /* GraphQL */ `
   }
 `;
 
-async function fetchUserAndAppearance(tiInstance) {
+export default async function fetchUserAndAppearance(tiInstance: Record<string, string>) {
   let currentUser = {};
   let appearanceBlock = {};
 
