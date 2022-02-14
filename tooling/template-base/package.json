@@ -14,9 +14,7 @@
     "build:vite": "vite build && vite build --ssr",
     "build:worker": "wrangler build"
   },
-  "publishConfig": {
-    "access": "public"
-  },
+  "private": true,
   "dependencies": {
     "@apollo/client": "^3.5.4",
     "@cloudflare/kv-asset-handler": "^0.1.3",
