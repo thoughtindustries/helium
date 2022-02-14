@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.0.0-alpha.5](https://github.com/thoughtindustries/helium/compare/create-helium-app@1.0.0-alpha.4...create-helium-app@1.0.0-alpha.5) (2022-02-14)
+
+
+### Bug Fixes
+
+* revert to preversion script ([1565c80](https://github.com/thoughtindustries/helium/commit/1565c802c6c8f31f98de723c4b90797e2741774b))
+
+
+
+
+
 # [1.0.0-alpha.4](https://github.com/thoughtindustries/helium/compare/create-helium-app@1.0.0-alpha.3...create-helium-app@1.0.0-alpha.4) (2022-02-14)
 
 
