@@ -23,11 +23,7 @@ const ContactBlock = (props: ContactBlockProps): JSX.Element => {
   const description = contactDescription ? (
     <p className="font-medium text-sm leading-7 mb-4"> {contactDescription}</p>
   ) : (
-    <p className="font-medium text-sm leading-7 mb-4">
-      {' '}
-      Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus tristique metus nec sagittis
-      euismod lorem ipsum forte contiuum.
-    </p>
+    <p className="font-medium text-sm leading-7 mb-4"></p>
   );
   const nameBlock = (
     <div className="text-xs mb-4">
@@ -37,7 +33,7 @@ const ContactBlock = (props: ContactBlockProps): JSX.Element => {
       {contactSubtitle && <p className="mx-0 mb-0 mt-px"> {contactSubtitle} </p>}
     </div>
   );
-  const contactBloacStyle = {
+  const contactBlockStyle = {
     backgroundColor,
     color: textColor
   };
@@ -50,17 +46,11 @@ const ContactBlock = (props: ContactBlockProps): JSX.Element => {
     };
     if (url) anchorProps.href = url;
     if (contactEmail) anchorProps.href = 'mailto:' + contactEmail;
-    return actionText ? (
-      <button>
-        <a {...anchorProps}>{actionText}</a>
-      </button>
-    ) : (
-      ''
-    );
+    return actionText ? <a {...anchorProps}>{actionText}</a> : '';
   };
   const button = getButton();
   return (
-    <div className="px-4 py-12 text-center" style={contactBloacStyle}>
+    <div className="px-4 py-12 text-center" style={contactBlockStyle}>
       <div className="row">
         <div className="w-8/12 md:w-6/12 float-none mx-auto px-4 relative">
           {image}

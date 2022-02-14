@@ -7,7 +7,7 @@ export interface ContactBlockProps {
   contactSubtitle?: string;
   /** Contact discription displayed contact block */
   contactDescription?: string;
-  /** Contact email selection in CTA dropdonw */
+  /** Contact email selection in CTA dropdown */
   contactEmail?: string;
   /** CTA button text for contact block */
   actionText?: string;

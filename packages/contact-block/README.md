@@ -1,11 +1,11 @@
-# `@thoughtindustries/Contact-Block`
+# `@thoughtindustries/contact-block`
 
-> a ContactBlock is a block of information used to display contact information, Normaly placed towards the bottom of a web page, above on in the footer. It often consists of information that can be used to contact the sites owners or admins.
+> A Contact Block is a block of information used to display contact information. Normally placed towards the bottom of a web page, above on in the footer. It often consists of information that can be used to contact the sites owners or admins..
 
 ## Import component
 
 ```
-import { ContactBlock } from '@thoughtindustries/ContactBlock';
+import { ContactBlock } from '@thoughtindustries/contact-block';
 ```
 
 ## Usage
