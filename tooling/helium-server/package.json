@@ -1,0 +1,48 @@
+{
+  "name": "@thoughtindustries/helium-server",
+  "version": "1.0.0",
+  "description": "Packages needed for running Helium Server",
+  "publishConfig": {
+    "access": "public"
+  },
+  "main": "./dist/index.js",
+  "module": "./dist/index.mjs",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "require": "./dist/index.js",
+      "import": "./dist/index.mjs",
+      "types": "./dist/index.d.ts"
+    },
+    "./mdx": "./mdx/mdx.js"
+  },
+  
+  "scripts": {
+    "build": "tsup src/index.ts --format cjs,esm --dts --clean",
+    "watch": "npm run build -- --watch src",
+    "prepublishOnly": "npm run build"
+  },
+  "files": [
+    "src",
+    "mdx",
+    "worker",
+    "webpack.config.js"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/thoughtindustries/helium.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/thoughtindustries/helium/issues"
+  },
+  "homepage": "https://github.com/thoughtindustries/helium#readme",
+  "dependencies": {
+    "@apollo/client": "^3.5.8",
+    "isomorphic-unfetch": "^3.1.0"
+  },
+  "devDependencies": {
+    "tsup": "^5.11.13"
+  }
+}

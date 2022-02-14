@@ -5,7 +5,7 @@ import { FeaturedContentContentItem } from '../../types';
 
 interface ItemQueueButtonProps {
   item: FeaturedContentContentItem;
-  onClickAsync: (item: FeaturedContentContentItem) => Promise<void>;
+  onClickAsync: (item: FeaturedContentContentItem) => Promise<boolean | void>;
   classNames?: string;
 }
 

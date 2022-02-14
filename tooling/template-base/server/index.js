@@ -1,8 +1,10 @@
 const express = require('express');
 const { createPageRenderer } = require('vite-plugin-ssr');
-const { initPageContext } = require('./../lib/init-page-context');
-const { fetchUserAndAppearance } = require('../lib/fetch-user-and-appearance');
-const { findTiInstance } = require('./../lib/find-ti-instance');
+const {
+  fetchUserAndAppearance,
+  findTiInstance,
+  initPageContext
+} = require('@thoughtindustries/helium-server');
 
 const isProduction = process.env.NODE_ENV === 'production';
 const root = `${__dirname}/..`;
@@ -20,6 +22,7 @@ async function startServer() {
   }
 
   const app = express();
+  const tiInstance = await findTiInstance(instanceName);
 
   if (!isProduction) {
     const expressPlayground = require('graphql-playground-middleware-express').default;
@@ -28,12 +31,20 @@ async function startServer() {
     app.use(express.json());
 
     app.get('/graphiql', expressPlayground({ endpoint: '/graphql' }));
-    // proxy GraphQL Playground's requests because of CORS errors
+    // proxying graphql requests in dev environment because of CORS errors
     app.post('/graphql', async (req, res) => {
+      const reqBody = req.body;
+
+      if (Array.isArray(reqBody)) {
+        reqBody.push({ user: tiInstance.email });
+      } else {
+        reqBody.user = tiInstance.email;
+      }
+
       const options = {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(req.body)
+        body: JSON.stringify(reqBody)
       };
 
       fetch(heliumEndpoint, options)
@@ -61,13 +72,11 @@ async function startServer() {
   }
 
   const renderPage = createPageRenderer({ viteDevServer, isProduction, root });
-  let currentUser;
-  let appearanceBlock;
+  let currentUser = {};
+  let appearanceBlock = {};
 
   app.get('*', async (req, res, next) => {
-    const tiInstance = findTiInstance(instanceName);
-
-    if (!currentUser || !appearanceBlock) {
+    if (!currentUser.length || !appearanceBlock.length) {
       const userAndAppearance = await fetchUserAndAppearance(tiInstance);
       currentUser = userAndAppearance.currentUser;
       appearanceBlock = userAndAppearance.appearanceBlock;
