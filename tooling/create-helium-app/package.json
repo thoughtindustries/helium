@@ -16,7 +16,7 @@
     "template-base"
   ],
   "scripts": {
-    "prepack": "node ./scripts/tmp-copy-template-from-tooling.js"
+    "prepublishOnly": "node ./scripts/tmp-copy-template-from-tooling.js"
   },
   "dependencies": {
     "inquirer": "^8.2.0",
