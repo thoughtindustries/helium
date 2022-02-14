@@ -59,7 +59,7 @@ async function hydrate() {
 
 function makeApolloClient(
   heliumEndpoint: string,
-  apolloIntialState: Record<string, any>,
+  apolloInitialState: Record<string, any>,
   isProduction: boolean,
   authToken: string | undefined
 ) {
@@ -94,6 +94,6 @@ function makeApolloClient(
 
   return new ApolloClient({
     link,
-    cache: new InMemoryCache().restore(apolloIntialState)
+    cache: new InMemoryCache().restore(apolloInitialState)
   });
 }
