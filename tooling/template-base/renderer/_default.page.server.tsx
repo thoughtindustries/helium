@@ -15,7 +15,7 @@ export { onBeforeRender };
 export const passToClient = [
   'pageProps',
   'urlPathname',
-  'apolloIntialState',
+  'apolloInitialState',
   'heliumEndpoint',
   'appearance',
   'documentProps',
@@ -73,7 +73,7 @@ async function onBeforeRender(pageContext: PageContext) {
   );
 
   const pageHtml = await renderToStringWithData(App);
-  const apolloIntialState = apolloClient.extract();
+  const apolloInitialState = apolloClient.extract();
 
-  return { pageContext: { pageHtml, apolloIntialState, documentProps, queryParams, authToken } };
+  return { pageContext: { pageHtml, apolloInitialState, documentProps, queryParams, authToken } };
 }

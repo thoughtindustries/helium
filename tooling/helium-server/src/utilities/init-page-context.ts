@@ -56,33 +56,37 @@ function makeApolloClient(
   });
 
   if (isProduction && sha256) {
-    link = createPersistedQueryLink({
-      sha256
-    }).concat(link);
+    link = link.concat(
+      createPersistedQueryLink({
+        sha256
+      })
+    );
   }
 
-  link = new BatchHttpLink({
-    uri: heliumEndpoint,
-    fetch: (uri, options: RequestInit | undefined) => {
-      let endpoint = uri;
+  link = link.concat(
+    new BatchHttpLink({
+      uri: heliumEndpoint,
+      fetch: (uri, options: RequestInit | undefined) => {
+        let endpoint = uri;
 
-      if (!isProduction) {
-        // proxy mutations in dev to avoid CORS errors
-        const reqBody =
-          options && options.body && typeof options.body === 'string' ? options.body : null;
+        if (!isProduction) {
+          // proxy mutations in dev to avoid CORS errors
+          const reqBody =
+            options && options.body && typeof options.body === 'string' ? options.body : null;
 
-        if (reqBody) {
-          const body = JSON.parse(reqBody);
-          const hasMutation = body.some((doc: Record<string, string>) =>
-            doc.query.includes('mutation ')
-          );
-          endpoint = hasMutation ? '/graphql' : uri;
+          if (reqBody) {
+            const body = JSON.parse(reqBody);
+            const hasMutation = body.some((doc: Record<string, string>) =>
+              doc.query.includes('mutation ')
+            );
+            endpoint = hasMutation ? '/graphql' : uri;
+          }
         }
-      }
 
-      return fetch(endpoint, options);
-    }
-  }).concat(link);
+        return fetch(endpoint, options);
+      }
+    })
+  );
 
   return new ApolloClient({
     ssrMode: true,
