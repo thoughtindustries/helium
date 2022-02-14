@@ -1,6 +1,6 @@
 {
   "name": "@thoughtindustries/helium-server",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Packages needed for running Helium Server",
   "publishConfig": {
     "access": "public"
@@ -16,7 +16,6 @@
     },
     "./mdx": "./mdx/mdx.js"
   },
-  
   "scripts": {
     "build": "tsup src/index.ts --format cjs,esm --dts --clean",
     "watch": "npm run build -- --watch src",
