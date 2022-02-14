@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.1.0-alpha.4](https://github.com/thoughtindustries/helium/compare/@thoughtindustries/helium-template@1.1.0-alpha.3...@thoughtindustries/helium-template@1.1.0-alpha.4) (2022-02-14)
+
+
+### Bug Fixes
+
+* template-base publishConfig ([ab3a0dd](https://github.com/thoughtindustries/helium/commit/ab3a0ddfce4693607622be5770327eff492f31d0))
+
+
+
+
+
 # [1.1.0-alpha.3](https://github.com/thoughtindustries/helium/compare/@thoughtindustries/helium-template@1.1.0-alpha.2...@thoughtindustries/helium-template@1.1.0-alpha.3) (2022-02-14)
 
 
