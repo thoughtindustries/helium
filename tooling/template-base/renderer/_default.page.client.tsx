@@ -63,34 +63,43 @@ function makeApolloClient(
   isProduction: boolean,
   authToken: string | undefined
 ) {
-  let link = new BatchHttpLink({
-    uri: heliumEndpoint,
-    fetch: (uri, options) => {
-      let endpoint = uri;
-
-      if (!isProduction) {
-        // proxy mutations in dev to avoid CORS errors
-        const body = JSON.parse(options.body);
-        const hasMutation = body.some(doc => doc.query.includes('mutation '));
-        endpoint = hasMutation ? '/graphql' : uri;
+  let link = setContext((_, { headers }) => {
+    return {
+      headers: {
+        ...headers,
+        authToken: authToken ? `${authToken}` : ''
       }
-
-      return fetch(endpoint, options);
-    }
+    };
   });
 
   if (isProduction) {
-    const persistedLink = createPersistedQueryLink({ sha256 }).concat(link);
-    link = setContext((_, { headers }) => {
-      // return the headers to the context so httpLink can read them
-      return {
-        headers: {
-          ...headers,
-          authToken: authToken ? `${authToken}` : ''
-        }
-      };
-    }).concat(persistedLink);
+    link = link.concat(createPersistedQueryLink({ sha256 }));
   }
+
+  link = link.concat(
+    new BatchHttpLink({
+      uri: heliumEndpoint,
+      fetch: (uri, options: RequestInit | undefined) => {
+        let endpoint = uri;
+
+        if (!isProduction) {
+          // proxy mutations in dev to avoid CORS errors
+          const reqBody =
+            options && options.body && typeof options.body === 'string' ? options.body : null;
+
+          if (reqBody) {
+            const body = JSON.parse(reqBody);
+            const hasMutation = body.some((doc: Record<string, string>) =>
+              doc.query.includes('mutation ')
+            );
+            endpoint = hasMutation ? '/graphql' : uri;
+          }
+        }
+
+        return fetch(endpoint, options);
+      }
+    })
+  );
 
   return new ApolloClient({
     link,
