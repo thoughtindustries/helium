@@ -27,4 +27,5 @@ export type HydratedContentItem = ContentItem & {
   href: string;
   priceInCents?: number;
   suggestedRetailPriceInCents?: number;
+  displayCourse?: string;
 };

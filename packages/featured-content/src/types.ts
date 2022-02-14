@@ -35,7 +35,7 @@ export interface FeaturedContentContentProps {
   /** options to display header */
   headerOptions?: HeaderOptions;
   /** add applicaple item to queue event handler */
-  onAddedToQueue: (item: FeaturedContentContentItem) => Promise<void>;
+  onAddedToQueue: (item: FeaturedContentContentItem) => Promise<boolean | void>;
   /** optional on item click event handler */
   onClick?: (evt: SyntheticEvent, item: FeaturedContentContentItem) => void;
   /** children */
@@ -70,7 +70,7 @@ interface FeaturedContentBaseContextType {
   /** row item count in desktop view */
   desktopColumnCount: number;
   /** add applicaple item to queue event handler */
-  onAddedToQueue: (item: FeaturedContentContentItem) => Promise<void>;
+  onAddedToQueue: (item: FeaturedContentContentItem) => Promise<boolean | void>;
   /** optional on item click event handler */
   onClick?: (evt: SyntheticEvent, item: FeaturedContentContentItem) => void;
 }

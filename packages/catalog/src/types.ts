@@ -16,7 +16,7 @@ export type CatalogResultItem = HydratedContentItem;
 
 export interface CatalogResultsProps {
   companyHasSessionLevelCustomFieldsFeature?: boolean;
-  onAddedToQueue: (item: CatalogResultItem) => Promise<void>;
+  onAddedToQueue: (item: CatalogResultItem) => Promise<boolean | void>;
   /** optional on item click event handler */
   onClick?: (evt: SyntheticEvent, item: CatalogResultItem) => void;
 }

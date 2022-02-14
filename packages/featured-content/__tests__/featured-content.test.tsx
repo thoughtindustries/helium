@@ -94,7 +94,7 @@ const mockApolloResults = {
   }
 };
 
-const handleAddedToQueue = (): Promise<void> => {
+const handleAddedToQueue = (): Promise<boolean | void> => {
   return Promise.resolve();
 };
 

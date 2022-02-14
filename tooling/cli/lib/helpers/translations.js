@@ -28,11 +28,11 @@ const fetchTranslations = async instance => {
     fetch(endpoint, options)
       .then(r => r.json())
       .then(res => {
-        const resObj = res[0];
+        const resObj = res;
         if (resObj.data && resObj.data.CompanyTranslations) {
           resolve(resObj.data.CompanyTranslations);
         } else {
-          const err = resObj.errors[0];
+          const err = resObj.errors;
           reject(err.message);
         }
         resolve(res);

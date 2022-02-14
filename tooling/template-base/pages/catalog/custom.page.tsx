@@ -1,7 +1,12 @@
 import React, { useMemo } from 'react';
 
 import { usePageContext } from '../../renderer/usePageContext';
-import { CatalogResults, Catalog, CatalogProvider } from '@thoughtindustries/catalog';
+import {
+  CatalogResults,
+  Catalog,
+  CatalogProvider,
+  CatalogResultItem
+} from '@thoughtindustries/catalog';
 import { useAddResourceToQueueMutation } from '@thoughtindustries/content';
 
 export { Page };
@@ -30,18 +35,22 @@ function Page() {
   );
 
   const [addResourceToQueue] = useAddResourceToQueueMutation();
-  const handleAddedToQueue = ({ slug, kind, displayCourse }) => {
+  const handleAddedToQueue = ({ slug, kind, displayCourse }: CatalogResultItem) => {
     const resourceId = displayCourse || slug;
     return resourceId
       ? addResourceToQueue({ variables: { resourceId, resourceType: kind } }).then()
       : Promise.resolve(undefined);
   };
 
+  const handleClick = (evt, item: CatalogResultItem) => {
+    console.log('clicked!', item);
+  };
+
   return (
     <>
       <CatalogProvider config={config}>
         <Catalog>
-          <CatalogResults onAddedToQueue={handleAddedToQueue} />
+          <CatalogResults onAddedToQueue={handleAddedToQueue} onClick={handleClick} />
         </Catalog>
       </CatalogProvider>
     </>

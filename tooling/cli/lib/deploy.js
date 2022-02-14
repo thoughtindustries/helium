@@ -186,7 +186,7 @@ async function getHeliumUploadData(instance) {
   let responseData = {};
   const launchData = await fetch(endpoint, options).then(r => r.json());
 
-  if (launchData && launchData[0] && launchData.data) {
+  if (launchData && launchData.data) {
     const {
       data: {
         HeliumLaunchData: { key, signedUrl }
