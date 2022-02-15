@@ -12,7 +12,8 @@ const { copy } = require('./scripts/utils');
 const cwd = process.cwd();
 
 const renameFiles = {
-  _gitignore: '.gitignore'
+  _gitignore: '.gitignore',
+  __npmrc: '.npmrc'
 };
 
 async function init() {
