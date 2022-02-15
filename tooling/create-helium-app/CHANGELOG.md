@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.0.0-alpha.8](https://github.com/thoughtindustries/helium/compare/create-helium-app@1.0.0-alpha.7...create-helium-app@1.0.0-alpha.8) (2022-02-15)
+
+
+### Bug Fixes
+
+* remove package-lock.json, add __npmrc file ([493b162](https://github.com/thoughtindustries/helium/commit/493b16254edcc8c5b707921465b4fdda9a2f21e3))
+
+
+
+
+
 # [1.0.0-alpha.7](https://github.com/thoughtindustries/helium/compare/create-helium-app@1.0.0-alpha.6...create-helium-app@1.0.0-alpha.7) (2022-02-14)
 
 **Note:** Version bump only for package create-helium-app

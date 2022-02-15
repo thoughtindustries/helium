@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.1.0-alpha.6](https://github.com/thoughtindustries/helium/compare/@thoughtindustries/helium-template@1.1.0-alpha.5...@thoughtindustries/helium-template@1.1.0-alpha.6) (2022-02-15)
+
+
+### Bug Fixes
+
+* remove package-lock.json, add __npmrc file ([493b162](https://github.com/thoughtindustries/helium/commit/493b16254edcc8c5b707921465b4fdda9a2f21e3))
+
+
+
+
+
 # [1.1.0-alpha.5](https://github.com/thoughtindustries/helium/compare/@thoughtindustries/helium-template@1.1.0-alpha.4...@thoughtindustries/helium-template@1.1.0-alpha.5) (2022-02-14)
 
 **Note:** Version bump only for package @thoughtindustries/helium-template
