@@ -6,12 +6,8 @@
   "homepage": "https://github.com/thoughtindustries/helium#readme",
   "license": "ISC",
   "main": "src/index.ts",
-  "directories": {
-    "lib": "lib",
-    "test": "__tests__"
-  },
   "files": [
-    "lib"
+    "src"
   ],
   "repository": {
     "type": "git",
