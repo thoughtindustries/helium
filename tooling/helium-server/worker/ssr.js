@@ -2,7 +2,9 @@ import { createPageRenderer } from 'vite-plugin-ssr';
 import jwt_decode from 'jwt-decode';
 // We load `importBuild.js` so that the worker code can be bundled into a single file
 import '../dist/server/importBuild.js';
-import { initPageContext, findTiInstance } from '@thoughtindustries/helium-server';
+import { initPageContext } from '@thoughtindustries/helium-server';
+const tiConfigPath = './../ti-config.json';
+const tiConfig = require(tiConfigPath);
 
 export { handleSsr };
 
@@ -107,4 +109,18 @@ function assembleHeaders(pageContext) {
   }
 
   return headers;
+}
+
+function findTiInstance(instanceName) {
+  const { instances = [] } = tiConfig;
+  let instance = instances[0];
+
+  if (instanceName) {
+    const possibleMatch = instances.find(instance => instance.nickname === instanceName);
+    if (possibleMatch && possibleMatch.apiKey) {
+      instance = possibleMatch;
+    }
+  }
+
+  return instance;
 }
