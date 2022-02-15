@@ -20,10 +20,8 @@ const ContactBlock = (props: ContactBlockProps): JSX.Element => {
       <img src={asset} alt={contactName} />
     </span>
   );
-  const description = contactDescription ? (
+  const description = contactDescription && (
     <p className="font-medium text-sm leading-7 mb-4"> {contactDescription}</p>
-  ) : (
-    <p className="font-medium text-sm leading-7 mb-4"></p>
   );
   const nameBlock = (
     <div className="text-xs mb-4">
@@ -41,7 +39,7 @@ const ContactBlock = (props: ContactBlockProps): JSX.Element => {
   const getButton = () => {
     const anchorProps: { className: string; href?: string; target?: string } = {
       className:
-        'text-white bg-indigo-700 hover:bg-indigo-600  rounded-sm border-solid border cursor-pointer inline-block font-normal text-sm leading-tight py-2 px-5 relative text-center no-underline ease-in-out duration-200 transition font-sans mx-auto mb-0',
+        'text-white bg-indigo-700 hover:bg-indigo-600 rounded-sm border-solid border cursor-pointer inline-block font-normal text-sm leading-tight py-2 px-5 relative text-center no-underline ease-in-out duration-200 transition font-sans mx-auto mb-0',
       target: linkOpenInNewTab ? '_blank' : ''
     };
     if (url) anchorProps.href = url;

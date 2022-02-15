@@ -50,7 +50,7 @@ describe('@thoughtindustries/contact-block', () => {
                 </p>
               </div>
               <a
-                class="text-white bg-indigo-700 hover:bg-indigo-600  rounded-sm border-solid border cursor-pointer inline-block font-normal text-sm leading-tight py-2 px-5 relative text-center no-underline ease-in-out duration-200 transition font-sans mx-auto mb-0"
+                class="text-white bg-indigo-700 hover:bg-indigo-600 rounded-sm border-solid border cursor-pointer inline-block font-normal text-sm leading-tight py-2 px-5 relative text-center no-underline ease-in-out duration-200 transition font-sans mx-auto mb-0"
                 href="mailto:fakeemail@gmail.com"
                 target="_blank"
               >
