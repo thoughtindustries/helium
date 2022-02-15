@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.1.0-alpha.8](https://github.com/thoughtindustries/helium/compare/@thoughtindustries/helium-template@1.1.0-alpha.7...@thoughtindustries/helium-template@1.1.0-alpha.8) (2022-02-15)
+
+
+### Bug Fixes
+
+* update webpack.config.js ([6355e0e](https://github.com/thoughtindustries/helium/commit/6355e0ec1ea8118d8231be37fe096dbbbb85d2f5))
+
+
+
+
+
 # [1.1.0-alpha.7](https://github.com/thoughtindustries/helium/compare/@thoughtindustries/helium-template@1.1.0-alpha.6...@thoughtindustries/helium-template@1.1.0-alpha.7) (2022-02-15)
 
 **Note:** Version bump only for package @thoughtindustries/helium-template
