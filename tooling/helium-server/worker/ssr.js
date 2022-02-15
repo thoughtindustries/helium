@@ -3,8 +3,7 @@ import jwt_decode from 'jwt-decode';
 // We load `importBuild.js` so that the worker code can be bundled into a single file
 import '../dist/server/importBuild.js';
 import { initPageContext } from '@thoughtindustries/helium-server';
-const tiConfigPath = './../ti-config.json';
-const tiConfig = require(tiConfigPath);
+import tiConfig from 'tiConfig';
 
 export { handleSsr };
 
@@ -38,7 +37,7 @@ const create =
 const sha256 = create('SHA-256');
 
 async function handleSsr(url, authToken = null) {
-  const tiInstance = await findTiInstance(INSTANCE_NAME);
+  const tiInstance = findTiInstance(INSTANCE_NAME);
   const { currentUser, appearanceBlock } = decryptUserAndAppearance(url, tiInstance);
   const pageContext = await initPageContext(
     url,
