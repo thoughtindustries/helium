@@ -22,7 +22,7 @@ async function startServer() {
   }
 
   const app = express();
-  const tiInstance = findTiInstance(instanceName);
+  const tiInstance = await findTiInstance(instanceName);
 
   if (!isProduction) {
     const expressPlayground = require('graphql-playground-middleware-express').default;
