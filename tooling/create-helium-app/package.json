@@ -3,7 +3,7 @@
   "publishConfig": {
     "access": "public"
   },
-  "version": "0.0.2-alpha.3",
+  "version": "1.0.0-alpha.8",
   "main": "index.js",
   "license": "MIT",
   "bin": {
@@ -16,7 +16,7 @@
     "template-base"
   ],
   "scripts": {
-    "prepack": "node ./scripts/tmp-copy-template-from-tooling.js"
+    "prepublishOnly": "node ./scripts/tmp-copy-template-from-tooling.js"
   },
   "dependencies": {
     "inquirer": "^8.2.0",

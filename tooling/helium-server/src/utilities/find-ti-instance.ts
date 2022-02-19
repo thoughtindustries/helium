@@ -1,9 +1,9 @@
 import path from 'path';
-import fs from 'fs/promises';
+import fs from 'fs';
 
 export default async function findTiInstance(instanceName: string) {
   const configPath = `${path.join(process.cwd(), 'ti-config.json')}`;
-  const configJson = await fs.readFile(configPath, 'utf8');
+  const configJson = fs.readFileSync(configPath, 'utf8');
   const { instances = [] } = JSON.parse(configJson);
   let instance = instances[0];
 

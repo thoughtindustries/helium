@@ -1,7 +1,7 @@
 {
   "npmClient": "npm",
   "packages": [
-    "packages/**", "tooling/**"
+    "packages/*", "tooling/*"
   ],
   "command": {
     "publish": {
