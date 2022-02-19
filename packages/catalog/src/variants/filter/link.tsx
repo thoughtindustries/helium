@@ -1,10 +1,13 @@
 import React from 'react';
 import Wrapper from './wrapper';
+import RemoveIcon from './remove-icon';
 
 const FilterLink = ({ label, href }: { label: string; href: string }): JSX.Element => (
   <Wrapper>
-    <a href={href} className="catalog-active-filter__remove">
-      <i className="icon-delete" aria-label="remove"></i>
+    <a href={href} className="flex items-center gap-x-1 text-accent hover:text-link-hover">
+      <i aria-label="remove">
+        <RemoveIcon />
+      </i>
       {label}
     </a>
   </Wrapper>

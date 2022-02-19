@@ -1,6 +1,7 @@
 import React, { memo, ReactNode, useState } from 'react';
 import { useCatalogAggregations, useCatalogURLManager } from './core';
 import clsx from 'clsx';
+import { ArrowDownIcon, ArrowRightIcon } from './icons';
 
 type AggregationBucketProps = {
   href: string;
@@ -18,9 +19,12 @@ type AggregationProps = {
 const AggregationBucket = memo(
   ({ href, value, count }: AggregationBucketProps): JSX.Element => (
     <li>
-      <a href={href} className="btn btn--bare btn--inherit-font catalog-aggregation__value">
+      <a
+        href={href}
+        className="inline-block leading-normal py-1.5 px-4 text-link hover:text-link-hover"
+      >
         {value}
-        {count && <span className="catalog-aggregation__count">({count})</span>}
+        {count && <span className="text-xs text-gray-700 pl-1">({count})</span>}
       </a>
     </li>
   )
@@ -33,29 +37,30 @@ const Aggregation = memo(
     const handleToggle = () => {
       setIsExpanded(prevIsExpanded => !prevIsExpanded);
     };
-    const wrapperClassnames = isExpanded ? 'catalog-aggregation--expanded' : '';
+    const wrapperClassnames = isExpanded ? 'border-b mb-4 bg-gray-100' : '';
+    const buttonLinkClassnames =
+      'w-full leading-normal text-left transition-colors ease-in-out duration-200 bg-none text-accent hover:text-accent-hover flex items-center gap-4';
+    const listClassnames = !isExpanded ? 'hidden' : '';
     const ariaId = `catalog-aggregation-dropdown-${index}`;
     return (
-      <div className={clsx(['catalog-aggregation'], wrapperClassnames)}>
+      <div className={clsx(['border-t border-solid border-gray-400 py-3 px-2'], wrapperClassnames)}>
         <button
-          className="btn btn--link btn--inherit-font catalog-aggregation__header"
+          className={buttonLinkClassnames}
           onClick={handleToggle}
           aria-expanded={isExpanded}
           aria-labelledby={ariaId}
         >
-          <div className="row collapse">
-            <div className="column small-1">
-              <span className="catalog-aggregation__expander">
-                {isExpanded && <i className="icon-navigatedown"></i>}
-                {!isExpanded && <i className="icon-navigateright"></i>}
-              </span>
-            </div>
-            <div className="column small-11">
-              <span className="catalog-aggregation__header--label">{label}</span>
-            </div>
-          </div>
+          <span className="text-xl inline-block leading-4 text-center">
+            {isExpanded && <ArrowDownIcon />}
+            {!isExpanded && <ArrowRightIcon />}
+          </span>
+          <span className="font-semibold">{label}</span>
         </button>
-        <ul aria-hidden={!isExpanded} id={ariaId} className="unlist">
+        <ul
+          aria-hidden={!isExpanded}
+          id={ariaId}
+          className={clsx(['pl-6 text-sm'], listClassnames)}
+        >
           {aggregationBuckets}
         </ul>
       </div>

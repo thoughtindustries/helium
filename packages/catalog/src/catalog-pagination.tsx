@@ -2,6 +2,7 @@ import React from 'react';
 import { useCatalogPagination, useCatalogURLManager } from './core';
 import { PAGINATION_INNER_WINDOW, PAGINATION_MAX_PAGES } from './constants';
 import clsx from 'clsx';
+import { ArrowLeftIcon, ArrowRightIcon, DoubleArrowLeftIcon, DoubleArrowRightIcon } from './icons';
 
 type VisiblePage = {
   number: number;
@@ -136,37 +137,54 @@ const CatalogPagination = (): JSX.Element | null => {
   const { start, end } = getDisplayedPageRange(page, pageSize, total);
 
   // stylings
-  const pageBaseClassNames = 'pagination__controls-button';
-  const firstPageClassNames = clsx([pageBaseClassNames, 'first-page'], !hasPrevPage && 'disabled');
-  const prevPageClassNames = clsx(
-    [pageBaseClassNames, 'previous-page mr-2'],
-    !hasPrevPage && 'disabled'
+  const pageBaseClassnames =
+    'w-7 h-7 rounded-none border border-solid border-gray-400 bg-white flex items-center justify-center';
+  const disabledClassnames =
+    'cursor-default pointer-events-none text-gray-400 bg-gray-300 border-gray-300';
+  const enabledClassnames = 'text-gray-600';
+  const firstPageClassnames = clsx(
+    [pageBaseClassnames, 'rounded rounded-r-none border-r-0'],
+    !hasPrevPage ? disabledClassnames : enabledClassnames
   );
-  const nextPageClassNames = clsx(
-    [pageBaseClassNames, 'next-page ml-2'],
-    !hasNextPage && 'disabled'
+  const prevPageClassnames = clsx(
+    [pageBaseClassnames, 'rounded rounded-l-none border-r-1 mr-2'],
+    !hasPrevPage ? disabledClassnames : enabledClassnames
   );
-  const lastPageClassNames = clsx([pageBaseClassNames, 'last-page'], !hasNextPage && 'disabled');
+  const nextPageClassnames = clsx(
+    [pageBaseClassnames, 'rounded rounded-r-none border-r-0 ml-2'],
+    !hasNextPage ? disabledClassnames : enabledClassnames
+  );
+  const lastPageClassnames = clsx(
+    [pageBaseClassnames, 'rounded rounded-l-none border-r-1'],
+    !hasNextPage ? disabledClassnames : enabledClassnames
+  );
 
   // components
-  const visiblePagesContent = visiblePages.map(({ number, label, isActive, isFirst, isLast }) => (
-    <a
-      key={`catalog-page-${label}`}
-      href={urlManager.composeURLForSetPage(number)}
-      className={clsx(
-        [pageBaseClassNames, 'numbers'],
-        isActive && 'active',
-        isFirst && 'first-child',
-        isLast && 'last-child'
-      )}
-    >
-      {label}
-    </a>
-  ));
+  const visiblePagesContent = visiblePages.map(({ number, label, isActive, isFirst, isLast }) => {
+    const firstLastBorderClassnames = isFirst
+      ? 'border-l-1 border-r-0 rounded-r-none'
+      : 'border-r-1 border-l-0 rounded-l-none';
+    const borderClassnames =
+      isFirst || isLast ? clsx('rounded', firstLastBorderClassnames) : 'border-x-0';
+    return (
+      <a
+        key={`catalog-page-${label}`}
+        href={urlManager.composeURLForSetPage(number)}
+        className={clsx(
+          [pageBaseClassnames, borderClassnames],
+          isActive
+            ? 'cursor-default pointer-events-none bg-accent border-accent text-accent-contrast'
+            : 'text-gray-600'
+        )}
+      >
+        {label}
+      </a>
+    );
+  });
 
   return (
-    <div className="pagination mx-2 my-4 flex flex-wrap-reverse items-center justify-between">
-      <div className="pagination__left mt-2 flex items-center justify-start">
+    <div className="mx-2 my-4 flex flex-wrap-reverse items-center justify-between">
+      <div className="mt-2 flex items-center justify-start">
         <span>
           Showing{' '}
           <strong>
@@ -176,20 +194,36 @@ const CatalogPagination = (): JSX.Element | null => {
         </span>
       </div>
       {!!visiblePages.length && (
-        <div className="pagination__right mt-2 flex items-center justify-end">
-          <div className="pagination__controls flex justify-center">
-            <a href={urlManager.composeURLForSetPage(1)} className={firstPageClassNames}>
-              <i className="icon-rewind" aria-label="rewind"></i>
+        <div className="mt-2 flex items-center justify-end">
+          <div className="flex justify-center">
+            <a
+              href={urlManager.composeURLForSetPage(1)}
+              className={firstPageClassnames}
+              aria-label="rewind"
+            >
+              <DoubleArrowLeftIcon />
             </a>
-            <a href={urlManager.composeURLForSetPage(prevPage)} className={prevPageClassNames}>
-              <i className="icon-navigateleft" aria-label="navigateleft"></i>
+            <a
+              href={urlManager.composeURLForSetPage(prevPage)}
+              className={prevPageClassnames}
+              aria-label="navigateleft"
+            >
+              <ArrowLeftIcon />
             </a>
             {visiblePagesContent}
-            <a href={urlManager.composeURLForSetPage(nextPage)} className={nextPageClassNames}>
-              <i className="icon-navigateright" aria-label="navigateright"></i>
+            <a
+              href={urlManager.composeURLForSetPage(nextPage)}
+              className={nextPageClassnames}
+              aria-label="navigateright"
+            >
+              <ArrowRightIcon />
             </a>
-            <a href={urlManager.composeURLForSetPage(lastPage)} className={lastPageClassNames}>
-              <i className="icon-fastforward" aria-label="fastforward"></i>
+            <a
+              href={urlManager.composeURLForSetPage(lastPage)}
+              className={lastPageClassnames}
+              aria-label="fastforward"
+            >
+              <DoubleArrowRightIcon />
             </a>
           </div>
         </div>

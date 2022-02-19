@@ -1,5 +1,6 @@
 import React, { MouseEventHandler } from 'react';
 import Wrapper from './wrapper';
+import RemoveIcon from './remove-icon';
 
 const FilterButton = ({
   label,
@@ -9,11 +10,10 @@ const FilterButton = ({
   onClick: MouseEventHandler<HTMLButtonElement>;
 }): JSX.Element => (
   <Wrapper>
-    <button
-      onClick={onClick}
-      className="btn btn--link btn--inherit-font catalog-active-filter__remove"
-    >
-      <i className="icon-delete" aria-label="remove"></i>
+    <button onClick={onClick} className="flex items-center gap-x-1 hover:text-link-hover">
+      <i aria-label="remove">
+        <RemoveIcon />
+      </i>
       {label}
     </button>
   </Wrapper>

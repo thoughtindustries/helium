@@ -71,6 +71,11 @@ const CatalogResults = ({
   const { i18n, t } = useTranslation();
 
   // derived values
+  /**
+   * TODO: check if this description will be always undefined.
+   * When aggregation filters are applied, do server respond with aggregations
+   * different from the filters?
+   */
   let activeFilterDescription;
   if (aggregationFilters.length) {
     const { label: filterLabel, value: filterValue } = aggregationFilters[0];
@@ -92,7 +97,9 @@ const CatalogResults = ({
   const hasResults = !!hydratedResults.length;
 
   // components
-  const emptyResults = !hasResults && <div className="panel">{t('filter-no-courses')}</div>;
+  const emptyResults = !hasResults && (
+    <div className="bg-gray-100 text-gray-700 p-4 mb-4 rounded">{t('filter-no-courses')}</div>
+  );
   // TODO: port over ti-editor-content
   const activeFilter = !!activeFilterDescription && (
     <>

@@ -14,22 +14,22 @@ const Catalog: FC<CatalogProps> = (props: CatalogProps): JSX.Element => {
   return (
     <div className="w-full">
       {title && <Header title={title} alternateTitleDisplay={alternateTitleDisplay} />}
-      <div className="row">
-        <div className="medium-12 columns">
-          {!title && <h3 className="catalog-header">{t('catalog-search-header')}</h3>}
-          <CatalogFilters />
-        </div>
-      </div>
-      <div className="row">
+      {!title && <h3>{t('catalog-search-header')}</h3>}
+      <CatalogFilters />
+      <div className="w-full">
         <CatalogLoader>
-          <CatalogError>
-            <>
-              <div className="medium-3 columns">
-                <CatalogAggregations />
+          {targetRef => (
+            <CatalogError>
+              <div className="grid grid-cols-4 gap-4">
+                <div className="col-span-full md:col-span-1">
+                  <CatalogAggregations />
+                </div>
+                <div className="col-span-full md:col-span-3" ref={targetRef}>
+                  {children}
+                </div>
               </div>
-              <div className="medium-9 columns js-results-holder">{children}</div>
-            </>
-          </CatalogError>
+            </CatalogError>
+          )}
         </CatalogLoader>
       </div>
     </div>

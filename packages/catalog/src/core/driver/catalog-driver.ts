@@ -9,7 +9,6 @@ export default class CatalogDriver extends CatalogDriverBase {
   private readonly _actions;
   constructor(config: CatalogDriverConfig) {
     super(config);
-    console.log('CatalogDriver', config);
 
     this._actions = Object.entries(actions).reduce(
       (acc, [actionName, action]) => ({

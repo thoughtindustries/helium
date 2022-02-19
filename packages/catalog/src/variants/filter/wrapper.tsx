@@ -1,7 +1,7 @@
 import React, { FC } from 'react';
 
 const FilterWrapper: FC = ({ children }) => (
-  <span className="catalog-active-filter">{children}</span>
+  <span className="py-3 ml-1 inline-block">{children}</span>
 );
 
 FilterWrapper.displayName = 'FilterWrapper';
