@@ -1,53 +1,22 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { format } from 'date-fns';
-import { CatalogResultItem, CatalogResultItemRibbon, CatalogResultsProps } from '../../types';
+import { CatalogResultItem, CatalogResultsProps } from '../../types';
 import ItemLinkWrapper from './item-link-wrapper';
 import ItemAssetBlock from './item-asset-block';
 import ItemQueueButton from './item-queue-button';
+import ItemRibbon from './item-ribbon';
 import { CheckIcon } from './icons';
 import { priceFormat } from './utilities';
+import { CatalogResultsState } from '../../core';
 
-type DisplayTypeResultsListProps = Pick<CatalogResultsProps, 'onClick' | 'onAddedToQueue'> & {
-  displayStartDateEnabled: boolean;
-  items: CatalogResultItem[];
-};
+type DisplayTypeResultsListProps = Pick<CatalogResultsProps, 'onClick' | 'onAddedToQueue'> &
+  Pick<CatalogResultsState, 'displayStartDateEnabled'> & {
+    items: CatalogResultItem[];
+  };
 
 type DisplayTypeResultsListItemProps = Omit<DisplayTypeResultsListProps, 'items'> & {
   item: CatalogResultItem;
-};
-
-// TODO: might consider extracting as common component
-const ItemRibbon = ({
-  ribbon,
-  attached
-}: {
-  ribbon: CatalogResultItemRibbon;
-  attached: boolean;
-}) => {
-  const { contrastColor, color, darkerColor, label } = ribbon;
-  const wrapperStyles = {
-    color: contrastColor,
-    backgroundColor: color
-  };
-  const wrapperClassnames = `text-xs font-normal leading-none absolute right-0 uppercase max-w-1/2 overflow-ellipsis z-10 px-1.5 py-1 whitespace-no-wrap ${
-    attached ? '-right-2 -top-5' : '-top-1'
-  }`;
-  const cornerStyles = {
-    borderTopColor: darkerColor,
-    borderLeftColor: darkerColor
-  };
-  return (
-    <div className={wrapperClassnames} style={wrapperStyles}>
-      {attached && (
-        <div
-          className="absolute right-0 top-full block h-0 w-0 border-4 border-solid border-transparent"
-          style={cornerStyles}
-        ></div>
-      )}
-      {label}
-    </div>
-  );
 };
 
 const ItemSourceBlock = ({
@@ -143,6 +112,7 @@ const DisplayTypeResultsListItem = ({
   const ctaColumnClassnames = 'col-span-full md:col-span-3';
   const ctaClassnames =
     'bg-accent hover:bg-accent-hover border border-solid border-accent hover:border-accent-hover rounded-sm font-normal font-secondary text-accent-contrast text-sm text-center no-underline leading-none cursor-pointer inline-block relative transition-colors ease-in-out duration-200 py-1 px-3 table mx-auto';
+  const ribbonAttachedClassnames = '-top-5';
 
   return (
     <ItemLinkWrapper onClick={onClick} item={item}>
@@ -175,7 +145,9 @@ const DisplayTypeResultsListItem = ({
         </div>
 
         <div className="relative">
-          {showCallToAction && ribbon && <ItemRibbon ribbon={ribbon} attached />}
+          {showCallToAction && ribbon && (
+            <ItemRibbon ribbon={ribbon} attached attachedClassnames={ribbonAttachedClassnames} />
+          )}
           <div className="row collapse grid grid-cols-12 gap-4">
             {asset && (
               <div className={imageColumnClassnames}>

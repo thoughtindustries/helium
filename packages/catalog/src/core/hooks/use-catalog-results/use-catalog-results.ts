@@ -14,6 +14,7 @@ export default function useCatalogResults() {
     results,
     queryCustomFields,
     displayBundle,
+    displayAuthorsEnabled,
     displayStartDateEnabled,
     displayDescriptionOnCalendar
   }: CatalogResultsState) => ({
@@ -27,6 +28,7 @@ export default function useCatalogResults() {
     results,
     queryCustomFields,
     displayBundle,
+    displayAuthorsEnabled,
     displayStartDateEnabled,
     displayDescriptionOnCalendar
   });

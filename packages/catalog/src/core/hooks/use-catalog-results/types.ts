@@ -12,6 +12,7 @@ export type CatalogResultsState = Pick<
   | 'results'
   | 'queryCustomFields'
   | 'displayBundle'
+  | 'displayAuthorsEnabled'
   | 'displayStartDateEnabled'
   | 'displayDescriptionOnCalendar'
 >;

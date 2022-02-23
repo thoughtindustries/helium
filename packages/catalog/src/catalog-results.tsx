@@ -14,6 +14,7 @@ const DisplayTypeResults = ({
   activeDisplayType,
   hydratedResults,
   displayBundle,
+  displayAuthorsEnabled,
   displayStartDateEnabled,
   displayDescriptionOnCalendar,
   onClick,
@@ -22,6 +23,7 @@ const DisplayTypeResults = ({
   activeDisplayType: GlobalTypes.ContentItemDisplayType;
   hydratedResults: HydratedContentItem[];
   displayBundle: CatalogResultsState['displayBundle'];
+  displayAuthorsEnabled: CatalogResultsState['displayAuthorsEnabled'];
   displayStartDateEnabled: CatalogResultsState['displayStartDateEnabled'];
   displayDescriptionOnCalendar: CatalogResultsState['displayDescriptionOnCalendar'];
   onClick: CatalogResultsProps['onClick'];
@@ -39,7 +41,8 @@ const DisplayTypeResults = ({
       return <DisplayTypeResultsList {...props} />;
     }
     case GlobalTypes.ContentItemDisplayType.Grid: {
-      return <DisplayTypeResultsGrid {...baseProps} />;
+      props = { ...baseProps, displayAuthorsEnabled, displayStartDateEnabled, displayBundle };
+      return <DisplayTypeResultsGrid {...props} />;
     }
     case GlobalTypes.ContentItemDisplayType.Calendar: {
       props = { ...baseProps, displayDescriptionOnCalendar };
@@ -65,6 +68,7 @@ const CatalogResults = ({
     results,
     queryCustomFields,
     displayBundle,
+    displayAuthorsEnabled,
     displayStartDateEnabled,
     displayDescriptionOnCalendar
   } = useCatalogResults();
@@ -110,6 +114,7 @@ const CatalogResults = ({
   const resultsProps = {
     hydratedResults,
     displayBundle,
+    displayAuthorsEnabled,
     displayStartDateEnabled,
     displayDescriptionOnCalendar,
     onClick,
