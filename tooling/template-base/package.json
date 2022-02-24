@@ -1,6 +1,6 @@
 {
   "name": "@thoughtindustries/helium-template",
-  "version": "1.1.0-alpha.8",
+  "version": "1.1.0-alpha.9",
   "scripts": {
     "authenticate": "helium authenticate",
     "deploy": "helium deploy",
@@ -45,7 +45,7 @@
     "vite-plugin-ssr": "^0.3.2"
   },
   "devDependencies": {
-    "@thoughtindustries/helium": "^1.1.0-alpha.2",
+    "@thoughtindustries/helium": "^1.1.0-alpha.3",
     "graphql-playground-middleware-express": "^1.7.23",
     "typescript": "^4.5.5"
   },
