@@ -92,9 +92,11 @@ async function init() {
   const usesYarn = pkgManager === 'yarn' || process.env.LOCAL;
 
   console.log(`  ${usesYarn ? `yarn` : `npm install`}`);
+
+  const authCommand = `${pkgManager} run authenticate`;
   console.log(
     `\n Finally, run ${yellow(
-      'helium authenticate'
+      authCommand
     )} to authenticate against your Thought Industries instance.`
   );
 }
