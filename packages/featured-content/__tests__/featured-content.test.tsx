@@ -205,7 +205,7 @@ describe('@thoughtindustries/featured-content', () => {
                             <span
                               class="text-xs text-gray-700"
                             >
-                              01/01/2020
+                              12/31/2019
                             </span>
                           </p>
                           <div

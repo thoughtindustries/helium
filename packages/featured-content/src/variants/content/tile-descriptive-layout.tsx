@@ -1,6 +1,6 @@
 import React, { createContext, useContext, useMemo } from 'react';
-import { format } from 'date-fns';
 import clsx from 'clsx';
+import { formatTime } from '@thoughtindustries/content';
 import {
   FeaturedContentContentProps,
   FeaturedContentContentItemProps,
@@ -57,11 +57,21 @@ const ContentTileDescriptiveLayout = ({
   );
 };
 
-const ItemTitleBlock = ({ title, courseStartDate }: { title?: string; courseStartDate?: Date }) => (
+const ItemTitleBlock = ({
+  title,
+  courseStartDate,
+  timeZone
+}: {
+  title?: string;
+  courseStartDate?: string;
+  timeZone?: string;
+}) => (
   <>
     {title && <p className="mt-4 mb-0 text-base font-bold">{title}</p>}
     {courseStartDate && (
-      <div className="text-xs mb-1 text-gray-700">{format(courseStartDate, 'MM/dd/yyyy')}</div>
+      <div className="text-xs mb-1 text-gray-700">
+        {formatTime(courseStartDate, timeZone, 'MM/DD/YYYY')}
+      </div>
     )}
   </>
 );
@@ -82,7 +92,7 @@ const ItemSourceBlock = ({
 
 const Item = ({ ...item }: FeaturedContentContentItemProps): JSX.Element => {
   const { asset, title, description } = item;
-  const { courseStartDate, contentTypeLabel, source, authors, canAddToQueue } =
+  const { courseStartDate, contentTypeLabel, source, authors, canAddToQueue, timeZone } =
     item as FeaturedContentHydratedContentItem;
   const { onAddedToQueue, onClick, desktopColumnCount } = useContentTileDescriptiveLayoutContext();
 
@@ -102,7 +112,7 @@ const Item = ({ ...item }: FeaturedContentContentItemProps): JSX.Element => {
             <ItemAssetBlock asset={asset} />
           </div>
           <div className="p-2.5">
-            <ItemTitleBlock title={title} courseStartDate={courseStartDate} />
+            <ItemTitleBlock title={title} courseStartDate={courseStartDate} timeZone={timeZone} />
             <ItemSourceBlock contentTypeLabel={contentTypeLabel} source={source} />
             {displayAuthors && <p className="text-xs mb-1 text-gray-700">{displayAuthors}</p>}
             {description && (
