@@ -1,6 +1,6 @@
 import React, { Children, createContext, useContext, useMemo } from 'react';
-import { format } from 'date-fns';
 import clsx from 'clsx';
+import { formatTime } from '@thoughtindustries/content';
 import {
   FeaturedContentContentProps,
   FeaturedContentContentItemProps,
@@ -83,11 +83,21 @@ const ContentMultiCarousel = ({
   );
 };
 
-const ItemTitleBlock = ({ title, courseStartDate }: { title?: string; courseStartDate?: Date }) => (
+const ItemTitleBlock = ({
+  title,
+  courseStartDate,
+  timeZone
+}: {
+  title?: string;
+  courseStartDate?: string;
+  timeZone?: string;
+}) => (
   <>
     {title && <h4 className="text-sm font-bold mb-2">{title}</h4>}
     {courseStartDate && (
-      <div className="text-xs text-gray-700 mb-1.5">{format(courseStartDate, 'MM/dd/yyyy')}</div>
+      <div className="text-xs text-gray-700 mb-1.5">
+        {formatTime(courseStartDate, timeZone, 'MM/DD/YYYY')}
+      </div>
     )}
   </>
 );
@@ -128,8 +138,15 @@ const itemClassnameByDesktopColumnCount = (desktopColumnCount: number): string =
 
 const Item = ({ ...item }: FeaturedContentContentItemProps): JSX.Element => {
   const { asset, title, description } = item;
-  const { courseStartDate, contentTypeLabel, source, authors, canAddToQueue, isCompleted } =
-    item as FeaturedContentHydratedContentItem;
+  const {
+    courseStartDate,
+    contentTypeLabel,
+    source,
+    authors,
+    canAddToQueue,
+    isCompleted,
+    timeZone
+  } = item as FeaturedContentHydratedContentItem;
   const { onAddedToQueue, onClick, desktopColumnCount } = useContentMultiCarouselContext();
 
   const classNames = clsx([
@@ -147,7 +164,7 @@ const Item = ({ ...item }: FeaturedContentContentItemProps): JSX.Element => {
             <ItemAssetBlock asset={asset} classNames="p-2.5 pb-0" />
           </div>
           <div className="text-center py-3 px-1">
-            <ItemTitleBlock title={title} courseStartDate={courseStartDate} />
+            <ItemTitleBlock title={title} courseStartDate={courseStartDate} timeZone={timeZone} />
             <ItemSourceBlock contentTypeLabel={contentTypeLabel} source={source} />
             {displayAuthors && <p className="text-xs mb-1 text-gray-700">{displayAuthors}</p>}
             {description && (

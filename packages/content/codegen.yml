@@ -7,7 +7,7 @@ config:
   inlineFragmentTypes: 'combine'
   scalars:
     Slug: 'string'
-    Date: 'Date'
+    Date: 'string'
     JSON: 'JSON'
     AbsoluteOrRelativeURL: 'string'
     HexColor: 'string'

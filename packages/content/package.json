@@ -32,8 +32,7 @@
   },
   "dependencies": {
     "@apollo/client": "^3.5.4",
-    "date-fns": "^2.25.0",
-    "date-fns-tz": "^1.2.2",
+    "dayjs": "^1.10.8",
     "graphql": "^16.0.0",
     "i18next": "^21.5.2"
   }
