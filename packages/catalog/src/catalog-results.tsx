@@ -17,6 +17,7 @@ const DisplayTypeResults = ({
   displayAuthorsEnabled,
   displayStartDateEnabled,
   displayDescriptionOnCalendar,
+  companyTimeZone,
   onClick,
   onAddedToQueue
 }: {
@@ -26,26 +27,32 @@ const DisplayTypeResults = ({
   displayAuthorsEnabled: CatalogResultsState['displayAuthorsEnabled'];
   displayStartDateEnabled: CatalogResultsState['displayStartDateEnabled'];
   displayDescriptionOnCalendar: CatalogResultsState['displayDescriptionOnCalendar'];
+  companyTimeZone: CatalogResultsProps['companyTimeZone'];
   onClick: CatalogResultsProps['onClick'];
   onAddedToQueue: CatalogResultsProps['onAddedToQueue'];
 }): JSX.Element => {
   const baseProps = {
     items: hydratedResults,
-    onClick,
     onAddedToQueue
   };
   let props;
   switch (activeDisplayType) {
     case GlobalTypes.ContentItemDisplayType.List: {
-      props = { ...baseProps, displayStartDateEnabled };
+      props = { ...baseProps, onClick, displayStartDateEnabled };
       return <DisplayTypeResultsList {...props} />;
     }
     case GlobalTypes.ContentItemDisplayType.Grid: {
-      props = { ...baseProps, displayAuthorsEnabled, displayStartDateEnabled, displayBundle };
+      props = {
+        ...baseProps,
+        onClick,
+        displayAuthorsEnabled,
+        displayStartDateEnabled,
+        displayBundle
+      };
       return <DisplayTypeResultsGrid {...props} />;
     }
     case GlobalTypes.ContentItemDisplayType.Calendar: {
-      props = { ...baseProps, displayDescriptionOnCalendar };
+      props = { ...baseProps, displayDescriptionOnCalendar, companyTimeZone };
       return <DisplayTypeResultsCalendar {...props} />;
     }
     default: {
@@ -57,6 +64,7 @@ const DisplayTypeResults = ({
 
 const CatalogResults = ({
   companyHasSessionLevelCustomFieldsFeature,
+  companyTimeZone,
   onClick,
   onAddedToQueue
 }: CatalogResultsProps): JSX.Element => {
@@ -96,7 +104,7 @@ const CatalogResults = ({
   const activeDisplayType = displayType || resultsDisplayType;
   const hydrationCustomFields = companyHasSessionLevelCustomFieldsFeature ? queryCustomFields : {};
   const hydratedResults = results.map(result =>
-    hydrateContent(i18n, result, hydrationCustomFields)
+    hydrateContent(i18n, result, companyTimeZone, hydrationCustomFields)
   );
   const hasResults = !!hydratedResults.length;
 
@@ -117,6 +125,7 @@ const CatalogResults = ({
     displayAuthorsEnabled,
     displayStartDateEnabled,
     displayDescriptionOnCalendar,
+    companyTimeZone,
     onClick,
     onAddedToQueue
   };

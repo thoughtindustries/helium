@@ -1,7 +1,6 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
-import { format } from 'date-fns';
-import { GlobalTypes } from '@thoughtindustries/content';
+import { GlobalTypes, formatTime } from '@thoughtindustries/content';
 import { CatalogResultsState } from '../../core';
 import { CatalogResultItem, CatalogResultsProps } from '../../types';
 import ItemLinkWrapper from './item-link-wrapper';
@@ -49,13 +48,23 @@ const ItemCompletedBlock = () => {
   );
 };
 
-const ItemTitleBlock = ({ title, courseStartDate }: { title: string; courseStartDate?: Date }) => (
+const ItemTitleBlock = ({
+  title,
+  courseStartDate,
+  timeZone
+}: {
+  title: string;
+  courseStartDate?: string;
+  timeZone?: string;
+}) => (
   <p className="mb-1">
     {title}
     {courseStartDate && (
       <>
         <br />
-        <span className="text-xs text-gray-700">{format(courseStartDate, 'MM/dd/yyyy')}</span>
+        <span className="text-xs text-gray-700">
+          {formatTime(courseStartDate, timeZone, 'MM/DD/YYYY')}
+        </span>
       </>
     )}
   </p>
@@ -213,7 +222,8 @@ const DisplayTypeResultsGridItem = ({
     priceInCents,
     hasAvailability,
     suggestedRetailPriceInCents,
-    availabilityStatus
+    availabilityStatus,
+    timeZone
   } = item;
 
   // derived values
@@ -231,7 +241,13 @@ const DisplayTypeResultsGridItem = ({
               <ItemAssetBlock asset={asset} />
             </div>
             <div className="p-2.5">
-              {title && <ItemTitleBlock title={title} courseStartDate={displayCourseStartDate} />}
+              {title && (
+                <ItemTitleBlock
+                  title={title}
+                  courseStartDate={displayCourseStartDate}
+                  timeZone={timeZone}
+                />
+              )}
               <ItemSourceBlock contentTypeLabel={contentTypeLabel} source={source} />
               {displayAuthors && <p className="text-xs mb-1 text-gray-700">{displayAuthors}</p>}
               {description && (

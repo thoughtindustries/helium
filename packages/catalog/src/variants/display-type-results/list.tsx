@@ -1,6 +1,6 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
-import { format } from 'date-fns';
+import { formatTime } from '@thoughtindustries/content';
 import { CatalogResultItem, CatalogResultsProps } from '../../types';
 import ItemLinkWrapper from './item-link-wrapper';
 import ItemAssetBlock from './item-asset-block';
@@ -90,7 +90,8 @@ const DisplayTypeResultsListItem = ({
     source,
     description,
     callToAction,
-    suggestedRetailPriceInCents
+    suggestedRetailPriceInCents,
+    timeZone
   } = item;
 
   // derived values
@@ -134,7 +135,7 @@ const DisplayTypeResultsListItem = ({
                   <>
                     <br />
                     <span className="text-xs text-gray-700">
-                      {format(courseStartDate, 'MM/dd/yyyy')}
+                      {formatTime(courseStartDate, timeZone, 'MM/DD/YYYY')}
                     </span>
                   </>
                 )}
@@ -170,7 +171,7 @@ const DisplayTypeResultsListItem = ({
 
             {showCallToAction && (
               <div className={ctaColumnClassnames}>
-                <div className="border border-solid border-gray-300 p-4 mt-4 md:-mt-4">
+                <div className="border border-solid border-gray-300 p-4 mt-4 md:-mt-4 text-center">
                   {canAddToQueue && (
                     <div className="mt-4">
                       {isActive && <span className={ctaClassnames}>{callToAction}</span>}
