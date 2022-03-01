@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.1.1-alpha.4](https://github.com/thoughtindustries/helium/compare/@thoughtindustries/featured-content@1.1.1-alpha.3...@thoughtindustries/featured-content@1.1.1-alpha.4) (2022-03-01)
+
+
+### Bug Fixes
+
+* remove dep from featured content ([3f6e332](https://github.com/thoughtindustries/helium/commit/3f6e33283fc9fc19bfa5d6c69dab93afa58e74ed))
+
+
+
+
+
 ## [1.1.1-alpha.3](https://github.com/thoughtindustries/helium/compare/@thoughtindustries/featured-content@1.1.1-alpha.2...@thoughtindustries/featured-content@1.1.1-alpha.3) (2022-02-14)
 
 **Note:** Version bump only for package @thoughtindustries/featured-content
