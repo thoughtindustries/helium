@@ -1,10 +1,14 @@
 fragment ContentFragment on Content {
+  alternativePricingType
   asset
   authors
   availabilityStatus
+  bulkPurchasingEnabled
   canAddToQueue
   contentTypeLabel
+  courseEndDate
   courseGracePeriodEnded
+  courseGroup
   coursePresold
   courseStartDate
   currentUserMayReschedule
@@ -12,6 +16,7 @@ fragment ContentFragment on Content {
   currentUserUnmetLearningPathPrerequisites
   description
   displayCourse
+  displayCourseSlug
   kind
   hasChildren
   hideCourseDescription
@@ -29,6 +34,7 @@ fragment ContentFragment on Content {
   slug
   source
   suggestedRetailPriceInCents
+  timeZone
   title
   waitlistingEnabled
   waitlistingTriggered
