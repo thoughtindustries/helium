@@ -13,7 +13,7 @@ export type Scalars = {
   /** A valid absolute (starting with either a valid protocol or a leading www) or relative (with a leading slash) URL string */
   AbsoluteOrRelativeURL: string;
   /** Date scalar type */
-  Date: Date;
+  Date: string;
   /** Hex Color scalar type */
   HexColor: string;
   /** The `JSON` scalar type represents JSON values as specified by [ECMA-404](http://www.ecma-international.org/publications/files/ECMA-ST/ECMA-404.pdf). */

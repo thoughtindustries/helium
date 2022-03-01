@@ -10,7 +10,7 @@ export type ContentFragmentFragment = {
   contentTypeLabel?: string;
   courseGracePeriodEnded: boolean;
   coursePresold: boolean;
-  courseStartDate?: Date;
+  courseStartDate?: string;
   currentUserMayReschedule: boolean;
   currentUserUnmetCoursePrerequisites?: Array<string>;
   currentUserUnmetLearningPathPrerequisites?: Array<string>;

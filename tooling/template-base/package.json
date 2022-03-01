@@ -1,14 +1,13 @@
 {
   "name": "@thoughtindustries/helium-template",
-  "version": "1.1.0-alpha.8",
+  "version": "1.1.0-alpha.10",
   "scripts": {
-    "dev": "concurrently \"npm run dev:css\" \"node ./server\"",
+    "authenticate": "helium authenticate",
+    "deploy": "helium deploy",
+    "dev": "helium dev",
+    "update-translations": "helium update-translations",
+    "dev:vite": "concurrently \"npm run dev:css\" \"node ./server\"",
     "dev:css": "tailwindcss -o ./renderer/tailwind.css --watch",
-    "// To build and try the worker locally": "",
-    "prod": "npm run build && wrangler dev --verbose",
-    "// To build and deploy the worker to Cloudflare Workers": "",
-    "deploy": "npm run build && wrangler publish",
-    "// Build process": "",
     "build": "npm run build:css && npm run build:vite && npm run build:worker",
     "build:css": "tailwindcss -o ./renderer/tailwind.css",
     "build:vite": "vite build && vite build --ssr",
@@ -24,8 +23,8 @@
     "@mdx-js/mdx": "^2.0.0-next.9",
     "@mdx-js/react": "^1.6.22",
     "@thoughtindustries/catalog": "^1.0.0",
-    "@thoughtindustries/content": "^1.0.1-alpha.3",
-    "@thoughtindustries/featured-content": "^1.1.1-alpha.3",
+    "@thoughtindustries/content": "^1.0.1-alpha.4",
+    "@thoughtindustries/featured-content": "^1.1.1-alpha.4",
     "@thoughtindustries/helium-server": "^1.0.4",
     "@thoughtindustries/hero": "^1.0.1-alpha.6",
     "@vitejs/plugin-react-refresh": "^1.3.6",
@@ -47,7 +46,7 @@
     "vite-plugin-ssr": "^0.3.2"
   },
   "devDependencies": {
-    "@thoughtindustries/helium": "^1.1.0-alpha.2",
+    "@thoughtindustries/helium": "^1.1.0-alpha.3",
     "graphql-playground-middleware-express": "^1.7.23",
     "typescript": "^4.5.5"
   },

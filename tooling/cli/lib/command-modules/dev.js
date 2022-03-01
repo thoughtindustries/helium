@@ -37,7 +37,7 @@ exports.handler = function (argv) {
     HELIUM_ENDPOINT: heliumUrl
   };
 
-  const devProcess = exec('npm run build:vite && npm run dev', { env });
+  const devProcess = exec('npm run build:vite && npm run dev:vite', { env });
 
   devProcess.stdout.pipe(process.stdout);
   devProcess.stderr.pipe(process.stderr);

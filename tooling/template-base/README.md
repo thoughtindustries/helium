@@ -6,11 +6,25 @@ Helium is an initiative to open up the Thought Industries architecture, providin
 
 ## Commands
 
+### `authenticate`
+
+```sh
+$ npm run authenticate -- [-k]
+```
+
+Authenticates a new project by validating against your Thought Industries instance and writing your `ti-config.json`. Note: re-running the command will overwrite existing data in your `ti-config.json`
+
+#### Options
+
+`-k`, `-insecure` (optional)
+
+Used when the Thought Industries instance is behind an untrusted SSL certificate (e.g., local development).
+
 ### `dev`
 
 ```sh
-$ helium dev [i] [p] [-k]
-$ helium dev sandbox 3000 -k
+$ npm run dev -- [i] [p] [-k]
+$ npm run dev -- sandbox 3000 -k
 ```
 
 Starts up the development server for your project.
@@ -32,8 +46,8 @@ Used when the Thought Industries instance is behind an untrusted SSL certificate
 ### `deploy`
 
 ```sh
-$ helium deploy <i> [-k]
-$ helium deploy sandbox -k
+$ npm run deploy -- <i> [-k]
+$ npm run deploy -- sandbox -k
 ```
 
 Builds and deploys the project
