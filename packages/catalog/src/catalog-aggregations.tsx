@@ -79,7 +79,7 @@ const CatalogAggregations = (): JSX.Element => {
     ? aggregationFilters[0].label
     : undefined;
 
-  const contents = aggregations.reduce((acc, { label = '', buckets = [] }, index) => {
+  const contents = aggregations.map(({ label = '', buckets = [] }, index) => {
     const isAggregationLabel = label === firstAggregationFilterLabel;
     const isTokenLabel = tokenLabel && label === tokenLabel;
     const isCurrentLabel = isAggregationLabel || isTokenLabel;
@@ -90,28 +90,24 @@ const CatalogAggregations = (): JSX.Element => {
     const shouldExpandFirst = !isCurated && !token;
     const isExpanded = isCurrentLabel || (shouldExpandFirst && index === 0);
 
-    const aggregationBuckets = buckets.reduce((bucketsAcc, { value = '', count }, bucketIndex) => {
+    const aggregationBuckets = buckets.map(({ value = '', count }, bucketIndex) => {
       const filter = { label, value };
       const props = {
-        key: `catalog-aggregation-bucket-${bucketIndex}`,
         href: urlManager.composeURLForAddAggregationFilter(filter, isCurated),
         value,
         count
       };
-      bucketsAcc.push(<AggregationBucket {...props} />);
-      return bucketsAcc;
-    }, [] as JSX.Element[]);
+      return <AggregationBucket key={`catalog-aggregation-bucket-${bucketIndex}`} {...props} />;
+    });
 
     const props = {
-      key: `catalog-aggregation-${index}`,
       index,
       defaultIsExpanded: isExpanded,
       label,
       aggregationBuckets
     };
-    acc.push(<Aggregation {...props} />);
-    return acc;
-  }, [] as JSX.Element[]);
+    return <Aggregation key={`catalog-aggregation-${index}`} {...props} />;
+  });
 
   return <>{contents}</>;
 };
