@@ -1,6 +1,12 @@
 import React from 'react';
 import { TestimonialProps } from './types';
 
+enum Alignment {
+  Left = 'Left',
+  Right = 'Right',
+  Center = 'Center'
+}
+
 const Testimonial = ({
   quote,
   username,
@@ -9,45 +15,29 @@ const Testimonial = ({
   textColor,
   alignment
 }: TestimonialProps): JSX.Element => {
-  const styles = {
-    container: {
-      backgroundColor: backgroundColor,
-      textAlign: alignment as 'center'
-    },
-    quote: {
-      color: textColor,
-      fontSize: 36,
-      '@media (max-width: 48em)': {
-        fontSize: 12
-      }
-    },
-    username: {
-      color: textColor,
-      fontSize: 22,
-      position: 'relative' as const,
-      paddingTop: '0.5em',
-      margin: 0,
-      borderTop: '1px solid',
-      fontStyle: 'italic',
-      '@media (max-width: 48em)': {
-        fontSize: 12
-      }
-    },
-    description: {
-      color: textColor,
-      fontSize: 16,
-      fontStyle: 'italic',
-      '@media (max-width: 48em)': {
-        fontSize: 12
-      }
-    }
+  const wrappedStyles = {
+    backgroundColor: backgroundColor,
+    color: textColor
   };
 
   return (
-    <div style={styles.container}>
-      <h1 style={styles.quote}>{quote}</h1>
-      <p style={styles.username}>{username}</p>
-      <p style={styles.description}>{description}</p>
+    <div className="relative before:block before:w-full flex justify-center">
+      <div
+        className={`${
+          alignment === Alignment.Center
+            ? 'text-center px-4 py-0'
+            : alignment === Alignment.Left
+            ? 'text-left px-4 py-0'
+            : 'text-right px-4 py-0'
+        } absolute`}
+        style={wrappedStyles}
+      >
+        <h1 className="text-4xl mb-6">{quote}</h1>
+        <p className="text-2xl relative pt-2 m-0 italic before:w-full before:border-solid before:border-t before:border-t-current before:block before:absolute before:top-0 before:h-0">
+          {username}
+        </p>
+        <p className="text-base italic">{description}</p>
+      </div>
     </div>
   );
 };

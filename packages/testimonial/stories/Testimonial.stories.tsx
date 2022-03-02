@@ -49,10 +49,10 @@ export default {
 
 const Template: Story<TestimonialProps> = args => <Testimonial {...args} />;
 
-export const Base = Template.bind({});
-Base.args = {
+export const SingleItem = Template.bind({});
+SingleItem.args = {
   quote: 'Si hortum in bibliotheca habes, nihil deerit.',
-  username: 'Marcu Tullius Cicero',
+  username: 'Marcus Tullius Cicero',
   description: 'Statesman',
   backgroundColor: '#FFFFFF',
   textColor: '#000000'
