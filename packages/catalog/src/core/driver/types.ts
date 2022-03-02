@@ -51,17 +51,14 @@ export type CatalogDriverResponseState = {
   resultContentTypes: string[];
   contentTypeFilterEnabled: boolean;
   displayBundle?: GlobalTypes.Bundle;
-  // TODO: check if the followings can be handled on server side
   displayStartDateEnabled: boolean;
   displayAuthorsEnabled: boolean;
-  // TODO: check if this is missing from schema
   displayDescriptionOnCalendar: boolean;
 };
 
 export type CatalogDriverGeneralState = {
   error?: string;
   isLoading: boolean;
-  // TODO: check if this could become request state once API supports it
   pageSize: number;
 };
 
