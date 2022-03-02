@@ -1,9 +1,11 @@
 import * as Types from '../global-types';
 
 import { ContentFragmentFragment } from './ContentFragment.generated';
+import { LocationFragmentFragment } from './LocationFragment.generated';
 import { CatalogMetaFragmentFragment } from './CatalogMetaFragment.generated';
 import { gql } from '@apollo/client';
 import { ContentFragmentFragmentDoc } from './ContentFragment.generated';
+import { LocationFragmentFragmentDoc } from './LocationFragment.generated';
 import { CatalogMetaFragmentFragmentDoc } from './CatalogMetaFragment.generated';
 import * as Apollo from '@apollo/client';
 const defaultOptions = {};
@@ -24,7 +26,12 @@ export type CatalogContentQuery = {
   __typename?: 'Query';
   CatalogContent: {
     __typename?: 'CatalogContent';
-    contentItems?: Array<{ __typename?: 'Content' } & ContentFragmentFragment>;
+    contentItems?: Array<
+      {
+        __typename?: 'Content';
+        location?: { __typename?: 'Location' } & LocationFragmentFragment;
+      } & ContentFragmentFragment
+    >;
     meta: { __typename?: 'CatalogMeta' } & CatalogMetaFragmentFragment;
   };
 };
@@ -56,6 +63,9 @@ export const CatalogContentDocument = gql`
     ) {
       contentItems {
         ...ContentFragment
+        location {
+          ...LocationFragment
+        }
       }
       meta {
         ...CatalogMetaFragment
@@ -63,6 +73,7 @@ export const CatalogContentDocument = gql`
     }
   }
   ${ContentFragmentFragmentDoc}
+  ${LocationFragmentFragmentDoc}
   ${CatalogMetaFragmentFragmentDoc}
 `;
 

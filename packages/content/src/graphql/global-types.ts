@@ -137,6 +137,7 @@ export type Content = {
   isActive: Scalars['Boolean'];
   kind?: Maybe<ContentKind>;
   language?: Maybe<Scalars['String']>;
+  location?: Maybe<Location>;
   meetingStartDate?: Maybe<Scalars['Date']>;
   metaDescription?: Maybe<Scalars['String']>;
   metaTitle?: Maybe<Scalars['String']>;
@@ -185,6 +186,20 @@ export enum ContentKind {
   WebinarCourse = 'webinarCourse',
   XApiObject = 'xApiObject'
 }
+
+export type Location = {
+  __typename?: 'Location';
+  address1: Scalars['String'];
+  address2?: Maybe<Scalars['String']>;
+  city: Scalars['String'];
+  country?: Maybe<Scalars['String']>;
+  id: Scalars['ID'];
+  name: Scalars['String'];
+  room?: Maybe<Scalars['String']>;
+  state?: Maybe<Scalars['String']>;
+  timeZone?: Maybe<Scalars['String']>;
+  zipCode?: Maybe<Scalars['String']>;
+};
 
 export type Mutation = {
   __typename?: 'Mutation';

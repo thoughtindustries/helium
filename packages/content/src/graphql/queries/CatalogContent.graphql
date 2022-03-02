@@ -24,6 +24,9 @@ query CatalogContent(
   ) {
     contentItems {
       ...ContentFragment
+      location {
+        ...LocationFragment
+      }
     }
     meta {
       ...CatalogMetaFragment
