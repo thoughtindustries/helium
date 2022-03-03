@@ -11,4 +11,6 @@ export interface TestimonialProps {
   textColor: string;
   /** Testimonial alignment */
   alignment: string;
+  /** Image */
+  asset: string;
 }

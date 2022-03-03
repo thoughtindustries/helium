@@ -43,6 +43,12 @@ export default {
       options: ['Left', 'Center', 'Right'],
       control: { type: 'select' },
       defaultValue: 'Center'
+    },
+    asset: {
+      name: 'asset',
+      type: { name: 'string', required: false },
+      description: 'Add asset to background of testimonial.',
+      control: { type: 'text' }
     }
   }
 } as Meta;
