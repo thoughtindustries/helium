@@ -1,4 +1,17 @@
+import { ReactNode } from 'react';
 export interface TestimonialProps {
+  /** children */
+  children: ReactNode;
+}
+
+export interface TestimonialCarouselProps {
+  /** children */
+  children: ReactNode;
+  /** row item count in desktop view */
+  desktopColumnCount: number;
+}
+
+export interface TestimonialItemProps {
   /** user's quote */
   quote: string;
   /** user's name */
@@ -13,4 +26,9 @@ export interface TestimonialProps {
   alignment: string;
   /** Image */
   asset: string;
+}
+
+export interface TestimonialMultiCarouselContextType {
+  /** row item count in desktop view */
+  desktopColumnCount: number;
 }
