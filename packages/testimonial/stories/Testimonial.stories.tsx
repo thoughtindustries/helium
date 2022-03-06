@@ -55,7 +55,7 @@ export default {
 
 const Item = ({ ...args }: TestimonialItemProps) => (
   <Testimonial>
-    <TestimonialMultiCarousel desktopColumnCount={1}>
+    <TestimonialMultiCarousel {...args} desktopColumnCount={1}>
       <TestimonialMultiCarousel.Item {...args} />
     </TestimonialMultiCarousel>
   </Testimonial>
@@ -73,7 +73,8 @@ Single.args = {
 
 const Multi = ({ ...args }: TestimonialItemProps) => (
   <Testimonial>
-    <TestimonialMultiCarousel desktopColumnCount={1}>
+    <TestimonialMultiCarousel {...args} desktopColumnCount={1}>
+      <TestimonialMultiCarousel.Item {...args} />
       <TestimonialMultiCarousel.Item {...args} />
       <TestimonialMultiCarousel.Item {...args} />
     </TestimonialMultiCarousel>

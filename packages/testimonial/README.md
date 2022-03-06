@@ -21,5 +21,12 @@ import { Testimonial } from '@thoughtindustries/testimonial';
 ## Usage
 
 ```
-TBD
+# Testimonials
+<Testimonial>
+  <TestimonialMultiCarousel {...args} desktopColumnCount={1}>
+    <TestimonialMultiCarousel.Item {...args} />
+    <TestimonialMultiCarousel.Item {...args} />
+    <TestimonialMultiCarousel.Item {...args} />
+  </TestimonialMultiCarousel>
+</Testimonial>
 ```

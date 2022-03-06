@@ -5,6 +5,7 @@ import {
   TestimonialMultiCarouselContextType,
   TestimonialCarouselProps
 } from './types';
+import { ScreenSize, useScreenSize } from './use-screen-size';
 import { IconLeft, IconRight } from './icons';
 import { useMultiCarouselBehavior } from './use-multi-carousel-behavior';
 
@@ -28,7 +29,8 @@ function useTestimonialMultiCarouselContext() {
 
 const TestimonialMultiCarousel = ({
   desktopColumnCount,
-  children
+  children,
+  textColor
 }: TestimonialCarouselProps): JSX.Element => {
   const totalItems = Children.count(children);
 
@@ -49,23 +51,33 @@ const TestimonialMultiCarousel = ({
     touchAction: 'none'
   };
   const navBtnBaseClassNames =
-    'no-underline font-normal cursor-pointer p-0 text-center text-gray-600 top-2/4 absolute';
+    'no-underline font-normal cursor-pointer p-0 text-center text-gray-600 top-36 absolute';
   const prevNavClassNames = `${navBtnBaseClassNames} left-0`;
   const nextNavClassNames = `${navBtnBaseClassNames} right-0`;
 
   return (
     <TestimonialMultiCarouselContext.Provider value={value}>
-      <div className="whitespace-nowrap overflow-hidden relative">
+      <div className="overflow-hidden relative">
         <ul ref={scrollableRef} style={styles} className="transition-all duration-500 flex">
           {children}
         </ul>
         {hasPrevItem && (
-          <button className={prevNavClassNames} onClick={() => navigate(-1)} aria-label="left">
+          <button
+            className={prevNavClassNames}
+            onClick={() => navigate(-1)}
+            aria-label="left"
+            style={{ color: textColor }}
+          >
             <IconLeft />
           </button>
         )}
         {hasNextItem && (
-          <button className={nextNavClassNames} onClick={() => navigate(1)} aria-label="right">
+          <button
+            className={nextNavClassNames}
+            onClick={() => navigate(1)}
+            aria-label="right"
+            style={{ color: textColor }}
+          >
             <IconRight />
           </button>
         )}
@@ -97,11 +109,32 @@ const itemClassnameByDesktopColumnCount = (desktopColumnCount: number): string =
 const Item = ({ ...item }: TestimonialItemProps): JSX.Element => {
   const { quote, username, description, backgroundColor, textColor, alignment, asset } = item;
   const { desktopColumnCount } = useTestimonialMultiCarouselContext();
+  const screenSize = useScreenSize();
+  const isSmallScreen = screenSize === ScreenSize.Small;
+  const quoteSize = isSmallScreen ? 'text-xl' : 'text-3xl';
+  const nameSize = isSmallScreen ? 'text-md' : 'text-xl';
+  const descriptionSize = isSmallScreen ? 'text-sm' : 'text-lg';
 
   const classNames = clsx([
-    'px-5 pb-5 text-base flex-none w-full',
+    'flex-none w-full p-8',
     itemClassnameByDesktopColumnCount(desktopColumnCount)
   ]);
+
+  const setAlignment = (alignment: string, prop: string) => {
+    if (prop === 'justify') {
+      return alignment === Alignment.Center
+        ? 'justify-center'
+        : alignment === Alignment.Left
+        ? 'justify-start'
+        : 'justify-end';
+    } else {
+      return alignment === Alignment.Center
+        ? 'text-center'
+        : alignment === Alignment.Left
+        ? 'text-left'
+        : 'text-right';
+    }
+  };
 
   const wrappedStyles = {
     backgroundColor: backgroundColor,
@@ -110,24 +143,22 @@ const Item = ({ ...item }: TestimonialItemProps): JSX.Element => {
   };
 
   return (
-    <li className={classNames}>
-      <div className="text-center py-3 px-1">
-        <div className="relative before:block before:w-full flex justify-center">
-          <div
-            className={`${
-              alignment === Alignment.Center
-                ? 'text-center px-4 py-0'
-                : alignment === Alignment.Left
-                ? 'text-left px-4 py-0'
-                : 'text-right px-4 py-0'
-            } absolute`}
-            style={wrappedStyles}
-          >
-            <h1 className="text-4xl mb-6">{quote}</h1>
-            <p className="text-2xl relative pt-2 m-0 italic before:w-full before:border-solid before:border-t before:border-t-current before:block before:absolute before:top-0 before:h-0">
+    <li className={classNames} style={wrappedStyles}>
+      <div className="text-center py-36 px-1 block">
+        <div
+          className={`relative before:block before:w-full flex items-center py-0 px-12 ${setAlignment(
+            alignment,
+            'justify'
+          )}`}
+        >
+          <div className={`${setAlignment(alignment, 'text')} absolute`}>
+            <h1 className={`${quoteSize} mb-6`}>{quote}</h1>
+            <p
+              className={`${nameSize} relative pt-2 m-0 italic before:w-full before:border-solid before:border-t before:border-t-current before:block before:absolute before:top-0 before:h-0`}
+            >
               {username}
             </p>
-            <p className="text-base italic">{description}</p>
+            <p className={`${descriptionSize} italic`}>{description}</p>
           </div>
         </div>
       </div>

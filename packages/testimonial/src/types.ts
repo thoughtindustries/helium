@@ -9,6 +9,8 @@ export interface TestimonialCarouselProps {
   children: ReactNode;
   /** row item count in desktop view */
   desktopColumnCount: number;
+  /** Testimonial text color */
+  textColor?: string;
 }
 
 export interface TestimonialItemProps {

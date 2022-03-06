@@ -46,37 +46,37 @@ describe('@thoughtindustries/testimonial', () => {
     <div>
       <div>
         <div
-          class="whitespace-nowrap overflow-hidden relative"
+          class="overflow-hidden relative"
         >
           <ul
             class="transition-all duration-500 flex"
             style="transform: translateX(-0%);"
           >
             <li
-              class="px-5 pb-5 text-base flex-none w-full"
+              class="flex-none w-full p-8"
+              style="background-color: rgb(255, 255, 255); color: rgb(0, 0, 0); background-image: url();"
             >
               <div
-                class="text-center py-3 px-1"
+                class="text-center py-36 px-1 block"
               >
                 <div
-                  class="relative before:block before:w-full flex justify-center"
+                  class="relative before:block before:w-full flex items-center py-0 px-12 justify-start"
                 >
                   <div
-                    class="text-left px-4 py-0 absolute"
-                    style="background-color: rgb(255, 255, 255); color: rgb(0, 0, 0); background-image: url();"
+                    class="text-left absolute"
                   >
                     <h1
-                      class="text-4xl mb-6"
+                      class="text-xl mb-6"
                     >
                       Si hortum in bibliotheca habes, nihil deerit.
                     </h1>
                     <p
-                      class="text-2xl relative pt-2 m-0 italic before:w-full before:border-solid before:border-t before:border-t-current before:block before:absolute before:top-0 before:h-0"
+                      class="text-md relative pt-2 m-0 italic before:w-full before:border-solid before:border-t before:border-t-current before:block before:absolute before:top-0 before:h-0"
                     >
                       Marcus Tullius Cicero
                     </p>
                     <p
-                      class="text-base italic"
+                      class="text-sm italic"
                     >
                       Statesman
                     </p>
@@ -106,37 +106,37 @@ describe('@thoughtindustries/testimonial', () => {
     <div>
       <div>
         <div
-          class="whitespace-nowrap overflow-hidden relative"
+          class="overflow-hidden relative"
         >
           <ul
             class="transition-all duration-500 flex"
             style="transform: translateX(-0%);"
           >
             <li
-              class="px-5 pb-5 text-base flex-none w-full"
+              class="flex-none w-full p-8"
+              style="background-color: rgb(255, 255, 255); color: rgb(0, 0, 0); background-image: url();"
             >
               <div
-                class="text-center py-3 px-1"
+                class="text-center py-36 px-1 block"
               >
                 <div
-                  class="relative before:block before:w-full flex justify-center"
+                  class="relative before:block before:w-full flex items-center py-0 px-12 justify-start"
                 >
                   <div
-                    class="text-left px-4 py-0 absolute"
-                    style="background-color: rgb(255, 255, 255); color: rgb(0, 0, 0); background-image: url();"
+                    class="text-left absolute"
                   >
                     <h1
-                      class="text-4xl mb-6"
+                      class="text-xl mb-6"
                     >
                       Si hortum in bibliotheca habes, nihil deerit.
                     </h1>
                     <p
-                      class="text-2xl relative pt-2 m-0 italic before:w-full before:border-solid before:border-t before:border-t-current before:block before:absolute before:top-0 before:h-0"
+                      class="text-md relative pt-2 m-0 italic before:w-full before:border-solid before:border-t before:border-t-current before:block before:absolute before:top-0 before:h-0"
                     >
                       Marcus Tullius Cicero
                     </p>
                     <p
-                      class="text-base italic"
+                      class="text-sm italic"
                     >
                       Statesman
                     </p>
@@ -145,30 +145,30 @@ describe('@thoughtindustries/testimonial', () => {
               </div>
             </li>
             <li
-              class="px-5 pb-5 text-base flex-none w-full"
+              class="flex-none w-full p-8"
+              style="background-color: rgb(255, 255, 255); color: rgb(0, 0, 0); background-image: url();"
             >
               <div
-                class="text-center py-3 px-1"
+                class="text-center py-36 px-1 block"
               >
                 <div
-                  class="relative before:block before:w-full flex justify-center"
+                  class="relative before:block before:w-full flex items-center py-0 px-12 justify-start"
                 >
                   <div
-                    class="text-left px-4 py-0 absolute"
-                    style="background-color: rgb(255, 255, 255); color: rgb(0, 0, 0); background-image: url();"
+                    class="text-left absolute"
                   >
                     <h1
-                      class="text-4xl mb-6"
+                      class="text-xl mb-6"
                     >
                       Si hortum in bibliotheca habes, nihil deerit.
                     </h1>
                     <p
-                      class="text-2xl relative pt-2 m-0 italic before:w-full before:border-solid before:border-t before:border-t-current before:block before:absolute before:top-0 before:h-0"
+                      class="text-md relative pt-2 m-0 italic before:w-full before:border-solid before:border-t before:border-t-current before:block before:absolute before:top-0 before:h-0"
                     >
                       Marcus Tullius Cicero
                     </p>
                     <p
-                      class="text-base italic"
+                      class="text-sm italic"
                     >
                       Statesman
                     </p>
@@ -177,30 +177,30 @@ describe('@thoughtindustries/testimonial', () => {
               </div>
             </li>
             <li
-              class="px-5 pb-5 text-base flex-none w-full"
+              class="flex-none w-full p-8"
+              style="background-color: rgb(255, 255, 255); color: rgb(0, 0, 0); background-image: url();"
             >
               <div
-                class="text-center py-3 px-1"
+                class="text-center py-36 px-1 block"
               >
                 <div
-                  class="relative before:block before:w-full flex justify-center"
+                  class="relative before:block before:w-full flex items-center py-0 px-12 justify-start"
                 >
                   <div
-                    class="text-left px-4 py-0 absolute"
-                    style="background-color: rgb(255, 255, 255); color: rgb(0, 0, 0); background-image: url();"
+                    class="text-left absolute"
                   >
                     <h1
-                      class="text-4xl mb-6"
+                      class="text-xl mb-6"
                     >
                       Si hortum in bibliotheca habes, nihil deerit.
                     </h1>
                     <p
-                      class="text-2xl relative pt-2 m-0 italic before:w-full before:border-solid before:border-t before:border-t-current before:block before:absolute before:top-0 before:h-0"
+                      class="text-md relative pt-2 m-0 italic before:w-full before:border-solid before:border-t before:border-t-current before:block before:absolute before:top-0 before:h-0"
                     >
                       Marcus Tullius Cicero
                     </p>
                     <p
-                      class="text-base italic"
+                      class="text-sm italic"
                     >
                       Statesman
                     </p>
@@ -211,7 +211,7 @@ describe('@thoughtindustries/testimonial', () => {
           </ul>
           <button
             aria-label="right"
-            class="no-underline font-normal cursor-pointer p-0 text-center text-gray-600 top-2/4 absolute right-0"
+            class="no-underline font-normal cursor-pointer p-0 text-center text-gray-600 top-36 absolute right-0"
           >
             <svg
               class="h-14 w-14"
