@@ -1,0 +1,26 @@
+{
+  "name": "@thoughtindustries/testimonial",
+  "version": "1.0.0",
+  "description": "A base component for testimonials",
+  "author": "Blake Reimer <blake.reimer@thoughtindustries>",
+  "homepage": "https://github.com/thoughtindustries/helium#readme",
+  "license": "ISC",
+  "main": "src/index.ts",
+  "files": [
+    "src"
+  ],
+  "publishConfig": {
+    "access": "public"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/thoughtindustries/helium.git"
+  },
+  "scripts": {},
+  "bugs": {
+    "url": "https://github.com/thoughtindustries/helium/issues"
+  },
+  "dependencies": {
+    "react": "^17.0.2"
+  }
+}
