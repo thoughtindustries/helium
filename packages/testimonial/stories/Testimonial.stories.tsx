@@ -1,10 +1,10 @@
 import { Story } from '@storybook/react';
 import React from 'react';
-import { Testimonial, TestimonialMultiCarousel, TestimonialItemProps } from '../src';
+import { TestimonialMultiCarousel, TestimonialItemProps } from '../src';
 
 export default {
   title: 'Example/Testimonial',
-  component: Testimonial,
+  component: TestimonialMultiCarousel,
   argTypes: {
     quote: {
       name: 'quote',
@@ -54,11 +54,9 @@ export default {
 };
 
 const Item = ({ ...args }: TestimonialItemProps) => (
-  <Testimonial>
-    <TestimonialMultiCarousel {...args} desktopColumnCount={1}>
-      <TestimonialMultiCarousel.Item {...args} />
-    </TestimonialMultiCarousel>
-  </Testimonial>
+  <TestimonialMultiCarousel {...args} desktopColumnCount={1}>
+    <TestimonialMultiCarousel.Item {...args} />
+  </TestimonialMultiCarousel>
 );
 
 export const Single: Story<TestimonialItemProps> = Item.bind({});
@@ -72,13 +70,11 @@ Single.args = {
 };
 
 const Multi = ({ ...args }: TestimonialItemProps) => (
-  <Testimonial>
-    <TestimonialMultiCarousel {...args} desktopColumnCount={1}>
-      <TestimonialMultiCarousel.Item {...args} />
-      <TestimonialMultiCarousel.Item {...args} />
-      <TestimonialMultiCarousel.Item {...args} />
-    </TestimonialMultiCarousel>
-  </Testimonial>
+  <TestimonialMultiCarousel {...args} desktopColumnCount={1}>
+    <TestimonialMultiCarousel.Item {...args} />
+    <TestimonialMultiCarousel.Item {...args} />
+    <TestimonialMultiCarousel.Item {...args} />
+  </TestimonialMultiCarousel>
 );
 
 export const List: Story<TestimonialItemProps> = Multi.bind({});

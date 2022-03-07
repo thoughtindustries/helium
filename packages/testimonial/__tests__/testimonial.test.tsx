@@ -1,6 +1,6 @@
 import React from 'react';
 import { render } from '@testing-library/react';
-import { Testimonial, TestimonialMultiCarousel } from '../src';
+import { TestimonialMultiCarousel } from '../src';
 
 jest.mock('react-i18next', () => ({
   useTranslation: () => {
@@ -36,14 +36,11 @@ describe('@thoughtindustries/testimonial', () => {
   describe('Single Testimonial', () => {
     it('should render', () => {
       const { container } = render(
-        <Testimonial>
-          <TestimonialMultiCarousel desktopColumnCount={1}>
-            <TestimonialMultiCarousel.Item {...mockTestimonial} />
-          </TestimonialMultiCarousel>
-        </Testimonial>
+        <TestimonialMultiCarousel desktopColumnCount={1}>
+          <TestimonialMultiCarousel.Item {...mockTestimonial} />
+        </TestimonialMultiCarousel>
       );
       expect(container).toMatchInlineSnapshot(`
-    <div>
       <div>
         <div
           class="overflow-hidden relative"
@@ -87,23 +84,19 @@ describe('@thoughtindustries/testimonial', () => {
           </ul>
         </div>
       </div>
-    </div>
       `);
     });
   });
   describe('Testimonial List', () => {
     it('should render', () => {
       const { container } = render(
-        <Testimonial>
-          <TestimonialMultiCarousel desktopColumnCount={1}>
-            <TestimonialMultiCarousel.Item {...mockTestimonial} />
-            <TestimonialMultiCarousel.Item {...mockTestimonial} />
-            <TestimonialMultiCarousel.Item {...mockTestimonial} />
-          </TestimonialMultiCarousel>
-        </Testimonial>
+        <TestimonialMultiCarousel desktopColumnCount={1}>
+          <TestimonialMultiCarousel.Item {...mockTestimonial} />
+          <TestimonialMultiCarousel.Item {...mockTestimonial} />
+          <TestimonialMultiCarousel.Item {...mockTestimonial} />
+        </TestimonialMultiCarousel>
       );
       expect(container).toMatchInlineSnapshot(`
-    <div>
       <div>
         <div
           class="overflow-hidden relative"
@@ -230,7 +223,6 @@ describe('@thoughtindustries/testimonial', () => {
           </button>
         </div>
       </div>
-    </div>
       `);
     });
   });

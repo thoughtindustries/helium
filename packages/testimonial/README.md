@@ -22,11 +22,33 @@ import { Testimonial } from '@thoughtindustries/testimonial';
 
 ```
 # Testimonials
-<Testimonial>
-  <TestimonialMultiCarousel {...args} desktopColumnCount={1}>
-    <TestimonialMultiCarousel.Item {...args} />
-    <TestimonialMultiCarousel.Item {...args} />
-    <TestimonialMultiCarousel.Item {...args} />
-  </TestimonialMultiCarousel>
-</Testimonial>
+<TestimonialMultiCarousel textColor='black' desktopColumnCount={1}>
+  <TestimonialMultiCarousel.Item
+    quote='Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.'
+    username='Marcus Cicero'
+    description='Arpinum, Italy'
+    backgroundColor='#b92525'
+    textColor='#000000'
+    alignment='Center'
+    asset=''
+  />
+  <TestimonialMultiCarousel.Item
+    quote='Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.'
+    username='Marcus Cicero'
+    description='Arpinum, Italy'
+    backgroundColor='#b92525'
+    textColor='#000000'
+    alignment='Left'
+    asset=''
+  />
+  <TestimonialMultiCarousel.Item
+    quote='Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.'
+    username='Marcus Cicero'
+    description='Arpinum, Italy'
+    backgroundColor='#b92525'
+    textColor='#000000'
+    alignment='Right'
+    asset=''
+  />
+</TestimonialMultiCarousel>
 ```
