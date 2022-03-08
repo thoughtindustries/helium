@@ -24,7 +24,8 @@
   "rules": {
     "react/jsx-curly-brace-presence": ["error", { "props": "never" }],
     "@typescript-eslint/no-var-requires": 0,
-    "@typescript-eslint/no-explicit-any": ["off"]
+    "@typescript-eslint/no-explicit-any": ["off"],
+    "@typescript-eslint/ban-ts-comment": ["error", {"ts-ignore":"allow-with-description"}]
   },
   "settings": {
     "react": {
