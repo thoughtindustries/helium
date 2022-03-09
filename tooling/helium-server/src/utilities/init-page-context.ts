@@ -12,17 +12,23 @@ type PageContextInit = {
   currentUser: Record<string, unknown>;
   isProduction: boolean;
   authToken: string | undefined;
+  httpResponse?: {
+    statusCode: number;
+    body: string;
+  };
 };
+
+type SHA256 = () => string;
 
 export default async function initPageContext(
   url: string,
-  renderPage: (pageContextInit: PageContextInit) => Promise<string>,
+  renderPage: (pageContextInit: PageContextInit) => Promise<PageContextInit>,
   currentUser: Record<string, unknown>,
   appearance: Record<string, unknown>,
   heliumEndpoint: string,
   isProduction: boolean,
-  sha256: () => string,
-  authToken: string | undefined
+  sha256?: SHA256 | undefined,
+  authToken?: string | undefined
 ) {
   const apolloClient = makeApolloClient(heliumEndpoint, isProduction, sha256, authToken);
   const pageContextInit = {
@@ -43,7 +49,7 @@ export default async function initPageContext(
 function makeApolloClient(
   heliumEndpoint: string,
   isProduction: boolean,
-  sha256: () => string,
+  sha256: SHA256 | undefined,
   authToken: string | undefined
 ) {
   let link = setContext((_, { headers }) => {
