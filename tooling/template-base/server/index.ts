@@ -1,5 +1,5 @@
 const isProduction = process.env.NODE_ENV === 'production';
-const { startHeliumServer } = require('@thoughtindustries/helium-server');
+const { setupHeliumServer } = require('@thoughtindustries/helium-server');
 const root = `${__dirname}/..`;
 
 startServer();
@@ -15,7 +15,7 @@ async function startServer() {
     });
   }
 
-  const app = await startHeliumServer(root, viteDevServer);
+  const app = await setupHeliumServer(root, viteDevServer);
   const port = process.env.PORT || 3000;
 
   app.listen(port);

@@ -10,7 +10,7 @@ const isProduction = process.env.NODE_ENV === 'production';
 const instanceName = process.env.INSTANCE || '';
 const heliumEndpoint = process.env.HELIUM_ENDPOINT;
 
-export default async function startHeliumServer(root: string, viteDevServer: any) {
+export default async function setupHeliumServer(root: string, viteDevServer: any) {
   if (!heliumEndpoint) {
     throw new Error(`
     HELIUM_ENDPOINT environment variable is not set.
