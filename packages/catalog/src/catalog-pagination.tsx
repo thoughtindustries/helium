@@ -138,7 +138,7 @@ const CatalogPagination = (): JSX.Element | null => {
 
   // stylings
   const pageBaseClassnames =
-    'w-7 h-7 rounded-none border border-solid border-gray-400 bg-white flex items-center justify-center';
+    'w-7 h-7 rounded-none border border-solid border-gray-400 bg-white flex items-center justify-center p-1';
   const disabledClassnames =
     'cursor-default pointer-events-none text-gray-400 bg-gray-300 border-gray-300';
   const enabledClassnames = 'text-gray-600';

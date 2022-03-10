@@ -1,71 +1,66 @@
 import { useCatalogContentQuery } from '@thoughtindustries/content';
 import React, { FC, useRef, useState } from 'react';
+import { CatalogURLManager } from '../../utilities/manage-catalog-url';
 import {
-  CatalogDriver,
-  CatalogURLManager,
-  searchResultsToState,
-  DEFAULT_STATE,
-  stateToSearchParams
-} from '../../driver';
+  CatalogState,
+  parseRequestParamsFromState,
+  parseStateFromResults,
+  DEFAULT_STATE
+} from '../../utilities/parse-catalog-state';
 import CatalogContext from './context';
 import { CatalogProviderProps } from './types';
 
 /**
- * Catalog provider to provide access to catalog state manager and url manager.
+ * Catalog provider to provide access to catalog state and url manager.
  * The provider will be rendered on server side. Upon server rendering, it will transform
- * the server routing data to fetch catalog data. Data will be hydrated to the client side.
- * A single instance of the catalog driver and url manager will be maintained by the
+ * the server url search params to fetch catalog data. Data will be hydrated to the client side.
+ * A single instance of the catalog url manager will be maintained by the
  * provider upon each server request.
  *
- * User interface will allow user to do both client side interaction (like: select display type)
- * and server side navigation (like: pagination).
+ * User interface will allow user to do server side navigation.
  */
 const CatalogProvider: FC<CatalogProviderProps> = ({ children, config }) => {
   const { layoutId, widgetId, parsedUrl } = config;
 
-  const [urlManager, setUrlManager] = useState<CatalogURLManager>(new CatalogURLManager(parsedUrl));
-  const [driver, setDriver] = useState<CatalogDriver | undefined>(undefined);
+  const [urlManager] = useState<CatalogURLManager>(new CatalogURLManager(parsedUrl));
+  const [state, setState] = useState<CatalogState | undefined>(undefined);
 
   // fetch catalog data on server side
   const urlParamState = urlManager.getStateFromURL();
-  const searchParams = stateToSearchParams({
+  const requestParams = parseRequestParamsFromState({
     ...DEFAULT_STATE,
     ...urlParamState
   });
+
   // On server side, the query hook will wait till the loading stops
-  const { data, error, refetch } = useCatalogContentQuery({
+  const { data, error, loading } = useCatalogContentQuery({
     variables: {
-      ...searchParams,
+      ...requestParams,
       layoutId,
       widgetId
     }
   });
 
   const didInitialized = useRef(false);
-  if (!didInitialized.current) {
-    const driverConfig = {
-      onSearch: refetch,
-      layoutId,
-      widgetId,
-      initialState: {
-        ...urlParamState,
-        ...searchResultsToState(data, error)
-      }
+  if (!didInitialized.current && !loading) {
+    const newState = {
+      ...DEFAULT_STATE,
+      ...urlParamState,
+      ...parseStateFromResults(data, error)
     };
-
-    const driver = new CatalogDriver(driverConfig);
-
-    setDriver(driver);
+    setState(newState);
+    urlManager.setIsCurated(newState.isCurated);
+    urlManager.setSelectedDisplayType(newState.displayType || newState.resultsDisplayType);
 
     didInitialized.current = true;
   }
 
-  if (!driver) {
+  if (!state) {
     return null;
   }
 
   return (
-    <CatalogContext.Provider value={{ driver, urlManager }}>{children}</CatalogContext.Provider>
+    <CatalogContext.Provider value={{ urlManager, state }}>{children}</CatalogContext.Provider>
   );
 };
 

@@ -1,31 +1,23 @@
-import { CatalogDriverActions, CatalogDriverState } from '../../driver';
+import { CatalogState } from '../../utilities/parse-catalog-state';
 
 export type CatalogFiltersState = Pick<
-  CatalogDriverState & CatalogDriverActions,
+  CatalogState,
   // search term
   | 'searchTerm'
-  | 'setSearchTerm'
-  | 'removeSearchTerm'
   // aggregation filter
   | 'aggregationFilters'
-  | 'removeAggregationFilter'
   // token
   | 'token'
   | 'tokenLabel'
-  | 'removeToken'
   // content types
   | 'contentTypes'
   | 'resultContentTypes'
   | 'contentTypeFilterEnabled'
-  | 'addContentType'
-  | 'removeContentType'
   // sort
   | 'sort'
   | 'enabledSorts'
-  | 'setSort'
   // display type
   | 'displayType'
   | 'enabledDisplayTypes'
   | 'resultsDisplayType'
-  | 'setDisplayType'
 >;

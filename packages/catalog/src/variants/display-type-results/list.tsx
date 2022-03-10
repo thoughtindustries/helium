@@ -6,7 +6,7 @@ import ItemLinkWrapper from './item-link-wrapper';
 import ItemAssetBlock from './item-asset-block';
 import ItemQueueButton from './item-queue-button';
 import ItemRibbon from './item-ribbon';
-import { CheckIcon } from './icons';
+import { CheckIcon } from '../../icons';
 import { priceFormat } from './utilities';
 import { CatalogResultsState } from '../../core';
 

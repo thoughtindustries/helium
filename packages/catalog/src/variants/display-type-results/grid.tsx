@@ -160,7 +160,6 @@ const ItemBundleBlock = ({ priceInCents, annualPriceInCents, slug }: GlobalTypes
   };
 
   // stylings
-  const planClassnames = 'clear-both float-left';
   const planCurrencyClassnames = 'font-bold text-sm';
   const planIntervalClassnames = 'text-xs';
 

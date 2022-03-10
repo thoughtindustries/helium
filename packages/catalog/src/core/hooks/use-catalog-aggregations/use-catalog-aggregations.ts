@@ -1,4 +1,3 @@
-import { useMemo } from 'react';
 import { useCatalogSlice } from '../use-catalog';
 import { CatalogAggregationsState } from './types';
 
@@ -18,6 +17,5 @@ export default function useCatalogAggregations() {
     token,
     tokenLabel
   });
-  const stateSlice = useCatalogSlice(mapper);
-  return useMemo(() => stateSlice, [stateSlice]);
+  return useCatalogSlice(mapper);
 }

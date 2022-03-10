@@ -1,7 +1,7 @@
-import { CatalogDriverState } from '../../driver';
+import { CatalogState } from '../../utilities/parse-catalog-state';
 
 export type CatalogAggregationsState = Pick<
-  CatalogDriverState,
+  CatalogState,
   | 'aggregations'
   | 'aggregationFilters'
   | 'isCurated'

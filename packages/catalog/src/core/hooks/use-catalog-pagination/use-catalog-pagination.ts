@@ -1,4 +1,3 @@
-import { useMemo } from 'react';
 import { useCatalogSlice } from '../use-catalog';
 import { CatalogPaginationState } from './types';
 
@@ -8,6 +7,5 @@ export default function useCatalogPagination() {
     pageSize,
     total
   });
-  const stateSlice = useCatalogSlice(mapper);
-  return useMemo(() => stateSlice, [stateSlice]);
+  return useCatalogSlice(mapper);
 }

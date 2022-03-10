@@ -1,21 +1,11 @@
-import { CatalogDriver, CatalogURLManager } from '../../driver';
+import { CatalogState } from '../../utilities/parse-catalog-state';
+import { CatalogParsedURL, CatalogURLManager } from '../../utilities/manage-catalog-url';
 
 export type CatalogContextType = {
-  driver: CatalogDriver;
+  state: CatalogState;
   urlManager: CatalogURLManager;
 };
 
-export type CatalogSearchQuery = {
-  token?: string;
-  query?: string;
-  labels?: string;
-  values?: string;
-  page?: string;
-};
-export type CatalogParsedURL = {
-  pathname: string;
-  searchString?: string;
-};
 export type CatalogProviderConfig = {
   layoutId?: string;
   widgetId?: string;
@@ -23,6 +13,5 @@ export type CatalogProviderConfig = {
 };
 
 export type CatalogProviderProps = {
-  driver?: CatalogDriver;
   config: CatalogProviderConfig;
 };

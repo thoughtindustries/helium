@@ -1,19 +1,18 @@
 import React from 'react';
-import Button from './button';
+import Link from './link';
 
 const DisplayTypeIconCalendar = ({
   isActive,
-  handleClick
+  link
 }: {
   isActive: boolean;
-  handleClick: VoidFunction;
+  link: string;
 }): JSX.Element => (
-  <Button isActive={isActive} onClick={handleClick}>
-    <i aria-label="calendar view" className="flex justify-center items-center">
+  <Link isActive={isActive} link={link}>
+    <i aria-label="calendar view" className="w-5 h-5">
       <svg
         xmlns="http://www.w3.org/2000/svg"
-        width="22px"
-        height="22px"
+        className="w-full h-full"
         viewBox="0 0 48 48"
         stroke="currentColor"
         strokeWidth={3}
@@ -24,7 +23,7 @@ const DisplayTypeIconCalendar = ({
         <line x1="24" y1="24" x2="24" y2="8" />
       </svg>
     </i>
-  </Button>
+  </Link>
 );
 
 DisplayTypeIconCalendar.displayName = 'DisplayTypeIconCalendar';

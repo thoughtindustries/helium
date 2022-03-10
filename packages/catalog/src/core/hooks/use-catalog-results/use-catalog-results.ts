@@ -1,4 +1,3 @@
-import { useMemo } from 'react';
 import { useCatalogSlice } from '../use-catalog';
 import { CatalogResultsState } from './types';
 
@@ -32,6 +31,5 @@ export default function useCatalogResults() {
     displayStartDateEnabled,
     displayDescriptionOnCalendar
   });
-  const stateSlice = useCatalogSlice(mapper);
-  return useMemo(() => stateSlice, [stateSlice]);
+  return useCatalogSlice(mapper);
 }

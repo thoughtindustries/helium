@@ -1,5 +1,5 @@
-import { CatalogDriverState, CatalogDriverActions } from '../../driver';
+import { CatalogState } from '../../utilities/parse-catalog-state';
 
-export type CatalogStateOrActions = Partial<CatalogDriverState> & Partial<CatalogDriverActions>;
+export type PartialCatalogState = Partial<CatalogState>;
 
-export type MapContextToProps<T extends CatalogStateOrActions> = (stateOrContext: T) => T;
+export type MapContextToProps<T extends PartialCatalogState> = (context: T) => T;

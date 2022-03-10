@@ -1,20 +1,14 @@
 import React from 'react';
 import { CatalogFiltersState } from '../../core';
-import Button from './button';
+import Link from './link';
 
 const FilterSearchTerm = ({
   searchTerm,
-  removeSearchTerm
+  removeFilterHref
 }: {
   searchTerm: CatalogFiltersState['searchTerm'];
-  removeSearchTerm: CatalogFiltersState['removeSearchTerm'];
-}): JSX.Element => {
-  const handleClick = () => {
-    removeSearchTerm();
-  };
-
-  return <Button label={searchTerm as string} onClick={handleClick} />;
-};
+  removeFilterHref: string;
+}): JSX.Element => <Link label={searchTerm as string} href={removeFilterHref} />;
 
 FilterSearchTerm.displayName = 'FilterSearchTerm';
 

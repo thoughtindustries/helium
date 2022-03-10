@@ -4,8 +4,7 @@ export const ArrowDownIcon = (): JSX.Element => (
   <svg
     xmlns="http://www.w3.org/2000/svg"
     fill="none"
-    width="20px"
-    height="20px"
+    className="w-full h-full"
     viewBox="0 0 24 24"
     stroke="currentColor"
   >
@@ -17,8 +16,7 @@ export const ArrowRightIcon = (): JSX.Element => (
   <svg
     xmlns="http://www.w3.org/2000/svg"
     fill="none"
-    width="20px"
-    height="20px"
+    className="w-full h-full"
     viewBox="0 0 24 24"
     stroke="currentColor"
   >
@@ -30,8 +28,7 @@ export const ArrowLeftIcon = (): JSX.Element => (
   <svg
     xmlns="http://www.w3.org/2000/svg"
     fill="none"
-    width="20px"
-    height="20px"
+    className="w-full h-full"
     viewBox="0 0 24 24"
     stroke="currentColor"
   >
@@ -43,8 +40,7 @@ export const DoubleArrowRightIcon = (): JSX.Element => (
   <svg
     xmlns="http://www.w3.org/2000/svg"
     fill="none"
-    width="20px"
-    height="20px"
+    className="w-full h-full"
     viewBox="0 0 24 24"
     stroke="currentColor"
   >
@@ -61,8 +57,7 @@ export const DoubleArrowLeftIcon = (): JSX.Element => (
   <svg
     xmlns="http://www.w3.org/2000/svg"
     fill="none"
-    width="20px"
-    height="20px"
+    className="w-full h-full"
     viewBox="0 0 24 24"
     stroke="currentColor"
   >
@@ -72,5 +67,17 @@ export const DoubleArrowLeftIcon = (): JSX.Element => (
       strokeWidth={2}
       d="M11 19l-7-7 7-7m8 14l-7-7 7-7"
     />
+  </svg>
+);
+
+export const CheckIcon = (): JSX.Element => (
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    fill="none"
+    className="w-full h-full"
+    viewBox="0 0 24 24"
+    stroke="currentColor"
+  >
+    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
   </svg>
 );

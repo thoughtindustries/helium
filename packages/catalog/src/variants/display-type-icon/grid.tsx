@@ -1,19 +1,18 @@
 import React from 'react';
-import Button from './button';
+import Link from './link';
 
 const DisplayTypeIconGrid = ({
   isActive,
-  handleClick
+  link
 }: {
   isActive: boolean;
-  handleClick: VoidFunction;
+  link: string;
 }): JSX.Element => (
-  <Button isActive={isActive} onClick={handleClick}>
-    <i aria-label="grid view" className="flex justify-center items-center">
+  <Link isActive={isActive} link={link}>
+    <i aria-label="grid view" className="w-5 h-5">
       <svg
         xmlns="http://www.w3.org/2000/svg"
-        width="22px"
-        height="22px"
+        className="w-full h-full"
         viewBox="0 0 32 32"
         stroke="currentColor"
         strokeWidth={3}
@@ -23,7 +22,7 @@ const DisplayTypeIconGrid = ({
         <line x1="4" y1="16" x2="28" y2="16" />
       </svg>
     </i>
-  </Button>
+  </Link>
 );
 
 DisplayTypeIconGrid.displayName = 'DisplayTypeIconGrid';

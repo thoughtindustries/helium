@@ -1,3 +1,3 @@
-import { CatalogDriverState } from '../../driver';
+import { CatalogState } from '../../utilities/parse-catalog-state';
 
-export type CatalogErrorState = Pick<CatalogDriverState, 'error'>;
+export type CatalogErrorState = Pick<CatalogState, 'error'>;

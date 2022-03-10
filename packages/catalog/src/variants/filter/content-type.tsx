@@ -1,20 +1,14 @@
 import React from 'react';
 import { CatalogFiltersState } from '../../core';
-import Button from './button';
+import Link from './link';
 
 const FilterContentType = ({
   contentType,
-  removeContentType
+  removeFilterHref
 }: {
   contentType: CatalogFiltersState['contentTypes'][0];
-  removeContentType: CatalogFiltersState['removeContentType'];
-}): JSX.Element => {
-  const handleClick = () => {
-    removeContentType(contentType);
-  };
-
-  return <Button label={contentType} onClick={handleClick} />;
-};
+  removeFilterHref: string;
+}): JSX.Element => <Link label={contentType} href={removeFilterHref} />;
 
 FilterContentType.displayName = 'FilterContentType';
 

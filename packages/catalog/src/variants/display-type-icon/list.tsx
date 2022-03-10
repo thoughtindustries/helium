@@ -1,18 +1,17 @@
 import React from 'react';
-import Button from './button';
+import Link from './link';
 
 const DisplayTypeIconList = ({
   isActive,
-  handleClick
+  link
 }: {
   isActive: boolean;
-  handleClick: VoidFunction;
+  link: string;
 }): JSX.Element => (
-  <Button isActive={isActive} onClick={handleClick}>
-    <i aria-label="list view" className="flex justify-center items-center">
+  <Link isActive={isActive} link={link}>
+    <i aria-label="list view" className="w-5 h-5">
       <svg
-        width="22px"
-        height="22px"
+        className="w-full h-full"
         viewBox="0 0 48 48"
         xmlns="http://www.w3.org/2000/svg"
         fill="currentColor"
@@ -25,7 +24,7 @@ const DisplayTypeIconList = ({
         <circle cx="6" cy="35" r="3" />
       </svg>
     </i>
-  </Button>
+  </Link>
 );
 
 DisplayTypeIconList.displayName = 'DisplayTypeIconList';

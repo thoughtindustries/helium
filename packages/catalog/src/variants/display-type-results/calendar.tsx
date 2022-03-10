@@ -178,7 +178,7 @@ const DisplayTypeResultsCalendarMonthlyItem = ({
                   aria-expanded={expanded}
                   aria-controls={ariaId}
                 >
-                  <span className="text-xl inline-block leading-4 text-center">
+                  <span className="text-xl inline-block leading-4 text-center w-5 h-5">
                     {expanded && <ArrowDownIcon />}
                     {!expanded && <ArrowRightIcon />}
                   </span>

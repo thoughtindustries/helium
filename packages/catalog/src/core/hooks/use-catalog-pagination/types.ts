@@ -1,3 +1,3 @@
-import { CatalogDriverState } from '../../driver';
+import { CatalogState } from '../../utilities/parse-catalog-state';
 
-export type CatalogPaginationState = Pick<CatalogDriverState, 'page' | 'pageSize' | 'total'>;
+export type CatalogPaginationState = Pick<CatalogState, 'page' | 'pageSize' | 'total'>;

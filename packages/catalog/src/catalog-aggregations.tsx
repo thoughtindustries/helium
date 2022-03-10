@@ -51,7 +51,7 @@ const Aggregation = ({
         aria-expanded={isExpanded}
         aria-labelledby={ariaId}
       >
-        <span className="text-xl inline-block leading-4 text-center">
+        <span className="text-xl inline-block leading-4 text-center w-5 h-5">
           {isExpanded && <ArrowDownIcon />}
           {!isExpanded && <ArrowRightIcon />}
         </span>
@@ -88,7 +88,7 @@ const CatalogAggregations = (): JSX.Element => {
     const aggregationBuckets = buckets.map(({ value = '', count }, bucketIndex) => {
       const filter = { label, value };
       const props = {
-        href: urlManager.composeURLForAddAggregationFilter(filter, isCurated),
+        href: urlManager.composeURLForAddAggregationFilter(filter),
         value,
         count
       };

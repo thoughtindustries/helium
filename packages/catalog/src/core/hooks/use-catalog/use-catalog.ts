@@ -2,7 +2,7 @@ import React from 'react';
 import { CatalogContext } from '../../components/catalog-provider';
 
 /**
- * The `useCatalog` hook provides access to the catalog driver object. It must be a descendent of a `CatalogProvider` component.
+ * The `useCatalog` hook provides access to the catalog context. It must be a descendent of a `CatalogProvider` component.
  */
 export default function useCatalog() {
   const context = React.useContext(CatalogContext);
