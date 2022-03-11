@@ -15,8 +15,8 @@ async function startServer() {
     });
   }
 
-  const app = await setupHeliumServer(root, viteDevServer);
   const port = process.env.PORT || 3000;
+  const app = await setupHeliumServer(root, viteDevServer, port);
 
   app.listen(port);
   console.log(`Server running at http://localhost:${port}`);

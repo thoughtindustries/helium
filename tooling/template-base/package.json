@@ -28,7 +28,6 @@
     "@thoughtindustries/hero": "^1.0.1-alpha.6",
     "concurrently": "^7.0.0",
     "cross-env": "^7.0.3",
-    "crypto-hash": "^2.0.0",
     "graphql": "^16.0.0",
     "i18next": "^21.4.2",
     "jwt-decode": "^3.1.2",
@@ -38,7 +37,7 @@
     "react-i18next": "^11.14.2",
     "tailwindcss": "^3.0.9",
     "vite": "^2.5.2",
-    "vite-plugin-ssr": "^0.3.2"
+    "vite-plugin-ssr": "^0.3.59"
   },
   "devDependencies": {
     "@thoughtindustries/helium": "^1.1.0-alpha.3",
