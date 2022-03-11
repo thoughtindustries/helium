@@ -1,0 +1,7 @@
+query User {
+  certificatesCount
+  collaborationsCount
+  availableCoursesCount
+  startedCoursesCount
+  completedCoursesCount
+}
