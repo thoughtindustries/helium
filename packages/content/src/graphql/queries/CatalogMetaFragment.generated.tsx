@@ -13,7 +13,7 @@ export type CatalogMetaFragmentFragment = {
   displayTypeListEnabled: boolean;
   hasMore: boolean;
   isCurated: boolean;
-  queryCustomFields: JSON;
+  queryCustomFields: any;
   resultsDisplayType: Types.ContentItemDisplayType;
   selectedSort: string;
   sortCourseStartDateEnabled: boolean;
