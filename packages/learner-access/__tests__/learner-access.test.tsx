@@ -26,7 +26,6 @@ describe('@thoughtindustries/learner-access', () => {
             >
               <li
                 class=" border-t-2 border-transparent border-solid inline-block text-sm py-4 px-8 relative  bg-white border-activeTab-blue"
-                role="presentation"
               >
                 <button
                   aria-controls="access-section-0"
@@ -48,7 +47,6 @@ describe('@thoughtindustries/learner-access', () => {
               </li>
               <li
                 class=" border-t-2 border-transparent border-solid inline-block text-sm py-4 px-8 relative"
-                role="presentation"
               >
                 <button
                   aria-controls="access-section-0"
@@ -70,7 +68,6 @@ describe('@thoughtindustries/learner-access', () => {
               </li>
               <li
                 class=" border-t-2 border-transparent border-solid inline-block text-sm py-4 px-8 relative"
-                role="presentation"
               >
                 <button
                   aria-controls="access-section-0"
@@ -92,7 +89,6 @@ describe('@thoughtindustries/learner-access', () => {
               </li>
               <li
                 class=" border-t-2 border-transparent border-solid inline-block text-sm py-4 px-8 relative"
-                role="presentation"
               >
                 <button
                   aria-controls="access-section-0"
@@ -114,7 +110,6 @@ describe('@thoughtindustries/learner-access', () => {
               </li>
               <li
                 class=" border-t-2 border-transparent border-solid inline-block text-sm py-4 px-8 relative"
-                role="presentation"
               >
                 <button
                   aria-controls="access-section-0"
@@ -136,7 +131,6 @@ describe('@thoughtindustries/learner-access', () => {
               </li>
               <li
                 class=" border-t-2 border-transparent border-solid inline-block text-sm py-4 px-8 relative"
-                role="presentation"
               >
                 <button
                   aria-controls="access-section-0"
