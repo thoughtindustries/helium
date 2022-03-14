@@ -19,7 +19,7 @@ export enum CatalogURLSearchParams {
   Token = 'token',
   SearchTerm = 'query',
   AggregationLabels = 'labels',
-  AggregationValues = 'value',
+  AggregationValues = 'values',
   ContentTypes = 'content-types',
   DisplayType = 'display-type',
   Page = 'page',
