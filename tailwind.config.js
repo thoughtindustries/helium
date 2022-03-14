@@ -27,6 +27,10 @@ module.exports = {
         accent: '#111111',
         secondary: '#111111',
         link: '#a9a9a9',
+        hover: '#236c96',
+        activeTab: {
+          blue: '#311ac9'
+        },
         'accent-highlight': '#111111',
         'accent-highlight-background': '#dddddd',
         'accent-tinted': {
@@ -39,7 +43,10 @@ module.exports = {
         'accent-hover': '#2b2b2b',
         'secondary-hover': '#2b2b2b',
         'secondary-contrast': '#ffffff',
-        'link-hover': '#767676'
+        'link-hover': '#767676',
+        'black-light': '#333333',
+        'gray-light': ' #cbcbcb',
+        'gray-lightest': '#e9e9e9'
       },
       fontFamily: {
         primary: ['Sintony', 'Nunito', 'sans-serif'],
