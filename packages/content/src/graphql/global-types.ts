@@ -187,6 +187,15 @@ export enum ContentKind {
   XApiObject = 'xApiObject'
 }
 
+export type Language = {
+  __typename?: 'Language';
+  code: Scalars['String'];
+  id?: Maybe<Scalars['ID']>;
+  isCustom?: Maybe<Scalars['Boolean']>;
+  label: Scalars['String'];
+  selectorLabel?: Maybe<Scalars['String']>;
+};
+
 export type Location = {
   __typename?: 'Location';
   address1: Scalars['String'];
@@ -221,6 +230,7 @@ export type Query = {
   __typename?: 'Query';
   CatalogContent: CatalogContent;
   CatalogQuery: CatalogContent;
+  Languages: Array<Language>;
   QueryContent?: Maybe<Content>;
   QueryContents: Array<Content>;
   RssItems: Array<RssItem>;

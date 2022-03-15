@@ -1,0 +1,9 @@
+query LanguagesQuery {
+  Languages {
+    id
+    label
+    code
+    isCustom
+    selectorLabel
+  }
+}
