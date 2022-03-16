@@ -8,7 +8,6 @@ import {
   DisplayTypeResultsGrid,
   DisplayTypeResultsCalendar
 } from './variants/display-type-results';
-import CatalogPagination from './catalog-pagination';
 
 const DisplayTypeResults = ({
   activeDisplayType,
@@ -134,7 +133,6 @@ const CatalogResults = ({
       {hasResults && activeDisplayType && (
         <DisplayTypeResults {...resultsProps} activeDisplayType={activeDisplayType} />
       )}
-      <CatalogPagination />
     </>
   );
 };

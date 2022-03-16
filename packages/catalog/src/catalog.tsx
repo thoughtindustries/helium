@@ -6,6 +6,7 @@ import CatalogFilters from './catalog-filters';
 import CatalogAggregations from './catalog-aggregations';
 import CatalogError from './catalog-error';
 import CatalogResults from './catalog-results';
+import CatalogPagination from './catalog-pagination';
 
 const Catalog: FC<CatalogProps> = ({
   title,
@@ -27,6 +28,7 @@ const Catalog: FC<CatalogProps> = ({
             </div>
             <div className="col-span-full md:col-span-3">
               <CatalogResults {...restResultsProps} />
+              <CatalogPagination />
             </div>
           </div>
         </CatalogError>
