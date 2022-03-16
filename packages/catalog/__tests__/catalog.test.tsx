@@ -5,7 +5,8 @@ import { CatalogProvider, Catalog, CatalogResults } from '../src';
 import {
   CatalogContentDocument,
   CatalogContentQuery,
-  GlobalTypes
+  GlobalTypes,
+  LanguagesQueryDocument
 } from '@thoughtindustries/content';
 
 jest.mock('react-i18next', () => ({
@@ -49,6 +50,21 @@ const mockAggregations = [
       {
         value: 'Bucket 3',
         count: 20
+      }
+    ]
+  },
+  {
+    label: 'Label 3',
+    buckets: [
+      {
+        value: 'en',
+        query: 'language:en',
+        count: 30
+      },
+      {
+        value: 'jp',
+        query: 'language:jp',
+        count: 40
       }
     ]
   }
@@ -124,38 +140,66 @@ const mockCatalogContentFactory = ({
     displayAuthorsEnabled: true,
     displayDescriptionOnCalendar: true,
     contentTypeFilterEnabled: true,
-    queryCustomFields: {}
+    queryCustomFields: '{}'
   }
 });
-const mockApolloResultsFactory = (props: MockQueryProps) => ({
-  request: {
-    query: CatalogContentDocument,
-    variables: {
-      page: 1,
-      sort: undefined,
-      resultsDisplayType: undefined,
-      token: undefined,
-      contentTypes: [],
-      query: undefined,
-      labels: [],
-      values: [],
-      layoutId: undefined,
-      widgetId: undefined
+const mockLanguages = [
+  {
+    label: 'English',
+    code: 'en'
+  }
+];
+const mockApolloResultsFactory = (props: MockQueryProps) => [
+  {
+    request: {
+      query: CatalogContentDocument,
+      variables: {
+        page: 1,
+        sort: undefined,
+        resultsDisplayType: undefined,
+        token: undefined,
+        contentTypes: [],
+        query: undefined,
+        labels: [],
+        values: [],
+        layoutId: undefined,
+        widgetId: undefined
+      }
+    },
+    result: {
+      data: {
+        CatalogContent: mockCatalogContentFactory(props)
+      }
     }
   },
-  result: {
-    data: {
-      CatalogContent: mockCatalogContentFactory(props)
+  {
+    request: {
+      query: LanguagesQueryDocument
+    },
+    result: {
+      data: {
+        Languages: [...mockLanguages]
+      }
     }
   }
-});
+];
 
 const handleAddedToQueue = (): Promise<boolean | void> => {
   return Promise.resolve();
 };
 
 // use the options to bypass mocking full payload of responses
-const mockedApolloProviderOptions = { watchQuery: { fetchPolicy: 'no-cache' as const } };
+const mockedApolloProviderOptions = {
+  watchQuery: { fetchPolicy: 'no-cache' as const },
+  query: { fetchPolicy: 'no-cache' as const }
+};
+
+const resolveQueriesAsync = async () => {
+  // wait till catalog content query resolves
+  await waitFor(() => new Promise(res => setTimeout(res, 0)));
+  // wait till languages query resolves
+  await waitFor(() => new Promise(res => setTimeout(res, 0)));
+};
 
 describe('@thoughtindustries/catalog', () => {
   describe('Catalog', () => {
@@ -176,7 +220,7 @@ describe('@thoughtindustries/catalog', () => {
       const apolloMock = mockApolloResultsFactory({ displayType });
       const { container } = render(
         <MockedProvider
-          mocks={[apolloMock]}
+          mocks={[...apolloMock]}
           addTypename={false}
           defaultOptions={mockedApolloProviderOptions}
         >
@@ -187,7 +231,7 @@ describe('@thoughtindustries/catalog', () => {
           </CatalogProvider>
         </MockedProvider>
       );
-      await waitFor(() => new Promise(res => setTimeout(res, 0)));
+      await resolveQueriesAsync();
       expect(container).toMatchInlineSnapshot(`
         <div>
           <div
@@ -669,6 +713,75 @@ describe('@thoughtindustries/catalog', () => {
                           >
                             (
                             20
+                            )
+                          </span>
+                        </a>
+                      </li>
+                    </ul>
+                  </div>
+                  <div
+                    class="border-t border-solid border-gray-400 py-3 px-2"
+                  >
+                    <button
+                      aria-expanded="false"
+                      aria-labelledby="catalog-aggregation-dropdown-2"
+                      class="w-full leading-normal text-left transition-colors ease-in-out duration-200 bg-none text-accent hover:text-accent-hover flex items-center gap-4"
+                    >
+                      <span
+                        class="text-xl inline-block leading-4 text-center w-5 h-5"
+                      >
+                        <svg
+                          class="w-full h-full"
+                          fill="none"
+                          stroke="currentColor"
+                          viewBox="0 0 24 24"
+                          xmlns="http://www.w3.org/2000/svg"
+                        >
+                          <path
+                            d="M9 5l7 7-7 7"
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            stroke-width="2"
+                          />
+                        </svg>
+                      </span>
+                      <span
+                        class="font-semibold"
+                      >
+                        Label 3
+                      </span>
+                    </button>
+                    <ul
+                      aria-hidden="true"
+                      class="pl-6 text-sm hidden"
+                      id="catalog-aggregation-dropdown-2"
+                    >
+                      <li>
+                        <a
+                          class="inline-block leading-normal py-1.5 px-4 text-link hover:text-link-hover"
+                          href="/catalog?labels=%5B%22Label+3%22%5D&values=%5B%22en%22%5D"
+                        >
+                          English
+                          <span
+                            class="text-xs text-gray-700 pl-1"
+                          >
+                            (
+                            30
+                            )
+                          </span>
+                        </a>
+                      </li>
+                      <li>
+                        <a
+                          class="inline-block leading-normal py-1.5 px-4 text-link hover:text-link-hover"
+                          href="/catalog?labels=%5B%22Label+3%22%5D&values=%5B%22jp%22%5D"
+                        >
+                          jp
+                          <span
+                            class="text-xs text-gray-700 pl-1"
+                          >
+                            (
+                            40
                             )
                           </span>
                         </a>
@@ -948,7 +1061,7 @@ describe('@thoughtindustries/catalog', () => {
       const apolloMock = mockApolloResultsFactory({ displayType });
       const { container } = render(
         <MockedProvider
-          mocks={[apolloMock]}
+          mocks={[...apolloMock]}
           addTypename={false}
           defaultOptions={mockedApolloProviderOptions}
         >
@@ -959,7 +1072,7 @@ describe('@thoughtindustries/catalog', () => {
           </CatalogProvider>
         </MockedProvider>
       );
-      await waitFor(() => new Promise(res => setTimeout(res, 0)));
+      await resolveQueriesAsync();
       expect(container).toMatchInlineSnapshot(`
         <div>
           <div
@@ -1441,6 +1554,75 @@ describe('@thoughtindustries/catalog', () => {
                           >
                             (
                             20
+                            )
+                          </span>
+                        </a>
+                      </li>
+                    </ul>
+                  </div>
+                  <div
+                    class="border-t border-solid border-gray-400 py-3 px-2"
+                  >
+                    <button
+                      aria-expanded="false"
+                      aria-labelledby="catalog-aggregation-dropdown-2"
+                      class="w-full leading-normal text-left transition-colors ease-in-out duration-200 bg-none text-accent hover:text-accent-hover flex items-center gap-4"
+                    >
+                      <span
+                        class="text-xl inline-block leading-4 text-center w-5 h-5"
+                      >
+                        <svg
+                          class="w-full h-full"
+                          fill="none"
+                          stroke="currentColor"
+                          viewBox="0 0 24 24"
+                          xmlns="http://www.w3.org/2000/svg"
+                        >
+                          <path
+                            d="M9 5l7 7-7 7"
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            stroke-width="2"
+                          />
+                        </svg>
+                      </span>
+                      <span
+                        class="font-semibold"
+                      >
+                        Label 3
+                      </span>
+                    </button>
+                    <ul
+                      aria-hidden="true"
+                      class="pl-6 text-sm hidden"
+                      id="catalog-aggregation-dropdown-2"
+                    >
+                      <li>
+                        <a
+                          class="inline-block leading-normal py-1.5 px-4 text-link hover:text-link-hover"
+                          href="/catalog?labels=%5B%22Label+3%22%5D&values=%5B%22en%22%5D"
+                        >
+                          English
+                          <span
+                            class="text-xs text-gray-700 pl-1"
+                          >
+                            (
+                            30
+                            )
+                          </span>
+                        </a>
+                      </li>
+                      <li>
+                        <a
+                          class="inline-block leading-normal py-1.5 px-4 text-link hover:text-link-hover"
+                          href="/catalog?labels=%5B%22Label+3%22%5D&values=%5B%22jp%22%5D"
+                        >
+                          jp
+                          <span
+                            class="text-xs text-gray-700 pl-1"
+                          >
+                            (
+                            40
                             )
                           </span>
                         </a>
@@ -1781,7 +1963,7 @@ describe('@thoughtindustries/catalog', () => {
       const apolloMock = mockApolloResultsFactory({ displayType });
       const { container } = render(
         <MockedProvider
-          mocks={[apolloMock]}
+          mocks={[...apolloMock]}
           addTypename={false}
           defaultOptions={mockedApolloProviderOptions}
         >
@@ -1792,7 +1974,7 @@ describe('@thoughtindustries/catalog', () => {
           </CatalogProvider>
         </MockedProvider>
       );
-      await waitFor(() => new Promise(res => setTimeout(res, 0)));
+      await resolveQueriesAsync();
       expect(container).toMatchInlineSnapshot(`
         <div>
           <div
@@ -2120,6 +2302,75 @@ describe('@thoughtindustries/catalog', () => {
                           >
                             (
                             20
+                            )
+                          </span>
+                        </a>
+                      </li>
+                    </ul>
+                  </div>
+                  <div
+                    class="border-t border-solid border-gray-400 py-3 px-2"
+                  >
+                    <button
+                      aria-expanded="false"
+                      aria-labelledby="catalog-aggregation-dropdown-2"
+                      class="w-full leading-normal text-left transition-colors ease-in-out duration-200 bg-none text-accent hover:text-accent-hover flex items-center gap-4"
+                    >
+                      <span
+                        class="text-xl inline-block leading-4 text-center w-5 h-5"
+                      >
+                        <svg
+                          class="w-full h-full"
+                          fill="none"
+                          stroke="currentColor"
+                          viewBox="0 0 24 24"
+                          xmlns="http://www.w3.org/2000/svg"
+                        >
+                          <path
+                            d="M9 5l7 7-7 7"
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            stroke-width="2"
+                          />
+                        </svg>
+                      </span>
+                      <span
+                        class="font-semibold"
+                      >
+                        Label 3
+                      </span>
+                    </button>
+                    <ul
+                      aria-hidden="true"
+                      class="pl-6 text-sm hidden"
+                      id="catalog-aggregation-dropdown-2"
+                    >
+                      <li>
+                        <a
+                          class="inline-block leading-normal py-1.5 px-4 text-link hover:text-link-hover"
+                          href="/catalog?labels=%5B%22Label+3%22%5D&values=%5B%22en%22%5D"
+                        >
+                          English
+                          <span
+                            class="text-xs text-gray-700 pl-1"
+                          >
+                            (
+                            30
+                            )
+                          </span>
+                        </a>
+                      </li>
+                      <li>
+                        <a
+                          class="inline-block leading-normal py-1.5 px-4 text-link hover:text-link-hover"
+                          href="/catalog?labels=%5B%22Label+3%22%5D&values=%5B%22jp%22%5D"
+                        >
+                          jp
+                          <span
+                            class="text-xs text-gray-700 pl-1"
+                          >
+                            (
+                            40
                             )
                           </span>
                         </a>

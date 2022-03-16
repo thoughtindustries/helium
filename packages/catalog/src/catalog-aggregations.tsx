@@ -2,6 +2,7 @@ import React, { ReactNode, useState } from 'react';
 import { useCatalogAggregations, useCatalogURLManager } from './core';
 import clsx from 'clsx';
 import { ArrowDownIcon, ArrowRightIcon } from './icons';
+import { useLanguagesQueryQuery } from '@thoughtindustries/content';
 
 type AggregationBucketProps = {
   href: string;
@@ -68,11 +69,13 @@ const CatalogAggregations = (): JSX.Element => {
   const { aggregations, aggregationFilters, isCurated, token, tokenLabel } =
     useCatalogAggregations();
   const urlManager = useCatalogURLManager();
+  const { data } = useLanguagesQueryQuery();
 
   // derived value
   const firstAggregationFilterLabel = aggregationFilters.length
     ? aggregationFilters[0].label
     : undefined;
+  const languages = data ? data.Languages : [];
 
   const contents = aggregations.map(({ label = '', buckets = [] }, index) => {
     const isAggregationLabel = label === firstAggregationFilterLabel;
@@ -85,11 +88,14 @@ const CatalogAggregations = (): JSX.Element => {
     const shouldExpandFirst = !isCurated && !token;
     const isExpanded = isCurrentLabel || (shouldExpandFirst && index === 0);
 
-    const aggregationBuckets = buckets.map(({ value = '', count }, bucketIndex) => {
+    const aggregationBuckets = buckets.map(({ value = '', count, query }, bucketIndex) => {
       const filter = { label, value };
+      const isLanguageLabel = query?.includes('language');
+      const languageLabel = languages.find(({ code }) => code === value)?.label || value;
+      const displayLabel = isLanguageLabel ? languageLabel : value;
       const props = {
         href: urlManager.composeURLForAddAggregationFilter(filter),
-        value,
+        value: displayLabel,
         count
       };
       return <AggregationBucket key={`catalog-aggregation-bucket-${bucketIndex}`} {...props} />;
