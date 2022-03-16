@@ -1,12 +1,7 @@
 import React, { SyntheticEvent, useMemo } from 'react';
 import Layout from '../../components/Layout';
 import { usePageContext } from '../../renderer/usePageContext';
-import {
-  CatalogResults,
-  Catalog,
-  CatalogProvider,
-  CatalogResultItem
-} from '@thoughtindustries/catalog';
+import { Catalog, CatalogProvider, CatalogResultItem } from '@thoughtindustries/catalog';
 import { useAddResourceToQueueMutation } from '@thoughtindustries/content';
 import { Appearance, CurrentUser } from '../../types';
 
@@ -58,9 +53,7 @@ function CatalogItems() {
   return (
     <div className="px-4">
       <CatalogProvider config={config}>
-        <Catalog>
-          <CatalogResults onAddedToQueue={handleAddedToQueue} onClick={handleClick} />
-        </Catalog>
+        <Catalog onAddedToQueue={handleAddedToQueue} onClick={handleClick} />
       </CatalogProvider>
     </div>
   );

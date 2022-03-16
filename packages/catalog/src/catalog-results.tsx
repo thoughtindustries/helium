@@ -27,10 +27,7 @@ const DisplayTypeResults = ({
   displayAuthorsEnabled: CatalogResultsState['displayAuthorsEnabled'];
   displayStartDateEnabled: CatalogResultsState['displayStartDateEnabled'];
   displayDescriptionOnCalendar: CatalogResultsState['displayDescriptionOnCalendar'];
-  companyTimeZone: CatalogResultsProps['companyTimeZone'];
-  onClick: CatalogResultsProps['onClick'];
-  onAddedToQueue: CatalogResultsProps['onAddedToQueue'];
-}): JSX.Element => {
+} & Omit<CatalogResultsProps, 'companyHasSessionLevelCustomFieldsFeature'>): JSX.Element => {
   const baseProps = {
     items: hydratedResults,
     onAddedToQueue

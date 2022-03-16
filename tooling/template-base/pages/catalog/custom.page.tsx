@@ -60,9 +60,7 @@ function CatalogItems() {
   return (
     <div className="px-4">
       <CatalogProvider config={config}>
-        <Catalog>
-          <CatalogResults onAddedToQueue={handleAddedToQueue} onClick={handleClick} />
-        </Catalog>
+        <Catalog onAddedToQueue={handleAddedToQueue} onClick={handleClick} />
       </CatalogProvider>
     </div>
   );

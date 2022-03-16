@@ -5,9 +5,13 @@ import { CatalogProps } from './types';
 import CatalogFilters from './catalog-filters';
 import CatalogAggregations from './catalog-aggregations';
 import CatalogError from './catalog-error';
+import CatalogResults from './catalog-results';
 
-const Catalog: FC<CatalogProps> = (props: CatalogProps): JSX.Element => {
-  const { title, alternateTitleDisplay, children } = props;
+const Catalog: FC<CatalogProps> = ({
+  title,
+  alternateTitleDisplay,
+  ...restResultsProps
+}: CatalogProps): JSX.Element => {
   const { t } = useTranslation();
 
   return (
@@ -21,7 +25,9 @@ const Catalog: FC<CatalogProps> = (props: CatalogProps): JSX.Element => {
             <div className="col-span-full md:col-span-1">
               <CatalogAggregations />
             </div>
-            <div className="col-span-full md:col-span-3">{children}</div>
+            <div className="col-span-full md:col-span-3">
+              <CatalogResults {...restResultsProps} />
+            </div>
           </div>
         </CatalogError>
       </div>

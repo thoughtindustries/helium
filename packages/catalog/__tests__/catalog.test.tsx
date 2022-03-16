@@ -1,7 +1,7 @@
 import React from 'react';
 import { render, waitFor } from '@testing-library/react';
 import { MockedProvider } from '@apollo/client/testing';
-import { CatalogProvider, Catalog, CatalogResults } from '../src';
+import { CatalogProvider, Catalog } from '../src';
 import {
   CatalogContentDocument,
   CatalogContentQuery,
@@ -211,7 +211,9 @@ describe('@thoughtindustries/catalog', () => {
 
     it('should error when rendered without a parent <CatalogProvider />', () => {
       const spy = jest.spyOn(global.console, 'error').mockImplementation(jest.fn());
-      expect(() => render(<Catalog>children</Catalog>)).toThrowError();
+      expect(() =>
+        render(<Catalog onAddedToQueue={handleAddedToQueue}>children</Catalog>)
+      ).toThrowError();
       spy.mockRestore();
     });
 
@@ -225,9 +227,7 @@ describe('@thoughtindustries/catalog', () => {
           defaultOptions={mockedApolloProviderOptions}
         >
           <CatalogProvider config={config}>
-            <Catalog>
-              <CatalogResults onAddedToQueue={handleAddedToQueue} />
-            </Catalog>
+            <Catalog onAddedToQueue={handleAddedToQueue} />
           </CatalogProvider>
         </MockedProvider>
       );
@@ -1066,9 +1066,7 @@ describe('@thoughtindustries/catalog', () => {
           defaultOptions={mockedApolloProviderOptions}
         >
           <CatalogProvider config={config}>
-            <Catalog>
-              <CatalogResults onAddedToQueue={handleAddedToQueue} />
-            </Catalog>
+            <Catalog onAddedToQueue={handleAddedToQueue} />
           </CatalogProvider>
         </MockedProvider>
       );
@@ -1968,9 +1966,7 @@ describe('@thoughtindustries/catalog', () => {
           defaultOptions={mockedApolloProviderOptions}
         >
           <CatalogProvider config={config}>
-            <Catalog>
-              <CatalogResults onAddedToQueue={handleAddedToQueue} />
-            </Catalog>
+            <Catalog onAddedToQueue={handleAddedToQueue} />
           </CatalogProvider>
         </MockedProvider>
       );
