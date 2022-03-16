@@ -2,9 +2,9 @@ import { CatalogContentQueryVariables } from '@thoughtindustries/content';
 import { DEFAULT_PAGE } from './constants';
 import parseAggregationFilters from './parse-aggregation-filters';
 import serializeSort from './serialize-sort';
-import { CatalogState } from './types';
+import { CatalogParams } from './types';
 
-const parseRequestParamsFromState = (state: CatalogState): CatalogContentQueryVariables => {
+const parseQueryVariables = (params: CatalogParams): CatalogContentQueryVariables => {
   const {
     page = DEFAULT_PAGE,
     token,
@@ -14,7 +14,7 @@ const parseRequestParamsFromState = (state: CatalogState): CatalogContentQueryVa
     aggregationFilters,
     searchTerm,
     contentTypes
-  } = state;
+  } = params;
   const sortParam = sort && serializeSort(sort);
   const displayTypeParam = displayType || resultsDisplayType;
   const transformedFilters = parseAggregationFilters(aggregationFilters);
@@ -30,4 +30,4 @@ const parseRequestParamsFromState = (state: CatalogState): CatalogContentQueryVa
   };
 };
 
-export default parseRequestParamsFromState;
+export default parseQueryVariables;

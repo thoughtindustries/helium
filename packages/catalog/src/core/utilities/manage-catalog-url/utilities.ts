@@ -1,11 +1,11 @@
 import { GlobalTypes } from '@thoughtindustries/content';
 import {
   AggregationFilter,
-  CatalogRequestState,
-  CatalogRequestURLState,
+  CatalogRequestParams,
+  CatalogRequestURLParams,
   parseSort,
   Sort
-} from '../parse-catalog-state';
+} from '../parse-catalog-data';
 import { CatalogURLSearchParams } from './types';
 
 const toInteger = (str: string): number => parseInt(str, 10);
@@ -92,43 +92,43 @@ const parseSortFromQueryParams = (params: URLSearchParams): Sort | undefined => 
   return parseSort(sort);
 };
 
-export const paramsToState = (params: URLSearchParams): Partial<CatalogRequestURLState> => {
-  const state: Partial<CatalogRequestState> = {};
+export const toRequestParams = (params: URLSearchParams): Partial<CatalogRequestURLParams> => {
+  const result: Partial<CatalogRequestParams> = {};
 
   const page = parsePageFromQueryParams(params);
   if (page) {
-    state.page = page;
+    result.page = page;
   }
 
   const aggregationFilters = parseAggregationFiltersFromQueryParams(params);
   if (aggregationFilters) {
-    state.aggregationFilters = aggregationFilters;
+    result.aggregationFilters = aggregationFilters;
   }
 
   const token = parseTokenFromQueryParams(params);
   if (token) {
-    state.token = token;
+    result.token = token;
   }
 
   const searchTerm = parseSearchTermFromQueryParams(params);
   if (searchTerm) {
-    state.searchTerm = searchTerm;
+    result.searchTerm = searchTerm;
   }
 
   const contentTypes = parseContentTypesFromQueryParams(params);
   if (contentTypes) {
-    state.contentTypes = contentTypes;
+    result.contentTypes = contentTypes;
   }
 
   const displayType = parseDisplayTypeFromQueryParams(params);
   if (displayType) {
-    state.displayType = displayType;
+    result.displayType = displayType;
   }
 
   const sort = parseSortFromQueryParams(params);
   if (sort) {
-    state.sort = sort;
+    result.sort = sort;
   }
 
-  return state;
+  return result;
 };

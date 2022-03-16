@@ -8,10 +8,10 @@ import ItemQueueButton from './item-queue-button';
 import ItemRibbon from './item-ribbon';
 import { CheckIcon } from '../../icons';
 import { priceFormat } from './utilities';
-import { CatalogState } from '../../core';
+import { CatalogParams } from '../../core';
 
 type DisplayTypeResultsListProps = Pick<CatalogResultsProps, 'onClick' | 'onAddedToQueue'> &
-  Pick<CatalogState, 'displayStartDateEnabled'> & {
+  Pick<CatalogParams, 'displayStartDateEnabled'> & {
     items: CatalogResultItem[];
   };
 

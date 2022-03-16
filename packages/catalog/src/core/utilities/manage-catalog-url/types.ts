@@ -1,4 +1,4 @@
-import { AggregationFilter } from '../parse-catalog-state';
+import { AggregationFilter } from '../parse-catalog-data';
 
 export type CatalogParsedURL = {
   pathname: string;

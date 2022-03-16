@@ -1,6 +1,6 @@
 import React from 'react';
 import { GlobalTypes } from '@thoughtindustries/content';
-import { CatalogState, useCatalogURLManager } from '../../core';
+import { CatalogParams, useCatalogURLManager } from '../../core';
 import {
   DisplayTypeIconGrid,
   DisplayTypeIconList,
@@ -28,8 +28,8 @@ const getDisplayTypeComponent = (displayType: GlobalTypes.ContentItemDisplayType
 const DisplayTypeSelector = ({
   activeDisplayType,
   enabledDisplayTypes
-}: Pick<CatalogState, 'enabledDisplayTypes'> & {
-  activeDisplayType: CatalogState['displayType'] | CatalogState['resultsDisplayType'];
+}: Pick<CatalogParams, 'enabledDisplayTypes'> & {
+  activeDisplayType: CatalogParams['displayType'] | CatalogParams['resultsDisplayType'];
 }): JSX.Element => {
   const urlManager = useCatalogURLManager();
   const selectors = enabledDisplayTypes.map(item => {

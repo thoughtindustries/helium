@@ -29,14 +29,14 @@ describe('@thoughtindustries/catalog/core/CatalogURLManager', () => {
     expect(urlManager).toBeInstanceOf(CatalogURLManager);
   });
 
-  describe('getStateFromURL', () => {
-    it('should parse the current state from the URL', () => {
+  describe('getParsedRequestParams', () => {
+    it('should parse the request params from the URL', () => {
       const searchString =
         '?labels=%5B%22label1%22%2C%22label2%22%5D&values=%5B%22value1%22%2C%22value2%22%5D&page=3&token=abc&query=test&content-types=%5B%22type1%22%5D&display-type=calendar&sort=createdAt%3Adesc';
       const manager = setup({ searchString });
 
-      const state = manager.getStateFromURL();
-      expect(state).toMatchInlineSnapshot(`
+      const actual = manager.getParsedRequestParams();
+      expect(actual).toMatchInlineSnapshot(`
         Object {
           "aggregationFilters": Array [
             Object {
@@ -67,8 +67,8 @@ describe('@thoughtindustries/catalog/core/CatalogURLManager', () => {
       const searchString = '?page=3&foo=bar&anything';
       const manager = setup({ searchString });
 
-      const state = manager.getStateFromURL();
-      expect(state).toMatchInlineSnapshot(`
+      const actual = manager.getParsedRequestParams();
+      expect(actual).toMatchInlineSnapshot(`
         Object {
           "page": 3,
         }
@@ -80,8 +80,8 @@ describe('@thoughtindustries/catalog/core/CatalogURLManager', () => {
         '?token=abc&token=badtoken&page=3&page=1&labels=%5B%22label%22%5D&labels=%5B%22badlabel%22%5D&values=%5B%22value%22%5D&values=%5B%22badvalue%22%5D';
       const manager = setup({ searchString });
 
-      const state = manager.getStateFromURL();
-      expect(state).toMatchInlineSnapshot(`
+      const actual = manager.getParsedRequestParams();
+      expect(actual).toMatchInlineSnapshot(`
         Object {
           "aggregationFilters": Array [
             Object {

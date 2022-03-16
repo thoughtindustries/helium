@@ -1,7 +1,7 @@
 import React from 'react';
 import { hydrateContent, GlobalTypes, HydratedContentItem } from '@thoughtindustries/content';
 import { useTranslation } from 'react-i18next';
-import { CatalogState, useCatalog } from './core';
+import { CatalogParams, useCatalog } from './core';
 import { CatalogResultsProps } from './types';
 import {
   DisplayTypeResultsList,
@@ -10,7 +10,7 @@ import {
 } from './variants/display-type-results';
 
 type DisplayTypeResultsProps = Pick<
-  CatalogState,
+  CatalogParams,
   | 'displayBundle'
   | 'displayAuthorsEnabled'
   | 'displayStartDateEnabled'
@@ -69,7 +69,7 @@ const CatalogResults = ({
   onClick,
   onAddedToQueue
 }: CatalogResultsProps): JSX.Element => {
-  const { state } = useCatalog();
+  const { params } = useCatalog();
   const {
     aggregations,
     aggregationFilters,
@@ -81,7 +81,7 @@ const CatalogResults = ({
     displayAuthorsEnabled,
     displayStartDateEnabled,
     displayDescriptionOnCalendar
-  } = state;
+  } = params;
   const { i18n, t } = useTranslation();
 
   // derived values

@@ -1,12 +1,12 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
-import { CatalogState, useCatalogURLManager } from '../../core';
+import { CatalogParams, useCatalogURLManager } from '../../core';
 import DropdownMenu from './dropdown-menu';
 
 const ContentTypeSelector = ({
   contentTypes,
   resultContentTypes
-}: Pick<CatalogState, 'contentTypes' | 'resultContentTypes'>): JSX.Element => {
+}: Pick<CatalogParams, 'contentTypes' | 'resultContentTypes'>): JSX.Element => {
   const { t } = useTranslation();
   const urlManager = useCatalogURLManager();
   const contentTypeFieldLabel = t('filter-by');

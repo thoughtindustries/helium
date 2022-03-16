@@ -24,7 +24,7 @@ export type Sort = {
   direction?: SortDirection;
 };
 
-export type CatalogRequestURLState = {
+export type CatalogRequestURLParams = {
   page?: number;
   aggregationFilters: AggregationFilter[];
   token?: string;
@@ -34,9 +34,9 @@ export type CatalogRequestURLState = {
   contentTypes: string[];
 };
 
-export type CatalogRequestState = CatalogRequestURLState;
+export type CatalogRequestParams = CatalogRequestURLParams;
 
-export type CatalogResponseState = {
+export type CatalogResponseData = {
   results: GlobalTypes.Content[];
   queryCustomFields?: JSON;
   aggregations: GlobalTypes.Aggregation[];
@@ -55,10 +55,10 @@ export type CatalogResponseState = {
   displayDescriptionOnCalendar: boolean;
 };
 
-export type CatalogGeneralState = {
+export type CatalogGeneralParams = {
   error?: string;
   isLoading: boolean;
   pageSize: number;
 };
 
-export type CatalogState = CatalogRequestState & CatalogResponseState & CatalogGeneralState;
+export type CatalogParams = CatalogRequestParams & CatalogResponseData & CatalogGeneralParams;

@@ -1,5 +1,5 @@
 import { GlobalTypes, CatalogContentQuery } from '@thoughtindustries/content';
-import { CatalogState, Sort, SortDirection, SortField } from './types';
+import { CatalogParams, Sort, SortDirection, SortField } from './types';
 
 const toEnabledSorts = ({
   sortUpdatedAtEnabled,
@@ -60,10 +60,7 @@ const toEnabledDisplayTypes = ({
   return displayTypes;
 };
 
-const parseStateFromResults = (
-  data?: CatalogContentQuery,
-  error?: Error
-): Partial<CatalogState> => {
+const parseResponseData = (data?: CatalogContentQuery, error?: Error): Partial<CatalogParams> => {
   if (error || !data) {
     return {
       error: `An unexpected error occurred: ${error ? error.message : 'empty data'}`
@@ -136,4 +133,4 @@ const parseStateFromResults = (
   };
 };
 
-export default parseStateFromResults;
+export default parseResponseData;

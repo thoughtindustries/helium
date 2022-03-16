@@ -1,12 +1,12 @@
 import React from 'react';
-import { CatalogState } from '../../core';
+import { CatalogParams } from '../../core';
 import Link from './link';
 
 const FilterTokenLabel = ({
   tokenLabel,
   removeFilterHref
 }: {
-  tokenLabel: CatalogState['tokenLabel'];
+  tokenLabel: CatalogParams['tokenLabel'];
   removeFilterHref: string;
 }): JSX.Element => <Link label={tokenLabel as string} href={removeFilterHref} />;
 

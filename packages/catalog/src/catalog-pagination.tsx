@@ -120,8 +120,8 @@ const getDisplayedPageRange = (
 };
 
 const CatalogPagination = (): JSX.Element | null => {
-  const { state } = useCatalog();
-  const { page = 1, pageSize, total } = state;
+  const { params } = useCatalog();
+  const { page = 1, pageSize, total } = params;
   const urlManager = useCatalogURLManager();
 
   if (!total) {

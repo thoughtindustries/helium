@@ -1,13 +1,13 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
-import { CatalogState, useCatalogURLManager } from '../../core';
+import { CatalogParams, useCatalogURLManager } from '../../core';
 import { localizedSortMapping } from './constants';
 import DropdownMenu from './dropdown-menu';
 
 const SortSelector = ({
   enabledSorts,
   sort
-}: Pick<CatalogState, 'enabledSorts' | 'sort'>): JSX.Element => {
+}: Pick<CatalogParams, 'enabledSorts' | 'sort'>): JSX.Element => {
   const { t } = useTranslation();
   const urlManager = useCatalogURLManager();
   const { field: selectedField, direction: selectedDirection } = sort || {};

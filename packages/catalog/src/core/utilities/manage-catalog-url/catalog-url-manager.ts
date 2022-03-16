@@ -1,11 +1,11 @@
 import { GlobalTypes } from '@thoughtindustries/content';
 import {
   AggregationFilter,
-  CatalogRequestURLState,
+  CatalogRequestURLParams,
   parseAggregationFilters,
   Sort,
   serializeSort
-} from '../parse-catalog-state';
+} from '../parse-catalog-data';
 import {
   AggregationFilterWithComposedURL,
   ContentTypeWithComposedURL,
@@ -13,7 +13,7 @@ import {
   CatalogURLSearchParams,
   SearchTermFormHiddenField
 } from './types';
-import { paramsToState } from './utilities';
+import { toRequestParams } from './utilities';
 
 /**
  * The URL Manager is responsible for parsing URL and composing URLs
@@ -28,7 +28,7 @@ import { paramsToState } from './utilities';
 export default class CatalogURLManager {
   private readonly _pathname;
   private readonly _searchParams;
-  private readonly _parsedState;
+  private readonly _parsedRequestParams;
   private _isCurated: boolean | undefined;
   private _selectedDisplayType: GlobalTypes.ContentItemDisplayType | undefined;
 
@@ -36,7 +36,7 @@ export default class CatalogURLManager {
     const { pathname, searchString } = parsedUrl;
     this._pathname = pathname;
     this._searchParams = new URLSearchParams(searchString || undefined);
-    this._parsedState = paramsToState(this._searchParams);
+    this._parsedRequestParams = toRequestParams(this._searchParams);
   }
 
   private _composeURL(searchString: string): string {
@@ -75,17 +75,17 @@ export default class CatalogURLManager {
   }
 
   /**
-   * Parse the current URL into application state
+   * Get parsed request params from url search params
    *
-   * @returns URL state
+   * @returns URL request params
    */
-  getStateFromURL(): Partial<CatalogRequestURLState> {
-    return this._parsedState;
+  getParsedRequestParams(): Partial<CatalogRequestURLParams> {
+    return this._parsedRequestParams;
   }
 
   composeURLForAddAggregationFilter(filter: AggregationFilter): string {
     // use new filter if is curated or append new filter
-    const { aggregationFilters = [] } = this._isCurated ? {} : this._parsedState;
+    const { aggregationFilters = [] } = this._isCurated ? {} : this._parsedRequestParams;
     const newFilters = [...aggregationFilters];
     newFilters.push(filter);
     const transformedFilters = parseAggregationFilters(newFilters);
@@ -106,7 +106,7 @@ export default class CatalogURLManager {
     filters: AggregationFilter[]
   ): AggregationFilterWithComposedURL[] {
     // empty filter if is curated or remove the filter
-    const { aggregationFilters = [] } = this._isCurated ? {} : this._parsedState;
+    const { aggregationFilters = [] } = this._isCurated ? {} : this._parsedRequestParams;
     const clonedParams = this._resetOrDefaultClonedParams();
     return filters.map(currentFilter => {
       const { label: currentLabel, value: currentValue } = currentFilter;
@@ -156,7 +156,7 @@ export default class CatalogURLManager {
 
   composeURLForAddContentType(contentType: string): string {
     // use new content type if is curated or append new content type
-    const { contentTypes = [] } = this._isCurated ? {} : this._parsedState;
+    const { contentTypes = [] } = this._isCurated ? {} : this._parsedRequestParams;
     const newContentTypes = [...contentTypes];
     newContentTypes.push(contentType);
 
@@ -167,7 +167,7 @@ export default class CatalogURLManager {
 
   composeURLForRemoveContentTypeBatch(filters: string[]): ContentTypeWithComposedURL[] {
     // empty content type if is curated or remove the content type
-    const { contentTypes = [] } = this._isCurated ? {} : this._parsedState;
+    const { contentTypes = [] } = this._isCurated ? {} : this._parsedRequestParams;
     const clonedParams = this._resetOrDefaultClonedParams();
     return filters.map(currentContentType => {
       const newClonedParams = new URLSearchParams(clonedParams);

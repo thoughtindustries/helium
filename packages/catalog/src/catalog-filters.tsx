@@ -16,7 +16,7 @@ import {
 } from './variants/filter';
 
 const CatalogFilters = (): JSX.Element => {
-  const { state } = useCatalog();
+  const { params } = useCatalog();
   const {
     searchTerm,
     aggregationFilters,
@@ -30,7 +30,7 @@ const CatalogFilters = (): JSX.Element => {
     displayType,
     enabledDisplayTypes,
     resultsDisplayType
-  } = state;
+  } = params;
   const urlManager = useCatalogURLManager();
 
   // derived values

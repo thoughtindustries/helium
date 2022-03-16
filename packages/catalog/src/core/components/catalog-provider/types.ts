@@ -1,8 +1,8 @@
-import { CatalogState } from '../../utilities/parse-catalog-state';
+import { CatalogParams } from '../../utilities/parse-catalog-data';
 import { CatalogParsedURL, CatalogURLManager } from '../../utilities/manage-catalog-url';
 
 export type CatalogContextType = {
-  state: CatalogState;
+  params: CatalogParams;
   urlManager: CatalogURLManager;
 };
 

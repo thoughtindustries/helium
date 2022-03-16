@@ -1,7 +1,7 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { GlobalTypes, formatTime } from '@thoughtindustries/content';
-import { CatalogState } from '../../core';
+import { CatalogParams } from '../../core';
 import { CatalogResultItem, CatalogResultsProps } from '../../types';
 import ItemLinkWrapper from './item-link-wrapper';
 import ItemAssetBlock from './item-asset-block';
@@ -10,7 +10,7 @@ import ItemRibbon from './item-ribbon';
 import { priceFormat, limitText } from './utilities';
 
 type DisplayTypeResultsGridProps = Pick<CatalogResultsProps, 'onClick' | 'onAddedToQueue'> &
-  Pick<CatalogState, 'displayAuthorsEnabled' | 'displayStartDateEnabled' | 'displayBundle'> & {
+  Pick<CatalogParams, 'displayAuthorsEnabled' | 'displayStartDateEnabled' | 'displayBundle'> & {
     items: CatalogResultItem[];
   };
 

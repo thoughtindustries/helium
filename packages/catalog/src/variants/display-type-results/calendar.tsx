@@ -9,13 +9,13 @@ import ItemAssetBlock from './item-asset-block';
 import ItemQueueButton from './item-queue-button';
 import { ArrowDownIcon, ArrowRightIcon } from '../../icons';
 import { DesktopComputerIcon, LocationMarkerIcon } from './icons';
-import { CatalogState } from '../../core';
+import { CatalogParams } from '../../core';
 
 type DisplayTypeResultsCalendarProps = Pick<
   CatalogResultsProps,
   'companyTimeZone' | 'onAddedToQueue'
 > &
-  Pick<CatalogState, 'displayDescriptionOnCalendar'> & {
+  Pick<CatalogParams, 'displayDescriptionOnCalendar'> & {
     items: CatalogResultItem[];
   };
 

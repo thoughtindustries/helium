@@ -66,8 +66,8 @@ const Aggregation = ({
 };
 
 const CatalogAggregations = (): JSX.Element => {
-  const { state } = useCatalog();
-  const { aggregations, aggregationFilters, isCurated, token, tokenLabel } = state;
+  const { params } = useCatalog();
+  const { aggregations, aggregationFilters, isCurated, token, tokenLabel } = params;
   const urlManager = useCatalogURLManager();
   const { data } = useLanguagesQueryQuery();
 
