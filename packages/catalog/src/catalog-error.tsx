@@ -1,8 +1,9 @@
 import React, { ReactElement } from 'react';
-import { useCatalogError } from './core';
+import { useCatalog } from './core';
 
 const CatalogError = ({ children }: { children: ReactElement }): JSX.Element => {
-  const { error } = useCatalogError();
+  const { state } = useCatalog();
+  const { error } = state;
 
   if (error) {
     return <>{error}</>;

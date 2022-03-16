@@ -9,14 +9,15 @@ import ItemAssetBlock from './item-asset-block';
 import ItemQueueButton from './item-queue-button';
 import { ArrowDownIcon, ArrowRightIcon } from '../../icons';
 import { DesktopComputerIcon, LocationMarkerIcon } from './icons';
+import { CatalogState } from '../../core';
 
 type DisplayTypeResultsCalendarProps = Pick<
   CatalogResultsProps,
   'companyTimeZone' | 'onAddedToQueue'
-> & {
-  displayDescriptionOnCalendar: boolean;
-  items: CatalogResultItem[];
-};
+> &
+  Pick<CatalogState, 'displayDescriptionOnCalendar'> & {
+    items: CatalogResultItem[];
+  };
 
 type MonthlyItems = {
   heading: string;

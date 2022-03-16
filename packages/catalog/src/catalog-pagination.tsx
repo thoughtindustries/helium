@@ -1,5 +1,5 @@
 import React from 'react';
-import { useCatalogPagination, useCatalogURLManager } from './core';
+import { useCatalog, useCatalogURLManager } from './core';
 import { PAGINATION_INNER_WINDOW, PAGINATION_MAX_PAGES } from './constants';
 import clsx from 'clsx';
 import { ArrowLeftIcon, ArrowRightIcon, DoubleArrowLeftIcon, DoubleArrowRightIcon } from './icons';
@@ -120,7 +120,8 @@ const getDisplayedPageRange = (
 };
 
 const CatalogPagination = (): JSX.Element | null => {
-  const { page = 1, pageSize, total } = useCatalogPagination();
+  const { state } = useCatalog();
+  const { page = 1, pageSize, total } = state;
   const urlManager = useCatalogURLManager();
 
   if (!total) {

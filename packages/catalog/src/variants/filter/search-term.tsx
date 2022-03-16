@@ -1,12 +1,12 @@
 import React from 'react';
-import { CatalogFiltersState } from '../../core';
+import { CatalogState } from '../../core';
 import Link from './link';
 
 const FilterSearchTerm = ({
   searchTerm,
   removeFilterHref
 }: {
-  searchTerm: CatalogFiltersState['searchTerm'];
+  searchTerm: CatalogState['searchTerm'];
   removeFilterHref: string;
 }): JSX.Element => <Link label={searchTerm as string} href={removeFilterHref} />;
 
