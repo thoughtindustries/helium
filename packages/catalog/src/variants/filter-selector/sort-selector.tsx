@@ -1,6 +1,6 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
-import { CatalogParams, useCatalogURLManager } from '../../core';
+import { CatalogParams, useCatalog } from '../../core';
 import { localizedSortMapping } from './constants';
 import DropdownMenu from './dropdown-menu';
 
@@ -9,7 +9,7 @@ const SortSelector = ({
   sort
 }: Pick<CatalogParams, 'enabledSorts' | 'sort'>): JSX.Element => {
   const { t } = useTranslation();
-  const urlManager = useCatalogURLManager();
+  const { urlManager } = useCatalog();
   const { field: selectedField, direction: selectedDirection } = sort || {};
   const label = t('catalog.sort-by');
   const filters = enabledSorts.map(item => ({

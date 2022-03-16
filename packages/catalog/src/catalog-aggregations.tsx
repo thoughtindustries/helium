@@ -1,5 +1,5 @@
 import React, { ReactNode, useState } from 'react';
-import { useCatalog, useCatalogURLManager } from './core';
+import { useCatalog } from './core';
 import clsx from 'clsx';
 import { ArrowDownIcon, ArrowRightIcon } from './icons';
 import { useLanguagesQueryQuery } from '@thoughtindustries/content';
@@ -66,9 +66,8 @@ const Aggregation = ({
 };
 
 const CatalogAggregations = (): JSX.Element => {
-  const { params } = useCatalog();
+  const { params, urlManager } = useCatalog();
   const { aggregations, aggregationFilters, isCurated, token, tokenLabel } = params;
-  const urlManager = useCatalogURLManager();
   const { data } = useLanguagesQueryQuery();
 
   // derived value

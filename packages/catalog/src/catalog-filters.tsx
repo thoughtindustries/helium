@@ -1,6 +1,6 @@
 import React from 'react';
 import clsx from 'clsx';
-import { useCatalog, useCatalogURLManager } from './core';
+import { useCatalog } from './core';
 import { GlobalTypes } from '@thoughtindustries/content';
 import {
   ContentTypeSelector,
@@ -16,7 +16,7 @@ import {
 } from './variants/filter';
 
 const CatalogFilters = (): JSX.Element => {
-  const { params } = useCatalog();
+  const { params, urlManager } = useCatalog();
   const {
     searchTerm,
     aggregationFilters,
@@ -31,7 +31,6 @@ const CatalogFilters = (): JSX.Element => {
     enabledDisplayTypes,
     resultsDisplayType
   } = params;
-  const urlManager = useCatalogURLManager();
 
   // derived values
   const hasActiveFilters = !!searchTerm || !!aggregationFilters.length || !!tokenLabel;
