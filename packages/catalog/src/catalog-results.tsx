@@ -114,7 +114,6 @@ const CatalogResults = ({
   const emptyResults = !hasResults && (
     <div className="bg-gray-100 text-gray-700 p-4 mb-4 rounded">{t('filter-no-courses')}</div>
   );
-  // TODO: port over ti-editor-content
   const activeFilter = !!activeFilterDescription && (
     <>
       {activeFilterDescription}

@@ -163,10 +163,7 @@ const DisplayTypeResultsListItem = ({
                 source={source}
               />
 
-              <div className="text-xs mt-2 text-gray-700 pr-1 leading-6">
-                {/* // TODO: port over ti-editor-content */}
-                {description}
-              </div>
+              <div className="text-xs mt-2 text-gray-700 pr-1 leading-6">{description}</div>
             </div>
 
             {showCallToAction && (

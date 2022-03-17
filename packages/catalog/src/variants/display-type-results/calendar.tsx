@@ -225,10 +225,7 @@ const DisplayTypeResultsCalendarMonthlyItem = ({
               )}
 
               <div className={expandedContentColumnClassnames}>
-                <div className="text-xs mt-2 leading-5 text-gray-700 pr-1">
-                  {/* // TODO: port over ti-editor-content */}
-                  {description}
-                </div>
+                <div className="text-xs mt-2 leading-5 text-gray-700 pr-1">{description}</div>
               </div>
             </div>
           </td>
