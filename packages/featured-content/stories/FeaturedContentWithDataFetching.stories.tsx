@@ -135,6 +135,15 @@ const mockApolloResults = {
     }
   }
 };
+// use the options to bypass mocking full payload of responses
+const mockedApolloProviderOptions = {
+  watchQuery: { fetchPolicy: 'no-cache' as const },
+  query: { fetchPolicy: 'no-cache' as const }
+};
+const apolloBaseParams = {
+  addTypename: false,
+  defaultOptions: mockedApolloProviderOptions
+};
 
 export const WithCatalogQuery = () => {
   const { i18n } = useTranslation();
@@ -177,6 +186,7 @@ export const WithCatalogQuery = () => {
 };
 WithCatalogQuery.parameters = {
   apolloClient: {
+    ...apolloBaseParams,
     mocks: [mockApolloResults.catalogQuery, mockApolloResults.addCourseToQueueMutation]
   }
 };
@@ -227,6 +237,7 @@ export const WithQueryContentsQuery = () => {
 };
 WithQueryContentsQuery.parameters = {
   apolloClient: {
+    ...apolloBaseParams,
     mocks: [mockApolloResults.queryContentsQuery, mockApolloResults.addLearningPathToQueueMutation]
   }
 };
@@ -267,6 +278,7 @@ export const WithUserRecentContentQuery = () => {
 };
 WithUserRecentContentQuery.parameters = {
   apolloClient: {
+    ...apolloBaseParams,
     mocks: [mockApolloResults.userRecentContentQuery]
   }
 };

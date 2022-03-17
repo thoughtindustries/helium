@@ -225,6 +225,10 @@ const mockedApolloProviderOptions = {
   watchQuery: { fetchPolicy: 'no-cache' as const },
   query: { fetchPolicy: 'no-cache' as const }
 };
+const apolloBaseParams = {
+  addTypename: false,
+  defaultOptions: mockedApolloProviderOptions
+};
 
 type CatalogStoryArgs = Pick<CatalogProps, 'title' | 'alternateTitleDisplay' | 'onClick'>;
 
@@ -246,28 +250,25 @@ const Template: Story<CatalogStoryArgs> = ({ ...args }) => {
 export const List = Template.bind({});
 List.parameters = {
   apolloClient: {
-    mocks: [...mockApolloResultsFactory({ displayType: GlobalTypes.ContentItemDisplayType.List })],
-    addTypename: false,
-    defaultOptions: mockedApolloProviderOptions
+    ...apolloBaseParams,
+    mocks: [...mockApolloResultsFactory({ displayType: GlobalTypes.ContentItemDisplayType.List })]
   }
 };
 
 export const Grid = Template.bind({});
 Grid.parameters = {
   apolloClient: {
-    mocks: [...mockApolloResultsFactory({ displayType: GlobalTypes.ContentItemDisplayType.Grid })],
-    addTypename: false,
-    defaultOptions: mockedApolloProviderOptions
+    ...apolloBaseParams,
+    mocks: [...mockApolloResultsFactory({ displayType: GlobalTypes.ContentItemDisplayType.Grid })]
   }
 };
 
 export const Calendar = Template.bind({});
 Calendar.parameters = {
   apolloClient: {
+    ...apolloBaseParams,
     mocks: [
       ...mockApolloResultsFactory({ displayType: GlobalTypes.ContentItemDisplayType.Calendar })
-    ],
-    addTypename: false,
-    defaultOptions: mockedApolloProviderOptions
+    ]
   }
 };
