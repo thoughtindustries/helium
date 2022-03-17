@@ -131,7 +131,7 @@ const mockCatalogContentFactory = ({
   contentItems: [...mockContentItemFactory(6)],
   meta: {
     displayBundle: mockBundle,
-    tokenLabel: 'query',
+    tokenLabel: 'token label',
     total: 100,
     hasMore: true,
     isCurated: false,
@@ -169,9 +169,9 @@ const mockApolloResultsFactory = (props: MockQueryProps) => [
         page: 1,
         sort: undefined,
         resultsDisplayType: undefined,
-        token: undefined,
+        token: 'test-token',
         contentTypes: [],
-        query: undefined,
+        query: 'test search term',
         labels: [],
         values: [],
         layoutId: undefined,
@@ -216,7 +216,8 @@ const mockApolloResultsFactory = (props: MockQueryProps) => [
 ];
 const config = {
   parsedUrl: {
-    pathname: '/catalog'
+    pathname: '/catalog',
+    searchString: '?token=test-token&query=test%20search%20term'
   }
 };
 // use the options to bypass mocking full payload of responses
