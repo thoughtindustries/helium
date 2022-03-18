@@ -8,6 +8,7 @@ import ItemAssetBlock from './item-asset-block';
 import ItemQueueButton from './item-queue-button';
 import ItemRibbon from './item-ribbon';
 import { priceFormat, limitText } from './utilities';
+import clsx from 'clsx';
 
 type DisplayTypeResultsGridProps = Pick<CatalogResultsProps, 'onClick' | 'onAddedToQueue'> &
   Pick<CatalogParams, 'displayAuthorsEnabled' | 'displayStartDateEnabled' | 'displayBundle'> & {
@@ -54,17 +55,16 @@ const ItemTitleBlock = ({
   courseStartDate?: string;
   timeZone?: string;
 }) => (
-  <p className="mb-1">
-    {title}
-    {courseStartDate && (
-      <>
-        <br />
+  <div className="mb-1">
+    <h3 className="line-clamp-2 leading-6 h-12">{title}</h3>
+    <div className={clsx('leading-4 h-4', courseStartDate && 'line-clamp-1')}>
+      {courseStartDate && (
         <span className="text-xs text-gray-700">
           {formatTime(courseStartDate, timeZone, 'MM/DD/YYYY')}
         </span>
-      </>
-    )}
-  </p>
+      )}
+    </div>
+  </div>
 );
 
 const ItemSourceBlock = ({
@@ -74,7 +74,12 @@ const ItemSourceBlock = ({
   contentTypeLabel?: string;
   source?: string;
 }) => (
-  <div className="text-xs text-gray-700">
+  <div
+    className={clsx(
+      'text-xs text-gray-700 leading-4 h-4',
+      (contentTypeLabel || source) && 'line-clamp-1'
+    )}
+  >
     {contentTypeLabel && <strong>{contentTypeLabel}</strong>}
     {contentTypeLabel && source && <>|{source}</>}
     {!contentTypeLabel && source && <strong>{source}</strong>}
@@ -245,13 +250,23 @@ const DisplayTypeResultsGridItem = ({
                 />
               )}
               <ItemSourceBlock contentTypeLabel={contentTypeLabel} source={source} />
-              {displayAuthors && <p className="text-xs mb-1 text-gray-700">{displayAuthors}</p>}
-              {description && (
-                <p className="text-xs text-gray-700 pt-1 mb-0 overflow-hidden">
-                  {limitText(description, 75)}
-                </p>
-              )}
-              {rating && <Stars gradePercentage={rating} />}
+              <p
+                className={clsx(
+                  'text-xs mb-1 text-gray-700 leading-4 h-4',
+                  displayAuthors && 'line-clamp-1'
+                )}
+              >
+                {displayAuthors}
+              </p>
+              <p
+                className={clsx(
+                  'text-xs text-gray-700 pt-1 mb-0 leading-4 h-12',
+                  description && 'line-clamp-3'
+                )}
+              >
+                {description}
+              </p>
+              <div className="h-6">{rating && <Stars gradePercentage={rating} />}</div>
               <hr className="my-3" />
               <div className="text-base leading-none">
                 {canAddToQueue && (

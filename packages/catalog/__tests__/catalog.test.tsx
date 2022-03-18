@@ -1663,19 +1663,26 @@ describe('@thoughtindustries/catalog', () => {
                           <div
                             class="p-2.5"
                           >
-                            <p
+                            <div
                               class="mb-1"
                             >
-                              Test title
-                              <br />
-                              <span
-                                class="text-xs text-gray-700"
+                              <h3
+                                class="line-clamp-2 leading-6 h-12"
                               >
-                                12/31/2019
-                              </span>
-                            </p>
+                                Test title
+                              </h3>
+                              <div
+                                class="leading-4 h-4 line-clamp-1"
+                              >
+                                <span
+                                  class="text-xs text-gray-700"
+                                >
+                                  12/31/2019
+                                </span>
+                              </div>
+                            </div>
                             <div
-                              class="text-xs text-gray-700"
+                              class="text-xs text-gray-700 leading-4 h-4 line-clamp-1"
                             >
                               <strong>
                                 Course
@@ -1684,41 +1691,45 @@ describe('@thoughtindustries/catalog', () => {
                               Test source
                             </div>
                             <p
-                              class="text-xs mb-1 text-gray-700"
+                              class="text-xs mb-1 text-gray-700 leading-4 h-4 line-clamp-1"
                             >
                               Test Author
                             </p>
                             <p
-                              class="text-xs text-gray-700 pt-1 mb-0 overflow-hidden"
+                              class="text-xs text-gray-700 pt-1 mb-0 leading-4 h-12 line-clamp-3"
                             >
                               description
                             </p>
-                            <div>
-                              <span
-                                class="text-accent"
-                              >
-                                ★
-                              </span>
-                              <span
-                                class="text-accent"
-                              >
-                                ★
-                              </span>
-                              <span
-                                class="text-accent"
-                              >
-                                ☆
-                              </span>
-                              <span
-                                class="text-accent"
-                              >
-                                ☆
-                              </span>
-                              <span
-                                class="text-accent"
-                              >
-                                ☆
-                              </span>
+                            <div
+                              class="h-6"
+                            >
+                              <div>
+                                <span
+                                  class="text-accent"
+                                >
+                                  ★
+                                </span>
+                                <span
+                                  class="text-accent"
+                                >
+                                  ★
+                                </span>
+                                <span
+                                  class="text-accent"
+                                >
+                                  ☆
+                                </span>
+                                <span
+                                  class="text-accent"
+                                >
+                                  ☆
+                                </span>
+                                <span
+                                  class="text-accent"
+                                >
+                                  ☆
+                                </span>
+                              </div>
                             </div>
                             <hr
                               class="my-3"
