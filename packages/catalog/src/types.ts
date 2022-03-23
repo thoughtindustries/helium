@@ -1,4 +1,4 @@
-import { SyntheticEvent } from 'react';
+import { SyntheticEvent, ReactNode, ReactElement } from 'react';
 import { HydratedContentItem, GlobalTypes } from '@thoughtindustries/content';
 
 export type CatalogResultItemRibbon = GlobalTypes.Ribbon;
@@ -16,9 +16,19 @@ export interface CatalogResultsProps {
   onClick?: (evt: SyntheticEvent, item: CatalogResultItem) => void;
 }
 
+export type PaginationFnArgs = {
+  page: number;
+  pageSize: number;
+  total: number;
+  getPageLink: (page: number) => string;
+};
+export type PaginationFn = (args: PaginationFnArgs) => ReactElement;
+
 export interface CatalogProps extends CatalogResultsProps {
   /** title that appears on top of the link lists */
   title?: string;
   /** display alternate title */
   alternateTitleDisplay?: boolean;
+  /** optional view for pagination */
+  pagination?: PaginationFn;
 }
