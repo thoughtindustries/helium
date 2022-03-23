@@ -14,9 +14,7 @@ const LearnerAccess = (props: LearnerAccessProps): JSX.Element => {
     { item: 'Archived', id: 5 },
     { item: 'Certifications', id: 6 }
   ];
-  const handleChange = (index: number) => {
-    setSelected(index);
-  };
+  const handleChange = (index: number) => setSelected(index);
 
   const activityCollapsed = (
     <div className="border-b border-solid leading-5 p-4 bg-gradient-to-t from-white to-gray-lightest">
@@ -62,7 +60,7 @@ const LearnerAccess = (props: LearnerAccessProps): JSX.Element => {
     className: `${classNames} border-t-2 border-transparent border-solid inline-block text-sm py-4 px-8 relative`
   };
   const selectedStyleLi = {
-    className: `${styleLi.className}  bg-white border-activeTab-blue`
+    className: `${styleLi.className} bg-white border-activeTab-blue`
   };
 
   const styleSpan = {
@@ -78,16 +76,20 @@ const LearnerAccess = (props: LearnerAccessProps): JSX.Element => {
       role="tablist"
     >
       {learnerAccessArray.map((obj, index) => {
-        const activeClassLi = index === selected ? selectedStyleLi : styleLi;
-        const activeClassSpan = index === selected ? selectedStyleSpan : styleSpan;
+        const activeTab = index === selected ? true : false;
+        const activeClassLi = activeTab ? selectedStyleLi : styleLi;
+        const activeClassSpan = activeTab ? selectedStyleSpan : styleSpan;
 
         return (
-          <li key={obj.id} onClick={() => handleChange(index)} {...activeClassLi}>
+          <li key={obj.id} {...activeClassLi}>
             <button
+              onClick={() => {
+                handleChange(index);
+              }}
               className="btn bg-none rounded-none h-auto p-0 shadow-none"
               role="tab"
-              aria-selected="true"
-              aria-controls="access-section-0"
+              aria-selected={activeTab}
+              aria-controls={'access-section-' + index}
             >
               <span {...activeClassSpan}>{obj.item}</span>
               <span className="border border-solid border-gray-light text-xs font-bold rounded-lg bg-white inline-block leading-4 ml-1 py-0 px-1 text-center">
@@ -102,14 +104,14 @@ const LearnerAccess = (props: LearnerAccessProps): JSX.Element => {
 
   return allowCollapse ? (
     <div className="my-0 -mx-4 max-w-none w-auto py-4 px-8 text-slate-700 text-black-light">
-      <div className="border border-solid bg-gray-light ">
+      <div className="border border-solid bg-gray-light">
         {collapsed ? activityCollapsed : activityExpanded}
         {!collapsed ? dashboardAccessTabs : ''}
       </div>
     </div>
   ) : (
     <div className="my-0 -mx-4 max-w-none w-auto py-4 px-8 text-slate-700 text-black-light">
-      <div className="border border-solid bg-gray-light ">{dashboardAccessTabs}</div>
+      <div className="border border-solid bg-gray-light">{dashboardAccessTabs}</div>
     </div>
   );
 };
