@@ -43,7 +43,7 @@ const fetchTranslations = async instance => {
   });
 };
 
-const writeTranslationFile = async (dir, translations, generateDevFile) => {
+const writeTranslationFile = async (dir, translations, generateBackup = false) => {
   const dirPath = path.join(dir, 'locales');
 
   const translationsHash = translations.reduce((hash, translationObj) => {
@@ -56,14 +56,13 @@ const writeTranslationFile = async (dir, translations, generateDevFile) => {
 
   const stringifiedTranslations = JSON.stringify(translationsHash, null, 2);
 
-  if (generateDevFile) {
-    const devFileName = path.join(dirPath, 'translations.json');
+  if (generateBackup) {
+    const devFileName = path.join(dirPath, 'translations-backup.json');
     await writeFile(devFileName, stringifiedTranslations);
   }
 
-  const fileName = path.join(dirPath, 'translations-source.json');
-
-  return writeFile(fileName, stringifiedTranslations);
+  const devFileName = path.join(dirPath, 'translations.json');
+  return writeFile(devFileName, stringifiedTranslations);
 };
 
 // react-i18next handles pluralizations differently than the
