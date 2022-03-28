@@ -1,6 +1,6 @@
 # `@thoughtindustries/pagination`
 
-> TODO: Description
+> This package is used to display pagination controls on components such as the catalog.
 
 ## Import component
 
