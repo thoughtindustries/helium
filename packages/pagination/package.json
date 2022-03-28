@@ -1,8 +1,8 @@
 {
-  "name": "@thoughtindustries/testimonial",
-  "version": "1.1.0",
-  "description": "A base component for testimonials",
-  "author": "Blake Reimer <blake.reimer@thoughtindustries>",
+  "name": "@thoughtindustries/pagination",
+  "version": "1.0.0",
+  "description": "A base component for pagination",
+  "author": "Lu Jiang <lu.jiang@thoughtindustries.com>",
   "homepage": "https://github.com/thoughtindustries/helium#readme",
   "license": "ISC",
   "main": "src/index.ts",
@@ -21,6 +21,7 @@
     "url": "https://github.com/thoughtindustries/helium/issues"
   },
   "dependencies": {
+    "clsx": "^1.1.1",
     "react": "^17.0.2"
   }
 }

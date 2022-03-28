@@ -1,7 +1,7 @@
 const path = require('path');
 const {
   createReadStream,
-  promises: { stat, writeFile }
+  promises: { stat, writeFile, unlink, rename }
 } = require('fs');
 const fetch = require('isomorphic-unfetch');
 const childProcess = require('child_process');
@@ -10,6 +10,7 @@ const os = require('os');
 
 const { getFilePaths } = require('./helpers/filepaths');
 const { instanceEndpoint } = require('./helpers/urls');
+const { generateTranslationFile } = require('./file-generators');
 const {
   gatherQuerySources,
   buildFragmentMap,
@@ -60,12 +61,25 @@ const JOB_QUERY = /* GraphQL */ `
   }
 
   try {
+    // ensure translations are up to date
+    await generateTranslationFile(OP_DIR, [instance], true);
+    // trim translations file down to only keys used in project
     await gatherUsedTranslations();
+    // hash queries for whitelisting
     await writeGraphqlManifest();
     await uploadHeliumProject(policyData);
+    // reset translations file to include all keys for local development
+    await resetTranslationFile();
     const batchJobId = await triggerBatch(instance, key);
     const fetchStatus = () => checkDeploymentJobStatus(instance, batchJobId);
-    const processing = result => result !== 'SUCCEEDED' && result !== 'FAILED';
+    const processing = result => {
+      if (result === 'FAILED') {
+        throw new Error('Batch deployment failed');
+      }
+
+      return result !== 'SUCCEEDED';
+    };
+
     await poll(fetchStatus, processing, 3000);
   } catch (e) {
     throw new Error(e);
@@ -91,6 +105,13 @@ async function gatherUsedTranslations() {
 
     parseProcess.on('error', err => reject(err)).on('exit', () => resolve());
   });
+}
+
+async function resetTranslationFile() {
+  const translationsPath = path.join(OP_DIR, 'locales/translations.json');
+  const backupTranslationsPath = path.join(OP_DIR, 'locales/translations-backup.json');
+  await unlink(translationsPath);
+  await rename(backupTranslationsPath, translationsPath);
 }
 
 async function writeGraphqlManifest() {
