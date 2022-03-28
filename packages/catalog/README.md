@@ -32,4 +32,11 @@ const config = {
 <CatalogProvider config={config}>
   <Catalog onAddedToQueue={(item) => Promise.resolve()} />
 </CatalogProvider>
+
+# Or use custom pagination
+<CatalogProvider config={config}>
+  <Catalog 
+    onAddedToQueue={(item) => Promise.resolve()}
+    pagination={({page, pageSize, total, getPageLink}) => <>...</>} />
+</CatalogProvider>
 ```

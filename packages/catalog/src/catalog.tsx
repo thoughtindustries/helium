@@ -11,6 +11,7 @@ import CatalogPagination from './catalog-pagination';
 const Catalog: FC<CatalogProps> = ({
   title,
   alternateTitleDisplay,
+  pagination,
   ...restResultsProps
 }: CatalogProps): JSX.Element => {
   const { t } = useTranslation();
@@ -28,7 +29,7 @@ const Catalog: FC<CatalogProps> = ({
             </div>
             <div className="col-span-full md:col-span-3">
               <CatalogResults {...restResultsProps} />
-              <CatalogPagination />
+              <CatalogPagination pagination={pagination} />
             </div>
           </div>
         </CatalogError>
