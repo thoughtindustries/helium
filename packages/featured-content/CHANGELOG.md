@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.1.1-alpha.5](https://github.com/thoughtindustries/helium/compare/@thoughtindustries/featured-content@1.1.1-alpha.4...@thoughtindustries/featured-content@1.1.1-alpha.5) (2022-03-28)
+
+
+### Bug Fixes
+
+* remove stylings ([649dc67](https://github.com/thoughtindustries/helium/commit/649dc674828fd4098efa605551c765f02ba2fa71))
+
+
+
+
+
 ## [1.1.1-alpha.4](https://github.com/thoughtindustries/helium/compare/@thoughtindustries/featured-content@1.1.1-alpha.3...@thoughtindustries/featured-content@1.1.1-alpha.4) (2022-03-01)
 
 
