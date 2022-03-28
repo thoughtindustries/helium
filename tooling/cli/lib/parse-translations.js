@@ -4,7 +4,7 @@ const Parser = require('i18next-scanner').Parser;
 const { getFilePaths, filePathIsValid } = require('./helpers/filepaths');
 
 const OP_DIR = process.cwd();
-const TI_TRANSLATIONS_PATH = path.join(OP_DIR, 'locales/translations-source.json');
+const TI_TRANSLATIONS_PATH = path.join(OP_DIR, 'locales/translations.json');
 const TI_TRANSLATIONS = require(TI_TRANSLATIONS_PATH);
 const FINAL_TRANSLATIONS = {};
 const KEYS_WITH_PLURALS = [];
