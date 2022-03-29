@@ -124,7 +124,10 @@ const mockContentItem = {
   }
 };
 const mockContentItemFactory = (length: number) =>
-  Array.from({ length }, () => ({ ...mockContentItem }));
+  Array.from({ length }, (_, index) => ({
+    ...mockContentItem,
+    id: `${mockContentItem.id}-${index}`
+  }));
 const mockCatalogContentFactory = ({
   displayType
 }: MockQueryProps): CatalogContentQuery['CatalogContent'] => ({

@@ -1,7 +1,7 @@
 import React, { cloneElement } from 'react';
 import { useCatalog } from './core';
 import { CatalogProps } from './types';
-import Pagination from './pagination';
+import { Pagination } from '@thoughtindustries/pagination';
 
 type CatalogPaginationProps = Pick<CatalogProps, 'pagination'>;
 

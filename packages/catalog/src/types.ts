@@ -1,4 +1,4 @@
-import { SyntheticEvent, ReactNode, ReactElement } from 'react';
+import { SyntheticEvent, ReactElement } from 'react';
 import { HydratedContentItem, GlobalTypes } from '@thoughtindustries/content';
 
 export type CatalogResultItemRibbon = GlobalTypes.Ribbon;
