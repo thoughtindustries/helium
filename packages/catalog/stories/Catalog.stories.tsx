@@ -1,4 +1,3 @@
-import { Story } from '@storybook/react';
 import {
   AddResourceToQueueDocument,
   CatalogContentDocument,
@@ -8,27 +7,11 @@ import {
   useAddResourceToQueueMutation
 } from '@thoughtindustries/content';
 import React from 'react';
-import { Catalog, CatalogProps, CatalogProvider, CatalogResultItem } from '../src';
+import { Catalog, CatalogProvider, CatalogResultItem } from '../src';
 
 export default {
   title: 'Example/Catalog',
-  component: Catalog,
-  argTypes: {
-    title: {
-      name: 'title',
-      type: { name: 'string', required: true },
-      description: 'Title that appears on the Header.',
-      control: { type: 'text' }
-    },
-    alternateTitleDisplay: {
-      name: 'alternateTitleDisplay',
-      type: { name: 'boolean', required: false },
-      defaultValue: false,
-      description: 'Show alternate title display.',
-      control: { type: 'boolean' }
-    },
-    onClick: { action: 'clicked' }
-  }
+  component: Catalog
 };
 
 type MockQueryProps = {
@@ -233,9 +216,7 @@ const apolloBaseParams = {
   defaultOptions: mockedApolloProviderOptions
 };
 
-type CatalogStoryArgs = Pick<CatalogProps, 'title' | 'alternateTitleDisplay' | 'onClick'>;
-
-const Template: Story<CatalogStoryArgs> = ({ ...args }) => {
+const Template = () => {
   const [addResourceToQueue] = useAddResourceToQueueMutation();
   const handleAddedToQueue = ({ slug, kind, displayCourse }: CatalogResultItem): Promise<void> => {
     const resourceId = displayCourse || slug;
@@ -245,12 +226,12 @@ const Template: Story<CatalogStoryArgs> = ({ ...args }) => {
   };
   return (
     <CatalogProvider config={config}>
-      <Catalog onAddedToQueue={handleAddedToQueue} {...args} />
+      <Catalog onAddedToQueue={handleAddedToQueue} />
     </CatalogProvider>
   );
 };
 
-export const List = Template.bind({});
+export const List = () => <Template />;
 List.parameters = {
   apolloClient: {
     ...apolloBaseParams,
@@ -258,7 +239,7 @@ List.parameters = {
   }
 };
 
-export const Grid = Template.bind({});
+export const Grid = () => <Template />;
 Grid.parameters = {
   apolloClient: {
     ...apolloBaseParams,
@@ -266,7 +247,7 @@ Grid.parameters = {
   }
 };
 
-export const Calendar = Template.bind({});
+export const Calendar = () => <Template />;
 Calendar.parameters = {
   apolloClient: {
     ...apolloBaseParams,
