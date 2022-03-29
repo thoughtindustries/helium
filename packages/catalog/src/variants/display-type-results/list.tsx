@@ -1,18 +1,18 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { formatTime } from '@thoughtindustries/content';
-import { CatalogResultItem, CatalogResultsProps } from '../../types';
+import { CatalogResultItem, CatalogResultsProps, PriceFormatFn } from '../../types';
 import ItemLinkWrapper from './item-link-wrapper';
 import ItemAssetBlock from './item-asset-block';
 import ItemQueueButton from './item-queue-button';
 import ItemRibbon from './item-ribbon';
 import { CheckIcon } from '../../icons';
-import { priceFormat } from './utilities';
 import { CatalogParams } from '../../core';
 
 type DisplayTypeResultsListProps = Pick<CatalogResultsProps, 'onClick' | 'onAddedToQueue'> &
   Pick<CatalogParams, 'displayStartDateEnabled'> & {
     items: CatalogResultItem[];
+    priceFormatFn: PriceFormatFn;
   };
 
 type DisplayTypeResultsListItemProps = Omit<DisplayTypeResultsListProps, 'items'> & {
@@ -72,7 +72,8 @@ const DisplayTypeResultsListItem = ({
   onClick,
   onAddedToQueue,
   displayStartDateEnabled,
-  item
+  item,
+  priceFormatFn
 }: DisplayTypeResultsListItemProps): JSX.Element => {
   const { t } = useTranslation();
   const {
@@ -183,11 +184,11 @@ const DisplayTypeResultsListItem = ({
                   {!canAddToQueue && priceInCents && (
                     <>
                       <div className="text-lg font-bold text-center">
-                        {priceFormat(priceInCents)}
+                        {priceFormatFn(priceInCents)}
                       </div>
                       {suggestedRetailPriceInCents && (
                         <div className="text-base pt-0 line-through text-center text-gray-400">
-                          {priceFormat(200)}
+                          {priceFormatFn(200)}
                         </div>
                       )}
                       <div className="mt-4">

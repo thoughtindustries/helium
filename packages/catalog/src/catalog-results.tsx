@@ -2,12 +2,13 @@ import React from 'react';
 import { hydrateContent, GlobalTypes, HydratedContentItem } from '@thoughtindustries/content';
 import { useTranslation } from 'react-i18next';
 import { CatalogParams, useCatalog } from './core';
-import { CatalogResultsProps } from './types';
+import { CatalogResultsProps, PriceFormatFn } from './types';
 import {
   DisplayTypeResultsList,
   DisplayTypeResultsGrid,
   DisplayTypeResultsCalendar
 } from './variants/display-type-results';
+import { DEFAULT_CURRENCY_CODE, DEFAULT_LOCALE } from './constants';
 
 type DisplayTypeResultsProps = Pick<
   CatalogParams,
@@ -19,6 +20,7 @@ type DisplayTypeResultsProps = Pick<
   Omit<CatalogResultsProps, 'companyHasSessionLevelCustomFieldsFeature'> & {
     activeDisplayType: GlobalTypes.ContentItemDisplayType;
     hydratedResults: HydratedContentItem[];
+    priceFormatFn: PriceFormatFn;
   };
 
 const DisplayTypeResults = ({
@@ -30,11 +32,13 @@ const DisplayTypeResults = ({
   displayDescriptionOnCalendar,
   companyTimeZone,
   onClick,
-  onAddedToQueue
+  onAddedToQueue,
+  priceFormatFn
 }: DisplayTypeResultsProps): JSX.Element => {
   const baseProps = {
     items: hydratedResults,
-    onAddedToQueue
+    onAddedToQueue,
+    priceFormatFn
   };
   let props;
   switch (activeDisplayType) {
@@ -67,7 +71,10 @@ const CatalogResults = ({
   companyHasSessionLevelCustomFieldsFeature,
   companyTimeZone,
   onClick,
-  onAddedToQueue
+  onAddedToQueue,
+  priceFormat,
+  companyDefaultLocale,
+  currencyCode
 }: CatalogResultsProps): JSX.Element => {
   const { params } = useCatalog();
   const {
@@ -109,6 +116,16 @@ const CatalogResults = ({
     hydrateContent(i18n, result, companyTimeZone, hydrationCustomFields)
   );
   const hasResults = !!hydratedResults.length;
+  let priceFormatFn = priceFormat;
+  if (!priceFormatFn) {
+    const locale = companyDefaultLocale ?? DEFAULT_LOCALE;
+    const currency = currencyCode ?? DEFAULT_CURRENCY_CODE;
+    const formatter = new Intl.NumberFormat(locale, {
+      style: 'currency',
+      currency
+    });
+    priceFormatFn = (priceInCents: number) => formatter.format(priceInCents / 100);
+  }
 
   // components
   const emptyResults = !hasResults && (
@@ -128,7 +145,8 @@ const CatalogResults = ({
     displayDescriptionOnCalendar,
     companyTimeZone,
     onClick,
-    onAddedToQueue
+    onAddedToQueue,
+    priceFormatFn
   };
 
   return (

@@ -39,4 +39,18 @@ const config = {
     onAddedToQueue={(item) => Promise.resolve()}
     pagination={({page, pageSize, total, getPageLink}) => <>...</>} />
 </CatalogProvider>
+
+# Or use custom price formatter
+const priceFormat = (priceInCents) => {
+  const formatter = new Intl.NumberFormat('en-US', {
+      style: 'currency',
+      currency: 'USD'
+    });
+  return formatter.format(priceInCents / 100);
+}
+<CatalogProvider config={config}>
+  <Catalog 
+    onAddedToQueue={(item) => Promise.resolve()}
+    priceFormat={priceFormat} />
+</CatalogProvider>
 ```

@@ -3,8 +3,7 @@ import clsx from 'clsx';
 import dayjs from 'dayjs';
 import { useTranslation } from 'react-i18next';
 import { formatTime } from '@thoughtindustries/content';
-import { CatalogResultItem, CatalogResultsProps } from '../../types';
-import { priceFormat } from './utilities';
+import { CatalogResultItem, CatalogResultsProps, PriceFormatFn } from '../../types';
 import ItemAssetBlock from './item-asset-block';
 import ItemQueueButton from './item-queue-button';
 import { ArrowDownIcon, ArrowRightIcon } from '../../icons';
@@ -17,6 +16,7 @@ type DisplayTypeResultsCalendarProps = Pick<
 > &
   Pick<CatalogParams, 'displayDescriptionOnCalendar'> & {
     items: CatalogResultItem[];
+    priceFormatFn: PriceFormatFn;
   };
 
 type MonthlyItems = {
@@ -94,7 +94,8 @@ const DisplayTypeResultsCalendarMonthlyItem = ({
   hasPrices,
   expandedItemId,
   setExpandedItemId,
-  onAddedToQueue
+  onAddedToQueue,
+  priceFormatFn
 }: DisplayTypeResultsCalendarMonthlyItemProps): JSX.Element => {
   const {
     meetingStartDate,
@@ -198,7 +199,7 @@ const DisplayTypeResultsCalendarMonthlyItem = ({
         </td>
         {hasPrices && (
           <td data-label="priceHeading" className={tdClassnames}>
-            {!!priceInCents && priceFormat(priceInCents)}
+            {!!priceInCents && priceFormatFn(priceInCents)}
           </td>
         )}
         <td className={tdClassnames}>

@@ -5,6 +5,8 @@ export type CatalogResultItemRibbon = GlobalTypes.Ribbon;
 
 export type CatalogResultItem = HydratedContentItem;
 
+export type PriceFormatFn = (priceInCents: number) => string;
+
 export interface CatalogResultsProps {
   /** company feature flag for content hydration */
   companyHasSessionLevelCustomFieldsFeature?: boolean;
@@ -14,6 +16,12 @@ export interface CatalogResultsProps {
   onAddedToQueue: (item: CatalogResultItem) => Promise<boolean | void>;
   /** optional event handler for result item */
   onClick?: (evt: SyntheticEvent, item: CatalogResultItem) => void;
+  /** optional function for prioritized price formatting */
+  priceFormat?: PriceFormatFn;
+  /** company property to format price */
+  companyDefaultLocale?: string;
+  /** currency code to format price */
+  currencyCode?: string;
 }
 
 export type PaginationFnArgs = {
