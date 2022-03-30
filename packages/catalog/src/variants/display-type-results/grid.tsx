@@ -2,17 +2,17 @@ import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { GlobalTypes, formatTime } from '@thoughtindustries/content';
 import { CatalogParams } from '../../core';
-import { CatalogResultItem, CatalogResultsProps } from '../../types';
+import { CatalogResultItem, CatalogResultsProps, PriceFormatFn } from '../../types';
 import ItemLinkWrapper from './item-link-wrapper';
 import ItemAssetBlock from './item-asset-block';
 import ItemQueueButton from './item-queue-button';
 import ItemRibbon from './item-ribbon';
-import { priceFormat, limitText } from './utilities';
 import clsx from 'clsx';
 
 type DisplayTypeResultsGridProps = Pick<CatalogResultsProps, 'onClick' | 'onAddedToQueue'> &
   Pick<CatalogParams, 'displayAuthorsEnabled' | 'displayStartDateEnabled' | 'displayBundle'> & {
     items: CatalogResultItem[];
+    priceFormatFn: PriceFormatFn;
   };
 
 type DisplayTypeResultsGridItemProps = Omit<DisplayTypeResultsGridProps, 'items'> & {
@@ -130,11 +130,13 @@ const ItemCtaBlock = ({
 const ItemPriceBlock = ({
   priceInCents,
   hasAvailability,
-  suggestedRetailPriceInCents
+  suggestedRetailPriceInCents,
+  priceFormatFn
 }: {
   priceInCents?: number;
   hasAvailability?: boolean;
   suggestedRetailPriceInCents?: number;
+  priceFormatFn: DisplayTypeResultsGridItemProps['priceFormatFn'];
 }) => {
   if (hasAvailability) {
     return null;
@@ -142,17 +144,24 @@ const ItemPriceBlock = ({
 
   return (
     <>
-      {priceInCents && <span>{priceFormat(priceInCents)}</span>}
+      {priceInCents && <span>{priceFormatFn(priceInCents)}</span>}
       {suggestedRetailPriceInCents && (
         <span className="line-through text-gray-700 text-xs">
-          {priceFormat(suggestedRetailPriceInCents)}
+          {priceFormatFn(suggestedRetailPriceInCents)}
         </span>
       )}
     </>
   );
 };
 
-const ItemBundleBlock = ({ priceInCents, annualPriceInCents, slug }: GlobalTypes.Bundle) => {
+const ItemBundleBlock = ({
+  priceInCents,
+  annualPriceInCents,
+  slug,
+  priceFormatFn
+}: GlobalTypes.Bundle & {
+  priceFormatFn: DisplayTypeResultsGridItemProps['priceFormatFn'];
+}) => {
   const { t } = useTranslation();
 
   const linkProps = {
@@ -173,14 +182,14 @@ const ItemBundleBlock = ({ priceInCents, annualPriceInCents, slug }: GlobalTypes
         <div>
           {priceInCents && (
             <div>
-              <span className={planCurrencyClassnames}>{priceFormat(priceInCents)}</span>
+              <span className={planCurrencyClassnames}>{priceFormatFn(priceInCents)}</span>
               <span className={planIntervalClassnames}>/ {t('course.per-month')}</span>
             </div>
           )}
 
           {annualPriceInCents && (
             <div>
-              <span className={planCurrencyClassnames}>{priceFormat(annualPriceInCents)}</span>
+              <span className={planCurrencyClassnames}>{priceFormatFn(annualPriceInCents)}</span>
               <span className={planIntervalClassnames}>/ {t('course.per-year')}</span>
             </div>
           )}
@@ -204,7 +213,8 @@ const DisplayTypeResultsGridItem = ({
   displayAuthorsEnabled,
   displayStartDateEnabled,
   displayBundle,
-  item
+  item,
+  priceFormatFn
 }: DisplayTypeResultsGridItemProps): JSX.Element => {
   const {
     asset,
@@ -285,6 +295,7 @@ const DisplayTypeResultsGridItem = ({
                       priceInCents={priceInCents}
                       hasAvailability={hasAvailability}
                       suggestedRetailPriceInCents={suggestedRetailPriceInCents}
+                      priceFormatFn={priceFormatFn}
                     />
                     <ItemCtaBlock isActive callToAction={callToAction} />
                   </>
@@ -296,7 +307,9 @@ const DisplayTypeResultsGridItem = ({
             </div>
           </div>
         </ItemLinkWrapper>
-        {displayBundle && !availabilityStatus && <ItemBundleBlock {...displayBundle} />}
+        {displayBundle && !availabilityStatus && (
+          <ItemBundleBlock {...displayBundle} priceFormatFn={priceFormatFn} />
+        )}
       </>
     </li>
   );
