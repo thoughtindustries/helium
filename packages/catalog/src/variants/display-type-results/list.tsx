@@ -188,7 +188,7 @@ const DisplayTypeResultsListItem = ({
                       </div>
                       {suggestedRetailPriceInCents && (
                         <div className="text-base pt-0 line-through text-center text-gray-400">
-                          {priceFormatFn(200)}
+                          {priceFormatFn(suggestedRetailPriceInCents)}
                         </div>
                       )}
                       <div className="mt-4">
