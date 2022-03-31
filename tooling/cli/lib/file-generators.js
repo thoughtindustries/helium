@@ -24,14 +24,14 @@ const generateEnvFile = async (dir, instances) => {
   return writeFile(fileName, data);
 };
 
-const generateTranslationFile = async (dir, instances) => {
+const generateTranslationFile = async (dir, instances, generateBackup = false) => {
   // just fetch translations from the first instances
   // if user wants translations from another instance, they can run update script
   const instance = instances[0];
   const instanceTranslations = await fetchTranslations(instance);
 
   if (instanceTranslations && instanceTranslations.length) {
-    await writeTranslationFile(dir, instanceTranslations, true);
+    await writeTranslationFile(dir, instanceTranslations, generateBackup);
   }
 
   return;
@@ -57,4 +57,4 @@ const generateConfigFile = async (dir, instances) => {
   return writeFile(fileName, JSON.stringify({ instances: data }));
 };
 
-module.exports = { initProject };
+module.exports = { initProject, generateTranslationFile };

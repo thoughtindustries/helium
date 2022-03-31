@@ -2,14 +2,11 @@ import ReactDOM from 'react-dom';
 import React from 'react';
 import { getPage } from 'vite-plugin-ssr/client';
 import { PageWrapper } from './PageWrapper';
-import { ApolloClient, InMemoryCache, ApolloProvider } from '@apollo/client';
-import { BatchHttpLink } from '@apollo/client/link/batch-http';
-import { createPersistedQueryLink } from '@apollo/client/link/persisted-queries';
-import { setContext } from '@apollo/client/link/context';
-import { sha256 } from 'crypto-hash';
+import { ApolloProvider } from '@apollo/client';
 import { I18nextProvider } from 'react-i18next';
 import i18n from './i18n';
-import { PageContext } from './../types';
+import { PageContext } from '../types';
+import makeApolloClient from '@thoughtindustries/helium-server/make-apollo-client';
 
 hydrate();
 
@@ -29,7 +26,7 @@ async function hydrate() {
     authToken
   } = pageContext;
 
-  const apolloClient = makeApolloClient(
+  const apolloClient = await makeApolloClient(
     heliumEndpoint,
     apolloInitialState,
     isProduction,
@@ -55,54 +52,4 @@ async function hydrate() {
     </ApolloProvider>,
     document.getElementById('page-view')
   );
-}
-
-function makeApolloClient(
-  heliumEndpoint: string,
-  apolloInitialState: Record<string, any>,
-  isProduction: boolean,
-  authToken: string | undefined
-) {
-  let link = setContext((_, { headers }) => {
-    return {
-      headers: {
-        ...headers,
-        authToken: authToken ? `${authToken}` : ''
-      }
-    };
-  });
-
-  if (isProduction) {
-    link = link.concat(createPersistedQueryLink({ sha256 }));
-  }
-
-  link = link.concat(
-    new BatchHttpLink({
-      uri: heliumEndpoint,
-      fetch: (uri, options: RequestInit | undefined) => {
-        let endpoint = uri;
-
-        if (!isProduction) {
-          // proxy mutations in dev to avoid CORS errors
-          const reqBody =
-            options && options.body && typeof options.body === 'string' ? options.body : null;
-
-          if (reqBody) {
-            const body = JSON.parse(reqBody);
-            const hasMutation = body.some((doc: Record<string, string>) =>
-              doc.query.includes('mutation ')
-            );
-            endpoint = hasMutation ? '/graphql' : uri;
-          }
-        }
-
-        return fetch(endpoint, options);
-      }
-    })
-  );
-
-  return new ApolloClient({
-    link,
-    cache: new InMemoryCache().restore(apolloInitialState)
-  });
 }

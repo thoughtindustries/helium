@@ -1,19 +1,16 @@
-const express = require('express');
-const { createPageRenderer } = require('vite-plugin-ssr');
-const {
-  fetchUserAndAppearance,
-  findTiInstance,
-  initPageContext
-} = require('@thoughtindustries/helium-server');
+import express from 'express';
+import { createPageRenderer } from 'vite-plugin-ssr';
+import findTiInstance from './../utilities/find-ti-instance';
+import fetchUserAndAppearance from './../utilities/fetch-user-and-appearance';
+import initPageContext from './../utilities/init-page-context';
+import fetch from 'isomorphic-unfetch';
+import expressPlayground from 'graphql-playground-middleware-express';
 
 const isProduction = process.env.NODE_ENV === 'production';
-const root = `${__dirname}/..`;
-const instanceName = process.env.INSTANCE;
+const instanceName = process.env.INSTANCE || '';
 const heliumEndpoint = process.env.HELIUM_ENDPOINT;
 
-startServer();
-
-async function startServer() {
+export default async function setupHeliumServer(root: string, viteDevServer: any, port: number) {
   if (!heliumEndpoint) {
     throw new Error(`
     HELIUM_ENDPOINT environment variable is not set.
@@ -24,10 +21,10 @@ async function startServer() {
   const app = express();
   const tiInstance = await findTiInstance(instanceName);
 
-  if (!isProduction) {
-    const expressPlayground = require('graphql-playground-middleware-express').default;
-    const fetch = require('isomorphic-unfetch');
-
+  if (isProduction) {
+    app.use(express.static(`${root}/dist/client`, { index: false }));
+  } else {
+    app.use(viteDevServer.middlewares);
     app.use(express.json());
 
     app.get('/graphiql', expressPlayground({ endpoint: '/graphql' }));
@@ -48,27 +45,15 @@ async function startServer() {
       };
 
       fetch(heliumEndpoint, options)
-        .then(tiRes => {
+        .then((tiRes: Response) => {
           res.status(tiRes.status);
           return tiRes;
         })
-        .then(r => r.json())
-        .then(data => {
+        .then((r: Body) => r.json())
+        .then((data: Record<string, any>) => {
           res.send(data);
         });
     });
-  }
-
-  let viteDevServer;
-  if (isProduction) {
-    app.use(express.static(`${root}/dist/client`, { index: false }));
-  } else {
-    const vite = require('vite');
-    viteDevServer = await vite.createServer({
-      root,
-      server: { middlewareMode: true }
-    });
-    app.use(viteDevServer.middlewares);
   }
 
   const renderPage = createPageRenderer({ viteDevServer, isProduction, root });
@@ -76,7 +61,7 @@ async function startServer() {
   let appearanceBlock = {};
 
   app.get('*', async (req, res, next) => {
-    if (!currentUser.length || !appearanceBlock.length) {
+    if (!Object.keys(currentUser).length || !Object.keys(appearanceBlock).length) {
       const userAndAppearance = await fetchUserAndAppearance(tiInstance);
       currentUser = userAndAppearance.currentUser;
       appearanceBlock = userAndAppearance.appearanceBlock;
@@ -89,7 +74,10 @@ async function startServer() {
       currentUser,
       appearanceBlock,
       heliumEndpoint,
-      isProduction
+      isProduction,
+      null,
+      null,
+      port
     );
 
     const { httpResponse } = result;
@@ -100,8 +88,5 @@ async function startServer() {
     res.status(statusCode).send(body);
   });
 
-  const port = process.env.PORT || 3000;
-
-  app.listen(port);
-  console.log(`Server running at http://localhost:${port}`);
+  return app;
 }

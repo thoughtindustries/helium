@@ -12,19 +12,33 @@ type PageContextInit = {
   currentUser: Record<string, unknown>;
   isProduction: boolean;
   authToken: string | undefined;
+  httpResponse?: {
+    statusCode: number;
+    body: string;
+  };
 };
+
+type SHA256 = () => string;
 
 export default async function initPageContext(
   url: string,
-  renderPage: (pageContextInit: PageContextInit) => Promise<string>,
+  renderPage: (pageContextInit: PageContextInit) => Promise<PageContextInit>,
   currentUser: Record<string, unknown>,
   appearance: Record<string, unknown>,
   heliumEndpoint: string,
   isProduction: boolean,
-  sha256: () => string,
-  authToken: string | undefined
+  sha256?: SHA256 | null,
+  authToken?: string | null,
+  port?: number | undefined
 ) {
-  const apolloClient = makeApolloClient(heliumEndpoint, isProduction, sha256, authToken);
+  const apolloClient = makeApolloServerClient(
+    heliumEndpoint,
+    isProduction,
+    sha256,
+    authToken,
+    port
+  );
+
   const pageContextInit = {
     url,
     apolloClient,
@@ -35,16 +49,17 @@ export default async function initPageContext(
     authToken
   };
 
-  const pageContext = await renderPage(pageContextInit);
+  const pageContext = await renderPage(pageContextInit as PageContextInit);
 
   return pageContext;
 }
 
-function makeApolloClient(
+function makeApolloServerClient(
   heliumEndpoint: string,
   isProduction: boolean,
-  sha256: () => string,
-  authToken: string | undefined
+  sha256?: SHA256 | null,
+  authToken?: string | null,
+  port?: number | undefined
 ) {
   let link = setContext((_, { headers }) => {
     return {
@@ -63,28 +78,12 @@ function makeApolloClient(
     );
   }
 
+  const endpoint = !isProduction && port ? `http://localhost:${port}/graphql` : heliumEndpoint;
+
   link = link.concat(
     new BatchHttpLink({
-      uri: heliumEndpoint,
-      fetch: (uri, options: RequestInit | undefined) => {
-        let endpoint = uri;
-
-        if (!isProduction) {
-          // proxy mutations in dev to avoid CORS errors
-          const reqBody =
-            options && options.body && typeof options.body === 'string' ? options.body : null;
-
-          if (reqBody) {
-            const body = JSON.parse(reqBody);
-            const hasMutation = body.some((doc: Record<string, string>) =>
-              doc.query.includes('mutation ')
-            );
-            endpoint = hasMutation ? '/graphql' : uri;
-          }
-        }
-
-        return fetch(endpoint, options);
-      }
+      uri: endpoint,
+      fetch
     })
   );
 

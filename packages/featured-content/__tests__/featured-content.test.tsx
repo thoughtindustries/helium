@@ -121,7 +121,7 @@ describe('@thoughtindustries/featured-content', () => {
             class="w-auto -ml-4 -mr-4 mt-0 mb-0 max-w-none"
           >
             <div
-              class="w-full relative pl-4 pr-4 float-left grid grid-cols-1 md:grid-cols-4 gap-8"
+              class="w-full relative pl-4 pr-4 grid grid-cols-1 md:grid-cols-4 gap-8"
             >
               <div
                 class="md:col-span-full"
@@ -268,12 +268,27 @@ describe('@thoughtindustries/featured-content', () => {
                                   class="inline-block pl-0 mb-1 text-xs border-none rounded-sm cursor-pointer inline-block font-normal leading-normal m-0 p-0 relative text-center no-underline transition-colors ease-in-out duration-200 hover:text-link-hover"
                                 >
                                   <span
-                                    class="inline-block align-top"
+                                    class="flex items-center gap-x-1"
                                   >
                                     <i
                                       aria-label="plus"
-                                      class="-top-px pr-0 relative text-xs not-italic before:content-['\\\\002B']"
-                                    />
+                                      class="inline-block w-3 h-3"
+                                    >
+                                      <svg
+                                        class="w-full h-full"
+                                        fill="none"
+                                        stroke="currentColor"
+                                        viewBox="0 0 24 24"
+                                        xmlns="http://www.w3.org/2000/svg"
+                                      >
+                                        <path
+                                          d="M12 6v6m0 0v6m0-6h6m-6 0H6"
+                                          stroke-linecap="round"
+                                          stroke-linejoin="round"
+                                          stroke-width="2"
+                                        />
+                                      </svg>
+                                    </i>
                                      
                                     course-add-to-queue
                                   </span>
@@ -462,7 +477,7 @@ describe('@thoughtindustries/featured-content', () => {
             class="w-auto -ml-4 -mr-4 mt-0 mb-0 max-w-none"
           >
             <div
-              class="w-full relative pl-4 pr-4 float-left grid grid-cols-1 md:grid-cols-4 gap-8"
+              class="w-full relative pl-4 pr-4 grid grid-cols-1 md:grid-cols-4 gap-8"
             >
               <div
                 class="relative"

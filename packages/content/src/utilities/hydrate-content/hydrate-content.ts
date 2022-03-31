@@ -16,7 +16,7 @@ const hydrateContentItem = (
   i18n: I18n,
   contentItem: ContentItem,
   companyTimeZone: string | undefined = undefined,
-  customFields = {}
+  customFields: any = {}
 ): HydratedContentItem => {
   const hasUnmetPrerequisites =
     (contentItem.currentUserUnmetCoursePrerequisites || []).length > 0 ||
@@ -66,12 +66,17 @@ const hydrateContentItem = (
   const callToAction = getCallToAction(i18n, partialHydratedContentItem);
 
   let href = getHref(partialHydratedContentItem);
-  if (Object.keys(customFields).length && href.length > 1) {
-    const urlParams = `sessionFields=${encodeURIComponent(
-      JSON.stringify(Object.entries(customFields))
-    )}`;
+  try {
+    const parsedCustomFields = JSON.parse(customFields);
+    if (Object.keys(parsedCustomFields).length && href.length > 1) {
+      const urlParams = `sessionFields=${encodeURIComponent(
+        JSON.stringify(Object.entries(parsedCustomFields))
+      )}`;
 
-    href = `${href}?${urlParams}`;
+      href = `${href}?${urlParams}`;
+    }
+  } catch (e) {
+    // handle error
   }
 
   let { priceInCents, suggestedRetailPriceInCents } = contentItem;

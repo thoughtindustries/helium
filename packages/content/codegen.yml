@@ -8,7 +8,7 @@ config:
   scalars:
     Slug: 'string'
     Date: 'string'
-    JSON: 'JSON'
+    JSON: 'any'
     AbsoluteOrRelativeURL: 'string'
     HexColor: 'string'
     RelativeURL: 'string'
