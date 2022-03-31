@@ -61,5 +61,6 @@ module.exports = {
         secondary: [getInstanceSetting('altFont', 'Sintony'), 'sans-serif']
       }
     }
-  }
+  },
+  plugins: [require('@tailwindcss/line-clamp')]
 };

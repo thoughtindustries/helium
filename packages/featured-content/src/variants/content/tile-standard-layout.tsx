@@ -100,7 +100,7 @@ const Star = ({ marked }: { marked: boolean }) => (
   <span className="text-accent">{marked ? '\u2605' : '\u2606'}</span>
 );
 const Stars = ({ gradePercentage }: { gradePercentage: number }) => {
-  let stars;
+  let stars: number;
 
   stars = gradePercentage * 0.05;
   const remainder = stars % 0.5;
@@ -109,12 +109,10 @@ const Stars = ({ gradePercentage }: { gradePercentage: number }) => {
     stars = stars - remainder + 0.5;
   }
 
-  const starCount = parseInt(stars.toString().replace('.', ''));
-
   return (
     <div>
       {Array.from({ length: 5 }, (v, i) => (
-        <Star key={`star-${i}`} marked={starCount > i} />
+        <Star key={`star-${i}`} marked={stars > i} />
       ))}
     </div>
   );
