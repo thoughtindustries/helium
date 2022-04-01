@@ -3,7 +3,7 @@ name: Publish
 on:
   push:
     branches:
-      - main
+      - auto-publish-v2
     paths-ignore:
       - '**/package.json'
 
