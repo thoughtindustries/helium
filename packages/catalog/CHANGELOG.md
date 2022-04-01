@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.1.1](https://github.com/thoughtindustries/helium/compare/@thoughtindustries/catalog@1.1.0...@thoughtindustries/catalog@1.1.1) (2022-04-01)
+
+
+### Bug Fixes
+
+* add node types to template-base devDependencies ([#101](https://github.com/thoughtindustries/helium/issues/101)) ([ca45fe1](https://github.com/thoughtindustries/helium/commit/ca45fe17bed74c2f3cab2b1d11e728b7c1ece833))
+
+
+
+
+
 # 1.1.0 (2022-04-01)
 
 

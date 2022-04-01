@@ -1,6 +1,6 @@
 {
   "name": "@thoughtindustries/featured-content",
-  "version": "1.2.0-alpha.0",
+  "version": "1.2.0-alpha.1",
   "description": "A base component for featured content",
   "author": "Rob Schillinger <robert.schillinger@thoughtindustries>",
   "homepage": "https://github.com/thoughtindustries/helium#readme",
@@ -22,7 +22,7 @@
   },
   "dependencies": {
     "@apollo/client": "^3.5.4",
-    "@thoughtindustries/content": "^1.1.0-alpha.0",
+    "@thoughtindustries/content": "^1.1.0-alpha.1",
     "@thoughtindustries/header": "^1.0.0-alpha.8",
     "@use-gesture/react": "^10.1.6",
     "clsx": "^1.1.1",
