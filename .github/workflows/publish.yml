@@ -21,6 +21,7 @@ jobs:
     - uses: actions/checkout@v2
       with: 
         fetch-depth: 0
+        persist-crednetials: false
         
     - uses: actions/setup-node@v2
       with:
