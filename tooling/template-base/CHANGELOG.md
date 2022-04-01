@@ -3,6 +3,24 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.1.0-alpha.12](https://github.com/thoughtindustries/helium/compare/@thoughtindustries/helium-template@1.1.0-alpha.11...@thoughtindustries/helium-template@1.1.0-alpha.12) (2022-04-01)
+
+
+### Bug Fixes
+
+* server awaits on ti instance ([e6873c4](https://github.com/thoughtindustries/helium/commit/e6873c422a8414ae6e979764f1c1c5a7ce674ed6))
+
+
+### Features
+
+* add sample catalog pages to template ([96d1285](https://github.com/thoughtindustries/helium/commit/96d1285a390ef99c2aa011308e53dcdb5e6185b4))
+* add tailwind plugin to equalize height of grid result items ([d92a847](https://github.com/thoughtindustries/helium/commit/d92a84743ea5929c77de21db0fad96404f1b2ddb))
+* apply styling to template sample catalog pages ([eabcff4](https://github.com/thoughtindustries/helium/commit/eabcff4736a1e4a4ccaec9836b93de1c15fc5d6e))
+
+
+
+
+
 # [1.1.0-alpha.11](https://github.com/thoughtindustries/helium/compare/@thoughtindustries/helium-template@1.1.0-alpha.10...@thoughtindustries/helium-template@1.1.0-alpha.11) (2022-03-28)
 
 

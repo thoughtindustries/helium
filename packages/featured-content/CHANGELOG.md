@@ -3,6 +3,23 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.2.0-alpha.0](https://github.com/thoughtindustries/helium/compare/@thoughtindustries/featured-content@1.1.1-alpha.5...@thoughtindustries/featured-content@1.2.0-alpha.0) (2022-04-01)
+
+
+### Bug Fixes
+
+* configure story apollo mocked provider to bypass mocking full payload ([5ab7af3](https://github.com/thoughtindustries/helium/commit/5ab7af3d768c01e924ce64da4668ce2b8964b767))
+* star rating in featured content ([65042a4](https://github.com/thoughtindustries/helium/commit/65042a4ac2d958357091e16342c86fbe4b877062))
+
+
+### Features
+
+* replace pseudo content with icon in featured content ([947d0a3](https://github.com/thoughtindustries/helium/commit/947d0a3cb7134c31f382048a7a8dd20ad4d788ab))
+
+
+
+
+
 ## [1.1.1-alpha.5](https://github.com/thoughtindustries/helium/compare/@thoughtindustries/featured-content@1.1.1-alpha.4...@thoughtindustries/featured-content@1.1.1-alpha.5) (2022-03-28)
 
 
