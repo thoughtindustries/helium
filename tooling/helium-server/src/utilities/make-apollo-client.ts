@@ -1,7 +1,7 @@
-import { setContext } from '@apollo/client/link/context';
-import { createPersistedQueryLink } from '@apollo/client/link/persisted-queries';
-import { BatchHttpLink } from '@apollo/client/link/batch-http';
-import { ApolloClient, InMemoryCache } from '@apollo/client';
+import { setContext } from '@apollo/client/link/context/context.cjs';
+import { createPersistedQueryLink } from '@apollo/client/link/persisted-queries/persisted-queries.cjs';
+import { BatchHttpLink } from '@apollo/client/link/batch-http/batch-http.cjs';
+import { ApolloClient, InMemoryCache } from '@apollo/client/core/core.cjs';
 
 export default async function makeApolloClient(
   heliumEndpoint: string,

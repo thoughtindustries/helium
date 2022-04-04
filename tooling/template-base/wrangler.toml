@@ -1,13 +1,18 @@
 name = "helium"
 account_id = "3c49509121bdd3d119fedece56db7d73"
-type = "webpack"
+type = "javascript"
 workers_dev = true
-compatibility_date = "2021-09-17"
-webpack_config = "./webpack.config.js"
+compatibility_date = "2021-09-29"
 
 [vars]
 INSTANCE_NAME = "prod"
 
 [site]
 bucket = "./dist/client"
-entry-point = "./worker"
+entry-point = "."
+
+[build]
+command = "npm run build:worker"
+
+[build.upload]
+format = "service-worker"

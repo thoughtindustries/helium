@@ -1,8 +1,8 @@
-import reactRefresh from '@vitejs/plugin-react-refresh';
+import react from '@vitejs/plugin-react-refresh';
 import ssr from 'vite-plugin-ssr/plugin';
 
 const tiConfig: Record<any, any> = {
-  plugins: [reactRefresh(), ssr()],
+  plugins: [react(), ssr()],
   optimizeDeps: {
     include: ['dayjs']
   }

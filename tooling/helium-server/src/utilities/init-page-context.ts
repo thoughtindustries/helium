@@ -1,8 +1,8 @@
 import fetch from 'isomorphic-unfetch';
-import { ApolloClient, InMemoryCache, NormalizedCacheObject } from '@apollo/client';
-import { BatchHttpLink } from '@apollo/client/link/batch-http';
-import { createPersistedQueryLink } from '@apollo/client/link/persisted-queries';
-import { setContext } from '@apollo/client/link/context';
+import { ApolloClient, InMemoryCache, NormalizedCacheObject } from '@apollo/client/core/core.cjs';
+import { BatchHttpLink } from '@apollo/client/link/batch-http/batch-http.cjs';
+import { createPersistedQueryLink } from '@apollo/client/link/persisted-queries/persisted-queries.cjs';
+import { setContext } from '@apollo/client/link/context/context.cjs';
 
 type PageContextInit = {
   url: string;

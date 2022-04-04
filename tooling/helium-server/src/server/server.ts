@@ -5,6 +5,7 @@ import fetchUserAndAppearance from './../utilities/fetch-user-and-appearance';
 import initPageContext from './../utilities/init-page-context';
 import fetch from 'isomorphic-unfetch';
 import expressPlayground from 'graphql-playground-middleware-express';
+const graphqlPlayground = expressPlayground.default;
 
 const isProduction = process.env.NODE_ENV === 'production';
 const instanceName = process.env.INSTANCE || '';
@@ -27,7 +28,7 @@ export default async function setupHeliumServer(root: string, viteDevServer: any
     app.use(viteDevServer.middlewares);
     app.use(express.json());
 
-    app.get('/graphiql', expressPlayground({ endpoint: '/graphql' }));
+    app.get('/graphiql', graphqlPlayground({ endpoint: '/graphql' }));
     // proxying graphql requests in dev environment because of CORS errors
     app.post('/graphql', async (req, res) => {
       const reqBody = req.body;
