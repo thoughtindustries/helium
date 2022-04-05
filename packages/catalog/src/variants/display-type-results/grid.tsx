@@ -13,6 +13,7 @@ import ItemAssetBlock from './item-asset-block';
 import ItemQueueButton from './item-queue-button';
 import ItemRibbon from './item-ribbon';
 import clsx from 'clsx';
+import { limitText } from './utilities';
 
 type DisplayTypeResultsGridProps = Pick<CatalogResultsProps, 'onClick' | 'onAddedToQueue'> &
   Pick<CatalogParams, 'displayAuthorsEnabled' | 'displayStartDateEnabled' | 'displayBundle'> & {
@@ -288,7 +289,7 @@ const DisplayTypeResultsGridItem = ({
                 as="p"
                 className="text-xs text-gray-700 pt-1 mb-0 leading-4"
               >
-                {description}
+                {description && limitText(description, 75)}
               </HeightEqualizerElementWrapper>
               <div className="h-6">{rating && <Stars gradePercentage={rating} />}</div>
               <hr className="my-3" />
