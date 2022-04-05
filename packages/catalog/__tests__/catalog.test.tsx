@@ -1667,12 +1667,14 @@ describe('@thoughtindustries/catalog', () => {
                               class="mb-1"
                             >
                               <h3
-                                class="line-clamp-2 leading-6 h-12"
+                                class="leading-6 overflow-hidden block transition-all"
+                                style="transition-duration: 0.25s;"
                               >
                                 Test title
                               </h3>
                               <div
-                                class="leading-4 h-4 line-clamp-1"
+                                class="leading-4 overflow-hidden block transition-all"
+                                style="transition-duration: 0.25s;"
                               >
                                 <span
                                   class="text-xs text-gray-700"
@@ -1682,7 +1684,8 @@ describe('@thoughtindustries/catalog', () => {
                               </div>
                             </div>
                             <div
-                              class="text-xs text-gray-700 leading-4 h-4 line-clamp-1"
+                              class="text-xs text-gray-700 leading-4 overflow-hidden block transition-all"
+                              style="transition-duration: 0.25s;"
                             >
                               <strong>
                                 Course
@@ -1691,12 +1694,14 @@ describe('@thoughtindustries/catalog', () => {
                               Test source
                             </div>
                             <p
-                              class="text-xs mb-1 text-gray-700 leading-4 h-4 line-clamp-1"
+                              class="text-xs mb-1 text-gray-700 leading-4 overflow-hidden block transition-all"
+                              style="transition-duration: 0.25s;"
                             >
                               Test Author
                             </p>
                             <p
-                              class="text-xs text-gray-700 pt-1 mb-0 leading-4 h-12 line-clamp-3"
+                              class="text-xs text-gray-700 pt-1 mb-0 leading-4 overflow-hidden block transition-all"
+                              style="transition-duration: 0.25s;"
                             >
                               description
                             </p>
