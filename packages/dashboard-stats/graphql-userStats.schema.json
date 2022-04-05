@@ -1,13 +1,13 @@
 {
   "__schema": {
     "queryType": {
-      "name": "User"
+      "name": "UserStats"
     },
     "subscriptionType": null,
     "types": [
       {
         "kind": "OBJECT",
-        "name": "User",
+        "name": "UserStats",
         "description": null,
         "fields": [
           {

@@ -1,4 +1,4 @@
-query User {
+query UserStats {
   certificatesCount
   collaborationsCount
   availableCoursesCount

@@ -12,8 +12,8 @@ export type Scalars = {
   Float: number;
 };
 
-export type User = {
-  __typename?: 'User';
+export type UserStats = {
+  __typename?: 'UserStats';
   availableCoursesCount: Scalars['Int'];
   certificatesCount: Scalars['Int'];
   collaborationsCount: Scalars['Int'];

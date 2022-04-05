@@ -1,1 +1,1 @@
-export * from './User.generated';
+export * from './UserStats.generated';
