@@ -1,5 +1,5 @@
 import { RefObject, useCallback } from 'react';
-import { useWindowEventListener } from './use-window-event-listener';
+import { useWindowEventListener } from '../use-window-event-listener';
 
 /**
  * Reference: https://usehooks.com/useOnClickOutside/
@@ -8,7 +8,7 @@ import { useWindowEventListener } from './use-window-event-listener';
  *                  outside of the element
  * @param callback  Callback function when click outside is detected
  */
-export function useOnClickOutside<TRef extends HTMLElement>(
+export default function useOnClickOutside<TRef extends HTMLElement>(
   ref: RefObject<TRef>,
   callback: (event: MouseEvent | PointerEvent) => void
 ) {
