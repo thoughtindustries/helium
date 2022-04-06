@@ -2,7 +2,7 @@ import { createPageRenderer } from 'vite-plugin-ssr';
 import jwt_decode from 'jwt-decode';
 // We load `importBuild.js` so that the worker code can be bundled into a single file
 import '../dist/server/importBuild.js';
-import { initPageContext } from '@thoughtindustries/helium-server';
+import initPageContext from './init-page-context';
 import tiConfig from 'tiConfig';
 
 export { handleSsr };
