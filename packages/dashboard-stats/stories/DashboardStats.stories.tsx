@@ -37,13 +37,6 @@ export default {
       defaultValue: false,
       description: `User's collaborations.`,
       control: { type: 'number' }
-    },
-    hideLabels: {
-      name: 'hideLabels',
-      type: { name: 'boolean', required: true },
-      defaultValue: false,
-      description: `Hide user dashboard.`,
-      control: { type: 'boolean' }
     }
   }
 } as Meta;
@@ -56,6 +49,5 @@ Base.args = {
   startedCoursesCount: 5,
   completedCoursesCount: 10,
   certificatesCount: 3,
-  collaborationsCount: 1,
-  hideLabels: false
+  collaborationsCount: 1
 };

@@ -27,8 +27,7 @@ const mockStats = {
   startedCoursesCount: 5,
   completedCoursesCount: 10,
   certificatesCount: 3,
-  collaborationsCount: 1,
-  hideLabels: false
+  collaborationsCount: 1
 };
 
 describe('@thoughtindustries/dashboard-stats', () => {
@@ -70,7 +69,7 @@ describe('@thoughtindustries/dashboard-stats', () => {
                 <div
                   class="text-xs"
                 >
-                  AVAILABLE
+                  DASHBOARD.AVAILABLE
                 </div>
               </div>
               <div
@@ -103,7 +102,7 @@ describe('@thoughtindustries/dashboard-stats', () => {
                 <div
                   class="text-xs"
                 >
-                  STARTED
+                  DASHBOARD.STARTED
                 </div>
               </div>
               <div
@@ -136,7 +135,7 @@ describe('@thoughtindustries/dashboard-stats', () => {
                 <div
                   class="text-xs"
                 >
-                  COMPLETED
+                  DASHBOARD.COMPLETED
                 </div>
               </div>
               <div
@@ -169,7 +168,7 @@ describe('@thoughtindustries/dashboard-stats', () => {
                 <div
                   class="text-xs"
                 >
-                  CERTIFICATES
+                  DASHBOARD.CERTIFICATES
                 </div>
               </div>
               <div
@@ -202,7 +201,7 @@ describe('@thoughtindustries/dashboard-stats', () => {
                 <div
                   class="text-xs"
                 >
-                  COLLABORATIONS
+                  DASHBOARD.COLLABORATIONS
                 </div>
               </div>
               <div

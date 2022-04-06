@@ -5,7 +5,6 @@ export interface DashboardStatsProps {
   availableCoursesCount: number;
   startedCoursesCount: number;
   completedCoursesCount: number;
-  hideLabels: boolean;
 }
 
 export interface StatsProps {
