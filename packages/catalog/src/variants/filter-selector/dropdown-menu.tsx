@@ -1,6 +1,6 @@
 import React, { createRef, useState } from 'react';
 import clsx from 'clsx';
-import { useOnClickOutside } from './use-on-click-outside';
+import { useOnClickOutside } from '../../core';
 import { ArrowDownIcon, ArrowRightIcon, CheckIcon } from '../../icons';
 
 const DropdownMenu = ({

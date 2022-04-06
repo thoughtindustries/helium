@@ -30,6 +30,7 @@
     "graphql": "^16.3.0",
     "i18next": "^21.5.2",
     "react": "^17.0.2",
-    "react-i18next": "^11.14.2"
+    "react-i18next": "^11.14.2",
+    "use-debounce": "^7.0.1"
   }
 }

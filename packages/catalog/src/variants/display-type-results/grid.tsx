@@ -1,13 +1,19 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { GlobalTypes, formatTime } from '@thoughtindustries/content';
-import { CatalogParams } from '../../core';
+import {
+  CatalogParams,
+  HeightEqualizer,
+  HeightEqualizerElement,
+  HeightEqualizerElementProps
+} from '../../core';
 import { CatalogResultItem, CatalogResultsProps, PriceFormatFn } from '../../types';
 import ItemLinkWrapper from './item-link-wrapper';
 import ItemAssetBlock from './item-asset-block';
 import ItemQueueButton from './item-queue-button';
 import ItemRibbon from './item-ribbon';
 import clsx from 'clsx';
+import { limitText } from './utilities';
 
 type DisplayTypeResultsGridProps = Pick<CatalogResultsProps, 'onClick' | 'onAddedToQueue'> &
   Pick<CatalogParams, 'displayAuthorsEnabled' | 'displayStartDateEnabled' | 'displayBundle'> & {
@@ -17,6 +23,20 @@ type DisplayTypeResultsGridProps = Pick<CatalogResultsProps, 'onClick' | 'onAdde
 
 type DisplayTypeResultsGridItemProps = Omit<DisplayTypeResultsGridProps, 'items'> & {
   item: CatalogResultItem;
+};
+
+const HeightEqualizerElementWrapper = ({
+  className,
+  children,
+  ...restProps
+}: HeightEqualizerElementProps) => {
+  // stylings
+  const baseClassnames = 'overflow-hidden block transition-all';
+  return (
+    <HeightEqualizerElement className={clsx(className, baseClassnames)} {...restProps}>
+      {children}
+    </HeightEqualizerElement>
+  );
 };
 
 const ItemCompletedBlock = () => {
@@ -56,14 +76,16 @@ const ItemTitleBlock = ({
   timeZone?: string;
 }) => (
   <div className="mb-1">
-    <h3 className="line-clamp-2 leading-6 h-12">{title}</h3>
-    <div className={clsx('leading-4 h-4', courseStartDate && 'line-clamp-1')}>
+    <HeightEqualizerElementWrapper name="title" as="h3" className="leading-6">
+      {title}
+    </HeightEqualizerElementWrapper>
+    <HeightEqualizerElementWrapper name="course-date" className="leading-4">
       {courseStartDate && (
         <span className="text-xs text-gray-700">
           {formatTime(courseStartDate, timeZone, 'MM/DD/YYYY')}
         </span>
       )}
-    </div>
+    </HeightEqualizerElementWrapper>
   </div>
 );
 
@@ -74,16 +96,11 @@ const ItemSourceBlock = ({
   contentTypeLabel?: string;
   source?: string;
 }) => (
-  <div
-    className={clsx(
-      'text-xs text-gray-700 leading-4 h-4',
-      (contentTypeLabel || source) && 'line-clamp-1'
-    )}
-  >
+  <HeightEqualizerElementWrapper name="source" className="text-xs text-gray-700 leading-4">
     {contentTypeLabel && <strong>{contentTypeLabel}</strong>}
     {contentTypeLabel && source && <>|{source}</>}
     {!contentTypeLabel && source && <strong>{source}</strong>}
-  </div>
+  </HeightEqualizerElementWrapper>
 );
 
 // TODO: might consider extracting as common component
@@ -260,22 +277,20 @@ const DisplayTypeResultsGridItem = ({
                 />
               )}
               <ItemSourceBlock contentTypeLabel={contentTypeLabel} source={source} />
-              <p
-                className={clsx(
-                  'text-xs mb-1 text-gray-700 leading-4 h-4',
-                  displayAuthors && 'line-clamp-1'
-                )}
+              <HeightEqualizerElementWrapper
+                name="authors"
+                as="p"
+                className="text-xs mb-1 text-gray-700 leading-4"
               >
                 {displayAuthors}
-              </p>
-              <p
-                className={clsx(
-                  'text-xs text-gray-700 pt-1 mb-0 leading-4 h-12',
-                  description && 'line-clamp-3'
-                )}
+              </HeightEqualizerElementWrapper>
+              <HeightEqualizerElementWrapper
+                name="description"
+                as="p"
+                className="text-xs text-gray-700 pt-1 mb-0 leading-4"
               >
-                {description}
-              </p>
+                {description && limitText(description, 75)}
+              </HeightEqualizerElementWrapper>
               <div className="h-6">{rating && <Stars gradePercentage={rating} />}</div>
               <hr className="my-3" />
               <div className="text-base leading-none">
@@ -324,7 +339,11 @@ const DisplayTypeResultsGrid = ({
     .map((item, index) => (
       <DisplayTypeResultsGridItem key={`result-item-${index}`} item={item} {...restProps} />
     ));
-  return <ul className="grid gap-5 grid-cols-1 md:grid-cols-2 lg:grid-cols-3">{contentItems}</ul>;
+  return (
+    <HeightEqualizer>
+      <ul className="grid gap-5 grid-cols-1 md:grid-cols-2 lg:grid-cols-3">{contentItems}</ul>
+    </HeightEqualizer>
+  );
 };
 
 DisplayTypeResultsGrid.displayName = 'DisplayTypeResultsGrid';

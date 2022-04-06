@@ -8,7 +8,7 @@ import { useEffect, useRef } from 'react';
  * @param eventName     Event name to attach specified event handler to
  * @param handler       Event handler
  */
-export function useWindowEventListener<T extends keyof WindowEventMap>(
+export default function useWindowEventListener<T extends keyof WindowEventMap>(
   eventName: T,
   handler: (this: Window, evt: WindowEventMap[T]) => any
 ) {
