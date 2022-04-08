@@ -31,7 +31,9 @@ const buildFragmentMap = querySources => {
         enter(node) {
           // Keep track of referenced fragment definitions. We'll need to add the
           // definitions to the Operation Docs so that query hashes match what Apollo generates
-          fragmentMap[node.name.value] = node;
+          if (!fragmentMap[node.name.value]) {
+            fragmentMap[node.name.value] = node;
+          }
         }
       }
     });
