@@ -3,6 +3,7 @@ import { StatsProps } from './types';
 import { NotebookIcon, IndexIcon, CheckIcon, StarIcon, UsersIcon } from './icons';
 import { useTranslation } from 'react-i18next';
 import { useUserStatsQuery } from '@thoughtindustries/dashboard-stats';
+import { LoadingDots } from '@thoughtindustries/content';
 
 enum Colors {
   Sky = 'text-sky-700',
@@ -39,7 +40,7 @@ const DashboardStats = (): JSX.Element => {
   const { data, loading, error } = useUserStatsQuery();
 
   // Create components for loading and errors
-  if (loading) return <p>Loading...</p>;
+  if (loading) return <LoadingDots />;
   if (error) return <p>Error!</p>;
 
   return (
