@@ -26,7 +26,7 @@ describe('@thoughtindustries/tooling/cli/helpers/graphql', () => {
 
       const fragmentMap = buildFragmentMap(querySources);
 
-      expect(print(fragmentMap['ContentFragmentTest']).trim()).toEqual(
+      expect(print(fragmentMap['TestContentFragment']).trim()).toEqual(
         print(ContentFragmentTest).trim()
       );
     });
@@ -53,7 +53,7 @@ describe('@thoughtindustries/tooling/cli/helpers/graphql', () => {
       const modifiedDoc = transformDoc(querySources[0], fragmentMap);
       const { hash } = hashQuery(modifiedDoc);
 
-      const expectedHash = 'c62e6b8b8013beec5401dd79fb158011100bc13e4bd571fb7652321f8263caa2';
+      const expectedHash = 'b00079d1a6404fad934fd3d10df40316e14a9ad60d1788a45125cda5e01a0d93';
       expect(hash).toEqual(expectedHash);
     });
   });

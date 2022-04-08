@@ -5,11 +5,15 @@ const { parse, visit } = require('graphql/language');
 const { print } = require('graphql/language/printer');
 const crypto = require('crypto');
 
-const gatherQuerySources = async filePaths => {
+const gatherQuerySources = async (filePaths, excludedString) => {
   let querySources = [];
 
   for (const filePath of filePaths) {
-    if (filePathIsValid(filePath) && !filePath.includes('__tests__')) {
+    const filePathIncludesExcludedString = excludedString
+      ? filePath.includes(excludedString)
+      : false;
+
+    if (filePathIsValid(filePath) && !filePathIncludesExcludedString) {
       const fileQuerySources = await gqlPluckFromCodeString(
         filePath,
         await fs.readFile(filePath, 'utf8')

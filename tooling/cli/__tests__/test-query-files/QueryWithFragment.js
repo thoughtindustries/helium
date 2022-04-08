@@ -6,7 +6,7 @@ const CatalogDocumentTest = gql`
   query CatalogTest($query: String, $querySignature: String, $querySort: String) {
     CatalogQuery(query: $query, querySignature: $querySignature, querySort: $querySort) {
       contentItems {
-        ...ContentFragment
+        ...TestContentFragment
       }
     }
   }

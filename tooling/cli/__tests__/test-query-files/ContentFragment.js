@@ -1,7 +1,7 @@
 const { gql } = require('@apollo/client');
 
 const ContentFragmentTest = gql`
-  fragment ContentFragmentTest on Content {
+  fragment TestContentFragment on Content {
     asset
     authors
     availabilityStatus
