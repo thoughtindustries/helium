@@ -6,26 +6,31 @@ export type ContentFragmentFragment = {
   asset?: string;
   authors?: Array<string>;
   availabilityStatus?: string;
+  bulkPurchasingEnabled?: boolean;
   canAddToQueue?: boolean;
   contentTypeLabel?: string;
   courseGracePeriodEnded: boolean;
   coursePresold: boolean;
-  courseStartDate?: Date;
+  courseStartDate?: string;
   currentUserMayReschedule: boolean;
   currentUserUnmetCoursePrerequisites?: Array<string>;
   currentUserUnmetLearningPathPrerequisites?: Array<string>;
   description?: string;
   displayCourse?: string;
+  displayCourseSlug?: string;
+  embeddedEnabled?: boolean;
   kind?: Types.ContentKind;
   hasChildren: boolean;
   hideCourseDescription: boolean;
   id: string;
   isActive: boolean;
   priceInCents?: number;
+  publishDate?: string;
   rating?: number;
   slug: string;
   source?: string;
   suggestedRetailPriceInCents?: number;
+  timeZone?: string;
   title?: string;
   waitlistingEnabled: boolean;
   waitlistingTriggered: boolean;
@@ -44,6 +49,7 @@ export const ContentFragmentFragmentDoc = gql`
     asset
     authors
     availabilityStatus
+    bulkPurchasingEnabled
     canAddToQueue
     contentTypeLabel
     courseGracePeriodEnded
@@ -54,12 +60,15 @@ export const ContentFragmentFragmentDoc = gql`
     currentUserUnmetLearningPathPrerequisites
     description
     displayCourse
+    displayCourseSlug
+    embeddedEnabled
     kind
     hasChildren
     hideCourseDescription
     id
     isActive
     priceInCents
+    publishDate
     rating
     ribbon {
       color
@@ -71,6 +80,7 @@ export const ContentFragmentFragmentDoc = gql`
     slug
     source
     suggestedRetailPriceInCents
+    timeZone
     title
     waitlistingEnabled
     waitlistingTriggered

@@ -1,13 +1,13 @@
 overwrite: true
-schema: "graphql-content.schema.json"
-documents: "src/**/*.graphql"
+schema: 'graphql-content.schema.json'
+documents: 'src/**/*.graphql'
 config:
   avoidOptionals: false
   maybeValue: T
   inlineFragmentTypes: 'combine'
   scalars:
     Slug: 'string'
-    Date: 'Date'
+    Date: 'string'
     JSON: 'JSON'
     AbsoluteOrRelativeURL: 'string'
     HexColor: 'string'
@@ -18,7 +18,7 @@ generates:
   # use this to re-generate global types from schema
   src/graphql/global-types.ts:
     plugins:
-      - "typescript"
+      - 'typescript'
   src/:
     preset: near-operation-file
     presetConfig:
@@ -26,9 +26,5 @@ generates:
       baseTypesPath: graphql/global-types.ts
       extension: .generated.tsx
     plugins:
-      - "typescript-operations"
-      - "typescript-react-apollo"
-  # # use this to re-generate schema from remote schema
-  # ./graphql.schema.json:
-  #   plugins:
-  #     - "introspection"
+      - 'typescript-operations'
+      - 'typescript-react-apollo'

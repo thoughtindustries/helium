@@ -18,5 +18,8 @@
   },
   "bugs": {
     "url": "https://github.com/thoughtindustries/helium/issues"
+  },
+  "dependencies": {
+    "@thoughtindustries/content": "^1.1.0-alpha.1"
   }
 }

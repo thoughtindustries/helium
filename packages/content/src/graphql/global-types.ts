@@ -13,7 +13,7 @@ export type Scalars = {
   /** A valid absolute (starting with either a valid protocol or a leading www) or relative (with a leading slash) URL string */
   AbsoluteOrRelativeURL: string;
   /** Date scalar type */
-  Date: Date;
+  Date: string;
   /** Hex Color scalar type */
   HexColor: string;
   /** The `JSON` scalar type represents JSON values as specified by [ECMA-404](http://www.ecma-international.org/publications/files/ECMA-ST/ECMA-404.pdf). */
@@ -45,6 +45,25 @@ export type AggregationBucket = {
 export enum AlternativePricingType {
   Membership = 'membership'
 }
+
+export type ArchivedContent = {
+  __typename?: 'ArchivedContent';
+  archivedAt?: Maybe<Scalars['Date']>;
+  company?: Maybe<Company>;
+  id: Scalars['ID'];
+  name?: Maybe<Scalars['String']>;
+  reinstatable: Scalars['Boolean'];
+  resource?: Maybe<Scalars['ID']>;
+  resourceType?: Maybe<Scalars['String']>;
+  status?: Maybe<Scalars['String']>;
+  user?: Maybe<Scalars['ID']>;
+  waitlistActive: Scalars['Boolean'];
+};
+
+export type Block = {
+  __typename?: 'Block';
+  id: Scalars['ID'];
+};
 
 export type Bundle = {
   __typename?: 'Bundle';
@@ -98,6 +117,16 @@ export type CatalogMeta = {
   sortUpdatedAtEnabled: Scalars['Boolean'];
   tokenLabel?: Maybe<Scalars['String']>;
   total?: Maybe<Scalars['Int']>;
+};
+
+export type Company = {
+  __typename?: 'Company';
+  catalogBlock?: Maybe<Block>;
+  catalogVisibilityEmails?: Maybe<Array<Scalars['String']>>;
+  id: Scalars['ID'];
+  name?: Maybe<Scalars['String']>;
+  organization?: Maybe<Organization>;
+  subdomain?: Maybe<Scalars['String']>;
 };
 
 export type Content = {
@@ -160,6 +189,57 @@ export type Content = {
   waitlistingTriggered: Scalars['Boolean'];
 };
 
+export type ContentBody = {
+  __typename?: 'ContentBody';
+  body: Scalars['String'];
+  id: Scalars['ID'];
+  slug: Scalars['String'];
+  title: Scalars['String'];
+};
+
+export type ContentGroup = {
+  __typename?: 'ContentGroup';
+  count: Scalars['Int'];
+  kind: ContentGroupKind;
+};
+
+export enum ContentGroupKind {
+  ArchivedContentItems = 'archivedContentItems',
+  BookmarkFolders = 'bookmarkFolders',
+  Certificates = 'certificates',
+  CompletedItems = 'completedItems',
+  ContentItems = 'contentItems',
+  EventItems = 'eventItems',
+  LearningPaths = 'learningPaths',
+  WaitlistedCourses = 'waitlistedCourses'
+}
+
+export type ContentItem = {
+  __typename?: 'ContentItem';
+  asset?: Maybe<Scalars['AbsoluteOrRelativeURL']>;
+  authors?: Maybe<Array<Scalars['String']>>;
+  bulkPurchasingEnabled?: Maybe<Scalars['Boolean']>;
+  canAddToQueue?: Maybe<Scalars['Boolean']>;
+  contentTypeLabel?: Maybe<Scalars['String']>;
+  courseGracePeriodEnded?: Maybe<Scalars['Boolean']>;
+  coursePresold?: Maybe<Scalars['Boolean']>;
+  courseStartDate?: Maybe<Scalars['Date']>;
+  currentUserUnmetCoursePrerequisites?: Maybe<Array<Maybe<Scalars['ID']>>>;
+  currentUserUnmetLearningPathPrerequisites?: Maybe<Array<Maybe<Scalars['ID']>>>;
+  description?: Maybe<Scalars['String']>;
+  displayCourse?: Maybe<Scalars['ID']>;
+  displayCourseSlug?: Maybe<Scalars['String']>;
+  embeddedEnabled?: Maybe<Scalars['Boolean']>;
+  id: Scalars['ID'];
+  kind?: Maybe<ContentKind>;
+  publishDate?: Maybe<Scalars['Date']>;
+  rating?: Maybe<Scalars['Int']>;
+  slug?: Maybe<Scalars['String']>;
+  source?: Maybe<Scalars['String']>;
+  timeZone?: Maybe<Scalars['String']>;
+  title?: Maybe<Scalars['String']>;
+};
+
 export enum ContentItemDisplayType {
   Calendar = 'calendar',
   Grid = 'grid',
@@ -188,6 +268,8 @@ export enum ContentKind {
 export type Mutation = {
   __typename?: 'Mutation';
   AddResourceToQueue: Scalars['Boolean'];
+  DestroyBookmarkFolder: Scalars['ID'];
+  UpdateBookmarkFolder: Scalars['Boolean'];
   UpdateLearningPathAccess: Scalars['Boolean'];
 };
 
@@ -196,9 +278,24 @@ export type MutationAddResourceToQueueArgs = {
   resourceType?: InputMaybe<ContentKind>;
 };
 
+export type MutationDestroyBookmarkFolderArgs = {
+  id: Scalars['ID'];
+};
+
+export type MutationUpdateBookmarkFolderArgs = {
+  id: Scalars['ID'];
+  name: Scalars['String'];
+};
+
 export type MutationUpdateLearningPathAccessArgs = {
   slug: Scalars['Slug'];
   status: Scalars['String'];
+};
+
+export type Organization = {
+  __typename?: 'Organization';
+  id: Scalars['ID'];
+  name?: Maybe<Scalars['String']>;
 };
 
 export type Query = {
@@ -208,8 +305,11 @@ export type Query = {
   QueryContent?: Maybe<Content>;
   QueryContents: Array<Content>;
   RssItems: Array<RssItem>;
+  UserArchives?: Maybe<Array<ArchivedContent>>;
+  UserContentGroups?: Maybe<Array<ContentGroup>>;
   UserContentItems?: Maybe<Array<Content>>;
   UserRecentContent: Array<Content>;
+  UserWaitlist?: Maybe<Array<ContentItem>>;
 };
 
 export type QueryCatalogContentArgs = {
@@ -240,6 +340,11 @@ export type QueryQueryContentsArgs = {
 
 export type QueryRssItemsArgs = {
   feedUrl: Scalars['String'];
+};
+
+export type QueryUserContentGroupsArgs = {
+  includeExpiredCertificates?: InputMaybe<Scalars['Boolean']>;
+  query?: InputMaybe<Scalars['String']>;
 };
 
 export type QueryUserContentItemsArgs = {

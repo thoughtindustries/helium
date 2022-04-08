@@ -1,0 +1,26 @@
+query Waitlist {
+  UserWaitlist {
+    id
+    slug
+    contentTypeLabel
+    title
+    asset
+    description
+    source
+    displayCourse
+    displayCourseSlug
+    embeddedEnabled
+    courseStartDate
+    coursePresold
+    courseGracePeriodEnded
+    currentUserUnmetCoursePrerequisites
+    currentUserUnmetLearningPathPrerequisites
+    kind
+    authors
+    rating
+    timeZone
+    publishDate
+    canAddToQueue
+    bulkPurchasingEnabled
+  }
+}

@@ -1,0 +1,26 @@
+query Archives {
+  UserArchives {
+    id
+    company {
+      id
+      name
+      subdomain
+      catalogBlock {
+        id
+      }
+      organization {
+        id
+        name
+      }
+      catalogVisibilityEmails
+    }
+    user
+    resource
+    resourceType
+    status
+    archivedAt
+    name
+    reinstatable
+    waitlistActive
+  }
+}

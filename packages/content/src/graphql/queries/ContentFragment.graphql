@@ -2,6 +2,7 @@ fragment ContentFragment on Content {
   asset
   authors
   availabilityStatus
+  bulkPurchasingEnabled
   canAddToQueue
   contentTypeLabel
   courseGracePeriodEnded
@@ -12,12 +13,15 @@ fragment ContentFragment on Content {
   currentUserUnmetLearningPathPrerequisites
   description
   displayCourse
+  displayCourseSlug
+  embeddedEnabled
   kind
   hasChildren
   hideCourseDescription
   id
   isActive
   priceInCents
+  publishDate
   rating
   ribbon {
     color
@@ -29,6 +33,7 @@ fragment ContentFragment on Content {
   slug
   source
   suggestedRetailPriceInCents
+  timeZone
   title
   waitlistingEnabled
   waitlistingTriggered
