@@ -1,7 +1,8 @@
 import React from 'react';
-import { DashboardStatsProps, StatsProps } from './types';
+import { StatsProps } from './types';
 import { NotebookIcon, IndexIcon, CheckIcon, StarIcon, UsersIcon } from './icons';
 import { useTranslation } from 'react-i18next';
+import { useUserStatsQuery } from '@thoughtindustries/dashboard-stats';
 
 enum Colors {
   Sky = 'text-sky-700',
@@ -30,57 +31,52 @@ const Stat = ({ ...props }: StatsProps) => {
   );
 };
 
-const DashboardStats = ({
-  availableCoursesCount,
-  startedCoursesCount,
-  completedCoursesCount,
-  certificatesCount,
-  collaborationsCount
-}: DashboardStatsProps): JSX.Element => {
-  const { t } = useTranslation();
-
+const DashboardStats = (): JSX.Element => {
   const statContainer =
     'flex flex-col w-full sm:flex-row justify-center border border-solid border-gray-200 p-1.5 shadow-lg';
 
+  const { t } = useTranslation();
+  const { data, loading, error } = useUserStatsQuery();
+
+  // Create components for loading and errors
+  if (loading) return <p>Loading...</p>;
+  if (error) return <p>Error!</p>;
+
   return (
-    <>
-      <div className={statContainer}>
-        <>
-          <Stat
-            label={t('dashboard.available').toUpperCase()}
-            stat={availableCoursesCount}
-            color={Colors.Sky}
-            icon={<NotebookIcon />}
-          />
-          <Stat
-            label={t('dashboard.started').toUpperCase()}
-            stat={startedCoursesCount}
-            color={Colors.Green}
-            icon={<IndexIcon />}
-          />
-          <Stat
-            label={t('dashboard.completed').toUpperCase()}
-            stat={completedCoursesCount}
-            color={Colors.Pink}
-            icon={<CheckIcon />}
-          />
-          {certificatesCount > 0 && (
-            <Stat
-              label={t('dashboard.certificates').toUpperCase()}
-              stat={certificatesCount}
-              color={Colors.Green}
-              icon={<StarIcon />}
-            />
-          )}
-          <Stat
-            label={t('dashboard.collaborations').toUpperCase()}
-            stat={collaborationsCount}
-            color={Colors.Gray}
-            icon={<UsersIcon />}
-          />
-        </>
-      </div>
-    </>
+    <div className={statContainer}>
+      <Stat
+        label={t('dashboard.available').toUpperCase()}
+        stat={data ? data.availableCoursesCount : 0}
+        color={Colors.Sky}
+        icon={<NotebookIcon />}
+      />
+      <Stat
+        label={t('dashboard.started').toUpperCase()}
+        stat={data ? data.startedCoursesCount : 0}
+        color={Colors.Green}
+        icon={<IndexIcon />}
+      />
+      <Stat
+        label={t('dashboard.completed').toUpperCase()}
+        stat={data ? data.completedCoursesCount : 0}
+        color={Colors.Pink}
+        icon={<CheckIcon />}
+      />
+      {data && data.certificatesCount > 0 && (
+        <Stat
+          label={t('dashboard.certificates').toUpperCase()}
+          stat={data.certificatesCount}
+          color={Colors.Green}
+          icon={<StarIcon />}
+        />
+      )}
+      <Stat
+        label={t('dashboard.collaborations').toUpperCase()}
+        stat={data ? data.collaborationsCount : 0}
+        color={Colors.Gray}
+        icon={<UsersIcon />}
+      />
+    </div>
   );
 };
 
