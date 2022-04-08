@@ -9,7 +9,7 @@ const gatherQuerySources = async filePaths => {
   let querySources = [];
 
   for (const filePath of filePaths) {
-    if (filePathIsValid(filePath)) {
+    if (filePathIsValid(filePath) && !filePath.includes('__tests__')) {
       const fileQuerySources = await gqlPluckFromCodeString(
         filePath,
         await fs.readFile(filePath, 'utf8')

@@ -1,7 +1,7 @@
 const { gql } = require('@apollo/client');
 
-const ContentFragment = gql`
-  fragment ContentFragment on Content {
+const ContentFragmentTest = gql`
+  fragment ContentFragmentTest on Content {
     asset
     authors
     availabilityStatus
@@ -38,4 +38,4 @@ const ContentFragment = gql`
   }
 `;
 
-module.exports = { ContentFragment };
+module.exports = { ContentFragmentTest };
