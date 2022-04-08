@@ -128,7 +128,7 @@ async function hashGraphqlQueries() {
   const filePaths = pagesFilePaths.concat(componentsFilePaths).concat(tiFilepaths);
 
   const queryHashMap = {};
-  const querySources = await gatherQuerySources(filePaths);
+  const querySources = await gatherQuerySources(filePaths, '__tests__');
 
   if (querySources.length > 0) {
     const fragmentMap = buildFragmentMap(querySources);
