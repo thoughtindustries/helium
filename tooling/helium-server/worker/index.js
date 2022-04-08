@@ -53,7 +53,8 @@ async function handleFetchEvent(event) {
   if (!isAssetUrl(event.request.url)) {
     const { headers } = event.request;
     const authToken = headers.get('authToken') || null;
-    const response = await handleSsr(event.request.url, authToken);
+    const userAndAppearanceToken = headers.get('userAndAppearance') || null;
+    const response = await handleSsr(event.request.url, authToken, userAndAppearanceToken);
     if (response !== null) return response;
   }
   const response = await handleStaticAssets(event);
