@@ -2,7 +2,7 @@ import React from 'react';
 import { StatsProps } from './types';
 import { NotebookIcon, IndexIcon, CheckIcon, StarIcon, UsersIcon } from './icons';
 import { useTranslation } from 'react-i18next';
-import { useUserStatsQuery } from '@thoughtindustries/dashboard-stats';
+import { useUserStatsQuery } from '../graphql';
 import { LoadingDots } from '@thoughtindustries/content';
 
 enum Colors {
