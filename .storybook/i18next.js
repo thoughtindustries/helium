@@ -32,6 +32,11 @@ i18n.use(initReactI18next).init({
         'course-added-to-queue': 'Added to Queue',
         'course-completed-decal': 'Completed!',
         'course-view-details': 'View Details',
+        'dashboard.available': 'Available',
+        'dashboard.started': 'Started',
+        'dashboard.completed': 'Completed',
+        'dashboard.certificates': 'Certifications',
+        'dashboard.collaborations': 'Collaborations',
         course: 'Course',
         'filter-by': 'Filter by',
         'filter-no-courses':
