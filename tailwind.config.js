@@ -1,3 +1,5 @@
+const colors = require('tailwindcss/colors');
+
 module.exports = {
   mode: 'jit',
   purge: ['./packages/**/*.{ts,tsx}'],
@@ -10,8 +12,22 @@ module.exports = {
       xl: '1440px',
       '2xl': '1920px'
     },
+    fontSize: {
+      xs: '0.625rem',
+      sm: '.875rem',
+      base: '1rem',
+      lg: '1.125rem',
+      xl: '1.25rem',
+      '2xl': '1.5rem',
+      '3xl': '1.875rem',
+      '4xl': '2.25rem',
+      '5xl': '3rem',
+      '6xl': '4rem',
+      '7xl': '5rem'
+    },
     boxShadow: {
       DEFAULT: '0px 0px 5px #4d90fe',
+      lg: '0px 0px 12px -2px rgba(0, 0, 0, 0.25)',
       none: 'none'
     },
     maxWidth: {
@@ -46,7 +62,8 @@ module.exports = {
         'link-hover': '#767676',
         'black-light': '#333333',
         'gray-light': ' #cbcbcb',
-        'gray-lightest': '#e9e9e9'
+        'gray-lightest': '#e9e9e9',
+         sky: colors.sky
       },
       fontFamily: {
         primary: ['Sintony', 'Nunito', 'sans-serif'],
@@ -61,5 +78,5 @@ module.exports = {
   variants: {
     extend: {}
   },
-  plugins: []
+  plugins: [require('@tailwindcss/line-clamp')]
 };

@@ -25,7 +25,8 @@
     "react/jsx-curly-brace-presence": ["error", { "props": "never" }],
     "react/jsx-key": [0, { "checkFragmentShorthand": false }],
     "@typescript-eslint/no-var-requires": 0,
-    "@typescript-eslint/no-explicit-any": ["off"]
+    "@typescript-eslint/no-explicit-any": ["off"],
+    "@typescript-eslint/ban-ts-comment": ["error", {"ts-ignore":"allow-with-description"}]
   },
   "settings": {
     "react": {

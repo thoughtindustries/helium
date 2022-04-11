@@ -14,6 +14,7 @@ export { onBeforeRender };
 // See https://vite-plugin-ssr.com/data-fetching
 export const passToClient = [
   'pageProps',
+  'urlParsed',
   'urlPathname',
   'apolloInitialState',
   'heliumEndpoint',

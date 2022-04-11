@@ -56,6 +56,7 @@ export type PageContext = {
   urlPathname: string;
   urlParsed: {
     pathname: string;
+    searchString?: string;
     search: null | Record<string, string>;
     hash: null | string;
   };

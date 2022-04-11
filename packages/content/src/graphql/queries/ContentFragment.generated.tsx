@@ -3,13 +3,16 @@ import * as Types from '../global-types';
 import { gql } from '@apollo/client';
 export type ContentFragmentFragment = {
   __typename?: 'Content';
+  alternativePricingType?: Types.AlternativePricingType;
   asset?: string;
   authors?: Array<string>;
   availabilityStatus?: string;
   bulkPurchasingEnabled?: boolean;
   canAddToQueue?: boolean;
   contentTypeLabel?: string;
+  courseEndDate?: string;
   courseGracePeriodEnded: boolean;
+  courseGroup?: string;
   coursePresold: boolean;
   courseStartDate?: string;
   currentUserMayReschedule: boolean;
@@ -46,13 +49,16 @@ export type ContentFragmentFragment = {
 
 export const ContentFragmentFragmentDoc = gql`
   fragment ContentFragment on Content {
+    alternativePricingType
     asset
     authors
     availabilityStatus
     bulkPurchasingEnabled
     canAddToQueue
     contentTypeLabel
+    courseEndDate
     courseGracePeriodEnded
+    courseGroup
     coursePresold
     courseStartDate
     currentUserMayReschedule

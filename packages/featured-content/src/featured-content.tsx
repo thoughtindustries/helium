@@ -12,7 +12,7 @@ const FeaturedContent = ({
   );
   return (
     <div className="w-auto -ml-4 -mr-4 mt-0 mb-0 max-w-none">
-      <div className="w-full relative pl-4 pr-4 float-left grid grid-cols-1 md:grid-cols-4 gap-8">
+      <div className="w-full relative pl-4 pr-4 grid grid-cols-1 md:grid-cols-4 gap-8">
         {sidebarPosition === SidebarPosition.Left && wrappedSidebar}
         {wrappedChildren}
         {sidebarPosition === SidebarPosition.Right && wrappedSidebar}

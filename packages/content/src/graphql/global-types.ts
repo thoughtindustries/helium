@@ -17,7 +17,7 @@ export type Scalars = {
   /** Hex Color scalar type */
   HexColor: string;
   /** The `JSON` scalar type represents JSON values as specified by [ECMA-404](http://www.ecma-international.org/publications/files/ECMA-ST/ECMA-404.pdf). */
-  JSON: JSON;
+  JSON: any;
   /** A valid relative URL string with a leading slash (/) */
   RelativeURL: string;
   /** Slug scalar type */
@@ -100,6 +100,7 @@ export type CatalogMeta = {
   debug?: Maybe<Scalars['Boolean']>;
   displayAuthorsEnabled: Scalars['Boolean'];
   displayBundle?: Maybe<Bundle>;
+  displayDescriptionOnCalendar: Scalars['Boolean'];
   displayStartDateEnabled: Scalars['Boolean'];
   displayTypeCalendarEnabled: Scalars['Boolean'];
   displayTypeGridEnabled: Scalars['Boolean'];
@@ -165,6 +166,7 @@ export type Content = {
   isActive: Scalars['Boolean'];
   kind?: Maybe<ContentKind>;
   language?: Maybe<Scalars['String']>;
+  location?: Maybe<Location>;
   meetingStartDate?: Maybe<Scalars['Date']>;
   metaDescription?: Maybe<Scalars['String']>;
   metaTitle?: Maybe<Scalars['String']>;
@@ -265,6 +267,29 @@ export enum ContentKind {
   XApiObject = 'xApiObject'
 }
 
+export type Language = {
+  __typename?: 'Language';
+  code: Scalars['String'];
+  id?: Maybe<Scalars['ID']>;
+  isCustom?: Maybe<Scalars['Boolean']>;
+  label: Scalars['String'];
+  selectorLabel?: Maybe<Scalars['String']>;
+};
+
+export type Location = {
+  __typename?: 'Location';
+  address1: Scalars['String'];
+  address2?: Maybe<Scalars['String']>;
+  city: Scalars['String'];
+  country?: Maybe<Scalars['String']>;
+  id: Scalars['ID'];
+  name: Scalars['String'];
+  room?: Maybe<Scalars['String']>;
+  state?: Maybe<Scalars['String']>;
+  timeZone?: Maybe<Scalars['String']>;
+  zipCode?: Maybe<Scalars['String']>;
+};
+
 export type Mutation = {
   __typename?: 'Mutation';
   AddResourceToQueue: Scalars['Boolean'];
@@ -302,6 +327,7 @@ export type Query = {
   __typename?: 'Query';
   CatalogContent: CatalogContent;
   CatalogQuery: CatalogContent;
+  Languages: Array<Language>;
   QueryContent?: Maybe<Content>;
   QueryContents: Array<Content>;
   RssItems: Array<RssItem>;
@@ -313,16 +339,16 @@ export type Query = {
 };
 
 export type QueryCatalogContentArgs = {
-  contentTypes?: InputMaybe<Array<ContentKind>>;
+  contentTypes?: InputMaybe<Array<Scalars['String']>>;
   labels?: InputMaybe<Array<Scalars['String']>>;
-  layoutId: Scalars['ID'];
+  layoutId?: InputMaybe<Scalars['ID']>;
   page: Scalars['Int'];
   query?: InputMaybe<Scalars['String']>;
   resultsDisplayType?: InputMaybe<ContentItemDisplayType>;
   sort?: InputMaybe<Scalars['String']>;
   token?: InputMaybe<Scalars['String']>;
   values?: InputMaybe<Array<Scalars['String']>>;
-  widgetId: Scalars['ID'];
+  widgetId?: InputMaybe<Scalars['ID']>;
 };
 
 export type QueryCatalogQueryArgs = {

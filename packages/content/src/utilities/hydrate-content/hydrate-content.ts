@@ -1,22 +1,22 @@
-import { zonedTimeToUtc } from 'date-fns-tz';
-import { format } from 'date-fns';
 import { i18n as I18n } from 'i18next';
 import { ContentItem, HydratedContentItem, AvailabilityStatus } from './types';
 import { ContentKind, AlternativePricingType } from '../../graphql/global-types';
 import courseRuns from './course-run';
-import { DEFAULT_TIMEZONE } from './constants';
+import { formatTime } from '../format-time';
 
 /**
  * Hydrate queried content item
  * @param i18n I18n instance
  * @param contentItem Content Item
+ * @param companyTimeZone Company time zone
  * @param customFields Custom fields
  * @returns Hydrated content item
  */
 const hydrateContentItem = (
   i18n: I18n,
   contentItem: ContentItem,
-  customFields = {}
+  companyTimeZone: string | undefined = undefined,
+  customFields: any = {}
 ): HydratedContentItem => {
   const hasUnmetPrerequisites =
     (contentItem.currentUserUnmetCoursePrerequisites || []).length > 0 ||
@@ -25,16 +25,7 @@ const hydrateContentItem = (
   const isActive =
     !contentItem.coursePresold && !contentItem.courseGracePeriodEnded && !hasUnmetPrerequisites;
 
-  const timeZone = contentItem.timeZone ?? DEFAULT_TIMEZONE;
-  const meetingStartDate = contentItem.meetingStartDate
-    ? zonedTimeToUtc(contentItem.meetingStartDate, timeZone)
-    : undefined;
-  const courseStartDate = contentItem.courseStartDate
-    ? zonedTimeToUtc(contentItem.courseStartDate, timeZone)
-    : undefined;
-  const courseEndDate = contentItem.courseEndDate
-    ? zonedTimeToUtc(contentItem.courseEndDate, timeZone)
-    : undefined;
+  const timeZone = companyTimeZone ?? contentItem.timeZone;
 
   const hasAvailability = !!contentItem.availabilityStatus;
   const isCompleted = contentItem.availabilityStatus === AvailabilityStatus.Completed;
@@ -59,9 +50,7 @@ const hydrateContentItem = (
     ...contentItem,
     hasUnmetPrerequisites,
     isActive,
-    meetingStartDate,
-    courseStartDate,
-    courseEndDate,
+    timeZone,
     hasAvailability,
     isCompleted,
     isAvailable,
@@ -77,12 +66,17 @@ const hydrateContentItem = (
   const callToAction = getCallToAction(i18n, partialHydratedContentItem);
 
   let href = getHref(partialHydratedContentItem);
-  if (Object.keys(customFields).length && href.length > 1) {
-    const urlParams = `sessionFields=${encodeURIComponent(
-      JSON.stringify(Object.entries(customFields))
-    )}`;
+  try {
+    const parsedCustomFields = JSON.parse(customFields);
+    if (Object.keys(parsedCustomFields).length && href.length > 1) {
+      const urlParams = `sessionFields=${encodeURIComponent(
+        JSON.stringify(Object.entries(parsedCustomFields))
+      )}`;
 
-    href = `${href}?${urlParams}`;
+      href = `${href}?${urlParams}`;
+    }
+  } catch (e) {
+    // handle error
   }
 
   let { priceInCents, suggestedRetailPriceInCents } = contentItem;
@@ -125,10 +119,14 @@ const getCallToAction = (
         : `${partialHydratedContentItem.contentTypeLabel} ${i18n.t('runs')}`;
 
       return `${runStringPrefix} ${runs}`;
-    } else if (partialHydratedContentItem.courseGracePeriodEnded) {
-      return `${i18n.t('course-ended')} ${format(
-        partialHydratedContentItem.courseEndDate as Date,
-        'MMM do YYYY'
+    } else if (
+      partialHydratedContentItem.courseGracePeriodEnded &&
+      partialHydratedContentItem.courseEndDate
+    ) {
+      return `${i18n.t('course-ended')} ${formatTime(
+        partialHydratedContentItem.courseEndDate,
+        partialHydratedContentItem.timeZone,
+        'MMM Do YYYY'
       )}`;
     } else if (partialHydratedContentItem.hasUnmetPrerequisites) {
       return i18n.t('course.prerequisites');

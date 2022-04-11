@@ -1,0 +1,36 @@
+{
+  "name": "@thoughtindustries/catalog",
+  "version": "1.1.2",
+  "description": "A base component for catalog",
+  "author": "Lu Jiang <lu.jiang@thoughtindustries.com>",
+  "homepage": "https://github.com/thoughtindustries/helium#readme",
+  "license": "ISC",
+  "main": "src/index.ts",
+  "files": [
+    "src"
+  ],
+  "publishConfig": {
+    "access": "public"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/thoughtindustries/helium.git"
+  },
+  "scripts": {},
+  "bugs": {
+    "url": "https://github.com/thoughtindustries/helium/issues"
+  },
+  "dependencies": {
+    "@apollo/client": "^3.5.4",
+    "@thoughtindustries/content": "^1.1.0-alpha.1",
+    "@thoughtindustries/header": "^1.0.0-alpha.8",
+    "@thoughtindustries/pagination": "^1.1.0",
+    "clsx": "^1.1.1",
+    "dayjs": "^1.10.8",
+    "graphql": "^16.3.0",
+    "i18next": "^21.5.2",
+    "react": "^17.0.2",
+    "react-i18next": "^11.14.2",
+    "use-debounce": "^7.0.1"
+  }
+}

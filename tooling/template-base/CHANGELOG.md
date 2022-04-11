@@ -3,6 +3,73 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.1.0-alpha.15](https://github.com/thoughtindustries/helium/compare/@thoughtindustries/helium-template@1.1.0-alpha.14...@thoughtindustries/helium-template@1.1.0-alpha.15) (2022-04-08)
+
+**Note:** Version bump only for package @thoughtindustries/helium-template
+
+
+
+
+
+# [1.1.0-alpha.14](https://github.com/thoughtindustries/helium/compare/@thoughtindustries/helium-template@1.1.0-alpha.13...@thoughtindustries/helium-template@1.1.0-alpha.14) (2022-04-06)
+
+**Note:** Version bump only for package @thoughtindustries/helium-template
+
+
+
+
+
+# [1.1.0-alpha.13](https://github.com/thoughtindustries/helium/compare/@thoughtindustries/helium-template@1.1.0-alpha.12...@thoughtindustries/helium-template@1.1.0-alpha.13) (2022-04-01)
+
+
+### Bug Fixes
+
+* add node types to template-base devDependencies ([#101](https://github.com/thoughtindustries/helium/issues/101)) ([ca45fe1](https://github.com/thoughtindustries/helium/commit/ca45fe17bed74c2f3cab2b1d11e728b7c1ece833))
+
+
+
+
+
+# [1.1.0-alpha.12](https://github.com/thoughtindustries/helium/compare/@thoughtindustries/helium-template@1.1.0-alpha.11...@thoughtindustries/helium-template@1.1.0-alpha.12) (2022-04-01)
+
+
+### Bug Fixes
+
+* server awaits on ti instance ([e6873c4](https://github.com/thoughtindustries/helium/commit/e6873c422a8414ae6e979764f1c1c5a7ce674ed6))
+
+
+### Features
+
+* add sample catalog pages to template ([96d1285](https://github.com/thoughtindustries/helium/commit/96d1285a390ef99c2aa011308e53dcdb5e6185b4))
+* add tailwind plugin to equalize height of grid result items ([d92a847](https://github.com/thoughtindustries/helium/commit/d92a84743ea5929c77de21db0fad96404f1b2ddb))
+* apply styling to template sample catalog pages ([eabcff4](https://github.com/thoughtindustries/helium/commit/eabcff4736a1e4a4ccaec9836b93de1c15fc5d6e))
+
+
+
+
+
+# [1.1.0-alpha.11](https://github.com/thoughtindustries/helium/compare/@thoughtindustries/helium-template@1.1.0-alpha.10...@thoughtindustries/helium-template@1.1.0-alpha.11) (2022-03-28)
+
+
+### Features
+
+* add apollo client creation to helium server package ([#88](https://github.com/thoughtindustries/helium/issues/88)) ([d858c3a](https://github.com/thoughtindustries/helium/commit/d858c3a85e5d5d13d84043c0f766d3071bc16fad))
+
+
+
+
+
+# [1.1.0-alpha.10](https://github.com/thoughtindustries/helium/compare/@thoughtindustries/helium-template@1.1.0-alpha.9...@thoughtindustries/helium-template@1.1.0-alpha.10) (2022-03-01)
+
+
+### Bug Fixes
+
+* add missing await ([#84](https://github.com/thoughtindustries/helium/issues/84)) ([be143cb](https://github.com/thoughtindustries/helium/commit/be143cb0afc6315dfd5cce54b91df1df26b28f99))
+
+
+
+
+
 # [1.1.0-alpha.9](https://github.com/thoughtindustries/helium/compare/@thoughtindustries/helium-template@1.1.0-alpha.8...@thoughtindustries/helium-template@1.1.0-alpha.9) (2022-02-24)
 
 **Note:** Version bump only for package @thoughtindustries/helium-template

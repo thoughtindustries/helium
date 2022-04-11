@@ -2679,14 +2679,12 @@
                   newChild = { type: 'text', value: ''.concat(text, '\n') };
                 if (0 === i) {
                   var _line = createLine(
-                    tree
-                      .slice(lastLineBreakIndex + 1, index)
-                      .concat(
-                        createLineElement({
-                          children: [newChild],
-                          className: node.properties.className
-                        })
-                      ),
+                    tree.slice(lastLineBreakIndex + 1, index).concat(
+                      createLineElement({
+                        children: [newChild],
+                        className: node.properties.className
+                      })
+                    ),
                     lineNumber
                   );
                   newTree.push(_line);
