@@ -3,12 +3,16 @@ import * as Types from '../global-types';
 import { gql } from '@apollo/client';
 export type ContentFragmentFragment = {
   __typename?: 'Content';
+  alternativePricingType?: Types.AlternativePricingType;
   asset?: string;
   authors?: Array<string>;
   availabilityStatus?: string;
+  bulkPurchasingEnabled?: boolean;
   canAddToQueue?: boolean;
   contentTypeLabel?: string;
+  courseEndDate?: string;
   courseGracePeriodEnded: boolean;
+  courseGroup?: string;
   coursePresold: boolean;
   courseStartDate?: string;
   currentUserMayReschedule: boolean;
@@ -16,6 +20,7 @@ export type ContentFragmentFragment = {
   currentUserUnmetLearningPathPrerequisites?: Array<string>;
   description?: string;
   displayCourse?: string;
+  displayCourseSlug?: string;
   kind?: Types.ContentKind;
   hasChildren: boolean;
   hideCourseDescription: boolean;
@@ -26,6 +31,7 @@ export type ContentFragmentFragment = {
   slug: string;
   source?: string;
   suggestedRetailPriceInCents?: number;
+  timeZone?: string;
   title?: string;
   waitlistingEnabled: boolean;
   waitlistingTriggered: boolean;
@@ -41,12 +47,16 @@ export type ContentFragmentFragment = {
 
 export const ContentFragmentFragmentDoc = gql`
   fragment ContentFragment on Content {
+    alternativePricingType
     asset
     authors
     availabilityStatus
+    bulkPurchasingEnabled
     canAddToQueue
     contentTypeLabel
+    courseEndDate
     courseGracePeriodEnded
+    courseGroup
     coursePresold
     courseStartDate
     currentUserMayReschedule
@@ -54,6 +64,7 @@ export const ContentFragmentFragmentDoc = gql`
     currentUserUnmetLearningPathPrerequisites
     description
     displayCourse
+    displayCourseSlug
     kind
     hasChildren
     hideCourseDescription
@@ -71,6 +82,7 @@ export const ContentFragmentFragmentDoc = gql`
     slug
     source
     suggestedRetailPriceInCents
+    timeZone
     title
     waitlistingEnabled
     waitlistingTriggered

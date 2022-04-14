@@ -1,6 +1,6 @@
 import { formatTime } from '../../../src/utilities/format-time';
 
-describe('@thoughtindustries/content/courseRuns', () => {
+describe('@thoughtindustries/content/formatTime', () => {
   const dateISO = new Date(2020, 0, 1, 5).toISOString();
   const format = 'ddd, MMM Do YYYY hh:mm a';
 

@@ -2,7 +2,7 @@ import { createPageRenderer } from 'vite-plugin-ssr';
 import jwt_decode from 'jwt-decode';
 // We load `importBuild.js` so that the worker code can be bundled into a single file
 import '../dist/server/importBuild.js';
-import { initPageContext } from '@thoughtindustries/helium-server';
+import initPageContext from './init-page-context';
 import tiConfig from 'tiConfig';
 
 export { handleSsr };
@@ -36,9 +36,12 @@ const create =
 
 const sha256 = create('SHA-256');
 
-async function handleSsr(url, authToken = null) {
+async function handleSsr(url, authToken = null, userAndAppearanceToken = null) {
   const tiInstance = findTiInstance(INSTANCE_NAME);
-  const { currentUser, appearanceBlock } = decryptUserAndAppearance(url, tiInstance);
+  const { currentUser, appearanceBlock } = decryptUserAndAppearance(
+    userAndAppearanceToken,
+    tiInstance
+  );
   const pageContext = await initPageContext(
     url,
     renderPage,
@@ -64,24 +67,20 @@ async function handleSsr(url, authToken = null) {
   }
 }
 
-function decryptUserAndAppearance(url, tiInstance) {
+function decryptUserAndAppearance(userAndAppearanceToken, tiInstance) {
   let currentUser = {};
   let appearanceBlock = {};
 
-  const urlObj = new URL(url);
-  if (urlObj.searchParams && urlObj.searchParams.get('jwt')) {
-    if (tiInstance && tiInstance.apiKey) {
-      const signedJwt = urlObj.searchParams.get('jwt');
-      const decryptedJWT = jwt_decode(signedJwt);
+  if (userAndAppearanceToken && tiInstance && tiInstance.apiKey) {
+    const decryptedJWT = jwt_decode(userAndAppearanceToken);
 
-      if (decryptedJWT) {
-        if (decryptedJWT.currentUser) {
-          currentUser = decryptedJWT.currentUser;
-        }
+    if (decryptedJWT) {
+      if (decryptedJWT.currentUser) {
+        currentUser = decryptedJWT.currentUser;
+      }
 
-        if (decryptedJWT.appearanceBlock) {
-          appearanceBlock = decryptedJWT.appearanceBlock;
-        }
+      if (decryptedJWT.appearanceBlock) {
+        appearanceBlock = decryptedJWT.appearanceBlock;
       }
     }
   }

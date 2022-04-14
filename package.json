@@ -8,6 +8,7 @@
     "@storybook/addon-postcss": "^2.0.0",
     "@storybook/addon-storysource": "^6.4.9",
     "@storybook/react": "^6.3.8",
+    "@tailwindcss/line-clamp": "^0.3.1",
     "@testing-library/jest-dom": "^5.14.1",
     "@testing-library/react": "^12.1.2",
     "@types/jest": "^27.0.2",
@@ -58,6 +59,6 @@
   ],
   "volta": {
     "node": "14.17.6",
-    "npm": "8.4.1"
+    "npm": "8.6.0"
   }
 }

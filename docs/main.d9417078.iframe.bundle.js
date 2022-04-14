@@ -35,23 +35,21 @@
           __webpack_require__('./node_modules/@apollo/client/testing/react/MockedProvider.js')),
         i18next = __webpack_require__('./node_modules/i18next/dist/esm/i18next.js'),
         context = __webpack_require__('./node_modules/react-i18next/dist/es/context.js');
-      i18next.a
-        .use(context.e)
-        .init({
-          fallbackLng: 'en',
-          interpolation: { escapeValue: !1 },
-          resources: {
-            en: {
-              translation: {
-                'course-add-to-queue': 'Add to Queue',
-                'course-added-to-queue': 'Added to Queue',
-                'course-completed-decal': 'Completed!',
-                'course-view-details': 'View Details',
-                more: 'more'
-              }
+      i18next.a.use(context.e).init({
+        fallbackLng: 'en',
+        interpolation: { escapeValue: !1 },
+        resources: {
+          en: {
+            translation: {
+              'course-add-to-queue': 'Add to Queue',
+              'course-added-to-queue': 'Added to Queue',
+              'course-completed-decal': 'Completed!',
+              'course-view-details': 'View Details',
+              more: 'more'
             }
           }
-        });
+        }
+      });
       var parameters = {
         actions: { argTypesRegex: '^on[A-Z].*' },
         controls: { matchers: { color: /(background|color)$/i, date: /Date$/ } },

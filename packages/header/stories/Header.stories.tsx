@@ -15,14 +15,12 @@ export default {
     alternateTitleDisplay: {
       name: 'alternateTitleDisplay',
       type: { name: 'boolean', required: false },
-      defaultValue: false,
       description: 'Show alternate title display.',
       control: { type: 'boolean' }
     },
     linkOpenInNewTab: {
       name: 'linkOpenInNewTab',
       type: { name: 'boolean', required: false },
-      defaultValue: false,
       description: 'Open link in new tab.',
       control: { type: 'boolean' }
     },
@@ -46,18 +44,4 @@ const Template: Story<HeaderProps> = args => <Header {...args} />;
 export const Base = Template.bind({});
 Base.args = {
   title: 'Dolor Nullam Mattis Sem'
-};
-
-export const Alternate = Template.bind({});
-Alternate.args = {
-  title: 'Dolor Nullam Mattis Sem',
-  alternateTitleDisplay: true
-};
-
-export const AlternateWithLink = Template.bind({});
-AlternateWithLink.args = {
-  title: 'Dolor Nullam Mattis Sem',
-  alternateTitleDisplay: true,
-  linkText: 'Test',
-  linkUrl: '/'
 };

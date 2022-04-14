@@ -1,6 +1,6 @@
 {
   "name": "@thoughtindustries/header",
-  "version": "1.0.0-alpha.7",
+  "version": "1.0.0-alpha.8",
   "description": "A base component for header",
   "author": "Rob Schillinger <robert.schillinger@thoughtindustries>",
   "homepage": "https://github.com/thoughtindustries/helium#readme",

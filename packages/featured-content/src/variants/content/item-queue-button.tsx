@@ -2,6 +2,7 @@ import React, { SyntheticEvent, useCallback, useState } from 'react';
 import clsx from 'clsx';
 import { useTranslation } from 'react-i18next';
 import { FeaturedContentContentItem } from '../../types';
+import { PlusIcon, CheckCircleIcon } from './icons';
 
 interface ItemQueueButtonProps {
   item: FeaturedContentContentItem;
@@ -49,20 +50,18 @@ const ItemQueueButton = ({
   return (
     <button onClick={handleClick} className={btnClassNames}>
       {wasAddedToQueue && (
-        <span className="inline-block align-top">
-          <i
-            className="-top-px pr-0 relative text-xs not-italic before:content-['\2705']"
-            aria-label="check"
-          ></i>{' '}
+        <span className="flex items-center gap-x-1">
+          <i className="inline-block w-3 h-3 text-green-600" aria-label="check">
+            <CheckCircleIcon />
+          </i>{' '}
           {t('course-added-to-queue')}
         </span>
       )}
       {!wasAddedToQueue && (
-        <span className="inline-block align-top">
-          <i
-            className="-top-px pr-0 relative text-xs not-italic before:content-['\002B']"
-            aria-label="plus"
-          ></i>{' '}
+        <span className="flex items-center gap-x-1">
+          <i className="inline-block w-3 h-3" aria-label="plus">
+            <PlusIcon />
+          </i>{' '}
           {t('course-add-to-queue')}
         </span>
       )}

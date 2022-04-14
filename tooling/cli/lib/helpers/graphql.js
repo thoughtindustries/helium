@@ -5,11 +5,15 @@ const { parse, visit } = require('graphql/language');
 const { print } = require('graphql/language/printer');
 const crypto = require('crypto');
 
-const gatherQuerySources = async filePaths => {
+const gatherQuerySources = async (filePaths, excludedString) => {
   let querySources = [];
 
   for (const filePath of filePaths) {
-    if (filePathIsValid(filePath)) {
+    const filePathIncludesExcludedString = excludedString
+      ? filePath.includes(excludedString)
+      : false;
+
+    if (filePathIsValid(filePath) && !filePathIncludesExcludedString) {
       const fileQuerySources = await gqlPluckFromCodeString(
         filePath,
         await fs.readFile(filePath, 'utf8')
@@ -31,7 +35,9 @@ const buildFragmentMap = querySources => {
         enter(node) {
           // Keep track of referenced fragment definitions. We'll need to add the
           // definitions to the Operation Docs so that query hashes match what Apollo generates
-          fragmentMap[node.name.value] = node;
+          if (!fragmentMap[node.name.value]) {
+            fragmentMap[node.name.value] = node;
+          }
         }
       }
     });
