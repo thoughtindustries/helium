@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { VideoPlayerProps } from './types';
 import { getSdk } from '@thoughtindustries/utilities';
+import { LoadingDots } from '@thoughtindustries/content';
 
 const SDK_URL = 'https://fast.wistia.com/assets/external/E-v1.js';
 const SDK_GLOBAL = 'Wistia';
@@ -10,6 +11,7 @@ const VideoPlayer = (props: VideoPlayerProps): JSX.Element => {
   const { asset, playerColor, userId, doNotTrack } = props;
   const playerId = `${PLAYER_ID_PREFIX}${asset}`;
   const [player, setPlayer] = useState<Record<any, any>>();
+  const [isLoading, setIsLoading] = useState<boolean>(true);
 
   useEffect(() => {
     getSdk(SDK_URL, SDK_GLOBAL).then(() => {
@@ -29,6 +31,7 @@ const VideoPlayer = (props: VideoPlayerProps): JSX.Element => {
           fitStrategy: 'cover'
         },
         onReady: (player: any) => {
+          setIsLoading(false);
           setPlayer(player);
         }
       });
@@ -62,6 +65,7 @@ const VideoPlayer = (props: VideoPlayerProps): JSX.Element => {
   return (
     <div className="flex flex-col items-center w-full">
       <div className="w-4/5 md:w-[850px] px-4">
+        {isLoading && <LoadingDots />}
         <div id={playerId} key={asset} className={className} />
       </div>
     </div>

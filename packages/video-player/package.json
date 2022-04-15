@@ -23,6 +23,7 @@
   },
   "homepage": "https://github.com/thoughtindustries/helium#readme",
   "dependencies": {
+    "@thoughtindustries/content": "^1.1.0-alpha.1",
     "@thoughtindustries/utilities": "^1.0.0",
     "react": "^17.0.2"
   }
