@@ -11,5 +11,5 @@ import { VideoPlayer } from '@thoughtindustries/video-player';
 ## Usage
 
 ```
-<VideoPlayer title="Dolor Nullam Mattis Sem" />
+<VideoPlayer asset="abcdef" playerColor="#fff" userId="user-1" doNotTrack=true />
 ```

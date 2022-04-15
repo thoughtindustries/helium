@@ -52,7 +52,6 @@ const VideoPlayer = (props: VideoPlayerProps): JSX.Element => {
 
       const savedTimestamp = localStorage.getItem(localStorageKey);
       if (savedTimestamp) {
-        // const savedSeconds = parseInt(savedTimestamp);
         player.time(savedTimestamp);
       }
 
