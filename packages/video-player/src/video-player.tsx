@@ -1,10 +1,15 @@
 import React, { useEffect, useState } from 'react';
 import { VideoPlayerProps } from './types';
-import { getSdk } from '@thoughtindustries/utilities';
+import { useSdk } from '@thoughtindustries/hooks';
 import { LoadingDots } from '@thoughtindustries/content';
 
+declare global {
+  interface Window {
+    _wq: Array<Record<any, any>>;
+  }
+}
+
 const SDK_URL = 'https://fast.wistia.com/assets/external/E-v1.js';
-const SDK_GLOBAL = 'Wistia';
 const PLAYER_ID_PREFIX = 'wistia-player-';
 
 const VideoPlayer = (props: VideoPlayerProps): JSX.Element => {
@@ -13,8 +18,10 @@ const VideoPlayer = (props: VideoPlayerProps): JSX.Element => {
   const [player, setPlayer] = useState<Record<any, any>>();
   const [isLoading, setIsLoading] = useState<boolean>(true);
 
+  const status = useSdk(SDK_URL);
+
   useEffect(() => {
-    getSdk(SDK_URL, SDK_GLOBAL).then(() => {
+    if (status === 'ready') {
       window._wq = window._wq || [];
       window._wq.push({
         id: asset,
@@ -35,8 +42,8 @@ const VideoPlayer = (props: VideoPlayerProps): JSX.Element => {
           setPlayer(player);
         }
       });
-    });
-  }, [asset, playerId, userId, doNotTrack, playerColor]);
+    }
+  }, [status, asset, playerColor, userId, doNotTrack, playerId]);
 
   useEffect(() => {
     const localStorageKey = `video-${asset}`;
