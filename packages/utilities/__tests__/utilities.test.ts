@@ -19,6 +19,11 @@ jest.mock('load-script', () => {
   };
 });
 
+afterEach(() => {
+  jest.clearAllMocks();
+  delete window.MockedSDK;
+});
+
 describe('@thoughtindustries/utilities', () => {
   describe('getSdk', () => {
     it('returns global if it already exists', async () => {
@@ -41,6 +46,18 @@ describe('@thoughtindustries/utilities', () => {
       await getSdk('https://thoughtindustries.com', 'MockedSDK');
 
       expect(loadScript).toHaveBeenCalled();
+      expect(window.MockedSDK).toEqual(true);
+    });
+
+    it('calls loadFile/requests the same url only once per sdkUrl', async () => {
+      expect(window.MockedSDK).toBeUndefined();
+
+      await getSdk('https://mockedsdk.com', 'MockedSDK');
+      await getSdk('https://mockedsdk.com', 'MockedSDK');
+      await getSdk('https://mockedsdk.com', 'MockedSDK');
+      await getSdk('https://mockedsdk.com', 'MockedSDK');
+
+      expect(loadScript).toHaveBeenCalledTimes(1);
       expect(window.MockedSDK).toEqual(true);
     });
   });
