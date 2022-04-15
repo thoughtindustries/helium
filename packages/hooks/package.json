@@ -1,5 +1,5 @@
 {
-  "name": "@thoughtindustries/utilities",
+  "name": "@thoughtindustries/hooks",
   "version": "1.0.0",
   "main": "src/index.ts",
   "files": [
@@ -23,6 +23,6 @@
   "homepage": "https://github.com/thoughtindustries/helium#readme",
   "description": "",
   "dependencies": {
-    "load-script": "^2.0.0"
+    "react": "^17.0.2"
   }
 }
