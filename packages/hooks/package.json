@@ -1,0 +1,28 @@
+{
+  "name": "@thoughtindustries/hooks",
+  "version": "1.0.1",
+  "main": "src/index.ts",
+  "files": [
+    "src"
+  ],
+  "publishConfig": {
+    "access": "public"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/thoughtindustries/helium.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/thoughtindustries/helium/issues"
+  },
+  "homepage": "https://github.com/thoughtindustries/helium#readme",
+  "description": "",
+  "dependencies": {
+    "react": "^17.0.2"
+  }
+}
