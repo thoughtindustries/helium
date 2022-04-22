@@ -1,0 +1,5 @@
+query ContentItems($query: String) {
+  UserContentItems(query: $query) {
+    ...ContentFragment
+  }
+}

@@ -9,4 +9,12 @@ export interface LearnerAccessProps {
   collapseDefault?: boolean;
   /** Determines if we should display expired certificates */
   displayExpiredCertificateInformation?: boolean;
+  /** Query used to refine content */
+  query?: string;
+}
+
+export interface LoadedComponentProps {
+  query: string | undefined;
+  kind: string[];
+  sort: string | null;
 }

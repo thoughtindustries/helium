@@ -1,6 +1,7 @@
 import { Meta, Story } from '@storybook/react';
 import React from 'react';
 import { LearnerAccess, LearnerAccessProps } from '../src';
+import { ContentItemsDocument } from '@thoughtindustries/content';
 
 export default {
   title: 'Example/LearnerAccess',
@@ -42,6 +43,102 @@ export default {
   }
 } as Meta;
 
-const Template: Story<LearnerAccessProps> = args => <LearnerAccess {...args} />;
+const defaultProps = {
+  allowCollapse: false,
+  allowContentArchive: false,
+  classNames: '',
+  collapseDefault: false,
+  displayExpiredCertificateInformation: false,
+  query: ''
+};
+
+const Template: Story<LearnerAccessProps> = () => <LearnerAccess {...defaultProps} />;
 
 export const Base = Template.bind({});
+
+Base.parameters = {
+  apolloClient: {
+    mocks: [
+      {
+        request: {
+          query: ContentItemsDocument,
+          variables: {
+            query: '',
+            kind: ['courseGroup', 'article', 'video', 'shareableContentObject', 'xApiObject'],
+            sort: null
+          }
+        },
+        result: {
+          data: {
+            availableCoursesCount: 1200,
+            startedCoursesCount: 5
+          }
+        }
+      },
+      {
+        request: {
+          query: ContentItemsDocument,
+          variables: {
+            query: '',
+            kind: ['webinar', 'webinarCourse', 'inPersonEvent', 'inPersonEventCourse'],
+            sort: null
+          }
+        },
+        result: {
+          data: {
+            availableCoursesCount: 1200,
+            startedCoursesCount: 5,
+            completedCoursesCount: 10,
+            certificatesCount: 3,
+            collaborationsCount: 1
+          }
+        }
+      },
+      {
+        request: {
+          query: ContentItemsDocument,
+          variables: {
+            query: '',
+            kind: ['learningPath'],
+            sort: null
+          }
+        },
+        result: {
+          data: {
+            availableCoursesCount: 1200,
+            startedCoursesCount: 5,
+            completedCoursesCount: 10,
+            certificatesCount: 3,
+            collaborationsCount: 1
+          }
+        }
+      },
+      {
+        request: {
+          query: ContentItemsDocument,
+          variables: {
+            query: '',
+            kind: [
+              'learningPath',
+              'courseGroup',
+              'article',
+              'video',
+              'shareableContentObject',
+              'xApiObject',
+              'webinar',
+              'webinarCourse',
+              'inPersonEvent',
+              'inPersonEventCourse'
+            ],
+            sort: null
+          }
+        },
+        result: {
+          data: {
+            availableCoursesCount: 1200
+          }
+        }
+      }
+    ]
+  }
+};

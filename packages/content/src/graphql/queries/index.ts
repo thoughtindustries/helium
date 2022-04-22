@@ -7,3 +7,6 @@ export * from './LocationFragment.generated';
 export * from './QueryContents.generated';
 export * from './RssItems.generated';
 export * from './UserRecentContent.generated';
+export * from './UserContentItems.generated';
+export * from './UserArchives.generated';
+export * from './UserWaitlist.generated';
