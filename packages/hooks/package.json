@@ -23,6 +23,7 @@
   "homepage": "https://github.com/thoughtindustries/helium#readme",
   "description": "",
   "dependencies": {
+    "@use-gesture/react": "^10.2.11",
     "react": "^17.0.2"
   }
 }

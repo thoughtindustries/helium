@@ -1,6 +1,5 @@
 import { useEffect } from 'react';
-import { ScreenSize } from '@thoughtindustries/hooks';
-import { useCarouselBehavior, CarouselBehavior } from './use-carousel-behavior';
+import { ScreenSize, useCarouselBehavior, CarouselBehavior } from '@thoughtindustries/hooks';
 
 interface MultiCarouselProps {
   desktopColumnCount: number;
