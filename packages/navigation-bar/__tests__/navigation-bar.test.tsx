@@ -89,9 +89,8 @@ describe('@thoughtindustries/navigation-bar', () => {
                     <li
                       class="static md:relative bg-white px-4"
                     >
-                      <a
-                        class="font-semibold uppercase text-sm leading-6 flex items-center justify-between md:justify-start gap-x-2 text-accent hover:text-link-hover py-3 md:py-0"
-                        href="#"
+                      <button
+                        class="font-semibold uppercase text-sm leading-6 flex items-center justify-between md:justify-start gap-x-2 text-accent hover:text-link-hover py-3 md:py-0 w-full"
                       >
                         Link 1
                         <span
@@ -107,19 +106,18 @@ describe('@thoughtindustries/navigation-bar', () => {
                             />
                           </svg>
                         </span>
-                      </a>
+                      </button>
                       <ul
                         class="absolute top-0 md:top-auto left-full md:left-0 w-full md:w-auto z-50 border-none divide-y-none md:border md:border-solid md:border-black md:divide-y md:divide-black invisible"
                       >
                         <li
                           class="bg-white md:hidden"
                         >
-                          <a
-                            class="py-2 md:py-0 px-3 hover:text-accent hover:font-semibold leading-5 md:whitespace-no-wrap block w-full text-link-hover text-xs font-normal"
-                            href="#"
+                          <button
+                            class="py-2 md:py-0 px-3 hover:text-accent hover:font-semibold leading-5 md:whitespace-no-wrap block w-full text-link-hover text-xs font-normal text-left"
                           >
-                            Back
-                          </a>
+                            mobile-back-button
+                          </button>
                         </li>
                         <li
                           class="bg-white"
@@ -158,9 +156,8 @@ describe('@thoughtindustries/navigation-bar', () => {
                     <li
                       class="static md:relative bg-white px-4"
                     >
-                      <a
-                        class="font-semibold uppercase text-sm leading-6 flex items-center justify-between md:justify-start gap-x-2 text-accent hover:text-link-hover py-3 md:py-0"
-                        href="#"
+                      <button
+                        class="font-semibold uppercase text-sm leading-6 flex items-center justify-between md:justify-start gap-x-2 text-accent hover:text-link-hover py-3 md:py-0 w-full"
                       >
                         Link 3
                         <span
@@ -176,19 +173,18 @@ describe('@thoughtindustries/navigation-bar', () => {
                             />
                           </svg>
                         </span>
-                      </a>
+                      </button>
                       <ul
                         class="absolute top-0 md:top-auto left-full md:left-0 w-full md:w-auto z-50 border-none divide-y-none md:border md:border-solid md:border-black md:divide-y md:divide-black invisible"
                       >
                         <li
                           class="bg-white md:hidden"
                         >
-                          <a
-                            class="py-2 md:py-0 px-3 hover:text-accent hover:font-semibold leading-5 md:whitespace-no-wrap block w-full text-link-hover text-xs font-normal"
-                            href="#"
+                          <button
+                            class="py-2 md:py-0 px-3 hover:text-accent hover:font-semibold leading-5 md:whitespace-no-wrap block w-full text-link-hover text-xs font-normal text-left"
                           >
-                            Back
-                          </a>
+                            mobile-back-button
+                          </button>
                         </li>
                         <li
                           class="bg-white"

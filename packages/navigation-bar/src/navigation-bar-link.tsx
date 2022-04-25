@@ -25,7 +25,7 @@ const getSubLinkClassnames = (isBackLink?: boolean) => {
   const baseClassnames =
     'py-2 md:py-0 px-3 hover:text-accent hover:font-semibold leading-5 md:whitespace-no-wrap block w-full';
   const backLinkClassnames = isBackLink
-    ? 'text-link-hover text-xs font-normal'
+    ? 'text-link-hover text-xs font-normal text-left'
     : 'text-accent md:text-link-hover hover:text-accent text-sm md:text-xs font-semibold md:font-normal uppercase';
   return clsx(baseClassnames, backLinkClassnames);
 };
@@ -110,32 +110,32 @@ const NavigationBarLink = ({
   const dropdownWrapperBaseClassnames =
     'absolute top-0 md:top-auto left-full md:left-0 w-full md:w-auto z-50 border-none divide-y-none md:border md:border-solid md:border-black md:divide-y md:divide-black';
   const dropdownWrapperClassnames = isExpanded ? 'visible' : 'invisible';
-  const linkClassnames =
+  const linkOrButtonBaseClassnames =
     'font-semibold uppercase text-sm leading-6 flex items-center justify-between md:justify-start gap-x-2 text-accent hover:text-link-hover py-3 md:py-0';
 
   return (
     <li className={linkWrapperClassnames} ref={wrapperRef}>
       {hasDropdown && (
         <>
-          <a href="#" className={linkClassnames} onClick={handleClick}>
+          <button className={clsx(linkOrButtonBaseClassnames, 'w-full')} onClick={handleClick}>
             {label}
             <span className="w-3 h-3 text-link-hover">
               {isSmallScreen && <CaretRightIcon />}
               {!isSmallScreen && <CaretDownIcon />}
             </span>
-          </a>
+          </button>
           <ul className={clsx(dropdownWrapperBaseClassnames, dropdownWrapperClassnames)}>
             <li className={clsx(subLinkWrapperClassnames, 'md:hidden')}>
-              <a href="#" className={getSubLinkClassnames(true)} onClick={handleBackClick}>
+              <button className={getSubLinkClassnames(true)} onClick={handleBackClick}>
                 {t('mobile-back-button')}
-              </a>
+              </button>
             </li>
             {children}
           </ul>
         </>
       )}
       {!hasDropdown && (
-        <a {...linkProps} className={linkClassnames}>
+        <a {...linkProps} className={linkOrButtonBaseClassnames}>
           {label}
         </a>
       )}
