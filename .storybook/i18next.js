@@ -41,6 +41,7 @@ i18n.use(initReactI18next).init({
         'filter-by': 'Filter by',
         'filter-no-courses':
           'Sorry, we were unable to find a match for that search term or category, please try again.',
+        'mobile-back-button': 'Back',
         'mobile-menu-button': 'Menu',
         more: 'more',
         'primary-bundle-intro': 'All courses only'

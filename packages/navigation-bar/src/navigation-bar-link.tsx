@@ -7,6 +7,7 @@ import React, {
   useState
 } from 'react';
 import clsx from 'clsx';
+import { useTranslation } from 'react-i18next';
 import { NavigationBarLinkProps, NavigationBarLinkSubLinkProps } from './types';
 import useNavigationBar from './use-navigation-bar';
 import { CaretDownIcon, CaretRightIcon } from './icons';
@@ -54,6 +55,7 @@ const NavigationBarLink = ({
   linkOpenInNewTab,
   children
 }: NavigationBarLinkProps): JSX.Element => {
+  const { t } = useTranslation();
   const [isExpanded, setIsExpanded] = useState<boolean>(false);
   const wrapperRef = createRef<HTMLLIElement>();
   const { isSmallScreen, navigate, currentMenuId } = useNavigationBar();
@@ -125,7 +127,7 @@ const NavigationBarLink = ({
           <ul className={clsx(dropdownWrapperBaseClassnames, dropdownWrapperClassnames)}>
             <li className={clsx(subLinkWrapperClassnames, 'md:hidden')}>
               <a href="#" className={getSubLinkClassnames(true)} onClick={handleBackClick}>
-                Back
+                {t('mobile-back-button')}
               </a>
             </li>
             {children}
