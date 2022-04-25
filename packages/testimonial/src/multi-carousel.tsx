@@ -5,7 +5,7 @@ import {
   TestimonialMultiCarouselContextType,
   TestimonialCarouselProps
 } from './types';
-import { ScreenSize, useScreenSize } from './use-screen-size';
+import { ScreenSize, useScreenSize } from '@thoughtindustries/hooks';
 import { IconLeft, IconRight } from './icons';
 import { useMultiCarouselBehavior } from './use-multi-carousel-behavior';
 

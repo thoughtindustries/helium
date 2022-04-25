@@ -1,5 +1,5 @@
 import { useEffect } from 'react';
-import { ScreenSize } from './use-screen-size';
+import { ScreenSize } from '@thoughtindustries/hooks';
 import { useCarouselBehavior, CarouselBehavior } from './use-carousel-behavior';
 
 interface MultiCarouselProps {

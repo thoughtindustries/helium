@@ -1,6 +1,6 @@
 import { RefObject, useCallback, useRef, useState } from 'react';
 import { createUseGesture, dragAction } from '@use-gesture/react';
-import { ScreenSize, useScreenSize } from './use-screen-size';
+import { ScreenSize, useScreenSize } from '@thoughtindustries/hooks';
 import { usePrevious } from './use-previous';
 
 interface CarouselProps {
