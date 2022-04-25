@@ -1,4 +1,4 @@
-import { useMedia } from './use-media';
+import { useMedia } from '@thoughtindustries/hooks';
 
 export enum ScreenSize {
   XXXLarge = 'xxxlarge',
