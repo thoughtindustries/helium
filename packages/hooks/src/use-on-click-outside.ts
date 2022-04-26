@@ -1,5 +1,5 @@
 import { RefObject, useCallback } from 'react';
-import { useWindowEventListener } from '@thoughtindustries/hooks';
+import useWindowEventListener from './use-window-event-listener';
 
 /**
  * Reference: https://usehooks.com/useOnClickOutside/
