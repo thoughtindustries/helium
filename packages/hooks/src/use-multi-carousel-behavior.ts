@@ -1,5 +1,6 @@
 import { useEffect } from 'react';
-import { ScreenSize, useCarouselBehavior, CarouselBehavior } from '@thoughtindustries/hooks';
+import { ScreenSize } from './use-screen-size';
+import { default as useCarouselBehavior, CarouselBehavior } from './use-carousel-behavior';
 
 interface MultiCarouselProps {
   desktopColumnCount: number;
@@ -11,7 +12,7 @@ interface MultiCarouselBehavior<TRef extends HTMLElement>
   countPerSlide: number;
 }
 
-export function useMultiCarouselBehavior<TRef extends HTMLElement>({
+export default function useMultiCarouselBehavior<TRef extends HTMLElement>({
   desktopColumnCount,
   itemCount
 }: MultiCarouselProps): MultiCarouselBehavior<TRef> {

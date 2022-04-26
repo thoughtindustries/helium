@@ -13,7 +13,7 @@ import ItemAssetBlock from './item-asset-block';
 import ItemCompletedBlock from './item-completed-block';
 import ItemQueueButton from './item-queue-button';
 import { IconLeft, IconRight } from './icons';
-import { useMultiCarouselBehavior } from './use-multi-carousel-behavior';
+import { useMultiCarouselBehavior } from '@thoughtindustries/hooks';
 import { limitText } from './utils';
 
 const ContentMultiCarouselContext = createContext<
