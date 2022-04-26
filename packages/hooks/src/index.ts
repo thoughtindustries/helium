@@ -4,6 +4,7 @@ import { default as useMultiCarouselBehavior } from './use-multi-carousel-behavi
 import { default as usePrevious } from './use-previous';
 import { default as useScreenSize, ScreenSize } from './use-screen-size';
 import { default as useSdk } from './use-sdk';
+import { default as useWindowEventListener } from './use-window-event-listener';
 
 export {
   ScreenSize,
@@ -12,5 +13,6 @@ export {
   useMultiCarouselBehavior,
   usePrevious,
   useScreenSize,
-  useSdk
+  useSdk,
+  useWindowEventListener
 };
