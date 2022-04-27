@@ -2,7 +2,7 @@
 
 > A collection of React Hooks for @thoughtindustries/helium UI components.
 
-## Import component
+## Import hooks
 
 ```
 import { useMedia, useSdk } from '@thoughtindustries/hooks';
