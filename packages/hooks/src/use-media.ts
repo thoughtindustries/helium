@@ -26,6 +26,8 @@ export default function useMedia<T>(queries: string[], values: T[], defaultValue
       return typeof values[index] !== 'undefined' ? values[index] : defaultValue;
     };
 
+    setValue(getValue);
+
     // Event listener callback
     // Note: By defining getValue outside of useEffect we ensure that it has ...
     // ... current values of hook args (as this hook callback is created once on mount).
