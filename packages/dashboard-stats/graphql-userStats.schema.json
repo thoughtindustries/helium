@@ -11,6 +11,18 @@
         "description": null,
         "fields": [
           {
+            "name": "CurrentUser",
+            "description": null,
+            "args": [],
+            "type": {
+              "kind": "OBJECT",
+              "name": "UserStats",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
             "name": "availableCoursesCount",
             "description": null,
             "args": [],

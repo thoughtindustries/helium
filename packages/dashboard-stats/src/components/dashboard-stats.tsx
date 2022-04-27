@@ -47,33 +47,33 @@ const DashboardStats = (): JSX.Element => {
     <div className={statContainer}>
       <Stat
         label={t('dashboard.available').toUpperCase()}
-        stat={data ? data.availableCoursesCount : 0}
+        stat={data && data.CurrentUser ? data.CurrentUser.availableCoursesCount : 0}
         color={Colors.Sky}
         icon={<NotebookIcon />}
       />
       <Stat
         label={t('dashboard.started').toUpperCase()}
-        stat={data ? data.startedCoursesCount : 0}
+        stat={data && data.CurrentUser ? data.CurrentUser.startedCoursesCount : 0}
         color={Colors.Green}
         icon={<IndexIcon />}
       />
       <Stat
         label={t('dashboard.completed').toUpperCase()}
-        stat={data ? data.completedCoursesCount : 0}
+        stat={data && data.CurrentUser ? data.CurrentUser.completedCoursesCount : 0}
         color={Colors.Pink}
         icon={<CheckIcon />}
       />
-      {data && data.certificatesCount > 0 && (
+      {data && data.CurrentUser && data.CurrentUser.certificatesCount > 0 && (
         <Stat
           label={t('dashboard.certificates').toUpperCase()}
-          stat={data.certificatesCount}
+          stat={data.CurrentUser.certificatesCount}
           color={Colors.Green}
           icon={<StarIcon />}
         />
       )}
       <Stat
         label={t('dashboard.collaborations').toUpperCase()}
-        stat={data ? data.collaborationsCount : 0}
+        stat={data && data.CurrentUser ? data.CurrentUser.collaborationsCount : 0}
         color={Colors.Gray}
         icon={<UsersIcon />}
       />
