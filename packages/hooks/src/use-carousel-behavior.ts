@@ -1,7 +1,7 @@
 import { RefObject, useCallback, useRef, useState } from 'react';
 import { createUseGesture, dragAction } from '@use-gesture/react';
-import { ScreenSize, useScreenSize } from './use-screen-size';
-import { usePrevious } from './use-previous';
+import { ScreenSize, default as useScreenSize } from './use-screen-size';
+import usePrevious from './use-previous';
 
 interface CarouselProps {
   itemCount: number;
@@ -18,7 +18,7 @@ export interface CarouselBehavior<TRef extends HTMLElement> {
   currentPosition: number;
 }
 
-export function useCarouselBehavior<TRef extends HTMLElement>({
+export default function useCarouselBehavior<TRef extends HTMLElement>({
   itemCount
 }: CarouselProps): CarouselBehavior<TRef> {
   const scrollableRef: RefObject<TRef> = useRef(null);

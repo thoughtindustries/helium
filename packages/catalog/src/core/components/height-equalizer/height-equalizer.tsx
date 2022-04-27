@@ -1,5 +1,5 @@
 import React, { useCallback, useState, useEffect } from 'react';
-import { useWindowEventListener } from '../../hooks';
+import { useWindowEventListener } from '@thoughtindustries/hooks';
 import { DEFAULT_ANIMATION_SPEED, DEFAULT_TIMEOUT } from './constants';
 import HeightEqualizerContext from './context';
 import { HeightEqualizerContextType, HeightEqualizerProps } from './types';
