@@ -12,6 +12,7 @@ import {
   useCatalogQuery,
   useAddResourceToQueueMutation
 } from '@thoughtindustries/content';
+import { NavigationBar, NavigationBarLink } from '@thoughtindustries/navigation-bar';
 import { Appearance, CurrentUser } from '../../types';
 
 export { Page };
@@ -26,11 +27,35 @@ function Page({ appearance, currentUser }: { appearance: Appearance; currentUser
   return (
     <Layout appearance={appearance} currentUser={currentUser}>
       <div className="flex flex-col items-start space-y-2">
-        <Hero
-          title="Welcome to Helium!"
-          subtitle="This page is completely rendered in React. Go ahead and edit it at pages/index/index.page.jsx"
-          asset="https://d36ai2hkxl16us.cloudfront.net/thoughtindustries/image/upload/a_exif,c_fill,w_1500/v1426249885/sq5qv0uebvfywkxbw3cc.jpg"
-        />
+        <div className="px-4 relative z-10 w-full">
+          <NavigationBar>
+            <NavigationBarLink label="Link 1">
+              <NavigationBarLink.SubLink
+                label="Sub link 1-1"
+                href="/sublink-1-1"
+                linkOpenInNewTab
+              />
+              <NavigationBarLink.SubLink label="Sub link 1-2" href="/sublink-1-2" />
+            </NavigationBarLink>
+            <NavigationBarLink label="Link 2" href="/link-2" linkOpenInNewTab />
+            <NavigationBarLink label="Link 3">
+              <NavigationBarLink.SubLink
+                label="Sub link 3-1"
+                href="/sublink-3-1"
+                linkOpenInNewTab
+              />
+              <NavigationBarLink.SubLink label="Sub link 3-2" href="/sublink-3-2" />
+            </NavigationBarLink>
+            <NavigationBarLink label="Link 4" href="/link-4" />
+          </NavigationBar>
+        </div>
+        <div className="relative z-0">
+          <Hero
+            title="Welcome to Helium!"
+            subtitle="This page is completely rendered in React. Go ahead and edit it at pages/index/index.page.jsx"
+            asset="https://d36ai2hkxl16us.cloudfront.net/thoughtindustries/image/upload/a_exif,c_fill,w_1500/v1426249885/sq5qv0uebvfywkxbw3cc.jpg"
+          />
+        </div>
         <FeaturedItems />
       </div>
     </Layout>
