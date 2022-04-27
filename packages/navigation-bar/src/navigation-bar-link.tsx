@@ -11,8 +11,7 @@ import { useTranslation } from 'react-i18next';
 import { NavigationBarLinkProps, NavigationBarLinkSubLinkProps } from './types';
 import useNavigationBar from './use-navigation-bar';
 import { CaretDownIcon, CaretRightIcon } from './icons';
-import useOnClickOutside from './use-on-click-outside';
-import useWindowEventListener from './use-window-event-listener';
+import { useOnClickOutside, useWindowEventListener } from '@thoughtindustries/hooks';
 
 interface LinkProps {
   href?: string;

@@ -1,6 +1,5 @@
 import { RefObject, useCallback, useEffect, useRef, useState } from 'react';
-import { ScreenSize, useScreenSize } from './use-screen-size';
-import { usePrevious } from './use-previous';
+import { ScreenSize, useScreenSize, usePrevious } from '@thoughtindustries/hooks';
 
 export interface MobileTopbarBehavior<TRef extends HTMLElement> {
   scrollableRef: RefObject<TRef>;
