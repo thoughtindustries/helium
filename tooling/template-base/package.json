@@ -28,6 +28,7 @@
     "@thoughtindustries/featured-content": "^1.2.0-alpha.1",
     "@thoughtindustries/helium-server": "^1.1.2",
     "@thoughtindustries/hero": "^1.0.1-alpha.6",
+    "@thoughtindustries/navigation-bar": "^1.0.0",
     "concurrently": "^7.0.0",
     "cross-env": "^7.0.3",
     "graphql": "^16.0.0",
