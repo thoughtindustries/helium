@@ -1,0 +1,20 @@
+{
+  "name": "@thoughtindustries/redemption",
+  "version": "1.0.0",
+  "description": "A base component for redeeming codes",
+  "main": "index.js",
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/thoughtindustries/helium.git"
+  },
+  "author": "Blake Reimer <blake.reimer@thoughtindustries.com>",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/thoughtindustries/helium/issues"
+  },
+  "homepage": "https://github.com/thoughtindustries/helium#readme"
+}
