@@ -13,20 +13,25 @@ export type UserStatsQueryVariables = Types.Exact<{
 
 export type UserStatsQuery = {
   __typename?: 'UserStats';
-  certificatesCount: number;
-  collaborationsCount: number;
-  availableCoursesCount: number;
-  startedCoursesCount: number;
-  completedCoursesCount: number;
+  CurrentUser?: {
+    __typename?: 'UserStats';
+    certificatesCount: number;
+    collaborationsCount: number;
+    availableCoursesCount: number;
+    startedCoursesCount: number;
+    completedCoursesCount: number;
+  };
 };
 
 export const UserStatsDocument = gql`
   query UserStats {
-    certificatesCount
-    collaborationsCount
-    availableCoursesCount
-    startedCoursesCount
-    completedCoursesCount
+    CurrentUser {
+      certificatesCount
+      collaborationsCount
+      availableCoursesCount
+      startedCoursesCount
+      completedCoursesCount
+    }
   }
 `;
 

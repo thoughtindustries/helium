@@ -14,7 +14,7 @@ export default function Layout({
   children: React.ReactNode;
 }) {
   return (
-    <div className="h-full bg-gray-100">
+    <div className="h-full bg-gray-100 p-8">
       <div className="h-full max-w-screen-lg mx-auto bg-white shadow-sm font-primary">
         <Header appearance={appearance} currentUser={currentUser} />
         <NavBar />

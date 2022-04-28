@@ -14,6 +14,7 @@ export type Scalars = {
 
 export type UserStats = {
   __typename?: 'UserStats';
+  CurrentUser?: Maybe<UserStats>;
   availableCoursesCount: Scalars['Int'];
   certificatesCount: Scalars['Int'];
   collaborationsCount: Scalars['Int'];
