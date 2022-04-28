@@ -44,40 +44,44 @@ const DashboardStats = (): JSX.Element => {
   if (error) return <p>Error!</p>;
 
   return (
-    <div className={statContainer}>
-      <Stat
-        label={t('dashboard.available').toUpperCase()}
-        stat={data && data.CurrentUser ? data.CurrentUser.availableCoursesCount : 0}
-        color={Colors.Sky}
-        icon={<NotebookIcon />}
-      />
-      <Stat
-        label={t('dashboard.started').toUpperCase()}
-        stat={data && data.CurrentUser ? data.CurrentUser.startedCoursesCount : 0}
-        color={Colors.Green}
-        icon={<IndexIcon />}
-      />
-      <Stat
-        label={t('dashboard.completed').toUpperCase()}
-        stat={data && data.CurrentUser ? data.CurrentUser.completedCoursesCount : 0}
-        color={Colors.Pink}
-        icon={<CheckIcon />}
-      />
-      {data && data.CurrentUser && data.CurrentUser.certificatesCount > 0 && (
-        <Stat
-          label={t('dashboard.certificates').toUpperCase()}
-          stat={data.CurrentUser.certificatesCount}
-          color={Colors.Green}
-          icon={<StarIcon />}
-        />
+    <>
+      {data?.CurrentUser && (
+        <div className={statContainer}>
+          <Stat
+            label={t('dashboard.available').toUpperCase()}
+            stat={data ? data.CurrentUser.availableCoursesCount : 0}
+            color={Colors.Sky}
+            icon={<NotebookIcon />}
+          />
+          <Stat
+            label={t('dashboard.started').toUpperCase()}
+            stat={data ? data.CurrentUser.startedCoursesCount : 0}
+            color={Colors.Green}
+            icon={<IndexIcon />}
+          />
+          <Stat
+            label={t('dashboard.completed').toUpperCase()}
+            stat={data ? data.CurrentUser.completedCoursesCount : 0}
+            color={Colors.Pink}
+            icon={<CheckIcon />}
+          />
+          {data && data.CurrentUser.certificatesCount > 0 && (
+            <Stat
+              label={t('dashboard.certificates').toUpperCase()}
+              stat={data.CurrentUser.certificatesCount}
+              color={Colors.Green}
+              icon={<StarIcon />}
+            />
+          )}
+          <Stat
+            label={t('dashboard.collaborations').toUpperCase()}
+            stat={data ? data.CurrentUser.collaborationsCount : 0}
+            color={Colors.Gray}
+            icon={<UsersIcon />}
+          />
+        </div>
       )}
-      <Stat
-        label={t('dashboard.collaborations').toUpperCase()}
-        stat={data && data.CurrentUser ? data.CurrentUser.collaborationsCount : 0}
-        color={Colors.Gray}
-        icon={<UsersIcon />}
-      />
-    </div>
+    </>
   );
 };
 
