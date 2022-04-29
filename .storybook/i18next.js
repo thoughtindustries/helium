@@ -37,6 +37,13 @@ i18n.use(initReactI18next).init({
         'dashboard.completed': 'Completed',
         'dashboard.certificates': 'Certifications',
         'dashboard.collaborations': 'Collaborations',
+        'redemption.validate': 'Validate',
+        'redemption.code': 'Enter Code Here',
+        'redemption.add': '+ Add Another Code',
+        'redemption.prompt': 'Fill in a code below, click validate, and then redeem your code.',
+        'redemption.register': 'Register',
+        'redemption.agree': 'I agree to the',
+        'redemption.terms': 'Terms & Conditions',
         course: 'Course',
         'filter-by': 'Filter by',
         'filter-no-courses':
