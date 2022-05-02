@@ -11,6 +11,8 @@ i18n.use(initReactI18next).init({
   resources: {
     en: {
       translation: {
+        'agree-terms': 'I agree to the',
+        'terms-and-conditions': 'Terms & Conditions',
         'bundle.learn-button': 'Learn More',
         'catalog.date-time': 'Date & Time',
         'catalog.location': 'Location',
@@ -37,13 +39,12 @@ i18n.use(initReactI18next).init({
         'dashboard.completed': 'Completed',
         'dashboard.certificates': 'Certifications',
         'dashboard.collaborations': 'Collaborations',
-        'redemption.validate': 'Validate',
-        'redemption.code': 'Enter Code Here',
-        'redemption.add': '+ Add Another Code',
-        'redemption.prompt': 'Fill in a code below, click validate, and then redeem your code.',
-        'redemption.register': 'Register',
-        'redemption.agree': 'I agree to the',
-        'redemption.terms': 'Terms & Conditions',
+        'redemption-code.validate': 'Validate',
+        'redemption-code.placeholder': 'Enter Code Here',
+        'redemption-code.add-redemption-code': '+ Add Another Code',
+        'redemption-code.redeem-course-copy-signed-in-manual-code':
+          'Fill in a code below, click validate, and then redeem your code.',
+        'redemption-code.redeem-code-preloaded': 'Register',
         course: 'Course',
         'filter-by': 'Filter by',
         'filter-no-courses':
