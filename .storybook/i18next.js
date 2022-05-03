@@ -12,6 +12,7 @@ i18n.use(initReactI18next).init({
     en: {
       translation: {
         'agree-terms': 'I agree to the',
+        'already-member': 'Already a Member?',
         'terms-and-conditions': 'Terms & Conditions',
         'bundle.learn-button': 'Learn More',
         'catalog.date-time': 'Date & Time',
@@ -44,8 +45,16 @@ i18n.use(initReactI18next).init({
         'redemption-code.add-redemption-code': '+ Add Another Code',
         'redemption-code.redeem-course-copy-signed-in-manual-code':
           'Fill in a code below, click validate, and then redeem your code.',
+        'redemption-code.redeem-course-copy-not-signed-in-manual-code':
+          'Fill in your details, validate your redemption code, and click redeem to access the school.',
         'redemption-code.redeem-code-preloaded': 'Register',
         'redemption-code.validating': 'Validating…',
+        'register-first-name': 'First Name',
+        'register-last-name': 'Last Name',
+        'register-email': 'Email Address',
+        'register-password': 'Password',
+        'register-confirm-password': 'Password Confirmation',
+        'sign-in': 'Sign In',
         course: 'Course',
         'filter-by': 'Filter by',
         'filter-no-courses':
