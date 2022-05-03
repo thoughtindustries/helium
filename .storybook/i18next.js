@@ -11,9 +11,6 @@ i18n.use(initReactI18next).init({
   resources: {
     en: {
       translation: {
-        'agree-terms': 'I agree to the',
-        'already-member': 'Already a Member?',
-        'terms-and-conditions': 'Terms & Conditions',
         'bundle.learn-button': 'Learn More',
         'catalog.date-time': 'Date & Time',
         'catalog.location': 'Location',
@@ -29,6 +26,10 @@ i18n.use(initReactI18next).init({
         'catalog.sort-updated': 'Last Updated',
         'catalog-search-header': 'Browse',
         'catalog-search-placeholder': 'Search for content',
+        'common.agree-terms': 'I agree to the',
+        'common.already-member': 'Already a Member?',
+        'common.terms-and-conditions': 'Terms & Conditions',
+        'common.sign-in': 'Sign In',
         'course.per-month': 'per month',
         'course.per-year': 'per year',
         'course-add-to-queue': 'Add to Queue',
@@ -40,21 +41,20 @@ i18n.use(initReactI18next).init({
         'dashboard.completed': 'Completed',
         'dashboard.certificates': 'Certifications',
         'dashboard.collaborations': 'Collaborations',
-        'redemption-code.validate': 'Validate',
-        'redemption-code.placeholder': 'Enter Code Here',
-        'redemption-code.add-redemption-code': '+ Add Another Code',
-        'redemption-code.redeem-course-copy-signed-in-manual-code':
+        'redemption.validate': 'Validate',
+        'redemption.placeholder': 'Enter Code Here',
+        'redemption.add-code': '+ Add Another Code',
+        'redemption.signed-in-prompt':
           'Fill in a code below, click validate, and then redeem your code.',
-        'redemption-code.redeem-course-copy-not-signed-in-manual-code':
+        'redemption.logged-out-prompt':
           'Fill in your details, validate your redemption code, and click redeem to access the school.',
-        'redemption-code.redeem-code-preloaded': 'Register',
-        'redemption-code.validating': 'Validating…',
-        'register-first-name': 'First Name',
-        'register-last-name': 'Last Name',
-        'register-email': 'Email Address',
-        'register-password': 'Password',
-        'register-confirm-password': 'Password Confirmation',
-        'sign-in': 'Sign In',
+        'redemption.register': 'Register',
+        'redemption.validating': 'Validating…',
+        'register.first-name': 'First Name',
+        'register.last-name': 'Last Name',
+        'register.email': 'Email Address',
+        'register.password': 'Password',
+        'register.confirm-password': 'Password Confirmation',
         course: 'Course',
         'filter-by': 'Filter by',
         'filter-no-courses':
