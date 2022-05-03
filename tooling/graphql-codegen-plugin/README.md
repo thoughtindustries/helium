@@ -2,7 +2,7 @@
 
 This plugin extends the existing plugin `@graphql-codegen/typescript` to generate only the object types used in operations. 
 
-Like the existing plugin, this plugin works well with `@graphql-codegen/typescript-operations` to generate global types and operation types (as well as other operation resources) based on the graphql schema and operations. The plugin `@graphql-codegen/typescript` does not currently support generating only the object types used in operations. Which, does not work quite as intended when working with a large graphql schema. The maintainer for the codegen is aware of this use case and are planning to improve the existing plugins.
+Like the existing plugin, this plugin works well with `@graphql-codegen/typescript-operations` to generate global types and operation types (as well as other operation resources) based on the graphql schema and operations. The plugin `@graphql-codegen/typescript` does not currently support generating only the object types used in operations. Unfortunately, this does not work as intended when working with a large graphql schema. The maintainer for the codegen is aware of this use case and are planning to improve the existing plugins.
 
 In the meantime, the source of this plugin is cloned from one of the contributors. This would serve as an intermediate solution.
 
