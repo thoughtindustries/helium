@@ -3,18 +3,28 @@ import { useTranslation } from 'react-i18next';
 
 const CodeBox = (): JSX.Element => {
   const { t } = useTranslation();
+  const [validating, setValidating] = useState(false);
   const styles = {
     buttonStyle:
-      'text-white bg-indigo-700 hover:bg-indigo-600 cursor-pointer inline-block font-normal text-sm no-underline py-4 w-full md:w-1/3 rounded-md md:rounded-l-none mb-4',
+      'text-white bg-indigo-700 disabled:bg-indigo-300 disabled:cursor-default hover:bg-indigo-600 inline-block font-normal text-sm no-underline py-4 w-full md:w-1/3 rounded-md md:rounded-l-none mb-4',
     inputStyle:
       'p-4 text-sm w-full md:w-2/3 ring-1 ring-gray-300 ring-inset shadow-inner focus:outline-none focus:ring-gray-500 mb-4'
   };
 
   return (
     <div>
-      <input className={styles.inputStyle} placeholder={t('redemption-code.placeholder')} />
-      <button className={styles.buttonStyle} type="button">
-        {t('redemption-code.validate')}
+      <input
+        disabled={validating}
+        className={styles.inputStyle}
+        placeholder={t('redemption-code.placeholder')}
+      />
+      <button
+        className={styles.buttonStyle}
+        disabled={validating}
+        type="button"
+        onClick={() => setValidating(true)}
+      >
+        {validating ? t('redemption-code.validating') : t('redemption-code.validate')}
       </button>
     </div>
   );
@@ -26,7 +36,7 @@ const Redemption = (): JSX.Element => {
     prompt: 'flex justify-center mb-8 text-sm text-gray-500',
     termsContainer: 'flex flex-col md:flex-row text-sm text-gray-500 justify-between',
     buttonStyle:
-      'text-white bg-indigo-700 hover:bg-indigo-600 cursor-pointer inline-block font-normal text-sm text-center no-underline py-2 w-full md:w-1/4 rounded-md',
+      'text-white bg-indigo-700 hover:bg-indigo-600 inline-block font-normal text-sm text-center no-underline py-2 w-full md:w-1/4 rounded-md',
     checkboxContainer: 'flex flex-row items-center mb-4',
     checkbox: 'mr-2',
     addCodeStyle: 'flex justify-left text-indigo-700 text-sm',

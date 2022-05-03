@@ -45,6 +45,7 @@ i18n.use(initReactI18next).init({
         'redemption-code.redeem-course-copy-signed-in-manual-code':
           'Fill in a code below, click validate, and then redeem your code.',
         'redemption-code.redeem-code-preloaded': 'Register',
+        'redemption-code.validating': 'Validating…',
         course: 'Course',
         'filter-by': 'Filter by',
         'filter-no-courses':
