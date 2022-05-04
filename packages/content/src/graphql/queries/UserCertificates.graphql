@@ -1,0 +1,134 @@
+query Certificates($query: String, $includeExpiredCertificates: Boolean) {
+  UserCertificates(query: $query, includeExpiredCertificates: $includeExpiredCertificates) {
+    id
+    certificateTemplate {
+      id
+      resource {
+        ... on Course {
+          id
+          createdAt
+          updatedAt
+          slug
+          status
+          title
+          sessionIsTitled
+        }
+        ... on LearningPath {
+          id
+          layout {
+            id
+            kind
+            scripts
+            widgets
+            hasEnrollmentWidget
+          }
+          ribbon {
+            label
+            slug
+            color
+            contrastColor
+            darkerColor
+          }
+        }
+      }
+      resourceType
+      title
+      asset
+      supplementalAssets
+      expirationDate
+      expirationDays
+      recertificationAction
+      recertificationInstructions
+      recertificationActionText
+      recertificationActionUrl
+      recertificationAutoReset
+      recertificationAfterDays
+      userCustomField {
+        id
+        label
+        slug
+        choices
+        ref
+        required
+        type
+      }
+      userCustomFieldSlug
+      userCustomFieldValue
+      customCss
+      labels {
+        id
+        certificateFieldId
+        certificateField {
+          id
+          type
+          label
+          includeOnTranscript
+          includeOnExternalCertificate
+          text
+          awardType {
+            id
+            label
+            pluralLabel
+            includeOnDashboard
+            icon
+            deleted
+          }
+          awardTypeId
+          customField {
+            id
+            label
+            slug
+            indexed
+            multiple
+            includeValueOnContent
+            includeLabelOnContent
+            sort
+          }
+          customFieldSlug
+          sessionCustomContentFieldSlug
+          userCustomField {
+            id
+            label
+            slug
+            choices
+            ref
+            required
+            type
+          }
+          userCustomFieldSlug
+          identifierPrefix
+          identifierBodyLength
+          hasIdentifierPrefix
+          dateFormat
+        }
+        x
+        y
+        textAlign
+        fontSize
+        fontColor
+      }
+      isExpired
+    }
+    user {
+      ...UserFragment
+    }
+    issuedAt
+    url
+    pdfAsset
+    resourceTypeLabel
+    resourceId
+    progressWasReset
+    expirationDate
+    didExpire
+    deleted
+    recertificationDate
+    isExpired
+    source
+    contentItem {
+      ...ContentFragment
+    }
+    isExternal
+    externalResourceTitle
+    identifier
+  }
+}

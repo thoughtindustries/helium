@@ -1,0 +1,79 @@
+fragment LearningPathFragment on LearningPath {
+  id
+  layoutId
+  layout {
+    id
+    kind
+    scripts
+    widgets
+    hasEnrollmentWidget
+  }
+  learnerLayoutId
+  name
+  sku
+  ribbon {
+    label
+    slug
+    color
+    contrastColor
+    darkerColor
+  }
+  slug
+  createdAt
+  metaTitle
+  metaDescription
+  asset
+  detailAsset
+  heroAsset
+  priceInCents
+  suggestedRetailPriceInCents
+  alternativePricingType
+  alternativePricingRef
+  accessDays
+  shortDescription
+  longDescription
+  tags {
+    id
+    label
+  }
+  status
+  freeWithRegistration
+  customFields
+  contentType
+  confirmationHtml
+  startDate
+  endDate
+  enrollmentStartDate
+  enrollmentEndDate
+  availabilityStatus
+  currentUserStartActionDate
+  isPayAsYouGo
+  language
+  futurePublishDate
+  purchasable
+  taxable
+  fulfillmentCenter
+  taxCategory
+  currentUserPendingCertificate
+  currentUserEarnedCertificate
+  bulkPurchasingEnabled
+
+  prerequisiteCourses {
+    ...CourseFragment
+  }
+  resourceType
+  seatsLimit
+  videoAsset
+  relatedQuery
+  relatedQuerySignature
+  source
+  authors
+  publishDate
+  externalDetailUrl
+  kind
+  tabs {
+    id
+    generated
+  }
+  updatedAt
+}

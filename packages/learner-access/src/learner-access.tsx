@@ -170,7 +170,7 @@ const LearnerAccess = ({
             sort={null}
           />
         );
-      case 'archived':
+      case 'Archived':
         return (
           <LoadArchivedContent
             query={input}
@@ -194,7 +194,7 @@ const LearnerAccess = ({
             sort={null}
           />
         );
-      case 'waitlist':
+      case 'Waitlist':
         return (
           <LoadWaitlistedContent
             query={input}
