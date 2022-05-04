@@ -1,13 +1,7 @@
 import LoadContentItems from './LoadContentItems';
-import LoadCertificateContentItems from './LoadCertificateContentItems';
+import LoadCertificates from './LoadCertificates';
 import LoadArchivedContent from './LoadArchivedContent';
-import LoadBookmarkFolders from './LoadBookmarkFolders';
-import LoadWaitlistedContent from './LoadWaitlistedContent';
+import LoadBookmarks from './LoadBookmarkFolders';
+import LoadWaitlist from './LoadWaitlistedContent';
 
-export {
-  LoadContentItems,
-  LoadCertificateContentItems,
-  LoadArchivedContent,
-  LoadBookmarkFolders,
-  LoadWaitlistedContent
-};
+export { LoadContentItems, LoadCertificates, LoadArchivedContent, LoadWaitlist, LoadBookmarks };

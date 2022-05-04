@@ -3,15 +3,16 @@ import { LearnerAccessProps } from './types';
 import {
   LoadContentItems,
   LoadArchivedContent,
-  LoadWaitlistedContent,
-  LoadBookmarkFolders,
-  LoadCertificateContentItems
+  LoadWaitlist,
+  LoadBookmarks,
+  LoadCertificates
 } from './components';
 
 const LearnerAccess = ({
   allowCollapse,
   classNames,
-  query: input
+  displayExpiredCertificateInformation,
+  query
 }: LearnerAccessProps): JSX.Element => {
   const [selected, setSelected] = useState<number>(0);
   const [collapsed, setCollapsed] = useState<boolean>(true);
@@ -19,33 +20,28 @@ const LearnerAccess = ({
 
   interface ob {
     item: string;
-    id: number;
+    id: string;
   }
 
   const [learnerAccessData, setLearnerAccessData] = useState<ob[]>([
     {
       item: 'My learning',
-      id: 1
+      id: 'current'
     },
     {
       item: 'Events',
-      id: 2
+      id: 'events'
     },
     {
       item: 'Learning Paths',
-      id: 3
+      id: 'learningPath'
     },
     {
       item: 'Completed',
-      id: 4
+      id: 'completed'
     },
-    { item: 'Archived', id: 5 },
-    { item: 'bookmark', id: 6 },
-    {
-      item: 'certificate',
-      id: 7
-    },
-    { item: 'bookmark', id: 8 }
+    { item: 'Archived', id: 'archived' },
+    { item: 'Certifications', id: 'certificate' }
   ]);
 
   const handleChange = (index: number, currentTab: string) => {
@@ -109,10 +105,10 @@ const LearnerAccess = ({
         const activeClassSpan = activeTab ? selectedStyleSpan : styleSpan;
         return (
           <>
-            <li key={obj.id} {...activeClassLi}>
+            <li key={index} {...activeClassLi}>
               <button
                 onClick={() => {
-                  handleChange(index, obj.item);
+                  handleChange(index, obj.id);
                 }}
                 className="btn bg-none rounded-none h-auto p-0 shadow-none"
                 role="tab"
@@ -136,7 +132,7 @@ const LearnerAccess = ({
       case 'My learning':
         return (
           <LoadContentItems
-            query={input}
+            query={query}
             kind={['courseGroup', 'article', 'video', 'shareableContentObject', 'xApiObject']}
             sort={null}
           />
@@ -144,17 +140,17 @@ const LearnerAccess = ({
       case 'Events':
         return (
           <LoadContentItems
-            query={input}
+            query={query}
             kind={['webinar', 'webinarCourse', 'inPersonEvent', 'inPersonEventCourse']}
             sort="displayDate"
           />
         );
       case 'LearningPath':
-        return <LoadContentItems query={input} kind={['learningPath']} sort={null} />;
+        return <LoadContentItems query={query} kind={['learningPath']} sort={null} />;
       case 'Completed':
         return (
           <LoadContentItems
-            query={input}
+            query={query}
             kind={[
               'learningPath',
               'courseGroup',
@@ -171,48 +167,24 @@ const LearnerAccess = ({
           />
         );
       case 'Archived':
-        return (
-          <LoadArchivedContent
-            query={input}
-            kind={['courseGroup', 'article', 'video', 'shareableContentObject', 'xApiObject']}
-            sort={null}
-          />
-        );
-      case 'bookmark':
-        return (
-          <LoadBookmarkFolders
-            query={input}
-            kind={['courseGroup', 'article', 'video', 'shareableContentObject', 'xApiObject']}
-            sort={null}
-          />
-        );
+        return <LoadArchivedContent />;
       case 'certificate':
         return (
-          <LoadCertificateContentItems
-            query={input}
-            kind={['courseGroup', 'article', 'video', 'shareableContentObject', 'xApiObject']}
-            sort={null}
-          />
-        );
-      case 'Waitlist':
-        return (
-          <LoadWaitlistedContent
-            query={input}
-            kind={['courseGroup', 'article', 'video', 'shareableContentObject', 'xApiObject']}
-            sort={null}
+          <LoadCertificates
+            query={query}
+            displayExpiredCertificateInformation={displayExpiredCertificateInformation}
           />
         );
       default:
         return (
           <LoadContentItems
-            query={input}
+            query={query}
             kind={['courseGroup', 'article', 'video', 'shareableContentObject', 'xApiObject']}
             sort={null}
           />
         );
     }
   };
-  // if (error) return <p></p>;
   return allowCollapse ? (
     <div className="my-0 -mx-4 max-w-none w-auto py-4 px-8 text-slate-700 text-black-light">
       <div className="border border-solid bg-gray-light">

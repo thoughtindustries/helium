@@ -13,6 +13,7 @@ const LoadContentItems = ({ query, kind, sort }: LoadedComponentProps): JSX.Elem
     }
   });
   console.log('data from child', data);
+  if (error) return error;
   return (
     <>
       <div className="inline-block">

@@ -8,7 +8,7 @@ config:
   scalars:
     Slug: 'string'
     Date: 'string'
-    JSON: 'any'
+    JSON: 'JSON'
     AbsoluteOrRelativeURL: 'string'
     HexColor: 'string'
     RelativeURL: 'string'
@@ -25,6 +25,6 @@ generates:
       # use a reduced global types scoped for content
       baseTypesPath: graphql/global-types.ts
       extension: .generated.tsx
-plugins:
-  - 'typescript-operations'
-  - 'typescript-react-apollo'
+    plugins:
+      - 'typescript-operations'
+      - 'typescript-react-apollo'

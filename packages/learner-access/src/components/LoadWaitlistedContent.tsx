@@ -1,12 +1,12 @@
 import React from 'react';
-import { LoadedComponentProps } from '../types';
-import { useContentItemsQuery, LoadingDots } from '@thoughtindustries/content';
+import { useWaitlistQuery, LoadingDots } from '@thoughtindustries/content';
 
-const LoadContentItems = ({ query, kind, sort }: LoadedComponentProps): JSX.Element => {
-  const { data, loading, error }: any = useContentItemsQuery({
+const LoadWaitlist = (): JSX.Element => {
+  const { data, loading, error }: any = useWaitlistQuery({
     variables: {}
   });
   console.log('data from child', data);
+  if (error) return error;
   return (
     <>
       <div className="inline-block">
@@ -21,4 +21,4 @@ const LoadContentItems = ({ query, kind, sort }: LoadedComponentProps): JSX.Elem
     </>
   );
 };
-export default LoadContentItems;
+export default LoadWaitlist;

@@ -17,7 +17,7 @@ export type Scalars = {
   /** Hex Color scalar type */
   HexColor: string;
   /** The `JSON` scalar type represents JSON values as specified by [ECMA-404](http://www.ecma-international.org/publications/files/ECMA-ST/ECMA-404.pdf). */
-  JSON: any;
+  JSON: JSON;
   /** A valid relative URL string with a leading slash (/) */
   RelativeURL: string;
   /** Slug scalar type */

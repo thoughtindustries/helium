@@ -1,8 +1,15 @@
 import { Meta, Story } from '@storybook/react';
 import React from 'react';
+import {} from '../src';
 import { LearnerAccess, LearnerAccessProps } from '../src';
-import { ContentItemsDocument } from '@thoughtindustries/content';
-
+import {
+  ContentItemsDocument,
+  ArchivesDocument,
+  CertificatesDocument,
+  BookmarksDocument,
+  WaitlistDocument,
+  GlobalTypes
+} from '@thoughtindustries/content';
 export default {
   title: 'Example/LearnerAccess',
   component: LearnerAccess,
@@ -137,6 +144,102 @@ Base.parameters = {
           data: {
             availableCoursesCount: 1200
           }
+        }
+      },
+      {
+        request: {
+          query: ArchivesDocument,
+          variables: {}
+        },
+        result: {
+          data: {
+            id: 1,
+            company: {
+              id: 1,
+              name: '',
+              subdomain: '',
+              catalogBlock: {
+                id: 1
+              },
+              organization: {
+                id: 1,
+                name: ''
+              },
+              catalogVisibilityEmails: 'foo@bar.com'
+            },
+            user: 1,
+            resource: 1,
+            resourceTye: 'Course',
+            status: 'completed',
+            archivedAt: Date,
+            name: 'this course',
+            reinstatable: true,
+            waitlistActive: false
+          }
+        }
+      },
+      {
+        request: {
+          query: CertificatesDocument,
+          variables: {
+            query: ''
+          },
+          includeExpiredCertificates: defaultProps.displayExpiredCertificateInformation
+        },
+        result: {
+          data: {
+            url: 'https://www.google.com/',
+            title: 'My certificate',
+            isExternalCertificate: true,
+            expirationDate: Date
+          }
+        }
+      },
+      {
+        request: {
+          query: WaitlistDocument,
+          variables: {
+            query: ''
+          },
+          includeExpiredCertificates: defaultProps.displayExpiredCertificateInformation
+        },
+        result: {
+          data: {
+            id: 1,
+            slug: '',
+            contentTypeLabel: '',
+            title: 'title',
+            asset: 'https://www.google.com/',
+            description: '',
+            source: '',
+            displayCourse: 1,
+            displayCourseSlug: '',
+            embeddedEnabled: false,
+            courseStartDate: Date,
+            coursePresold: false,
+            courseGracePeriodEnded: false,
+            currentUserUnmetCoursePrerequisites: [1, 2, 3],
+            currentUserUnmetLearningPathPrerequisites: [1, 2, 3],
+            kind: GlobalTypes.ContentKind,
+            authors: ['first auther', 'second aurhter', 'third aurhter'],
+            rating: 60,
+            timeZone: '2019-08-24T23:11:02.376Z',
+            publishDate: Date,
+            canAddToQueue: true,
+            bulkPurchasingEnabled: false
+          }
+        }
+      },
+      {
+        request: {
+          query: BookmarksDocument,
+          variables: {
+            query: ''
+          },
+          includeExpiredCertificates: defaultProps.displayExpiredCertificateInformation
+        },
+        result: {
+          data: {}
         }
       }
     ]
