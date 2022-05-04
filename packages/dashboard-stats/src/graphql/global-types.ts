@@ -10,14 +10,18 @@ export type Scalars = {
   Boolean: boolean;
   Int: number;
   Float: number;
-};
-
-export type UserStats = {
-  __typename?: 'UserStats';
-  CurrentUser?: Maybe<UserStats>;
-  availableCoursesCount: Scalars['Int'];
-  certificatesCount: Scalars['Int'];
-  collaborationsCount: Scalars['Int'];
-  completedCoursesCount: Scalars['Int'];
-  startedCoursesCount: Scalars['Int'];
+  /** A valid absolute (starting with either a valid protocol or a leading www) or relative (with a leading slash) URL string */
+  AbsoluteOrRelativeURL: string;
+  /** Date scalar type */
+  Date: string;
+  /** Hex Color scalar type */
+  HexColor: string;
+  /** The `JSON` scalar type represents JSON values as specified by [ECMA-404](http://www.ecma-international.org/publications/files/ECMA-ST/ECMA-404.pdf). */
+  JSON: any;
+  /** A valid relative URL string with a leading slash (/) */
+  RelativeURL: string;
+  /** Slug scalar type */
+  Slug: string;
+  /** A valid absolute URL string starting with either a valid protocol or a leading www */
+  URL: string;
 };

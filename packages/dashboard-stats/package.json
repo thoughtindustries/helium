@@ -22,15 +22,6 @@
   "bugs": {
     "url": "https://github.com/thoughtindustries/helium/issues"
   },
-  "devDependencies": {
-    "@graphql-codegen/cli": "^2.6.2",
-    "@graphql-codegen/introspection": "^2.1.1",
-    "@graphql-codegen/near-operation-file-preset": "^2.2.9",
-    "@graphql-codegen/typescript": "^2.4.8",
-    "@graphql-codegen/typescript-operations": "^2.3.5",
-    "@graphql-codegen/typescript-react-apollo": "^3.2.11",
-    "apollo": "^2.33.10"
-  },
   "dependencies": {
     "@apollo/client": "^3.5.10",
     "@thoughtindustries/content": "^1.1.0-alpha.1",
