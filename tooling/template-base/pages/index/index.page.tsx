@@ -1,3 +1,4 @@
+import { Builder, BuilderComponent, builder, withChildren } from '@builder.io/react';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import Layout from '../../components/Layout';
@@ -13,6 +14,7 @@ import {
   useAddResourceToQueueMutation
 } from '@thoughtindustries/content';
 import { Appearance, CurrentUser } from '../../types';
+import { Header } from '@thoughtindustries/header';
 
 export { Page };
 export { documentProps };
@@ -22,19 +24,88 @@ const documentProps = {
   description: 'The home page'
 };
 
+const FeaturedContentWithChildren = withChildren(FeaturedContent);
+
+builder.init('55898168a2e34c64810d0395eb1f500a');
+
+Builder.registerComponent(FeaturedContentWithChildren, {
+  name: 'Featured Content',
+  defaultChildren: [
+    {
+      '@type': '@builder.io/sdk:Element',
+      component: {
+        name: 'ContentTileStandardLayout'
+      }
+    }
+  ]
+});
+
+Builder.registerComponent(Header, {
+  name: 'Header',
+  inputs: [
+    {
+      name: 'title',
+      type: 'string'
+    }
+  ]
+});
+
+Builder.registerComponent(Hero, {
+  name: 'Hero',
+  inputs: [
+    {
+      name: 'title',
+      type: 'string'
+    },
+    {
+      name: 'subtitle',
+      type: 'string'
+    },
+    {
+      name: 'linkText',
+      type: 'string'
+    },
+    {
+      name: 'linkOpenInNewTab',
+      type: 'boolean',
+      defaultValue: true
+    },
+    {
+      name: 'linkUrl',
+      type: 'string'
+    },
+    {
+      name: 'asset',
+      type: 'file',
+      allowedFileTypes: ['jpeg', 'jpg', 'png']
+    },
+    {
+      name: 'largeAsset',
+      type: 'file',
+      allowedFileTypes: ['jpeg', 'jpg', 'png']
+    },
+    {
+      name: 'smallAsset',
+      type: 'file',
+      allowedFileTypes: ['jpeg', 'jpg', 'png']
+    }
+  ]
+});
+
 function Page({ appearance, currentUser }: { appearance: Appearance; currentUser: CurrentUser }) {
-  return (
-    <Layout appearance={appearance} currentUser={currentUser}>
-      <div className="flex flex-col items-start space-y-2">
-        <Hero
-          title="Welcome to Helium!"
-          subtitle="This page is completely rendered in React. Go ahead and edit it at pages/index/index.page.jsx"
-          asset="https://d36ai2hkxl16us.cloudfront.net/thoughtindustries/image/upload/a_exif,c_fill,w_1500/v1426249885/sq5qv0uebvfywkxbw3cc.jpg"
-        />
-        <FeaturedItems />
-      </div>
-    </Layout>
-  );
+  return <BuilderComponent model="page" />;
+  // return (
+  //   <Layout appearance={appearance} currentUser={currentUser}>
+  //     <div className="flex flex-col items-start space-y-2">
+  //       <Hero
+  //         title="Welcome to Helium!"
+  //         subtitle="This page is completely rendered in React. Go ahead and edit it at pages/index/index.page.jsx"
+  //         asset="https://d36ai2hkxl16us.cloudfront.net/thoughtindustries/image/upload/a_exif,c_fill,w_1500/v1426249885/sq5qv0uebvfywkxbw3cc.jpg"
+  //       />
+  //       <FeaturedItems />
+  //     </div>
+  //   </Layout>
+  // );
 }
 
 function FeaturedItems() {
