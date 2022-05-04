@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { codeList } from './helper';
+import Banner from './banner';
 
 const Registration = (): JSX.Element => {
   const { t } = useTranslation();
@@ -25,6 +26,7 @@ const Registration = (): JSX.Element => {
   return (
     <>
       <h5 className={styles.prompt}>{t('redemption.logged-out-prompt')}</h5>
+      <Banner />
       <p className={styles.redirect}>
         <strong className={styles.member}>{`${t('common.already-member')}\u00A0`}</strong>
         <button type="button">

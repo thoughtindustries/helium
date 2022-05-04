@@ -50,6 +50,8 @@ i18n.use(initReactI18next).init({
           'Fill in your details, validate your redemption code, and click redeem to access the school.',
         'redemption.register': 'Register',
         'redemption.validating': 'Validating…',
+        'redemption.code-not-found': 'Code not found. Please check your code and try again.',
+        'redemption.code-validated': 'Congrats, your code has been validated!',
         'register.first-name': 'First Name',
         'register.last-name': 'Last Name',
         'register.email': 'Email Address',

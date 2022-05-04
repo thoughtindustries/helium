@@ -3,6 +3,7 @@ import { useTranslation } from 'react-i18next';
 import { RedemptionProps } from './types';
 import Registration from './registration';
 import { codeList } from './helper';
+import Banner from './banner';
 
 const Redemption = ({ currentUser }: RedemptionProps): JSX.Element => {
   const styles = {
@@ -24,6 +25,7 @@ const Redemption = ({ currentUser }: RedemptionProps): JSX.Element => {
       {currentUser ? (
         <>
           <h5 className={styles.prompt}>{t('redemption.signed-in-prompt')}</h5>
+          <Banner />
           {codeList(count)}
           <button className={styles.addCodeStyle} type="button" onClick={() => setCount(count + 1)}>
             {t('redemption.add-code')}
