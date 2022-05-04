@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.1.1](https://github.com/thoughtindustries/helium/compare/@thoughtindustries/dashboard-stats@1.1.0...@thoughtindustries/dashboard-stats@1.1.1) (2022-05-04)
+
+
+### Bug Fixes
+
+* prevent render of stats without current user ([378b9b6](https://github.com/thoughtindustries/helium/commit/378b9b6cfad169aaa590ff4e5102983aed24969f))
+* update generated graphql ([45b55ea](https://github.com/thoughtindustries/helium/commit/45b55ea28bceff26d66fd43740c6625aeec4cf80))
+
+
+
+
+
 # 1.1.0 (2022-04-11)
 
 
