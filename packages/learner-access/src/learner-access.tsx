@@ -104,24 +104,22 @@ const LearnerAccess = ({
         const activeClassLi = activeTab ? selectedStyleLi : styleLi;
         const activeClassSpan = activeTab ? selectedStyleSpan : styleSpan;
         return (
-          <>
-            <li key={index} {...activeClassLi}>
-              <button
-                onClick={() => {
-                  handleChange(index, obj.id);
-                }}
-                className="btn bg-none rounded-none h-auto p-0 shadow-none"
-                role="tab"
-                aria-selected={activeTab}
-                aria-controls={'access-section-' + index}
-              >
-                <span {...activeClassSpan}>{obj.item}</span>
-                <span className="border border-solid border-gray-light text-xs font-bold rounded-lg bg-white inline-block leading-4 ml-1 py-0 px-1 text-center">
-                  0
-                </span>
-              </button>
-            </li>
-          </>
+          <li key={index} {...activeClassLi}>
+            <button
+              onClick={() => {
+                handleChange(index, obj.id);
+              }}
+              className="btn bg-none rounded-none h-auto p-0 shadow-none"
+              role="tab"
+              aria-selected={activeTab}
+              aria-controls={'access-section-' + index}
+            >
+              <span {...activeClassSpan}>{obj.item}</span>
+              <span className="border border-solid border-gray-light text-xs font-bold rounded-lg bg-white inline-block leading-4 ml-1 py-0 px-1 text-center">
+                0
+              </span>
+            </button>
+          </li>
         );
       })}
     </ul>

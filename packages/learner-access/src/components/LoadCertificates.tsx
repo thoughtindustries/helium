@@ -14,8 +14,8 @@ const LoadCertificates = ({
         query,
         kind,
         sort
-      },
-      displayExpiredCertificateInformation
+      }
+      // displayExpiredCertificateInformation
     }
   });
   console.log('data from child', data);
