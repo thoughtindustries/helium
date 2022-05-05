@@ -14,8 +14,8 @@ export interface LearnerAccessProps {
 }
 
 export interface LoadedComponentProps {
-  query?: string | undefined;
+  query?: string;
   kind?: string[];
-  sort?: string | null;
+  sort?: string;
   displayExpiredCertificateInformation?: boolean;
 }

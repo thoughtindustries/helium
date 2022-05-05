@@ -1,5 +1,30 @@
-query ContentItems($query: String) {
-  UserContentItems(query: $query) {
-    ...ContentFragment
+query UserContentItems($query: String, $kind: [String], $sort: String) {
+  UserContentItems(query: $query, kind: $kind, sort: $sort) {
+    asset
+    title
+    sessionTitle
+    kind
+    id
+    slug
+    meetingStartDate
+    contentTypeLabel
+    availabilityStatus
+    courseStartDate
+    courseEndDate
+    coursePresold
+    description
+    displayCourse
+    displayCourseSlug
+    displayDate
+    courseGracePeriodEnded
+    authors
+    publishDate
+    source
+    expiresAt
+    currentUserMayReschedule
+    timeZone
+    embeddedEnabled
+    currentUserUnmetCoursePrerequisites
+    currentUserUnmetLearningPathPrerequisites
   }
 }

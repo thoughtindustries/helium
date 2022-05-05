@@ -1,15 +1,13 @@
 import React from 'react';
 import { LoadedComponentProps } from '../types';
-import { useContentItemsQuery, LoadingDots } from '@thoughtindustries/content';
+import { useUserContentItemsQuery, LoadingDots } from '@thoughtindustries/content';
 
 const LoadContentItems = ({ query, kind, sort }: LoadedComponentProps): JSX.Element => {
-  const { data, loading, error }: any = useContentItemsQuery({
+  const { data, loading, error }: any = useUserContentItemsQuery({
     variables: {
-      ...{
-        query,
-        kind,
-        sort
-      }
+      query,
+      kind,
+      sort
     }
   });
   console.log('data from child', data);

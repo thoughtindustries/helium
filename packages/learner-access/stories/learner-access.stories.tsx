@@ -3,7 +3,7 @@ import React from 'react';
 import {} from '../src';
 import { LearnerAccess, LearnerAccessProps } from '../src';
 import {
-  ContentItemsDocument,
+  UserContentItemsDocument,
   ArchivesDocument,
   CertificatesDocument,
   BookmarksDocument,
@@ -63,28 +63,55 @@ const Template: Story<LearnerAccessProps> = () => <LearnerAccess {...defaultProp
 
 export const Base = Template.bind({});
 
+const mockContent = {
+  asset:
+    'https://d36ai2hkxl16us.cloudfront.net/thoughtindustries/image/upload/a_exif,c_fill,w_800/v1416438573/placeholder_kcjvxm.jpg',
+  authors: ['Test Author'],
+  availabilityStatus: '',
+  contentTypeLabel: 'Course',
+  courseEndDate: new Date(2020, 1, 1).toISOString(),
+  courseGracePeriodEnded: false,
+  coursePresold: false,
+  courseStartDate: new Date(2020, 0, 1).toISOString(),
+  currentUserMayReschedule: false,
+  description: 'description',
+  id: 'uuid',
+  kind: GlobalTypes.ContentKind.Course,
+  slug: 'test-content',
+  source: 'Test source',
+  title: 'Test title',
+  timeZone: 'America/Los_Angeles'
+};
+// use the options to bypass mocking full payload of responses
+const mockedApolloProviderOptions = {
+  watchQuery: { fetchPolicy: 'no-cache' as const },
+  query: { fetchPolicy: 'no-cache' as const }
+};
+const apolloBaseParams = {
+  addTypename: false,
+  defaultOptions: mockedApolloProviderOptions
+};
 Base.parameters = {
   apolloClient: {
+    ...apolloBaseParams,
     mocks: [
       {
         request: {
-          query: ContentItemsDocument,
+          query: UserContentItemsDocument,
           variables: {
             query: '',
-            kind: ['courseGroup', 'article', 'video', 'shareableContentObject', 'xApiObject'],
-            sort: null
+            kind: ['courseGroup', 'article', 'video', 'shareableContentObject', 'xApiObject']
           }
         },
         result: {
           data: {
-            availableCoursesCount: 1200,
-            startedCoursesCount: 5
+            UserContentItems: [mockContent]
           }
         }
       },
       {
         request: {
-          query: ContentItemsDocument,
+          query: UserContentItemsDocument,
           variables: {
             query: '',
             kind: ['webinar', 'webinarCourse', 'inPersonEvent', 'inPersonEventCourse'],
@@ -103,7 +130,7 @@ Base.parameters = {
       },
       {
         request: {
-          query: ContentItemsDocument,
+          query: UserContentItemsDocument,
           variables: {
             query: '',
             kind: ['learningPath'],
@@ -122,7 +149,7 @@ Base.parameters = {
       },
       {
         request: {
-          query: ContentItemsDocument,
+          query: UserContentItemsDocument,
           variables: {
             query: '',
             kind: [
