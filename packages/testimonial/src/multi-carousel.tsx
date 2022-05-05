@@ -5,9 +5,8 @@ import {
   TestimonialMultiCarouselContextType,
   TestimonialCarouselProps
 } from './types';
-import { ScreenSize, useScreenSize } from './use-screen-size';
+import { ScreenSize, useScreenSize, useMultiCarouselBehavior } from '@thoughtindustries/hooks';
 import { IconLeft, IconRight } from './icons';
-import { useMultiCarouselBehavior } from './use-multi-carousel-behavior';
 
 enum Alignment {
   Left = 'Left',

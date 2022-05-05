@@ -1,0 +1,27 @@
+{
+  "name": "@thoughtindustries/hooks",
+  "version": "1.1.0",
+  "description": "Common hooks shared throughout @thoughtindustries/helium packages",
+  "author": "Lu Jiang <lu.jiang@thoughtindustries.com>",
+  "homepage": "https://github.com/thoughtindustries/helium#readme",
+  "license": "ISC",
+  "main": "src/index.ts",
+  "files": [
+    "src"
+  ],
+  "publishConfig": {
+    "access": "public"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/thoughtindustries/helium.git"
+  },
+  "scripts": {},
+  "bugs": {
+    "url": "https://github.com/thoughtindustries/helium/issues"
+  },
+  "dependencies": {
+    "@use-gesture/react": "^10.2.11",
+    "react": "^17.0.2"
+  }
+}

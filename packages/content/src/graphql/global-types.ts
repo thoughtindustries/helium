@@ -677,6 +677,7 @@ export enum ContentKind {
   InPersonEvent = 'inPersonEvent',
   InPersonEventCourse = 'inPersonEventCourse',
   LearningPath = 'learningPath',
+  MicroCourse = 'microCourse',
   PickableGroup = 'pickableGroup',
   Product = 'product',
   Sellable = 'sellable',

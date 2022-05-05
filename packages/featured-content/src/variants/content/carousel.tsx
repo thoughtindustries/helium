@@ -8,7 +8,7 @@ import ContentWrapper from './wrapper';
 import ItemLinkWrapper from './item-link-wrapper';
 import ItemAssetBlock from './item-asset-block';
 import { IconLeft, IconRight } from './icons';
-import { useCarouselBehavior } from './use-carousel-behavior';
+import { useCarouselBehavior } from '@thoughtindustries/hooks';
 import { limitText } from './utils';
 
 const ContentCarouselContext = createContext<FeaturedContentCarouselContextType | undefined>(

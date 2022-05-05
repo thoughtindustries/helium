@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.1.0-alpha.17](https://github.com/thoughtindustries/helium/compare/@thoughtindustries/helium-template@1.1.0-alpha.16...@thoughtindustries/helium-template@1.1.0-alpha.17) (2022-05-04)
+
+
+### Features
+
+* port over navigation bar widget ([#109](https://github.com/thoughtindustries/helium/issues/109)) ([d62578b](https://github.com/thoughtindustries/helium/commit/d62578ba51972fb3f442c84ae5961de13cfdf7e1))
+* update tailwind config ([95e60a7](https://github.com/thoughtindustries/helium/commit/95e60a7f952d24672572b19b7923b6091e640e56))
+
+
+
+
+
 # [1.1.0-alpha.16](https://github.com/thoughtindustries/helium/compare/@thoughtindustries/helium-template@1.1.0-alpha.15...@thoughtindustries/helium-template@1.1.0-alpha.16) (2022-04-11)
 
 **Note:** Version bump only for package @thoughtindustries/helium-template

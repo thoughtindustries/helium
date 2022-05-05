@@ -1,7 +1,9 @@
 query UserStats {
-  certificatesCount
-  collaborationsCount
-  availableCoursesCount
-  startedCoursesCount
-  completedCoursesCount
+  CurrentUser {
+    certificatesCount
+    collaborationsCount
+    availableCoursesCount
+    startedCoursesCount
+    completedCoursesCount
+  }
 }

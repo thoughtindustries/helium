@@ -2,6 +2,7 @@ import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { gql, useQuery } from '@apollo/client';
 import { Appearance, CurrentUser } from '../types';
+import { NavigationBar, NavigationBarLink } from '@thoughtindustries/navigation-bar';
 
 export default function Layout({
   appearance,
@@ -13,9 +14,10 @@ export default function Layout({
   children: React.ReactNode;
 }) {
   return (
-    <div className="h-full bg-gray-100">
+    <div className="h-full bg-gray-100 p-8">
       <div className="h-full max-w-screen-lg mx-auto bg-white shadow-sm font-primary">
         <Header appearance={appearance} currentUser={currentUser} />
+        <NavBar />
         {children}
         <Footer />
       </div>
@@ -40,6 +42,18 @@ function Header({ appearance, currentUser }: { appearance: Appearance; currentUs
       <div className="text-right">
         {currentUser.id ? <a href="/learn/">{dashboard}</a> : <a href="/sign_in">{signIn}</a>}
       </div>
+    </div>
+  );
+}
+
+function NavBar() {
+  return (
+    <div className="px-4 relative z-10">
+      <NavigationBar>
+        <NavigationBarLink label="Home" href="/" />
+        <NavigationBarLink label="Catalog" href="/catalog" />
+        <NavigationBarLink label="Custom Catalog" href="/catalog/custom" />
+      </NavigationBar>
     </div>
   );
 }

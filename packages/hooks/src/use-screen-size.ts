@@ -1,4 +1,4 @@
-import { useMedia } from './use-media';
+import useMedia from './use-media';
 
 export enum ScreenSize {
   XXXLarge = 'xxxlarge',
@@ -19,7 +19,7 @@ const screenSizeToMediaQueryMap: ScreenSizeToMediaQueryMap = {
   [ScreenSize.Medium]: '(min-width: 48.063em)'
 };
 
-export function useScreenSize(): ScreenSize {
+export default function useScreenSize(): ScreenSize {
   const queries = Object.values(screenSizeToMediaQueryMap);
   const values = Object.keys(screenSizeToMediaQueryMap) as ScreenSize[];
   const screenSize = useMedia<ScreenSize>(queries, values, ScreenSize.Small);
