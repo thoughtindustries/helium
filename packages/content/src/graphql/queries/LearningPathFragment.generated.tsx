@@ -26,7 +26,7 @@ export type LearningPathFragmentFragment = {
   longDescription?: string;
   status: Types.Status;
   freeWithRegistration?: boolean;
-  customFields?: JSON;
+  customFields?: any;
   contentType?: string;
   confirmationHtml?: string;
   startDate?: string;
@@ -61,7 +61,7 @@ export type LearningPathFragmentFragment = {
     id: string;
     kind?: Types.LayoutKind;
     scripts?: string;
-    widgets?: JSON;
+    widgets?: any;
     hasEnrollmentWidget: boolean;
   };
   ribbon?: {

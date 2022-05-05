@@ -23,7 +23,7 @@ export type ContentFragmentFragment = {
   currentUserMayReschedule: boolean;
   currentUserUnmetCoursePrerequisites?: Array<string>;
   currentUserUnmetLearningPathPrerequisites?: Array<string>;
-  customFields?: JSON;
+  customFields?: any;
   description?: string;
   displayCourse?: string;
   displayCourseSlug?: string;

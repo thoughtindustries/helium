@@ -45,13 +45,12 @@ export type UserFragmentFragment = {
   ref9?: string;
   ref10?: string;
   lang?: string;
-  customFields?: JSON;
+  customFields?: any;
   accessedFlows?: Array<string>;
   disabled: boolean;
   learnerUserId?: string;
   managerUserId?: string;
   balance?: number;
-  totalCreditBalance?: number;
   mustVerifyEmail: boolean;
   certificatesCount: number;
   collaborationsCount: number;
@@ -158,7 +157,6 @@ export const UserFragmentFragmentDoc = gql`
     learnerUserId
     managerUserId
     balance
-    totalCreditBalance
     mustVerifyEmail
     certificatesCount
     collaborationsCount

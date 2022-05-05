@@ -6,7 +6,7 @@ import { gql } from '@apollo/client';
 import { UserFragmentFragmentDoc } from './UserFragment.generated';
 import { CourseFragmentFragmentDoc } from './CourseFragment.generated';
 import * as Apollo from '@apollo/client';
-const defaultOptions = {};
+const defaultOptions = {} as const;
 export type BookmarksQueryVariables = Types.Exact<{ [key: string]: never }>;
 
 export type BookmarksQuery = {

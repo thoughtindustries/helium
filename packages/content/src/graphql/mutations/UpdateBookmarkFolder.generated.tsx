@@ -2,7 +2,7 @@ import * as Types from '../global-types';
 
 import { gql } from '@apollo/client';
 import * as Apollo from '@apollo/client';
-const defaultOptions = {};
+const defaultOptions = {} as const;
 export type UpdateBookmarkFolderMutationVariables = Types.Exact<{
   id: Types.Scalars['ID'];
   name: Types.Scalars['String'];

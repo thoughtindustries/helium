@@ -6,7 +6,7 @@ import { gql } from '@apollo/client';
 import { UserFragmentFragmentDoc } from './UserFragment.generated';
 import { ContentFragmentFragmentDoc } from './ContentFragment.generated';
 import * as Apollo from '@apollo/client';
-const defaultOptions = {};
+const defaultOptions = {} as const;
 export type CertificatesQueryVariables = Types.Exact<{
   query?: Types.InputMaybe<Types.Scalars['String']>;
   includeExpiredCertificates?: Types.InputMaybe<Types.Scalars['Boolean']>;
@@ -70,7 +70,7 @@ export type CertificatesQuery = {
               id: string;
               kind?: Types.LayoutKind;
               scripts?: string;
-              widgets?: JSON;
+              widgets?: any;
               hasEnrollmentWidget: boolean;
             };
             ribbon?: {
@@ -87,7 +87,7 @@ export type CertificatesQuery = {
         id: string;
         label: string;
         slug: string;
-        choices?: JSON;
+        choices?: any;
         ref?: number;
         required: boolean;
         type: Types.UserCustomFieldType;
@@ -142,7 +142,7 @@ export type CertificatesQuery = {
             id: string;
             label: string;
             slug: string;
-            choices?: JSON;
+            choices?: any;
             ref?: number;
             required: boolean;
             type: Types.UserCustomFieldType;

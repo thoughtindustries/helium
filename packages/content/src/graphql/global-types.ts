@@ -17,7 +17,7 @@ export type Scalars = {
   /** Hex Color scalar type */
   HexColor: string;
   /** The `JSON` scalar type represents JSON values as specified by [ECMA-404](http://www.ecma-international.org/publications/files/ECMA-ST/ECMA-404.pdf). */
-  JSON: JSON;
+  JSON: any;
   /** A valid relative URL string with a leading slash (/) */
   RelativeURL: string;
   /** Slug scalar type */
@@ -609,14 +609,6 @@ export type Content = {
   waitlistCount?: Maybe<Scalars['Int']>;
   waitlistingEnabled: Scalars['Boolean'];
   waitlistingTriggered: Scalars['Boolean'];
-};
-
-export type ContentBody = {
-  __typename?: 'ContentBody';
-  body: Scalars['String'];
-  id: Scalars['ID'];
-  slug: Scalars['String'];
-  title: Scalars['String'];
 };
 
 export type ContentGroup = {
@@ -1231,33 +1223,6 @@ export enum MilestoneRequirement {
   Required = 'required'
 }
 
-export type Mutation = {
-  __typename?: 'Mutation';
-  AddResourceToQueue: Scalars['Boolean'];
-  DestroyBookmarkFolder: Scalars['ID'];
-  UpdateBookmarkFolder: Scalars['Boolean'];
-  UpdateLearningPathAccess: Scalars['Boolean'];
-};
-
-export type MutationAddResourceToQueueArgs = {
-  resourceId: Scalars['ID'];
-  resourceType?: InputMaybe<ContentKind>;
-};
-
-export type MutationDestroyBookmarkFolderArgs = {
-  id: Scalars['ID'];
-};
-
-export type MutationUpdateBookmarkFolderArgs = {
-  id: Scalars['ID'];
-  name: Scalars['String'];
-};
-
-export type MutationUpdateLearningPathAccessArgs = {
-  slug: Scalars['Slug'];
-  status: Scalars['String'];
-};
-
 export type Organization = {
   __typename?: 'Organization';
   id: Scalars['ID'];
@@ -1294,71 +1259,6 @@ export type PurchasedCourse = {
   courseId: Scalars['ID'];
   instructorAccessPurchased?: Maybe<Scalars['Boolean']>;
   status: Scalars['String'];
-};
-
-export type Query = {
-  __typename?: 'Query';
-  CatalogContent: CatalogContent;
-  CatalogQuery: CatalogContent;
-  Languages: Array<Language>;
-  QueryContent?: Maybe<Content>;
-  QueryContents: Array<Content>;
-  RssItems: Array<RssItem>;
-  UserArchives?: Maybe<Array<ArchivedContent>>;
-  UserBookmarks?: Maybe<Array<BookmarkFolder>>;
-  UserCertificates?: Maybe<Array<Maybe<Certificate>>>;
-  UserContentGroups?: Maybe<Array<ContentGroup>>;
-  UserContentItems?: Maybe<Array<Content>>;
-  UserRecentContent: Array<Content>;
-  UserWaitlist?: Maybe<Array<ContentItem>>;
-};
-
-export type QueryCatalogContentArgs = {
-  contentTypes?: InputMaybe<Array<Scalars['String']>>;
-  labels?: InputMaybe<Array<Scalars['String']>>;
-  layoutId?: InputMaybe<Scalars['ID']>;
-  page: Scalars['Int'];
-  query?: InputMaybe<Scalars['String']>;
-  resultsDisplayType?: InputMaybe<ContentItemDisplayType>;
-  sort?: InputMaybe<Scalars['String']>;
-  token?: InputMaybe<Scalars['String']>;
-  values?: InputMaybe<Array<Scalars['String']>>;
-  widgetId?: InputMaybe<Scalars['ID']>;
-};
-
-export type QueryCatalogQueryArgs = {
-  page?: InputMaybe<Scalars['Int']>;
-  query?: InputMaybe<Scalars['String']>;
-  queryExclusions?: InputMaybe<Array<Scalars['String']>>;
-  queryLimit?: InputMaybe<Scalars['Int']>;
-  querySignature?: InputMaybe<Scalars['String']>;
-  querySort?: InputMaybe<Scalars['String']>;
-};
-
-export type QueryQueryContentsArgs = {
-  ids: Array<Scalars['ID']>;
-};
-
-export type QueryRssItemsArgs = {
-  feedUrl: Scalars['String'];
-};
-
-export type QueryUserCertificatesArgs = {
-  includeExpiredCertificates?: InputMaybe<Scalars['Boolean']>;
-  query?: InputMaybe<Scalars['String']>;
-};
-
-export type QueryUserContentGroupsArgs = {
-  includeExpiredCertificates?: InputMaybe<Scalars['Boolean']>;
-  query?: InputMaybe<Scalars['String']>;
-};
-
-export type QueryUserContentItemsArgs = {
-  query?: InputMaybe<Scalars['String']>;
-};
-
-export type QueryUserRecentContentArgs = {
-  limit?: InputMaybe<Scalars['Int']>;
 };
 
 export type Resource = {
@@ -1588,15 +1488,10 @@ export type User = {
   state?: Maybe<Scalars['String']>;
   stripeCustomerId?: Maybe<Scalars['ID']>;
   telephone?: Maybe<Scalars['String']>;
-  totalCreditBalance?: Maybe<Scalars['Float']>;
   twoFactorEnabled?: Maybe<Scalars['Boolean']>;
   updatedAt?: Maybe<Scalars['Date']>;
   waitlistedCourses?: Maybe<Array<WaitlistedCourse>>;
   zipCode?: Maybe<Scalars['String']>;
-};
-
-export type UserAttendedMeetingsArgs = {
-  courseId?: InputMaybe<Scalars['ID']>;
 };
 
 export type UserAttendedMeeting = {

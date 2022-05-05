@@ -70,7 +70,6 @@ fragment UserFragment on User {
   learnerUserId
   managerUserId
   balance
-  totalCreditBalance
   mustVerifyEmail
   certificatesCount
   collaborationsCount

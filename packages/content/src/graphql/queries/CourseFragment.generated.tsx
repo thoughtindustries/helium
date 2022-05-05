@@ -72,7 +72,7 @@ export type CourseFragmentFragment = {
   lastTierPriceInCents?: number;
   webinarId?: string;
   hasChildren: boolean;
-  customFields?: JSON;
+  customFields?: any;
   rosterSubmittedDate?: string;
   finalAssessment?: string;
   scormCollectUserDetails?: boolean;

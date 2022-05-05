@@ -2,7 +2,7 @@ import * as Types from '../global-types';
 
 import { gql } from '@apollo/client';
 import * as Apollo from '@apollo/client';
-const defaultOptions = {};
+const defaultOptions = {} as const;
 export type ContentGroupsQueryVariables = Types.Exact<{
   query?: Types.InputMaybe<Types.Scalars['String']>;
   includeExpiredCertificates?: Types.InputMaybe<Types.Scalars['Boolean']>;
