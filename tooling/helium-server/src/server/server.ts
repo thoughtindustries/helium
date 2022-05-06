@@ -5,9 +5,6 @@ import fetchUserAndAppearance from './../utilities/fetch-user-and-appearance';
 import initPageContext from './../utilities/init-page-context';
 import fetch from 'isomorphic-unfetch';
 import expressPlayground from 'graphql-playground-middleware-express';
-import { builder } from '@builder.io/react';
-
-builder.init('55898168a2e34c64810d0395eb1f500a');
 
 const isProduction = process.env.NODE_ENV === 'production';
 const instanceName = process.env.INSTANCE || '';
