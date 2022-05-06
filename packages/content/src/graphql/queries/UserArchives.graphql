@@ -1,19 +1,7 @@
-query Archives {
+query UserArchives {
   UserArchives {
+    __typename
     id
-    company {
-      id
-      name
-      subdomain
-      catalogBlock {
-        id
-      }
-      organization {
-        id
-        name
-      }
-      catalogVisibilityEmails
-    }
     user
     resource
     resourceType

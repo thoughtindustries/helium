@@ -1,37 +1,9 @@
-query Bookmarks {
+query UserBookmarks {
   UserBookmarks {
+    __typename
     id
     name
-    user {
-      ...UserFragment
-    }
-    deleted
-    bookmarks {
-      id
-      note
-      topic {
-        id
-        originalId
-        title
-        type
-        quizQuestions
-        preTextBlock
-        postTextBlock
-        updatedAt
-        resultsMessage
-        passMessage
-        failMessage
-        questionSkipEnabled
-      }
-      topicId
-      course {
-        ...CourseFragment
-      }
-      createdAt
-      deleted
-    }
     defaultFolder
     bookmarkCount
-    externalResourceId
   }
 }
