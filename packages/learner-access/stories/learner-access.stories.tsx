@@ -107,7 +107,12 @@ Base.parameters = {
           data: {
             UserContentItems: [mockContent]
           }
-        }
+        },
+        newData: () => ({
+          data: {
+            UserContentItems: [mockContent]
+          }
+        })
       },
       {
         request: {
