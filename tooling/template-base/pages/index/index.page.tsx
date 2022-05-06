@@ -1,4 +1,4 @@
-import { Builder, BuilderComponent, builder, withChildren } from '@builder.io/react';
+import { Builder, BuilderComponent, builder, withChildren, withBuilder } from '@builder.io/react';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import Layout from '../../components/Layout';
@@ -28,24 +28,26 @@ const FeaturedContentWithChildren = withChildren(FeaturedContent);
 
 builder.init('55898168a2e34c64810d0395eb1f500a');
 
-Builder.registerComponent(FeaturedContentWithChildren, {
-  name: 'Featured Content',
-  defaultChildren: [
-    {
-      '@type': '@builder.io/sdk:Element',
-      component: {
-        name: 'ContentTileStandardLayout'
-      }
-    }
-  ]
-});
-
 Builder.registerComponent(Header, {
   name: 'Header',
   inputs: [
     {
       name: 'title',
       type: 'string'
+    }
+  ]
+});
+
+const FeaturedItemsWithChildren = withChildren(FeaturedItems);
+
+Builder.registerComponent(FeaturedItemsWithChildren, {
+  name: 'Featured Items',
+  defaultChildren: [
+    {
+      '@type': '@builder.io/sdk:Element',
+      component: {
+        name: 'Featured Content'
+      }
     }
   ]
 });
@@ -93,19 +95,13 @@ Builder.registerComponent(Hero, {
 });
 
 function Page({ appearance, currentUser }: { appearance: Appearance; currentUser: CurrentUser }) {
-  return <BuilderComponent model="page" />;
-  // return (
-  //   <Layout appearance={appearance} currentUser={currentUser}>
-  //     <div className="flex flex-col items-start space-y-2">
-  //       <Hero
-  //         title="Welcome to Helium!"
-  //         subtitle="This page is completely rendered in React. Go ahead and edit it at pages/index/index.page.jsx"
-  //         asset="https://d36ai2hkxl16us.cloudfront.net/thoughtindustries/image/upload/a_exif,c_fill,w_1500/v1426249885/sq5qv0uebvfywkxbw3cc.jpg"
-  //       />
-  //       <FeaturedItems />
-  //     </div>
-  //   </Layout>
-  // );
+  return (
+    <Layout appearance={appearance} currentUser={currentUser}>
+      <div className="flex flex-col items-start space-y-2">
+        <BuilderComponent model="page" />
+      </div>
+    </Layout>
+  );
 }
 
 function FeaturedItems() {
@@ -119,7 +115,7 @@ function FeaturedItems() {
   const { data, loading, error } = useCatalogQuery({
     variables: {
       query:
-        'courseGroup:5ce1f5cf-4a4e-5e43-a7d7-8b4963b44d63 OR courseGroup:95897223-339b-529b-bc09-03e83fdb0377 OR courseGroup:8c99a587-f64f-5655-9a16-5f016a3a8321 OR courseGroup:15f4c8e7-41f8-517c-832d-d20e7295717e'
+        'courseGroup:4e3a0be6-3b5a-4f3e-8e57-e52c558603b2 OR courseGroup:11ad125b-9c17-4894-be31-fb2beeb06e67'
     }
   });
 
