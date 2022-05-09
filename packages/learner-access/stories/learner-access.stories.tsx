@@ -4,10 +4,10 @@ import {} from '../src';
 import { LearnerAccess, LearnerAccessProps } from '../src';
 import {
   UserContentItemsDocument,
-  ArchivesDocument,
-  CertificatesDocument,
-  BookmarksDocument,
-  WaitlistDocument,
+  UserArchivesDocument,
+  UserCertificatesDocument,
+  UserBookmarksDocument,
+  UserWaitlistDocument,
   GlobalTypes
 } from '@thoughtindustries/content';
 export default {
@@ -82,6 +82,34 @@ const mockContent = {
   title: 'Test title',
   timeZone: 'America/Los_Angeles'
 };
+const mockCertificateData = {
+  id: 'uuid',
+  resourceId: 'uuid',
+  expirationDate: new Date(2020, 0, 1).toISOString(),
+  isExpired: false,
+  externalResourceTitle: 'externalResourceTitle',
+  url: 'https://www.google.com',
+  source: 'source',
+  contentItem: {
+    asset:
+      'https://d36ai2hkxl16us.cloudfront.net/thoughtindustries/image/upload/a_exif,c_fill,w_800/v1416438573/placeholder_kcjvxm.jpg',
+    authors: ['Test Author'],
+    availabilityStatus: '',
+    contentTypeLabel: 'Course',
+    courseEndDate: new Date(2020, 1, 1).toISOString(),
+    courseGracePeriodEnded: false,
+    coursePresold: false,
+    courseStartDate: new Date(2020, 0, 1).toISOString(),
+    currentUserMayReschedule: false,
+    description: 'description',
+    id: 'uuid',
+    kind: GlobalTypes.ContentKind.Course,
+    slug: 'test-content',
+    source: 'Test source',
+    title: 'Test title',
+    timeZone: 'America/Los_Angeles'
+  }
+};
 // use the options to bypass mocking full payload of responses
 const mockedApolloProviderOptions = {
   watchQuery: { fetchPolicy: 'no-cache' as const },
@@ -125,11 +153,7 @@ Base.parameters = {
         },
         result: {
           data: {
-            availableCoursesCount: 1200,
-            startedCoursesCount: 5,
-            completedCoursesCount: 10,
-            certificatesCount: 3,
-            collaborationsCount: 1
+            UserContentItems: [mockContent]
           }
         }
       },
@@ -144,11 +168,7 @@ Base.parameters = {
         },
         result: {
           data: {
-            availableCoursesCount: 1200,
-            startedCoursesCount: 5,
-            completedCoursesCount: 10,
-            certificatesCount: 3,
-            collaborationsCount: 1
+            UserContentItems: [mockContent]
           }
         }
       },
@@ -174,37 +194,24 @@ Base.parameters = {
         },
         result: {
           data: {
-            availableCoursesCount: 1200
+            UserContentItems: [mockContent]
           }
         }
       },
       {
         request: {
-          query: ArchivesDocument,
+          query: UserArchivesDocument,
           variables: {}
         },
         result: {
           data: {
             id: 1,
-            company: {
-              id: 1,
-              name: '',
-              subdomain: '',
-              catalogBlock: {
-                id: 1
-              },
-              organization: {
-                id: 1,
-                name: ''
-              },
-              catalogVisibilityEmails: 'foo@bar.com'
-            },
+            name: 'name',
             user: 1,
             resource: 1,
             resourceTye: 'Course',
             status: 'completed',
             archivedAt: Date,
-            name: 'this course',
             reinstatable: true,
             waitlistActive: false
           }
@@ -212,66 +219,52 @@ Base.parameters = {
       },
       {
         request: {
-          query: CertificatesDocument,
+          query: UserCertificatesDocument,
           variables: {
-            query: ''
-          },
-          includeExpiredCertificates: defaultProps.displayExpiredCertificateInformation
+            query: defaultProps.query,
+            includeExpiredCertificates: defaultProps.displayExpiredCertificateInformation
+          }
         },
         result: {
           data: {
-            url: 'https://www.google.com/',
-            title: 'My certificate',
-            isExternalCertificate: true,
-            expirationDate: Date
+            ...mockCertificateData
           }
-        }
+        },
+        newData: () => ({
+          data: {
+            ...mockCertificateData
+          }
+        })
       },
       {
         request: {
-          query: WaitlistDocument,
-          variables: {
-            query: ''
-          },
-          includeExpiredCertificates: defaultProps.displayExpiredCertificateInformation
+          query: UserWaitlistDocument,
+          variables: {}
         },
         result: {
           data: {
-            id: 1,
-            slug: '',
-            contentTypeLabel: '',
+            id: 'uuid',
+            contentTypeLabel: 'waitlist',
             title: 'title',
-            asset: 'https://www.google.com/',
-            description: '',
-            source: '',
-            displayCourse: 1,
-            displayCourseSlug: '',
-            embeddedEnabled: false,
-            courseStartDate: Date,
-            coursePresold: false,
-            courseGracePeriodEnded: false,
-            currentUserUnmetCoursePrerequisites: [1, 2, 3],
-            currentUserUnmetLearningPathPrerequisites: [1, 2, 3],
-            kind: GlobalTypes.ContentKind,
-            authors: ['first auther', 'second aurhter', 'third aurhter'],
-            rating: 60,
-            timeZone: '2019-08-24T23:11:02.376Z',
-            publishDate: Date,
-            canAddToQueue: true,
-            bulkPurchasingEnabled: false
+            kind: GlobalTypes.ContentKind.Course,
+            slug: 'test-content',
+            displayCourse: 'my course',
+            displayCourseSlug: 'test course'
           }
         }
       },
       {
         request: {
-          query: BookmarksDocument,
-          variables: {
-            query: ''
-          },
-          includeExpiredCertificates: defaultProps.displayExpiredCertificateInformation
+          query: UserBookmarksDocument,
+          variables: {}
         },
         result: {
-          data: {}
+          data: {
+            id: 'uuid',
+            name: 'name',
+            defaultFolder: 'defaultFolder',
+            bookmarkCount: 3
+          }
         }
       }
     ]

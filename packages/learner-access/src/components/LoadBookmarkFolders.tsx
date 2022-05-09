@@ -1,8 +1,8 @@
 import React from 'react';
-import { useBookmarksQuery, LoadingDots } from '@thoughtindustries/content';
+import { useUserBookmarksQuery, LoadingDots } from '@thoughtindustries/content';
 
 const LoadBookmarks = (): JSX.Element => {
-  const { data, loading, error }: any = useBookmarksQuery({
+  const { data, loading, error }: any = useUserBookmarksQuery({
     variables: {}
   });
   console.log('data from child', data);

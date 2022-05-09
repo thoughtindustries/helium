@@ -17,5 +17,4 @@ export interface LoadedComponentProps {
   query?: string;
   kind?: string[];
   sort?: string;
-  displayExpiredCertificateInformation?: boolean;
 }

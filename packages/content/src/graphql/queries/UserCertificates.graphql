@@ -22,5 +22,6 @@ query UserCertificates($query: String, $includeExpiredCertificates: Boolean) {
       contentTypeLabel
       title
       timeZone
+    }
   }
 }

@@ -3,12 +3,12 @@ import * as Types from '../global-types';
 import { gql } from '@apollo/client';
 import * as Apollo from '@apollo/client';
 const defaultOptions = {} as const;
-export type ArchivesQueryVariables = Types.Exact<{ [key: string]: never }>;
+export type UserArchivesQueryVariables = Types.Exact<{ [key: string]: never }>;
 
-export type ArchivesQuery = {
+export type UserArchivesQuery = {
   __typename?: 'Query';
   UserArchives?: Array<{
-    __typename?: 'ArchivedContent';
+    __typename: 'ArchivedContent';
     id: string;
     user?: string;
     resource?: string;
@@ -18,35 +18,14 @@ export type ArchivesQuery = {
     name?: string;
     reinstatable: boolean;
     waitlistActive: boolean;
-    company?: {
-      __typename?: 'Company';
-      id: string;
-      name?: string;
-      subdomain?: string;
-      catalogVisibilityEmails?: Array<string>;
-      catalogBlock?: { __typename?: 'Block'; id: string };
-      organization?: { __typename?: 'Organization'; id: string; name?: string };
-    };
   }>;
 };
 
-export const ArchivesDocument = gql`
-  query Archives {
+export const UserArchivesDocument = gql`
+  query UserArchives {
     UserArchives {
+      __typename
       id
-      company {
-        id
-        name
-        subdomain
-        catalogBlock {
-          id
-        }
-        organization {
-          id
-          name
-        }
-        catalogVisibilityEmails
-      }
       user
       resource
       resourceType
@@ -60,32 +39,41 @@ export const ArchivesDocument = gql`
 `;
 
 /**
- * __useArchivesQuery__
+ * __useUserArchivesQuery__
  *
- * To run a query within a React component, call `useArchivesQuery` and pass it any options that fit your needs.
- * When your component renders, `useArchivesQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * To run a query within a React component, call `useUserArchivesQuery` and pass it any options that fit your needs.
+ * When your component renders, `useUserArchivesQuery` returns an object from Apollo Client that contains loading, error, and data properties
  * you can use to render your UI.
  *
  * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
  *
  * @example
- * const { data, loading, error } = useArchivesQuery({
+ * const { data, loading, error } = useUserArchivesQuery({
  *   variables: {
  *   },
  * });
  */
-export function useArchivesQuery(
-  baseOptions?: Apollo.QueryHookOptions<ArchivesQuery, ArchivesQueryVariables>
+export function useUserArchivesQuery(
+  baseOptions?: Apollo.QueryHookOptions<UserArchivesQuery, UserArchivesQueryVariables>
 ) {
   const options = { ...defaultOptions, ...baseOptions };
-  return Apollo.useQuery<ArchivesQuery, ArchivesQueryVariables>(ArchivesDocument, options);
+  return Apollo.useQuery<UserArchivesQuery, UserArchivesQueryVariables>(
+    UserArchivesDocument,
+    options
+  );
 }
-export function useArchivesLazyQuery(
-  baseOptions?: Apollo.LazyQueryHookOptions<ArchivesQuery, ArchivesQueryVariables>
+export function useUserArchivesLazyQuery(
+  baseOptions?: Apollo.LazyQueryHookOptions<UserArchivesQuery, UserArchivesQueryVariables>
 ) {
   const options = { ...defaultOptions, ...baseOptions };
-  return Apollo.useLazyQuery<ArchivesQuery, ArchivesQueryVariables>(ArchivesDocument, options);
+  return Apollo.useLazyQuery<UserArchivesQuery, UserArchivesQueryVariables>(
+    UserArchivesDocument,
+    options
+  );
 }
-export type ArchivesQueryHookResult = ReturnType<typeof useArchivesQuery>;
-export type ArchivesLazyQueryHookResult = ReturnType<typeof useArchivesLazyQuery>;
-export type ArchivesQueryResult = Apollo.QueryResult<ArchivesQuery, ArchivesQueryVariables>;
+export type UserArchivesQueryHookResult = ReturnType<typeof useUserArchivesQuery>;
+export type UserArchivesLazyQueryHookResult = ReturnType<typeof useUserArchivesLazyQuery>;
+export type UserArchivesQueryResult = Apollo.QueryResult<
+  UserArchivesQuery,
+  UserArchivesQueryVariables
+>;

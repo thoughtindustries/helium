@@ -1,8 +1,8 @@
 import React from 'react';
-import { useWaitlistQuery, LoadingDots } from '@thoughtindustries/content';
+import { useUserWaitlistQuery, LoadingDots } from '@thoughtindustries/content';
 
 const LoadWaitlist = (): JSX.Element => {
-  const { data, loading, error }: any = useWaitlistQuery({
+  const { data, loading, error }: any = useUserWaitlistQuery({
     variables: {}
   });
   console.log('data from child', data);

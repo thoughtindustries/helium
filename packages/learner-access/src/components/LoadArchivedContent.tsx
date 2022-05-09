@@ -1,8 +1,8 @@
 import React from 'react';
-import { useArchivesQuery, LoadingDots } from '@thoughtindustries/content';
+import { useUserArchivesQuery, LoadingDots } from '@thoughtindustries/content';
 
 const LoadArchivedContent = (): JSX.Element => {
-  const { data, loading, error }: any = useArchivesQuery({
+  const { data, loading, error }: any = useUserArchivesQuery({
     variables: {}
   });
   console.log('data from child', data);

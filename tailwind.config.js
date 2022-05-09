@@ -63,7 +63,7 @@ module.exports = {
         'black-light': '#333333',
         'gray-light': ' #cbcbcb',
         'gray-lightest': '#e9e9e9',
-         sky: colors.sky
+        sky: colors.sky
       },
       fontFamily: {
         primary: ['Sintony', 'Nunito', 'sans-serif'],

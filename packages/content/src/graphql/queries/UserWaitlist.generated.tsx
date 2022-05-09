@@ -3,93 +3,73 @@ import * as Types from '../global-types';
 import { gql } from '@apollo/client';
 import * as Apollo from '@apollo/client';
 const defaultOptions = {} as const;
-export type WaitlistQueryVariables = Types.Exact<{ [key: string]: never }>;
+export type UserWaitlistQueryVariables = Types.Exact<{ [key: string]: never }>;
 
-export type WaitlistQuery = {
+export type UserWaitlistQuery = {
   __typename?: 'Query';
   UserWaitlist?: Array<{
-    __typename?: 'ContentItem';
+    __typename: 'ContentItem';
     id: string;
-    slug?: string;
     contentTypeLabel?: string;
     title?: string;
-    asset?: string;
-    description?: string;
-    source?: string;
+    kind?: Types.ContentKind;
+    slug?: string;
     displayCourse?: string;
     displayCourseSlug?: string;
-    embeddedEnabled?: boolean;
-    courseStartDate?: string;
-    coursePresold?: boolean;
-    courseGracePeriodEnded?: boolean;
-    currentUserUnmetCoursePrerequisites?: Array<string>;
-    currentUserUnmetLearningPathPrerequisites?: Array<string>;
-    kind?: Types.ContentKind;
-    authors?: Array<string>;
-    rating?: number;
-    timeZone?: string;
-    publishDate?: string;
-    canAddToQueue?: boolean;
-    bulkPurchasingEnabled?: boolean;
   }>;
 };
 
-export const WaitlistDocument = gql`
-  query Waitlist {
+export const UserWaitlistDocument = gql`
+  query UserWaitlist {
     UserWaitlist {
+      __typename
       id
-      slug
       contentTypeLabel
       title
-      asset
-      description
-      source
+      kind
+      slug
       displayCourse
       displayCourseSlug
-      embeddedEnabled
-      courseStartDate
-      coursePresold
-      courseGracePeriodEnded
-      currentUserUnmetCoursePrerequisites
-      currentUserUnmetLearningPathPrerequisites
-      kind
-      authors
-      rating
-      timeZone
-      publishDate
-      canAddToQueue
-      bulkPurchasingEnabled
     }
   }
 `;
 
 /**
- * __useWaitlistQuery__
+ * __useUserWaitlistQuery__
  *
- * To run a query within a React component, call `useWaitlistQuery` and pass it any options that fit your needs.
- * When your component renders, `useWaitlistQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * To run a query within a React component, call `useUserWaitlistQuery` and pass it any options that fit your needs.
+ * When your component renders, `useUserWaitlistQuery` returns an object from Apollo Client that contains loading, error, and data properties
  * you can use to render your UI.
  *
  * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
  *
  * @example
- * const { data, loading, error } = useWaitlistQuery({
+ * const { data, loading, error } = useUserWaitlistQuery({
  *   variables: {
  *   },
  * });
  */
-export function useWaitlistQuery(
-  baseOptions?: Apollo.QueryHookOptions<WaitlistQuery, WaitlistQueryVariables>
+export function useUserWaitlistQuery(
+  baseOptions?: Apollo.QueryHookOptions<UserWaitlistQuery, UserWaitlistQueryVariables>
 ) {
   const options = { ...defaultOptions, ...baseOptions };
-  return Apollo.useQuery<WaitlistQuery, WaitlistQueryVariables>(WaitlistDocument, options);
+  return Apollo.useQuery<UserWaitlistQuery, UserWaitlistQueryVariables>(
+    UserWaitlistDocument,
+    options
+  );
 }
-export function useWaitlistLazyQuery(
-  baseOptions?: Apollo.LazyQueryHookOptions<WaitlistQuery, WaitlistQueryVariables>
+export function useUserWaitlistLazyQuery(
+  baseOptions?: Apollo.LazyQueryHookOptions<UserWaitlistQuery, UserWaitlistQueryVariables>
 ) {
   const options = { ...defaultOptions, ...baseOptions };
-  return Apollo.useLazyQuery<WaitlistQuery, WaitlistQueryVariables>(WaitlistDocument, options);
+  return Apollo.useLazyQuery<UserWaitlistQuery, UserWaitlistQueryVariables>(
+    UserWaitlistDocument,
+    options
+  );
 }
-export type WaitlistQueryHookResult = ReturnType<typeof useWaitlistQuery>;
-export type WaitlistLazyQueryHookResult = ReturnType<typeof useWaitlistLazyQuery>;
-export type WaitlistQueryResult = Apollo.QueryResult<WaitlistQuery, WaitlistQueryVariables>;
+export type UserWaitlistQueryHookResult = ReturnType<typeof useUserWaitlistQuery>;
+export type UserWaitlistLazyQueryHookResult = ReturnType<typeof useUserWaitlistLazyQuery>;
+export type UserWaitlistQueryResult = Apollo.QueryResult<
+  UserWaitlistQuery,
+  UserWaitlistQueryVariables
+>;
