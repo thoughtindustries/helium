@@ -44,7 +44,7 @@ module.exports = {
         secondary: '#111111',
         link: '#a9a9a9',
         hover: '#236c96',
-        activeTab: {
+        active: {
           blue: '#311ac9'
         },
         'accent-highlight': '#111111',
@@ -54,6 +54,10 @@ module.exports = {
           80: '#cfcfcf',
           90: '#e7e7e7'
         },
+        'accent-colorized': {
+          cyan: '#1c83ae',
+          lime: '#8ad56e'
+        },
         'accent-contrast': '#ffffff',
         'accent-contrast-tinted-background': '#b3b3b3',
         'accent-hover': '#2b2b2b',
@@ -61,6 +65,7 @@ module.exports = {
         'secondary-contrast': '#ffffff',
         'link-hover': '#767676',
         'black-light': '#333333',
+        'gray-mid': '#656565',
         'gray-light': ' #cbcbcb',
         'gray-lightest': '#e9e9e9',
         sky: colors.sky
@@ -72,6 +77,10 @@ module.exports = {
       },
       outline: {
         blue: '1px solid #4d90fe'
+      },
+      transitionProperty: {
+        width: 'width',
+        height: 'height'
       }
     }
   },

@@ -128,7 +128,8 @@ Base.parameters = {
           query: UserContentItemsDocument,
           variables: {
             query: '',
-            kind: ['courseGroup', 'article', 'video', 'shareableContentObject', 'xApiObject']
+            kind: ['courseGroup', 'article', 'video', 'shareableContentObject', 'xApiObject'],
+            sort: ''
           }
         },
         result: {
@@ -148,7 +149,7 @@ Base.parameters = {
           variables: {
             query: '',
             kind: ['webinar', 'webinarCourse', 'inPersonEvent', 'inPersonEventCourse'],
-            sort: null
+            sort: 'displayDate'
           }
         },
         result: {
@@ -163,7 +164,7 @@ Base.parameters = {
           variables: {
             query: '',
             kind: ['learningPath'],
-            sort: null
+            sort: ''
           }
         },
         result: {
@@ -189,7 +190,7 @@ Base.parameters = {
               'inPersonEvent',
               'inPersonEventCourse'
             ],
-            sort: null
+            sort: ''
           }
         },
         result: {

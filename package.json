@@ -42,7 +42,7 @@
     "typescript": "^4.4.3"
   },
   "scripts": {
-    "storybook": "start-storybook -p 6003",
+    "storybook": "start-storybook -p 6009",
     "build-storybook": "build-storybook",
     "build-storybook-ci": "build-storybook -o docs-build",
     "test": "jest",

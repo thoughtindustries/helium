@@ -1,5 +1,6 @@
 import React from 'react';
 import { LearnerAccessProps } from '../types';
+import { UploadIcon } from '../Assets/Icons';
 import { useUserCertificatesQuery, LoadingDots } from '@thoughtindustries/content';
 
 const LoadCertificates = ({
@@ -12,30 +13,28 @@ const LoadCertificates = ({
       includeExpiredCertificates: displayExpiredCertificateInformation
     }
   });
+
   console.log('data from child', data);
   if (error) return error;
   return (
     <>
-      <div className="inline-block w-full h-auto">
-        <div className=" mr-0 mb-0 -mt-5">
-          {loading ? (
-            <LoadingDots />
-          ) : (
-            <div className="text-center border-solid border-b text-base py-3 px-4 text-gray-400 border-gray-light">
-              <div className="dashboard-access-list-item">
-                <div className="row">
-                  <div className="medium-12 columns">
-                    <button className="btn btn--primary btn--medium" data-ember-action="23973">
-                      <i className="icon-upload" aria-label="upload"></i>
-                      <span id="i18n-196">Upload Third-Party Certificate</span>
-                    </button>
-                  </div>
-                </div>
-              </div>
+      {loading ? (
+        <LoadingDots />
+      ) : (
+        <div className="border-solid text-base py-4 px-4 text-gray-400 border-gray-light">
+          <div className="my-0 mx-auto max-w-full w-full">
+            <div className="px-4">
+              <button
+                className="bg-gray-100 rounded-sm cursor-pointer inline-block font-normal text-sm mx-0 mt-0 mb-4 py-2 px-5 relative text-center no-underline bg-grey-light duration-200 transition ease-in-out bg-active-blue border-active-blue text-white leading-5"
+                data-ember-action="23973"
+              >
+                <UploadIcon />
+                <span style={{ marginLeft: '1rem' }}>Upload Third-Party Certificate</span>
+              </button>
             </div>
-          )}
+          </div>
         </div>
-      </div>
+      )}
     </>
   );
 };

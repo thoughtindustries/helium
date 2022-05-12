@@ -5,7 +5,11 @@ import {
   LoadArchivedContent,
   LoadWaitlist,
   LoadBookmarks,
-  LoadCertificates
+  LoadCertificates,
+  LoadMyLearningItems,
+  LoadEvents,
+  LoadLearningPaths,
+  LoadCompletedItems
 } from './components';
 
 const LearnerAccess = ({
@@ -20,28 +24,17 @@ const LearnerAccess = ({
 
   interface ob {
     item: string;
-    id: string;
   }
 
   const [learnerAccessData, setLearnerAccessData] = useState<ob[]>([
-    {
-      item: 'My learning',
-      id: 'current'
-    },
-    {
-      item: 'Events',
-      id: 'events'
-    },
-    {
-      item: 'Learning Paths',
-      id: 'learningPath'
-    },
-    {
-      item: 'Completed',
-      id: 'completed'
-    },
-    { item: 'Archived', id: 'archived' },
-    { item: 'Certifications', id: 'certificate' }
+    { item: 'My learning' },
+    { item: 'Events' },
+    { item: 'Learning Paths' },
+    { item: 'Completed' },
+    { item: 'Archived' },
+    { item: 'Certifications' },
+    { item: 'Bookmarked' },
+    { item: 'Waitlisted' }
   ]);
 
   const handleChange = (index: number, currentTab: string) => {
@@ -82,10 +75,10 @@ const LearnerAccess = ({
   );
 
   const styleLi = {
-    className: `${classNames} border-t-2 border-transparent border-solid inline-block text-sm py-4 px-8 relative`
+    className: `${classNames} border-t-2 border-transparent border-solid inline-block text-[14px] py-4 px-6 relative`
   };
   const selectedStyleLi = {
-    className: `${styleLi.className} bg-white border-activeTab-blue`
+    className: `${styleLi.className} bg-white border-active-blue`
   };
 
   const styleSpan = {
@@ -96,7 +89,7 @@ const LearnerAccess = ({
   };
   const dashboardAccessTabs = (
     <ul
-      className="border-solid border-b border-gray-light bg-gradient-to-b from-white to-gray-lightest list-none m-0 p-0"
+      className="border-solid border-gray-light bg-gradient-to-b from-white to-gray-lightest list-none m-0 p-0"
       role="tablist"
     >
       {learnerAccessData.map((obj, index) => {
@@ -107,7 +100,7 @@ const LearnerAccess = ({
           <li key={index} {...activeClassLi}>
             <button
               onClick={() => {
-                handleChange(index, obj.id);
+                handleChange(index, obj.item);
               }}
               className="btn bg-none rounded-none h-auto p-0 shadow-none"
               role="tab"
@@ -129,24 +122,25 @@ const LearnerAccess = ({
     switch (activeTab) {
       case 'My learning':
         return (
-          <LoadContentItems
+          <LoadMyLearningItems
             query={query}
             kind={['courseGroup', 'article', 'video', 'shareableContentObject', 'xApiObject']}
+            sort=""
           />
         );
       case 'Events':
         return (
-          <LoadContentItems
+          <LoadEvents
             query={query}
             kind={['webinar', 'webinarCourse', 'inPersonEvent', 'inPersonEventCourse']}
             sort="displayDate"
           />
         );
-      case 'LearningPath':
-        return <LoadContentItems query={query} kind={['learningPath']} />;
+      case 'Learning Paths':
+        return <LoadLearningPaths query={query} kind={['learningPath']} sort="" />;
       case 'Completed':
         return (
-          <LoadContentItems
+          <LoadCompletedItems
             query={query}
             kind={[
               'learningPath',
@@ -160,11 +154,16 @@ const LearnerAccess = ({
               'inPersonEvent',
               'inPersonEventCourse'
             ]}
+            sort=""
           />
         );
       case 'Archived':
         return <LoadArchivedContent />;
-      case 'certificate':
+      case 'Bookmarked':
+        return <LoadBookmarks />;
+      case 'Waitlisted':
+        return <LoadWaitlist />;
+      case 'Certifications':
         return (
           <LoadCertificates
             query={query}
@@ -176,21 +175,22 @@ const LearnerAccess = ({
           <LoadContentItems
             query={query}
             kind={['courseGroup', 'article', 'video', 'shareableContentObject', 'xApiObject']}
+            sort=""
           />
         );
     }
   };
   return allowCollapse ? (
-    <div className="my-0 -mx-4 max-w-none w-auto py-4 px-8 text-slate-700 text-black-light">
-      <div className="border border-solid bg-gray-light">
+    <div className="my-0 -mx-4 max-w-none w-auto py-4 px-8 text-slate-700 text-black-light text-sm">
+      <div className="border border-solid">
         {collapsed ? activityCollapsed : activityExpanded}
         {!collapsed ? dashboardAccessTabs : ''}
         {tabContent()}
       </div>
     </div>
   ) : (
-    <div className="my-0 -mx-4 max-w-none w-auto py-4 px-8 text-slate-700 text-black-light">
-      <div className="border border-solid bg-gray-light">
+    <div className="my-0 -mx-4 max-w-none w-auto py-4 px-8 text-slate-700 text-black-light text-sm">
+      <div className="border border-solid">
         {dashboardAccessTabs}
         {tabContent()}
       </div>

@@ -1,0 +1,21 @@
+2022-05-11T19:30:58.240264000 0.022526s notice: Recursively removing directory /Users/jamal.abdul-majid/Documents/Code/helium/rethinkdb_data/tmp
+2022-05-11T19:30:58.241935000 0.024197s notice: Initializing directory /Users/jamal.abdul-majid/Documents/Code/helium/rethinkdb_data
+2022-05-11T19:30:58.242137000 0.024396s info: Creating a default database for your convenience. (This is because you ran 'rethinkdb' without 'create', 'serve', or '--join', and the directory '/Users/jamal.abdul-majid/Documents/Code/helium/rethinkdb_data' did not already exist or is empty.)
+2022-05-11T19:30:58.242194000 0.024452s notice: Running rethinkdb 2.3.4 (CLANG 7.3.0 (clang-703.0.29))...
+2022-05-11T19:30:58.262853000 0.045083s notice: Running on Darwin 21.4.0 x86_64
+2022-05-11T19:30:58.262924000 0.045153s notice: Loading data from directory /Users/jamal.abdul-majid/Documents/Code/helium/rethinkdb_data
+2022-05-11T19:30:58.445149000 0.227119s info: Automatically using cache size of 10733 MB
+2022-05-11T19:30:58.445814000 0.227783s notice: Listening for intracluster connections on port 29015
+2022-05-11T19:30:58.447651000 0.229617s notice: Listening for client driver connections on port 28015
+2022-05-11T19:30:58.447756000 0.229722s notice: Listening for administrative HTTP connections on port 8080
+2022-05-11T19:30:58.447760000 0.229726s notice: Listening on cluster addresses: 127.0.0.1, ::1
+2022-05-11T19:30:58.447764000 0.229730s notice: Listening on driver addresses: 127.0.0.1, ::1
+2022-05-11T19:30:58.447764001 0.229730s notice: Listening on http addresses: 127.0.0.1, ::1
+2022-05-11T19:30:58.447767000 0.229733s notice: To fully expose RethinkDB on the network, bind to all addresses by running rethinkdb with the `--bind all` command line option.
+2022-05-11T19:30:58.447770000 0.229736s notice: Server ready, "JamalAbMajidMBP_attlocal_net_s0k" 30d39d03-be5c-4023-bfbf-fb05e8c9b34f
+2022-05-11T19:30:58.686260000 0.467898s notice: A newer version of the RethinkDB server is available: 2.4.0. You can read the changelog at <https://github.com/rethinkdb/rethinkdb/releases>.
+2022-05-11T19:33:03.432290000 125.190675s notice: Server got SIGINT from pid 1886, uid 503; shutting down...
+2022-05-11T19:33:03.432395000 125.190780s notice: Shutting down client connections...
+2022-05-11T19:33:03.432562000 125.190946s notice: All client connections closed.
+2022-05-11T19:33:03.432570000 125.190954s notice: Shutting down storage engine... (This may take a while if you had a lot of unflushed data in the writeback cache.)
+2022-05-11T19:33:03.432956000 125.191340s notice: Storage engine shut down.
