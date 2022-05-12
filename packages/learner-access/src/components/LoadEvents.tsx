@@ -1,8 +1,8 @@
 import React from 'react';
-import { LearnerAccessProps } from '../types';
+import { LoadedComponentProps } from '../types';
 import { useUserContentItemsQuery, LoadingDots } from '@thoughtindustries/content';
 
-const LoadCertificates = ({ query, kind, sort }: LearnerAccessProps): JSX.Element => {
+const LoadCertificates = ({ query, kind, sort }: LoadedComponentProps): JSX.Element => {
   const { data, loading, error }: any = useUserContentItemsQuery({
     variables: {
       query,

@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
-import { LearnerAccessProps } from '../types';
+import { LoadedComponentProps } from '../types';
 import { DownArrowIcon, RightArrowtIcon } from '../Assets/Icons';
 import { useUserContentItemsLazyQuery, LoadingDots } from '@thoughtindustries/content';
 
-const LoadCertificates = ({ query, kind, sort }: LearnerAccessProps): JSX.Element => {
+const LoadCertificates = ({ query, kind, sort }: LoadedComponentProps): JSX.Element => {
   const [showContent, setShowContent] = useState<boolean>(false);
   const { data, loading, error }: any = useUserContentItemsLazyQuery({
     variables: {
