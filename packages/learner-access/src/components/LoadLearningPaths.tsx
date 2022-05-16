@@ -20,7 +20,7 @@ const LoadCertificates = ({ query, kind, sort }: LoadedComponentProps): JSX.Elem
     <div className="grid grid-rows-2 mx-0">
       <div className=" archive mt-2 row-end-4 relative text-black-light">
         <div className="column ">
-          <button className="bg-[#f8fafc] border-solid border rounded-sm cursor-pointer inline-block font-normal text-xs m-0 py-[0.15rem] px-4 relative text-center no-underline ease-in-out border-gray-light font-sans transition duration-200 leading-5">
+          <button className="bg-white-mid border-solid border rounded-sm cursor-pointer inline-block font-normal text-xs m-0 py-[0.15rem] px-4 relative text-center no-underline ease-in-out border-gray-light font-sans transition duration-200 leading-5">
             <span>Archive</span>
           </button>
         </div>

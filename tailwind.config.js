@@ -65,6 +65,7 @@ module.exports = {
         'secondary-contrast': '#ffffff',
         'link-hover': '#767676',
         'black-light': '#333333',
+        'white-mid': '#f8f8f8',
         'gray-mid': '#656565',
         'gray-light': ' #cbcbcb',
         'gray-lightest': '#e9e9e9',

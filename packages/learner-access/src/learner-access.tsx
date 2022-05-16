@@ -20,28 +20,37 @@ const LearnerAccess = ({
 }: LearnerAccessProps): JSX.Element => {
   const [selected, setSelected] = useState<number>(0);
   const [collapsed, setCollapsed] = useState<boolean>(true);
-  const [activeTab, setActiveTab] = useState<string>('');
+  const [activeTab, setActiveTab] = useState<string>('My learning');
+
+  const [mylearningCount, setMylearningCount] = useState<number>(0);
+  const [learningpathsCount, setLearningpathsCount] = useState<number>(0);
+  const [eventsCount, setEventsCount] = useState<number>(0);
+  const [completedCount, setCompletedCount] = useState<number>(0);
+  const [archivesCount, setArchivesCount] = useState<number>(0);
+  const [waitlistedCount, setWaitlistedCount] = useState<number>(0);
+  const [certificationsCount, setCertificationsCount] = useState<number>(0);
 
   interface ob {
     item: string;
+    count?: number;
   }
 
-  const [learnerAccessData, setLearnerAccessData] = useState<ob[]>([
-    { item: 'My learning' },
-    { item: 'Events' },
-    { item: 'Learning Paths' },
-    { item: 'Completed' },
-    { item: 'Archived' },
-    { item: 'Certifications' },
+  const learnerAccessData = [
+    { item: 'My learning', count: mylearningCount },
+    { item: 'Events', count: eventsCount },
+    { item: 'Learning Paths', count: learningpathsCount },
+    { item: 'Completed', count: completedCount },
+    { item: 'Archived', count: archivesCount },
+    { item: 'Certifications', count: certificationsCount },
     { item: 'Bookmarked' },
-    { item: 'Waitlisted' }
-  ]);
+    { item: 'Waitlisted', count: waitlistedCount }
+  ];
 
   const handleChange = (index: number, currentTab: string) => {
     setSelected(index);
     setActiveTab(currentTab);
   };
-
+  console.log('my learning coujnt', mylearningCount);
   const activityCollapsed = (
     <div className="border-b border-solid leading-5 p-4 bg-gradient-to-t from-white to-gray-lightest">
       <button
@@ -108,9 +117,13 @@ const LearnerAccess = ({
               aria-controls={'access-section-' + index}
             >
               <span {...activeClassSpan}>{obj.item}</span>
-              <span className="border border-solid border-gray-light text-xs font-bold rounded-lg bg-white inline-block leading-4 ml-1 py-0 px-1 text-center">
-                0
-              </span>
+              {obj.item == 'Bookmarked' ? (
+                ''
+              ) : (
+                <span className="border border-solid border-gray-light text-xs font-bold rounded-lg bg-white inline-block leading-4 ml-1 py-0 px-1 text-center">
+                  {obj.count}
+                </span>
+              )}
             </button>
           </li>
         );
@@ -123,6 +136,8 @@ const LearnerAccess = ({
       case 'My learning':
         return (
           <LoadMyLearningItems
+            setMylearningCount={setMylearningCount}
+            mylearningCount={mylearningCount}
             query={query}
             kind={['courseGroup', 'article', 'video', 'shareableContentObject', 'xApiObject']}
             sort=""
