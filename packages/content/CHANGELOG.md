@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.1.0-alpha.2](https://github.com/thoughtindustries/helium/compare/@thoughtindustries/content@1.1.0-alpha.1...@thoughtindustries/content@1.1.0-alpha.2) (2022-05-04)
+
+
+### Features
+
+* update content docs ([#120](https://github.com/thoughtindustries/helium/issues/120)) ([034c638](https://github.com/thoughtindustries/helium/commit/034c63874238878a2b68c8b3e006d34727cfa6c5))
+
+
+
+
+
 # [1.1.0-alpha.1](https://github.com/thoughtindustries/helium/compare/@thoughtindustries/content@1.1.0-alpha.0...@thoughtindustries/content@1.1.0-alpha.1) (2022-04-01)
 
 

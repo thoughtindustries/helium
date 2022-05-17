@@ -4,7 +4,7 @@ import { ContentFragmentFragment } from './ContentFragment.generated';
 import { gql } from '@apollo/client';
 import { ContentFragmentFragmentDoc } from './ContentFragment.generated';
 import * as Apollo from '@apollo/client';
-const defaultOptions = {};
+const defaultOptions = {} as const;
 export type UserRecentContentQueryVariables = Types.Exact<{
   limit?: Types.InputMaybe<Types.Scalars['Int']>;
 }>;

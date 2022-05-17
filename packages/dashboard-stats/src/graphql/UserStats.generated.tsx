@@ -3,18 +3,12 @@ import * as Types from './global-types';
 import { gql } from '@apollo/client';
 import * as Apollo from '@apollo/client';
 const defaultOptions = {} as const;
-export type UserStatsQueryVariables = Types.Exact<{
-  availableCoursesCount: Types.InputMaybe<Types.Scalars['Int']>;
-  startedCoursesCount: Types.InputMaybe<Types.Scalars['Int']>;
-  completedCoursesCount: Types.InputMaybe<Types.Scalars['Int']>;
-  certificatesCount: Types.InputMaybe<Types.Scalars['Int']>;
-  collaborationsCount: Types.InputMaybe<Types.Scalars['Int']>;
-}>;
+export type UserStatsQueryVariables = Types.Exact<{ [key: string]: never }>;
 
 export type UserStatsQuery = {
-  __typename?: 'UserStats';
+  __typename?: 'Query';
   CurrentUser?: {
-    __typename?: 'UserStats';
+    __typename?: 'User';
     certificatesCount: number;
     collaborationsCount: number;
     availableCoursesCount: number;

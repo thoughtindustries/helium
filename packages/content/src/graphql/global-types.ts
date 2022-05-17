@@ -177,6 +177,7 @@ export enum ContentKind {
   InPersonEvent = 'inPersonEvent',
   InPersonEventCourse = 'inPersonEventCourse',
   LearningPath = 'learningPath',
+  MicroCourse = 'microCourse',
   PickableGroup = 'pickableGroup',
   Product = 'product',
   Sellable = 'sellable',
@@ -208,72 +209,6 @@ export type Location = {
   state?: Maybe<Scalars['String']>;
   timeZone?: Maybe<Scalars['String']>;
   zipCode?: Maybe<Scalars['String']>;
-};
-
-export type Mutation = {
-  __typename?: 'Mutation';
-  AddResourceToQueue: Scalars['Boolean'];
-  UpdateLearningPathAccess: Scalars['Boolean'];
-};
-
-export type MutationAddResourceToQueueArgs = {
-  resourceId: Scalars['ID'];
-  resourceType?: InputMaybe<ContentKind>;
-};
-
-export type MutationUpdateLearningPathAccessArgs = {
-  slug: Scalars['Slug'];
-  status: Scalars['String'];
-};
-
-export type Query = {
-  __typename?: 'Query';
-  CatalogContent: CatalogContent;
-  CatalogQuery: CatalogContent;
-  Languages: Array<Language>;
-  QueryContent?: Maybe<Content>;
-  QueryContents: Array<Content>;
-  RssItems: Array<RssItem>;
-  UserContentItems?: Maybe<Array<Content>>;
-  UserRecentContent: Array<Content>;
-};
-
-export type QueryCatalogContentArgs = {
-  contentTypes?: InputMaybe<Array<Scalars['String']>>;
-  labels?: InputMaybe<Array<Scalars['String']>>;
-  layoutId?: InputMaybe<Scalars['ID']>;
-  page: Scalars['Int'];
-  query?: InputMaybe<Scalars['String']>;
-  resultsDisplayType?: InputMaybe<ContentItemDisplayType>;
-  sort?: InputMaybe<Scalars['String']>;
-  token?: InputMaybe<Scalars['String']>;
-  values?: InputMaybe<Array<Scalars['String']>>;
-  widgetId?: InputMaybe<Scalars['ID']>;
-};
-
-export type QueryCatalogQueryArgs = {
-  page?: InputMaybe<Scalars['Int']>;
-  query?: InputMaybe<Scalars['String']>;
-  queryExclusions?: InputMaybe<Array<Scalars['String']>>;
-  queryLimit?: InputMaybe<Scalars['Int']>;
-  querySignature?: InputMaybe<Scalars['String']>;
-  querySort?: InputMaybe<Scalars['String']>;
-};
-
-export type QueryQueryContentsArgs = {
-  ids: Array<Scalars['ID']>;
-};
-
-export type QueryRssItemsArgs = {
-  feedUrl: Scalars['String'];
-};
-
-export type QueryUserContentItemsArgs = {
-  query?: InputMaybe<Scalars['String']>;
-};
-
-export type QueryUserRecentContentArgs = {
-  limit?: InputMaybe<Scalars['Int']>;
 };
 
 export type Ribbon = {

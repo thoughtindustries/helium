@@ -8,7 +8,7 @@ import { ContentFragmentFragmentDoc } from './ContentFragment.generated';
 import { LocationFragmentFragmentDoc } from './LocationFragment.generated';
 import { CatalogMetaFragmentFragmentDoc } from './CatalogMetaFragment.generated';
 import * as Apollo from '@apollo/client';
-const defaultOptions = {};
+const defaultOptions = {} as const;
 export type CatalogContentQueryVariables = Types.Exact<{
   layoutId?: Types.InputMaybe<Types.Scalars['ID']>;
   widgetId?: Types.InputMaybe<Types.Scalars['ID']>;
