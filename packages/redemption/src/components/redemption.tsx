@@ -1,11 +1,11 @@
 import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { RedemptionProps } from './types';
 import Registration from './registration';
 import { codeList } from './helper';
 import Banner from './banner';
+import { isEmpty } from 'lodash';
 
-const Redemption = ({ currentUser }: RedemptionProps): JSX.Element => {
+const Redemption = (currentUser?: CurrentUser): JSX.Element => {
   const styles = {
     container: 'mx-4 md:mx-40 text-center',
     prompt: 'flex justify-center mb-8 text-sm text-gray-500',
@@ -22,7 +22,7 @@ const Redemption = ({ currentUser }: RedemptionProps): JSX.Element => {
 
   return (
     <form className={styles.container}>
-      {currentUser ? (
+      {!isEmpty(currentUser) ? (
         <>
           <h5 className={styles.prompt}>{t('redemption.signed-in-prompt')}</h5>
           <Banner />

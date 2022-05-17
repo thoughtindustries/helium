@@ -3,7 +3,6 @@
   "version": "1.0.0",
   "description": "A base component for redeeming codes",
   "main": "index.js",
-  "devDependencies": {},
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -16,5 +15,11 @@
   "bugs": {
     "url": "https://github.com/thoughtindustries/helium/issues"
   },
-  "homepage": "https://github.com/thoughtindustries/helium#readme"
+  "homepage": "https://github.com/thoughtindustries/helium#readme",
+  "dependencies": {
+    "lodash": "^4.17.21"
+  },
+  "devDependencies": {
+    "@types/lodash": "^4.14.182"
+  }
 }
