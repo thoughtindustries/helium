@@ -11,7 +11,7 @@ export const parseCartCookie = (cookie?: string): Cart => {
     const base64Url = cookie.split('.')[0];
     const base64 = base64Url.replace('-', '+').replace('_', '/');
     const { cartItems: items = [] } = JSON.parse(window.atob(base64));
-    // const ret = JSON.parse(Buffer.from(cookie, 'base64').toString('utf8'));
+    // return JSON.parse(Buffer.from(cookie, 'base64').toString('utf8'));
     return {
       ...defaultCart,
       items

@@ -40,6 +40,7 @@ export default function cartReducer(state: CartState, action: CartAction): CartS
     }
     case CartActionType.RemoveCartItem: {
       if (state.status === CartStateStatus.Idle) {
+        // TODO: add implementation
         return {
           ...state,
           shouldPersist: true

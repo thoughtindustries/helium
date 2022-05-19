@@ -1,5 +1,3 @@
-import { ReactNode } from 'react';
-
 export enum EcommItemType {
   DiscountGroup = 'discountGroup',
   PickableGroup = 'pickableGroup',
@@ -52,7 +50,6 @@ export interface CartContextType extends Cart {
 
 export enum CartStateStatus {
   Uninitialized,
-  Updating,
   Idle
 }
 

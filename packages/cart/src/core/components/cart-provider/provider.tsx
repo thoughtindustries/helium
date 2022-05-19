@@ -10,8 +10,8 @@ import {
   CartState,
   CartStateStatus
 } from './types';
-import usePersistReducer from './use-persisted-reducer';
-import { parseCartCookie, serializeCart } from './utilities';
+import usePersistReducer from './use-persist-reducer';
+import { parseCartCookie } from './utilities';
 
 const CartProvider: FC<CartProviderProps> = ({ children, checkoutBaseUrl }) => {
   const [state, dispatch] = usePersistReducer(CART_COOKIE_NAME);
@@ -31,9 +31,7 @@ const CartProvider: FC<CartProviderProps> = ({ children, checkoutBaseUrl }) => {
   // initialize cart from browser cookie
   const didInitCart = useRef(false);
   useEffect(() => {
-    console.log(`CartProvider >> [useEffect]`, state);
     if (state.status === CartStateStatus.Uninitialized && !didInitCart.current) {
-      console.log(`CartProvider >> [useEffect] >> dispatch`);
       didInitCart.current = true;
       dispatch({
         type: CartActionType.InitializeCart,
