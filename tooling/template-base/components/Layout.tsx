@@ -3,7 +3,7 @@ import { useTranslation } from 'react-i18next';
 import { gql, useQuery } from '@apollo/client';
 import { Appearance, CurrentUser } from '../types';
 import { NavigationBar, NavigationBarLink } from '@thoughtindustries/navigation-bar';
-import { CartProvider, CartButton } from '@thoughtindustries/cart';
+import { CartUIProvider, CartButton, CartModal } from '@thoughtindustries/cart';
 export default function Layout({
   appearance,
   currentUser,
@@ -16,12 +16,13 @@ export default function Layout({
   return (
     <div className="h-full bg-gray-100 p-8">
       <div className="h-full max-w-screen-lg mx-auto bg-white shadow-sm font-primary">
-        <CartProvider checkoutBaseUrl="/checkout">
+        <CartUIProvider checkoutBaseUrl="/checkout">
           <Header appearance={appearance} currentUser={currentUser} />
           <NavBar />
           {children}
           <Footer />
-        </CartProvider>
+          <CartModal />
+        </CartUIProvider>
       </div>
     </div>
   );
