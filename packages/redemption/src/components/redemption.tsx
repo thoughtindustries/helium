@@ -5,9 +5,9 @@ import { codeList } from './helper';
 import Banner from './banner';
 import { isEmpty } from 'lodash';
 
-const Redemption = (currentUser?: CurrentUser): JSX.Element => {
+const Redemption = (currentUser: CurrentUser): JSX.Element => {
   const styles = {
-    container: 'mx-4 md:mx-40 text-center',
+    container: 'mx-4 md:mx-40 text-center self-center',
     prompt: 'flex justify-center mb-8 text-sm text-gray-500',
     termsContainer: 'flex flex-col md:flex-row text-sm text-gray-500 justify-between',
     buttonStyle:
