@@ -14,7 +14,6 @@ generates:
       - "introspection"' >> $path/codegen.yml
 
 # Install dependencies
-npm i @graphql-codegen/cli @graphql-codegen/introspection @graphql-codegen/near-operation-file-preset @graphql-codegen/typescript @graphql-codegen/typescript-operations @graphql-codegen/typescript-react-apollo apollo -w $path --save-dev
 npm i @apollo/client graphql i18next -w $path
 
 # Generage codegen config
@@ -793,7 +792,7 @@ fi
 # Update codegen file
 > $path/codegen.yml
 echo 'overwrite: true
-schema: 'graphql-$package.schema.json'
+schema: 'https://home.ti.test/helium'
 documents: 'src/**/*.graphql'
 config:
   avoidOptionals: false
@@ -802,17 +801,19 @@ config:
   scalars:
     Slug: 'string'
     Date: 'string'
-    JSON: 'JSON'
+    JSON: 'any'
     AbsoluteOrRelativeURL: 'string'
     HexColor: 'string'
     RelativeURL: 'string'
     URL: 'string'
   strictScalars: true
+  omitObjectTypes: false
+  preResolveTypes: true
 generates:
   # use this to re-generate global types from schema
   src/graphql/global-types.ts:
     plugins:
-      - 'typescript'
+      - "@thoughtindustries/graphql-codegen-plugin"
   src/:
     preset: near-operation-file
     presetConfig:
@@ -858,4 +859,4 @@ else
   echo 'query Query {
   id
 }' >> $graphqlPath/queries/Query.graphql
-fi
+fi 
