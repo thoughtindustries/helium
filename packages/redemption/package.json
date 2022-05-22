@@ -4,7 +4,7 @@
   "description": "A base component for redeeming codes",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "generate": "graphql-codegen --config codegen.yml"
   },
   "repository": {
     "type": "git",
@@ -17,6 +17,9 @@
   },
   "homepage": "https://github.com/thoughtindustries/helium#readme",
   "dependencies": {
+    "@apollo/client": "^3.6.4",
+    "graphql": "^16.5.0",
+    "i18next": "^21.8.3",
     "lodash": "^4.17.21"
   },
   "devDependencies": {

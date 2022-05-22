@@ -1,0 +1,6 @@
+mutation RedemptionCodes($code: String!) {
+  RedemptionCodes(code: $code) {
+    valid
+    alreadyRedeemed
+  }
+}
