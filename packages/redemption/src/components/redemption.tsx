@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import Registration from './registration';
-import { codeList } from './helper';
+import { codeList, isEmpty } from './helper';
 import Banner from './banner';
-import { isEmpty } from 'lodash';
+import { useRedemptionCodesMutation } from '../graphql';
 
 const Redemption = (currentUser: CurrentUser): JSX.Element => {
   const styles = {
@@ -17,16 +17,36 @@ const Redemption = (currentUser: CurrentUser): JSX.Element => {
     addCodeStyle: 'flex justify-left text-indigo-700 text-sm',
     terms: 'text-gray-700'
   };
+
   const { t } = useTranslation();
   const [count, setCount] = useState(1);
+  const [redemptionCodesMutation, { loading }] = useRedemptionCodesMutation();
+  const [code, setCode] = useState('');
+  const [valid, setValid] = useState<boolean | null | undefined>(null);
+
+  const handleInput = (value: string) => {
+    setCode(value);
+  };
+
+  const handleSubmit = () => {
+    redemptionCodesMutation({ variables: { code: code } })
+      .then(response => setValid(response.data?.RedemptionCodes?.valid))
+      .catch(error => console.log('Redemption Request Error: ', error));
+  };
 
   return (
     <form className={styles.container}>
       {!isEmpty(currentUser) ? (
         <>
           <h5 className={styles.prompt}>{t('redemption.signed-in-prompt')}</h5>
-          <Banner />
-          {codeList(count)}
+          <Banner valid={valid} />
+          {codeList({
+            num: count,
+            handleInput: handleInput,
+            handleSubmit: handleSubmit,
+            valid: valid,
+            validating: loading
+          })}
           <button className={styles.addCodeStyle} type="button" onClick={() => setCount(count + 1)}>
             {t('redemption.add-code')}
           </button>
