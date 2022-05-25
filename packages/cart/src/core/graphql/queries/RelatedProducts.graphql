@@ -1,0 +1,9 @@
+query RelatedProducts($productIds: [ID!], $courseIds: [ID!]) {
+  RelatedProducts(productIds: $productIds, courseIds: $courseIds) {
+    id
+    asset
+    name
+    suggestedRetailPriceInCents
+    priceInCents
+  }
+}
