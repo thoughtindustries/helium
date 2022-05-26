@@ -24,6 +24,7 @@
   },
   "dependencies": {
     "@headlessui/react": "~1.5.0",
+    "@thoughtindustries/content": "^1.1.0-alpha.2",
     "clsx": "^1.1.1",
     "i18next": "^21.8.1",
     "react": "^17.0.2",

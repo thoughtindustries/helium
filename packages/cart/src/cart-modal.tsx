@@ -1,10 +1,72 @@
 import React, { useRef } from 'react';
 import { Dialog } from '@headlessui/react';
-import { useCart, useCartUI, CartCheckoutButton } from './core';
+import {
+  CartItem,
+  useCart,
+  useCartUI,
+  CartCheckoutButton,
+  AddToCartButton,
+  useRelatedProductsQuery,
+  EcommItemType
+} from './core';
 import { useTranslation } from 'react-i18next';
+import { LoadingDots } from '@thoughtindustries/content';
+
+type RelatedProductsQueryVariables = {
+  productIds: string[];
+  courseIds: string[];
+};
+const RelatedItemsUpsell = ({ items }: { items: CartItem[] }) => {
+  const variables = items.reduce(
+    (prev, { purchasableId, purchasableType }) => {
+      if (purchasableType === EcommItemType.Product) {
+        prev.productIds.push(purchasableId);
+      } else if (purchasableType === EcommItemType.Course) {
+        prev.courseIds.push(purchasableId);
+      }
+      return prev;
+    },
+    { productIds: [], courseIds: [] } as RelatedProductsQueryVariables
+  );
+  const { data, error, loading } = useRelatedProductsQuery({ variables });
+  if (loading) {
+    return <LoadingDots />;
+  }
+
+  if (error || !data) {
+    return null;
+  }
+
+  return (
+    <div>
+      <ul>
+        {data.RelatedProducts.map((product, key) => {
+          const props = {
+            purchasableType: EcommItemType.Product,
+            purchasable: product,
+            isMobile: false
+          };
+          return (
+            <li key={key}>
+              <h3>Name: {product.name}</h3>
+              <AddToCartButton {...props}>Add item</AddToCartButton>
+            </li>
+          );
+        })}
+      </ul>
+    </div>
+  );
+};
+
+const Item = ({ title, quantity }: CartItem) => (
+  <div>
+    <h3>Title: {title}</h3>
+    <span>quantity: {quantity}</span>
+  </div>
+);
 
 const CartModal = (): JSX.Element => {
-  const { items } = useCart();
+  const { items, removeItem } = useCart();
   const { isCartOpen, closeCart } = useCartUI();
   const { t } = useTranslation();
   const checkoutButtonRef = useRef(null);
@@ -31,7 +93,18 @@ const CartModal = (): JSX.Element => {
           <Dialog.Title>{t('cart.header', { count: items.length })}</Dialog.Title>
           <Dialog.Description as="div">
             {!hasItems && t('cart.empty')}
-            {hasItems && <div>TODO: render cart items</div>}
+            {hasItems && (
+              <div>
+                <ul>
+                  {items.map((item, key) => (
+                    <li key={key}>
+                      <Item {...item} />
+                      <button onClick={() => removeItem(item)}>Remove</button>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            )}
           </Dialog.Description>
           <div>
             <button onClick={closeCart}>{t('product.continue')}</button>
@@ -41,6 +114,7 @@ const CartModal = (): JSX.Element => {
               </CartCheckoutButton>
             )}
           </div>
+          <RelatedItemsUpsell items={items} />
         </div>
       </Dialog>
     </>
