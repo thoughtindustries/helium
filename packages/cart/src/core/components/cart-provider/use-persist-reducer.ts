@@ -22,7 +22,7 @@ export default function usePersistReducer(cookieName: string) {
     (state, action) => {
       const newState = reducer(state, action);
       const { shouldPersist, cart } = newState;
-      if (shouldPersist && !!cart) {
+      if (shouldPersist) {
         updateCookie(serializeCart(cart), { signed: false, secure: false, httpOnly: false });
       }
       return newState;

@@ -3,6 +3,7 @@ import { getCookie } from 'typescript-cookie';
 import { CART_COOKIE_NAME } from './constants';
 import CartContext from './context';
 import {
+  AddPurchaseableItemPayload,
   CartActionType,
   CartContextType,
   CartItem,
@@ -11,7 +12,7 @@ import {
   CartStateStatus
 } from './types';
 import usePersistReducer from './use-persist-reducer';
-import { parseCartCookie } from './utilities';
+import { parseCartCookie, parsePurchaseableItem } from './utilities';
 
 const CartProvider: FC<CartProviderProps> = ({ children, checkoutBaseUrl }) => {
   const [state, dispatch] = usePersistReducer(CART_COOKIE_NAME);
@@ -21,6 +22,16 @@ const CartProvider: FC<CartProviderProps> = ({ children, checkoutBaseUrl }) => {
       dispatch({ type: CartActionType.AddCartItem, item });
     }
   }, []);
+
+  const addPurchaseableItem = useCallback(
+    (payload: AddPurchaseableItemPayload, state: CartState) => {
+      if (state.status === CartStateStatus.Idle) {
+        const item = parsePurchaseableItem(payload);
+        dispatch({ type: CartActionType.AddCartItem, item });
+      }
+    },
+    []
+  );
 
   const removeItem = useCallback((item: CartItem, state: CartState) => {
     if (state.status === CartStateStatus.Idle) {
@@ -42,13 +53,14 @@ const CartProvider: FC<CartProviderProps> = ({ children, checkoutBaseUrl }) => {
 
   const cartContextValue = useMemo<CartContextType>(
     () => ({
-      ...(state.cart ?? { items: [] }),
+      items: [...state.cart.items],
       status: state.status,
-      totalQuantity:
-        state.cart?.items?.reduce((previous, current) => {
-          return previous + current.quantity;
-        }, 0) || 0,
+      totalQuantity: state.cart.items.reduce((previous, current) => {
+        return previous + current.quantity;
+      }, 0),
       addItem: (item: CartItem) => addItem(item, state),
+      addPurchaseableItem: (payload: AddPurchaseableItemPayload) =>
+        addPurchaseableItem(payload, state),
       removeItem: (item: CartItem) => removeItem(item, state),
       checkoutBaseUrl
     }),

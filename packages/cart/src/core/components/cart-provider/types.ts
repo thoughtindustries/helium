@@ -1,14 +1,48 @@
+import { GlobalTypes } from '../../graphql';
+
 export enum EcommItemType {
   DiscountGroup = 'discountGroup',
   PickableGroup = 'pickableGroup',
   Bundle = 'bundle',
-  Product = 'product'
+  Product = 'product',
+  Course = 'course',
+  LearningPath = 'learningPath'
 }
 
 export enum CartItemInterval {
   Year = 'year',
   Month = 'month'
 }
+
+export type SeatTier = {
+  seats: number;
+  priceInCents: number;
+};
+
+export type OtherPurchaseableItem = {
+  clientSubscription?: boolean;
+  isBulkPurchase?: boolean;
+  seatTiers?: SeatTier[];
+  lastTierPriceInCents?: number;
+  annualPriceInCents?: number;
+  priceInCents?: number;
+  id: string;
+  title?: string;
+  name?: string;
+  suffixedTitle?: string;
+  asset?: string;
+  instructorAccessPriceInCents?: number;
+  selectedCourseIds?: string[];
+  currentPriceInCents?: number;
+};
+
+export type PurchaseableItem = GlobalTypes.Product | OtherPurchaseableItem;
+
+export type Coupon = {
+  code: string;
+  percentOff?: number;
+  amountOffInCents?: number;
+};
 
 export interface CartItem {
   purchasableType: EcommItemType;
@@ -35,11 +69,21 @@ export interface Cart {
   items: CartItem[];
 }
 
+export type AddPurchaseableItemPayload = {
+  purchasableType: EcommItemType;
+  purchasable: PurchaseableItem;
+  coupon?: Coupon;
+  interval?: CartItemInterval;
+  quantity?: number;
+};
+
 export interface CartContextType extends Cart {
   /** the status of the cart. This returns 'uninitialized' when the cart is not yet created, `creating` when the cart is being created, `updating` when the cart is updating, and `idle` when the cart isn't being created or updated. */
   status: CartStateStatus;
   /** a callback that adds item to the cart. */
   addItem: (item: CartItem) => void;
+  /** a callback that adds purchaseable item to the cart. */
+  addPurchaseableItem: (payload: AddPurchaseableItemPayload) => void;
   /** a callback that removes item from the cart. */
   removeItem: (item: CartItem) => void;
   /** the total number of items in the cart. If there are no items, then the value is 0. */
@@ -55,13 +99,14 @@ export enum CartStateStatus {
 
 export interface CartState {
   status: CartStateStatus;
-  cart?: Cart;
+  cart: Cart;
   shouldPersist: boolean;
 }
 
 export enum CartActionType {
   InitializeCart,
   AddCartItem,
+  AddPurchaseableItem,
   RemoveCartItem
 }
 

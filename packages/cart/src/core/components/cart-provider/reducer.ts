@@ -1,8 +1,23 @@
-import { CartAction, CartActionType, CartState, CartStateStatus } from './types';
+import { CART_ID } from './constants';
+import {
+  CartAction,
+  CartActionType,
+  CartItem,
+  CartState,
+  CartStateStatus,
+  EcommItemType
+} from './types';
+import { existingCartItemMatcher } from './utilities';
 
 export const initialState: CartState = {
   status: CartStateStatus.Uninitialized,
-  shouldPersist: false
+  shouldPersist: false,
+  cart: { id: CART_ID, items: [] }
+};
+
+type ClonedExistingItemAndRestCartItems = {
+  restItems: CartItem[];
+  existingItem?: CartItem;
 };
 
 export default function cartReducer(state: CartState, action: CartAction): CartState {
@@ -23,13 +38,34 @@ export default function cartReducer(state: CartState, action: CartAction): CartS
     }
     case CartActionType.AddCartItem: {
       if (state.status === CartStateStatus.Idle) {
-        /**
-         * TODO: port over logics from:
-         * - https://github.com/thoughtindustries/ti/blob/85dcdbad7eb17979c7a7ec3f347506bfb736284b/assets/javascripts/lms/routes/home.js#L45-L126
-         * - https://github.com/thoughtindustries/ti/blob/85dcdbad7eb17979c7a7ec3f347506bfb736284b/assets/javascripts/lms/models/cart.js#L34-L51
-         */
+        const existingItemMatcher = existingCartItemMatcher(action.item);
+        const { restItems, existingItem } = state.cart.items.reduce(
+          (prev, item) => {
+            // only account for the first existing item
+            const isFirstExistingItem = !prev.existingItem && existingItemMatcher(item);
+            if (isFirstExistingItem) {
+              prev.existingItem = { ...item };
+            } else {
+              prev.restItems.push({ ...item });
+            }
+            return prev;
+          },
+          { restItems: [] } as ClonedExistingItemAndRestCartItems
+        );
+        if (existingItem && existingItem.purchasableType === EcommItemType.Product) {
+          // products can have quantities
+          existingItem.quantity += action.item.quantity;
+          restItems.push({ ...existingItem });
+        } else {
+          // add new item or replace existing with new item
+          restItems.push({ ...action.item });
+        }
         return {
           ...state,
+          cart: {
+            ...state.cart,
+            items: restItems
+          },
           shouldPersist: true
         };
       }
@@ -40,9 +76,13 @@ export default function cartReducer(state: CartState, action: CartAction): CartS
     }
     case CartActionType.RemoveCartItem: {
       if (state.status === CartStateStatus.Idle) {
-        // TODO: add implementation
+        const existingItemMatcher = existingCartItemMatcher(action.item);
         return {
           ...state,
+          cart: {
+            ...state.cart,
+            items: state.cart.items.filter(existingItem => !existingItemMatcher(existingItem))
+          },
           shouldPersist: true
         };
       }
