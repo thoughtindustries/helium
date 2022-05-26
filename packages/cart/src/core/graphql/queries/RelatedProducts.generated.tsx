@@ -12,7 +12,7 @@ export type RelatedProductsQuery = {
   __typename?: 'Query';
   RelatedProducts: Array<{
     __typename?: 'Product';
-    id?: string;
+    id: string;
     asset?: string;
     name?: string;
     suggestedRetailPriceInCents?: number;
