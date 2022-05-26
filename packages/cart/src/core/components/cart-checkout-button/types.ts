@@ -1,5 +1,5 @@
 import { ButtonHTMLAttributes, ReactNode } from 'react';
 
-export type CartCheckoutProps = Omit<ButtonHTMLAttributes<HTMLButtonElement>, 'onClick'> & {
+export type CartCheckoutButtonProps = Omit<ButtonHTMLAttributes<HTMLButtonElement>, 'onClick'> & {
   children: ReactNode;
 };

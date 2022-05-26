@@ -1,28 +1,16 @@
-import React, { forwardRef, useEffect, useState } from 'react';
-import { useCart } from '../../hooks/use-cart';
-import { CartStateStatus } from '../cart-provider';
-import { CartCheckoutProps } from './types';
-import { serializeCartItems } from './utilities';
+import React, { forwardRef } from 'react';
+import { useCartCheckout } from '../../hooks/use-cart-checkout';
+import { CartCheckoutButtonProps } from './types';
 
-const CartCheckoutButton = forwardRef<HTMLButtonElement, CartCheckoutProps>(
+const CartCheckoutButton = forwardRef<HTMLButtonElement, CartCheckoutButtonProps>(
   ({ children, ...passThroughProps }, ref) => {
-    const [requestedCheckout, setRequestedCheckout] = useState<boolean>(false);
-    const { status, checkoutBaseUrl, items } = useCart();
-
-    useEffect(() => {
-      if (requestedCheckout && checkoutBaseUrl && status === CartStateStatus.Idle) {
-        window.location.href = `${checkoutBaseUrl}?cart=${encodeURIComponent(
-          serializeCartItems(items)
-        )}`;
-      }
-    }, [requestedCheckout, status, checkoutBaseUrl, items]);
-
+    const { isCheckoutRequested, startCheckout } = useCartCheckout();
     return (
       <button
         {...passThroughProps}
         ref={ref}
-        disabled={requestedCheckout || passThroughProps.disabled}
-        onClick={() => setRequestedCheckout(true)}
+        disabled={isCheckoutRequested || passThroughProps.disabled}
+        onClick={startCheckout}
       >
         {children}
       </button>
