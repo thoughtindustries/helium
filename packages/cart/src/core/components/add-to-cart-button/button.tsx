@@ -5,6 +5,12 @@ import { AddToCartButtonProps } from './types';
 import { CartStateStatus, OtherPurchaseableItem } from '../cart-provider';
 import { useCartUI } from '../../hooks/use-cart-ui';
 
+/**
+ * The `AddToCartButton` component renders a button that adds a purchaseable item to the cart
+ * when pressed. With additional props, it will follow up with step to either open the cart modal
+ * or take the user directly to the checkout flow. It must be a descendent of the `CartUIProvider`
+ * component.
+ */
 const AddToCartButton = forwardRef<HTMLButtonElement, AddToCartButtonProps>(
   (
     {

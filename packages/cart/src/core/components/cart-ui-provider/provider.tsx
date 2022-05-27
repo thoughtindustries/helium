@@ -3,6 +3,12 @@ import CartUIContext from './context';
 import { CartUIProviderProps } from './types';
 import { CartProvider } from '../cart-provider';
 
+/**
+ * A component that defines the behavior that occurs when a user is interacting with
+ * a cart (for example, opening or closing it), it also creates a cart object and
+ * provides callbacks that can be accessed by any descendent component using the
+ * `useCartUI` hook, the `useCart` hook, and related hooks.
+ */
 const CartUIProvider: FC<CartUIProviderProps> = ({ children, ...restProps }) => {
   const [open, setOpen] = useState<boolean>(false);
 

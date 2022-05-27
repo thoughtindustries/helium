@@ -14,6 +14,13 @@ import {
 import usePersistReducer from './use-persist-reducer';
 import { parseCartCookie, parsePurchaseableItem } from './utilities';
 
+/**
+ * The `CartProvider` component creates a context for using a cart. It creates a cart object and callbacks
+ * that can be accessed by any descendent component using the `useCart` hook and related hooks.
+ *
+ * You must use this component if you want to use the `useCart` hook or related hooks, or if you would like
+ * to use the `CartCheckoutButton` component.
+ */
 const CartProvider: FC<CartProviderProps> = ({ children, checkoutBaseUrl }) => {
   const [state, dispatch] = usePersistReducer(CART_COOKIE_NAME);
 

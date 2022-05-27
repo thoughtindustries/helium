@@ -70,10 +70,15 @@ export interface Cart {
 }
 
 export type AddPurchaseableItemPayload = {
+  /** type of purchaseable item (one of the ecommerce item type) */
   purchasableType: EcommItemType;
+  /** object of the purchaseable item */
   purchasable: PurchaseableItem;
+  /** optional coupon object */
   coupon?: Coupon;
+  /** optional payment interval (one of the interval type) */
   interval?: CartItemInterval;
+  /** optional quantity (a default value will be applied when not sepcified) */
   quantity?: number;
 };
 
@@ -106,7 +111,6 @@ export interface CartState {
 export enum CartActionType {
   InitializeCart,
   AddCartItem,
-  AddPurchaseableItem,
   RemoveCartItem
 }
 
