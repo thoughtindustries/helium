@@ -21,7 +21,7 @@ import { parseCartCookie, parsePurchaseableItem } from './utilities';
  * You must use this component if you want to use the `useCart` hook or related hooks, or if you would like
  * to use the `CartCheckoutButton` component.
  */
-const CartProvider: FC<CartProviderProps> = ({ children, checkoutBaseUrl }) => {
+const CartProvider: FC<CartProviderProps> = ({ children, checkoutUrl }) => {
   const [state, dispatch] = usePersistReducer(CART_COOKIE_NAME);
 
   const addItem = useCallback((item: CartItem, state: CartState) => {
@@ -69,9 +69,9 @@ const CartProvider: FC<CartProviderProps> = ({ children, checkoutBaseUrl }) => {
       addPurchaseableItem: (payload: AddPurchaseableItemPayload) =>
         addPurchaseableItem(payload, state),
       removeItem: (item: CartItem) => removeItem(item, state),
-      checkoutBaseUrl
+      checkoutUrl
     }),
-    [state, addItem, removeItem, checkoutBaseUrl]
+    [state, addItem, removeItem, checkoutUrl]
   );
 
   return <CartContext.Provider value={cartContextValue}>{children}</CartContext.Provider>;

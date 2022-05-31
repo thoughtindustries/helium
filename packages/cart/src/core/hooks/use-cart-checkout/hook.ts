@@ -10,16 +10,14 @@ import { serializeCartItems } from './utilities';
  */
 export function useCartCheckout(): CartCheckoutBehavior {
   const [requestedCheckout, setRequestedCheckout] = useState<boolean>(false);
-  const { status, checkoutBaseUrl, items } = useCart();
+  const { status, checkoutUrl, items } = useCart();
   const startCheckout = useCallback(() => setRequestedCheckout(true), []);
 
   useEffect(() => {
-    if (requestedCheckout && checkoutBaseUrl && status === CartStateStatus.Idle) {
-      window.location.href = `${checkoutBaseUrl}?cart=${encodeURIComponent(
-        serializeCartItems(items)
-      )}`;
+    if (requestedCheckout && checkoutUrl && status === CartStateStatus.Idle) {
+      window.location.href = `${checkoutUrl}?cart=${encodeURIComponent(serializeCartItems(items))}`;
     }
-  }, [requestedCheckout, status, checkoutBaseUrl, items]);
+  }, [requestedCheckout, status, checkoutUrl, items]);
 
   return {
     isCheckoutRequested: requestedCheckout,

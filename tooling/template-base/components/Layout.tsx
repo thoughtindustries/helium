@@ -16,7 +16,7 @@ export default function Layout({
   return (
     <div className="h-full bg-gray-100 p-8">
       <div className="h-full max-w-screen-lg mx-auto bg-white shadow-sm font-primary">
-        <CartUIProvider checkoutBaseUrl="/checkout">
+        <CartUIProvider checkoutUrl="/checkout">
           <Header appearance={appearance} currentUser={currentUser} />
           <NavBar />
           {children}

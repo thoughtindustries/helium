@@ -93,8 +93,8 @@ export interface CartContextType extends Cart {
   removeItem: (item: CartItem) => void;
   /** the total number of items in the cart. If there are no items, then the value is 0. */
   totalQuantity: number;
-  /** base url for checkout link */
-  checkoutBaseUrl: string;
+  /** url for checkout link */
+  checkoutUrl: string;
 }
 
 export enum CartStateStatus {
@@ -120,6 +120,6 @@ export type CartAction =
   | { type: CartActionType.RemoveCartItem; item: CartItem };
 
 export interface CartProviderProps {
-  /** base url for checkout link */
-  checkoutBaseUrl: string;
+  /** url for checkout link */
+  checkoutUrl: string;
 }
