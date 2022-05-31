@@ -2,7 +2,7 @@ import React, { forwardRef, useEffect, useState } from 'react';
 import { useCartCheckout } from '../../hooks/use-cart-checkout';
 import { useCart } from '../../hooks/use-cart';
 import { AddToCartButtonProps } from './types';
-import { CartStateStatus, OtherPurchaseableItem } from '../cart-provider';
+import { OtherPurchaseableItem } from '../cart-provider';
 import { useCartUI } from '../../hooks/use-cart-ui';
 
 /**
@@ -29,19 +29,16 @@ const AddToCartButton = forwardRef<HTMLButtonElement, AddToCartButtonProps>(
     const { instructorAccessPriceInCents } = purchasable as OtherPurchaseableItem;
     const [addingItem, setAddingItem] = useState<boolean>(false);
     const { isCheckoutRequested, startCheckout } = useCartCheckout();
-    const { status, addPurchaseableItem } = useCart();
+    const { isInitialized, addPurchaseableItem } = useCart();
     const { openCart } = useCartUI();
     const disabled =
-      status !== CartStateStatus.Idle ||
-      addingItem ||
-      isCheckoutRequested ||
-      passThroughProps.disabled;
+      !isInitialized || addingItem || isCheckoutRequested || passThroughProps.disabled;
 
     useEffect(() => {
-      if (addingItem && status === CartStateStatus.Idle) {
+      if (addingItem && isInitialized) {
         setAddingItem(false);
       }
-    }, [status, addingItem]);
+    }, [isInitialized, addingItem]);
 
     return (
       <button

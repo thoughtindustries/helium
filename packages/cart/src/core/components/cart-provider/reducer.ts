@@ -1,18 +1,11 @@
 import { CART_ID } from './constants';
-import {
-  CartAction,
-  CartActionType,
-  CartItem,
-  CartState,
-  CartStateStatus,
-  EcommItemType
-} from './types';
+import { CartAction, CartActionType, CartItem, CartState, EcommItemType } from './types';
 import { existingCartItemMatcher } from './utilities';
 
 export const initialState: CartState = {
-  status: CartStateStatus.Uninitialized,
   shouldPersist: false,
-  cart: { id: CART_ID, items: [] }
+  cart: { id: CART_ID, items: [] },
+  isInitialized: false
 };
 
 type ClonedExistingItemAndRestCartItems = {
@@ -23,12 +16,12 @@ type ClonedExistingItemAndRestCartItems = {
 export default function cartReducer(state: CartState, action: CartAction): CartState {
   switch (action.type) {
     case CartActionType.InitializeCart: {
-      if (state.status === CartStateStatus.Uninitialized) {
+      if (!state.isInitialized) {
         return {
           ...state,
-          status: CartStateStatus.Idle,
           shouldPersist: false,
-          cart: { ...action.cart }
+          cart: { ...action.cart },
+          isInitialized: true
         };
       }
       return {
@@ -37,7 +30,7 @@ export default function cartReducer(state: CartState, action: CartAction): CartS
       };
     }
     case CartActionType.AddCartItem: {
-      if (state.status === CartStateStatus.Idle) {
+      if (state.isInitialized) {
         const existingItemMatcher = existingCartItemMatcher(action.item);
         const { restItems, existingItem } = state.cart.items.reduce(
           (prev, item) => {
@@ -75,7 +68,7 @@ export default function cartReducer(state: CartState, action: CartAction): CartS
       };
     }
     case CartActionType.RemoveCartItem: {
-      if (state.status === CartStateStatus.Idle) {
+      if (state.isInitialized) {
         const existingItemMatcher = existingCartItemMatcher(action.item);
         return {
           ...state,

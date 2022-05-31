@@ -1,5 +1,4 @@
 import { useCallback, useEffect, useState } from 'react';
-import { CartStateStatus } from '../../components/cart-provider';
 import { useCart } from '../use-cart';
 import { CartCheckoutBehavior } from './types';
 import { serializeCartItems } from './utilities';
@@ -10,14 +9,14 @@ import { serializeCartItems } from './utilities';
  */
 export function useCartCheckout(): CartCheckoutBehavior {
   const [requestedCheckout, setRequestedCheckout] = useState<boolean>(false);
-  const { status, checkoutUrl, items } = useCart();
+  const { isInitialized, checkoutUrl, items } = useCart();
   const startCheckout = useCallback(() => setRequestedCheckout(true), []);
 
   useEffect(() => {
-    if (requestedCheckout && checkoutUrl && status === CartStateStatus.Idle) {
+    if (requestedCheckout && checkoutUrl && isInitialized) {
       window.location.href = `${checkoutUrl}?cart=${encodeURIComponent(serializeCartItems(items))}`;
     }
-  }, [requestedCheckout, status, checkoutUrl, items]);
+  }, [requestedCheckout, isInitialized, checkoutUrl, items]);
 
   return {
     isCheckoutRequested: requestedCheckout,

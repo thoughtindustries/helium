@@ -7,8 +7,7 @@ import {
   CartActionType,
   CartContextType,
   CartItem,
-  CartProviderProps,
-  CartStateStatus
+  CartProviderProps
 } from './types';
 import usePersistReducer from './use-persist-reducer';
 import { parseCartCookie, parsePurchaseableItem } from './utilities';
@@ -34,7 +33,7 @@ const CartProvider: FC<CartProviderProps> = ({ children, checkoutUrl }) => {
 
   // initialize cart from browser cookie
   useEffect(() => {
-    if (state.status === CartStateStatus.Uninitialized) {
+    if (!state.isInitialized) {
       dispatch({
         type: CartActionType.InitializeCart,
         cart: parseCartCookie(getCookie(CART_COOKIE_NAME))
@@ -45,7 +44,7 @@ const CartProvider: FC<CartProviderProps> = ({ children, checkoutUrl }) => {
   const cartContextValue = useMemo<CartContextType>(
     () => ({
       items: [...state.cart.items],
-      status: state.status,
+      isInitialized: state.isInitialized,
       totalQuantity: state.cart.items.reduce((previous, current) => {
         return previous + current.quantity;
       }, 0),
