@@ -24,20 +24,13 @@ import { parseCartCookie, parsePurchaseableItem } from './utilities';
 const CartProvider: FC<CartProviderProps> = ({ children, checkoutUrl }) => {
   const [state, dispatch] = usePersistReducer(CART_COOKIE_NAME);
 
-  const addPurchaseableItem = useCallback(
-    (payload: AddPurchaseableItemPayload, state: CartState) => {
-      if (state.status === CartStateStatus.Idle) {
-        const item = parsePurchaseableItem(payload);
-        dispatch({ type: CartActionType.AddCartItem, item });
-      }
-    },
-    []
-  );
+  const addPurchaseableItem = useCallback((payload: AddPurchaseableItemPayload) => {
+    const item = parsePurchaseableItem(payload);
+    dispatch({ type: CartActionType.AddCartItem, item });
+  }, []);
 
-  const removeItem = useCallback((item: CartItem, state: CartState) => {
-    if (state.status === CartStateStatus.Idle) {
-      dispatch({ type: CartActionType.RemoveCartItem, item });
-    }
+  const removeItem = useCallback((item: CartItem) => {
+    dispatch({ type: CartActionType.RemoveCartItem, item });
   }, []);
 
   // initialize cart from browser cookie
@@ -59,9 +52,8 @@ const CartProvider: FC<CartProviderProps> = ({ children, checkoutUrl }) => {
       totalQuantity: state.cart.items.reduce((previous, current) => {
         return previous + current.quantity;
       }, 0),
-      addPurchaseableItem: (payload: AddPurchaseableItemPayload) =>
-        addPurchaseableItem(payload, state),
-      removeItem: (item: CartItem) => removeItem(item, state),
+      addPurchaseableItem: (payload: AddPurchaseableItemPayload) => addPurchaseableItem(payload),
+      removeItem: (item: CartItem) => removeItem(item),
       checkoutUrl
     }),
     [state, addPurchaseableItem, removeItem, checkoutUrl]
