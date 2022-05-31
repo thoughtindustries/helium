@@ -1,4 +1,4 @@
-import React, { FC, useCallback, useEffect, useMemo, useRef } from 'react';
+import React, { FC, useCallback, useEffect, useMemo } from 'react';
 import { getCookie } from 'typescript-cookie';
 import { CART_COOKIE_NAME } from './constants';
 import CartContext from './context';
@@ -8,7 +8,6 @@ import {
   CartContextType,
   CartItem,
   CartProviderProps,
-  CartState,
   CartStateStatus
 } from './types';
 import usePersistReducer from './use-persist-reducer';
@@ -34,10 +33,8 @@ const CartProvider: FC<CartProviderProps> = ({ children, checkoutUrl }) => {
   }, []);
 
   // initialize cart from browser cookie
-  const didInitCart = useRef(false);
   useEffect(() => {
-    if (state.status === CartStateStatus.Uninitialized && !didInitCart.current) {
-      didInitCart.current = true;
+    if (state.status === CartStateStatus.Uninitialized) {
       dispatch({
         type: CartActionType.InitializeCart,
         cart: parseCartCookie(getCookie(CART_COOKIE_NAME))
