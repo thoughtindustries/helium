@@ -24,12 +24,6 @@ import { parseCartCookie, parsePurchaseableItem } from './utilities';
 const CartProvider: FC<CartProviderProps> = ({ children, checkoutUrl }) => {
   const [state, dispatch] = usePersistReducer(CART_COOKIE_NAME);
 
-  const addItem = useCallback((item: CartItem, state: CartState) => {
-    if (state.status === CartStateStatus.Idle) {
-      dispatch({ type: CartActionType.AddCartItem, item });
-    }
-  }, []);
-
   const addPurchaseableItem = useCallback(
     (payload: AddPurchaseableItemPayload, state: CartState) => {
       if (state.status === CartStateStatus.Idle) {
@@ -65,13 +59,12 @@ const CartProvider: FC<CartProviderProps> = ({ children, checkoutUrl }) => {
       totalQuantity: state.cart.items.reduce((previous, current) => {
         return previous + current.quantity;
       }, 0),
-      addItem: (item: CartItem) => addItem(item, state),
       addPurchaseableItem: (payload: AddPurchaseableItemPayload) =>
         addPurchaseableItem(payload, state),
       removeItem: (item: CartItem) => removeItem(item, state),
       checkoutUrl
     }),
-    [state, addItem, removeItem, checkoutUrl]
+    [state, addPurchaseableItem, removeItem, checkoutUrl]
   );
 
   return <CartContext.Provider value={cartContextValue}>{children}</CartContext.Provider>;

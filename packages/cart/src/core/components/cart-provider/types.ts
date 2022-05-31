@@ -85,8 +85,6 @@ export type AddPurchaseableItemPayload = {
 export interface CartContextType extends Cart {
   /** the status of the cart. This returns 'uninitialized' when the cart is not yet created, `creating` when the cart is being created, `updating` when the cart is updating, and `idle` when the cart isn't being created or updated. */
   status: CartStateStatus;
-  /** a callback that adds item to the cart. */
-  addItem: (item: CartItem) => void;
   /** a callback that adds purchaseable item to the cart. */
   addPurchaseableItem: (payload: AddPurchaseableItemPayload) => void;
   /** a callback that removes item from the cart. */
