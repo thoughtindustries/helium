@@ -20,5 +20,5 @@ import { CartUIProvider, CartButton, CartModal } from '@thoughtindustries/cart';
 <CartUIProvider checkoutUrl="/checkout">
   <CartButton />
   <CartModal />
-</CatalogProvider>
+</CartUIProvider>
 ```
