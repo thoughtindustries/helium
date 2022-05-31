@@ -2,8 +2,14 @@ import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { codeList } from './helper';
 import Banner from './banner';
+import { RegistrationProps } from './types';
 
-const Registration = (): JSX.Element => {
+const Registration = ({
+  valid,
+  handleInput,
+  handleSubmit,
+  loading
+}: RegistrationProps): JSX.Element => {
   const { t } = useTranslation();
   const [count, setCount] = useState(1);
   const styles = {
@@ -25,38 +31,46 @@ const Registration = (): JSX.Element => {
   };
   return (
     <>
-      <h5 className={styles.prompt}>{t('redemption.logged-out-prompt')}</h5>
-      <Banner />
+      <h5 className={styles.prompt}>
+        {t('redemption-code.redeem-course-copy-not-signed-in-manual-code')}
+      </h5>
+      <Banner valid={valid} />
       <p className={styles.redirect}>
-        <strong className={styles.member}>{`${t('common.already-member')}\u00A0`}</strong>
+        <strong className={styles.member}>{`${t('already-member')}\u00A0`}</strong>
         <button type="button">
-          <strong>{t('common.sign-in')}</strong>
+          <strong>{t('sign-in')}</strong>
         </button>
       </p>
       <div className={styles.nameContainer}>
-        <input className={styles.nameInput} placeholder={t('register.first-name')} />
-        <input className={styles.inputStyle} placeholder={t('register.last-name')} />
+        <input className={styles.nameInput} placeholder={t('register-first-name')} />
+        <input className={styles.inputStyle} placeholder={t('register-last-name')} />
       </div>
-      <input className={styles.inputStyle} placeholder={t('register.email')} />
-      <input className={styles.inputStyle} placeholder={t('register.password')} />
-      <input className={styles.inputStyle} placeholder={t('register.confirm-password')} />
-      {codeList(count)}
+      <input className={styles.inputStyle} placeholder={t('register-email')} />
+      <input className={styles.inputStyle} placeholder={t('register-password')} />
+      <input className={styles.inputStyle} placeholder={t('register-confirm-password')} />
+      {codeList({
+        num: count,
+        handleInput: handleInput,
+        handleSubmit: handleSubmit,
+        valid: valid,
+        validating: loading
+      })}
       <button className={styles.addCodeStyle} type="button" onClick={() => setCount(count + 1)}>
-        {t('redemption.add-code')}
+        {t('redemption-code.add-redemption-code')}
       </button>
       <div className="w-full border-t border-gray-200 my-4"></div>
       <div className={styles.termsContainer}>
         <div className={styles.checkboxContainer}>
           <input className={styles.checkbox} type="checkbox" />
           <div style={{ display: 'flex', flexDirection: 'row' }}>
-            <p>{`${t('common.agree-terms')}\u00A0`}</p>
+            <p>{`${t('agree-terms')}\u00A0`}</p>
             <button className={styles.terms} type="button">
-              {t('common.terms-and-conditions')}
+              {t('terms-and-conditions')}
             </button>
           </div>
         </div>
         <button className={styles.buttonStyle} type="button">
-          {t('redemption.register')}
+          {t('redemption-code.redeem-code-preloaded')}
         </button>
       </div>
     </>

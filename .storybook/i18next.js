@@ -11,6 +11,8 @@ i18n.use(initReactI18next).init({
   resources: {
     en: {
       translation: {
+        'agree-terms': 'I agree to the',
+        'already-member': 'Already a Member?',
         'bundle.learn-button': 'Learn More',
         'catalog.date-time': 'Date & Time',
         'catalog.location': 'Location',
@@ -26,10 +28,6 @@ i18n.use(initReactI18next).init({
         'catalog.sort-updated': 'Last Updated',
         'catalog-search-header': 'Browse',
         'catalog-search-placeholder': 'Search for content',
-        'common.agree-terms': 'I agree to the',
-        'common.already-member': 'Already a Member?',
-        'common.terms-and-conditions': 'Terms & Conditions',
-        'common.sign-in': 'Sign In',
         'course.per-month': 'per month',
         'course.per-year': 'per year',
         'course-add-to-queue': 'Add to Queue',
@@ -41,23 +39,24 @@ i18n.use(initReactI18next).init({
         'dashboard.completed': 'Completed',
         'dashboard.certificates': 'Certifications',
         'dashboard.collaborations': 'Collaborations',
-        'redemption.validate': 'Validate',
-        'redemption.placeholder': 'Enter Code Here',
-        'redemption.add-code': '+ Add Another Code',
-        'redemption.signed-in-prompt':
+        'redemption-code.validate': 'Validate',
+        'redemption-code.placeholder': 'Enter Code Here',
+        'redemption-code.add-redemption-code': '+ Add Another Code',
+        'redemption-code.redeem-course-copy-signed-in-manual-code':
           'Fill in a code below, click validate, and then redeem your code.',
-        'redemption.logged-out-prompt':
+        'redemption-code.redeem-course-copy-not-signed-in-manual-code':
           'Fill in your details, validate your redemption code, and click redeem to access the school.',
-        'redemption.register': 'Register',
-        'redemption.validating': 'Validating…',
-        'redemption.validated': 'Validated!',
-        'redemption.code-not-found': 'Code not found. Please check your code and try again.',
-        'redemption.code-validated': 'Congrats, your code has been validated!',
-        'register.first-name': 'First Name',
-        'register.last-name': 'Last Name',
-        'register.email': 'Email Address',
-        'register.password': 'Password',
-        'register.confirm-password': 'Password Confirmation',
+        'redemption-code.redeem-code-preloaded': 'Register',
+        'redemption-code.validating': 'Validating…',
+        'redemption-code.validated': 'Validated!',
+        'redemption-code.manual-code-not-found-error':
+          'Code not found. Please check your code and try again.',
+        'redemption-code.redeem-code-manual-validated': 'Congrats, your code has been validated!',
+        'register-first-name': 'First Name',
+        'register-last-name': 'Last Name',
+        'register-email': 'Email Address',
+        'register-password': 'Password',
+        'register-confirm-password': 'Password Confirmation',
         course: 'Course',
         'filter-by': 'Filter by',
         'filter-no-courses':
@@ -65,7 +64,9 @@ i18n.use(initReactI18next).init({
         'mobile-back-button': 'Back',
         'mobile-menu-button': 'Menu',
         more: 'more',
-        'primary-bundle-intro': 'All courses only'
+        'primary-bundle-intro': 'All courses only',
+        'sign-in': 'Sign In',
+        'terms-and-conditions': 'Terms & Conditions'
       }
     }
   }

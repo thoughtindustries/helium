@@ -16,3 +16,10 @@ export interface CodeListProps {
 export interface BannerProps {
   valid: boolean | null | undefined;
 }
+
+export interface RegistrationProps {
+  valid: boolean | null | undefined;
+  handleInput: (code: string) => void;
+  handleSubmit: () => void;
+  loading: boolean | undefined;
+}

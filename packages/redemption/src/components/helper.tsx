@@ -6,7 +6,9 @@ export const codeList = ({ num, handleInput, handleSubmit, valid, validating }: 
   const list: ReactNode[] = [];
   for (let i = 0; i < num; i++) {
     list.push(
-      <CodeBox input={handleInput} submit={handleSubmit} valid={valid} validating={validating} />
+      <div key={i}>
+        <CodeBox input={handleInput} submit={handleSubmit} valid={valid} validating={validating} />
+      </div>
     );
   }
   return list;

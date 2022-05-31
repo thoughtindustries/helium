@@ -13,9 +13,13 @@ const Banner = ({ valid }: BannerProps): JSX.Element => {
     <>
       {valid !== null && valid !== undefined ? (
         valid ? (
-          <div className={styles.successStyle}>{t('redemption.code-validated')}</div>
+          <div className={styles.successStyle}>
+            {t('redemption-code.redeem-code-manual-validated')}
+          </div>
         ) : (
-          <div className={styles.errorStyle}>{t('redemption.code-not-found')}</div>
+          <div className={styles.errorStyle}>
+            {t('redemption-code.manual-code-not-found-error')}
+          </div>
         )
       ) : null}
     </>

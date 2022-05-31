@@ -5,7 +5,7 @@ import { codeList, isEmpty } from './helper';
 import Banner from './banner';
 import { useRedemptionCodesMutation } from '../graphql';
 
-const Redemption = (currentUser: CurrentUser): JSX.Element => {
+const Redemption = ({ currentUser }: { currentUser: CurrentUser }): JSX.Element => {
   const styles = {
     container: 'mx-4 md:mx-40 text-center self-center',
     prompt: 'flex justify-center mb-8 text-sm text-gray-500',
@@ -38,7 +38,9 @@ const Redemption = (currentUser: CurrentUser): JSX.Element => {
     <form className={styles.container}>
       {!isEmpty(currentUser) ? (
         <>
-          <h5 className={styles.prompt}>{t('redemption.signed-in-prompt')}</h5>
+          <h5 className={styles.prompt}>
+            {t('redemption-code.redeem-course-copy-signed-in-manual-code')}
+          </h5>
           <Banner valid={valid} />
           {codeList({
             num: count,
@@ -48,26 +50,31 @@ const Redemption = (currentUser: CurrentUser): JSX.Element => {
             validating: loading
           })}
           <button className={styles.addCodeStyle} type="button" onClick={() => setCount(count + 1)}>
-            {t('redemption.add-code')}
+            {t('redemption-code.add-redemption-code')}
           </button>
           <div className="w-full border-t border-gray-200 my-4"></div>
           <div className={styles.termsContainer}>
             <div className={styles.checkboxContainer}>
               <input className={styles.checkbox} type="checkbox" />
               <div style={{ display: 'flex', flexDirection: 'row' }}>
-                <p>{`${t('common.agree-terms')}\u00A0`}</p>
+                <p>{`${t('agree-terms')}\u00A0`}</p>
                 <button className={styles.terms} type="button">
-                  {t('common.terms-and-conditions')}
+                  {t('terms-and-conditions')}
                 </button>
               </div>
             </div>
             <button className={styles.buttonStyle} type="button">
-              {t('redemption.register')}
+              {t('redemption-code.redeem-code-preloaded')}
             </button>
           </div>
         </>
       ) : (
-        <Registration />
+        <Registration
+          valid={valid}
+          handleInput={handleInput}
+          handleSubmit={handleSubmit}
+          loading={loading}
+        />
       )}
     </form>
   );

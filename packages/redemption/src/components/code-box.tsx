@@ -17,7 +17,7 @@ const CodeBox = ({ input, submit, valid, validating }: CodeBoxProps): JSX.Elemen
       <input
         disabled={validating}
         className={styles.inputStyle}
-        placeholder={t('redemption.placeholder')}
+        placeholder={t('redemption-code.placeholder')}
         onChange={e => input(e.target.value)}
       />
       <button
@@ -29,10 +29,10 @@ const CodeBox = ({ input, submit, valid, validating }: CodeBoxProps): JSX.Elemen
         }}
       >
         {validating
-          ? t('redemption.validating')
+          ? t('redemption-code.validating')
           : valid
-          ? t('redemption.validated')
-          : t('redemption.validate')}
+          ? t('redemption-code.validated')
+          : t('redemption-code.validate')}
       </button>
     </div>
   );
