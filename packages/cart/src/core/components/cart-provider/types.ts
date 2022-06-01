@@ -97,7 +97,6 @@ export interface CartContextType extends Cart {
 
 export interface CartState {
   cart: Cart;
-  shouldPersist: boolean;
   isInitialized: boolean;
 }
 

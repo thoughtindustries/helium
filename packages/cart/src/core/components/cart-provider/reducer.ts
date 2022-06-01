@@ -3,7 +3,6 @@ import { CartAction, CartActionType, CartItem, CartState, EcommItemType } from '
 import { existingCartItemMatcher } from './utilities';
 
 export const initialState: CartState = {
-  shouldPersist: false,
   cart: { id: CART_ID, items: [] },
   isInitialized: false
 };
@@ -19,14 +18,12 @@ export default function cartReducer(state: CartState, action: CartAction): CartS
       if (!state.isInitialized) {
         return {
           ...state,
-          shouldPersist: false,
           cart: { ...action.cart },
           isInitialized: true
         };
       }
       return {
-        ...state,
-        shouldPersist: false
+        ...state
       };
     }
     case CartActionType.AddCartItem: {
@@ -58,13 +55,11 @@ export default function cartReducer(state: CartState, action: CartAction): CartS
           cart: {
             ...state.cart,
             items: restItems
-          },
-          shouldPersist: true
+          }
         };
       }
       return {
-        ...state,
-        shouldPersist: false
+        ...state
       };
     }
     case CartActionType.RemoveCartItem: {
@@ -75,13 +70,11 @@ export default function cartReducer(state: CartState, action: CartAction): CartS
           cart: {
             ...state.cart,
             items: state.cart.items.filter(existingItem => !existingItemMatcher(existingItem))
-          },
-          shouldPersist: true
+          }
         };
       }
       return {
-        ...state,
-        shouldPersist: false
+        ...state
       };
     }
   }
