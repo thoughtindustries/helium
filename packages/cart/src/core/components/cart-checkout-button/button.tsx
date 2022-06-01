@@ -1,4 +1,5 @@
 import React, { forwardRef } from 'react';
+import { useCart } from '../../hooks/use-cart';
 import { useCartCheckout } from '../../hooks/use-cart-checkout';
 import { CartCheckoutButtonProps } from './types';
 
@@ -8,14 +9,12 @@ import { CartCheckoutButtonProps } from './types';
  */
 const CartCheckoutButton = forwardRef<HTMLButtonElement, CartCheckoutButtonProps>(
   ({ children, ...passThroughProps }, ref) => {
+    const { isInitialized } = useCart();
     const { isCheckoutRequested, startCheckout } = useCartCheckout();
+    const disabled = !isInitialized || isCheckoutRequested || passThroughProps.disabled;
+
     return (
-      <button
-        {...passThroughProps}
-        ref={ref}
-        disabled={isCheckoutRequested || passThroughProps.disabled}
-        onClick={startCheckout}
-      >
+      <button {...passThroughProps} ref={ref} disabled={disabled} onClick={startCheckout}>
         {children}
       </button>
     );
