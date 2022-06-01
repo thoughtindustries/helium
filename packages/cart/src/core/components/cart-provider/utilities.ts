@@ -19,7 +19,6 @@ export const parseCartCookie = (cookie?: string): Cart => {
     const base64Url = cookie.split('.')[0];
     const base64 = base64Url.replace('-', '+').replace('_', '/');
     const { cartItems: items = [] } = JSON.parse(window.atob(base64));
-    // return JSON.parse(Buffer.from(cookie, 'base64').toString('utf8'));
     return {
       ...defaultCart,
       items
@@ -34,7 +33,6 @@ export const serializeCart = (cart: Cart): string => {
     id: CART_ID,
     cartItems: [...cart.items]
   };
-  // return Buffer.from(JSON.stringify(clonedCart)).toString('base64');
   return window.btoa(JSON.stringify(clonedCart));
 };
 
