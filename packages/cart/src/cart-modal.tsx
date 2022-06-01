@@ -37,20 +37,13 @@ const RelatedItemsUpsell = ({ items }: { items: CartItem[] }) => {
     return null;
   }
 
-  const coupon = {
-    code: 'test',
-    percentOff: 50,
-    amountOffInCents: 0.2
-  };
-
   return (
     <div>
       <ul>
         {data.RelatedProducts.map((product, key) => {
           const props = {
             purchasableType: EcommItemType.Product,
-            purchasable: product,
-            coupon
+            purchasable: product
           };
           return (
             <li key={key}>
