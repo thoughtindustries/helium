@@ -21,7 +21,6 @@ const AddToCartButton = forwardRef<HTMLButtonElement, AddToCartButtonProps>(
       quantity,
       children,
       shouldOpenCart,
-      isMobile,
       ...passThroughProps
     },
     ref
@@ -54,6 +53,10 @@ const AddToCartButton = forwardRef<HTMLButtonElement, AddToCartButtonProps>(
             interval,
             quantity
           });
+
+          const isMobile = /Mobile|iP(hone|od|ad)|Android|BlackBerry|IEMobile/.test(
+            navigator.userAgent
+          );
 
           // skip the cart modal if the user is on a mobile device and there's nothing to upsell
           if (shouldOpenCart && isMobile && instructorAccessPriceInCents) {

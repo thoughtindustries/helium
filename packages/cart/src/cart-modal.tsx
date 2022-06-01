@@ -43,8 +43,7 @@ const RelatedItemsUpsell = ({ items }: { items: CartItem[] }) => {
         {data.RelatedProducts.map((product, key) => {
           const props = {
             purchasableType: EcommItemType.Product,
-            purchasable: product,
-            isMobile: false
+            purchasable: product
           };
           return (
             <li key={key}>

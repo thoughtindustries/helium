@@ -7,9 +7,4 @@ export type AddToCartButtonProps = Omit<ButtonHTMLAttributes<HTMLButtonElement>,
     children: ReactNode;
     /** option to open cart modal as a follow-up action */
     shouldOpenCart?: boolean;
-    /**
-     * flag to indicate mobile view, when set along with `shouldOpenCart` prop and no upsell info
-     * is available, it will take user to the checkout flow instantly.
-     */
-    isMobile: boolean;
   };
