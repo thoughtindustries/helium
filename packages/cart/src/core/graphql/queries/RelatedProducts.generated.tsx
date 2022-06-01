@@ -4,8 +4,8 @@ import { gql } from '@apollo/client';
 import * as Apollo from '@apollo/client';
 const defaultOptions = {} as const;
 export type RelatedProductsQueryVariables = Types.Exact<{
-  productIds?: Types.InputMaybe<Array<Types.Scalars['ID']> | Types.Scalars['ID']>;
-  courseIds?: Types.InputMaybe<Array<Types.Scalars['ID']> | Types.Scalars['ID']>;
+  productIds: Array<Types.Scalars['ID']> | Types.Scalars['ID'];
+  courseIds: Array<Types.Scalars['ID']> | Types.Scalars['ID'];
 }>;
 
 export type RelatedProductsQuery = {
@@ -21,7 +21,7 @@ export type RelatedProductsQuery = {
 };
 
 export const RelatedProductsDocument = gql`
-  query RelatedProducts($productIds: [ID!], $courseIds: [ID!]) {
+  query RelatedProducts($productIds: [ID!]!, $courseIds: [ID!]!) {
     RelatedProducts(productIds: $productIds, courseIds: $courseIds) {
       id
       asset
@@ -50,7 +50,7 @@ export const RelatedProductsDocument = gql`
  * });
  */
 export function useRelatedProductsQuery(
-  baseOptions?: Apollo.QueryHookOptions<RelatedProductsQuery, RelatedProductsQueryVariables>
+  baseOptions: Apollo.QueryHookOptions<RelatedProductsQuery, RelatedProductsQueryVariables>
 ) {
   const options = { ...defaultOptions, ...baseOptions };
   return Apollo.useQuery<RelatedProductsQuery, RelatedProductsQueryVariables>(

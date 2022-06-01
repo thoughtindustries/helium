@@ -1,4 +1,4 @@
-query RelatedProducts($productIds: [ID!], $courseIds: [ID!]) {
+query RelatedProducts($productIds: [ID!]!, $courseIds: [ID!]!) {
   RelatedProducts(productIds: $productIds, courseIds: $courseIds) {
     id
     asset
