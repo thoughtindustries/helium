@@ -10,9 +10,13 @@ const CartButton = (): JSX.Element => {
     toggleCart();
   }, []);
   return (
-    <button className="btn btn--bare btn--inherit-font" id="cart-button" onClick={handleClick}>
+    <button
+      className="transition-colors ease-in-out duration-200 leading-normal cursor-pointer text-center text-black hover:text-blue-700 focus:outline focus:outline-1 focus:outline-blue-500 focus:shadow focus:shadow-blue-500 p-4"
+      id="cart-button"
+      onClick={handleClick}
+    >
       {t('header-cart')}
-      <span className="badge">({items.length})</span>
+      <span>({items.length})</span>
     </button>
   );
 };
