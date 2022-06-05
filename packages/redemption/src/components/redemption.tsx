@@ -3,7 +3,7 @@ import { useTranslation } from 'react-i18next';
 import Registration from './registration';
 import { codeList, isEmpty } from './helper';
 import Banner from './banner';
-import { useRedemptionCodesMutation } from '../graphql';
+import { useRedeemRedemptionCodeMutation } from '../graphql';
 
 const Redemption = ({ currentUser }: { currentUser: CurrentUser }): JSX.Element => {
   const styles = {
@@ -20,7 +20,7 @@ const Redemption = ({ currentUser }: { currentUser: CurrentUser }): JSX.Element 
 
   const { t } = useTranslation();
   const [count, setCount] = useState(1);
-  const [redemptionCodesMutation, { loading }] = useRedemptionCodesMutation();
+  const [RedeemRedemptionCodeMutation, { loading }] = useRedeemRedemptionCodeMutation();
   const [code, setCode] = useState('');
   const [valid, setValid] = useState<boolean | null | undefined>(null);
 
@@ -29,8 +29,8 @@ const Redemption = ({ currentUser }: { currentUser: CurrentUser }): JSX.Element 
   };
 
   const handleSubmit = () => {
-    redemptionCodesMutation({ variables: { code: code } })
-      .then(response => setValid(response.data?.RedemptionCodes?.valid))
+    RedeemRedemptionCodeMutation({ variables: { code: code } })
+      .then(response => setValid(response.data?.RedeemRedemptionCode?.valid))
       .catch(error => console.log('Redemption Request Error: ', error));
   };
 

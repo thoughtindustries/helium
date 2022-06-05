@@ -1,7 +1,7 @@
 import React from 'react';
 import { render, waitFor } from '@testing-library/react';
 import { MockedProvider } from '@apollo/client/testing';
-import { Redemption, RedemptionCodesDocument } from '../src';
+import { Redemption, RedeemRedemptionCodeDocument } from '../src';
 
 jest.mock('react-i18next', () => ({
   useTranslation: () => {
@@ -35,11 +35,11 @@ const loggedOutUser = {} as CurrentUser;
 
 const mockApolloResults = {
   request: {
-    query: RedemptionCodesDocument
+    query: RedeemRedemptionCodeDocument
   },
   result: {
     data: {
-      RedemptionCodes: {
+      RedeemRedemptionCode: {
         alreadyRedeemed: null,
         valid: false
       }

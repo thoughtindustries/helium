@@ -26,8 +26,8 @@ export type Scalars = {
   URL: string;
 };
 
-export type RedemptionCodes = {
-  __typename?: 'RedemptionCodes';
+export type RedeemRedemptionCode = {
+  __typename?: 'RedeemRedemptionCode';
   alreadyRedeemed?: Maybe<Scalars['Boolean']>;
   valid?: Maybe<Scalars['Boolean']>;
 };
