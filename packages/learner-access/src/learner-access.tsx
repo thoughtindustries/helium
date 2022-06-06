@@ -6,12 +6,9 @@ import {
   LoadWaitlist,
   LoadBookmarks,
   LoadCertificates,
-  LoadMyLearningItems,
-  LoadEvents,
-  LoadLearningPaths,
-  LoadCompletedItems
+  LoadMyLearningItems
 } from './components';
-
+import { useContentGroupsQuery } from '@thoughtindustries/content';
 const LearnerAccess = ({
   allowCollapse,
   classNames,
@@ -20,31 +17,44 @@ const LearnerAccess = ({
 }: LearnerAccessProps): JSX.Element => {
   const [selected, setSelected] = useState<number>(0);
   const [collapsed, setCollapsed] = useState<boolean>(true);
-  const [activeTab, setActiveTab] = useState<string>('My learning');
+  const [activeTab, setActiveTab] = useState<string>('contentItems');
 
   const [mylearningCount, setMylearningCount] = useState<number>(0);
-  const [learningpathsCount, setLearningpathsCount] = useState<number>(0);
-  const [eventsCount, setEventsCount] = useState<number>(0);
-  const [completedCount, setCompletedCount] = useState<number>(0);
-  const [archivesCount, setArchivesCount] = useState<number>(0);
-  const [waitlistedCount, setWaitlistedCount] = useState<number>(0);
-  const [certificationsCount, setCertificationsCount] = useState<number>(0);
 
-  interface ob {
-    item: string;
-    count?: number;
-  }
-
-  const learnerAccessData = [
-    { item: 'My learning', count: mylearningCount },
-    { item: 'Events', count: eventsCount },
-    { item: 'Learning Paths', count: learningpathsCount },
-    { item: 'Completed', count: completedCount },
-    { item: 'Archived', count: archivesCount },
-    { item: 'Certifications', count: certificationsCount },
-    { item: 'Bookmarked' },
-    { item: 'Waitlisted', count: waitlistedCount }
-  ];
+  const { data } = useContentGroupsQuery({
+    variables: {
+      query,
+      includeExpiredCertificates: displayExpiredCertificateInformation
+    }
+  });
+  const newTabName = (currentTab: string) => {
+    switch (currentTab) {
+      case 'contentItems':
+        return 'My Learning';
+        break;
+      case 'eventItems':
+        return 'Events';
+        break;
+      case 'learningPaths':
+        return 'Learning Paths';
+        break;
+      case 'completedItems':
+        return 'Completed';
+        break;
+      case 'certificates':
+        return 'Certifications';
+        break;
+      case 'bookmarkFolders':
+        return 'Bookmarks';
+        break;
+      case 'archivedContentItems':
+        return 'Archived';
+        break;
+      case 'waitlistedCourses':
+        return 'Waitlisted';
+        break;
+    }
+  };
 
   const handleChange = (index: number, currentTab: string) => {
     setSelected(index);
@@ -101,61 +111,60 @@ const LearnerAccess = ({
       className="border-solid border-gray-light bg-gradient-to-b from-white to-gray-lightest list-none m-0 p-0"
       role="tablist"
     >
-      {learnerAccessData.map((obj, index) => {
-        const activeTab = index === selected ? true : false;
-        const activeClassLi = activeTab ? selectedStyleLi : styleLi;
-        const activeClassSpan = activeTab ? selectedStyleSpan : styleSpan;
-        return (
-          <li key={index} {...activeClassLi}>
-            <button
-              onClick={() => {
-                handleChange(index, obj.item);
-              }}
-              className="btn bg-none rounded-none h-auto p-0 shadow-none"
-              role="tab"
-              aria-selected={activeTab}
-              aria-controls={'access-section-' + index}
-            >
-              <span {...activeClassSpan}>{obj.item}</span>
-              {obj.item == 'Bookmarked' ? (
-                ''
-              ) : (
-                <span className="border border-solid border-gray-light text-xs font-bold rounded-lg bg-white inline-block leading-4 ml-1 py-0 px-1 text-center">
-                  {obj.count}
-                </span>
-              )}
-            </button>
-          </li>
-        );
-      })}
+      {data &&
+        data.UserContentGroups.map((obj, index) => {
+          const activeTab = index === selected ? true : false;
+          const activeClassLi = activeTab ? selectedStyleLi : styleLi;
+          const activeClassSpan = activeTab ? selectedStyleSpan : styleSpan;
+          return (
+            <li key={index} {...activeClassLi}>
+              <button
+                onClick={() => {
+                  handleChange(index, obj.kind);
+                }}
+                className="btn bg-none rounded-none h-auto p-0 shadow-none"
+                role="tab"
+                aria-selected={activeTab}
+                aria-controls={'access-section-' + index}
+              >
+                <span {...activeClassSpan}>{newTabName(obj.kind)}</span>
+                {obj.kind == 'bookmarkFolders' ? (
+                  ''
+                ) : (
+                  <span className="border border-solid border-gray-light text-xs font-bold rounded-lg bg-white inline-block leading-4 ml-1 py-0 px-1 text-center">
+                    {obj.count}
+                  </span>
+                )}
+              </button>
+            </li>
+          );
+        })}
     </ul>
   );
   const tabContent = () => {
     console.log('in switch', activeTab);
     switch (activeTab) {
-      case 'My learning':
+      case 'contentItems':
         return (
           <LoadMyLearningItems
-            setMylearningCount={setMylearningCount}
-            mylearningCount={mylearningCount}
             query={query}
             kind={['courseGroup', 'article', 'video', 'shareableContentObject', 'xApiObject']}
             sort=""
           />
         );
-      case 'Events':
+      case 'eventItems':
         return (
-          <LoadEvents
+          <LoadMyLearningItems
             query={query}
             kind={['webinar', 'webinarCourse', 'inPersonEvent', 'inPersonEventCourse']}
             sort="displayDate"
           />
         );
-      case 'Learning Paths':
-        return <LoadLearningPaths query={query} kind={['learningPath']} sort="" />;
-      case 'Completed':
+      case 'learningPaths':
+        return <LoadMyLearningItems query={query} kind={['learningPath']} sort="" />;
+      case 'completedItems':
         return (
-          <LoadCompletedItems
+          <LoadMyLearningItems
             query={query}
             kind={[
               'learningPath',
@@ -172,13 +181,13 @@ const LearnerAccess = ({
             sort=""
           />
         );
-      case 'Archived':
+      case 'archivedContentItems':
         return <LoadArchivedContent />;
-      case 'Bookmarked':
+      case 'bookmarkFolders':
         return <LoadBookmarks />;
-      case 'Waitlisted':
+      case 'waitlistedCourses':
         return <LoadWaitlist />;
-      case 'Certifications':
+      case 'certificates':
         return (
           <LoadCertificates
             query={query}

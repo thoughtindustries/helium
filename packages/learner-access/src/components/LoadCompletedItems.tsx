@@ -13,17 +13,6 @@ const LoadCertificates = ({ query, kind, sort }: LoadedComponentProps): JSX.Elem
     }
   });
 
-  const toolTip = (
-    <div className="user-engagement-stat__label-hint">
-      <span className="has-tooltip">
-        <i className="icon-help" aria-label="help"></i>
-        <span className="tooltip tooltip--right">
-          This information is updated and verified as part of a nightly process
-        </span>
-      </span>
-    </div>
-  );
-
   const handleClick = () => {
     setShowContent(!showContent);
   };
@@ -143,7 +132,7 @@ const LoadCertificates = ({ query, kind, sort }: LoadedComponentProps): JSX.Elem
       {loading ? (
         <LoadingDots />
       ) : (
-        <div className="border-solid p-4 text-black-light border-gray-light px-4 py-[0.5rem]">
+        <div className="border-solid p-4 text-black-light border-gray-light px-4 py-[0.5rem] even:bg-white-mid border-b last:border-b-0">
           <div className="my-0 mx-auto max-w-full w-full">
             <div className="grid items-center grid-cols-12 gap-4">
               <div className="col-span-4">

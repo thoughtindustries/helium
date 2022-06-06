@@ -17,11 +17,4 @@ export interface LoadedComponentProps {
   query?: string;
   kind?: string[];
   sort?: string;
-  setMylearningCount?: (value: number) => void;
-  learningpathsCount?: (value: number) => void;
-  eventsCount?: (value: number) => void;
-  completedCount?: (value: number) => void;
-  archivesCount?: (value: number) => void;
-  waitlistedCount?: (value: number) => void;
-  certificationsCount?: (value: number) => void;
 }

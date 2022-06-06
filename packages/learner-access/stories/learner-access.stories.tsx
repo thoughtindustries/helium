@@ -8,6 +8,7 @@ import {
   UserCertificatesDocument,
   UserBookmarksDocument,
   UserWaitlistDocument,
+  ContentGroupsDocument,
   GlobalTypes
 } from '@thoughtindustries/content';
 export default {
@@ -87,6 +88,35 @@ const mockCurrentUserContentItems = [
     authors: ['Agatha Christie'],
     publishDate: '2022-04-22T04:00:00.000Z',
     source: 'Ortiz Group',
+    expiresAt: null,
+    currentUserMayReschedule: false,
+    timeZone: 'America/Chicago',
+    embeddedEnabled: false,
+    currentUserUnmetCoursePrerequisites: [],
+    currentUserUnmetLearningPathPrerequisites: []
+  },
+  {
+    __typename: 'Content',
+    asset: null,
+    title: 'LL Video 0422',
+    sessionTitle: null,
+    kind: 'video',
+    id: '7b505267-82c5-48a6-b35a-a4945e9b2efa',
+    slug: 'll-video-0422',
+    meetingStartDate: null,
+    contentTypeLabel: 'Video',
+    availabilityStatus: 'not-started',
+    courseStartDate: '2022-04-22T13:15:09.748Z',
+    courseEndDate: null,
+    coursePresold: false,
+    description: null,
+    displayCourse: '7b505267-82c5-48a6-b35a-a4945e9b2efa',
+    displayCourseSlug: 'll-video-0422',
+    displayDate: '2022-04-22T13:15:09.748Z',
+    courseGracePeriodEnded: false,
+    authors: [],
+    publishDate: '2022-04-22T13:15:09.748Z',
+    source: null,
     expiresAt: null,
     currentUserMayReschedule: false,
     timeZone: 'America/Chicago',
@@ -181,8 +211,281 @@ const mockCurrentUserContentItems = [
     embeddedEnabled: false,
     currentUserUnmetCoursePrerequisites: [],
     currentUserUnmetLearningPathPrerequisites: []
+  },
+  {
+    __typename: 'Content',
+    asset: null,
+    title: 'Lord of the Bugs',
+    sessionTitle: null,
+    kind: 'courseGroup',
+    id: '34dfd310-903c-4eac-9f16-545360a6d4aa',
+    slug: 'lord-of-the-bugs',
+    meetingStartDate: null,
+    contentTypeLabel: 'Course',
+    availabilityStatus: 'not-started',
+    courseStartDate: '2022-05-12T17:42:17.372Z',
+    courseEndDate: null,
+    coursePresold: false,
+    description: null,
+    displayCourse: '34dfd310-903c-4eac-9f16-545360a6d4aa',
+    displayCourseSlug: 'lord-of-the-bugs',
+    displayDate: '2022-05-12T17:42:17.372Z',
+    courseGracePeriodEnded: false,
+    authors: [],
+    publishDate: '2022-05-12T17:42:17.372Z',
+    source: null,
+    expiresAt: null,
+    currentUserMayReschedule: false,
+    timeZone: 'America/Chicago',
+    embeddedEnabled: false,
+    currentUserUnmetCoursePrerequisites: [],
+    currentUserUnmetLearningPathPrerequisites: []
   }
 ];
+
+const mockLearningPaths = [
+  {
+    __typename: 'Content',
+    asset: null,
+    title: 'sp lp test',
+    sessionTitle: null,
+    kind: 'learningPath',
+    id: '6fb0fbb0-a9c4-4f19-9fb7-38577d61aea3',
+    slug: 'sp-lp-test',
+    meetingStartDate: null,
+    contentTypeLabel: 'Learning Path',
+    availabilityStatus: 'not-started',
+    courseStartDate: '2022-02-07T08:00:00.000Z',
+    courseEndDate: null,
+    coursePresold: false,
+    description: null,
+    displayCourse: null,
+    displayCourseSlug: null,
+    displayDate: '2022-02-07T08:00:00.000Z',
+    courseGracePeriodEnded: false,
+    authors: [],
+    publishDate: null,
+    source: null,
+    expiresAt: null,
+    currentUserMayReschedule: false,
+    timeZone: 'America/Chicago',
+    embeddedEnabled: false,
+    currentUserUnmetCoursePrerequisites: [],
+    currentUserUnmetLearningPathPrerequisites: []
+  },
+  {
+    __typename: 'Content',
+    asset: null,
+    title: 'sp learning path percentage completed Copy',
+    sessionTitle: null,
+    kind: 'learningPath',
+    id: '3e7b156e-7597-4a23-ab01-da7be45f8dfb',
+    slug: 'sp-learning-path-percentage-completed-copy',
+    meetingStartDate: null,
+    contentTypeLabel: 'Learning Path',
+    availabilityStatus: 'not-started',
+    courseStartDate: '2022-03-03T05:00:00.000Z',
+    courseEndDate: null,
+    coursePresold: false,
+    description: null,
+    displayCourse: null,
+    displayCourseSlug: null,
+    displayDate: '2022-03-03T05:00:00.000Z',
+    courseGracePeriodEnded: false,
+    authors: [],
+    publishDate: null,
+    source: null,
+    expiresAt: null,
+    currentUserMayReschedule: false,
+    timeZone: 'America/Chicago',
+    embeddedEnabled: false,
+    currentUserUnmetCoursePrerequisites: [],
+    currentUserUnmetLearningPathPrerequisites: []
+  },
+  {
+    __typename: 'Content',
+    asset: null,
+    title: 'LP Custom Detail',
+    sessionTitle: null,
+    kind: 'learningPath',
+    id: 'c3e050c5-88a0-467a-b352-b5ea73a13186',
+    slug: 'lp-custom-detail',
+    meetingStartDate: null,
+    contentTypeLabel: 'Learning Path',
+    availabilityStatus: 'not-started',
+    courseStartDate: '2022-03-10T09:00:00.000Z',
+    courseEndDate: null,
+    coursePresold: false,
+    description: null,
+    displayCourse: null,
+    displayCourseSlug: null,
+    displayDate: '2022-03-10T09:00:00.000Z',
+    courseGracePeriodEnded: false,
+    authors: [],
+    publishDate: null,
+    source: null,
+    expiresAt: null,
+    currentUserMayReschedule: false,
+    timeZone: 'America/Chicago',
+    embeddedEnabled: false,
+    currentUserUnmetCoursePrerequisites: [],
+    currentUserUnmetLearningPathPrerequisites: []
+  }
+];
+
+const mockCompletedItems = mockCurrentUserContentItems.filter(
+  e => e.availabilityStatus === 'completed'
+);
+
+const mockEvents = [
+  {
+    __typename: 'Content',
+    asset: null,
+    title: 'Enhanced ILT Video Page',
+    sessionTitle: null,
+    kind: 'inPersonEventCourse',
+    id: 'a3070ead-73d3-4ded-9b20-a73d25f7245b',
+    slug: 'enhanced-ilt-video-page',
+    meetingStartDate: '2022-06-20T16:00:00.000Z',
+    contentTypeLabel: 'Enhanced ILT ',
+    availabilityStatus: 'started',
+    courseStartDate: '2022-05-04T19:29:25.998Z',
+    courseEndDate: null,
+    coursePresold: false,
+    description: null,
+    displayCourse: 'a3070ead-73d3-4ded-9b20-a73d25f7245b',
+    displayCourseSlug: 'enhanced-ilt-video-page',
+    displayDate: '2022-06-20T16:00:00.000Z',
+    courseGracePeriodEnded: false,
+    authors: [],
+    publishDate: '2022-05-04T19:29:25.998Z',
+    source: null,
+    expiresAt: null,
+    currentUserMayReschedule: false,
+    timeZone: 'America/Chicago',
+    embeddedEnabled: false,
+    currentUserUnmetCoursePrerequisites: [],
+    currentUserUnmetLearningPathPrerequisites: []
+  },
+  {
+    __typename: 'Content',
+    asset: null,
+    title: 'Learner Notifications',
+    sessionTitle: null,
+    kind: 'webinar',
+    id: '55694ecf-1f95-44a9-8ec3-81dafd685d62',
+    slug: 'learner-notifications',
+    meetingStartDate: '2022-06-02T16:00:00.000Z',
+    contentTypeLabel: 'VILT / Webinar',
+    availabilityStatus: 'not-started',
+    courseStartDate: '2022-05-13T16:00:00.000Z',
+    courseEndDate: '2022-06-02T16:30:00.000Z',
+    coursePresold: false,
+    description: 'A description',
+    displayCourse: '55694ecf-1f95-44a9-8ec3-81dafd685d62',
+    displayCourseSlug: 'learner-notifications',
+    displayDate: '2022-06-02T16:00:00.000Z',
+    courseGracePeriodEnded: false,
+    authors: [],
+    publishDate: '2022-05-13T16:00:00.000Z',
+    source: null,
+    expiresAt: null,
+    currentUserMayReschedule: false,
+    timeZone: 'America/New_York',
+    embeddedEnabled: false,
+    currentUserUnmetCoursePrerequisites: [],
+    currentUserUnmetLearningPathPrerequisites: []
+  },
+  {
+    __typename: 'Content',
+    asset: null,
+    title: 'Why does bulk import hate me?: A course with a therapy session at the end',
+    sessionTitle: 'Why does bulk import hate me?: A course with a therapy session at the end',
+    kind: 'inPersonEventCourse',
+    id: 'd4af2684-5005-4741-960e-d6acc24fb105',
+    slug: 'why-does-bulk-import-hate-me-a-course-with-a-therapy-session-at-the-end-wiab',
+    meetingStartDate: '2022-06-01T14:30:00.000Z',
+    contentTypeLabel: 'In-Person Event',
+    availabilityStatus: 'started',
+    courseStartDate: '2022-05-04T18:59:45.759Z',
+    courseEndDate: null,
+    coursePresold: false,
+    description: null,
+    displayCourse: 'd4af2684-5005-4741-960e-d6acc24fb105',
+    displayCourseSlug:
+      'why-does-bulk-import-hate-me-a-course-with-a-therapy-session-at-the-end-wiab',
+    displayDate: '2022-06-01T14:30:00.000Z',
+    courseGracePeriodEnded: false,
+    authors: [],
+    publishDate: '2022-05-04T18:59:45.759Z',
+    source: null,
+    expiresAt: null,
+    currentUserMayReschedule: false,
+    timeZone: 'America/Chicago',
+    embeddedEnabled: false,
+    currentUserUnmetCoursePrerequisites: [],
+    currentUserUnmetLearningPathPrerequisites: []
+  },
+  {
+    __typename: 'Content',
+    asset: null,
+    title: 'Why does bulk import hate me?: A course with a therapy session at the end',
+    sessionTitle: 'Why does bulk import hate me?: A course with a therapy session at the end',
+    kind: 'inPersonEventCourse',
+    id: '7551de04-afe1-4311-b853-ec2a174878e5',
+    slug: 'why-does-bulk-import-hate-me-a-course-with-a-therapy-session-at-the-end',
+    meetingStartDate: '2022-06-01T14:30:00.000Z',
+    contentTypeLabel: 'In-Person Event',
+    availabilityStatus: 'not-started',
+    courseStartDate: '2022-05-04T18:59:39.298Z',
+    courseEndDate: null,
+    coursePresold: false,
+    description: null,
+    displayCourse: '7551de04-afe1-4311-b853-ec2a174878e5',
+    displayCourseSlug: 'why-does-bulk-import-hate-me-a-course-with-a-therapy-session-at-the-end',
+    displayDate: '2022-06-01T14:30:00.000Z',
+    courseGracePeriodEnded: false,
+    authors: [],
+    publishDate: '2022-05-04T18:59:39.298Z',
+    source: null,
+    expiresAt: null,
+    currentUserMayReschedule: false,
+    timeZone: 'America/Chicago',
+    embeddedEnabled: false,
+    currentUserUnmetCoursePrerequisites: [],
+    currentUserUnmetLearningPathPrerequisites: []
+  },
+  {
+    __typename: 'Content',
+    asset: null,
+    title: 'LL ILT with PP and Zoom Webinar for Bulk Import',
+    sessionTitle: null,
+    kind: 'inPersonEventCourse',
+    id: '911c597d-ec29-43c1-8ec6-30e8a8e7887a',
+    slug: 'll-ilt-with-pp-and-zoom-webinar-for-bulk-import',
+    meetingStartDate: '2022-05-13T17:00:00.000Z',
+    contentTypeLabel: 'In-Person Event',
+    availabilityStatus: 'not-started',
+    courseStartDate: '2022-05-05T17:55:37.301Z',
+    courseEndDate: null,
+    coursePresold: false,
+    description: null,
+    displayCourse: '911c597d-ec29-43c1-8ec6-30e8a8e7887a',
+    displayCourseSlug: 'll-ilt-with-pp-and-zoom-webinar-for-bulk-import',
+    displayDate: '2022-05-13T17:00:00.000Z',
+    courseGracePeriodEnded: false,
+    authors: [],
+    publishDate: '2022-05-05T17:55:37.301Z',
+    source: null,
+    expiresAt: null,
+    currentUserMayReschedule: false,
+    timeZone: 'America/Chicago',
+    embeddedEnabled: false,
+    currentUserUnmetCoursePrerequisites: [],
+    currentUserUnmetLearningPathPrerequisites: []
+  }
+];
+
 const mockCurrentUserCertificates = [
   {
     id: 'uuid',
@@ -228,6 +531,7 @@ const mockCurrentUserArchives = [
     waitlistActive: false
   }
 ];
+
 const mockBookmarkFoldersByUserAndCompany = [
   {
     __typename: 'BookmarkFolder',
@@ -237,6 +541,7 @@ const mockBookmarkFoldersByUserAndCompany = [
     bookmarkCount: 1
   }
 ];
+
 const mockBookmarksByFolder = [
   {
     __typename: 'Bookmark',
@@ -295,6 +600,18 @@ const mockWaitlistedData = [
     displayCourseSlug: 'waitlisting-enhanced-ilt'
   }
 ];
+
+const mockUserContentGroups = [
+  { kind: 'contentItems', count: mockCurrentUserContentItems.length },
+  { kind: 'eventItems', count: mockEvents.length },
+  { kind: 'learningPaths', count: mockLearningPaths.length },
+  { kind: 'completedItems', count: mockCompletedItems.length },
+  { kind: 'certificates', count: mockCurrentUserCertificates.length },
+  { kind: 'bookmarkFolders', count: mockBookmarksByFolder.length },
+  { kind: 'archivedContentItems', count: mockCurrentUserArchives.length },
+  { kind: 'waitlistedCourses', count: mockWaitlistedData.length }
+];
+
 // use the options to bypass mocking full payload of responses
 const mockedApolloProviderOptions = {
   watchQuery: { fetchPolicy: 'no-cache' as const },
@@ -304,6 +621,7 @@ const apolloBaseParams = {
   addTypename: false,
   defaultOptions: mockedApolloProviderOptions
 };
+
 Base.parameters = {
   apolloClient: {
     ...apolloBaseParams,
@@ -339,12 +657,12 @@ Base.parameters = {
         },
         result: {
           data: {
-            UserContentItems: [...mockCurrentUserContentItems]
+            UserContentItems: [...mockEvents]
           }
         },
         newData: () => ({
           data: {
-            UserContentItems: [...mockCurrentUserContentItems]
+            UserContentItems: [...mockEvents]
           }
         })
       },
@@ -359,12 +677,12 @@ Base.parameters = {
         },
         result: {
           data: {
-            UserContentItems: [...mockCurrentUserContentItems]
+            UserContentItems: [...mockLearningPaths]
           }
         },
         newData: () => ({
           data: {
-            UserContentItems: [...mockCurrentUserContentItems]
+            UserContentItems: [...mockLearningPaths]
           }
         })
       },
@@ -390,12 +708,12 @@ Base.parameters = {
         },
         result: {
           data: {
-            UserContentItems: [...mockCurrentUserContentItems]
+            UserContentItems: [...mockCompletedItems]
           }
         },
         newData: () => ({
           data: {
-            UserContentItems: [...mockCurrentUserContentItems]
+            UserContentItems: [...mockCompletedItems]
           }
         })
       },
@@ -455,6 +773,25 @@ Base.parameters = {
         newData: () => ({
           data: {
             BookmarkFoldersByUserAndCompany: [...mockBookmarkFoldersByUserAndCompany]
+          }
+        })
+      },
+      {
+        request: {
+          query: ContentGroupsDocument,
+          variables: {
+            query: '',
+            includeExpiredCertificates: defaultProps.displayExpiredCertificateInformation
+          }
+        },
+        result: {
+          data: {
+            UserContentGroups: [...mockUserContentGroups]
+          }
+        },
+        newData: () => ({
+          data: {
+            UserContentGroups: [...mockUserContentGroups]
           }
         })
       }

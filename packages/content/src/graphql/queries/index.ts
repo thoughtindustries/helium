@@ -12,3 +12,4 @@ export * from './UserArchives.generated';
 export * from './UserWaitlist.generated';
 export * from './UserBookmarks.generated';
 export * from './UserCertificates.generated';
+export * from './UserContentGroups.generated';

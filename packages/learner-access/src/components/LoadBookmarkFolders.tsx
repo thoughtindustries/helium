@@ -1,8 +1,11 @@
 import React, { useState } from 'react';
+// import { DragDropContext } from 'react-beautiful-dnd';
 import { useUserBookmarksQuery, LoadingDots } from '@thoughtindustries/content';
 import { MoveIcon, RightArrowtIcon, DownArrowIcon, WriteIcon } from '../Assets/Icons';
+
 const LoadBookmarks = (): JSX.Element => {
   const [showContent, setShowContent] = useState<boolean>(false);
+
   const { data, loading, error }: any = useUserBookmarksQuery({
     variables: {}
   });
@@ -10,6 +13,7 @@ const LoadBookmarks = (): JSX.Element => {
   const handleClick = () => {
     setShowContent(!showContent);
   };
+
   const expandedContent = (
     <div className="mx-0 my-6 relative">
       <div className="row">
@@ -43,23 +47,26 @@ const LoadBookmarks = (): JSX.Element => {
           <div className="row-span-2">
             <div className="float-left px-4 relative">
               <ul className="w-[max-content] list-none m-0 p-0">
-                <li className="border-gray-light border-solid border-b flex m-0 max-w-none w-auto">
-                  <div className="w-1/12 float-left mr-0 px-2 pt-3 relative">
-                    <MoveIcon />
-                  </div>
+                {data &&
+                  data.BookmarkFoldersByUserAndCompany.map(() => {
+                    <li className="border-gray-light border-solid border-b flex m-0 max-w-none w-auto">
+                      <div className="w-1/12 float-left mr-0 px-2 pt-3 relative">
+                        <MoveIcon />
+                      </div>
 
-                  <button
-                    className="w-full flex border-gray-mid leading-5 max-w-7xl grow-[2] ease-in-out transition font-sans duration-200 rounded-sm cursor-pointer items-center justify-between float-left font-normal text-sm mx-0 mt-0 py-2 px-5 relative text-center no-underline"
-                    title="My Bookmarks"
-                  >
-                    <span className="font-normal text-base pr-4 not-italic truncate text-active-blue">
-                      My Bookmarks
-                    </span>
-                    <span className="text-white bg-active-blue rounded-[200px] border-gray-light border-solid border font-semibold h-5 leading-5 px-1 text-center">
-                      1
-                    </span>
-                  </button>
-                </li>
+                      <button
+                        className="w-full flex border-gray-mid leading-5 max-w-7xl grow-[2] ease-in-out transition font-sans duration-200 rounded-sm cursor-pointer items-center justify-between float-left font-normal text-sm mx-0 mt-0 py-2 px-5 relative text-center no-underline"
+                        title="My Bookmarks"
+                      >
+                        <span className="font-normal text-base pr-4 not-italic truncate text-active-blue">
+                          My Bookmarks
+                        </span>
+                        <span className="text-white bg-active-blue rounded-[200px] border-gray-light border-solid border font-semibold h-5 leading-5 px-1 text-center">
+                          1
+                        </span>
+                      </button>
+                    </li>;
+                  })}
               </ul>
             </div>
 

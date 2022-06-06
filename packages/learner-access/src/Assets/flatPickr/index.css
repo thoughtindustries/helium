@@ -1,0 +1,23 @@
+.flatpickr-months .flatpickr-month {
+  color: black;
+  background: white;
+}
+.flatpickr-weekdays {
+  background: white;
+}
+
+.flatpickr-current-month .flatpickr-monthDropdown-months {
+  color: black;
+  background: white;
+}
+
+span.flatpickr-weekday {
+  background: white;
+  color: black;
+}
+.flatpickr-months .flatpickr-prev-month svg path,
+.flatpickr-months .flatpickr-next-month svg path {
+  -webkit-transition: fill 0.1s;
+  transition: fill 0.1s;
+  fill: black;
+}

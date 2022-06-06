@@ -1,15 +1,14 @@
-import React, { useState, useEffect } from 'react';
-import { LoadedComponentProps } from '../types';
+import React, { useState } from 'react';
 
+import { LoadedComponentProps } from '../types';
 import { RightArrowtIcon, DownArrowIcon, HelpIcon } from '../Assets/Icons';
 import { useUserContentItemsQuery, LoadingDots } from '@thoughtindustries/content';
+import { Tooltip } from '../Assets/Tooltip';
+import { formatTime } from '@thoughtindustries/content';
 
-const LoadMyLearningItems = ({
-  setMylearningCount,
-  query,
-  kind,
-  sort
-}: LoadedComponentProps): JSX.Element => {
+const LoadMyLearningItems = ({ query, kind, sort }: LoadedComponentProps): JSX.Element => {
+  const host = window.location.hostname;
+  console.log(host);
   const { data, loading, error }: any = useUserContentItemsQuery({
     variables: {
       query,
@@ -17,25 +16,12 @@ const LoadMyLearningItems = ({
       sort
     }
   });
-  useEffect(() => {
-    if (setMylearningCount && data) setMylearningCount(data.UserContentItems.length);
-  }, [data, setMylearningCount]);
-
-  const toolTip = (
-    <div className="user-engagement-stat__label-hint">
-      <span className="has-tooltip">
-        <i className="icon-help" aria-label="help"></i>
-        <span className="tooltip tooltip--right">
-          This information is updated and verified as part of a nightly process
-        </span>
-      </span>
-    </div>
-  );
-
-  const ExpandedContent = ({ item, index }: ContentItemUiProps) => {
+  const ExpandedContent = ({ item }: ContentUiProps) => {
     return (
-      <div className="grid grid-rows-2 mx-0 my-4 relative">
-        <div className=" grid grid-cols-3 row-span-2">
+      <div
+        className={item.asset ? 'grid grid-rows-2 mx-0 my-4 relative' : 'grid mx-0 my-4 relative'}
+      >
+        <div className={item.asset ? 'grid grid-cols-3 row-span-2' : ''}>
           {item.asset ? (
             <div className="px-4">
               <img
@@ -60,12 +46,10 @@ const LoadMyLearningItems = ({
                       Total Hours
                     </div>
                     <div className="user-engagement-stat__label-hint absolute right-0">
-                      <span className="has-tooltip">
-                        <HelpIcon />
-                        {/* <span className="tooltip tooltip--right">
-                        This information is updated and verified as part of a nightly process
-                      </span> */}
-                      </span>
+                      <Tooltip
+                        description="This information is updated and verified as part of a nightly process"
+                        childComp={<HelpIcon />}
+                      />
                     </div>
                   </div>
 
@@ -162,58 +146,77 @@ const LoadMyLearningItems = ({
     );
   };
 
-  interface ContentItemUiProps {
+  interface ContentUiProps {
     item?: any;
     index?: number;
     courseCollaborations?: object;
   }
 
-  const ContentItemUi = ({ item, index, courseCollaborations }: ContentItemUiProps) => {
+  const ContentUi = ({ item, index, courseCollaborations }: ContentUiProps) => {
     const [showContent, setShowContent] = useState<boolean>(false);
     console.log(courseCollaborations);
     return (
-      <div className="border-solid p-4 text-black-light border-gray-light px-4 py-[0.5rem]">
-        <div key={index} className="my-0 mx-auto max-w-full w-full">
+      <div
+        key={item.id}
+        className="border-solid p-4 text-black-light border-gray-light px-4 py-[0.5rem] even:bg-white-mid border-b last:border-b-0"
+      >
+        <div className="my-0 mx-auto max-w-full w-full">
           <div className="grid items-center grid-cols-12 gap-4">
             <div className="col-span-4">
               <button
-                className="btn btn--link btn--inherit-font dashboard-access-list-item-expander"
+                style={{ cursor: item.kind == 'inPersonEventCourse' ? 'default' : 'pointer' }}
+                className="btn btn--link btn--inherit-font dashboard-access-list-item-expander text-left"
                 onClick={() => setShowContent(prev => !prev)}
               >
-                {showContent ? <DownArrowIcon /> : <RightArrowtIcon />}
+                {item.kind !== 'inPersonEventCourse' ? (
+                  showContent ? (
+                    <DownArrowIcon />
+                  ) : (
+                    <RightArrowtIcon />
+                  )
+                ) : (
+                  ''
+                )}
                 <span className="dashboard-access-list-item-expander__title text-gray-mid">
-                  {item.title ? item.title : ''}
+                  {item.title && item.title}
                 </span>
               </button>
             </div>
 
-            <div className="col-span-2"></div>
+            <div className="col-span-2 text-gray-mid">
+              {(item.kind === 'inPersonEventCourse' || item.kind === 'webinar') &&
+                formatTime(item.displayDate, undefined, 'MMM D, YYYY h A')}
+            </div>
 
             <div className="col-span-3 text-gray-mid relative">
-              <strong className="mr-2">{item.contentTypeLabel}</strong>
+              <strong className="">{item.contentTypeLabel}</strong>
               {'  '}
-              {item.contentTypeLabel != 'Course' ? (
-                <div className="left-1/2 top-1 border-gray-mid border-solid border-l-2 h-3.5 ml-[-61px] absolute"></div>
-              ) : (
-                ''
+              {item.authors.length > 0 && (
+                <div className="border-gray-mid border-solid border-l-2 h-3.5 inline my-0 mr-1 ml-px"></div>
               )}
               <span>
                 {' '}
-                {'  '} {item.authors ? item.authors : ''}
+                {'  '} {item.authors && item.authors}
               </span>
-              <p className="catalog-list-item__source">{item.source ? item.source : ''}</p>
+              <p className="catalog-list-item__source">{item.source && item.source}</p>
             </div>
 
             <div className="col-start-11 col-span-2 text-right">
               <button
-                href="/learn/course/ll-microcourse-0422"
+                href={`${host}/learn/course/ll-microcourse-0422`}
                 className="bg-active-blue text-white rounded-sm cursor-pointer inline-block font-normal text-xs m-0 py-[0.15rem] px-4 relative text-center no-underline ease-in-out border-active-blue font-sans transition duration-200 leading-5"
               >
-                Continue
+                {item.availabilityStatus == 'started'
+                  ? 'Continue'
+                  : 'Start ' + item.contentTypeLabel}
               </button>
             </div>
           </div>
-          {showContent ? <ExpandedContent item={item} index={index} /> : ''}
+          {showContent && item.kind !== 'inPersonEventCourse' ? (
+            <ExpandedContent item={item} />
+          ) : (
+            ''
+          )}
         </div>
       </div>
     );
@@ -226,11 +229,11 @@ const LoadMyLearningItems = ({
       {loading ? (
         <LoadingDots />
       ) : (
-        <>
+        <section>
           {data.UserContentItems.map((item: any, index: number) => {
-            return <ContentItemUi item={item} index={index} />;
+            return <ContentUi item={item} index={index} />;
           })}
-        </>
+        </section>
       )}
     </>
   );
