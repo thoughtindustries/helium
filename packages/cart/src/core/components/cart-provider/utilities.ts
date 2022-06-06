@@ -8,6 +8,7 @@ import {
   OtherPurchaseableItem,
   SeatTier
 } from './types';
+import { totalDueNow } from 'couponable';
 
 export const parseCartCookie = (cookie?: string): Cart => {
   const defaultCart: Cart = { id: CART_ID, items: [] };
@@ -53,32 +54,6 @@ const findPackagePrice = (
   return finalTierPriceInCents * seats;
 };
 
-const discountable = (
-  amountInCents: number,
-  percentOff?: number,
-  amountOffInCents?: number
-): number => {
-  let discount;
-
-  if (percentOff) {
-    discount = (amountInCents * percentOff) / 100;
-  } else if (amountOffInCents) {
-    discount = amountOffInCents;
-  } else {
-    discount = 0;
-  }
-
-  discount = Math.abs(discount);
-
-  const appliedDiscount = amountInCents - discount;
-
-  if (appliedDiscount <= 0) {
-    return 0;
-  }
-
-  return appliedDiscount;
-};
-
 export const parsePurchaseableItem = ({
   purchasableType,
   purchasable,
@@ -109,9 +84,11 @@ export const parsePurchaseableItem = ({
   }
 
   if (coupon) {
-    cartItemPriceInCents = Math.round(
-      discountable(cartItemPriceInCents, coupon.percentOff, coupon.amountOffInCents)
-    );
+    cartItemPriceInCents = totalDueNow({
+      quantity: 1,
+      priceInCents: cartItemPriceInCents,
+      coupon
+    });
   }
 
   const baseCartItem: CartItem = {
