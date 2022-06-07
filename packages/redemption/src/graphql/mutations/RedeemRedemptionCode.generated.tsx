@@ -11,8 +11,8 @@ export type RedeemRedemptionCodeMutation = {
   __typename?: 'Mutation';
   RedeemRedemptionCode?: {
     __typename?: 'RedeemRedemptionCode';
-    valid?: boolean;
-    alreadyRedeemed?: boolean;
+    valid: boolean;
+    alreadyRedeemed: boolean;
   };
 };
 

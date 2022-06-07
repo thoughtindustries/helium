@@ -1,25 +1,11 @@
-export interface CodeBoxProps {
-  input: (code: string) => void;
-  submit: () => void;
-  valid: boolean | null | undefined;
-  validating: boolean | undefined;
-}
+import { SetStateAction } from 'react';
 
-export interface CodeListProps {
-  num: number;
-  handleInput: (code: string) => void;
-  handleSubmit: () => void;
-  valid: boolean | null | undefined;
-  validating: boolean | undefined;
+export interface RedemptionProps {
+  isLoggedIn: boolean;
 }
-
-export interface BannerProps {
-  valid: boolean | null | undefined;
+export interface ValidationProps {
+  valid: boolean | undefined;
 }
-
-export interface RegistrationProps {
-  valid: boolean | null | undefined;
-  handleInput: (code: string) => void;
-  handleSubmit: () => void;
-  loading: boolean | undefined;
+export interface CodeProps extends ValidationProps {
+  validate: React.Dispatch<SetStateAction<boolean | undefined>>;
 }

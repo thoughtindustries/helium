@@ -1,8 +1,8 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
-import { BannerProps } from './types';
+import { ValidationProps } from './types';
 
-const Banner = ({ valid }: BannerProps): JSX.Element => {
+const Banner = ({ valid }: ValidationProps): JSX.Element => {
   const { t } = useTranslation();
   const styles = {
     errorStyle: 'w-full bg-red-600 p-4 text-sm text-white text-left font-bold mb-4',

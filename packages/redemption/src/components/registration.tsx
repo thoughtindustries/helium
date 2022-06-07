@@ -1,39 +1,28 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { useTranslation } from 'react-i18next';
-import { codeList } from './helper';
+import CodeList from './code-list';
 import Banner from './banner';
-import { RegistrationProps } from './types';
+import { CodeProps } from './types';
+import TermsAndConditions from './terms-and-conditions';
+import Prompt from './prompt';
+import { Formik } from 'formik';
 
-const Registration = ({
-  valid,
-  handleInput,
-  handleSubmit,
-  loading
-}: RegistrationProps): JSX.Element => {
-  const { t } = useTranslation();
-  const [count, setCount] = useState(1);
+const Registration = ({ valid, validate }: CodeProps): JSX.Element => {
   const styles = {
-    buttonStyle:
-      'text-white bg-indigo-700 hover:bg-indigo-600 inline-block font-normal text-sm text-center no-underline py-2 w-full md:w-1/4 rounded-md',
     inputStyle:
       'p-4 text-sm w-full ring-1 ring-gray-300 ring-inset shadow-inner focus:outline-none focus:ring-gray-500 mb-4',
     nameInput:
       'p-4 text-sm w-full ring-1 ring-gray-300 ring-inset shadow-inner focus:outline-none focus:ring-gray-500 mb-4 mr-4',
-    prompt: 'flex justify-center mb-8 text-sm text-gray-500',
     nameContainer: 'flex flex-row',
-    checkboxContainer: 'flex flex-row items-center mb-4',
-    checkbox: 'mr-2',
-    addCodeStyle: 'flex justify-left text-indigo-700 text-sm',
-    terms: 'text-gray-700',
-    termsContainer: 'flex flex-col md:flex-row text-sm text-gray-500 justify-between',
     redirect: 'mb-4',
     member: 'text-gray-600'
   };
+
+  const { t } = useTranslation();
+
   return (
     <>
-      <h5 className={styles.prompt}>
-        {t('redemption-code.redeem-course-copy-not-signed-in-manual-code')}
-      </h5>
+      <Prompt />
       <Banner valid={valid} />
       <p className={styles.redirect}>
         <strong className={styles.member}>{`${t('already-member')}\u00A0`}</strong>
@@ -48,31 +37,8 @@ const Registration = ({
       <input className={styles.inputStyle} placeholder={t('register-email')} />
       <input className={styles.inputStyle} placeholder={t('register-password')} />
       <input className={styles.inputStyle} placeholder={t('register-confirm-password')} />
-      {codeList({
-        num: count,
-        handleInput: handleInput,
-        handleSubmit: handleSubmit,
-        valid: valid,
-        validating: loading
-      })}
-      <button className={styles.addCodeStyle} type="button" onClick={() => setCount(count + 1)}>
-        {t('redemption-code.add-redemption-code')}
-      </button>
-      <div className="w-full border-t border-gray-200 my-4"></div>
-      <div className={styles.termsContainer}>
-        <div className={styles.checkboxContainer}>
-          <input className={styles.checkbox} type="checkbox" />
-          <div style={{ display: 'flex', flexDirection: 'row' }}>
-            <p>{`${t('agree-terms')}\u00A0`}</p>
-            <button className={styles.terms} type="button">
-              {t('terms-and-conditions')}
-            </button>
-          </div>
-        </div>
-        <button className={styles.buttonStyle} type="button">
-          {t('redemption-code.redeem-code-preloaded')}
-        </button>
-      </div>
+      <CodeList valid={valid} validate={validate} />
+      <TermsAndConditions valid={valid} />
     </>
   );
 };

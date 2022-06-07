@@ -1,8 +1,9 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { CodeBoxProps } from './types';
+import { useRedeemRedemptionCodeMutation } from '../graphql';
+import { CodeProps } from './types';
 
-const CodeBox = ({ input, submit, valid, validating }: CodeBoxProps): JSX.Element => {
+const CodeBox = ({ valid, validate }: CodeProps): JSX.Element => {
   const styles = {
     buttonStyle:
       'text-white bg-indigo-700 disabled:bg-indigo-300 disabled:cursor-default hover:bg-indigo-600 inline-block font-normal text-sm no-underline py-4 w-full md:w-1/3 rounded-md md:rounded-l-none mb-4',
@@ -11,24 +12,34 @@ const CodeBox = ({ input, submit, valid, validating }: CodeBoxProps): JSX.Elemen
   };
 
   const { t } = useTranslation();
+  const [RedeemRedemptionCodeMutation, { loading }] = useRedeemRedemptionCodeMutation();
+  const [code, setCode] = useState<string>('');
+
+  const handleInput = (value: string) => {
+    setCode(value);
+  };
+
+  const handleSubmit = async () => {
+    await RedeemRedemptionCodeMutation({ variables: { code: code } })
+      .then(response => validate(response.data?.RedeemRedemptionCode?.valid))
+      .catch(error => console.log('Redemption Request Error: ', error));
+  };
 
   return (
     <div>
       <input
-        disabled={validating}
+        disabled={loading || valid}
         className={styles.inputStyle}
         placeholder={t('redemption-code.placeholder')}
-        onChange={e => input(e.target.value)}
+        onChange={e => handleInput(e.target.value)}
       />
       <button
         className={styles.buttonStyle}
-        disabled={validating}
+        disabled={loading || valid}
         type="button"
-        onClick={() => {
-          submit();
-        }}
+        onClick={() => handleSubmit()}
       >
-        {validating
+        {loading
           ? t('redemption-code.validating')
           : valid
           ? t('redemption-code.validated')

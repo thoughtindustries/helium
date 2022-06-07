@@ -57,6 +57,9 @@ i18n.use(initReactI18next).init({
         'register-email': 'Email Address',
         'register-password': 'Password',
         'register-confirm-password': 'Password Confirmation',
+        'register-invalid-code-alert':
+          'You have not validated any redemption codes. Please try again.',
+        'register-terms-and-conditions-error': 'Please agree to the terms & conditions',
         course: 'Course',
         'filter-by': 'Filter by',
         'filter-no-courses':
