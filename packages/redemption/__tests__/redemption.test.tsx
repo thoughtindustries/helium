@@ -23,16 +23,6 @@ Object.defineProperty(window, 'matchMedia', {
   }))
 });
 
-const loggedInUser: CurrentUser = {
-  id: '0',
-  firstName: 'john',
-  lastName: 'doe',
-  email: 'john.doe@example.com',
-  roleKey: 'admin'
-};
-
-const loggedOutUser = {} as CurrentUser;
-
 const mockApolloResults = {
   request: {
     query: RedeemRedemptionCodeDocument
@@ -52,7 +42,7 @@ describe('@thoughtindustries/redemption', () => {
     it('should render with logged in user', async () => {
       const { container } = render(
         <MockedProvider mocks={[mockApolloResults]} addTypename={false}>
-          <Redemption currentUser={loggedInUser} />
+          <Redemption isLoggedIn={true} />
         </MockedProvider>
       );
       await waitFor(() => new Promise(res => setTimeout(res, 0)));
@@ -128,7 +118,7 @@ describe('@thoughtindustries/redemption', () => {
     it('should render with logged out user', async () => {
       const { container } = render(
         <MockedProvider mocks={[]} addTypename={false}>
-          <Redemption currentUser={loggedOutUser} />
+          <Redemption isLoggedIn={false} />
         </MockedProvider>
       );
       await waitFor(() => new Promise(res => setTimeout(res, 0)));
