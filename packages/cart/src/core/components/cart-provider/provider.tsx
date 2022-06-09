@@ -31,6 +31,10 @@ const CartProvider: FC<CartProviderProps> = ({ children, checkoutUrl }) => {
     dispatch({ type: CartActionType.RemoveCartItem, item });
   }, []);
 
+  const toggleItemInstructorAccess = useCallback((item: CartItem) => {
+    dispatch({ type: CartActionType.ToggleCartItemInstructorAccess, item });
+  }, []);
+
   // initialize cart from browser cookie
   useEffect(() => {
     if (!state.isInitialized) {
@@ -50,6 +54,7 @@ const CartProvider: FC<CartProviderProps> = ({ children, checkoutUrl }) => {
       }, 0),
       addPurchaseableItem: (payload: AddPurchaseableItemPayload) => addPurchaseableItem(payload),
       removeItem: (item: CartItem) => removeItem(item),
+      toggleItemInstructorAccess: (item: CartItem) => toggleItemInstructorAccess(item),
       checkoutUrl
     }),
     [state, addPurchaseableItem, removeItem, checkoutUrl]

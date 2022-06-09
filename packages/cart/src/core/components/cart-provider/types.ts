@@ -6,12 +6,18 @@ export enum EcommItemType {
   Bundle = 'bundle',
   Product = 'product',
   Course = 'course',
-  LearningPath = 'learningPath'
+  LearningPath = 'learningPath',
+  ProductSubscription = 'productSubscription'
 }
 
 export enum CartItemInterval {
   Year = 'year',
   Month = 'month'
+}
+
+export enum VariationLabel {
+  WithInstructorAccess = 'with-instructor-access',
+  WithoutInstructorAccess = 'without-instructor-access'
 }
 
 export type SeatTier = {
@@ -55,7 +61,7 @@ export interface CartItem {
   priceInCents: number;
   quantity: number;
   instructorAccessPriceInCents?: number;
-  variationLabel?: string;
+  variationLabel?: VariationLabel;
   relatedProducts?: string[];
   relatedCourseGroups?: string[];
   courses?: string[];
@@ -89,6 +95,8 @@ export interface CartContextType extends Cart {
   addPurchaseableItem: (payload: AddPurchaseableItemPayload) => void;
   /** a callback that removes item from the cart. */
   removeItem: (item: CartItem) => void;
+  /** a callback that toggles instructor access for the item. */
+  toggleItemInstructorAccess: (item: CartItem) => void;
   /** the total number of items in the cart. If there are no items, then the value is 0. */
   totalQuantity: number;
   /** url for checkout link */
@@ -103,13 +111,15 @@ export interface CartState {
 export enum CartActionType {
   InitializeCart,
   AddCartItem,
-  RemoveCartItem
+  RemoveCartItem,
+  ToggleCartItemInstructorAccess
 }
 
 export type CartAction =
   | { type: CartActionType.InitializeCart; cart: Cart }
   | { type: CartActionType.AddCartItem; item: CartItem }
-  | { type: CartActionType.RemoveCartItem; item: CartItem };
+  | { type: CartActionType.RemoveCartItem; item: CartItem }
+  | { type: CartActionType.ToggleCartItemInstructorAccess; item: CartItem };
 
 export interface CartProviderProps {
   /** url for checkout link */

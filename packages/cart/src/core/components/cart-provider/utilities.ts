@@ -6,7 +6,8 @@ import {
   CartItemInterval,
   EcommItemType,
   OtherPurchaseableItem,
-  SeatTier
+  SeatTier,
+  VariationLabel
 } from './types';
 import { totalDueNow } from 'couponable';
 
@@ -134,3 +135,26 @@ export const existingCartItemMatcher =
     // looking for same ID & Type
     return existingPurchasableId === purchasableId && existingPurchasableType === purchasableType;
   };
+
+export const getCartItemTotalDueNow = ({
+  quantity,
+  variationLabel,
+  priceInCents,
+  instructorAccessPriceInCents,
+  purchasableType
+}: CartItem) => {
+  const instructorAccessSelected = variationLabel === VariationLabel.WithInstructorAccess;
+  const instructorAccessVariation = { priceInCents: instructorAccessPriceInCents };
+  const variation = instructorAccessSelected ? { ...instructorAccessVariation } : undefined;
+  const orderItem = {
+    quantity,
+    priceInCents,
+    purchasableType,
+    variation
+  };
+
+  return totalDueNow(orderItem);
+};
+
+export const getCartTotalDueNow = (items: CartItem[]) =>
+  items.reduce((prev, item) => prev + getCartItemTotalDueNow(item), 0);

@@ -3,10 +3,20 @@ import CartModal from './cart-modal';
 import { CartUIProvider } from './core';
 import { CartProps } from './types';
 
-const Cart: FC<CartProps> = ({ children, ...passThroughProps }) => (
+const Cart: FC<CartProps> = ({
+  children,
+  priceFormat,
+  companyDefaultLocale,
+  currencyCode,
+  ...passThroughProps
+}) => (
   <CartUIProvider {...passThroughProps}>
     {children}
-    <CartModal />
+    <CartModal
+      priceFormat={priceFormat}
+      companyDefaultLocale={companyDefaultLocale}
+      currencyCode={currencyCode}
+    />
   </CartUIProvider>
 );
 

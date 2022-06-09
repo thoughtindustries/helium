@@ -1,5 +1,12 @@
 import { CART_ID } from './constants';
-import { CartAction, CartActionType, CartItem, CartState, EcommItemType } from './types';
+import {
+  CartAction,
+  CartActionType,
+  CartItem,
+  CartState,
+  EcommItemType,
+  VariationLabel
+} from './types';
 import { existingCartItemMatcher } from './utilities';
 
 export const initialState: CartState = {
@@ -7,9 +14,9 @@ export const initialState: CartState = {
   isInitialized: false
 };
 
-type ClonedExistingItemAndRestCartItems = {
-  restItems: CartItem[];
-  existingItem?: CartItem;
+type UpdatedCartItems = {
+  items: CartItem[];
+  foundExistingItem?: boolean;
 };
 
 export default function cartReducer(state: CartState, action: CartAction): CartState {
@@ -29,32 +36,38 @@ export default function cartReducer(state: CartState, action: CartAction): CartS
     case CartActionType.AddCartItem: {
       if (state.isInitialized) {
         const existingItemMatcher = existingCartItemMatcher(action.item);
-        const { restItems, existingItem } = state.cart.items.reduce(
+        const { items, foundExistingItem } = state.cart.items.reduce(
           (prev, item) => {
             // only account for the first existing item
-            const isFirstExistingItem = !prev.existingItem && existingItemMatcher(item);
+            const isFirstExistingItem = !prev.foundExistingItem && existingItemMatcher(item);
             if (isFirstExistingItem) {
-              prev.existingItem = { ...item };
+              prev.foundExistingItem = true;
+              if (item.purchasableType === EcommItemType.Product) {
+                // products can have quantities
+                prev.items.push({
+                  ...item,
+                  quantity: item.quantity + action.item.quantity
+                });
+              } else {
+                // replace existing with new item
+                prev.items.push({ ...action.item });
+              }
             } else {
-              prev.restItems.push({ ...item });
+              prev.items.push({ ...item });
             }
             return prev;
           },
-          { restItems: [] } as ClonedExistingItemAndRestCartItems
+          { items: [] } as UpdatedCartItems
         );
-        if (existingItem && existingItem.purchasableType === EcommItemType.Product) {
-          // products can have quantities
-          existingItem.quantity += action.item.quantity;
-          restItems.push({ ...existingItem });
-        } else {
-          // add new item or replace existing with new item
-          restItems.push({ ...action.item });
+        if (!foundExistingItem) {
+          // add new item
+          items.push({ ...action.item });
         }
         return {
           ...state,
           cart: {
             ...state.cart,
-            items: restItems
+            items
           }
         };
       }
@@ -70,6 +83,41 @@ export default function cartReducer(state: CartState, action: CartAction): CartS
           cart: {
             ...state.cart,
             items: state.cart.items.filter(existingItem => !existingItemMatcher(existingItem))
+          }
+        };
+      }
+      return {
+        ...state
+      };
+    }
+    case CartActionType.ToggleCartItemInstructorAccess: {
+      if (state.isInitialized) {
+        const existingItemMatcher = existingCartItemMatcher(action.item);
+        const { items } = state.cart.items.reduce(
+          (prev, item) => {
+            // only account for the first existing item
+            const isFirstExistingItem = !prev.foundExistingItem && existingItemMatcher(item);
+            if (isFirstExistingItem) {
+              prev.foundExistingItem = true;
+              prev.items.push({
+                ...item,
+                variationLabel:
+                  item.variationLabel === VariationLabel.WithInstructorAccess
+                    ? VariationLabel.WithoutInstructorAccess
+                    : VariationLabel.WithInstructorAccess
+              });
+            } else {
+              prev.items.push({ ...item });
+            }
+            return prev;
+          },
+          { items: [] } as UpdatedCartItems
+        );
+        return {
+          ...state,
+          cart: {
+            ...state.cart,
+            items
           }
         };
       }
