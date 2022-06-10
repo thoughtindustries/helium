@@ -64,8 +64,8 @@ const RelatedItemsUpsell = ({ items, priceFormatFn }: RelatedItemsUpsellProps) =
           };
           return (
             <li key={key}>
-              <div className="py-2 border-b border-solid border-gray-300 flex flex-col md:flex-row">
-                <div className="px-4 flex flex-row md:basis-3/4">
+              <div className="py-2 border-b border-solid border-gray-300 grid grid-cols-4">
+                <div className="px-4 flex flex-row col-span-full md:col-span-3">
                   <ItemAssetBlock
                     asset={asset}
                     name={name}
@@ -75,7 +75,7 @@ const RelatedItemsUpsell = ({ items, priceFormatFn }: RelatedItemsUpsellProps) =
                   />
                   <p className="m-2 text-lg leading-tight">{name}</p>
                 </div>
-                <div className="pl-4 pt-2 md:basis-1/4 text-right">
+                <div className="pl-4 pt-2 col-span-full md:col-span-1 text-right">
                   <div>
                     <div className="price flex flex-row md:flex-col justify-end gap-0.5">
                       {priceInCents && (
@@ -143,8 +143,8 @@ const Item = ({ item, priceFormatFn, removeItem, toggleItemInstructorAccess }: I
 
   return (
     <div className="flex flex-col">
-      <div className="py-2 flex flex-col md:flex-row">
-        <div className="flex flex-row px-4 md:basis-3/4">
+      <div className="py-2 grid grid-cols-4">
+        <div className="flex flex-row px-4 col-span-full md:col-span-3">
           <ItemAssetBlock asset={asset} width={100} height={100} classnames="w-[100px] h-[100px]" />
           <div className="m-2">
             <p className="text-gray-800 text-xl mb-2">{title}</p>
@@ -175,7 +175,7 @@ const Item = ({ item, priceFormatFn, removeItem, toggleItemInstructorAccess }: I
             )}
           </div>
         </div>
-        <div className="pl-4 pt-2 md:basis-1/4 text-right">
+        <div className="pl-4 pt-2 col-span-full md:col-span-1 text-right">
           <div className="w-full md:w-1/2 md:float-right">
             <div className="text-lg font-bold">
               {priceFormatFn(totalDueNow)}
