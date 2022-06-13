@@ -52,6 +52,7 @@ i18n.use(initReactI18next).init({
         'filter-by': 'Filter by',
         'filter-no-courses':
           'Sorry, we were unable to find a match for that search term or category, please try again.',
+        'free-purchase': 'This purchase is free!',
         'header-cart': 'Basket',
         'mobile-back-button': 'Back',
         'mobile-menu-button': 'Menu',
@@ -63,6 +64,7 @@ i18n.use(initReactI18next).init({
         'relatedProducts.checkout': 'Recommended for you…',
         remove: 'Remove',
         total: 'Total:',
+        'total-due-now': 'Total Due Today:',
         undo: 'Undo'
       }
     }
