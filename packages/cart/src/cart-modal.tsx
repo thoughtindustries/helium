@@ -12,7 +12,9 @@ import {
   CartContextType,
   VariationLabel,
   getCartItemTotalDueNow,
-  getCartTotalDueNow
+  getCartTotalDueNow,
+  isCartFree,
+  isRecurringCartItem
 } from './core';
 import { useTranslation } from 'react-i18next';
 import { LoadingDots } from '@thoughtindustries/content';
@@ -249,6 +251,11 @@ const CartModal = ({
   // derived values
   const itemCount = items.length;
   const hasItems = !!itemCount;
+  const hasItemsWithQuantity = items.some(({ quantity }) => quantity > 0);
+  const hasRecurringItemsWithQuantity = items.some(
+    item => isRecurringCartItem(item) && item.quantity > 0
+  );
+  const isFree = isCartFree(items);
   const totalDueNow = getCartTotalDueNow(items);
   let priceFormatFn: PriceFormatFn;
   if (!priceFormat) {
@@ -294,10 +301,17 @@ const CartModal = ({
                   />
                 ))}
             </Dialog.Description>
-            {hasItems && (
+            {hasItemsWithQuantity && (
               <div className="border-solid border-t-2 border-accent text-accent text-xl bg-gray-100 text-right p-4">
-                <span className="text-black font-semibold">{t('total')}</span>{' '}
-                {priceFormatFn(totalDueNow)}
+                {isFree && t('free-purchase')}
+                {!isFree && (
+                  <>
+                    <span className="text-black font-semibold">
+                      {t(hasRecurringItemsWithQuantity ? 'total-due-now' : 'total')}
+                    </span>{' '}
+                    {priceFormatFn(totalDueNow)}
+                  </>
+                )}
               </div>
             )}
             <div className="flex flex-col-reverse md:flex-row justify-end gap-2 py-4">

@@ -9,7 +9,7 @@ import {
   SeatTier,
   VariationLabel
 } from './types';
-import { totalDueNow } from 'couponable';
+import { totalDueNow, totalRecurring } from 'couponable';
 
 export const parseCartCookie = (cookie?: string): Cart => {
   const defaultCart: Cart = { id: CART_ID, items: [] };
@@ -136,7 +136,7 @@ export const existingCartItemMatcher =
     return existingPurchasableId === purchasableId && existingPurchasableType === purchasableType;
   };
 
-export const getCartItemTotalDueNow = ({
+const parseCouponableOrderItem = ({
   quantity,
   variationLabel,
   priceInCents,
@@ -146,15 +146,28 @@ export const getCartItemTotalDueNow = ({
   const instructorAccessSelected = variationLabel === VariationLabel.WithInstructorAccess;
   const instructorAccessVariation = { priceInCents: instructorAccessPriceInCents };
   const variation = instructorAccessSelected ? { ...instructorAccessVariation } : undefined;
-  const orderItem = {
+  return {
     quantity,
     priceInCents,
     purchasableType,
     variation
   };
-
-  return totalDueNow(orderItem);
 };
+
+export const getCartItemTotalDueNow = (item: CartItem) =>
+  totalDueNow(parseCouponableOrderItem(item));
+
+export const getCartItemTotalRecurring = (item: CartItem) =>
+  totalRecurring(parseCouponableOrderItem(item));
 
 export const getCartTotalDueNow = (items: CartItem[]) =>
   items.reduce((prev, item) => prev + getCartItemTotalDueNow(item), 0);
+
+export const isRecurringCartItem = ({ purchasableType }: CartItem) =>
+  purchasableType === EcommItemType.ProductSubscription || purchasableType === EcommItemType.Bundle;
+
+export const isCartItemFree = (item: CartItem) =>
+  !getCartItemTotalDueNow(item) && !getCartItemTotalRecurring(item);
+
+export const isCartFree = (items: CartItem[]) =>
+  items.filter(item => isCartItemFree(item)).length === items.length;
