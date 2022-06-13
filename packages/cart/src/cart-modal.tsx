@@ -71,7 +71,7 @@ const RelatedItemsUpsell = ({ items, priceFormatFn }: RelatedItemsUpsellProps) =
                     name={name}
                     width={75}
                     height={75}
-                    classnames="w-[75px] h-[75px]"
+                    className="w-[75px] h-[75px]"
                   />
                   <p className="m-2 text-lg leading-tight">{name}</p>
                 </div>
@@ -102,13 +102,13 @@ const RelatedItemsUpsell = ({ items, priceFormatFn }: RelatedItemsUpsellProps) =
 type ItemAssetBlockProps = {
   asset?: string;
   name?: string;
-  classnames?: string;
+  className?: string;
   width: number;
   height: number;
 };
-const ItemAssetBlock = ({ asset, name, classnames = '', width, height }: ItemAssetBlockProps) => (
+const ItemAssetBlock = ({ asset, name, className = '', width, height }: ItemAssetBlockProps) => (
   <img
-    className={clsx('border border-solid border-gray-300', classnames)}
+    className={clsx('border border-solid border-gray-300', className)}
     width={width}
     height={height}
     alt={name}
@@ -145,7 +145,7 @@ const Item = ({ item, priceFormatFn, removeItem, toggleItemInstructorAccess }: I
     <div className="flex flex-col">
       <div className="py-2 grid grid-cols-4">
         <div className="flex flex-row px-4 col-span-full md:col-span-3">
-          <ItemAssetBlock asset={asset} width={100} height={100} classnames="w-[100px] h-[100px]" />
+          <ItemAssetBlock asset={asset} width={100} height={100} className="w-[100px] h-[100px]" />
           <div className="m-2">
             <p className="text-gray-800 text-xl mb-2">{title}</p>
             <p className="text-gray-700 text-sm mb-4">
