@@ -1,18 +1,14 @@
 import { useCallback, useReducer } from 'react';
 import type { Reducer } from 'react';
-import { setCookie, Types as CookieTypes } from 'typescript-cookie';
+import Cookies, { CookieSetOptions } from 'universal-cookie';
 import reducer, { initialState } from './reducer';
 import { CartAction, CartActionType, CartState } from './types';
 import { serializeCart } from './utilities';
 
-export default function usePersistReducer(cookieName: string) {
+export default function usePersistReducer(cookieName: string, cookieManager: Cookies) {
   const updateCookie = useCallback(
-    (newValue: string, options?: CookieTypes.CookieAttributes) => {
-      if (options) {
-        setCookie(cookieName, newValue, options);
-      } else {
-        setCookie(cookieName, newValue);
-      }
+    (newValue: string, options?: CookieSetOptions) => {
+      cookieManager.set(cookieName, newValue, options);
     },
     [cookieName]
   );
@@ -26,7 +22,7 @@ export default function usePersistReducer(cookieName: string) {
       const { cart } = newState;
       // skip persisting cookie during initialization
       if (action.type !== CartActionType.InitializeCart) {
-        updateCookie(serializeCart(cart), { signed: false, secure: false, httpOnly: false });
+        updateCookie(serializeCart(cart), { secure: false, httpOnly: false });
       }
       return newState;
     },

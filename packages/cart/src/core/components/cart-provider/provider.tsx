@@ -1,5 +1,5 @@
 import React, { FC, useCallback, useEffect, useMemo } from 'react';
-import { getCookie } from 'typescript-cookie';
+import Cookies from 'universal-cookie';
 import { CART_COOKIE_NAME } from './constants';
 import CartContext from './context';
 import {
@@ -20,7 +20,8 @@ import { parseCartCookie, parsePurchaseableItem } from './utilities';
  * to use the `CartCheckoutButton` component.
  */
 const CartProvider: FC<CartProviderProps> = ({ children, checkoutUrl }) => {
-  const [state, dispatch] = usePersistReducer(CART_COOKIE_NAME);
+  const cookies = new Cookies();
+  const [state, dispatch] = usePersistReducer(CART_COOKIE_NAME, cookies);
 
   const addPurchaseableItem = useCallback((payload: AddPurchaseableItemPayload) => {
     const item = parsePurchaseableItem(payload);
@@ -40,7 +41,7 @@ const CartProvider: FC<CartProviderProps> = ({ children, checkoutUrl }) => {
     if (!state.isInitialized) {
       dispatch({
         type: CartActionType.InitializeCart,
-        cart: parseCartCookie(getCookie(CART_COOKIE_NAME))
+        cart: parseCartCookie(cookies.get(CART_COOKIE_NAME))
       });
     }
   }, [state]);
