@@ -444,6 +444,15 @@ export enum CertificateTemplateResourceType {
   LearningPath = 'learningPath'
 }
 
+export type CertificateUploadField = {
+  awardAmount?: InputMaybe<Scalars['Float']>;
+  awardTypeId?: InputMaybe<Scalars['ID']>;
+  certificateFieldId: Scalars['ID'];
+  date?: InputMaybe<Scalars['Date']>;
+  type: CertificateFieldType;
+  value?: InputMaybe<Scalars['String']>;
+};
+
 export type Client = {
   __typename?: 'Client';
   allocatedCredits?: Maybe<Scalars['Float']>;
@@ -721,6 +730,7 @@ export type Course = {
   galleryEnabled?: Maybe<Scalars['Boolean']>;
   gracePeriodEndDate?: Maybe<Scalars['Date']>;
   hasChildren: Scalars['Boolean'];
+  hasMultipleCurrencies: Scalars['Boolean'];
   id: Scalars['ID'];
   inPersonEventInfo?: Maybe<InPersonEventInfo>;
   instructorAccessEnabled?: Maybe<Scalars['Boolean']>;
@@ -740,6 +750,7 @@ export type Course = {
   prerequisiteCourses?: Maybe<Array<Maybe<Course>>>;
   prerequisiteLearningPaths?: Maybe<Array<Maybe<LearningPath>>>;
   priceInCents?: Maybe<Scalars['Int']>;
+  prices: Array<ItemPrice>;
   publishDate?: Maybe<Scalars['Date']>;
   purchasable: Scalars['Boolean'];
   resourcesEnabled?: Maybe<Scalars['Boolean']>;
@@ -757,6 +768,7 @@ export type Course = {
   sections?: Maybe<Array<Maybe<Section>>>;
   sessionIsTitled: Scalars['Boolean'];
   showProgress?: Maybe<Scalars['Boolean']>;
+  showSyllabusWhileUnenrolled?: Maybe<Scalars['Boolean']>;
   sku?: Maybe<Scalars['String']>;
   slug: Scalars['Slug'];
   status?: Maybe<Status>;
@@ -787,6 +799,43 @@ export type CourseAwardClaimingOption = {
   awardTypeId: Scalars['ID'];
   range: Scalars['String'];
 };
+
+export type CourseCompletionCriteriaProgress = {
+  __typename?: 'CourseCompletionCriteriaProgress';
+  completed?: Maybe<Array<Maybe<Scalars['ID']>>>;
+  percent: Scalars['Int'];
+  required?: Maybe<Array<Maybe<Scalars['ID']>>>;
+  type?: Maybe<CourseCompletionCriteriaType>;
+};
+
+export enum CourseCompletionCriteriaType {
+  /** Percentage of Page Viewed */
+  ArticlePercentViewed = 'articlePercentViewed',
+  /** Time Spent Viewing Page */
+  ArticleTimeViewedInSeconds = 'articleTimeViewedInSeconds',
+  /** Bongo Assignment Completed */
+  BongoAssignmentCompleted = 'bongoAssignmentCompleted',
+  /** Assessment Passed */
+  CourseAssessmentPassed = 'courseAssessmentPassed',
+  /** Assignment Completed */
+  CourseAssignmentComplete = 'courseAssignmentComplete',
+  /** Meeting Attended */
+  CourseMeetingAttended = 'courseMeetingAttended',
+  /** Percentage of Pages Viewed */
+  CoursePercentViewed = 'coursePercentViewed',
+  /** Page Viewed */
+  CourseTopicViewed = 'courseTopicViewed',
+  /** SCORM Complete */
+  ScormComplete = 'scormComplete',
+  /** Survey Gizmo Complete */
+  SurveyGizmoComplete = 'surveyGizmoComplete',
+  /** Percentage of Video Viewed */
+  VideoPercentViewed = 'videoPercentViewed',
+  /** Video topic of viewed */
+  VideoTopicId = 'videoTopicId',
+  /** xAPI Complete */
+  XApiComplete = 'xApiComplete'
+}
 
 export type CourseGroup = {
   __typename?: 'CourseGroup';
@@ -917,6 +966,23 @@ export type Instructor = {
   fullName?: Maybe<Scalars['String']>;
 };
 
+export type ItemPrice = {
+  __typename?: 'ItemPrice';
+  annualPriceInCents?: Maybe<Scalars['Int']>;
+  currencyCode: Scalars['String'];
+  id: Scalars['ID'];
+  instructorAccessPriceInCents?: Maybe<Scalars['Int']>;
+  priceInCents?: Maybe<Scalars['Int']>;
+  suggestedRetailPriceInCents?: Maybe<Scalars['Int']>;
+  variations: Array<ItemPriceVariation>;
+};
+
+export type ItemPriceVariation = {
+  __typename?: 'ItemPriceVariation';
+  label: Scalars['String'];
+  priceInCents: Scalars['Int'];
+};
+
 export type Language = {
   __typename?: 'Language';
   code: Scalars['String'];
@@ -980,6 +1046,7 @@ export type LearningPath = {
   freeWithRegistration?: Maybe<Scalars['Boolean']>;
   fulfillmentCenter?: Maybe<Scalars['ID']>;
   futurePublishDate?: Maybe<Scalars['Date']>;
+  hasMultipleCurrencies: Scalars['Boolean'];
   heroAsset?: Maybe<Scalars['URL']>;
   id: Scalars['ID'];
   isPayAsYouGo?: Maybe<Scalars['Boolean']>;
@@ -998,6 +1065,7 @@ export type LearningPath = {
   prerequisiteCourses?: Maybe<Array<Maybe<Course>>>;
   prerequisiteLearningPaths?: Maybe<Array<Maybe<LearningPath>>>;
   priceInCents?: Maybe<Scalars['Int']>;
+  prices: Array<ItemPrice>;
   publishDate?: Maybe<Scalars['Date']>;
   purchasable: Scalars['Boolean'];
   relatedQuery?: Maybe<Scalars['String']>;
@@ -1501,6 +1569,14 @@ export type UserAttendedMeeting = {
   user: User;
 };
 
+export type UserAwardCount = {
+  __typename?: 'UserAwardCount';
+  count?: Maybe<Scalars['Int']>;
+  icon?: Maybe<AwardTypeIcon>;
+  id: Scalars['ID'];
+  label?: Maybe<Scalars['String']>;
+};
+
 export type UserCustomField = {
   __typename?: 'UserCustomField';
   choices?: Maybe<Scalars['JSON']>;
@@ -1520,6 +1596,15 @@ export enum UserCustomFieldType {
   /** Phone Number */
   Telephone = 'telephone'
 }
+
+export type UserProgress = {
+  __typename?: 'UserProgress';
+  course: Scalars['ID'];
+  percentComplete?: Maybe<Scalars['Int']>;
+  totalTime?: Maybe<Scalars['Int']>;
+  totalViews?: Maybe<Scalars['Int']>;
+  user: Scalars['ID'];
+};
 
 export type UserRecommendedTag = {
   __typename?: 'UserRecommendedTag';

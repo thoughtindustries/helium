@@ -1,6 +1,6 @@
 import React from 'react';
 import { useUserArchivesQuery, LoadingDots, formatTime } from '@thoughtindustries/content';
-
+import { ReinstateButton } from './MutationCallingButtons';
 const LoadArchivedContent = (): JSX.Element => {
   const { data, loading, error }: any = useUserArchivesQuery({
     variables: {}
@@ -34,16 +34,9 @@ const LoadArchivedContent = (): JSX.Element => {
                     <strong>{item.resourceType && item.resourceType}</strong>
                   </div>
 
-                  <div className="col-start-12 col-span-2 text-center">
-                    {item.reinstatable && (
-                      <button
-                        href="/learn/course/ll-microcourse-0422"
-                        className="bg-active-blue text-white rounded-sm cursor-pointer inline-block font-normal text-xs mb-4 py-[0.15rem] px-4 relative text-center no-underline ease-in-out border-active-blue font-sans transition duration-200 leading-5"
-                      >
-                        Reinstate
-                      </button>
-                    )}
-                    <small className="block text-gray-mid text-xs">
+                  <div className="col-start-12 col-span-2 text-center my-1.5 relative">
+                    {item.reinstatable && <ReinstateButton item={item} />}
+                    <small className="block text-gray-mid text-xs z-[-1] relative">
                       Archived {formatTime(item.archivedAt, undefined, 'MMM D, YYYY')}
                     </small>
                   </div>

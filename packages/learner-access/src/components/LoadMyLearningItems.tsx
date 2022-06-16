@@ -2,13 +2,19 @@ import React, { useState } from 'react';
 
 import { LoadedComponentProps } from '../types';
 import { RightArrowtIcon, DownArrowIcon, HelpIcon } from '../Assets/Icons';
-import { useUserContentItemsQuery, LoadingDots } from '@thoughtindustries/content';
-import { Tooltip } from '../Assets/Tooltip';
+import {
+  useUserContentItemsQuery,
+  useUserCourseProgressQuery,
+  useUserCourseCompletionProgressQuery,
+  useUserCourseCollaborationsQuery,
+  useUserCourseAwardCountsQuery,
+  LoadingDots
+} from '@thoughtindustries/content';
+import { ArchiveButton } from './MutationCallingButtons';
+import { Tooltip } from '../Assets/Tooltips';
 import { formatTime } from '@thoughtindustries/content';
 
 const LoadMyLearningItems = ({ query, kind, sort }: LoadedComponentProps): JSX.Element => {
-  const host = window.location.hostname;
-  console.log(host);
   const { data, loading, error }: any = useUserContentItemsQuery({
     variables: {
       query,
@@ -16,13 +22,37 @@ const LoadMyLearningItems = ({ query, kind, sort }: LoadedComponentProps): JSX.E
       sort
     }
   });
-  const ExpandedContent = ({ item }: ContentUiProps) => {
+
+  const ExpandedContent = (item: any): JSX.Element => {
+    const { data: courseCompletion } = useUserCourseCompletionProgressQuery({
+      variables: { id: '' }
+    });
+
+    courseCompletion && console.log('courseCompletion', courseCompletion);
+    // const { data: courseProgress } = useUserCourseProgressQuery({
+    //   variables: {
+    //     id: ''
+    //   }
+    // });
+
+    // const { data: courseCollaborations } = useUserCourseCollaborationsQuery({
+    //   variables: {
+    //     courseId: ''
+    //   }
+    // });
+
+    // const { data: awaedCounts } = useUserCourseAwardCountsQuery({
+    //   variables: {
+    //     courseId: ''
+    //   }
+    // });
+
     return (
       <div
         className={item.asset ? 'grid grid-rows-2 mx-0 my-4 relative' : 'grid mx-0 my-4 relative'}
       >
-        <div className={item.asset ? 'grid grid-cols-3 row-span-2' : ''}>
-          {item.asset ? (
+        <div className={item.asset && 'grid grid-cols-3 row-span-2'}>
+          {item.asset && (
             <div className="px-4">
               <img
                 className="ember-view"
@@ -30,16 +60,14 @@ const LoadMyLearningItems = ({ query, kind, sort }: LoadedComponentProps): JSX.E
                 alt=""
               />
             </div>
-          ) : (
-            ''
           )}
 
           <div className="medium-8 col-span-2 px-4">
             <div className="dashboard-access-list-item__description text-xs mt-0 text-black-light">
-              <p>{item.description ? item.description : ''}</p>
+              <p>{item.description}</p>
             </div>
             <div className="user-engagement-stats">
-              <ul className="my-0 -mx-3 p-0 grid grid-cols-4" data-bindattr-7983="7983">
+              <ul className="my-0 -mx-3 p-0 grid grid-cols-4">
                 <li className="ember-view user-engagement-stat user-engagement-stat--hours relative px-2.5 pb-5 block float-left h-auto pt-0">
                   <div className="user-engagement-stat__label-container flex before:content-[''] before:bg-gray-light before:h-4/5 before:absolute before:top-0 before:right-0 before:w-px">
                     <div className="user-engagement-stat__label user-engagement-stat__label--with-hint h-8 text-sm text-ellipsis text-gray-mid overflow-hidden text-center uppercase">
@@ -91,19 +119,22 @@ const LoadMyLearningItems = ({ query, kind, sort }: LoadedComponentProps): JSX.E
                     <span className="user-engagement-stat__value--percent">%</span>
                   </div>
                 </li>
-                <li className="ember-view user-engagement-stat user-engagement-stat--assessments px-2.5 pb-5 block float-left h-auto pt-0">
-                  <div className="user-engagement-stat__label-container">
-                    <div className="user-engagement-stat__label" data-bindattr-8014="8014">
-                      Required Pages Viewed
+                {courseCompletion && (
+                  <li className="ember-view user-engagement-stat user-engagement-stat--assessments px-2.5 pb-5 block float-left h-auto pt-0">
+                    <div className="user-engagement-stat__label-container">
+                      <div className="user-engagement-stat__label" data-bindattr-8014="8014">
+                        Required Pages Viewed
+                      </div>
                     </div>
-                  </div>
 
-                  <div className="user-engagement-stat__value-container" data-bindattr-8016="8016">
-                    <i className="icon-view" data-bindattr-8018="8018"></i>
-                    <span className="user-engagement-stat__value">1</span>
-                    <span className="user-engagement-stat__value--muted"></span>
-                  </div>
-                </li>
+                    <div className="user-engagement-stat__value-container">
+                      <i className="icon-view" data-bindattr-8018="8018"></i>
+                      <span className="user-engagement-stat__value">1</span>
+                      <span className="user-engagement-stat__value--muted"></span>
+                    </div>
+                  </li>
+                )}
+
                 <li className="ember-view user-engagement-stat user-engagement-stat--percent-complete px-2.5 pb-5 block float-left h-auto pt-0">
                   <div className="user-engagement-stat__label-container flex before:content-[''] before:bg-gray-light before:h-4/5 before:absolute before:top-0 before:right-0 before:w-px">
                     <div
@@ -135,12 +166,8 @@ const LoadMyLearningItems = ({ query, kind, sort }: LoadedComponentProps): JSX.E
             </div>
           </div>
         </div>
-        <div className=" archive mt-2 row-end-4 relative text-black-light">
-          <div className="column float-left px-4">
-            <button className="bg-white-mid border-solid border rounded-sm cursor-pointer inline-block font-normal text-xs m-0 py-[0.15rem] px-4 relative text-center no-underline ease-in-out border-gray-light font-sans transition duration-200 leading-5">
-              <span>Archive</span>
-            </button>
-          </div>
+        <div className=" archive mt-2 row-end-4 text-black-light relative">
+          {item.availabilityStatus !== 'completed' && <ArchiveButton item={item} />}
         </div>
       </div>
     );
@@ -149,12 +176,10 @@ const LoadMyLearningItems = ({ query, kind, sort }: LoadedComponentProps): JSX.E
   interface ContentUiProps {
     item?: any;
     index?: number;
-    courseCollaborations?: object;
   }
 
-  const ContentUi = ({ item, index, courseCollaborations }: ContentUiProps) => {
+  const ContentUi = ({ item }: ContentUiProps) => {
     const [showContent, setShowContent] = useState<boolean>(false);
-    console.log(courseCollaborations);
     return (
       <div
         key={item.id}
@@ -189,24 +214,28 @@ const LoadMyLearningItems = ({ query, kind, sort }: LoadedComponentProps): JSX.E
             </div>
 
             <div className="col-span-3 text-gray-mid relative">
-              <strong className="">{item.contentTypeLabel}</strong>
+              <strong className="">{item.contentTypeLabel && item.contentTypeLabel}</strong>
               {'  '}
               {item.authors.length > 0 && (
                 <div className="border-gray-mid border-solid border-l-2 h-3.5 inline my-0 mr-1 ml-px"></div>
               )}
               <span>
                 {' '}
-                {'  '} {item.authors && item.authors}
+                {'  '} {item.authors}
               </span>
               <p className="catalog-list-item__source">{item.source && item.source}</p>
             </div>
 
             <div className="col-start-11 col-span-2 text-right">
               <button
-                href={`${host}/learn/course/ll-microcourse-0422`}
+                onClick={() => {
+                  window.location.href = window.location.hostname + '/learn/course/' + item.slug;
+                }}
                 className="bg-active-blue text-white rounded-sm cursor-pointer inline-block font-normal text-xs m-0 py-[0.15rem] px-4 relative text-center no-underline ease-in-out border-active-blue font-sans transition duration-200 leading-5"
               >
-                {item.availabilityStatus == 'started'
+                {item.availabilityStatus == 'completed'
+                  ? 'View ' + item.contentTypeLabel
+                  : item.availabilityStatus == 'started'
                   ? 'Continue'
                   : 'Start ' + item.contentTypeLabel}
               </button>
@@ -222,7 +251,6 @@ const LoadMyLearningItems = ({ query, kind, sort }: LoadedComponentProps): JSX.E
     );
   };
 
-  console.log('data from child', data);
   if (error) return error;
   return (
     <>
@@ -230,8 +258,8 @@ const LoadMyLearningItems = ({ query, kind, sort }: LoadedComponentProps): JSX.E
         <LoadingDots />
       ) : (
         <section>
-          {data.UserContentItems.map((item: any, index: number) => {
-            return <ContentUi item={item} index={index} />;
+          {data.UserContentItems.map((item: any) => {
+            return <ContentUi item={item} />;
           })}
         </section>
       )}

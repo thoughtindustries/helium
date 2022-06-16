@@ -7,10 +7,20 @@ import {
   UserArchivesDocument,
   UserCertificatesDocument,
   UserBookmarksDocument,
+  UserBookmarksByFolderDocument,
   UserWaitlistDocument,
   ContentGroupsDocument,
-  GlobalTypes
+  ArchiveUserCourseDocument,
+  UnenrollFromWaitlistDocument,
+  ArchiveUserLearningPathDocument,
+  GlobalTypes,
+  ReinstateUserCourseDocument,
+  UserCourseCompletionProgressDocument,
+  UserCourseProgressDocument,
+  UserCourseAwardCountsDocument,
+  UserCourseCollaborationsDocument
 } from '@thoughtindustries/content';
+
 export default {
   title: 'Example/LearnerAccess',
   component: LearnerAccess,
@@ -59,12 +69,7 @@ const defaultProps = {
   displayExpiredCertificateInformation: false,
   query: ''
 };
-
-const Template: Story<LearnerAccessProps> = () => <LearnerAccess {...defaultProps} />;
-
-export const Base = Template.bind({});
-
-const mockCurrentUserContentItems = [
+const mockData = [
   {
     __typename: 'Content',
     asset:
@@ -157,35 +162,6 @@ const mockCurrentUserContentItems = [
   {
     __typename: 'Content',
     asset: null,
-    title: 'Blockbuster 2',
-    sessionTitle: null,
-    kind: 'courseGroup',
-    id: '84c9a21e-8797-4694-9ede-ec5dbb8008b3',
-    slug: 'blockbuster',
-    meetingStartDate: null,
-    contentTypeLabel: 'Course',
-    availabilityStatus: 'started',
-    courseStartDate: '2022-04-01T04:00:00.000Z',
-    courseEndDate: null,
-    coursePresold: false,
-    description: null,
-    displayCourse: '84c9a21e-8797-4694-9ede-ec5dbb8008b3',
-    displayCourseSlug: 'blockbuster-2',
-    displayDate: '2022-04-01T04:00:00.000Z',
-    courseGracePeriodEnded: false,
-    authors: [],
-    publishDate: '2022-04-01T04:00:00.000Z',
-    source: null,
-    expiresAt: null,
-    currentUserMayReschedule: false,
-    timeZone: 'America/Chicago',
-    embeddedEnabled: false,
-    currentUserUnmetCoursePrerequisites: [],
-    currentUserUnmetLearningPathPrerequisites: []
-  },
-  {
-    __typename: 'Content',
-    asset: null,
     title: 'sp alchemer servey',
     sessionTitle: null,
     kind: 'courseGroup',
@@ -212,38 +188,6 @@ const mockCurrentUserContentItems = [
     currentUserUnmetCoursePrerequisites: [],
     currentUserUnmetLearningPathPrerequisites: []
   },
-  {
-    __typename: 'Content',
-    asset: null,
-    title: 'Lord of the Bugs',
-    sessionTitle: null,
-    kind: 'courseGroup',
-    id: '34dfd310-903c-4eac-9f16-545360a6d4aa',
-    slug: 'lord-of-the-bugs',
-    meetingStartDate: null,
-    contentTypeLabel: 'Course',
-    availabilityStatus: 'not-started',
-    courseStartDate: '2022-05-12T17:42:17.372Z',
-    courseEndDate: null,
-    coursePresold: false,
-    description: null,
-    displayCourse: '34dfd310-903c-4eac-9f16-545360a6d4aa',
-    displayCourseSlug: 'lord-of-the-bugs',
-    displayDate: '2022-05-12T17:42:17.372Z',
-    courseGracePeriodEnded: false,
-    authors: [],
-    publishDate: '2022-05-12T17:42:17.372Z',
-    source: null,
-    expiresAt: null,
-    currentUserMayReschedule: false,
-    timeZone: 'America/Chicago',
-    embeddedEnabled: false,
-    currentUserUnmetCoursePrerequisites: [],
-    currentUserUnmetLearningPathPrerequisites: []
-  }
-];
-
-const mockLearningPaths = [
   {
     __typename: 'Content',
     asset: null,
@@ -333,40 +277,224 @@ const mockLearningPaths = [
   }
 ];
 
+const Template: Story<LearnerAccessProps> = () => <LearnerAccess {...defaultProps} />;
+
+export const Base = Template.bind({});
+
+const mockCurrentUserCertificates = [
+  {
+    id: 'uuid',
+    resourceId: 'uuid',
+    expirationDate: new Date(2020, 0, 1).toISOString(),
+    isExpired: false,
+    externalResourceTitle: 'externalResourceTitle',
+    url: 'https://www.google.com',
+    source: 'source',
+    contentItem: {
+      asset:
+        'https://d36ai2hkxl16us.cloudfront.net/thoughtindustries/image/upload/a_exif,c_fill,w_800/v1416438573/placeholder_kcjvxm.jpg',
+      authors: ['Test Author'],
+      availabilityStatus: '',
+      contentTypeLabel: 'Course',
+      courseEndDate: new Date(2020, 1, 1).toISOString(),
+      courseGracePeriodEnded: false,
+      coursePresold: false,
+      courseStartDate: new Date(2020, 0, 1).toISOString(),
+      currentUserMayReschedule: false,
+      description: 'description',
+      id: 'uuid',
+      kind: GlobalTypes.ContentKind.Course,
+      slug: 'test-content',
+      source: 'Test source',
+      title: 'Test title',
+      timeZone: 'America/Los_Angeles'
+    }
+  }
+];
+
+let mockCurrentUserArchives = [
+  {
+    __typename: 'ArchivedContent',
+    id: '67d8a83a-27ce-4c7b-bc3e-837d5c5e7374',
+    user: 'ab3170ce-cea6-4250-9777-6be856ede274',
+    resource: '7b505267-82c5-48a6-b35a-a4945e9b2efa',
+    resourceType: 'video',
+    status: 'not-completed',
+    archivedAt: '2022-05-06T20:49:37.610Z',
+    name: 'LL Video 0422',
+    reinstatable: true,
+    waitlistActive: false
+  }
+];
+
+const mockCourseProgress: object[] = [
+  {
+    company: '3a131ac3-1a74-420d-b4da-ae10b18b2c68',
+    course: 'a5767b09-2e47-49a4-a188-bfd8b8adb6d1',
+    id: ['6f0dea03-c37a-49d0-8056-551d291e7d22', 'a5767b09-2e47-49a4-a188-bfd8b8adb6d1'],
+    percentComplete: 60,
+    percentPagesViewed: 40,
+    totalTime: 111,
+    totalViews: 4,
+    updatedAt: '2022-06-09T00:02:17.547Z',
+    user: '6f0dea03-c37a-49d0-8056-551d291e7d22'
+  }
+];
+
+const mockAwardCounts: any = [];
+
+const mockCourseCompletionProgress: any = [
+  {
+    required: [
+      'f4404250-3851-41b6-83a8-b538e0576380',
+      '0ad1d4b9-0b1e-4585-9252-ced095d92e87',
+      'ae04e1c9-8e55-4f5d-ac20-b499ca1ef1aa',
+      '4e1a6562-8b03-449e-9005-2f333b430f10',
+      '933572bb-0ce9-4908-8953-813b51a5aea0'
+    ],
+    completed: [
+      '0ad1d4b9-0b1e-4585-9252-ced095d92e87',
+      'ae04e1c9-8e55-4f5d-ac20-b499ca1ef1aa',
+      'f4404250-3851-41b6-83a8-b538e0576380'
+    ],
+    percent: 60,
+    type: 'coursePercentViewed'
+  }
+  // {
+  //   type: 'courseTopicViewed',
+  //   required: ['4e1a6562-8b03-449e-9005-2f333b430f10'],
+  //   completed: [],
+  //   percent: 0
+  // },
+  // {
+  //   type: 'scormComplete',
+  //   required: ['ae04e1c9-8e55-4f5d-ac20-b499ca1ef1aa'],
+  //   completed: ['ae04e1c9-8e55-4f5d-ac20-b499ca1ef1aa'],
+  //   percent: 100
+  // },
+  // {
+  //   type: 'xApiComplete',
+  //   required: ['933572bb-0ce9-4908-8953-813b51a5aea0'],
+  //   completed: [],
+  //   percent: 0
+  // }
+];
+
+const mockCourseCollaborations = 0;
+
+const mockBookmarksByFolder: object[] = [
+  {
+    __typename: 'Bookmark',
+    id: 'db95d894-d7cb-4751-b0cf-e15544de9d14',
+    course: {
+      __typename: 'Course',
+      id: 'f6cf2da9-29ee-4cb9-8494-3becf3274833',
+      title: 'Epsilon Course',
+      slug: 'epsilon-course',
+      status: 'published',
+      courseGroup: {
+        __typename: 'CourseGroup',
+        id: '94d67abd-e94a-40d2-b54c-5eec537fa24a',
+        authors: [],
+        source: null,
+        asset:
+          'https://d36ai2hkxl16us.cloudfront.net/thoughtindustries/image/upload/v1/course-uploads/3a131ac3-1a74-420d-b4da-ae10b18b2c68/5e88naxlo3py-manwritinginnotebookandlookingatcomputer.jpg',
+        kind: 'courseGroup',
+        contentType: { __typename: 'ContentType', label: 'Course' }
+      }
+    },
+    topicId: '8385dc27-6072-4fde-8a8a-24f4d7f84a03',
+    note: 'Section 1, Lesson 1, Page 1',
+    createdAt: '2022-06-11T14:48:05.943Z'
+  },
+  {
+    __typename: 'Bookmark',
+    id: 'cfd68793-2280-4a17-8916-23474e31c03f',
+    course: {
+      __typename: 'Course',
+      id: '7c920aa2-51e0-59c4-93de-adf74ea47b88',
+      title: 'Action Handgun Fighter',
+      slug: 'action-handgun-fighter',
+      status: 'published',
+      courseGroup: {
+        __typename: 'CourseGroup',
+        id: '99f4e8b6-ee0b-58b0-9795-0214f8dd442e',
+        authors: [],
+        source: null,
+        asset:
+          'https://d36ai2hkxl16us.cloudfront.net/thoughtindustries/image/upload/v1483194374/unsplash/eW9H6Udi2Cw/800x450',
+        kind: 'courseGroup',
+        contentType: { __typename: 'ContentType', label: 'Course' }
+      }
+    },
+    topicId: '410fb0b5-a7f2-475f-ad16-8d8fc1af4df9',
+    note: 'Section 2',
+    createdAt: '2022-06-11T18:55:20.424Z'
+  }
+];
+
+const mockBookmarkFoldersByUserAndCompany = [
+  {
+    __typename: 'BookmarkFolder',
+    id: '4f7520aa-82b4-48c3-ba7c-b36c3e89f11a',
+    name: 'My Bookmarks',
+    defaultFolder: true,
+    bookmarkCount: mockBookmarksByFolder.length
+  }
+];
+
+let mockWaitlistedData = [
+  {
+    __typename: 'Content',
+    id: '4c071d33-16fa-4e30-9779-96f8e5e583b7',
+    contentTypeLabel: 'Program',
+    title: 'WL - No Sessions Program Copy',
+    kind: 'courseGroup',
+    slug: 'wl-no-sessions-program-copy',
+    displayCourse: '4c071d33-16fa-4e30-9779-96f8e5e583b7',
+    displayCourseSlug: 'wl-no-sessions-program-copy'
+  },
+  {
+    __typename: 'Content',
+    id: '4c24fe6a-92fb-425d-a72a-7c4ef458f0d8',
+    contentTypeLabel: 'In-Person Event',
+    title: 'WL Import Q2',
+    kind: 'inPersonEvent',
+    slug: 'wl-import-q2april',
+    displayCourse: '4c24fe6a-92fb-425d-a72a-7c4ef458f0d8',
+    displayCourseSlug: 'wl-import-q2april'
+  },
+  {
+    __typename: 'Content',
+    id: '3c6fb674-59f1-4e28-95f0-d7e5b4866fc8',
+    contentTypeLabel: 'Enhanced ILT ',
+    title: 'Waitlisting Enhanced ILT',
+    kind: 'inPersonEventCourse',
+    slug: 'waitlisting-enhanced-ilt',
+    displayCourse: '3c6fb674-59f1-4e28-95f0-d7e5b4866fc8',
+    displayCourseSlug: 'waitlisting-enhanced-ilt'
+  }
+];
+
+const mockCurrentUserContentItems = mockData.filter(e =>
+  [
+    'courseGroup',
+    'article',
+    'video',
+    'shareableContentObject',
+    'xApiObject',
+    'microCourse',
+    'course'
+  ].includes(e.kind)
+);
+
+const mockLearningPaths = mockData.filter(e => e.kind === 'learningPath');
+
 const mockCompletedItems = mockCurrentUserContentItems.filter(
   e => e.availabilityStatus === 'completed'
 );
 
 const mockEvents = [
-  {
-    __typename: 'Content',
-    asset: null,
-    title: 'Enhanced ILT Video Page',
-    sessionTitle: null,
-    kind: 'inPersonEventCourse',
-    id: 'a3070ead-73d3-4ded-9b20-a73d25f7245b',
-    slug: 'enhanced-ilt-video-page',
-    meetingStartDate: '2022-06-20T16:00:00.000Z',
-    contentTypeLabel: 'Enhanced ILT ',
-    availabilityStatus: 'started',
-    courseStartDate: '2022-05-04T19:29:25.998Z',
-    courseEndDate: null,
-    coursePresold: false,
-    description: null,
-    displayCourse: 'a3070ead-73d3-4ded-9b20-a73d25f7245b',
-    displayCourseSlug: 'enhanced-ilt-video-page',
-    displayDate: '2022-06-20T16:00:00.000Z',
-    courseGracePeriodEnded: false,
-    authors: [],
-    publishDate: '2022-05-04T19:29:25.998Z',
-    source: null,
-    expiresAt: null,
-    currentUserMayReschedule: false,
-    timeZone: 'America/Chicago',
-    embeddedEnabled: false,
-    currentUserUnmetCoursePrerequisites: [],
-    currentUserUnmetLearningPathPrerequisites: []
-  },
   {
     __typename: 'Content',
     asset: null,
@@ -429,35 +557,6 @@ const mockEvents = [
   {
     __typename: 'Content',
     asset: null,
-    title: 'Why does bulk import hate me?: A course with a therapy session at the end',
-    sessionTitle: 'Why does bulk import hate me?: A course with a therapy session at the end',
-    kind: 'inPersonEventCourse',
-    id: '7551de04-afe1-4311-b853-ec2a174878e5',
-    slug: 'why-does-bulk-import-hate-me-a-course-with-a-therapy-session-at-the-end',
-    meetingStartDate: '2022-06-01T14:30:00.000Z',
-    contentTypeLabel: 'In-Person Event',
-    availabilityStatus: 'not-started',
-    courseStartDate: '2022-05-04T18:59:39.298Z',
-    courseEndDate: null,
-    coursePresold: false,
-    description: null,
-    displayCourse: '7551de04-afe1-4311-b853-ec2a174878e5',
-    displayCourseSlug: 'why-does-bulk-import-hate-me-a-course-with-a-therapy-session-at-the-end',
-    displayDate: '2022-06-01T14:30:00.000Z',
-    courseGracePeriodEnded: false,
-    authors: [],
-    publishDate: '2022-05-04T18:59:39.298Z',
-    source: null,
-    expiresAt: null,
-    currentUserMayReschedule: false,
-    timeZone: 'America/Chicago',
-    embeddedEnabled: false,
-    currentUserUnmetCoursePrerequisites: [],
-    currentUserUnmetLearningPathPrerequisites: []
-  },
-  {
-    __typename: 'Content',
-    asset: null,
     title: 'LL ILT with PP and Zoom Webinar for Bulk Import',
     sessionTitle: null,
     kind: 'inPersonEventCourse',
@@ -486,137 +585,48 @@ const mockEvents = [
   }
 ];
 
-const mockCurrentUserCertificates = [
-  {
-    id: 'uuid',
-    resourceId: 'uuid',
-    expirationDate: new Date(2020, 0, 1).toISOString(),
-    isExpired: false,
-    externalResourceTitle: 'externalResourceTitle',
-    url: 'https://www.google.com',
-    source: 'source',
-    contentItem: {
-      asset:
-        'https://d36ai2hkxl16us.cloudfront.net/thoughtindustries/image/upload/a_exif,c_fill,w_800/v1416438573/placeholder_kcjvxm.jpg',
-      authors: ['Test Author'],
-      availabilityStatus: '',
-      contentTypeLabel: 'Course',
-      courseEndDate: new Date(2020, 1, 1).toISOString(),
-      courseGracePeriodEnded: false,
-      coursePresold: false,
-      courseStartDate: new Date(2020, 0, 1).toISOString(),
-      currentUserMayReschedule: false,
-      description: 'description',
-      id: 'uuid',
-      kind: GlobalTypes.ContentKind.Course,
-      slug: 'test-content',
-      source: 'Test source',
-      title: 'Test title',
-      timeZone: 'America/Los_Angeles'
-    }
-  }
-];
-
-const mockCurrentUserArchives = [
-  {
-    __typename: 'ArchivedContent',
-    id: '67d8a83a-27ce-4c7b-bc3e-837d5c5e7374',
-    user: 'ab3170ce-cea6-4250-9777-6be856ede274',
-    resource: '7b505267-82c5-48a6-b35a-a4945e9b2efa',
-    resourceType: 'video',
-    status: 'not-completed',
-    archivedAt: '2022-05-06T20:49:37.610Z',
-    name: 'LL Video 0422',
-    reinstatable: true,
-    waitlistActive: false
-  }
-];
-
-const mockBookmarkFoldersByUserAndCompany = [
-  {
-    __typename: 'BookmarkFolder',
-    id: '4f7520aa-82b4-48c3-ba7c-b36c3e89f11a',
-    name: 'My Bookmarks',
-    defaultFolder: true,
-    bookmarkCount: 1
-  }
-];
-
-const mockBookmarksByFolder = [
-  {
-    __typename: 'Bookmark',
-    id: '97139d8b-91b2-4102-ad30-02176989858e',
-    course: {
-      __typename: 'Course',
-      id: '34dfd310-903c-4eac-9f16-545360a6d4aa',
-      title: 'Lord of the Bugs',
-      slug: 'lord-of-the-bugs',
-      status: 'published',
-      courseGroup: {
-        __typename: 'CourseGroup',
-        id: 'aebaccd7-b963-411e-a62b-c0d9399a8f09',
-        authors: [],
-        source: null,
-        asset: null,
-        kind: 'courseGroup',
-        contentType: { __typename: 'ContentType', label: 'Course' }
-      }
-    },
-    topicId: '61285240-b509-422c-a4b2-f4400250922a',
-    note: 'Section 1, Lesson 1, Page 1',
-    createdAt: '2022-05-12T18:35:02.105Z'
-  }
-];
-
-const mockWaitlistedData = [
-  {
-    __typename: 'Content',
-    id: '4c071d33-16fa-4e30-9779-96f8e5e583b7',
-    contentTypeLabel: 'Program',
-    title: 'WL - No Sessions Program Copy',
-    kind: 'courseGroup',
-    slug: 'wl-no-sessions-program-copy',
-    displayCourse: '4c071d33-16fa-4e30-9779-96f8e5e583b7',
-    displayCourseSlug: 'wl-no-sessions-program-copy'
-  },
-  {
-    __typename: 'Content',
-    id: '4c24fe6a-92fb-425d-a72a-7c4ef458f0d8',
-    contentTypeLabel: 'In-Person Event',
-    title: 'WL Import Q2',
-    kind: 'inPersonEvent',
-    slug: 'wl-import-q2april',
-    displayCourse: '4c24fe6a-92fb-425d-a72a-7c4ef458f0d8',
-    displayCourseSlug: 'wl-import-q2april'
-  },
-  {
-    __typename: 'Content',
-    id: '3c6fb674-59f1-4e28-95f0-d7e5b4866fc8',
-    contentTypeLabel: 'Enhanced ILT ',
-    title: 'Waitlisting Enhanced ILT',
-    kind: 'inPersonEventCourse',
-    slug: 'waitlisting-enhanced-ilt',
-    displayCourse: '3c6fb674-59f1-4e28-95f0-d7e5b4866fc8',
-    displayCourseSlug: 'waitlisting-enhanced-ilt'
-  }
-];
-
 const mockUserContentGroups = [
   { kind: 'contentItems', count: mockCurrentUserContentItems.length },
   { kind: 'eventItems', count: mockEvents.length },
   { kind: 'learningPaths', count: mockLearningPaths.length },
   { kind: 'completedItems', count: mockCompletedItems.length },
   { kind: 'certificates', count: mockCurrentUserCertificates.length },
-  { kind: 'bookmarkFolders', count: mockBookmarksByFolder.length },
+  { kind: 'bookmarkFolders', count: mockBookmarkFoldersByUserAndCompany.length },
   { kind: 'archivedContentItems', count: mockCurrentUserArchives.length },
   { kind: 'waitlistedCourses', count: mockWaitlistedData.length }
 ];
 
+const mockArchiveUserCourseFunc = (id: any, object: any) => {
+  const filterdItem = object.filter((item: any) => item.id === id)[0];
+  mockCurrentUserArchives.unshift({
+    __typename: 'ArchivedContent',
+    id: filterdItem.id,
+    user: filterdItem + '-' + Math.random(),
+    resource: Math.random().toString(),
+    resourceType: filterdItem.kind,
+    status: filterdItem.availabilityStatus,
+    archivedAt: new Date().toString(),
+    name: filterdItem.displayCourseSlug || '',
+    reinstatable: true,
+    waitlistActive: false
+  });
+  object.shift();
+};
+const mockUnenrollFromWaitlistFunc = (id: any) => {
+  mockWaitlistedData = mockWaitlistedData.filter(item => item.id !== id);
+};
+
+const mockReinstateUserCourseFunc = (id: any) => {
+  mockCurrentUserArchives = mockCurrentUserArchives.filter(item => item.id !== id);
+  // const itemsToReinstate: any = mockCurrentUserArchives.filter(item => item.id !== id);
+  // mockCurrentUserContentItems.push(itmesToReinstate);
+};
 // use the options to bypass mocking full payload of responses
 const mockedApolloProviderOptions = {
   watchQuery: { fetchPolicy: 'no-cache' as const },
   query: { fetchPolicy: 'no-cache' as const }
 };
+
 const apolloBaseParams = {
   addTypename: false,
   defaultOptions: mockedApolloProviderOptions
@@ -626,6 +636,7 @@ Base.parameters = {
   apolloClient: {
     ...apolloBaseParams,
     mocks: [
+      // Queries
       {
         request: {
           query: UserContentItemsDocument,
@@ -778,6 +789,24 @@ Base.parameters = {
       },
       {
         request: {
+          query: UserBookmarksByFolderDocument,
+          variables: {
+            id: ''
+          }
+        },
+        result: {
+          data: {
+            BookmarksByFolder: [...mockBookmarksByFolder]
+          }
+        },
+        newData: () => ({
+          data: {
+            BookmarksByFolder: [...mockBookmarksByFolder]
+          }
+        })
+      },
+      {
+        request: {
           query: ContentGroupsDocument,
           variables: {
             query: '',
@@ -793,6 +822,268 @@ Base.parameters = {
           data: {
             UserContentGroups: [...mockUserContentGroups]
           }
+        })
+      }, // CourseCompletionProgress Query
+      {
+        request: {
+          query: UserCourseCompletionProgressDocument,
+          variables: {
+            id: ''
+          }
+        },
+        result: {
+          data: {
+            criteriaProgress: [...mockCourseCompletionProgress]
+          }
+        }
+      },
+      //  AwardCounts Query
+      {
+        request: {
+          query: UserCourseAwardCountsDocument,
+          variables: {
+            id: ''
+          }
+        },
+        result: {
+          data: {
+            awardCounts: [...mockAwardCounts]
+          }
+        }
+      },
+      //  CourseCollaboration Query
+      {
+        request: {
+          query: UserCourseCollaborationsDocument,
+          variables: {
+            id: ''
+          }
+        },
+        result: {
+          data: {
+            courseCollaborations: [mockCourseCollaborations]
+          }
+        }
+      },
+      // CourseProgress Query
+      {
+        request: {
+          query: UserCourseProgressDocument,
+          variables: {
+            id: ''
+          }
+        },
+        result: {
+          data: {
+            courseProgress: [...mockCourseProgress]
+          }
+        }
+      },
+      // ArchiveUserCourse mockCurrentUserContentItems Mutations
+      {
+        request: {
+          query: ArchiveUserCourseDocument,
+          variables: {
+            id: mockCurrentUserContentItems[0].id
+          }
+        },
+        result: () => ({
+          data: {
+            ArchiveUserCourse: 'uuid-' + Math.random()
+          },
+          return: mockArchiveUserCourseFunc(
+            mockCurrentUserContentItems[0].id,
+            mockCurrentUserContentItems
+          )
+        })
+      },
+      {
+        request: {
+          query: ArchiveUserCourseDocument,
+          variables: {
+            id: mockCurrentUserContentItems[1].id
+          }
+        },
+        result: () => ({
+          data: {
+            ArchiveUserCourse: 'uuid-' + Math.random()
+          },
+          return: mockArchiveUserCourseFunc(
+            mockCurrentUserContentItems[1].id,
+            mockCurrentUserContentItems
+          )
+        })
+      },
+      {
+        request: {
+          query: ArchiveUserCourseDocument,
+          variables: {
+            id: mockCurrentUserContentItems[2].id
+          }
+        },
+        result: () => ({
+          data: {
+            ArchiveUserCourse: 'uuid-' + Math.random()
+          },
+          return: mockArchiveUserCourseFunc(
+            mockCurrentUserContentItems[2].id,
+            mockCurrentUserContentItems
+          )
+        })
+      },
+      {
+        request: {
+          query: ArchiveUserCourseDocument,
+          variables: {
+            id: mockCurrentUserContentItems[3].id
+          }
+        },
+        result: () => ({
+          data: {
+            ArchiveUserCourse: 'uuid-' + Math.random()
+          },
+          return: mockArchiveUserCourseFunc(
+            mockCurrentUserContentItems[3].id,
+            mockCurrentUserContentItems
+          )
+        })
+      },
+      // ArchiveUserCourse mockLearningPaths Mutations
+      {
+        request: {
+          query: ArchiveUserLearningPathDocument,
+          variables: {
+            id: mockLearningPaths[0].id
+          }
+        },
+        result: () => ({
+          data: {
+            ArchiveUserLearningPath: 'uuid-' + Math.random()
+          },
+          return: mockArchiveUserCourseFunc(mockLearningPaths[0].id, mockLearningPaths)
+        })
+      },
+      {
+        request: {
+          query: ArchiveUserLearningPathDocument,
+          variables: {
+            id: mockLearningPaths[1].id
+          }
+        },
+        result: () => ({
+          data: {
+            ArchiveUserLearningPath: 'uuid-' + Math.random()
+          },
+          return: mockArchiveUserCourseFunc(mockLearningPaths[1].id, mockLearningPaths)
+        })
+      },
+      {
+        request: {
+          query: ArchiveUserLearningPathDocument,
+          variables: {
+            id: mockLearningPaths[2].id
+          }
+        },
+        result: () => ({
+          data: {
+            ArchiveUserLearningPath: 'uuid-' + Math.random()
+          },
+          return: mockArchiveUserCourseFunc(mockLearningPaths[2].id, mockLearningPaths)
+        })
+      },
+      // ReinstateUserCourse Mutation
+      {
+        request: {
+          query: ReinstateUserCourseDocument,
+          variables: {
+            id: mockCurrentUserArchives[0].id
+          }
+        },
+        result: () => ({
+          data: {
+            ReinstateUserCourse: 'uuid-' + Math.random()
+          },
+          return: mockReinstateUserCourseFunc(mockCurrentUserArchives[0].id)
+        })
+      },
+      // ArchiveUserCourse mockEvents Mutations
+      {
+        request: {
+          query: ArchiveUserCourseDocument,
+          variables: {
+            id: mockEvents[0].id
+          }
+        },
+        result: () => ({
+          data: {
+            ArchiveUserCourse: 'uuid-' + Math.random()
+          },
+          return: mockArchiveUserCourseFunc(mockEvents[0].id, mockEvents)
+        })
+      },
+      {
+        request: {
+          query: ArchiveUserCourseDocument,
+          variables: {
+            id: mockEvents[1].id
+          }
+        },
+        result: () => ({
+          data: {
+            ArchiveUserCourse: 'uuid-' + Math.random()
+          },
+          return: mockArchiveUserCourseFunc(mockEvents[1].id, mockEvents)
+        })
+      },
+      {
+        request: {
+          query: ArchiveUserCourseDocument,
+          variables: {
+            id: mockEvents[2].id
+          }
+        },
+        result: () => ({
+          data: {
+            ArchiveUserCourse: 'uuid-' + Math.random()
+          },
+          return: mockArchiveUserCourseFunc(mockEvents[2].id, mockEvents)
+        })
+      },
+      // waitlist mutaion
+      {
+        request: {
+          query: UnenrollFromWaitlistDocument,
+          variables: {
+            id: mockWaitlistedData[0].id
+          }
+        },
+        result: () => ({
+          data: { UnenrollFromWaitlist: true },
+          return: mockUnenrollFromWaitlistFunc(mockWaitlistedData[0].id)
+        })
+      },
+      {
+        request: {
+          query: UnenrollFromWaitlistDocument,
+          variables: {
+            id: mockWaitlistedData[1].id
+          }
+        },
+        result: () => ({
+          data: { UnenrollFromWaitlist: true },
+          return: mockUnenrollFromWaitlistFunc(mockWaitlistedData[1].id)
+        })
+      },
+      {
+        request: {
+          query: UnenrollFromWaitlistDocument,
+          variables: {
+            id: mockWaitlistedData[2].id
+          }
+        },
+        result: () => ({
+          data: { UnenrollFromWaitlist: true },
+          return: mockUnenrollFromWaitlistFunc(mockWaitlistedData[2].id)
         })
       }
     ]

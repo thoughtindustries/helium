@@ -21,7 +21,6 @@
   },
   "dependencies": {
     "@thoughtindustries/content": "^1.1.0-alpha.1",
-    "react-beautiful-dnd": "^13.1.0",
-    "react-flatpickr": "^3.10.12"
+    "react-beautiful-dnd": "^13.1.0"
   }
 }

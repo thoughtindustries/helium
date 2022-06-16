@@ -29,6 +29,7 @@ const MoveIconStyle: React.CSSProperties = {
   bottom: '0px',
   cursor: 'grab'
 };
+
 export const UploadIcon = (): JSX.Element => (
   <i className="icon-upload" style={{ display: 'inline-block', position: 'relative' }}>
     <svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -20 150 50" style={uploadStyle}>
@@ -57,6 +58,26 @@ export const UploadIcon = (): JSX.Element => (
           fillOpacity: 1
         }}
         d="M45.832 30.766v29.168A4.17 4.17 0 0 0 50 64.102a4.17 4.17 0 0 0 4.168-4.168V30.766c0-2.301-1.867-4.164-4.168-4.164a4.166 4.166 0 0 0-4.168 4.164Zm0 0"
+      />
+    </svg>
+  </i>
+);
+
+export const AlertIcon = () => (
+  <i
+    className="icon-alert"
+    aria-label="alert"
+    style={{ display: 'inline-block', position: 'relative' }}
+  >
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="30 -15 5 90" width={45} height={45}>
+      <path
+        style={{
+          stroke: 'none',
+          fillRule: 'nonzero',
+          fill: '#311ac9',
+          fillOpacity: 1
+        }}
+        d="m32 6.438-1.75 3L6.25 51l-1.688 3h54.876l-1.688-3-24-41.563Zm0 8L52.5 50h-41ZM30 28v12h4V28Zm0 14v4h4v-4Zm0 0"
       />
     </svg>
   </i>
@@ -135,7 +156,7 @@ export const MoveIcon = (): JSX.Element => (
   </i>
 );
 
-export const WriteIcon = (): JSX.Element => (
+export const EditIcon = (): JSX.Element => (
   <i className="icon-upload" style={{ display: 'inline-block', position: 'relative', top: '2px' }}>
     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 26 26" width={16} height={16}>
       <path d="M20.094.25a2.247 2.247 0 0 0-1.625.656l-1 1.031 6.593 6.625 1-1.03a2.32 2.32 0 0 0 0-3.282L21.75.937A2.364 2.364 0 0 0 20.094.25Zm-3.75 2.594-1.563 1.5 6.875 6.875L23.25 9.75ZM13.78 5.438 2.97 16.155a.979.979 0 0 0-.5.625L.156 24.625a.98.98 0 0 0 .242.977.98.98 0 0 0 .977.242l7.844-2.313a.979.979 0 0 0 .781-.656l10.656-10.563-1.468-1.468L8.25 21.813l-4.406 1.28-.938-.937 1.344-4.593L15.094 6.75Zm2.375 2.406-10.968 11 1.593.343.219 1.47 11-10.97Z" />

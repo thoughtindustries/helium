@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import { LearnerAccessProps } from '../types';
 import { UploadIcon } from '../Assets/Icons';
 import { useUserCertificatesQuery, LoadingDots } from '@thoughtindustries/content';
-import { Calender } from '../Assets/flatPickr/FlatPickr';
 
 const LoadCertificates = ({
   query,
@@ -10,7 +9,6 @@ const LoadCertificates = ({
 }: LearnerAccessProps): JSX.Element => {
   const [showForm, setShowForm] = useState<boolean>(false);
 
-  console.log(typeof date);
   const { data, loading, error }: any = useUserCertificatesQuery({
     variables: {
       query: query,
@@ -51,14 +49,24 @@ const LoadCertificates = ({
                   <div className="ember-view">
                     <label>Certificate Grant Date</label>
                     <div className="ember-view input__wrapper input__wrapper--clear">
-                      <Calender />
+                      <input
+                        className="focus:outline-none h-10 mb-4 text-base py-2 px-4 w-full bg-white rounded-none border-solid border box-border block mx-0 mt-0 p-2 text-black cursor-pointer"
+                        type="text"
+                        onBlur={e => (e.target.type = 'text')}
+                        onFocus={e => (e.target.type = 'date')}
+                      />
                     </div>
                   </div>
                   <div className="ember-view">
                     <label>Certificate Expiration</label>
 
                     <div className="mb-4">
-                      <Calender />
+                      <input
+                        className="focus:outline-none h-10 mb-4 text-base py-2 px-4 w-full bg-white rounded-none border-solid border box-border block mx-0 mt-0 p-2 text-black cursor-pointer"
+                        type="text"
+                        onBlur={e => (e.target.type = 'text')}
+                        onFocus={e => (e.target.type = 'date')}
+                      />
                     </div>
                   </div>
                   <div className="ember-view">
@@ -89,6 +97,7 @@ const LoadCertificates = ({
               <div className="flex justify-end px-4">
                 <div className="flex">
                   <button
+                    onClick={() => setShowForm(!showForm)}
                     data-ember-action="28579"
                     className="bg-white text-xs box-border cursor-pointer block h-10 mx-0 mt-0 mb-4 py-1 px-4 text-black w-full"
                   >

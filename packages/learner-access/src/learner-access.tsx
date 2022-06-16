@@ -60,7 +60,6 @@ const LearnerAccess = ({
     setSelected(index);
     setActiveTab(currentTab);
   };
-  console.log('my learning coujnt', mylearningCount);
   const activityCollapsed = (
     <div className="border-b border-solid leading-5 p-4 bg-gradient-to-t from-white to-gray-lightest">
       <button
@@ -142,7 +141,6 @@ const LearnerAccess = ({
     </ul>
   );
   const tabContent = () => {
-    console.log('in switch', activeTab);
     switch (activeTab) {
       case 'contentItems':
         return (

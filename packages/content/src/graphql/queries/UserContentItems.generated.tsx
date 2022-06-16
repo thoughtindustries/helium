@@ -5,9 +5,7 @@ import * as Apollo from '@apollo/client';
 const defaultOptions = {} as const;
 export type UserContentItemsQueryVariables = Types.Exact<{
   query?: Types.InputMaybe<Types.Scalars['String']>;
-  kind?: Types.InputMaybe<
-    Array<Types.InputMaybe<Types.Scalars['String']>> | Types.InputMaybe<Types.Scalars['String']>
-  >;
+  kind?: Types.InputMaybe<Array<Types.Scalars['String']> | Types.Scalars['String']>;
   sort?: Types.InputMaybe<Types.Scalars['String']>;
 }>;
 
@@ -45,7 +43,7 @@ export type UserContentItemsQuery = {
 };
 
 export const UserContentItemsDocument = gql`
-  query UserContentItems($query: String, $kind: [String], $sort: String) {
+  query UserContentItems($query: String, $kind: [String!], $sort: String) {
     UserContentItems(query: $query, kind: $kind, sort: $sort) {
       asset
       title

@@ -12,6 +12,7 @@ const LoadCertificates = ({ query, kind, sort }: LoadedComponentProps): JSX.Elem
       sort
     }
   });
+
   const handleClick = () => {
     setShowContent(!showContent);
   };

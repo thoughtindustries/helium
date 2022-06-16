@@ -1,10 +1,16 @@
 import React from 'react';
-import { useUserWaitlistQuery, LoadingDots } from '@thoughtindustries/content';
+import {
+  useUserWaitlistQuery,
+  LoadingDots,
+  useUnenrollFromWaitlistMutation
+} from '@thoughtindustries/content';
 
 const LoadWaitlist = (): JSX.Element => {
   const { data, loading, error }: any = useUserWaitlistQuery({
     variables: {}
   });
+  const [unenrollFromWaitlistMutation] = useUnenrollFromWaitlistMutation();
+
   console.log('data from child', data);
   if (error) return error;
   return (
@@ -36,7 +42,7 @@ const LoadWaitlist = (): JSX.Element => {
 
                   <div className="col-start-11 col-span-2 text-right">
                     <button
-                      href="/learn/course/ll-microcourse-0422"
+                      onClick={() => unenrollFromWaitlistMutation({ variables: { id: item.id } })}
                       className="bg-active-blue text-white rounded-sm cursor-pointer inline-block font-normal text-xs m-0 py-[0.15rem] px-4 relative text-center no-underline ease-in-out border-active-blue font-sans transition duration-200 leading-5"
                     >
                       Unenroll from Waitlist

@@ -1,4 +1,4 @@
-query UserContentItems($query: String, $kind: [String], $sort: String) {
+query UserContentItems($query: String, $kind: [String!], $sort: String) {
   UserContentItems(query: $query, kind: $kind, sort: $sort) {
     asset
     title

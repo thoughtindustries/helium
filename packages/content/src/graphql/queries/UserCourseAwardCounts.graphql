@@ -1,0 +1,9 @@
+query UserCourseAwardCounts($courseId: ID!) {
+  UserCourseAwardCounts(courseId: $courseId) {
+    __typename
+    id
+    label
+    icon
+    count
+  }
+}
