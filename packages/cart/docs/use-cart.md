@@ -37,3 +37,7 @@ The `useCart` hook returns an object with the following keys:
 | `removeItem`                    | A callback that removes item from the cart. Expects the `CartItem` input. |
 | `toggleItemInstructorAccess`    | A callback that updates item variation label for instructor access in the cart. Expects the `CartItem`. |
 | `totalQuantity`                 | The total number of items in the cart, across all items. If there are no items, then the value is 0. |
+
+## Related components
+
+- [`CartProvider`](./cart-provider.md)
