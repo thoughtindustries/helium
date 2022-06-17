@@ -44,6 +44,7 @@ const priceFormat = (priceInCents) => {
 
 ## Related components
 
+- [`CartUIProvider`](./docs/cart-ui-provider.md)
 - [`CartProvider`](./docs/cart-provider.md)
 
 ## Related hooks
