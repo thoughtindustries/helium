@@ -49,4 +49,5 @@ const priceFormat = (priceInCents) => {
 
 ## Related hooks
 
+- [`useUICart`](./docs/use-ui-cart.md)
 - [`useCart`](./docs/use-cart.md)
