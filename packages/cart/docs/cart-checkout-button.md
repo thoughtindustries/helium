@@ -28,4 +28,4 @@ export class MyComponent() {
 ## Related hooks
 
 - [`useCart`](./docs/use-cart.md)
-- [`useCartCgeckout`](./docs/use-cart-checkout.md)
+- [`useCartCheckout`](./docs/use-cart-checkout.md)

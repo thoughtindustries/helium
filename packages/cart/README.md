@@ -53,4 +53,4 @@ const priceFormat = (priceInCents) => {
 
 - [`useUICart`](./docs/use-ui-cart.md)
 - [`useCart`](./docs/use-cart.md)
-- [`useCartCgeckout`](./docs/use-cart-checkout.md)
+- [`useCartCheckout`](./docs/use-cart-checkout.md)
