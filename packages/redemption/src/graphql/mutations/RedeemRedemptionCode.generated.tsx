@@ -13,6 +13,7 @@ export type RedeemRedemptionCodeMutation = {
     __typename?: 'RedeemRedemptionCode';
     valid: boolean;
     alreadyRedeemed: boolean;
+    codeExpired: boolean;
   };
 };
 
@@ -21,6 +22,7 @@ export const RedeemRedemptionCodeDocument = gql`
     RedeemRedemptionCode(code: $code) {
       valid
       alreadyRedeemed
+      codeExpired
     }
   }
 `;

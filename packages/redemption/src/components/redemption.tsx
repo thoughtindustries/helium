@@ -4,26 +4,30 @@ import CodeList from './code-list';
 import Prompt from './prompt';
 import Banner from './banner';
 import TermsAndConditions from './terms-and-conditions';
-import { RedemptionProps } from './types';
+import { UserProps, Props } from './types';
 
-const Redemption = ({ isLoggedIn }: RedemptionProps): JSX.Element => {
+const Redemption = ({ isLoggedIn }: UserProps): JSX.Element => {
   const styles = {
     container: 'mx-4 md:mx-40 text-center self-center'
   };
 
-  const [valid, setValid] = useState<boolean | undefined>();
+  const [response, setResponse] = useState<Props>();
 
   return (
     <form className={styles.container}>
       {isLoggedIn ? (
         <>
           <Prompt />
-          <Banner valid={valid} />
-          <CodeList valid={valid} validate={setValid} />
-          <TermsAndConditions valid={valid} />
+          <Banner
+            valid={response?.valid}
+            alreadyRedeemed={response?.alreadyRedeemed}
+            codeExpired={response?.codeExpired}
+          />
+          <CodeList setResponse={setResponse} />
+          <TermsAndConditions valid={response?.valid} />
         </>
       ) : (
-        <Registration valid={valid} validate={setValid} />
+        <Registration response={response} setResponse={setResponse} />
       )}
     </form>
   );

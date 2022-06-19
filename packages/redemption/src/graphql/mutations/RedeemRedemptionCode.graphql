@@ -2,5 +2,6 @@ mutation RedeemRedemptionCode($code: String!) {
   RedeemRedemptionCode(code: $code) {
     valid
     alreadyRedeemed
+    codeExpired
   }
 }

@@ -30,4 +30,5 @@ export type RedeemRedemptionCode = {
   __typename?: 'RedeemRedemptionCode';
   alreadyRedeemed?: Maybe<Scalars['Boolean']>;
   valid?: Maybe<Scalars['Boolean']>;
+  codeExpired?: Maybe<Scalars['Boolean']>;
 };

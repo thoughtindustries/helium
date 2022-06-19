@@ -1,9 +1,9 @@
 import React, { ReactNode, useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import CodeBox from './code-box';
-import { CodeProps } from './types';
+import { ResponseProps } from './types';
 
-const CodeList = ({ valid, validate }: CodeProps): JSX.Element => {
+const CodeList = ({ setResponse }: ResponseProps): JSX.Element => {
   const styles = {
     addCodeStyle: 'flex justify-left text-indigo-700 text-sm'
   };
@@ -11,12 +11,12 @@ const CodeList = ({ valid, validate }: CodeProps): JSX.Element => {
   const { t } = useTranslation();
   const [count, setCount] = useState(0);
   const [list, setList] = useState<ReactNode[]>([
-    <CodeBox key={count} valid={valid} validate={validate} />
+    <CodeBox key={count} setResponse={setResponse} />
   ]);
 
   useEffect(() => {
     if (count > 0) {
-      setList([...list, <CodeBox key={count} valid={valid} validate={validate} />]);
+      setList([...list, <CodeBox key={count} setResponse={setResponse} />]);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [count]);

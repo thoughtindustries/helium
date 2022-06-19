@@ -1,11 +1,15 @@
 import { SetStateAction } from 'react';
 
-export interface RedemptionProps {
+export interface Props {
+  valid: boolean | undefined;
+  alreadyRedeemed?: boolean | undefined;
+  codeExpired?: boolean | undefined;
+}
+
+export interface UserProps {
   isLoggedIn: boolean;
 }
-export interface ValidationProps {
-  valid: boolean | undefined;
-}
-export interface CodeProps extends ValidationProps {
-  validate: React.Dispatch<SetStateAction<boolean | undefined>>;
+export interface ResponseProps {
+  setResponse: React.Dispatch<SetStateAction<Props | undefined>>;
+  response?: Props;
 }

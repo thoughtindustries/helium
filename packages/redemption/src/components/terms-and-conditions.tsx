@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { ValidationProps } from './types';
+import { Props } from './types';
 
-const TermsAndConditions = ({ valid }: ValidationProps): JSX.Element => {
+const TermsAndConditions = ({ valid }: Props): JSX.Element => {
   const styles = {
     buttonStyle:
       'text-white bg-indigo-700 hover:bg-indigo-600 inline-block font-normal text-sm text-center no-underline py-2 w-full md:w-1/4 rounded-md',
@@ -15,16 +15,15 @@ const TermsAndConditions = ({ valid }: ValidationProps): JSX.Element => {
   const { t } = useTranslation();
   const [agree, setAgree] = useState(false);
 
-  const handleRegistration = () => {
-    if (agree && valid) {
-      // Redirect to dashboard
-      console.log('REGISTERED');
-    } else if (!agree && valid) {
-      alert(t('register-terms-and-conditions-error'));
-    } else {
-      alert(t('register-invalid-code-alert'));
-    }
-  };
+  // const handleRegistration = () => {
+  //   if (agree && valid) {
+  //     // Redirect to dashboard
+  //   } else if (!agree && valid) {
+  //     alert(t('register-terms-and-conditions-error'));
+  //   } else {
+  //     alert(t('register-invalid-code-alert'));
+  //   }
+  // };
 
   return (
     <>
@@ -39,7 +38,10 @@ const TermsAndConditions = ({ valid }: ValidationProps): JSX.Element => {
             </button>
           </div>
         </div>
-        <button className={styles.buttonStyle} type="button" onClick={() => handleRegistration()}>
+        <button
+          className={styles.buttonStyle}
+          type="button" /*onClick={() => handleRegistration()}*/
+        >
           {t('redemption-code.redeem-code-preloaded')}
         </button>
       </div>

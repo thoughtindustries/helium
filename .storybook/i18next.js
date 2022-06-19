@@ -42,6 +42,10 @@ i18n.use(initReactI18next).init({
         'redemption-code.validate': 'Validate',
         'redemption-code.placeholder': 'Enter Code Here',
         'redemption-code.add-redemption-code': '+ Add Another Code',
+        'redemption-code.manual-already-redeemed-error':
+          'This code has already been redeemed. Please sign in to access the school.',
+        'redemption-code.manual-code-expired':
+          'Sorry, this code has expired and is no longer valid.',
         'redemption-code.redeem-course-copy-signed-in-manual-code':
           'Fill in a code below, click validate, and then redeem your code.',
         'redemption-code.redeem-course-copy-not-signed-in-manual-code':

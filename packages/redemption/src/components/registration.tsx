@@ -2,12 +2,11 @@ import React from 'react';
 import { useTranslation } from 'react-i18next';
 import CodeList from './code-list';
 import Banner from './banner';
-import { CodeProps } from './types';
+import { ResponseProps } from './types';
 import TermsAndConditions from './terms-and-conditions';
 import Prompt from './prompt';
-import { Formik } from 'formik';
 
-const Registration = ({ valid, validate }: CodeProps): JSX.Element => {
+const Registration = ({ response, setResponse }: ResponseProps): JSX.Element => {
   const styles = {
     inputStyle:
       'p-4 text-sm w-full ring-1 ring-gray-300 ring-inset shadow-inner focus:outline-none focus:ring-gray-500 mb-4',
@@ -23,7 +22,11 @@ const Registration = ({ valid, validate }: CodeProps): JSX.Element => {
   return (
     <>
       <Prompt />
-      <Banner valid={valid} />
+      <Banner
+        valid={response?.valid}
+        alreadyRedeemed={response?.alreadyRedeemed}
+        codeExpired={response?.codeExpired}
+      />
       <p className={styles.redirect}>
         <strong className={styles.member}>{`${t('already-member')}\u00A0`}</strong>
         <button type="button">
@@ -37,8 +40,8 @@ const Registration = ({ valid, validate }: CodeProps): JSX.Element => {
       <input className={styles.inputStyle} placeholder={t('register-email')} />
       <input className={styles.inputStyle} placeholder={t('register-password')} />
       <input className={styles.inputStyle} placeholder={t('register-confirm-password')} />
-      <CodeList valid={valid} validate={validate} />
-      <TermsAndConditions valid={valid} />
+      <CodeList setResponse={setResponse} />
+      <TermsAndConditions valid={response?.valid} />
     </>
   );
 };
