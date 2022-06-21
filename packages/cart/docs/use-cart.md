@@ -28,15 +28,15 @@ export function CartTotalQuantity() {
 
 The `useCart` hook returns an object with the following keys:
 
-| Name                            | Description |
-| ------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `items`                         | The cart items. |
-| `checkoutUrl`                   | The URL for the checkout for this cart. |
-| `isInitialized`                 | This indicates if the cart is initialized. The initialization process will trigger once the `CartProvider` component is mounted. |
-| `addPurchaseableItem`           | A callback that adds purchaseable item to the cart. Expects the `AddPurchaseableItemPayload` input. |
-| `removeItem`                    | A callback that removes item from the cart. Expects the `CartItem` input. |
-| `toggleItemInstructorAccess`    | A callback that updates item variation label for instructor access in the cart. Expects the `CartItem`. |
-| `totalQuantity`                 | The total number of items in the cart, across all items. If there are no items, then the value is 0. |
+| Name                            | Required | Description |
+| ------------------------------- | -------- | ----------- |
+| `items`                         | Yes      | The cart items. |
+| `checkoutUrl`                   | Yes      | The URL for the checkout for this cart. |
+| `isInitialized`                 | Yes      | This indicates if the cart is initialized. The initialization process will trigger once the `CartProvider` component is mounted. |
+| `addPurchaseableItem`           | Yes      | A callback that adds purchaseable item to the cart. Expects the `AddPurchaseableItemPayload` input. |
+| `removeItem`                    | Yes      | A callback that removes item from the cart. Expects the `CartItem` input. |
+| `toggleItemInstructorAccess`    | Yes      | A callback that updates item variation label for instructor access in the cart. Expects the `CartItem`. |
+| `totalQuantity`                 | Yes      | The total number of items in the cart, across all items. If there are no items, then the value is 0. |
 
 ## Related components
 

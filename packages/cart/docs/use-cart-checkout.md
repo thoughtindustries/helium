@@ -28,10 +28,10 @@ export function CartCheckoutButton() {
 
 The `useCartCheckout` hook returns an object with the following keys:
 
-| Name                            | Description |
-| ------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `isCheckoutRequested`           | This indicates if the cart checkout process has already requested. |
-| `startCheckout`                 | A callback that starts the cart checkout process. |
+| Name                            | Required | Description |
+| ------------------------------- | -------- | ----------- |
+| `isCheckoutRequested`           | Yes      | This indicates if the cart checkout process has already requested. |
+| `startCheckout`                 | Yes      | A callback that starts the cart checkout process. |
 
 ## Related hooks
 

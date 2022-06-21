@@ -34,13 +34,13 @@ const priceFormat = (priceInCents) => {
 
 ## Props
 
-| Name     | Type                          | Description               |
-| -------- | ----------------------------- | ------------------------- |
-| children | <code>ReactNode</code>        | Any `ReactNode` elements. |
-| checkoutUrl     | <code>string</code> | The URL for the checkout for this cart.       |
-| priceFormat?     | <code>(priceInCents: number) => string</code> | A callback that is invoked to format monetary value with currency. It takes a number value for the price in cent unit and return the formatted value. Default value uses `Intl.NumberFormat` with props `companyDefaultLocale` and/or `currencyCode` to enable locale-specific currency formatting. |
-| companyDefaultLocale?     | <code>string</code> | A locale value to format price when prop `priceFormat` is not specified. Used to speficy the locale in `Intl.NumberFormat`. Default to `en-US`.  |
-| currencyCode?     | <code>string</code> | A currency code value to format price when prop `priceFormat` is not specified. Used to speficy the currency code in `Intl.NumberFormat`. Default to `USD`. |
+| Name     | Required | Type                          | Description               |
+| -------- | -------- | ----------------------------- | ------------------------- |
+| children | Yes | <code>ReactNode</code>        | Any `ReactNode` elements. |
+| checkoutUrl     | Yes | <code>string</code> | The URL for the checkout for this cart.       |
+| priceFormat     | No | <code>(priceInCents: number) => string</code> | A callback that is invoked to format monetary value with currency. It takes a number value for the price in cent unit and return the formatted value. Default value uses `Intl.NumberFormat` with props `companyDefaultLocale` and/or `currencyCode` to enable locale-specific currency formatting. |
+| companyDefaultLocale     | No | <code>string</code> | A locale value to format price when prop `priceFormat` is not specified. Used to speficy the locale in `Intl.NumberFormat`. Default to `en-US`.  |
+| currencyCode     | No | <code>string</code> | A currency code value to format price when prop `priceFormat` is not specified. Used to speficy the currency code in `Intl.NumberFormat`. Default to `USD`. |
 
 ## Related components
 

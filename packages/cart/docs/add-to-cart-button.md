@@ -23,16 +23,16 @@ export function MyComponent() {
 
 ## Props
 
-| Name                         | Type                                        | Description                                                                                                                                                   |
-| ---------------------------- | ------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| children                     | <code>ReactNode</code>                      | Any ReactNode elements. |
-| shouldOpenCart?              | <code>boolean</code>                        | Option to open cart modal as a follow-up action. |
-| purchasableType              | <code>EcommItemType</code>                  | Type of purchaseable item (one of the ecommerce item type). |
-| purchasable                  | <code>PurchaseableItem</code>               | Object of the purchaseable item. |
-| coupon?                      | <code>Coupon</code>                         | Optional coupon object. |
-| interval?                    | <code>CartItemInterval</code>               | Optional payment interval (one of the interval type). |
-| quantity?                    | <code>number</code>                         | Optional quantity (a default value will be applied when not sepcified). |
-| buttonRef?                   | <code>Ref<<wbr>HTMLButtonElement<wbr>> </code>                | A reference to the underlying button. |
+| Name                         | Required | Type                                        | Description |
+| ---------------------------- | -------- | ------------------------------------------- | ----------- |
+| children                     | Yes      | <code>ReactNode</code>                      | Any ReactNode elements. |
+| shouldOpenCart               | No       | <code>boolean</code>                        | Option to open cart modal as a follow-up action. |
+| purchasableType              | Yes      | <code>EcommItemType</code>                  | Type of purchaseable item (one of the ecommerce item type). |
+| purchasable                  | Yes      | <code>PurchaseableItem</code>               | Object of the purchaseable item. |
+| coupon                       | No       | <code>Coupon</code>                         | Optional coupon object. |
+| interval                     | No       | <code>CartItemInterval</code>               | Optional payment interval (one of the interval type). |
+| quantity                     | No       | <code>number</code>                         | Optional quantity (a default value will be applied when not sepcified). |
+| buttonRef                    | No       | <code>Ref<<wbr>HTMLButtonElement<wbr>> </code>                | A reference to the underlying button. |
 
 ## Related components
 

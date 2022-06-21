@@ -28,12 +28,12 @@ export function CartToggle() {
 
 The `useCartUI` hook returns an object with the following keys:
 
-| Name                            | Description |
-| ------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `isCartOpen`                    | Boolean value indicating if the cart (modal) is open. |
-| `openCart`                      | A callback to open cart. |
-| `closeCart`                     | A callback to close cart. |
-| `toggleCart`                    | A callback to toggle cart to open or to close. |
+| Name                            | Required | Description |
+| ------------------------------- | -------- | ----------- |
+| `isCartOpen`                    | Yes      | Boolean value indicating if the cart (modal) is open. |
+| `openCart`                      | Yes      | A callback to open cart. |
+| `closeCart`                     | Yes      | A callback to close cart. |
+| `toggleCart`                    | Yes      | A callback to toggle cart to open or to close. |
 
 ## Related components
 

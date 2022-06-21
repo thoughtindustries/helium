@@ -14,10 +14,10 @@ export function App() {
 
 ## Props
 
-| Name                   | Type                         | Description                                                                                                                                                                                                              |
-| ---------------------- | ---------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| children               | <code>React.ReactNode</code> | Any `ReactNode` elements. |
-| checkoutUrl            | <code>string</code> | The URL for the checkout for this cart. |
+| Name                   | Required | Type                         | Description                                                                                                                                                                                                              |
+| ---------------------- | -------- | ---------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| children               | Yes      | <code>React.ReactNode</code> | Any `ReactNode` elements. |
+| checkoutUrl            | Yes      | <code>string</code> | The URL for the checkout for this cart. |
 
 ## Related hooks
 

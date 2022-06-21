@@ -16,10 +16,10 @@ export class MyComponent() {
 
 ## Props
 
-| Name     | Type                   | Description            |
-| -------- | ---------------------- | ---------------------- |
-| children | <code>ReactNode</code> | A `ReactNode` element. |
-| buttonRef?                   | <code>Ref<<wbr>HTMLButtonElement<wbr>> </code>                | A reference to the underlying button. |
+| Name        | Required | Type                   | Description            |
+| ----------- | -------- | ---------------------- | ---------------------- |
+| children    | Yes      | <code>ReactNode</code> | A `ReactNode` element. |
+| buttonRef   | No       | <code>Ref<<wbr>HTMLButtonElement<wbr>> </code>                | A reference to the underlying button. |
 
 ## Related components
 
