@@ -112,7 +112,7 @@ export function App() {
 
 - [`useCart`](../hooks/README.md#usecart)
 
-### CartUIProvider
+## CartUIProvider
 
 The `CartUIProvider` component defines the behavior that occurs when a user is interacting with a cart (for example, opening or closing it), it also creates a cart object and provides callbacks that can be accessed by any descendent component using the `useCartUI` hook, the `useCart` hook, and related hooks. This component renders the `CartProvider` to provides any of its descendant access to the context of `CartProvider`.
 
