@@ -1,6 +1,6 @@
 # `@thoughtindustries/cart`
 
-> TODO: add description
+> Cart components relate to the merchandise that a customer intends to purchase.
 
 ## Import component
 
