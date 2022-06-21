@@ -44,13 +44,8 @@ const priceFormat = (priceInCents) => {
 
 ## Related components
 
-- [`CartUIProvider`](./docs/cart-ui-provider.md)
-- [`CartProvider`](./docs/cart-provider.md)
-- [`AddToCartButton`](./docs/add-to-cart-button.md)
-- [`CartCheckoutButton`](./docs/cart-checkout-button.md)
+- [Core cart components](./src/core/components/README.md)
 
 ## Related hooks
 
-- [`useUICart`](./docs/use-ui-cart.md)
-- [`useCart`](./docs/use-cart.md)
-- [`useCartCheckout`](./docs/use-cart-checkout.md)
+- [Core cart hooks](./src/core/hooks/README.md)
