@@ -12,6 +12,17 @@ i18n.use(initReactI18next).init({
     en: {
       translation: {
         'bundle.learn-button': 'Learn More',
+        'cart.add-instructor-button': 'Add Instructor',
+        'cart.coupon': 'Coupon:',
+        'cart.checkout': 'Checkout',
+        'cart.empty': 'Your cart is empty.',
+        'cart.header_one': 'Your Basket ({{count}} item)',
+        'cart.header_other': 'Your Basket ({{count}} items)',
+        'cart.instructor-access-added': 'Instructor Access Added',
+        'cart.instructor-access-body':
+          'By adding premium instruction to this course you will avail of one-on-one  expert feedback, coaching and more.',
+        'cart.instructor-access-headline':
+          'Would you like to add expert personal instruction to this course?',
         'catalog.date-time': 'Date & Time',
         'catalog.location': 'Location',
         'catalog.location-in-person': 'In Person',
@@ -41,10 +52,20 @@ i18n.use(initReactI18next).init({
         'filter-by': 'Filter by',
         'filter-no-courses':
           'Sorry, we were unable to find a match for that search term or category, please try again.',
+        'free-purchase': 'This purchase is free!',
+        'header-cart': 'Basket',
         'mobile-back-button': 'Back',
         'mobile-menu-button': 'Menu',
         more: 'more',
-        'primary-bundle-intro': 'All courses only'
+        'primary-bundle-intro': 'All courses only',
+        'product.add-to-cart': 'Add to basket',
+        'product.continue': 'Continue Shopping',
+        quantity: 'Quantity:',
+        'relatedProducts.checkout': 'Recommended for you…',
+        remove: 'Remove',
+        total: 'Total:',
+        'total-due-now': 'Total Due Today:',
+        undo: 'Undo'
       }
     }
   }
