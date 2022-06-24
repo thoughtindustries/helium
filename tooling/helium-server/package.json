@@ -49,5 +49,9 @@
   "devDependencies": {
     "@types/express": "^4.17.13",
     "tsup": "^5.11.13"
+  },
+  "volta": {
+    "node": "14.17.6",
+    "npm": "8.6.0"
   }
 }
