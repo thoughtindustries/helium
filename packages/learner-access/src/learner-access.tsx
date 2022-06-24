@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { NetworkStatus } from '@apollo/client';
 import { LearnerAccessProps } from './types';
 import {
   LoadContentItems,
@@ -8,7 +9,8 @@ import {
   LoadCertificates,
   LoadMyLearningItems
 } from './components';
-import { useContentGroupsQuery } from '@thoughtindustries/content';
+import { LoadingDots, useContentGroupsQuery } from '@thoughtindustries/content';
+import LearnerAccessContext from './context';
 const LearnerAccess = ({
   allowCollapse,
   classNames,
@@ -21,12 +23,30 @@ const LearnerAccess = ({
 
   const [mylearningCount, setMylearningCount] = useState<number>(0);
 
-  const { data } = useContentGroupsQuery({
+  const {
+    data,
+    loading,
+    error,
+    refetch: refetchContentGroups,
+    networkStatus
+  } = useContentGroupsQuery({
     variables: {
       query,
       includeExpiredCertificates: displayExpiredCertificateInformation
-    }
+    },
+    ssr: false,
+    fetchPolicy: 'network-only',
+    notifyOnNetworkStatusChange: true
   });
+
+  if (loading || networkStatus === NetworkStatus.refetch) {
+    return <LoadingDots />;
+  }
+
+  if (error) {
+    return <>{error.message}</>;
+  }
+
   const newTabName = (currentTab: string) => {
     switch (currentTab) {
       case 'contentItems':
@@ -60,6 +80,7 @@ const LearnerAccess = ({
     setSelected(index);
     setActiveTab(currentTab);
   };
+
   const activityCollapsed = (
     <div className="border-b border-solid leading-5 p-4 bg-gradient-to-t from-white to-gray-lightest">
       <button
@@ -202,21 +223,27 @@ const LearnerAccess = ({
         );
     }
   };
-  return allowCollapse ? (
-    <div className="my-0 -mx-4 max-w-none w-auto py-4 px-8 text-slate-700 text-black-light text-sm">
-      <div className="border border-solid">
-        {collapsed ? activityCollapsed : activityExpanded}
-        {!collapsed ? dashboardAccessTabs : ''}
-        {tabContent()}
-      </div>
-    </div>
-  ) : (
-    <div className="my-0 -mx-4 max-w-none w-auto py-4 px-8 text-slate-700 text-black-light text-sm">
-      <div className="border border-solid">
-        {dashboardAccessTabs}
-        {tabContent()}
-      </div>
-    </div>
+
+  return (
+    <LearnerAccessContext.Provider value={{ refetchContentGroups }}>
+      {allowCollapse && (
+        <div className="my-0 -mx-4 max-w-none w-auto py-4 px-8 text-slate-700 text-black-light text-sm">
+          <div className="border border-solid">
+            {collapsed ? activityCollapsed : activityExpanded}
+            {!collapsed ? dashboardAccessTabs : ''}
+            {tabContent()}
+          </div>
+        </div>
+      )}
+      {!allowCollapse && (
+        <div className="my-0 -mx-4 max-w-none w-auto py-4 px-8 text-slate-700 text-black-light text-sm">
+          <div className="border border-solid">
+            {dashboardAccessTabs}
+            {tabContent()}
+          </div>
+        </div>
+      )}
+    </LearnerAccessContext.Provider>
   );
 };
 

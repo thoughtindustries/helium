@@ -1,18 +1,25 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useUserArchivesQuery, LoadingDots, formatTime } from '@thoughtindustries/content';
 import { ReinstateButton } from './MutationCallingButtons';
 const LoadArchivedContent = (): JSX.Element => {
-  const { data, loading, error }: any = useUserArchivesQuery({
-    variables: {}
+  const { data, loading, error } = useUserArchivesQuery({
+    variables: {},
+    fetchPolicy: 'network-only'
   });
   console.log('data from child', data);
-  if (error) return error;
+  useEffect(() => {
+    console.log('mounting <LoadArchivedContent />');
+    return () => {
+      console.log('un-mounting <LoadArchivedContent />');
+    };
+  }, []);
+  if (error) return <>{error.message}</>;
   return (
     <>
       {loading ? (
         <LoadingDots />
       ) : (
-        data.CurrentUserArchives.map((item: any) => {
+        data?.UserArchives.map((item: any) => {
           return (
             <div
               key={item.id}

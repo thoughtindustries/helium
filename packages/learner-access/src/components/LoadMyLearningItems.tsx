@@ -20,7 +20,8 @@ const LoadMyLearningItems = ({ query, kind, sort }: LoadedComponentProps): JSX.E
       query,
       kind,
       sort
-    }
+    },
+    fetchPolicy: 'network-only'
   });
 
   const ExpandedContent = (item: any): JSX.Element => {

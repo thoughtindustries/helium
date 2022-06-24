@@ -1302,7 +1302,7 @@ export type Product = {
   alternativePricingRef?: Maybe<Scalars['Int']>;
   alternativePricingType?: Maybe<AlternativePricingType>;
   asset?: Maybe<Scalars['URL']>;
-  id?: Maybe<Scalars['ID']>;
+  id: Scalars['ID'];
   language?: Maybe<Scalars['String']>;
   longDescription?: Maybe<Scalars['String']>;
   name?: Maybe<Scalars['String']>;

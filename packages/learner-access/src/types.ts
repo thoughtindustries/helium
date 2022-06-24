@@ -1,3 +1,5 @@
+import { ContentGroupsQueryHookResult } from '@thoughtindustries/content';
+
 export interface LearnerAccessProps {
   /** Determines if the learner access widget should collapse */
   allowCollapse?: boolean;
@@ -18,3 +20,7 @@ export interface LoadedComponentProps {
   kind?: string[];
   sort?: string;
 }
+
+export type LearnerAccessContextType = {
+  refetchContentGroups: ContentGroupsQueryHookResult['refetch'];
+};
