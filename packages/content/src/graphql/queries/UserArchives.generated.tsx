@@ -7,7 +7,7 @@ export type UserArchivesQueryVariables = Types.Exact<{ [key: string]: never }>;
 
 export type UserArchivesQuery = {
   __typename?: 'Query';
-  UserArchives: Array<{
+  UserArchives?: Array<{
     __typename: 'ArchivedContent';
     id: string;
     user?: string;

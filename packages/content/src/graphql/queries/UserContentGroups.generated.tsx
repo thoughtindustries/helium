@@ -10,7 +10,7 @@ export type ContentGroupsQueryVariables = Types.Exact<{
 
 export type ContentGroupsQuery = {
   __typename?: 'Query';
-  UserContentGroups: Array<{
+  UserContentGroups?: Array<{
     __typename?: 'ContentGroup';
     kind: Types.ContentGroupKind;
     count: number;
