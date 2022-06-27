@@ -3,10 +3,10 @@ import {
   useReinstateUserCourseMutation,
   useReinstateUserLearningPathMutation,
   useArchiveUserCourseMutation,
-  useArchiveUserLearningPathMutation
+  useArchiveUserLearningPathMutation,
+  GlobalTypes
 } from '@thoughtindustries/content';
 import { WarningMessageToolTip } from '../Assets/Tooltips';
-import useLearnerAccess from '../use-context';
 
 export const ArchiveButton = ({ item }: any) => {
   const [showPopup, setShowPopup] = useState<boolean>(false);
@@ -48,18 +48,21 @@ export const ArchiveButton = ({ item }: any) => {
   );
 };
 
-export const ReinstateButton = ({ item }: any) => {
+type ReinstateButtonProps = {
+  item: GlobalTypes.ArchivedContent;
+  onReinstateSuccessAsync: VoidFunction;
+};
+export const ReinstateButton = ({ item, onReinstateSuccessAsync }: ReinstateButtonProps) => {
   // Reference to TI: ./assets/javascripts/lms/components/ti-dashboard-access-expandable-item.js
   const [showPopup, setShowPopup] = useState<boolean>(false);
-  const { refetchContentGroups } = useLearnerAccess();
   const text =
     'Would you like to continue reinstating this course? Doing so will move this back to being In Progress.';
   const customPosition = 'right-2 top-[120%]';
   const [reinstateUserCourseMutation] = useReinstateUserCourseMutation({
-    variables: { id: item.resource }
+    variables: { id: item.resource as string }
   });
   const [reinstateUserLearningPathMutaion] = useReinstateUserLearningPathMutation({
-    variables: { id: item.resource }
+    variables: { id: item.resource as string }
   });
 
   const handleMutation = async () => {
@@ -71,7 +74,7 @@ export const ReinstateButton = ({ item }: any) => {
       neededMutation = reinstateUserCourseMutation;
       console.log('course');
     }
-    return neededMutation().then(() => refetchContentGroups());
+    return neededMutation().then(onReinstateSuccessAsync);
   };
 
   return (

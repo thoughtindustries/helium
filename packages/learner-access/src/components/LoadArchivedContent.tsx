@@ -1,11 +1,30 @@
-import React, { useEffect } from 'react';
+import React, { useCallback, useEffect } from 'react';
+import { NetworkStatus } from '@apollo/client';
 import { useUserArchivesQuery, LoadingDots, formatTime } from '@thoughtindustries/content';
 import { ReinstateButton } from './MutationCallingButtons';
+import useLearnerAccess from '../use-context';
 const LoadArchivedContent = (): JSX.Element => {
-  const { data, loading, error } = useUserArchivesQuery({
+  const {
+    data,
+    loading,
+    error,
+    refetch: refetchArchives,
+    networkStatus
+  } = useUserArchivesQuery({
     variables: {},
-    fetchPolicy: 'network-only'
+    fetchPolicy: 'network-only',
+    notifyOnNetworkStatusChange: true,
+    ssr: false
   });
+  const isRefetching = networkStatus === NetworkStatus.refetch;
+  const { refetchContentGroups, resetActiveTab } = useLearnerAccess();
+  const onReinstateSuccessAsync = useCallback(async () => {
+    await refetchContentGroups();
+    const { data: refetchData } = await refetchArchives();
+    if (refetchData && !refetchData.UserArchives?.length) {
+      resetActiveTab();
+    }
+  }, [refetchContentGroups, refetchArchives, resetActiveTab]);
   console.log('data from child', data);
   useEffect(() => {
     console.log('mounting <LoadArchivedContent />');
@@ -16,10 +35,10 @@ const LoadArchivedContent = (): JSX.Element => {
   if (error) return <>{error.message}</>;
   return (
     <>
-      {loading ? (
+      {loading || isRefetching ? (
         <LoadingDots />
       ) : (
-        data?.UserArchives.map((item: any) => {
+        data?.UserArchives?.map((item: any) => {
           return (
             <div
               key={item.id}
@@ -42,7 +61,12 @@ const LoadArchivedContent = (): JSX.Element => {
                   </div>
 
                   <div className="col-start-12 col-span-2 text-center my-1.5 relative">
-                    {item.reinstatable && <ReinstateButton item={item} />}
+                    {item.reinstatable && (
+                      <ReinstateButton
+                        item={item}
+                        onReinstateSuccessAsync={onReinstateSuccessAsync}
+                      />
+                    )}
                     <small className="block text-gray-mid text-xs z-[-1] relative">
                       Archived {formatTime(item.archivedAt, undefined, 'MMM D, YYYY')}
                     </small>

@@ -1,5 +1,4 @@
-import React, { useState } from 'react';
-import { NetworkStatus } from '@apollo/client';
+import React, { useCallback, useState } from 'react';
 import { LearnerAccessProps } from './types';
 import {
   LoadContentItems,
@@ -27,19 +26,17 @@ const LearnerAccess = ({
     data,
     loading,
     error,
-    refetch: refetchContentGroups,
-    networkStatus
+    refetch: refetchContentGroups
   } = useContentGroupsQuery({
     variables: {
       query,
       includeExpiredCertificates: displayExpiredCertificateInformation
-    },
-    ssr: false,
-    fetchPolicy: 'network-only',
-    notifyOnNetworkStatusChange: true
+    }
   });
 
-  if (loading || networkStatus === NetworkStatus.refetch) {
+  const resetActiveTab = useCallback(() => setActiveTab('contentItems'), []);
+
+  if (loading) {
     return <LoadingDots />;
   }
 
@@ -132,7 +129,7 @@ const LearnerAccess = ({
       role="tablist"
     >
       {data &&
-        data.UserContentGroups.map((obj, index) => {
+        data.UserContentGroups?.map((obj, index) => {
           const activeTab = index === selected ? true : false;
           const activeClassLi = activeTab ? selectedStyleLi : styleLi;
           const activeClassSpan = activeTab ? selectedStyleSpan : styleSpan;
@@ -225,7 +222,7 @@ const LearnerAccess = ({
   };
 
   return (
-    <LearnerAccessContext.Provider value={{ refetchContentGroups }}>
+    <LearnerAccessContext.Provider value={{ refetchContentGroups, resetActiveTab }}>
       {allowCollapse && (
         <div className="my-0 -mx-4 max-w-none w-auto py-4 px-8 text-slate-700 text-black-light text-sm">
           <div className="border border-solid">

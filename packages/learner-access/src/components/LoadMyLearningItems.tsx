@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 
 import { LoadedComponentProps } from '../types';
 import { RightArrowtIcon, DownArrowIcon, HelpIcon } from '../Assets/Icons';
@@ -21,8 +21,15 @@ const LoadMyLearningItems = ({ query, kind, sort }: LoadedComponentProps): JSX.E
       kind,
       sort
     },
-    fetchPolicy: 'network-only'
+    fetchPolicy: 'network-only',
+    ssr: false
   });
+  useEffect(() => {
+    console.log('mounting <LoadMyLearningItems />');
+    return () => {
+      console.log('un-mounting <LoadMyLearningItems />');
+    };
+  }, []);
 
   const ExpandedContent = (item: any): JSX.Element => {
     const { data: courseCompletion } = useUserCourseCompletionProgressQuery({
