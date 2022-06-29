@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { Props } from './types';
+import { TermsAndConditionsProps } from './types';
 
-const TermsAndConditions = ({ valid }: Props): JSX.Element => {
+const TermsAndConditions = ({ valid, formData }: TermsAndConditionsProps): JSX.Element => {
   const styles = {
     buttonStyle:
       'text-white bg-indigo-700 hover:bg-indigo-600 inline-block font-normal text-sm text-center no-underline py-2 w-full md:w-1/4 rounded-md',
@@ -15,15 +15,22 @@ const TermsAndConditions = ({ valid }: Props): JSX.Element => {
   const { t } = useTranslation();
   const [agree, setAgree] = useState(false);
 
-  // const handleRegistration = () => {
-  //   if (agree && valid) {
-  //     // Redirect to dashboard
-  //   } else if (!agree && valid) {
-  //     alert(t('register-terms-and-conditions-error'));
-  //   } else {
-  //     alert(t('register-invalid-code-alert'));
-  //   }
-  // };
+  const handleSubmit = () => {
+    const errors: string[] = [];
+    let alertMessage = '';
+    if (!agree) {
+      errors.push(t('agree-terms-alert'));
+    }
+    if (!valid) {
+      errors.push(t('register-invalid-code-alert'));
+    }
+
+    errors.forEach(() => {
+      alertMessage = errors.join('\r\n');
+    });
+
+    alert(alertMessage);
+  };
 
   return (
     <>
@@ -33,15 +40,12 @@ const TermsAndConditions = ({ valid }: Props): JSX.Element => {
           <input className={styles.checkbox} type="checkbox" onClick={() => setAgree(!agree)} />
           <div style={{ display: 'flex', flexDirection: 'row' }}>
             <p>{`${t('agree-terms')}\u00A0`}</p>
-            <button className={styles.terms} type="button">
+            <button className={styles.terms} type="button" onClick={() => setOpenModal(true)}>
               {t('terms-and-conditions')}
             </button>
           </div>
         </div>
-        <button
-          className={styles.buttonStyle}
-          type="button" /*onClick={() => handleRegistration()}*/
-        >
+        <button className={styles.buttonStyle} type="button" onClick={() => handleSubmit()}>
           {t('redemption-code.redeem-code-preloaded')}
         </button>
       </div>

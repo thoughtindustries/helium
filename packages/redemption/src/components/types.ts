@@ -6,6 +6,18 @@ export interface Props {
   codeExpired?: boolean | undefined;
 }
 
+interface RegistrationFormData {
+  firstName?: string | undefined;
+  lastName?: string | undefined;
+  email?: string | undefined;
+  password?: string | undefined;
+  passwordConfirmation?: string | undefined;
+}
+
+export interface TermsAndConditionsProps extends Props {
+  formData: RegistrationFormData;
+}
+
 export interface UserProps {
   isLoggedIn: boolean;
 }

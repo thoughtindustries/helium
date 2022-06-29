@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import CodeList from './code-list';
 import Banner from './banner';
@@ -18,6 +18,13 @@ const Registration = ({ response, setResponse }: ResponseProps): JSX.Element => 
   };
 
   const { t } = useTranslation();
+  const [formData, setFormData] = useState({
+    firstName: '',
+    lastName: '',
+    email: '',
+    password: '',
+    passwordConfirmation: ''
+  });
 
   return (
     <>
@@ -34,14 +41,34 @@ const Registration = ({ response, setResponse }: ResponseProps): JSX.Element => 
         </button>
       </p>
       <div className={styles.nameContainer}>
-        <input className={styles.nameInput} placeholder={t('register-first-name')} />
-        <input className={styles.inputStyle} placeholder={t('register-last-name')} />
+        <input
+          className={styles.nameInput}
+          placeholder={t('register-first-name')}
+          onChange={e => setFormData({ ...formData, firstName: e.target.value })}
+        />
+        <input
+          className={styles.inputStyle}
+          placeholder={t('register-last-name')}
+          onChange={e => setFormData({ ...formData, lastName: e.target.value })}
+        />
       </div>
-      <input className={styles.inputStyle} placeholder={t('register-email')} />
-      <input className={styles.inputStyle} placeholder={t('register-password')} />
-      <input className={styles.inputStyle} placeholder={t('register-confirm-password')} />
+      <input
+        className={styles.inputStyle}
+        placeholder={t('register-email')}
+        onChange={e => setFormData({ ...formData, email: e.target.value })}
+      />
+      <input
+        className={styles.inputStyle}
+        placeholder={t('register-password')}
+        onChange={e => setFormData({ ...formData, password: e.target.value })}
+      />
+      <input
+        className={styles.inputStyle}
+        placeholder={t('register-confirm-password')}
+        onChange={e => setFormData({ ...formData, passwordConfirmation: e.target.value })}
+      />
       <CodeList setResponse={setResponse} />
-      <TermsAndConditions valid={response?.valid} />
+      <TermsAndConditions valid={response?.valid} formData={formData} />
     </>
   );
 };
