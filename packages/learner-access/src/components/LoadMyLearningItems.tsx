@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useCallback, useState } from 'react';
 
 import { LoadedComponentProps } from '../types';
 import { RightArrowtIcon, DownArrowIcon, HelpIcon } from '../Assets/Icons';
@@ -17,6 +17,7 @@ import { ArchiveButton } from './MutationCallingButtons';
 import { Tooltip } from '../Assets/Tooltips';
 import { formatTime } from '@thoughtindustries/content';
 import { useTranslation } from 'react-i18next';
+import useLearnerAccess from '../use-context';
 
 const LoadMyLearningItems = ({ query, kind, sort }: LoadedComponentProps): JSX.Element => {
   const { data, loading, error } = useUserContentItemsQuery({
@@ -35,6 +36,13 @@ const LoadMyLearningItems = ({ query, kind, sort }: LoadedComponentProps): JSX.E
     const { data: courseCompletion } = useUserCourseCompletionProgressQuery({
       variables: { id: '' }
     });
+    const { refetchContentGroups } = useLearnerAccess();
+    const onArchiveSuccessAsync = useCallback(async () => {
+      // defer refetch of content groups to allow time for server
+      // to reflect the new count
+      await new Promise(res => setTimeout(res, 100));
+      await refetchContentGroups();
+    }, [refetchContentGroups]);
 
     courseCompletion && console.log('courseCompletion', courseCompletion);
     // const { data: courseProgress } = useUserCourseProgressQuery({
@@ -175,7 +183,9 @@ const LoadMyLearningItems = ({ query, kind, sort }: LoadedComponentProps): JSX.E
           </div>
         </div>
         <div className=" archive mt-2 row-end-4 text-black-light relative">
-          {item.availabilityStatus !== 'completed' && <ArchiveButton item={item} />}
+          {item.availabilityStatus !== 'completed' && (
+            <ArchiveButton item={item} onArchiveSuccessAsync={onArchiveSuccessAsync} />
+          )}
         </div>
       </div>
     );

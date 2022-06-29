@@ -4,30 +4,46 @@ import {
   useReinstateUserLearningPathMutation,
   useArchiveUserCourseMutation,
   useArchiveUserLearningPathMutation,
-  GlobalTypes
+  GlobalTypes,
+  HydratedContentItem,
+  ArchiveUserLearningPathMutationFn,
+  ArchiveUserCourseMutationFn
 } from '@thoughtindustries/content';
 import { WarningMessageToolTip } from '../Assets/Tooltips';
 
-export const ArchiveButton = ({ item }: any) => {
+type ArchiveButtonProps = {
+  item: HydratedContentItem;
+  onArchiveSuccessAsync: VoidFunction;
+};
+export const ArchiveButton = ({ item, onArchiveSuccessAsync }: ArchiveButtonProps) => {
   const [showPopup, setShowPopup] = useState<boolean>(false);
   const text =
     'Would you like to continue archiving this course? Doing so will remove this from your dashboard as an In Progress item.';
-  let neededMutation: any;
-  const [archiveUserLearningPathMutation] = useArchiveUserLearningPathMutation({
-    variables: { id: item.id }
-  });
-  const [archiveUserCourseMutation] = useArchiveUserCourseMutation({
-    variables: { id: item.id }
-  });
+  const [archiveUserLearningPathMutation] = useArchiveUserLearningPathMutation();
+  const [archiveUserCourseMutation] = useArchiveUserCourseMutation();
   console.log('item.id', item.id);
 
-  if (item.kind === 'learningPath') {
-    neededMutation = archiveUserLearningPathMutation;
-    console.log('learning paths');
-  } else {
-    neededMutation = archiveUserCourseMutation;
-    console.log('course');
-  }
+  const handleMutation = async () => {
+    let neededMutation: ArchiveUserLearningPathMutationFn | ArchiveUserCourseMutationFn;
+    if (item.kind === 'learningPath') {
+      neededMutation = archiveUserLearningPathMutation;
+      console.log('learning paths');
+    } else {
+      neededMutation = archiveUserCourseMutation;
+      console.log('course');
+    }
+    return neededMutation({
+      variables: { id: item.id },
+      update(cache) {
+        cache.evict({
+          id: cache.identify({
+            __typename: 'Content',
+            id: item.id
+          })
+        });
+      }
+    }).then(onArchiveSuccessAsync);
+  };
 
   return (
     <div className="column float-left px-4">
@@ -39,7 +55,7 @@ export const ArchiveButton = ({ item }: any) => {
       </button>
       {showPopup && (
         <WarningMessageToolTip
-          mutationCallback={neededMutation}
+          mutationCallback={handleMutation}
           setShowPopup={setShowPopup}
           text={text}
         />
