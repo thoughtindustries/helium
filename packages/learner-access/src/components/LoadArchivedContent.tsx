@@ -26,12 +26,6 @@ const LoadArchivedContent = (): JSX.Element => {
     }
   }, [refetchContentGroups, refetchArchives, resetActiveTab]);
   console.log('data from child', data);
-  useEffect(() => {
-    console.log('mounting <LoadArchivedContent />');
-    return () => {
-      console.log('un-mounting <LoadArchivedContent />');
-    };
-  }, []);
   if (error) return <>{error.message}</>;
   return (
     <>

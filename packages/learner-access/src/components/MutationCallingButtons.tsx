@@ -53,7 +53,6 @@ type ReinstateButtonProps = {
   onReinstateSuccessAsync: VoidFunction;
 };
 export const ReinstateButton = ({ item, onReinstateSuccessAsync }: ReinstateButtonProps) => {
-  // Reference to TI: ./assets/javascripts/lms/components/ti-dashboard-access-expandable-item.js
   const [showPopup, setShowPopup] = useState<boolean>(false);
   const text =
     'Would you like to continue reinstating this course? Doing so will move this back to being In Progress.';
