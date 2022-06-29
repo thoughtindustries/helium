@@ -8,14 +8,18 @@ import {
   useUserCourseCompletionProgressQuery,
   useUserCourseCollaborationsQuery,
   useUserCourseAwardCountsQuery,
-  LoadingDots
+  LoadingDots,
+  GlobalTypes,
+  hydrateContent,
+  HydratedContentItem
 } from '@thoughtindustries/content';
 import { ArchiveButton } from './MutationCallingButtons';
 import { Tooltip } from '../Assets/Tooltips';
 import { formatTime } from '@thoughtindustries/content';
+import { useTranslation } from 'react-i18next';
 
 const LoadMyLearningItems = ({ query, kind, sort }: LoadedComponentProps): JSX.Element => {
-  const { data, loading, error }: any = useUserContentItemsQuery({
+  const { data, loading, error } = useUserContentItemsQuery({
     variables: {
       query,
       kind,
@@ -25,7 +29,9 @@ const LoadMyLearningItems = ({ query, kind, sort }: LoadedComponentProps): JSX.E
     ssr: false
   });
 
-  const ExpandedContent = (item: any): JSX.Element => {
+  const { i18n } = useTranslation();
+
+  const ExpandedContent = ({ item }: { item: HydratedContentItem }): JSX.Element => {
     const { data: courseCompletion } = useUserCourseCompletionProgressQuery({
       variables: { id: '' }
     });
@@ -176,7 +182,7 @@ const LoadMyLearningItems = ({ query, kind, sort }: LoadedComponentProps): JSX.E
   };
 
   interface ContentUiProps {
-    item?: any;
+    item: HydratedContentItem;
     index?: number;
   }
 
@@ -211,14 +217,15 @@ const LoadMyLearningItems = ({ query, kind, sort }: LoadedComponentProps): JSX.E
             </div>
 
             <div className="col-span-2 text-gray-mid">
-              {(item.kind === 'inPersonEventCourse' || item.kind === 'webinar') &&
+              {item.displayDate &&
+                (item.kind === 'inPersonEventCourse' || item.kind === 'webinar') &&
                 formatTime(item.displayDate, undefined, 'MMM D, YYYY h A')}
             </div>
 
             <div className="col-span-3 text-gray-mid relative">
               <strong className="">{item.contentTypeLabel && item.contentTypeLabel}</strong>
               {'  '}
-              {item.authors.length > 0 && (
+              {item.authors && item.authors.length > 0 && (
                 <div className="border-gray-mid border-solid border-l-2 h-3.5 inline my-0 mr-1 ml-px"></div>
               )}
               <span>
@@ -253,19 +260,19 @@ const LoadMyLearningItems = ({ query, kind, sort }: LoadedComponentProps): JSX.E
     );
   };
 
-  if (error) return error;
+  if (loading) return <LoadingDots />;
+
+  if (error) return <>{error.message}</>;
+
+  if (!data || !data.UserContentItems) return <></>;
+
   return (
-    <>
-      {loading ? (
-        <LoadingDots />
-      ) : (
-        <section>
-          {data.UserContentItems.map((item: any) => {
-            return <ContentUi item={item} />;
-          })}
-        </section>
-      )}
-    </>
+    <section>
+      {data.UserContentItems.map(item => {
+        const hydratedItem = hydrateContent(i18n, item);
+        return <ContentUi item={hydratedItem} />;
+      })}
+    </section>
   );
 };
 export default LoadMyLearningItems;
