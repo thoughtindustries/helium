@@ -12,6 +12,7 @@ const Redemption = ({ isLoggedIn }: UserProps): JSX.Element => {
   };
 
   const [response, setResponse] = useState<Props>();
+  const [redeemedCodes, setRedeemedCodes] = useState<Array<string>>([]);
 
   return (
     <form className={styles.container}>
@@ -23,11 +24,20 @@ const Redemption = ({ isLoggedIn }: UserProps): JSX.Element => {
             alreadyRedeemed={response?.alreadyRedeemed}
             codeExpired={response?.codeExpired}
           />
-          <CodeList setResponse={setResponse} />
-          <TermsAndConditions valid={response?.valid} />
+          <CodeList
+            setResponse={setResponse}
+            redeemedCodes={redeemedCodes}
+            setRedeemedCodes={setRedeemedCodes}
+          />
+          <TermsAndConditions valid={response?.valid} redeemedCodes={redeemedCodes} />
         </>
       ) : (
-        <Registration response={response} setResponse={setResponse} />
+        <Registration
+          response={response}
+          setResponse={setResponse}
+          redeemedCodes={redeemedCodes}
+          setRedeemedCodes={setRedeemedCodes}
+        />
       )}
     </form>
   );

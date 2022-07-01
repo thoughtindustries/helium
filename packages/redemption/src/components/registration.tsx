@@ -6,7 +6,12 @@ import { ResponseProps } from './types';
 import TermsAndConditions from './terms-and-conditions';
 import Prompt from './prompt';
 
-const Registration = ({ response, setResponse }: ResponseProps): JSX.Element => {
+const Registration = ({
+  response,
+  setResponse,
+  redeemedCodes,
+  setRedeemedCodes
+}: ResponseProps): JSX.Element => {
   const styles = {
     inputStyle:
       'p-4 text-sm w-full ring-1 ring-gray-300 ring-inset shadow-inner focus:outline-none focus:ring-gray-500 mb-4',
@@ -67,7 +72,11 @@ const Registration = ({ response, setResponse }: ResponseProps): JSX.Element => 
         placeholder={t('register-confirm-password')}
         onChange={e => setFormData({ ...formData, passwordConfirmation: e.target.value })}
       />
-      <CodeList setResponse={setResponse} />
+      <CodeList
+        setResponse={setResponse}
+        redeemedCodes={redeemedCodes}
+        setRedeemedCodes={setRedeemedCodes}
+      />
       <TermsAndConditions valid={response?.valid} formData={formData} />
     </>
   );

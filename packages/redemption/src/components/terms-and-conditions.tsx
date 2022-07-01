@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { TermsAndConditionsProps } from './types';
 
-const TermsAndConditions = ({ valid, formData }: TermsAndConditionsProps): JSX.Element => {
+const TermsAndConditions = ({ valid, redeemedCodes }: TermsAndConditionsProps): JSX.Element => {
   const styles = {
     buttonStyle:
       'text-white bg-indigo-700 hover:bg-indigo-600 inline-block font-normal text-sm text-center no-underline py-2 w-full md:w-1/4 rounded-md',
@@ -16,6 +16,7 @@ const TermsAndConditions = ({ valid, formData }: TermsAndConditionsProps): JSX.E
   const [agree, setAgree] = useState(false);
 
   const handleSubmit = () => {
+    console.log(redeemedCodes);
     const errors: string[] = [];
     let alertMessage = '';
     if (!agree) {
@@ -29,7 +30,9 @@ const TermsAndConditions = ({ valid, formData }: TermsAndConditionsProps): JSX.E
       alertMessage = errors.join('\r\n');
     });
 
-    alert(alertMessage);
+    if (alertMessage !== '') {
+      alert(alertMessage);
+    }
   };
 
   return (
@@ -40,7 +43,7 @@ const TermsAndConditions = ({ valid, formData }: TermsAndConditionsProps): JSX.E
           <input className={styles.checkbox} type="checkbox" onClick={() => setAgree(!agree)} />
           <div style={{ display: 'flex', flexDirection: 'row' }}>
             <p>{`${t('agree-terms')}\u00A0`}</p>
-            <button className={styles.terms} type="button" onClick={() => setOpenModal(true)}>
+            <button className={styles.terms} type="button">
               {t('terms-and-conditions')}
             </button>
           </div>

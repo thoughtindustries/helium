@@ -15,7 +15,8 @@ interface RegistrationFormData {
 }
 
 export interface TermsAndConditionsProps extends Props {
-  formData: RegistrationFormData;
+  formData?: RegistrationFormData;
+  redeemedCodes?: Array<string>;
 }
 
 export interface UserProps {
@@ -23,5 +24,7 @@ export interface UserProps {
 }
 export interface ResponseProps {
   setResponse: React.Dispatch<SetStateAction<Props | undefined>>;
+  setRedeemedCodes: React.Dispatch<SetStateAction<Array<string>>>;
+  redeemedCodes: Array<string>;
   response?: Props;
 }
