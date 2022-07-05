@@ -280,7 +280,10 @@ const LoadMyLearningItems = ({ query, kind, sort }: LoadedComponentProps): JSX.E
     <section>
       {data.UserContentItems.map(item => {
         const hydratedItem = hydrateContent(i18n, item);
-        return <ContentUi item={hydratedItem} />;
+        if (hydratedItem.isCompleted) {
+          return null;
+        }
+        return <ContentUi key={item.id} item={hydratedItem} />;
       })}
     </section>
   );
