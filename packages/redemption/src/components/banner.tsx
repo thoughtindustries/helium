@@ -6,7 +6,7 @@ const Banner = ({ valid, alreadyRedeemed, codeExpired }: Props): JSX.Element => 
   const { t } = useTranslation();
   const styles = {
     errorStyle: 'w-full bg-red-600 p-4 text-sm text-white text-left font-bold mb-4',
-    successStyle: 'w-full bg-green-600 p-4 text-sm text-white text-left mb-4'
+    successStyle: 'w-full bg-green-600 p-4 text-sm text-white text-left font-bold mb-4'
   };
 
   return (
