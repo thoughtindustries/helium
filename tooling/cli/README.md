@@ -1,4 +1,4 @@
-# Helium (ALPHA)
+# Helium (PREVIEW)
 
 ## About
 
@@ -23,7 +23,7 @@ $ yarn create helium-app
 ### `authenticate`
 
 ```sh
-$ helium authenticate [k]
+$ npm run authenticate [k]
 ```
 
 Authenticates a new project by validating against your Thought Industries instance and writing your `ti-config.json`. Note: re-running the command will overwrite existing data in your `ti-config.json`
@@ -37,8 +37,8 @@ Used when the Thought Industries instance is behind an untrusted SSL certificate
 ### `dev`
 
 ```sh
-$ helium dev [i] [p] [-k]
-$ helium dev sandbox 3000 -k
+$ helium run dev [i] [p] [-k]
+$ helium run dev sandbox 3000 -k
 ```
 
 Starts up the development server for your project.
@@ -60,8 +60,8 @@ Used when the Thought Industries instance is behind an untrusted SSL certificate
 ### `deploy`
 
 ```sh
-$ helium deploy <i> [-k]
-$ helium deploy sandbox -k
+$ helium run deploy <i> [-k]
+$ helium run deploy sandbox -k
 ```
 
 Builds and deploys the project
@@ -79,8 +79,8 @@ Used when the Thought Industries instance is behind an untrusted SSL certificate
 ### `update-translations`
 
 ```sh
-$ helium update-translations [i] [-k]
-$ helium update-translations sandbox -k
+$ helium run update-translations [i] [-k]
+$ helium run update-translations sandbox -k
 ```
 
 Fetches translations from Thought Industries instance and updates the `locales/translations-source.json` and `locales/translations.json` files.
