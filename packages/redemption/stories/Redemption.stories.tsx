@@ -1,23 +1,69 @@
 import { Story } from '@storybook/react';
 import React from 'react';
-import { Redemption, RedemptionProps } from '../src';
+import { Redemption, RedeemRedemptionCodeDocument } from '../src';
 
 export default {
   title: 'Example/Redemption',
-  component: Redemption,
-  argTypes: {
-    currentUser: {
-      name: 'loggedIn?',
-      type: { name: 'boolean', required: false },
-      description: 'Check for logged in user.',
-      control: { type: 'boolean' }
-    }
-  }
+  component: Redemption
 };
 
-const Item = ({ ...args }: RedemptionProps) => <Redemption {...args} />;
+const Template: Story = () => <Redemption />;
 
-export const Base: Story<RedemptionProps> = Item.bind({});
-Base.args = {
-  currentUser: true
+export const Base: Story = Template.bind({});
+Base.parameters = {
+  apolloClient: {
+    mocks: [
+      {
+        request: {
+          query: RedeemRedemptionCodeDocument,
+          variables: {
+            code: 'validCode'
+          }
+        },
+        result: {
+          data: {
+            RedeemRedemptionCode: {
+              valid: true,
+              alreadyRedeemed: false,
+              codeExpired: false
+            }
+          }
+        }
+      },
+      {
+        request: {
+          query: RedeemRedemptionCodeDocument,
+          variables: {
+            code: 'invalidCode'
+          }
+        },
+        result: {
+          data: {
+            RedeemRedemptionCode: {
+              valid: false,
+              alreadyRedeemed: false,
+              codeExpired: false
+            }
+          }
+        }
+      },
+      {
+        request: {
+          query: RedeemRedemptionCodeDocument,
+          variables: {
+            code: ''
+          }
+        },
+        result: {
+          data: {
+            RedeemRedemptionCode: {
+              valid: false,
+              alreadyRedeemed: false,
+              codeExpired: false
+            }
+          }
+        }
+      }
+    ]
+  }
 };

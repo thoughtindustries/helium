@@ -3,7 +3,7 @@ import { useTranslation } from 'react-i18next';
 import CodeBox from './code-box';
 import { ResponseProps } from './types';
 
-const CodeList = ({ setResponse, redeemedCodes, setRedeemedCodes }: ResponseProps): JSX.Element => {
+const CodeList = ({ setResponse }: ResponseProps): JSX.Element => {
   const styles = {
     addCodeStyle: 'flex justify-left text-indigo-700 text-sm'
   };
@@ -11,25 +11,12 @@ const CodeList = ({ setResponse, redeemedCodes, setRedeemedCodes }: ResponseProp
   const { t } = useTranslation();
   const [count, setCount] = useState(0);
   const [list, setList] = useState<ReactNode[]>([
-    <CodeBox
-      key={count}
-      setResponse={setResponse}
-      setRedeemedCodes={setRedeemedCodes}
-      redeemedCodes={redeemedCodes}
-    />
+    <CodeBox key={count} setResponse={setResponse} />
   ]);
 
   useEffect(() => {
     if (count > 0) {
-      setList([
-        ...list,
-        <CodeBox
-          key={count}
-          setResponse={setResponse}
-          setRedeemedCodes={setRedeemedCodes}
-          redeemedCodes={redeemedCodes}
-        />
-      ]);
+      setList([...list, <CodeBox key={count} setResponse={setResponse} />]);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [count]);

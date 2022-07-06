@@ -3,7 +3,7 @@ import { useTranslation } from 'react-i18next';
 import { useRedeemRedemptionCodeMutation } from '../graphql';
 import { ResponseProps } from './types';
 
-const CodeBox = ({ setResponse, setRedeemedCodes, redeemedCodes }: ResponseProps): JSX.Element => {
+const CodeBox = ({ setResponse }: ResponseProps): JSX.Element => {
   const styles = {
     buttonStyle:
       'text-white bg-indigo-700 disabled:bg-indigo-300 disabled:cursor-default hover:bg-indigo-600 inline-block font-normal text-sm no-underline py-4 w-full md:w-1/3 rounded-md md:rounded-l-none mb-4',
@@ -26,9 +26,6 @@ const CodeBox = ({ setResponse, setRedeemedCodes, redeemedCodes }: ResponseProps
         if (response && response.data && response.data.RedeemRedemptionCode) {
           setResponse(response.data.RedeemRedemptionCode);
           setValid(response.data.RedeemRedemptionCode?.valid);
-          if (response.data.RedeemRedemptionCode.valid) {
-            setRedeemedCodes([...redeemedCodes, code]);
-          }
         }
       })
       .catch(error => console.log('Redemption Request Error: ', error));
