@@ -2,7 +2,7 @@
 
 ## About
 
-Helium is an initiative to open up the Thought Industries architecture, providing customers and partners with rich capabilities and technologies to more easily customize and extend the Customer Learning Cloud to meet unique business needs. Helium enables designers and developers to fully customize front-end learning experiences and content types; extend learning delivery to more devices and applications; and eventually share learning courses and applications via a Thought Industries marketplace.
+Helium is an initiative to open up the Thought Industries architecture, providing customers and partners with rich capabilities and technologies to more easily customize and extend the Customer Learning Cloud to meet unique business needs. Helium enables designers and developers to fully customize front-end learning experiences and content types; extend learning delivery to more devices and applications; and eventually share learning courses and applications via a Thought Industries marketplace. TEST JACK ANTICO TEST
 
 ## Commands
 
