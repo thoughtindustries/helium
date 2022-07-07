@@ -10,7 +10,7 @@ export type UserCourseCompletionProgressQueryVariables = Types.Exact<{
 export type UserCourseCompletionProgressQuery = {
   __typename?: 'Query';
   UserCourseCompletionProgress?: Array<{
-    __typename: 'CourseCompletionCriteriaProgress';
+    __typename?: 'CourseCompletionCriteriaProgress';
     type?: Types.CourseCompletionCriteriaType;
     required?: Array<string>;
     completed?: Array<string>;
@@ -21,7 +21,6 @@ export type UserCourseCompletionProgressQuery = {
 export const UserCourseCompletionProgressDocument = gql`
   query UserCourseCompletionProgress($id: ID!) {
     UserCourseCompletionProgress(id: $id) {
-      __typename
       type
       required
       completed

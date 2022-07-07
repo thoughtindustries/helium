@@ -10,25 +10,25 @@ export type UserBookmarksByFolderQueryVariables = Types.Exact<{
 export type UserBookmarksByFolderQuery = {
   __typename?: 'Query';
   UserBookmarksByFolder?: Array<{
-    __typename: 'Bookmark';
+    __typename?: 'Bookmark';
     id: string;
     topicId?: string;
     note?: string;
     createdAt: string;
     course: {
-      __typename: 'Course';
+      __typename?: 'Course';
       id: string;
       title?: string;
       slug: string;
       status?: Types.Status;
       courseGroup?: {
-        __typename: 'CourseGroup';
+        __typename?: 'CourseGroup';
         id: string;
         authors?: Array<string>;
         source?: string;
         asset?: string;
         kind?: Types.CourseGroupKind;
-        contentType?: { __typename: 'ContentType'; label?: string };
+        contentType?: { __typename?: 'ContentType'; label?: string };
       };
     };
   }>;
@@ -37,23 +37,19 @@ export type UserBookmarksByFolderQuery = {
 export const UserBookmarksByFolderDocument = gql`
   query UserBookmarksByFolder($id: ID!) {
     UserBookmarksByFolder(id: $id) {
-      __typename
       id
       course {
-        __typename
         id
         title
         slug
         status
         courseGroup {
-          __typename
           id
           authors
           source
           asset
           kind
           contentType {
-            __typename
             label
           }
         }

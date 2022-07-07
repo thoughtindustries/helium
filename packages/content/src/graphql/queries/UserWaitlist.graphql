@@ -1,6 +1,5 @@
 query UserWaitlist {
   UserWaitlist {
-    __typename
     id
     contentTypeLabel
     title

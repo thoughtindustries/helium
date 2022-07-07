@@ -8,7 +8,7 @@ export type UserArchivesQueryVariables = Types.Exact<{ [key: string]: never }>;
 export type UserArchivesQuery = {
   __typename?: 'Query';
   UserArchives?: Array<{
-    __typename: 'ArchivedContent';
+    __typename?: 'ArchivedContent';
     id: string;
     user?: string;
     resource?: string;
@@ -24,7 +24,6 @@ export type UserArchivesQuery = {
 export const UserArchivesDocument = gql`
   query UserArchives {
     UserArchives {
-      __typename
       id
       user
       resource

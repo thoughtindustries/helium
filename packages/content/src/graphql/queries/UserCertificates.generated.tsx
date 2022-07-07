@@ -11,7 +11,7 @@ export type UserCertificatesQueryVariables = Types.Exact<{
 export type UserCertificatesQuery = {
   __typename?: 'Query';
   UserCertificates?: Array<{
-    __typename: 'Certificate';
+    __typename?: 'Certificate';
     id: string;
     resourceId?: string;
     expirationDate?: string;
@@ -20,7 +20,7 @@ export type UserCertificatesQuery = {
     url: string;
     source?: string;
     contentItem?: {
-      __typename: 'Content';
+      __typename?: 'Content';
       id: string;
       asset?: string;
       courseEndDate?: string;
@@ -40,7 +40,6 @@ export type UserCertificatesQuery = {
 export const UserCertificatesDocument = gql`
   query UserCertificates($query: String, $includeExpiredCertificates: Boolean) {
     UserCertificates(query: $query, includeExpiredCertificates: $includeExpiredCertificates) {
-      __typename
       id
       resourceId
       expirationDate
@@ -49,7 +48,6 @@ export const UserCertificatesDocument = gql`
       url
       source
       contentItem {
-        __typename
         id
         asset
         courseEndDate

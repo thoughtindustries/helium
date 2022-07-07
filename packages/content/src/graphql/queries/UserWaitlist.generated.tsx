@@ -8,7 +8,7 @@ export type UserWaitlistQueryVariables = Types.Exact<{ [key: string]: never }>;
 export type UserWaitlistQuery = {
   __typename?: 'Query';
   UserWaitlist?: Array<{
-    __typename: 'ContentItem';
+    __typename?: 'ContentItem';
     id: string;
     contentTypeLabel?: string;
     title?: string;
@@ -22,7 +22,6 @@ export type UserWaitlistQuery = {
 export const UserWaitlistDocument = gql`
   query UserWaitlist {
     UserWaitlist {
-      __typename
       id
       contentTypeLabel
       title

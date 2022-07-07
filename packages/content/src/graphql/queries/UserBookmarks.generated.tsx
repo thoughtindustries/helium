@@ -8,7 +8,7 @@ export type UserBookmarksQueryVariables = Types.Exact<{ [key: string]: never }>;
 export type UserBookmarksQuery = {
   __typename?: 'Query';
   UserBookmarks?: Array<{
-    __typename: 'BookmarkFolder';
+    __typename?: 'BookmarkFolder';
     id: string;
     name: string;
     defaultFolder?: boolean;
@@ -19,7 +19,6 @@ export type UserBookmarksQuery = {
 export const UserBookmarksDocument = gql`
   query UserBookmarks {
     UserBookmarks {
-      __typename
       id
       name
       defaultFolder

@@ -1,6 +1,5 @@
 query UserBookmarks {
   UserBookmarks {
-    __typename
     id
     name
     defaultFolder
