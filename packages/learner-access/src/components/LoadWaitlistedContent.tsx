@@ -40,7 +40,7 @@ const LoadWaitlist = (): JSX.Element => {
   if (!data || !data.UserWaitlist) return <></>;
   return (
     <>
-      {data.UserWaitlist.map((item: any) => {
+      {data.UserWaitlist.map(item => {
         return (
           <div
             key={item.id}

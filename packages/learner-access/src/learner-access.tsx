@@ -165,7 +165,6 @@ const LearnerAccess = ({
           <LoadMyLearningItems
             query={query}
             kind={['courseGroup', 'article', 'video', 'shareableContentObject', 'xApiObject']}
-            sort=""
           />
         );
       case 'eventItems':
@@ -177,7 +176,7 @@ const LearnerAccess = ({
           />
         );
       case 'learningPaths':
-        return <LoadMyLearningItems query={query} kind={['learningPath']} sort="" />;
+        return <LoadMyLearningItems query={query} kind={['learningPath']} />;
       case 'completedItems':
         return (
           <LoadMyLearningItems
@@ -194,7 +193,6 @@ const LearnerAccess = ({
               'inPersonEvent',
               'inPersonEventCourse'
             ]}
-            sort=""
           />
         );
       case 'archivedContentItems':

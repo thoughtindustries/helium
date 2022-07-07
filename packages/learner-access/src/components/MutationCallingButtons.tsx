@@ -7,7 +7,9 @@ import {
   GlobalTypes,
   HydratedContentItem,
   ArchiveUserLearningPathMutationFn,
-  ArchiveUserCourseMutationFn
+  ArchiveUserCourseMutationFn,
+  ReinstateUserCourseMutationFn,
+  ReinstateUserLearningPathMutationFn
 } from '@thoughtindustries/content';
 import { WarningMessageToolTip } from '../Assets/Tooltips';
 
@@ -81,7 +83,7 @@ export const ReinstateButton = ({ item, onReinstateSuccessAsync }: ReinstateButt
   });
 
   const handleMutation = async () => {
-    let neededMutation: any;
+    let neededMutation: ReinstateUserCourseMutationFn | ReinstateUserLearningPathMutationFn;
     if (item.resourceType === 'learningPath') {
       neededMutation = reinstateUserLearningPathMutaion;
       console.log('learning paths');
