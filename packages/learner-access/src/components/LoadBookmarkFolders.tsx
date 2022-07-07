@@ -4,20 +4,36 @@ import {
   useUserBookmarksQuery,
   useUserBookmarksByFolderQuery,
   LoadingDots,
-  GlobalTypes,
   UserBookmarksQuery,
   UserBookmarksQueryResult,
-  UserBookmarksByFolderQuery
+  UserBookmarksByFolderQuery,
+  useUpdateBookmarkFolderMutation
 } from '@thoughtindustries/content';
 import { MoveIcon, RightArrowtIcon, DownArrowIcon, EditIcon } from '../Assets/Icons';
+import useLearnerAccess from '../use-context';
 
 type RequiredUserBookmarksQuery = Required<UserBookmarksQuery>;
 interface BookmarkFolderNameProps {
   folder: RequiredUserBookmarksQuery['UserBookmarks'][0];
+  refetchBookmarkFolders: UserBookmarksQueryResult['refetch'];
 }
-const BookmarkFolderName = ({ folder }: BookmarkFolderNameProps) => {
+const BookmarkFolderName = ({ folder, refetchBookmarkFolders }: BookmarkFolderNameProps) => {
   const [editFolderName, setEditFolderName] = useState<boolean>(false);
-  const [folderName, setFolderName] = useState<string>('');
+  const [folderName, setFolderName] = useState<string>(folder.name);
+  const { refetchContentGroups } = useLearnerAccess();
+  const [updateBookmarkFolder] = useUpdateBookmarkFolderMutation();
+  const handleSave = () => {
+    updateBookmarkFolder({
+      variables: {
+        id: folder.id,
+        name: folderName
+      }
+    }).then(() => {
+      refetchContentGroups();
+      refetchBookmarkFolders();
+      setEditFolderName(!editFolderName);
+    });
+  };
 
   return (
     <>
@@ -40,7 +56,10 @@ const BookmarkFolderName = ({ folder }: BookmarkFolderNameProps) => {
               </label>
             </div>
           </div>
-          <button className="bg-active-blue text-white rounded-sm cursor-pointer inline-block font-normal text-xs ml-2 h-10 mb-0 py-[0.15rem] px-4 relative text-center no-underline ease-in-out border-active-blue font-sans transition duration-200 leading-5">
+          <button
+            onClick={handleSave}
+            className="bg-active-blue text-accent-contrast bg-accent rounded-sm cursor-pointer inline-block font-normal text-xs ml-2 h-10 mb-0 py-[0.15rem] px-4 relative text-center no-underline ease-in-out border-active-blue font-sans transition duration-200 leading-5"
+          >
             <span>Save</span>
           </button>
           <button
@@ -55,7 +74,7 @@ const BookmarkFolderName = ({ folder }: BookmarkFolderNameProps) => {
         </div>
       ) : (
         <div className="bookmark-folder pb-5">
-          <span className="bookmark-folder-name pr-7 text-gray-mid text-base">{folder.name}</span>
+          <span className="bookmark-folder-name pr-7 text-gray-mid text-base">{folderName}</span>
           <span>
             <button
               onClick={() => setEditFolderName(!editFolderName)}
@@ -199,7 +218,8 @@ const LoadBookmarks = (): JSX.Element => {
   const {
     data: bookmarkFolders,
     loading,
-    error
+    error,
+    refetch: refetchBookmarkFolders
   } = useUserBookmarksQuery({
     variables: {},
     fetchPolicy: 'network-only',
@@ -255,10 +275,13 @@ const LoadBookmarks = (): JSX.Element => {
           {selectedFolderId &&
             bookmarkFolders.UserBookmarks.filter(item => item.id === selectedFolderId).map(
               folder => (
-                <>
-                  <BookmarkFolderName folder={folder} />
+                <section key={folder.id}>
+                  <BookmarkFolderName
+                    folder={folder}
+                    refetchBookmarkFolders={refetchBookmarkFolders}
+                  />
                   <BookmarkItems folderId={folder.id} />
-                </>
+                </section>
               )
             )}
         </div>
