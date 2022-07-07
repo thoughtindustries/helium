@@ -1,5 +1,5 @@
 {
-  "name": "@thoughtindustries/redemption",
+  "name": "@thoughtindustries/registration-form",
   "version": "1.0.0",
   "description": "A base component for redeeming codes",
   "main": "src/index.js",
