@@ -1,34 +1,24 @@
-import React, { ReactNode, useEffect, useState } from 'react';
+import React, { ReactNode, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import CodeBox from './code-box';
 import { ResponseProps } from './types';
 
 const CodeList = ({ setResponse }: ResponseProps): JSX.Element => {
-  const styles = {
-    addCodeStyle: 'flex justify-left text-indigo-700 text-sm'
-  };
-
   const { t } = useTranslation();
-  const [count, setCount] = useState(0);
+  const [count, setCount] = useState<number>(0);
   const [list, setList] = useState<ReactNode[]>([
-    <CodeBox key={count} setResponse={setResponse} />
+    <CodeBox key={`code-box${count}`} setResponse={setResponse} />
   ]);
-
-  useEffect(() => {
-    if (count > 0) {
-      setList([...list, <CodeBox key={count} setResponse={setResponse} />]);
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [count]);
 
   return (
     <div>
       {list}
       <button
-        className={styles.addCodeStyle}
+        className="flex justify-left text-indigo-700 text-sm"
         type="button"
         onClick={() => {
           setCount(count + 1);
+          setList([...list, <CodeBox key={`code-box${count + 1}`} setResponse={setResponse} />]);
         }}
       >
         {t('redemption-code.add-redemption-code')}

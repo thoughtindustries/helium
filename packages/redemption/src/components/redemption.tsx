@@ -4,14 +4,10 @@ import Banner from './banner';
 import { Props } from './types';
 
 const Redemption = (): JSX.Element => {
-  const styles = {
-    container: 'mx-4 md:mx-40 text-center self-center'
-  };
-
   const [response, setResponse] = useState<Props>();
 
   return (
-    <form className={styles.container}>
+    <form className="mx-4 md:mx-40 text-center self-center">
       <Banner
         valid={response?.valid}
         alreadyRedeemed={response?.alreadyRedeemed}
