@@ -1,0 +1,28 @@
+{
+  "name": "@thoughtindustries/registration-form",
+  "version": "1.0.0",
+  "description": "A base component for redeeming codes",
+  "main": "src/index.js",
+  "scripts": {
+    "generate": "graphql-codegen --config codegen.yml"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/thoughtindustries/helium.git"
+  },
+  "author": "Blake Reimer <blake.reimer@thoughtindustries.com>",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/thoughtindustries/helium/issues"
+  },
+  "homepage": "https://github.com/thoughtindustries/helium#readme",
+  "dependencies": {
+    "@apollo/client": "^3.6.4",
+    "graphql": "^16.5.0",
+    "i18next": "^21.8.3",
+    "lodash": "^4.17.21"
+  },
+  "devDependencies": {
+    "@types/lodash": "^4.14.182"
+  }
+}
