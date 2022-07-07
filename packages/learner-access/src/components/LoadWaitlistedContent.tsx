@@ -1,20 +1,41 @@
-import React from 'react';
+import React, { useCallback } from 'react';
+import { NetworkStatus } from '@apollo/client';
 import {
   useUserWaitlistQuery,
   LoadingDots,
   useUnenrollFromWaitlistMutation
 } from '@thoughtindustries/content';
+import useLearnerAccess from '../use-context';
 
 const LoadWaitlist = (): JSX.Element => {
-  const { data, loading, error } = useUserWaitlistQuery({
+  const {
+    data,
+    loading,
+    error,
+    refetch: refetchWaitlist,
+    networkStatus
+  } = useUserWaitlistQuery({
     variables: {},
     fetchPolicy: 'network-only',
-    ssr: false
+    ssr: false,
+    notifyOnNetworkStatusChange: true
   });
   const [unenrollFromWaitlistMutation] = useUnenrollFromWaitlistMutation();
-
+  const { refetchContentGroups, resetActiveTab } = useLearnerAccess();
+  const handleUnenroll = useCallback(
+    async id => {
+      await unenrollFromWaitlistMutation({ variables: { id } });
+      await refetchContentGroups();
+      const { data: refetchData } = await refetchWaitlist();
+      if (refetchData && !refetchData.UserWaitlist?.length) {
+        resetActiveTab();
+      }
+    },
+    [refetchContentGroups, refetchWaitlist, resetActiveTab]
+  );
+  const isRefetching = networkStatus === NetworkStatus.refetch;
   console.log('data from child', data);
-  if (loading) return <LoadingDots />;
+  if (loading || isRefetching) return <LoadingDots />;
   if (error) return <>{error.message}</>;
   if (!data || !data.UserWaitlist) return <></>;
   return (
@@ -43,7 +64,7 @@ const LoadWaitlist = (): JSX.Element => {
 
                 <div className="col-start-11 col-span-2 text-right">
                   <button
-                    onClick={() => unenrollFromWaitlistMutation({ variables: { id: item.id } })}
+                    onClick={() => handleUnenroll(item.id)}
                     className="bg-active-blue text-accent-contrast bg-accent rounded-sm cursor-pointer inline-block font-normal text-xs m-0 py-[0.15rem] px-4 relative text-center no-underline ease-in-out border-active-blue font-sans transition duration-200 leading-5"
                   >
                     Unenroll from Waitlist
