@@ -4,3 +4,6 @@ export * from './ArchiveUserLearningPath.generated';
 export * from './ReinstateUserLearningPath.generated';
 export * from './ReinstateUserCourse.generated';
 export * from './UnenrollFromWaitlist.generated';
+export * from './UpdateBookmarkFolder.generated';
+export * from './DestroyBookmarkFolder.generated';
+export * from './CreateCertificateFromUpload.generated';

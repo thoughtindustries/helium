@@ -1428,7 +1428,9 @@ export enum Status {
 export type Tag = {
   __typename?: 'Tag';
   id: Scalars['ID'];
+  isFolder: Scalars['Boolean'];
   label?: Maybe<Scalars['String']>;
+  updatedAt?: Maybe<Scalars['Date']>;
 };
 
 export type Testimonial = {

@@ -10,12 +10,15 @@ export type UpdateBookmarkFolderMutationVariables = Types.Exact<{
 
 export type UpdateBookmarkFolderMutation = {
   __typename?: 'Mutation';
-  UpdateBookmarkFolder: boolean;
+  UpdateBookmarkFolder: { __typename?: 'BookmarkFolder'; id: string; name: string };
 };
 
 export const UpdateBookmarkFolderDocument = gql`
   mutation UpdateBookmarkFolder($id: ID!, $name: String!) {
-    UpdateBookmarkFolder(id: $id, name: $name)
+    UpdateBookmarkFolder(id: $id, name: $name) {
+      id
+      name
+    }
   }
 `;
 export type UpdateBookmarkFolderMutationFn = Apollo.MutationFunction<
