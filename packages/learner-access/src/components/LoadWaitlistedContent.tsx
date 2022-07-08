@@ -3,11 +3,15 @@ import { NetworkStatus } from '@apollo/client';
 import {
   useUserWaitlistQuery,
   LoadingDots,
-  useUnenrollFromWaitlistMutation
+  useUnenrollFromWaitlistMutation,
+  hydrateContent,
+  GlobalTypes
 } from '@thoughtindustries/content';
 import useLearnerAccess from '../use-context';
+import { useTranslation } from 'react-i18next';
 
 const LoadWaitlist = (): JSX.Element => {
+  const { i18n } = useTranslation();
   const {
     data,
     loading,
@@ -41,9 +45,10 @@ const LoadWaitlist = (): JSX.Element => {
   return (
     <>
       {data.UserWaitlist.map(item => {
+        const { id, title, contentTypeLabel } = hydrateContent(i18n, item as GlobalTypes.Content);
         return (
           <div
-            key={item.id}
+            key={id}
             className="border-solid p-4 text-black-light border-gray-light px-4 py-[0.5rem] odd:bg-white-mid border-b last:border-b-0"
           >
             <div className="my-0 mx-auto max-w-full w-full">
@@ -51,7 +56,7 @@ const LoadWaitlist = (): JSX.Element => {
                 <div className="col-span-4">
                   <button className="btn btn--link btn--inherit-font dashboard-access-list-item-expander">
                     <span className="dashboard-access-list-item-expander__title text-gray-mid">
-                      {item.title && item.title}
+                      {title}
                     </span>
                   </button>
                 </div>
@@ -59,12 +64,12 @@ const LoadWaitlist = (): JSX.Element => {
                 <div className="col-span-2"></div>
 
                 <div className="col-span-3 text-gray-mid">
-                  <strong>{item.contentTypeLabel && item.contentTypeLabel}</strong>
+                  <strong>{contentTypeLabel}</strong>
                 </div>
 
                 <div className="col-start-11 col-span-2 text-right">
                   <button
-                    onClick={() => handleUnenroll(item.id)}
+                    onClick={() => handleUnenroll(id)}
                     className="bg-active-blue text-accent-contrast bg-accent rounded-sm cursor-pointer inline-block font-normal text-xs m-0 py-[0.15rem] px-4 relative text-center no-underline ease-in-out border-active-blue font-sans transition duration-200 leading-5"
                   >
                     Unenroll from Waitlist
