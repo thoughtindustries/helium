@@ -1,7 +1,6 @@
 import React, { useCallback, useState } from 'react';
-import { LearnerAccessProps } from './types';
+import { AvailableTab, LearnerAccessProps, TabKey } from './types';
 import {
-  LoadContentItems,
   LoadArchivedContent,
   LoadWaitlist,
   LoadBookmarks,
@@ -10,20 +9,23 @@ import {
 } from './components';
 import { LoadingDots, useContentGroupsQuery } from '@thoughtindustries/content';
 import LearnerAccessContext from './context';
+import { getAvailableTabs } from './utilities';
+import { useTranslation } from 'react-i18next';
+import { localizedTabLabelMapping } from './constants';
+
 const LearnerAccess = ({
   allowCollapse,
   classNames,
   displayExpiredCertificateInformation,
-  query
+  query,
+  userHasManagerInterfaceAccess,
+  companyEnableExternalCertificateUploads,
+  companyHasWaitlistingFeature
 }: LearnerAccessProps): JSX.Element => {
-  const [selected, setSelected] = useState<number>(0);
   const [collapsed, setCollapsed] = useState<boolean>(true);
-  const [activeTab, setActiveTab] = useState<string>('contentItems');
-
-  const [mylearningCount, setMylearningCount] = useState<number>(0);
-
+  const [activeTabKey, setActiveTabKey] = useState<TabKey | undefined>(undefined);
+  const [availableTabs, setAvailableTabs] = useState<AvailableTab[]>([]);
   const {
-    data,
     loading,
     error,
     refetch: refetchContentGroups
@@ -31,10 +33,30 @@ const LearnerAccess = ({
     variables: {
       query,
       includeExpiredCertificates: displayExpiredCertificateInformation
+    },
+    onCompleted: data => {
+      const newAvailableTabs = getAvailableTabs(
+        data.UserContentGroups || [],
+        userHasManagerInterfaceAccess,
+        companyEnableExternalCertificateUploads,
+        companyHasWaitlistingFeature
+      );
+      // reset active tab key if not included in available tabs
+      if (activeTabKey && !newAvailableTabs.find(({ key }) => key === activeTabKey)) {
+        setActiveTabKey(undefined);
+      } else if (!activeTabKey && newAvailableTabs.length) {
+        setActiveTabKey(newAvailableTabs[0].key);
+      }
+      setAvailableTabs(newAvailableTabs);
     }
   });
 
-  const resetActiveTab = useCallback(() => setActiveTab('contentItems'), []);
+  const { t } = useTranslation();
+
+  const resetActiveTab = useCallback(
+    () => setActiveTabKey(availableTabs.length ? availableTabs[0].key : undefined),
+    []
+  );
 
   if (loading) {
     return <LoadingDots />;
@@ -44,38 +66,8 @@ const LearnerAccess = ({
     return <>{error.message}</>;
   }
 
-  const newTabName = (currentTab: string) => {
-    switch (currentTab) {
-      case 'contentItems':
-        return 'My Learning';
-        break;
-      case 'eventItems':
-        return 'Events';
-        break;
-      case 'learningPaths':
-        return 'Learning Paths';
-        break;
-      case 'completedItems':
-        return 'Completed';
-        break;
-      case 'certificates':
-        return 'Certifications';
-        break;
-      case 'bookmarkFolders':
-        return 'Bookmarks';
-        break;
-      case 'archivedContentItems':
-        return 'Archived';
-        break;
-      case 'waitlistedCourses':
-        return 'Waitlisted';
-        break;
-    }
-  };
-
-  const handleChange = (index: number, currentTab: string) => {
-    setSelected(index);
-    setActiveTab(currentTab);
+  const handleTabSelection = (currentTabKey: TabKey) => {
+    setActiveTabKey(currentTabKey);
   };
 
   const activityCollapsed = (
@@ -128,46 +120,43 @@ const LearnerAccess = ({
       className="border-solid border-gray-light bg-gradient-to-b from-white to-gray-lightest list-none m-0 p-0"
       role="tablist"
     >
-      {data &&
-        data.UserContentGroups?.map((obj, index) => {
-          const activeTab = index === selected ? true : false;
-          const activeClassLi = activeTab ? selectedStyleLi : styleLi;
-          const activeClassSpan = activeTab ? selectedStyleSpan : styleSpan;
-          return (
-            <li key={index} {...activeClassLi}>
-              <button
-                onClick={() => {
-                  handleChange(index, obj.kind);
-                }}
-                className="btn bg-none rounded-none h-auto p-0 shadow-none"
-                role="tab"
-                aria-selected={activeTab}
-                aria-controls={'access-section-' + index}
-              >
-                <span {...activeClassSpan}>{newTabName(obj.kind)}</span>
-                {obj.kind == 'bookmarkFolders' ? (
-                  ''
-                ) : (
-                  <span className="border border-solid border-gray-light text-xs font-bold rounded-lg bg-white inline-block leading-4 ml-1 py-0 px-1 text-center">
-                    {obj.count}
-                  </span>
-                )}
-              </button>
-            </li>
-          );
-        })}
+      {availableTabs.map(({ key, count }, index) => {
+        const activeTab = key === activeTabKey ? true : false;
+        const activeClassLi = activeTab ? selectedStyleLi : styleLi;
+        const activeClassSpan = activeTab ? selectedStyleSpan : styleSpan;
+        return (
+          <li key={index} {...activeClassLi}>
+            <button
+              onClick={() => {
+                handleTabSelection(key);
+              }}
+              className="btn bg-none rounded-none h-auto p-0 shadow-none"
+              role="tab"
+              aria-selected={activeTab}
+              aria-controls={'access-section-' + index}
+            >
+              <span {...activeClassSpan}>{t(localizedTabLabelMapping[key], { count })}</span>
+              {key !== TabKey.Bookmark && (
+                <span className="border border-solid border-gray-light text-xs font-bold rounded-lg bg-white inline-block leading-4 ml-1 py-0 px-1 text-center">
+                  {count}
+                </span>
+              )}
+            </button>
+          </li>
+        );
+      })}
     </ul>
   );
   const tabContent = () => {
-    switch (activeTab) {
-      case 'contentItems':
+    switch (activeTabKey) {
+      case TabKey.Current:
         return (
           <LoadMyLearningItems
             query={query}
             kind={['courseGroup', 'article', 'video', 'shareableContentObject', 'xApiObject']}
           />
         );
-      case 'eventItems':
+      case TabKey.Events:
         return (
           <LoadMyLearningItems
             query={query}
@@ -175,9 +164,9 @@ const LearnerAccess = ({
             sort="displayDate"
           />
         );
-      case 'learningPaths':
+      case TabKey.LearningPath:
         return <LoadMyLearningItems query={query} kind={['learningPath']} />;
-      case 'completedItems':
+      case TabKey.Completed:
         return (
           <LoadMyLearningItems
             query={query}
@@ -195,13 +184,13 @@ const LearnerAccess = ({
             ]}
           />
         );
-      case 'archivedContentItems':
+      case TabKey.Archived:
         return <LoadArchivedContent />;
-      case 'bookmarkFolders':
+      case TabKey.Bookmark:
         return <LoadBookmarks />;
-      case 'waitlistedCourses':
+      case TabKey.Waitlist:
         return <LoadWaitlist />;
-      case 'certificates':
+      case TabKey.Certificate:
         return (
           <LoadCertificates
             query={query}
@@ -209,13 +198,7 @@ const LearnerAccess = ({
           />
         );
       default:
-        return (
-          <LoadContentItems
-            query={query}
-            kind={['courseGroup', 'article', 'video', 'shareableContentObject', 'xApiObject']}
-            sort=""
-          />
-        );
+        return <></>;
     }
   };
 

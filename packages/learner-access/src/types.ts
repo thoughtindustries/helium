@@ -13,6 +13,12 @@ export interface LearnerAccessProps {
   displayExpiredCertificateInformation?: boolean;
   /** Query used to refine content */
   query?: string;
+  /** Current user has manager interface access */
+  userHasManagerInterfaceAccess?: boolean;
+  /** Company enables external certificate uploads */
+  companyEnableExternalCertificateUploads?: boolean;
+  /** Company has waitlisting feature */
+  companyHasWaitlistingFeature?: boolean;
 }
 
 export interface LoadedComponentProps {
@@ -24,4 +30,20 @@ export interface LoadedComponentProps {
 export type LearnerAccessContextType = {
   refetchContentGroups: ContentGroupsQueryHookResult['refetch'];
   resetActiveTab: VoidFunction;
+};
+
+export enum TabKey {
+  Current = 'current',
+  Events = 'events',
+  LearningPath = 'learningPath',
+  Completed = 'completed',
+  Archived = 'archived',
+  Bookmark = 'bookmark',
+  Certificate = 'certificate',
+  Waitlist = 'waitlist'
+}
+
+export type AvailableTab = {
+  count: number;
+  key: TabKey;
 };
