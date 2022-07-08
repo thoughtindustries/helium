@@ -25,11 +25,11 @@ const LoadWaitlist = (): JSX.Element => {
   const handleUnenroll = useCallback(
     async id => {
       await unenrollFromWaitlistMutation({ variables: { id } });
-      await refetchContentGroups();
       const { data: refetchData } = await refetchWaitlist();
       if (refetchData && !refetchData.UserWaitlist?.length) {
         resetActiveTab();
       }
+      await refetchContentGroups();
     },
     [refetchContentGroups, refetchWaitlist, resetActiveTab]
   );

@@ -19,11 +19,11 @@ const LoadArchivedContent = (): JSX.Element => {
   const isRefetching = networkStatus === NetworkStatus.refetch;
   const { refetchContentGroups, resetActiveTab } = useLearnerAccess();
   const onReinstateSuccessAsync = useCallback(async () => {
-    await refetchContentGroups();
     const { data: refetchData } = await refetchArchives();
     if (refetchData && !refetchData.UserArchives?.length) {
       resetActiveTab();
     }
+    await refetchContentGroups();
   }, [refetchContentGroups, refetchArchives, resetActiveTab]);
   console.log('data from child', data);
   if (loading || isRefetching) return <LoadingDots />;
