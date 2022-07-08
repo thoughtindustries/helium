@@ -2,7 +2,8 @@ import {
   GlobalTypes,
   UserContentItemsQuery,
   UserArchivesQuery,
-  ContentGroupsQuery
+  ContentGroupsQuery,
+  UserWaitlistQuery
 } from '@thoughtindustries/content';
 
 type RequiredContentGroupsQuery = Required<ContentGroupsQuery>;
@@ -52,6 +53,21 @@ const mockUserArchivedItemFactory = (
   waitlistActive: false
 });
 
+type RequiredUserWaitlistQuery = Required<UserWaitlistQuery>;
+type UserWaitlistItem = RequiredUserWaitlistQuery['UserWaitlist'][0];
+const mockUserWaitlistItemFactory = (
+  id: string,
+  kind: GlobalTypes.ContentKind
+): UserWaitlistItem => ({
+  contentTypeLabel: `${kind}Label`,
+  displayCourse: `display-course-${id}`,
+  displayCourseSlug: `display-course-${kind}-${id}-slug`,
+  kind,
+  id,
+  slug: `${kind}-${id}-slug`,
+  title: `${kind} title`
+});
+
 const toUserArchivedItem = ({ id, title, kind }: UserContentItem): UserArchivedItem => ({
   id: `archive-${id}`,
   name: title,
@@ -76,6 +92,7 @@ export enum UserContentItemTypes {
 export class LearnerAccessRepository {
   private _userContentItems: UserContentItem[];
   private _userArchivedItems: UserArchivedItem[];
+  private _userWaitlistItems: UserWaitlistItem[];
   constructor() {
     const myLearningItemInProgress = mockUserContentItemFactory(
       '1',
@@ -97,6 +114,7 @@ export class LearnerAccessRepository {
       itemCompleted
     ];
     this._userArchivedItems = [mockUserArchivedItemFactory('5', GlobalTypes.ContentKind.Article)];
+    this._userWaitlistItems = [mockUserWaitlistItemFactory('6', GlobalTypes.ContentKind.Course)];
   }
 
   private _userContentItemMatcher(type: UserContentItemTypes) {
@@ -138,6 +156,10 @@ export class LearnerAccessRepository {
 
   get archivedItems() {
     return this._userArchivedItems;
+  }
+
+  get waitlistItems() {
+    return this._userWaitlistItems;
   }
 
   get contentGroups() {
@@ -183,6 +205,14 @@ export class LearnerAccessRepository {
       });
     }
 
+    const waitlistItemsCount = this.waitlistItems.length;
+    if (waitlistItemsCount) {
+      results.push({
+        kind: GlobalTypes.ContentGroupKind.WaitlistedCourses,
+        count: waitlistItemsCount
+      });
+    }
+
     return results;
   }
 
@@ -210,5 +240,15 @@ export class LearnerAccessRepository {
       this._userContentItems.push(toUserContentItem(itemToReinstate));
     }
     return id;
+  }
+
+  unenrollWaitlist(id: string) {
+    const matchingWaitlistItemIndex = this._userWaitlistItems.findIndex(
+      ({ id: existingId }) => id === existingId
+    );
+    if (matchingWaitlistItemIndex > -1) {
+      this._userWaitlistItems.splice(matchingWaitlistItemIndex, 1);
+    }
+    return true;
   }
 }

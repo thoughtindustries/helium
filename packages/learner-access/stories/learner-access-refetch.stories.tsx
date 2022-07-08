@@ -143,6 +143,21 @@ const mockApolloUserArchivesResults = {
     }
   })
 };
+const mockApolloUserWaitlistsResults = {
+  request: {
+    query: UserWaitlistDocument
+  },
+  result: {
+    data: {
+      UserWaitlist: repository.waitlistItems
+    }
+  },
+  newData: () => ({
+    data: {
+      UserWaitlist: repository.waitlistItems
+    }
+  })
+};
 const mockApolloArchiveMutationFactory = (type: UserContentItemTypes) => {
   const mockMutations: any = [];
   const mutationFactory = (id: string, kind: GlobalTypes.ContentKind) => {
@@ -229,13 +244,35 @@ const mockApolloReinstateMutationFactory = (type: UserContentItemTypes) => {
   }
   return mockMutations;
 };
+const mockApolloUnenrollWaitlistMutationFactory = () => {
+  const mockMutations: any = [];
+  const mutationFactory = (id: string) => {
+    return {
+      request: {
+        query: UnenrollFromWaitlistDocument,
+        variables: { id }
+      },
+      result() {
+        const repoResult = repository.unenrollWaitlist(id);
+        return {
+          data: { UnenrollFromWaitlist: repoResult }
+        };
+      }
+    };
+  };
+  repository.waitlistItems.forEach(({ id }) => {
+    mockMutations.push(mutationFactory(id));
+  });
+  return mockMutations;
+};
 const mockApolloQueryResults = [
   mockApolloUserContentGroupsResults,
   mockApolloUserContentItemsResultsFactory(UserContentItemTypes.MyLearning),
   mockApolloUserContentItemsResultsFactory(UserContentItemTypes.Event),
   mockApolloUserContentItemsResultsFactory(UserContentItemTypes.LearningPath),
   mockApolloUserContentItemsResultsFactory(UserContentItemTypes.Completed),
-  mockApolloUserArchivesResults
+  mockApolloUserArchivesResults,
+  mockApolloUserWaitlistsResults
 ];
 const mockApolloResults = mockApolloQueryResults.concat(
   mockApolloArchiveMutationFactory(UserContentItemTypes.MyLearning),
@@ -243,10 +280,13 @@ const mockApolloResults = mockApolloQueryResults.concat(
   mockApolloArchiveMutationFactory(UserContentItemTypes.LearningPath),
   mockApolloReinstateMutationFactory(UserContentItemTypes.MyLearning),
   mockApolloReinstateMutationFactory(UserContentItemTypes.Event),
-  mockApolloReinstateMutationFactory(UserContentItemTypes.LearningPath)
+  mockApolloReinstateMutationFactory(UserContentItemTypes.LearningPath),
+  mockApolloUnenrollWaitlistMutationFactory()
 );
 
-const Template: Story<LearnerAccessProps> = args => <LearnerAccess {...args} />;
+const Template: Story<LearnerAccessProps> = args => (
+  <LearnerAccess {...args} companyEnableExternalCertificateUploads companyHasWaitlistingFeature />
+);
 export const Base = Template.bind({});
 Base.args = {
   allowCollapse: false,
