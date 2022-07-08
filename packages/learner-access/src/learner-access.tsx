@@ -203,7 +203,13 @@ const LearnerAccess = ({
   };
 
   return (
-    <LearnerAccessContext.Provider value={{ refetchContentGroups, resetActiveTab }}>
+    <LearnerAccessContext.Provider
+      value={{
+        refetchContentGroups,
+        resetActiveTab,
+        companyEnableExternalCertificateUploads
+      }}
+    >
       {allowCollapse && (
         <div className="my-0 -mx-4 max-w-none w-auto py-4 px-8 text-slate-700 text-black-light text-sm">
           <div className="border border-solid">

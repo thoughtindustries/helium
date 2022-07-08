@@ -30,6 +30,7 @@ export interface LoadedComponentProps {
 export type LearnerAccessContextType = {
   refetchContentGroups: ContentGroupsQueryHookResult['refetch'];
   resetActiveTab: VoidFunction;
+  companyEnableExternalCertificateUploads?: boolean;
 };
 
 export enum TabKey {
