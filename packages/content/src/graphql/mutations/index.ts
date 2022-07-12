@@ -7,3 +7,5 @@ export * from './UnenrollFromWaitlist.generated';
 export * from './UpdateBookmarkFolder.generated';
 export * from './DestroyBookmarkFolder.generated';
 export * from './CreateCertificateFromUpload.generated';
+export * from './UpdateBookmark.generated';
+export * from './DestroyBookmark.generated';

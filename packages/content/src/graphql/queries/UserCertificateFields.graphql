@@ -1,0 +1,12 @@
+query UserCertificateFields {
+  UserCertificateFields {
+    id
+    type
+    label
+    awardTypeId
+    awardType {
+      id
+      pluralLabel
+    }
+  }
+}

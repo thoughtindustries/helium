@@ -19,3 +19,4 @@ export * from './UserCourseProgress.generated';
 export * from './UserCourseCompletionProgress.generated';
 export * from './UserCourseAwardCounts.generated';
 export * from './UserCourseCollaborations.generated';
+export * from './UserCertificateFields.generated';

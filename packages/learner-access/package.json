@@ -20,7 +20,6 @@
     "url": "https://github.com/thoughtindustries/helium/issues"
   },
   "dependencies": {
-    "@thoughtindustries/content": "^1.1.0-alpha.1",
-    "react-beautiful-dnd": "^13.1.0"
+    "@thoughtindustries/content": "^1.1.0-alpha.1"
   }
 }

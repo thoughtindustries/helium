@@ -1,8 +1,10 @@
 import React, { Dispatch, SetStateAction, useState } from 'react';
 import { LearnerAccessProps } from '../types';
-import { UploadIcon } from '../Assets/Icons';
+import { UploadIcon, RepeatIcon } from '../Assets/Icons';
 import {
   useUserCertificatesQuery,
+  useCreateCertificateFromUploadMutation,
+  useUserCertificateFieldsQuery,
   LoadingDots,
   UserCertificatesQuery
 } from '@thoughtindustries/content';
@@ -38,25 +40,70 @@ const CertificateUploader = ({ setShowForm }: CertificateUploaderProps) => {
 
 type CertificateUploadFormProps = CertificateUploaderProps;
 const CertificateUploadForm = ({ setShowForm }: CertificateUploadFormProps) => {
+  const { data: data2 } = useUserCertificateFieldsQuery({
+    variables: {}
+  });
+  const [showFileImage, setShowFileImage] = useState<boolean>(false);
+  const [imageFromUpload, setImageFromUpload] = useState<string | ArrayBuffer | null>('');
+  const [createCertificateFromUploadMutation] = useCreateCertificateFromUploadMutation({
+    variables: {
+      asset: 'item.contentItem.asset,',
+      certificateUploadFields: []
+    }
+  });
+
+  const handleFileChange = (e: any) => {
+    const files = e.target.files[0];
+    const reader = new FileReader();
+
+    setShowFileImage(true);
+
+    if (files) reader.readAsDataURL(files);
+    reader.onload = () => {
+      setImageFromUpload(reader.result);
+      console.log('image data', reader.result);
+    };
+  };
+
   return (
     <div className="border-solid p-4 text-black-light border-gray-light border-b last:border-b-0">
-      <form className="" data-nordpass-autofill="identity" data-np-checked="1">
+      <form className="">
         <p className="font-normal mb-4 leading-[1.45rem]">
-          <span id="i18n-323">Upload a third-party certificate. Please provide details.</span>
+          {!showFileImage && (
+            <span id="i18n-323">Upload a third-party certificate. Please provide details.</span>
+          )}
         </p>
         <div className="flex justify-evenly">
           <div className="w-full">
             <div className="row">
               <div className="float-left px-4 relative">
                 <div className="ember-view input__container">
-                  <input
-                    className="border-none btn btn--expand btn--bare rounded-sm text-xs box-border cursor-pointer block h-10 mx-0 mt-0 mb-4 py-1 px-4 w-full"
-                    data-bindattr-28570="28570"
-                    type="file"
-                    name="file"
-                    aria-label="file"
-                    data-np-checked="1"
-                  />
+                  {!showFileImage ? (
+                    <input
+                      className="border-none btn btn--expand btn--bare rounded-sm text-xs box-border cursor-pointer block h-10 mx-0 mt-0 mb-4 py-1 px-4 w-full"
+                      type="file"
+                      name="file"
+                      aria-label="file"
+                      onChange={e => {
+                        handleFileChange(e);
+                      }}
+                    />
+                  ) : (
+                    <>
+                      <img
+                        className="ember-view"
+                        src={imageFromUpload?.toString()}
+                        alt="External Certificate"
+                      />
+                      <button
+                        onClick={() => setShowFileImage(false)}
+                        className="flex items-center justify-end h-auto border-[#405667] text-[#405667] text-right bg-none rounded-none border-solid border-t-4 clear-both font-bold p-0 shadow-none w-full"
+                      >
+                        Remove Image
+                        <RepeatIcon />
+                      </button>
+                    </>
+                  )}
                 </div>
               </div>
             </div>
@@ -95,9 +142,9 @@ const CertificateUploadForm = ({ setShowForm }: CertificateUploadFormProps) => {
                   </label>
                   <div className="ember-view">
                     <div className="ember-view legacy-label">
-                      <label className="form__label" data-bindattr-28641="28641">
-                        <div className="form__label__container" data-bindattr-28642="28642"></div>
-                        <div className="form__input__container" data-bindattr-28646="28646">
+                      <label className="form__label">
+                        <div className="form__label__container"></div>
+                        <div className="form__input__container">
                           <input
                             className="focus:outline-none h-10 mb-4 text-base py-2 px-4 w-full bg-white rounded-none border-solid border box-border block mx-0 mt-0 p-2 text-black"
                             placeholder="0"
@@ -115,13 +162,19 @@ const CertificateUploadForm = ({ setShowForm }: CertificateUploadFormProps) => {
             <div className="flex justify-end px-4">
               <div className="flex">
                 <button
-                  onClick={() => setShowForm(showForm => !showForm)}
+                  onClick={() => {
+                    setShowForm(showForm => !showForm);
+                    setShowFileImage(false);
+                  }}
                   data-ember-action="28579"
                   className="bg-white text-xs box-border cursor-pointer block h-10 mx-0 mt-0 mb-4 py-1 px-4 text-black w-full"
                 >
                   Cancel
                 </button>
-                <button className="bg-active-blue rounded-sm text-xs box-border cursor-pointer block h-10 mx-0 mt-0 mb-4 py-1 px-4 text-white w-full">
+                <button
+                  onClick={() => createCertificateFromUploadMutation()}
+                  className="bg-active-blue rounded-sm text-xs box-border cursor-pointer block h-10 mx-0 mt-0 mb-4 py-1 px-4 text-white w-full"
+                >
                   Submit
                 </button>
               </div>

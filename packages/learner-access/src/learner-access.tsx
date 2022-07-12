@@ -5,7 +5,7 @@ import {
   LoadWaitlist,
   LoadBookmarks,
   LoadCertificates,
-  LoadMyLearningItems
+  LoadUserLearning
 } from './components';
 import { LoadingDots, useContentGroupsQuery } from '@thoughtindustries/content';
 import LearnerAccessContext from './context';
@@ -151,24 +151,24 @@ const LearnerAccess = ({
     switch (activeTabKey) {
       case TabKey.Current:
         return (
-          <LoadMyLearningItems
+          <LoadUserLearning
             query={query}
             kind={['courseGroup', 'article', 'video', 'shareableContentObject', 'xApiObject']}
           />
         );
       case TabKey.Events:
         return (
-          <LoadMyLearningItems
+          <LoadUserLearning
             query={query}
             kind={['webinar', 'webinarCourse', 'inPersonEvent', 'inPersonEventCourse']}
             sort="displayDate"
           />
         );
       case TabKey.LearningPath:
-        return <LoadMyLearningItems query={query} kind={['learningPath']} />;
+        return <LoadUserLearning query={query} kind={['learningPath']} />;
       case TabKey.Completed:
         return (
-          <LoadMyLearningItems
+          <LoadUserLearning
             query={query}
             kind={[
               'learningPath',
