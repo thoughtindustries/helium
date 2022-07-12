@@ -3,30 +3,49 @@ import {
   useReinstateUserCourseMutation,
   useReinstateUserLearningPathMutation,
   useArchiveUserCourseMutation,
-  useArchiveUserLearningPathMutation
+  useArchiveUserLearningPathMutation,
+  GlobalTypes,
+  HydratedContentItem,
+  ArchiveUserLearningPathMutationFn,
+  ArchiveUserCourseMutationFn,
+  ReinstateUserCourseMutationFn,
+  ReinstateUserLearningPathMutationFn
 } from '@thoughtindustries/content';
 import { WarningMessageToolTip } from '../Assets/Tooltips';
 
-export const ArchiveButton = ({ item }: any) => {
+type ArchiveButtonProps = {
+  item: HydratedContentItem;
+  onArchiveSuccessAsync: VoidFunction;
+};
+export const ArchiveButton = ({ item, onArchiveSuccessAsync }: ArchiveButtonProps) => {
   const [showPopup, setShowPopup] = useState<boolean>(false);
   const text =
     'Would you like to continue archiving this course? Doing so will remove this from your dashboard as an In Progress item.';
-  let neededMutation: any;
-  const [archiveUserLearningPathMutation] = useArchiveUserLearningPathMutation({
-    variables: { id: item.id }
-  });
-  const [archiveUserCourseMutation] = useArchiveUserCourseMutation({
-    variables: { id: item.id }
-  });
+  const [archiveUserLearningPathMutation] = useArchiveUserLearningPathMutation();
+  const [archiveUserCourseMutation] = useArchiveUserCourseMutation();
   console.log('item.id', item.id);
 
-  if (item.kind === 'learningPath') {
-    neededMutation = archiveUserLearningPathMutation;
-    console.log('learning paths');
-  } else {
-    neededMutation = archiveUserCourseMutation;
-    console.log('course');
-  }
+  const handleMutation = async () => {
+    let neededMutation: ArchiveUserLearningPathMutationFn | ArchiveUserCourseMutationFn;
+    if (item.kind === 'learningPath') {
+      neededMutation = archiveUserLearningPathMutation;
+      console.log('learning paths');
+    } else {
+      neededMutation = archiveUserCourseMutation;
+      console.log('course');
+    }
+    return neededMutation({
+      variables: { id: item.id },
+      update(cache) {
+        cache.evict({
+          id: cache.identify({
+            __typename: 'Content',
+            id: item.id
+          })
+        });
+      }
+    }).then(onArchiveSuccessAsync);
+  };
 
   return (
     <div className="column float-left px-4">
@@ -38,7 +57,7 @@ export const ArchiveButton = ({ item }: any) => {
       </button>
       {showPopup && (
         <WarningMessageToolTip
-          mutationCallback={neededMutation}
+          mutationCallback={handleMutation}
           setShowPopup={setShowPopup}
           text={text}
         />
@@ -47,38 +66,45 @@ export const ArchiveButton = ({ item }: any) => {
   );
 };
 
-export const ReinstateButton = ({ item }: any) => {
+type ReinstateButtonProps = {
+  item: GlobalTypes.ArchivedContent;
+  onReinstateSuccessAsync: VoidFunction;
+};
+export const ReinstateButton = ({ item, onReinstateSuccessAsync }: ReinstateButtonProps) => {
   const [showPopup, setShowPopup] = useState<boolean>(false);
   const text =
     'Would you like to continue reinstating this course? Doing so will move this back to being In Progress.';
-  let neededMutation: any;
   const customPosition = 'right-2 top-[120%]';
   const [reinstateUserCourseMutation] = useReinstateUserCourseMutation({
-    variables: { id: item.id }
+    variables: { id: item.resource as string }
   });
   const [reinstateUserLearningPathMutaion] = useReinstateUserLearningPathMutation({
-    variables: { id: item.id }
+    variables: { id: item.resource as string }
   });
 
-  if (item.kind === 'learningPath') {
-    neededMutation = reinstateUserLearningPathMutaion;
-    console.log('learning paths');
-  } else {
-    neededMutation = reinstateUserCourseMutation;
-    console.log('course');
-  }
+  const handleMutation = async () => {
+    let neededMutation: ReinstateUserCourseMutationFn | ReinstateUserLearningPathMutationFn;
+    if (item.resourceType === 'learningPath') {
+      neededMutation = reinstateUserLearningPathMutaion;
+      console.log('learning paths');
+    } else {
+      neededMutation = reinstateUserCourseMutation;
+      console.log('course');
+    }
+    return neededMutation().then(onReinstateSuccessAsync);
+  };
 
   return (
     <>
       <button
         onClick={() => setShowPopup(true)}
-        className="bg-active-blue relative text-white rounded-sm cursor-pointer inline-block font-normal text-xs mb-4 py-[0.15rem] px-4 text-center no-underline ease-in-out border-active-blue font-sans transition duration-200 leading-5"
+        className="bg-active-blue relative text-accent-contrast bg-accent rounded-sm cursor-pointer inline-block font-normal text-xs mb-4 py-[0.15rem] px-4 text-center no-underline ease-in-out border-active-blue font-sans transition duration-200 leading-5"
       >
         Reinstate
       </button>
       {showPopup && (
         <WarningMessageToolTip
-          mutationCallback={neededMutation}
+          mutationCallback={handleMutation}
           setShowPopup={setShowPopup}
           text={text}
           customPosition={customPosition}

@@ -39,6 +39,11 @@ export type UserContentItemsQuery = {
     embeddedEnabled?: boolean;
     currentUserUnmetCoursePrerequisites?: Array<string>;
     currentUserUnmetLearningPathPrerequisites?: Array<string>;
+    hasChildren: boolean;
+    hideCourseDescription: boolean;
+    isActive: boolean;
+    waitlistingEnabled: boolean;
+    waitlistingTriggered: boolean;
   }>;
 };
 
@@ -71,6 +76,11 @@ export const UserContentItemsDocument = gql`
       embeddedEnabled
       currentUserUnmetCoursePrerequisites
       currentUserUnmetLearningPathPrerequisites
+      hasChildren
+      hideCourseDescription
+      isActive
+      waitlistingEnabled
+      waitlistingTriggered
     }
   }
 `;

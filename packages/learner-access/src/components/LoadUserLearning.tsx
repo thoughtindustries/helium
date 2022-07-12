@@ -1,77 +1,226 @@
-import React, { useState } from 'react';
+import React, { useCallback, useState } from 'react';
 
 import { LoadedComponentProps } from '../types';
-import { RightArrowIcon, DownArrowIcon, HelpIcon } from '../Assets/Icons';
+import {
+  RightArrowIcon,
+  DownArrowIcon,
+  HelpIcon,
+  StopwatchIcon,
+  ChatIcon,
+  ViewIcon,
+  FileIcon
+} from '../Assets/Icons';
 import {
   useUserContentItemsQuery,
   useUserCourseProgressQuery,
   useUserCourseCompletionProgressQuery,
   useUserCourseCollaborationsQuery,
   useUserCourseAwardCountsQuery,
-  LoadingDots
+  LoadingDots,
+  GlobalTypes,
+  hydrateContent,
+  HydratedContentItem,
+  formatTime
 } from '@thoughtindustries/content';
 import { ArchiveButton } from './MutationCallingButtons';
 import { Tooltip } from '../Assets/Tooltips';
-import { StopwatchIcon, ChatIcon, ViewIcon, FileIcon } from '../Assets/Icons';
-import { formatTime } from '@thoughtindustries/content';
+import { useTranslation } from 'react-i18next';
+import useLearnerAccess from '../use-context';
 
 const LoadUserLearning = ({ query, kind, sort }: LoadedComponentProps): JSX.Element => {
-  const { data, loading, error }: any = useUserContentItemsQuery({
+  const { data, loading, error } = useUserContentItemsQuery({
     variables: {
       query,
       kind,
       sort
-    }
+    },
+    fetchPolicy: 'network-only',
+    ssr: false
   });
 
-  // const ExpandedContent = (item: any): JSX.Element => {
+  const { i18n } = useTranslation();
 
-  //   // const { data: courseProgress } = useUserCourseProgressQuery({
-  //   //   variables: {
-  //   //     id: ''
-  //   //   }
-  //   // });
+  const ExpandedContent = ({ item }: { item: HydratedContentItem }): JSX.Element => {
+    const { data } = useUserCourseCompletionProgressQuery({
+      variables: { id: '' }
+    });
 
-  //   // const { data: courseCollaborations } = useUserCourseCollaborationsQuery({
-  //   //   variables: {
-  //   //     courseId: ''
-  //   //   }
-  //   // });
+    const courseCriteria = data?.UserCourseCompletionProgress;
 
-  //   // const { data: awardCounts } = useUserCourseAwardCountsQuery({
-  //   //   variables: {
-  //   //     courseId: ''
-  //   //   }
-  //   // });
+    const { data: useUserCourseProgressData } = useUserCourseProgressQuery({
+      variables: { id: '' }
+    });
+    const courseProgress = useUserCourseProgressData?.UserCourseProgress;
 
-  //   return (
+    const { data: courseCollaborationsData } = useUserCourseCollaborationsQuery({
+      variables: { courseId: '' }
+    });
+    const courseCollaborations = courseCollaborationsData?.UserCourseCollaborations;
+    console.log('courseCompletion progress', useUserCourseProgressData);
 
-  //   );
-  // };
+    const { refetchContentGroups } = useLearnerAccess();
+    const onArchiveSuccessAsync = useCallback(async () => {
+      // defer refetch of content groups to allow time for server
+      // to reflect the new count
+      await new Promise(res => setTimeout(res, 100));
+      await refetchContentGroups();
+    }, [refetchContentGroups]);
+
+    return (
+      <div
+        className={item.asset ? 'grid grid-rows-2 mx-0 my-4 relative' : 'grid mx-0 my-4 relative'}
+      >
+        <div className={item.asset && 'grid grid-cols-3 row-span-2'}>
+          {item.asset && (
+            <div className="px-4">
+              <img
+                className="ember-view"
+                src="https://d36ai2hkxl16us.cloudfront.net/thoughtindustries/image/upload/a_exif,c_fill,w_600,h_288/v1/course-uploads/3a131ac3-1a74-420d-b4da-ae10b18b2c68/n2h0yafsqsbq-British_Isles.jpg"
+                alt=""
+              />
+            </div>
+          )}
+
+          <div className="medium-8 col-span-2 px-4">
+            <div className="dashboard-access-list-item__description text-xs mt-0 text-black-light">
+              <p className="text-sm font-normal mb-4">{item.description}</p>
+            </div>
+            <div className="user-engagement-stats">
+              <ul className="my-0 -mx-3 p-0 grid grid-cols-4 text-xs text-gray-mid font-primary">
+                {courseProgress && (
+                  <li className="text-accent-colorized-cyan user-engagement-stat user-engagement-stat--hours relative px-2.5 pb-5 block float-left h-auto pt-0">
+                    <div className="user-engagement-stat__label-container before:content-[''] before:bg-gray-light before:h-4/5 before:absolute before:top-0 before:right-0 before:w-px last:content-none">
+                      <div className="user-engagement-stat__label user-engagement-stat__label--with-hint h-8  text-ellipsis text-gray-mid overflow-hidden text-center uppercase">
+                        TOTAL HOURS
+                      </div>
+                      <div className="user-engagement-stat__label-hint absolute right-0">
+                        <Tooltip
+                          description="This information is updated and verified as part of a nightly process"
+                          childComp={<HelpIcon />}
+                        />
+                      </div>
+                    </div>
+
+                    <div className="user-engagement-stat__value-container user-engagement-stat__value-container--huge text-2xl mt-1 text-center leading-10">
+                      <i className="icon-stopwatch"></i>
+                      <span className="user-engagement-stat__value">
+                        <StopwatchIcon />
+                        {courseProgress.totalTime && courseProgress.totalTime > 3600
+                          ? courseProgress.totalTime
+                          : '0.0'}
+                      </span>
+                    </div>
+                  </li>
+                )}
+
+                {courseCollaborations && (
+                  <li className="ember-view user-engagement-stat user-engagement-stat--hours relative px-2.5 pb-5 block float-left h-auto pt-0">
+                    <div className="user-engagement-stat__label-container before:content-[''] before:bg-gray-light before:h-4/5 before:absolute before:top-0 before:right-0 before:w-px last:content-none">
+                      <div className="user-engagement-stat__label user-engagement-stat__label--with-hint h-8  text-ellipsis text-gray-mid overflow-hidden text-center uppercase">
+                        COLLABORATIONS
+                      </div>
+                    </div>
+
+                    <div className="user-engagement-stat__value-container user-engagement-stat__value-container--huge text-2xl mt-1 text-center leading-10">
+                      <i className="icon-stopwatch"></i>
+                      <span className="user-engagement-stat__value">
+                        <ChatIcon />
+                        {courseCollaborations}
+                      </span>
+                    </div>
+                  </li>
+                )}
+                <li className="ember-view user-engagement-stat user-engagement-stat--hours relative px-2.5 pb-5 block float-left h-auto pt-0">
+                  <div className="user-engagement-stat__label-container before:content-[''] before:bg-gray-light before:h-4/5 before:absolute before:top-0 before:right-0 before:w-px last:content-none">
+                    <div className="user-engagement-stat__label user-engagement-stat__label--with-hint h-8  text-ellipsis text-gray-mid overflow-hidden text-center uppercase">
+                      CONTENT VIEWED
+                    </div>
+                  </div>
+
+                  <div className="user-engagement-stat__value-container user-engagement-stat__value-container--huge text-2xl mt-1 text-center leading-10">
+                    <i className="icon-stopwatch"></i>
+                    <span className="user-engagement-stat__value ">
+                      <ViewIcon />
+                      {/* {courseCriteria[0].percent} */}
+                      <span className="text-xs leading-8 align-top">%</span>
+                    </span>
+                  </div>
+                </li>
+                {/* {courseCriteria[courseCriteria.length - 1].percent > 0 &&
+                  courseCriteria[courseCriteria.length - 1].required.length > 0 && (
+                    <li className="ember-view user-engagement-stat user-engagement-stat--hours relative px-2.5 pb-5 block float-left h-auto pt-0">
+                      <div className="user-engagement-stat__label-container before:content-[''] before:bg-gray-light before:h-4/5 before:absolute before:top-0 before:right-0 before:w-px last:content-none">
+                        <div className="user-engagement-stat__label user-engagement-stat__label--with-hint h-8  text-ellipsis text-gray-mid overflow-hidden text-center uppercase">
+                          {courseCriteria[courseCriteria.length - 1].type ===
+                          'courseAssignmentComplete'
+                            ? 'COMPLETED ASSIGNMENTS'
+                            : 'REQUIRED PAGES VIEWED'}
+                        </div>
+                      </div>
+                      <div
+                        className="user-engagement-stat__value-container user-engagement-stat__value-container--huge text-2xl mt-1 text-center leading-10"
+                        
+                      >
+                        <i className="icon-stopwatch" ></i>
+                        <span className="user-engagement-stat__value">
+                          {courseCriteria[courseCriteria.length - 1].type ===
+                          'courseAssignmentComplete' ? (
+                            <FileIcon />
+                          ) : (
+                            <ViewIcon />
+                          )}
+                          {courseCriteria[courseCriteria.length - 1].completed.length +
+                            ' / ' +
+                            courseCriteria[courseCriteria.length - 1].required.length}{' '}
+                        </span>
+                      </div>
+                    </li>
+                  )} */}
+
+                <li className="ember-view user-engagement-stat user-engagement-stat--hours relative px-2.5 pb-5 block float-left h-auto pt-0 text-[#b6259e]">
+                  <div className="user-engagement-stat__label-container before:content-[''] before:bg-gray-light before:h-4/5 before:absolute before:top-0 before:right-0 before:w-px before:last:content-none">
+                    <div className="user-engagement-stat__label user-engagement-stat__label--with-hint h-8  text-ellipsis text-gray-mid overflow-hidden text-center uppercase">
+                      COMPLETE
+                    </div>
+                  </div>
+
+                  <div className="user-engagement-stat__value-container user-engagement-stat__value-container--huge text-2xl mt-1 text-center leading-10">
+                    <i className="icon-stopwatch"></i>
+                    <span className="user-engagement-stat__value">
+                      {courseProgress?.percentComplete}
+                      <span className="text-xs leading-8 align-top">%</span>
+                    </span>
+                  </div>
+                </li>
+              </ul>
+            </div>
+
+            <div className="user-engagement-progress-bar ">
+              <div
+                id="ember8032"
+                className="ember-view nice round progress colorized rounded-[999px] bg-gray-light border-white border-solid border h-4 mb-2 p-px"
+              >
+                <span className="block h-full w-full rounded-[999px] bg-gradient-to-r from-accent-colorized-cyan to-accent-colorized-lime ease-in-out duration-200 transition-width"></span>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div className=" archive mt-2 row-end-4 text-black-light relative">
+          {item.availabilityStatus !== 'completed' && (
+            <ArchiveButton item={item} onArchiveSuccessAsync={onArchiveSuccessAsync} />
+          )}
+        </div>
+      </div>
+    );
+  };
 
   interface ContentUiProps {
-    item?: any;
+    item: HydratedContentItem;
     index?: number;
   }
 
   const ContentUi = ({ item }: ContentUiProps) => {
     const [showContent, setShowContent] = useState<boolean>(false);
-    const { data } = useUserCourseCompletionProgressQuery({
-      variables: { id: '' }
-    });
-
-    const courseCriteria: any = data?.UserCourseCompletionProgress;
-
-    const { data: useUserCourseProgressData } = useUserCourseProgressQuery({
-      variables: { id: '' }
-    });
-    const courseProgress: any = useUserCourseProgressData;
-
-    const { data: courseCollaborations } = useUserCourseCollaborationsQuery({
-      variables: { courseId: '' }
-    });
-    console.log('courseCompletion progress', useUserCourseProgressData);
-
     return (
       <div
         key={item.id}
@@ -85,37 +234,31 @@ const LoadUserLearning = ({ query, kind, sort }: LoadedComponentProps): JSX.Elem
                 className="btn btn--link btn--inherit-font dashboard-access-list-item-expander text-left"
                 onClick={() => setShowContent(prev => !prev)}
               >
-                {item.kind !== 'inPersonEventCourse' ? (
-                  showContent ? (
-                    <DownArrowIcon />
-                  ) : (
-                    <RightArrowIcon />
-                  )
-                ) : (
-                  ''
-                )}
+                {item.kind !== 'inPersonEventCourse' &&
+                  (showContent ? <DownArrowIcon /> : <RightArrowIcon />)}
                 <span className="dashboard-access-list-item-expander__title text-gray-mid">
-                  {item.title && item.title}
+                  {item.title}
                 </span>
               </button>
             </div>
 
             <div className="col-span-2 text-gray-mid">
-              {(item.kind === 'inPersonEventCourse' || item.kind === 'webinar') &&
+              {item.displayDate &&
+                (item.kind === 'inPersonEventCourse' || item.kind === 'webinar') &&
                 formatTime(item.displayDate, undefined, 'MMM D, YYYY h A')}
             </div>
 
             <div className="col-span-3 text-gray-mid relative">
-              <strong className="">{item.contentTypeLabel && item.contentTypeLabel}</strong>
+              <strong className="">{item.contentTypeLabel}</strong>
               {'  '}
-              {item.authors.length > 0 && (
+              {item.authors && item.authors.length > 0 && (
                 <div className="border-gray-mid border-solid border-l-2 h-3.5 inline my-0 mr-1 ml-px"></div>
               )}
               <span>
                 {' '}
                 {'  '} {item.authors}
               </span>
-              <p className="catalog-list-item__source">{item.source && item.source}</p>
+              <p className="catalog-list-item__source">{item.source}</p>
             </div>
 
             <div className="col-start-11 col-span-2 text-right">
@@ -133,171 +276,28 @@ const LoadUserLearning = ({ query, kind, sort }: LoadedComponentProps): JSX.Elem
               </button>
             </div>
           </div>
-          {showContent && item.kind !== 'inPersonEventCourse' ? (
-            <div
-              className={
-                item.asset ? 'grid grid-rows-2 mx-0 my-4 relative' : 'grid mx-0 my-4 relative'
-              }
-            >
-              <div className={item.asset && 'grid grid-cols-3 row-span-2'}>
-                {item.asset && (
-                  <div className="px-4">
-                    <img
-                      className="ember-view"
-                      src="https://d36ai2hkxl16us.cloudfront.net/thoughtindustries/image/upload/a_exif,c_fill,w_600,h_288/v1/course-uploads/3a131ac3-1a74-420d-b4da-ae10b18b2c68/n2h0yafsqsbq-British_Isles.jpg"
-                      alt=""
-                    />
-                  </div>
-                )}
-
-                <div className="medium-8 col-span-2 px-4">
-                  <div className="dashboard-access-list-item__description text-xs mt-0 text-black-light">
-                    <p className="text-sm font-normal mb-4">{item.description}</p>
-                  </div>
-                  <div className="user-engagement-stats">
-                    <ul className="my-0 -mx-3 p-0 grid grid-cols-4 text-xs text-gray-mid font-primary">
-                      {courseProgress && (
-                        <li className="text-accent-colorized-cyan user-engagement-stat user-engagement-stat--hours relative px-2.5 pb-5 block float-left h-auto pt-0">
-                          <div className="user-engagement-stat__label-container before:content-[''] before:bg-gray-light before:h-4/5 before:absolute before:top-0 before:right-0 before:w-px last:content-none">
-                            <div className="user-engagement-stat__label user-engagement-stat__label--with-hint h-8  text-ellipsis text-gray-mid overflow-hidden text-center uppercase">
-                              TOTAL HOURS
-                            </div>
-                            <div className="user-engagement-stat__label-hint absolute right-0">
-                              <Tooltip
-                                description="This information is updated and verified as part of a nightly process"
-                                childComp={<HelpIcon />}
-                              />
-                            </div>
-                          </div>
-
-                          <div className="user-engagement-stat__value-container user-engagement-stat__value-container--huge text-2xl mt-1 text-center leading-10">
-                            <i className="icon-stopwatch"></i>
-                            <span className="user-engagement-stat__value">
-                              <StopwatchIcon />
-                              {courseProgress.totalTime > 3600 ? courseProgress.totalTime : '0.0'}
-                            </span>
-                          </div>
-                        </li>
-                      )}
-
-                      {courseCollaborations && (
-                        <li className="ember-view user-engagement-stat user-engagement-stat--hours relative px-2.5 pb-5 block float-left h-auto pt-0">
-                          <div className="user-engagement-stat__label-container before:content-[''] before:bg-gray-light before:h-4/5 before:absolute before:top-0 before:right-0 before:w-px last:content-none">
-                            <div className="user-engagement-stat__label user-engagement-stat__label--with-hint h-8  text-ellipsis text-gray-mid overflow-hidden text-center uppercase">
-                              COLLABORATIONS
-                            </div>
-                          </div>
-
-                          <div className="user-engagement-stat__value-container user-engagement-stat__value-container--huge text-2xl mt-1 text-center leading-10">
-                            <i className="icon-stopwatch"></i>
-                            <span className="user-engagement-stat__value">
-                              <ChatIcon />
-                              {courseCollaborations}
-                            </span>
-                          </div>
-                        </li>
-                      )}
-                      <li className="ember-view user-engagement-stat user-engagement-stat--hours relative px-2.5 pb-5 block float-left h-auto pt-0">
-                        <div className="user-engagement-stat__label-container before:content-[''] before:bg-gray-light before:h-4/5 before:absolute before:top-0 before:right-0 before:w-px last:content-none">
-                          <div className="user-engagement-stat__label user-engagement-stat__label--with-hint h-8  text-ellipsis text-gray-mid overflow-hidden text-center uppercase">
-                            CONTENT VIEWED
-                          </div>
-                        </div>
-
-                        <div className="user-engagement-stat__value-container user-engagement-stat__value-container--huge text-2xl mt-1 text-center leading-10">
-                          <i className="icon-stopwatch"></i>
-                          <span className="user-engagement-stat__value ">
-                            <ViewIcon />
-                            {/* {courseCriteria[0].percent} */}
-                            <span className="text-xs leading-8 align-top">%</span>
-                          </span>
-                        </div>
-                      </li>
-                      {/* {courseCriteria[courseCriteria.length - 1].percent > 0 &&
-                        courseCriteria[courseCriteria.length - 1].required.length > 0 && (
-                          <li className="ember-view user-engagement-stat user-engagement-stat--hours relative px-2.5 pb-5 block float-left h-auto pt-0">
-                            <div className="user-engagement-stat__label-container before:content-[''] before:bg-gray-light before:h-4/5 before:absolute before:top-0 before:right-0 before:w-px last:content-none">
-                              <div className="user-engagement-stat__label user-engagement-stat__label--with-hint h-8  text-ellipsis text-gray-mid overflow-hidden text-center uppercase">
-                                {courseCriteria[courseCriteria.length - 1].type ===
-                                'courseAssignmentComplete'
-                                  ? 'COMPLETED ASSIGNMENTS'
-                                  : 'REQUIRED PAGES VIEWED'}
-                              </div>
-                            </div>
-
-                            <div
-                              className="user-engagement-stat__value-container user-engagement-stat__value-container--huge text-2xl mt-1 text-center leading-10"
-                              
-                            >
-                              <i className="icon-stopwatch" ></i>
-                              <span className="user-engagement-stat__value">
-                                {courseCriteria[courseCriteria.length - 1].type ===
-                                'courseAssignmentComplete' ? (
-                                  <FileIcon />
-                                ) : (
-                                  <ViewIcon />
-                                )}
-                                {courseCriteria[courseCriteria.length - 1].completed.length +
-                                  ' / ' +
-                                  courseCriteria[courseCriteria.length - 1].required.length}{' '}
-                              </span>
-                            </div>
-                          </li>
-                        )} */}
-
-                      <li className="ember-view user-engagement-stat user-engagement-stat--hours relative px-2.5 pb-5 block float-left h-auto pt-0 text-[#b6259e]">
-                        <div className="user-engagement-stat__label-container before:content-[''] before:bg-gray-light before:h-4/5 before:absolute before:top-0 before:right-0 before:w-px before:last:content-none">
-                          <div className="user-engagement-stat__label user-engagement-stat__label--with-hint h-8  text-ellipsis text-gray-mid overflow-hidden text-center uppercase">
-                            COMPLETE
-                          </div>
-                        </div>
-
-                        <div className="user-engagement-stat__value-container user-engagement-stat__value-container--huge text-2xl mt-1 text-center leading-10">
-                          <i className="icon-stopwatch"></i>
-                          <span className="user-engagement-stat__value">
-                            {courseProgress[0].percentComplete}
-                            <span className="text-xs leading-8 align-top">%</span>
-                          </span>
-                        </div>
-                      </li>
-                    </ul>
-                  </div>
-
-                  <div className="user-engagement-progress-bar ">
-                    <div
-                      id="ember8032"
-                      className="ember-view nice round progress colorized rounded-[999px] bg-gray-light border-white border-solid border h-4 mb-2 p-px"
-                    >
-                      <span className="block h-full w-full rounded-[999px] bg-gradient-to-r from-accent-colorized-cyan to-accent-colorized-lime ease-in-out duration-200 transition-width"></span>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div className=" archive mt-2 row-end-4 text-black-light relative">
-                {item.availabilityStatus !== 'completed' && <ArchiveButton item={item} />}
-              </div>
-            </div>
-          ) : (
-            ''
-          )}
+          {showContent && item.kind !== 'inPersonEventCourse' && <ExpandedContent item={item} />}
         </div>
       </div>
     );
   };
 
-  if (error) return error;
+  if (loading) return <LoadingDots />;
+
+  if (error) return <>{error.message}</>;
+
+  if (!data || !data.UserContentItems) return <></>;
+
   return (
-    <>
-      {loading ? (
-        <LoadingDots />
-      ) : (
-        <section>
-          {data.UserContentItems.map((item: any) => {
-            return <ContentUi item={item} />;
-          })}
-        </section>
-      )}
-    </>
+    <section>
+      {data.UserContentItems.map(item => {
+        const hydratedItem = hydrateContent(i18n, item);
+        if (hydratedItem.isCompleted) {
+          return null;
+        }
+        return <ContentUi key={item.id} item={hydratedItem} />;
+      })}
+    </section>
   );
 };
 export default LoadUserLearning;

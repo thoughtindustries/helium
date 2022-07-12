@@ -1,6 +1,5 @@
 query UserCourseCompletionProgress($id: ID!) {
   UserCourseCompletionProgress(id: $id) {
-    __typename
     type
     required
     completed

@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { LearnerAccessProps } from './types';
+import React, { useCallback, useState } from 'react';
+import { AvailableTab, LearnerAccessProps, TabKey } from './types';
 import {
   LoadArchivedContent,
   LoadWaitlist,
@@ -7,56 +7,69 @@ import {
   LoadCertificates,
   LoadUserLearning
 } from './components';
-import { useContentGroupsQuery } from '@thoughtindustries/content';
+import { LoadingDots, useContentGroupsQuery } from '@thoughtindustries/content';
+import LearnerAccessContext from './context';
+import { getAvailableTabs } from './utilities';
+import { useTranslation } from 'react-i18next';
+import { localizedTabLabelMapping } from './constants';
+
 const LearnerAccess = ({
   allowCollapse,
   classNames,
   displayExpiredCertificateInformation,
-  query
+  query,
+  userHasManagerInterfaceAccess,
+  companyEnableExternalCertificateUploads,
+  companyHasWaitlistingFeature
 }: LearnerAccessProps): JSX.Element => {
-  const [selected, setSelected] = useState<number>(0);
   const [collapsed, setCollapsed] = useState<boolean>(true);
-  const [activeTab, setActiveTab] = useState<string>('contentItems');
-
-  const { data } = useContentGroupsQuery({
+  const [activeTabKey, setActiveTabKey] = useState<TabKey | undefined>(undefined);
+  const [availableTabs, setAvailableTabs] = useState<AvailableTab[]>([]);
+  const {
+    loading,
+    error,
+    refetch: refetchContentGroups
+  } = useContentGroupsQuery({
     variables: {
       query,
       includeExpiredCertificates: displayExpiredCertificateInformation
+    },
+    onCompleted: data => {
+      const newAvailableTabs = getAvailableTabs(
+        data.UserContentGroups || [],
+        userHasManagerInterfaceAccess,
+        companyEnableExternalCertificateUploads,
+        companyHasWaitlistingFeature
+      );
+      // reset active tab key if not included in available tabs
+      if (activeTabKey && !newAvailableTabs.find(({ key }) => key === activeTabKey)) {
+        setActiveTabKey(undefined);
+      } else if (!activeTabKey && newAvailableTabs.length) {
+        setActiveTabKey(newAvailableTabs[0].key);
+      }
+      setAvailableTabs(newAvailableTabs);
     }
   });
-  const newTabName = (currentTab: string) => {
-    switch (currentTab) {
-      case 'contentItems':
-        return 'My Learning';
-        break;
-      case 'eventItems':
-        return 'Events';
-        break;
-      case 'learningPaths':
-        return 'Learning Paths';
-        break;
-      case 'completedItems':
-        return 'Completed';
-        break;
-      case 'certificates':
-        return 'Certifications';
-        break;
-      case 'bookmarkFolders':
-        return 'Bookmarks';
-        break;
-      case 'archivedContentItems':
-        return 'Archived';
-        break;
-      case 'waitlistedCourses':
-        return 'Waitlisted';
-        break;
-    }
+
+  const { t } = useTranslation();
+
+  const resetActiveTab = useCallback(
+    () => setActiveTabKey(availableTabs.length ? availableTabs[0].key : undefined),
+    []
+  );
+
+  if (loading) {
+    return <LoadingDots />;
+  }
+
+  if (error) {
+    return <>{error.message}</>;
+  }
+
+  const handleTabSelection = (currentTabKey: TabKey) => {
+    setActiveTabKey(currentTabKey);
   };
 
-  const handleChange = (index: number, currentTab: string) => {
-    setSelected(index);
-    setActiveTab(currentTab);
-  };
   const activityCollapsed = (
     <div className="border-b border-solid leading-5 p-4 bg-gradient-to-t from-white to-gray-lightest">
       <button
@@ -107,27 +120,25 @@ const LearnerAccess = ({
       className="border-solid border-gray-light bg-gradient-to-b from-white to-gray-lightest list-none m-0 p-0"
       role="tablist"
     >
-      {data?.UserContentGroups?.map((obj, index) => {
-        const activeTab = index === selected ? true : false;
+      {availableTabs.map(({ key, count }, index) => {
+        const activeTab = key === activeTabKey ? true : false;
         const activeClassLi = activeTab ? selectedStyleLi : styleLi;
         const activeClassSpan = activeTab ? selectedStyleSpan : styleSpan;
         return (
           <li key={index} {...activeClassLi}>
             <button
               onClick={() => {
-                handleChange(index, obj.kind);
+                handleTabSelection(key);
               }}
               className="btn bg-none rounded-none h-auto p-0 shadow-none"
               role="tab"
               aria-selected={activeTab}
               aria-controls={'access-section-' + index}
             >
-              <span {...activeClassSpan}>{newTabName(obj.kind)}</span>
-              {obj.kind == 'bookmarkFolders' ? (
-                ''
-              ) : (
+              <span {...activeClassSpan}>{t(localizedTabLabelMapping[key], { count })}</span>
+              {key !== TabKey.Bookmark && (
                 <span className="border border-solid border-gray-light text-xs font-bold rounded-lg bg-white inline-block leading-4 ml-1 py-0 px-1 text-center">
-                  {obj.count}
+                  {count}
                 </span>
               )}
             </button>
@@ -137,16 +148,15 @@ const LearnerAccess = ({
     </ul>
   );
   const tabContent = () => {
-    switch (activeTab) {
-      case 'contentItems':
+    switch (activeTabKey) {
+      case TabKey.Current:
         return (
           <LoadUserLearning
             query={query}
             kind={['courseGroup', 'article', 'video', 'shareableContentObject', 'xApiObject']}
-            sort=""
           />
         );
-      case 'eventItems':
+      case TabKey.Events:
         return (
           <LoadUserLearning
             query={query}
@@ -154,9 +164,9 @@ const LearnerAccess = ({
             sort="displayDate"
           />
         );
-      case 'learningPaths':
-        return <LoadUserLearning query={query} kind={['learningPath']} sort="" />;
-      case 'completedItems':
+      case TabKey.LearningPath:
+        return <LoadUserLearning query={query} kind={['learningPath']} />;
+      case TabKey.Completed:
         return (
           <LoadUserLearning
             query={query}
@@ -172,16 +182,15 @@ const LearnerAccess = ({
               'inPersonEvent',
               'inPersonEventCourse'
             ]}
-            sort=""
           />
         );
-      case 'archivedContentItems':
+      case TabKey.Archived:
         return <LoadArchivedContent />;
-      case 'bookmarkFolders':
+      case TabKey.Bookmark:
         return <LoadBookmarks />;
-      case 'waitlistedCourses':
+      case TabKey.Waitlist:
         return <LoadWaitlist />;
-      case 'certificates':
+      case TabKey.Certificate:
         return (
           <LoadCertificates
             query={query}
@@ -189,30 +198,36 @@ const LearnerAccess = ({
           />
         );
       default:
-        return (
-          <LoadUserLearning
-            query={query}
-            kind={['courseGroup', 'article', 'video', 'shareableContentObject', 'xApiObject']}
-            sort=""
-          />
-        );
+        return <></>;
     }
   };
-  return allowCollapse ? (
-    <div className="my-0 -mx-4 max-w-none w-auto py-4 px-8 text-slate-700 text-black-light text-sm">
-      <div className="border border-solid">
-        {collapsed ? activityCollapsed : activityExpanded}
-        {!collapsed ? dashboardAccessTabs : ''}
-        {tabContent()}
-      </div>
-    </div>
-  ) : (
-    <div className="my-0 -mx-4 max-w-none w-auto py-4 px-8 text-slate-700 text-black-light text-sm">
-      <div className="border border-solid">
-        {dashboardAccessTabs}
-        {tabContent()}
-      </div>
-    </div>
+
+  return (
+    <LearnerAccessContext.Provider
+      value={{
+        refetchContentGroups,
+        resetActiveTab,
+        companyEnableExternalCertificateUploads
+      }}
+    >
+      {allowCollapse && (
+        <div className="my-0 -mx-4 max-w-none w-auto py-4 px-8 text-slate-700 text-black-light text-sm">
+          <div className="border border-solid">
+            {collapsed ? activityCollapsed : activityExpanded}
+            {!collapsed ? dashboardAccessTabs : ''}
+            {tabContent()}
+          </div>
+        </div>
+      )}
+      {!allowCollapse && (
+        <div className="my-0 -mx-4 max-w-none w-auto py-4 px-8 text-slate-700 text-black-light text-sm">
+          <div className="border border-solid">
+            {dashboardAccessTabs}
+            {tabContent()}
+          </div>
+        </div>
+      )}
+    </LearnerAccessContext.Provider>
   );
 };
 

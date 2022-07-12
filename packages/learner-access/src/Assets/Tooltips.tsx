@@ -67,7 +67,7 @@ export const WarningMessageToolTip = ({
                 mutationCallback();
                 setShowPopup(false);
               }}
-              className="bg-active-blue text-white rounded-sm cursor-pointer inline-block font-normal text-xs ml-2 h-8 mb-0 py-[0.15rem] px-4 relative text-center no-underline ease-in-out border-active-blue font-sans transition duration-200 leading-5"
+              className="bg-active-blue text-accent-contrast bg-accent rounded-sm cursor-pointer inline-block font-normal text-xs ml-2 h-8 mb-0 py-[0.15rem] px-4 relative text-center no-underline ease-in-out border-active-blue font-sans transition duration-200 leading-5"
               data-ember-action="8975"
             >
               <span>Continue</span>

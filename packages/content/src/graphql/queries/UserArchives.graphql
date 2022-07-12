@@ -1,6 +1,5 @@
 query UserArchives {
   UserArchives {
-    __typename
     id
     user
     resource

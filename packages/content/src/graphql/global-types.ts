@@ -637,32 +637,6 @@ export enum ContentGroupKind {
   WaitlistedCourses = 'waitlistedCourses'
 }
 
-export type ContentItem = {
-  __typename?: 'ContentItem';
-  asset?: Maybe<Scalars['AbsoluteOrRelativeURL']>;
-  authors?: Maybe<Array<Scalars['String']>>;
-  bulkPurchasingEnabled?: Maybe<Scalars['Boolean']>;
-  canAddToQueue?: Maybe<Scalars['Boolean']>;
-  contentTypeLabel?: Maybe<Scalars['String']>;
-  courseGracePeriodEnded?: Maybe<Scalars['Boolean']>;
-  coursePresold?: Maybe<Scalars['Boolean']>;
-  courseStartDate?: Maybe<Scalars['Date']>;
-  currentUserUnmetCoursePrerequisites?: Maybe<Array<Maybe<Scalars['ID']>>>;
-  currentUserUnmetLearningPathPrerequisites?: Maybe<Array<Maybe<Scalars['ID']>>>;
-  description?: Maybe<Scalars['String']>;
-  displayCourse?: Maybe<Scalars['ID']>;
-  displayCourseSlug?: Maybe<Scalars['String']>;
-  embeddedEnabled?: Maybe<Scalars['Boolean']>;
-  id: Scalars['ID'];
-  kind?: Maybe<ContentKind>;
-  publishDate?: Maybe<Scalars['Date']>;
-  rating?: Maybe<Scalars['Int']>;
-  slug?: Maybe<Scalars['String']>;
-  source?: Maybe<Scalars['String']>;
-  timeZone?: Maybe<Scalars['String']>;
-  title?: Maybe<Scalars['String']>;
-};
-
 export enum ContentItemDisplayType {
   Calendar = 'calendar',
   Grid = 'grid',

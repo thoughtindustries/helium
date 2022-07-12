@@ -32,7 +32,7 @@ function Page({ appearance, currentUser }: { appearance: Appearance; currentUser
           subtitle="This page is completely rendered in React. Go ahead and edit it at pages/index/index.page.jsx"
           asset="https://d36ai2hkxl16us.cloudfront.net/thoughtindustries/image/upload/a_exif,c_fill,w_1500/v1426249885/sq5qv0uebvfywkxbw3cc.jpg"
         />
-        <LearnerAccess />
+        <LearnerAccess companyHasWaitlistingFeature companyEnableExternalCertificateUploads />
         <FeaturedItems />
       </div>
     </Layout>

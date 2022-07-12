@@ -11,13 +11,12 @@ export type UpdateBookmarkMutationVariables = Types.Exact<{
 
 export type UpdateBookmarkMutation = {
   __typename?: 'Mutation';
-  UpdateBookmark: { __typename: 'Bookmark'; id: string };
+  UpdateBookmark: { __typename?: 'Bookmark'; id: string };
 };
 
 export const UpdateBookmarkDocument = gql`
   mutation UpdateBookmark($id: ID!, $note: String, $bookmarkFolder: ID!) {
     UpdateBookmark(id: $id, note: $note, bookmarkFolder: $bookmarkFolder) {
-      __typename
       id
     }
   }

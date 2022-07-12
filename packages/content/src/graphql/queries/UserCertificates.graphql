@@ -1,6 +1,5 @@
 query UserCertificates($query: String, $includeExpiredCertificates: Boolean) {
   UserCertificates(query: $query, includeExpiredCertificates: $includeExpiredCertificates) {
-    __typename
     id
     resourceId
     expirationDate
@@ -9,7 +8,6 @@ query UserCertificates($query: String, $includeExpiredCertificates: Boolean) {
     url
     source
     contentItem {
-      __typename
       id
       asset
       courseEndDate

@@ -1,12 +1,10 @@
 query UserCertificateFields {
   UserCertificateFields {
-    __typename
     id
     type
     label
     awardTypeId
     awardType {
-      __typename
       id
       pluralLabel
     }

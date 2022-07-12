@@ -8,25 +8,23 @@ export type UserCertificateFieldsQueryVariables = Types.Exact<{ [key: string]: n
 export type UserCertificateFieldsQuery = {
   __typename?: 'Query';
   UserCertificateFields?: Array<{
-    __typename: 'CertificateField';
+    __typename?: 'CertificateField';
     id: string;
     type: Types.CertificateFieldType;
     label: string;
     awardTypeId?: string;
-    awardType?: { __typename: 'AwardType'; id: string; pluralLabel?: string };
+    awardType?: { __typename?: 'AwardType'; id: string; pluralLabel?: string };
   }>;
 };
 
 export const UserCertificateFieldsDocument = gql`
   query UserCertificateFields {
     UserCertificateFields {
-      __typename
       id
       type
       label
       awardTypeId
       awardType {
-        __typename
         id
         pluralLabel
       }

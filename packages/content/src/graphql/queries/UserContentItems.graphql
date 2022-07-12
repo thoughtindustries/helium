@@ -26,5 +26,10 @@ query UserContentItems($query: String, $kind: [String!], $sort: String) {
     embeddedEnabled
     currentUserUnmetCoursePrerequisites
     currentUserUnmetLearningPathPrerequisites
+    hasChildren
+    hideCourseDescription
+    isActive
+    waitlistingEnabled
+    waitlistingTriggered
   }
 }

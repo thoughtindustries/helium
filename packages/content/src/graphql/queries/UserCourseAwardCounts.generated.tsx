@@ -10,7 +10,7 @@ export type UserCourseAwardCountsQueryVariables = Types.Exact<{
 export type UserCourseAwardCountsQuery = {
   __typename?: 'Query';
   UserCourseAwardCounts: Array<{
-    __typename: 'UserAwardCount';
+    __typename?: 'UserAwardCount';
     id: string;
     label?: string;
     icon?: Types.AwardTypeIcon;
@@ -21,7 +21,6 @@ export type UserCourseAwardCountsQuery = {
 export const UserCourseAwardCountsDocument = gql`
   query UserCourseAwardCounts($courseId: ID!) {
     UserCourseAwardCounts(courseId: $courseId) {
-      __typename
       id
       label
       icon
