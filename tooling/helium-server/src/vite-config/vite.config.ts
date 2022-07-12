@@ -4,7 +4,7 @@ import ssr from 'vite-plugin-ssr/plugin';
 const tiConfig: Record<any, any> = {
   plugins: [reactRefresh(), ssr()],
   optimizeDeps: {
-    include: ['dayjs']
+    include: ['dayjs', 'universal-cookie']
   }
 };
 

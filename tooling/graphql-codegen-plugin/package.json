@@ -1,11 +1,13 @@
 {
   "name": "@thoughtindustries/graphql-codegen-plugin",
-  "private": true,
-  "version": "1.0.1",
+  "version": "1.1.0",
   "description": "GraphQL Code Generator plugin for generating TypeScript types used in GraphQL queries, mutations, subscriptions and fragments",
   "author": "Lu Jiang <lu.jiang@thoughtindustries.com>",
   "homepage": "https://github.com/thoughtindustries/helium#readme",
   "license": "ISC",
+  "publishConfig": {
+    "access": "public"
+  },
   "main": "./dist/index.js",
   "module": "./dist/index.mjs",
   "types": "./dist/index.d.ts",

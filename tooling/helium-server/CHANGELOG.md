@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.1.3](https://github.com/thoughtindustries/helium/compare/@thoughtindustries/helium-server@1.1.2...@thoughtindustries/helium-server@1.1.3) (2022-06-24)
+
+
+### Bug Fixes
+
+* resolve cart package build error ([#130](https://github.com/thoughtindustries/helium/issues/130)) ([51936ab](https://github.com/thoughtindustries/helium/commit/51936abb96cabd26705146932eb49f1be71747fc))
+
+
+
+
+
 ## [1.1.2](https://github.com/thoughtindustries/helium/compare/@thoughtindustries/helium-server@1.1.1...@thoughtindustries/helium-server@1.1.2) (2022-04-11)
 
 **Note:** Version bump only for package @thoughtindustries/helium-server

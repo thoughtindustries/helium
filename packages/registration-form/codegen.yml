@@ -1,0 +1,32 @@
+overwrite: true
+schema: https://home.ti.test/helium
+documents: src/**/*.graphql
+config:
+  avoidOptionals: false
+  maybeValue: T
+  inlineFragmentTypes: combine
+  scalars:
+    Slug: string
+    Date: string
+    JSON: any
+    AbsoluteOrRelativeURL: string
+    HexColor: string
+    RelativeURL: string
+    URL: string
+  strictScalars: true
+  omitObjectTypes: false
+  preResolveTypes: true
+generates:
+  # use this to re-generate global types from schema
+  src/graphql/global-types.ts:
+    plugins:
+      - "@thoughtindustries/graphql-codegen-plugin"
+  src/:
+    preset: near-operation-file
+    presetConfig:
+      # use a reduced global types scoped for content
+      baseTypesPath: graphql/global-types.ts
+      extension: .generated.tsx
+    plugins:
+      - typescript-operations
+      - typescript-react-apollo
