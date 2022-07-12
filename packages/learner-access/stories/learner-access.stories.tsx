@@ -9,6 +9,8 @@ import {
   UserBookmarksDocument,
   UserBookmarksByFolderDocument,
   UserWaitlistDocument,
+  UpdateBookmarkFolderDocument,
+  UpdateBookmarkDocument,
   ContentGroupsDocument,
   ArchiveUserCourseDocument,
   UnenrollFromWaitlistDocument,
@@ -18,7 +20,9 @@ import {
   UserCourseCompletionProgressDocument,
   UserCourseProgressDocument,
   UserCourseAwardCountsDocument,
-  UserCourseCollaborationsDocument
+  UserCourseCollaborationsDocument,
+  DestroyBookmarkFolderDocument,
+  DestroyBookmarkDocument
 } from '@thoughtindustries/content';
 
 export default {
@@ -103,10 +107,10 @@ const mockData = [
   {
     __typename: 'Content',
     asset: null,
-    title: 'LL Video 0422',
+    title: 'LL Video ',
     sessionTitle: null,
     kind: 'video',
-    id: '7b505267-82c5-48a6-b35a-a4945e9b2efa',
+    id: '8b505267-82c5-48a6-b35a-a4945e9b2efa',
     slug: 'll-video-0422',
     meetingStartDate: null,
     contentTypeLabel: 'Video',
@@ -115,7 +119,7 @@ const mockData = [
     courseEndDate: null,
     coursePresold: false,
     description: null,
-    displayCourse: '7b505267-82c5-48a6-b35a-a4945e9b2efa',
+    displayCourse: '8b505267-82c5-48a6-b35a-a4945e9b2efa',
     displayCourseSlug: 'll-video-0422',
     displayDate: '2022-04-22T13:15:09.748Z',
     courseGracePeriodEnded: false,
@@ -312,7 +316,7 @@ const mockCurrentUserCertificates = [
   }
 ];
 
-let mockCurrentUserArchives = [
+const mockCurrentUserArchives = [
   {
     __typename: 'ArchivedContent',
     id: '67d8a83a-27ce-4c7b-bc3e-837d5c5e7374',
@@ -338,6 +342,11 @@ const mockCourseProgress: object[] = [
     totalViews: 4,
     updatedAt: '2022-06-09T00:02:17.547Z',
     user: '6f0dea03-c37a-49d0-8056-551d291e7d22'
+  },
+  {
+    percentComplete: 0,
+    totalTime: 0,
+    totalViews: 0
   }
 ];
 
@@ -359,30 +368,18 @@ const mockCourseCompletionProgress: any = [
     ],
     percent: 60,
     type: 'coursePercentViewed'
+  },
+  {
+    completed: [],
+    percent: 1,
+    required: [{ item: 0 }],
+    type: 'coursePercentViewed'
   }
-  // {
-  //   type: 'courseTopicViewed',
-  //   required: ['4e1a6562-8b03-449e-9005-2f333b430f10'],
-  //   completed: [],
-  //   percent: 0
-  // },
-  // {
-  //   type: 'scormComplete',
-  //   required: ['ae04e1c9-8e55-4f5d-ac20-b499ca1ef1aa'],
-  //   completed: ['ae04e1c9-8e55-4f5d-ac20-b499ca1ef1aa'],
-  //   percent: 100
-  // },
-  // {
-  //   type: 'xApiComplete',
-  //   required: ['933572bb-0ce9-4908-8953-813b51a5aea0'],
-  //   completed: [],
-  //   percent: 0
-  // }
 ];
 
 const mockCourseCollaborations = 0;
 
-const mockBookmarksByFolder: object[] = [
+const mockBookmarks: any = [
   {
     __typename: 'Bookmark',
     id: 'db95d894-d7cb-4751-b0cf-e15544de9d14',
@@ -433,17 +430,24 @@ const mockBookmarksByFolder: object[] = [
   }
 ];
 
-const mockBookmarkFoldersByUserAndCompany = [
+const mockBookmarkFoldersByUserAndCompany: any = [
   {
     __typename: 'BookmarkFolder',
     id: '4f7520aa-82b4-48c3-ba7c-b36c3e89f11a',
     name: 'My Bookmarks',
     defaultFolder: true,
-    bookmarkCount: mockBookmarksByFolder.length
+    bookmarkCount: mockBookmarks.length
+  },
+  {
+    __typename: 'BookmarkFolder',
+    id: '3f7520aa-82b4-48c3-ba7c-b36c3e89f11b',
+    name: 'My Bookmarks 2',
+    defaultFolder: true,
+    bookmarkCount: mockBookmarks.length
   }
 ];
 
-let mockWaitlistedData = [
+const mockWaitlistedData = [
   {
     __typename: 'Content',
     id: '4c071d33-16fa-4e30-9779-96f8e5e583b7',
@@ -585,6 +589,31 @@ const mockEvents = [
   }
 ];
 
+const mockExternal = [
+  {
+    id: 'uuid' + Math.random(),
+    type: 'Course',
+    label: 'Course certificate',
+    awardTypeId: 'uuid' + Math.random(),
+    awardType: {
+      __typename: 'Certificate',
+      id: 'uuid' + Math.random(),
+      pluralLabel: 'award label'
+    }
+  },
+  {
+    id: 'uuid' + Math.random(),
+    type: 'Course',
+    label: 'Course certificate',
+    awardTypeId: 'uuid' + Math.random(),
+    awardType: {
+      __typename: 'Certificate',
+      id: 'uuid' + Math.random(),
+      pluralLabel: 'award label'
+    }
+  }
+];
+
 const mockUserContentGroups = [
   { kind: 'contentItems', count: mockCurrentUserContentItems.length },
   { kind: 'eventItems', count: mockEvents.length },
@@ -597,29 +626,96 @@ const mockUserContentGroups = [
 ];
 
 const mockArchiveUserCourseFunc = (id: any, object: any) => {
-  const filterdItem = object.filter((item: any) => item.id === id)[0];
+  const filteredItem = object.filter((item: any) => item.id === id)[0];
   mockCurrentUserArchives.unshift({
     __typename: 'ArchivedContent',
-    id: filterdItem.id,
-    user: filterdItem + '-' + Math.random(),
+    id: filteredItem.id,
+    user: filteredItem + '-' + Math.random(),
     resource: Math.random().toString(),
-    resourceType: filterdItem.kind,
-    status: filterdItem.availabilityStatus,
+    resourceType: filteredItem.kind,
+    status: filteredItem.availabilityStatus,
     archivedAt: new Date().toString(),
-    name: filterdItem.displayCourseSlug || '',
+    name: filteredItem.displayCourseSlug || '',
     reinstatable: true,
     waitlistActive: false
   });
   object.shift();
 };
-const mockUnenrollFromWaitlistFunc = (id: any) => {
-  mockWaitlistedData = mockWaitlistedData.filter(item => item.id !== id);
+const mockUnenrollFromWaitlistFunc = (id: string) => {
+  const filtered = mockWaitlistedData.filter((item: any) => item.id !== id);
+  mockWaitlistedData.splice(0, mockWaitlistedData.length, ...filtered);
+};
+
+const destroyBookmarkFolderFunc = (id: string) => {
+  const filtered = mockBookmarkFoldersByUserAndCompany.filter((item: any) => item.id != id);
+  mockBookmarkFoldersByUserAndCompany.splice(
+    0,
+    mockBookmarkFoldersByUserAndCompany.length,
+    ...filtered
+  );
+};
+
+const updateBookmarkFolderFunc = (id: string, name: string) => {
+  const updatedData = mockBookmarkFoldersByUserAndCompany.map((item: any) =>
+    item.id == id ? { ...item, name } : item
+  );
+  console.log('updated folder', updatedData);
+  mockBookmarkFoldersByUserAndCompany.splice(
+    0,
+    mockBookmarkFoldersByUserAndCompany.length,
+    ...updatedData
+  );
+};
+
+const destroyBookmarkFunc = (id: string) => {
+  const filtered = mockBookmarks.filter((item: any) => item.id != id);
+  mockBookmarks.splice(0, mockBookmarks.length, ...filtered);
+};
+
+const updateBookmarkFunc = (id: string, note: string, bookmarkFolder: string) => {
+  const updatedData = mockBookmarks.map((item: any) =>
+    item.id == id ? { ...item, note: note, bookmarkFolder: bookmarkFolder } : item
+  );
+  console.log('updated bookmark', updatedData);
+  mockBookmarks.splice(0, mockBookmarks.length, ...updatedData);
 };
 
 const mockReinstateUserCourseFunc = (id: any) => {
-  mockCurrentUserArchives = mockCurrentUserArchives.filter(item => item.id !== id);
-  // const itemsToReinstate: any = mockCurrentUserArchives.filter(item => item.id !== id);
-  // mockCurrentUserContentItems.push(itmesToReinstate);
+  const itemsToReinstate = mockCurrentUserArchives.filter(item => item.id == id);
+
+  const remainingData: any = mockCurrentUserArchives.filter(item => item.id !== id);
+  console.log('itemsToReinstate', itemsToReinstate);
+  mockCurrentUserContentItems.push({
+    __typename: 'Content',
+    asset: null,
+    title: itemsToReinstate[0].name,
+    sessionTitle: null,
+    kind: 'video',
+    id: itemsToReinstate[0].id,
+    slug: 'll-video-0422',
+    meetingStartDate: null,
+    contentTypeLabel: 'Video',
+    availabilityStatus: 'not-started',
+    courseStartDate: '2022-04-22T13:15:09.748Z',
+    courseEndDate: null,
+    coursePresold: false,
+    description: null,
+    displayCourse: '7b505267-82c5-48a6-b35a-a4945e9b2efa',
+    displayCourseSlug: 'll-video-0422',
+    displayDate: '2022-04-22T13:15:09.748Z',
+    courseGracePeriodEnded: false,
+    authors: [],
+    publishDate: '2022-04-22T13:15:09.748Z',
+    source: null,
+    expiresAt: null,
+    currentUserMayReschedule: false,
+    timeZone: 'America/Chicago',
+    embeddedEnabled: false,
+    currentUserUnmetCoursePrerequisites: [],
+    currentUserUnmetLearningPathPrerequisites: []
+  });
+
+  mockCurrentUserArchives.splice(0, mockCurrentUserArchives.length, ...remainingData);
 };
 // use the options to bypass mocking full payload of responses
 const mockedApolloProviderOptions = {
@@ -627,465 +723,489 @@ const mockedApolloProviderOptions = {
   query: { fetchPolicy: 'no-cache' as const }
 };
 
-const apolloBaseParams = {
-  addTypename: false,
-  defaultOptions: mockedApolloProviderOptions
-};
+const mockApolloResultsFactoryQuery = (
+  documents: any,
+  mockDataSet: any,
+  key: string,
+  variables: object
+) => ({
+  request: {
+    query: documents,
+    variables
+  },
+  result: {
+    data: {
+      [key]: mockDataSet || []
+    }
+  },
+  newData: () => ({
+    data: {
+      [key]: mockDataSet || []
+    }
+  })
+});
+
+// const mockApolloResultsFactoryMutation = (
+//   returnRelatedProducts: boolean,
+//   mockData: any,
+//   documents: any,
+//   productIds: string[],
+//   courseIds: string[]
+// ) => ({
+//   request: {
+//     query: documents,
+//     variables: {
+//       productIds,
+//       courseIds
+//     }
+//   },
+//   result: {
+//     data: {
+//       RelatedProducts: returnRelatedProducts ? [...mockData] : []
+//     }
+//   },
+//   newData: () => ({
+//     data: {
+//       RelatedProducts: returnRelatedProducts ? [...mockData] : []
+//     }
+//   })
+// });
+
+const mockApolloResults = [
+  mockApolloResultsFactoryQuery(
+    UserContentItemsDocument,
+    mockCurrentUserContentItems,
+    'UserContentItems',
+    {
+      query: '',
+      kind: ['courseGroup', 'article', 'video', 'shareableContentObject', 'xApiObject'],
+      sort: ''
+    }
+  ),
+  mockApolloResultsFactoryQuery(UserContentItemsDocument, mockEvents, 'UserContentItems', {
+    query: '',
+    kind: ['webinar', 'webinarCourse', 'inPersonEvent', 'inPersonEventCourse'],
+    sort: 'displayDate'
+  }),
+  mockApolloResultsFactoryQuery(UserContentItemsDocument, mockLearningPaths, 'UserContentItems', {
+    query: '',
+    kind: ['learningPath'],
+    sort: ''
+  }),
+  mockApolloResultsFactoryQuery(UserContentItemsDocument, mockCompletedItems, 'UserContentItems', {
+    query: '',
+    kind: [
+      'learningPath',
+      'courseGroup',
+      'article',
+      'video',
+      'shareableContentObject',
+      'xApiObject',
+      'webinar',
+      'webinarCourse',
+      'inPersonEvent',
+      'inPersonEventCourse'
+    ],
+    sort: ''
+  }),
+  mockApolloResultsFactoryQuery(
+    UserArchivesDocument,
+    mockCurrentUserArchives,
+    'CurrentUserArchives',
+    {}
+  ),
+  mockApolloResultsFactoryQuery(
+    UserCertificatesDocument,
+    mockCurrentUserCertificates,
+    'CurrentUserCertificates',
+    {
+      query: defaultProps.query,
+      includeExpiredCertificates: defaultProps.displayExpiredCertificateInformation
+    }
+  ),
+  mockApolloResultsFactoryQuery(
+    UserWaitlistDocument,
+    mockWaitlistedData,
+    'WaitlistedContentForCurrentUser',
+    {}
+  ),
+  mockApolloResultsFactoryQuery(
+    UserBookmarksDocument,
+    mockBookmarkFoldersByUserAndCompany,
+    'UserBookmarks',
+    {}
+  ),
+  mockApolloResultsFactoryQuery(
+    UserBookmarksByFolderDocument,
+    mockBookmarks,
+    'UserBookmarksByFolder',
+    { id: '' }
+  ),
+  mockApolloResultsFactoryQuery(ContentGroupsDocument, mockUserContentGroups, 'UserContentGroups', {
+    query: '',
+    includeExpiredCertificates: defaultProps.displayExpiredCertificateInformation
+  }),
+  mockApolloResultsFactoryQuery(
+    UserCourseCompletionProgressDocument,
+    mockCourseCompletionProgress,
+    'UserCourseCompletionProgress',
+    { id: '' }
+  ),
+  mockApolloResultsFactoryQuery(UserCourseAwardCountsDocument, mockAwardCounts, 'awardCounts', {
+    id: ''
+  }),
+  mockApolloResultsFactoryQuery(
+    UserCourseCollaborationsDocument,
+    mockCourseCollaborations,
+    'courseCollaborations',
+    { id: '' }
+  ),
+  {
+    request: {
+      query: UserCourseProgressDocument,
+      variables: {
+        id: ''
+      },
+      result: {
+        data: {
+          ...mockCourseProgress
+        }
+      }
+    },
+    newData: () => ({
+      data: {
+        ...mockCourseProgress
+      }
+    })
+  },
+
+  // ArchiveUserCourse mockCurrentUserContentItems Mutations
+  {
+    request: {
+      query: ArchiveUserCourseDocument,
+      variables: {
+        id: mockCurrentUserContentItems[0].id
+      }
+    },
+    result: () => ({
+      data: {
+        ArchiveUserCourse: 'uuid-' + Math.random()
+      },
+      return: mockArchiveUserCourseFunc(
+        mockCurrentUserContentItems[0].id,
+        mockCurrentUserContentItems
+      )
+    })
+  },
+  {
+    request: {
+      query: ArchiveUserCourseDocument,
+      variables: {
+        id: mockCurrentUserContentItems[1].id
+      }
+    },
+    result: () => ({
+      data: {
+        ArchiveUserCourse: 'uuid-' + Math.random()
+      },
+      return: mockArchiveUserCourseFunc(
+        mockCurrentUserContentItems[1].id,
+        mockCurrentUserContentItems
+      )
+    })
+  },
+  {
+    request: {
+      query: ArchiveUserCourseDocument,
+      variables: {
+        id: mockCurrentUserContentItems[2].id
+      }
+    },
+    result: () => ({
+      data: {
+        ArchiveUserCourse: 'uuid-' + Math.random()
+      },
+      return: mockArchiveUserCourseFunc(
+        mockCurrentUserContentItems[2].id,
+        mockCurrentUserContentItems
+      )
+    })
+  },
+  {
+    request: {
+      query: ArchiveUserCourseDocument,
+      variables: {
+        id: mockCurrentUserContentItems[3].id
+      }
+    },
+    result: () => ({
+      data: {
+        ArchiveUserCourse: 'uuid-' + Math.random()
+      },
+      return: mockArchiveUserCourseFunc(
+        mockCurrentUserContentItems[3].id,
+        mockCurrentUserContentItems
+      )
+    })
+  },
+  // ArchiveUserCourse mockLearningPaths Mutations
+  {
+    request: {
+      query: ArchiveUserLearningPathDocument,
+      variables: {
+        id: mockLearningPaths[0].id
+      }
+    },
+    result: () => ({
+      data: {
+        ArchiveUserLearningPath: 'uuid-' + Math.random()
+      },
+      return: mockArchiveUserCourseFunc(mockLearningPaths[0].id, mockLearningPaths)
+    })
+  },
+  {
+    request: {
+      query: ArchiveUserLearningPathDocument,
+      variables: {
+        id: mockLearningPaths[1].id
+      }
+    },
+    result: () => ({
+      data: {
+        ArchiveUserLearningPath: 'uuid-' + Math.random()
+      },
+      return: mockArchiveUserCourseFunc(mockLearningPaths[1].id, mockLearningPaths)
+    })
+  },
+  {
+    request: {
+      query: ArchiveUserLearningPathDocument,
+      variables: {
+        id: mockLearningPaths[2].id
+      }
+    },
+    result: () => ({
+      data: {
+        ArchiveUserLearningPath: 'uuid-' + Math.random()
+      },
+      return: mockArchiveUserCourseFunc(mockLearningPaths[2].id, mockLearningPaths)
+    })
+  },
+  // ReinstateUserCourse Mutation
+  {
+    request: {
+      query: ReinstateUserCourseDocument,
+      variables: {
+        id: mockCurrentUserArchives[0].id
+      }
+    },
+    result: () => ({
+      data: {
+        ReinstateUserCourse: 'uuid-' + Math.random()
+      },
+      return: mockReinstateUserCourseFunc(mockCurrentUserArchives[0].id)
+    })
+  },
+  // ArchiveUserCourse mockEvents Mutations
+  {
+    request: {
+      query: ArchiveUserCourseDocument,
+      variables: {
+        id: mockEvents[0].id
+      }
+    },
+    result: () => ({
+      data: {
+        ArchiveUserCourse: 'uuid-' + Math.random()
+      },
+      return: mockArchiveUserCourseFunc(mockEvents[0].id, mockEvents)
+    })
+  },
+  {
+    request: {
+      query: ArchiveUserCourseDocument,
+      variables: {
+        id: mockEvents[1].id
+      }
+    },
+    result: () => ({
+      data: {
+        ArchiveUserCourse: 'uuid-' + Math.random()
+      },
+      return: mockArchiveUserCourseFunc(mockEvents[1].id, mockEvents)
+    })
+  },
+  {
+    request: {
+      query: ArchiveUserCourseDocument,
+      variables: {
+        id: mockEvents[2].id
+      }
+    },
+    result: () => ({
+      data: {
+        ArchiveUserCourse: 'uuid-' + Math.random()
+      },
+      return: mockArchiveUserCourseFunc(mockEvents[2].id, mockEvents)
+    })
+  },
+  // waitlist mutation
+  {
+    request: {
+      query: UnenrollFromWaitlistDocument,
+      variables: {
+        id: mockWaitlistedData[0].id
+      }
+    },
+    result: () => ({
+      data: { UnenrollFromWaitlist: true },
+      return: mockUnenrollFromWaitlistFunc(mockWaitlistedData[0].id)
+    })
+  },
+  {
+    request: {
+      query: UnenrollFromWaitlistDocument,
+      variables: {
+        id: mockWaitlistedData[1].id
+      }
+    },
+    result: () => ({
+      data: { UnenrollFromWaitlist: true },
+      return: mockUnenrollFromWaitlistFunc(mockWaitlistedData[1].id)
+    })
+  },
+  {
+    request: {
+      query: UnenrollFromWaitlistDocument,
+      variables: {
+        id: mockWaitlistedData[2].id
+      }
+    },
+    result: () => ({
+      data: { UnenrollFromWaitlist: true },
+      return: mockUnenrollFromWaitlistFunc(mockWaitlistedData[2].id)
+    })
+  },
+  // DestroyBookmarkFolder mutation
+  {
+    request: {
+      query: DestroyBookmarkFolderDocument,
+      variables: {
+        id: mockBookmarkFoldersByUserAndCompany[0].id
+      }
+    },
+    result: () => ({
+      data: { DestroyBookmarkFolder: 'test-id' },
+      return: destroyBookmarkFolderFunc(mockBookmarkFoldersByUserAndCompany[0].id)
+    })
+  },
+  {
+    request: {
+      query: DestroyBookmarkFolderDocument,
+      variables: {
+        id: mockBookmarkFoldersByUserAndCompany[1].id
+      }
+    },
+    result: () => ({
+      data: { DestroyBookmarkFolder: 'test-id' },
+      return: destroyBookmarkFolderFunc(mockBookmarkFoldersByUserAndCompany[1].id)
+    })
+  },
+  // DestroyBookmark mutation
+  {
+    request: {
+      query: DestroyBookmarkDocument,
+      variables: {
+        id: mockBookmarks[0].id
+      }
+    },
+    result: () => ({
+      data: { DestroyBookmark: 'test-id' },
+      return: destroyBookmarkFunc(mockBookmarks[0].id)
+    })
+  },
+  {
+    request: {
+      query: DestroyBookmarkDocument,
+      variables: {
+        id: mockBookmarks[1].id
+      }
+    },
+    result: () => ({
+      data: { DestroyBookmark: 'test-id' },
+      return: destroyBookmarkFunc(mockBookmarks[1].id)
+    })
+  },
+  // UpdateBookmarkFolder mutation
+  {
+    request: {
+      query: UpdateBookmarkFolderDocument,
+      variables: {
+        id: mockBookmarkFoldersByUserAndCompany[0].id,
+        name: 'test-name'
+      }
+    },
+    result: () => ({
+      data: { UpdateBookmarkFolder: { id: 'test-id', __typename: 'BookmarkFolder' } },
+      return: updateBookmarkFolderFunc(mockBookmarkFoldersByUserAndCompany[0].id, 'test name')
+    })
+  },
+  {
+    request: {
+      query: UpdateBookmarkFolderDocument,
+      variables: {
+        id: mockBookmarkFoldersByUserAndCompany[1].id,
+        name: 'test-name'
+      }
+    },
+    result: () => ({
+      data: { UpdateBookmarkFolder: { id: 'test-id', __typename: 'BookmarkFolder' } },
+      return: updateBookmarkFolderFunc(mockBookmarkFoldersByUserAndCompany[1].id, 'test name')
+    })
+  },
+  // UpdateBookmark mutation
+  {
+    request: {
+      query: UpdateBookmarkDocument,
+      variables: {
+        id: mockBookmarks[0].id,
+        note: 'test note',
+        bookmarkFolder: mockBookmarks[0].course.courseGroup.id
+      }
+    },
+    result: () => ({
+      data: { UpdateBookmark: { id: 'test-id', __typename: 'Bookmark' } },
+      return: updateBookmarkFunc(
+        mockBookmarks[0].id,
+        'test-note',
+        mockBookmarks[0].course.courseGroup.id
+      )
+    })
+  },
+  {
+    request: {
+      query: UpdateBookmarkDocument,
+      variables: {
+        id: mockBookmarks[1].id,
+        note: 'test note',
+        bookmarkFolder: mockBookmarks[1].course.courseGroup.id
+      }
+    },
+    result: () => ({
+      data: { UpdateBookmark: { id: 'test-id', __typename: 'Bookmark' } },
+      return: updateBookmarkFunc(
+        mockBookmarks[1].id,
+        'test-note',
+        mockBookmarks[1].course.courseGroup.id
+      )
+    })
+  }
+];
 
 Base.parameters = {
   apolloClient: {
-    ...apolloBaseParams,
-    mocks: [
-      // Queries
-      {
-        request: {
-          query: UserContentItemsDocument,
-          variables: {
-            query: '',
-            kind: ['courseGroup', 'article', 'video', 'shareableContentObject', 'xApiObject'],
-            sort: ''
-          }
-        },
-        result: {
-          data: {
-            UserContentItems: [...mockCurrentUserContentItems]
-          }
-        },
-        newData: () => ({
-          data: {
-            UserContentItems: [...mockCurrentUserContentItems]
-          }
-        })
-      },
-      {
-        request: {
-          query: UserContentItemsDocument,
-          variables: {
-            query: '',
-            kind: ['webinar', 'webinarCourse', 'inPersonEvent', 'inPersonEventCourse'],
-            sort: 'displayDate'
-          }
-        },
-        result: {
-          data: {
-            UserContentItems: [...mockEvents]
-          }
-        },
-        newData: () => ({
-          data: {
-            UserContentItems: [...mockEvents]
-          }
-        })
-      },
-      {
-        request: {
-          query: UserContentItemsDocument,
-          variables: {
-            query: '',
-            kind: ['learningPath'],
-            sort: ''
-          }
-        },
-        result: {
-          data: {
-            UserContentItems: [...mockLearningPaths]
-          }
-        },
-        newData: () => ({
-          data: {
-            UserContentItems: [...mockLearningPaths]
-          }
-        })
-      },
-      {
-        request: {
-          query: UserContentItemsDocument,
-          variables: {
-            query: '',
-            kind: [
-              'learningPath',
-              'courseGroup',
-              'article',
-              'video',
-              'shareableContentObject',
-              'xApiObject',
-              'webinar',
-              'webinarCourse',
-              'inPersonEvent',
-              'inPersonEventCourse'
-            ],
-            sort: ''
-          }
-        },
-        result: {
-          data: {
-            UserContentItems: [...mockCompletedItems]
-          }
-        },
-        newData: () => ({
-          data: {
-            UserContentItems: [...mockCompletedItems]
-          }
-        })
-      },
-      {
-        request: {
-          query: UserArchivesDocument,
-          variables: {}
-        },
-        result: {
-          data: {
-            CurrentUserArchives: [...mockCurrentUserArchives]
-          }
-        },
-        newData: () => ({
-          data: {
-            CurrentUserArchives: [...mockCurrentUserArchives]
-          }
-        })
-      },
-      {
-        request: {
-          query: UserCertificatesDocument,
-          variables: {
-            query: defaultProps.query,
-            includeExpiredCertificates: defaultProps.displayExpiredCertificateInformation
-          }
-        },
-        result: {
-          data: { CurrentUserCertificates: [...mockCurrentUserCertificates] }
-        },
-        newData: () => ({
-          data: { CurrentUserCertificates: [...mockCurrentUserCertificates] }
-        })
-      },
-      {
-        request: {
-          query: UserWaitlistDocument,
-          variables: {}
-        },
-        result: {
-          data: { WaitlistedContentForCurrentUser: [...mockWaitlistedData] }
-        },
-        newData: () => ({
-          data: { WaitlistedContentForCurrentUser: [...mockWaitlistedData] }
-        })
-      },
-      {
-        request: {
-          query: UserBookmarksDocument,
-          variables: {}
-        },
-        result: {
-          data: {
-            BookmarkFoldersByUserAndCompany: [...mockBookmarkFoldersByUserAndCompany]
-          }
-        },
-        newData: () => ({
-          data: {
-            BookmarkFoldersByUserAndCompany: [...mockBookmarkFoldersByUserAndCompany]
-          }
-        })
-      },
-      {
-        request: {
-          query: UserBookmarksByFolderDocument,
-          variables: {
-            id: ''
-          }
-        },
-        result: {
-          data: {
-            BookmarksByFolder: [...mockBookmarksByFolder]
-          }
-        },
-        newData: () => ({
-          data: {
-            BookmarksByFolder: [...mockBookmarksByFolder]
-          }
-        })
-      },
-      {
-        request: {
-          query: ContentGroupsDocument,
-          variables: {
-            query: '',
-            includeExpiredCertificates: defaultProps.displayExpiredCertificateInformation
-          }
-        },
-        result: {
-          data: {
-            UserContentGroups: [...mockUserContentGroups]
-          }
-        },
-        newData: () => ({
-          data: {
-            UserContentGroups: [...mockUserContentGroups]
-          }
-        })
-      }, // CourseCompletionProgress Query
-      {
-        request: {
-          query: UserCourseCompletionProgressDocument,
-          variables: {
-            id: ''
-          }
-        },
-        result: {
-          data: {
-            criteriaProgress: [...mockCourseCompletionProgress]
-          }
-        }
-      },
-      //  AwardCounts Query
-      {
-        request: {
-          query: UserCourseAwardCountsDocument,
-          variables: {
-            id: ''
-          }
-        },
-        result: {
-          data: {
-            awardCounts: [...mockAwardCounts]
-          }
-        }
-      },
-      //  CourseCollaboration Query
-      {
-        request: {
-          query: UserCourseCollaborationsDocument,
-          variables: {
-            id: ''
-          }
-        },
-        result: {
-          data: {
-            courseCollaborations: [mockCourseCollaborations]
-          }
-        }
-      },
-      // CourseProgress Query
-      {
-        request: {
-          query: UserCourseProgressDocument,
-          variables: {
-            id: ''
-          }
-        },
-        result: {
-          data: {
-            courseProgress: [...mockCourseProgress]
-          }
-        }
-      },
-      // ArchiveUserCourse mockCurrentUserContentItems Mutations
-      {
-        request: {
-          query: ArchiveUserCourseDocument,
-          variables: {
-            id: mockCurrentUserContentItems[0].id
-          }
-        },
-        result: () => ({
-          data: {
-            ArchiveUserCourse: 'uuid-' + Math.random()
-          },
-          return: mockArchiveUserCourseFunc(
-            mockCurrentUserContentItems[0].id,
-            mockCurrentUserContentItems
-          )
-        })
-      },
-      {
-        request: {
-          query: ArchiveUserCourseDocument,
-          variables: {
-            id: mockCurrentUserContentItems[1].id
-          }
-        },
-        result: () => ({
-          data: {
-            ArchiveUserCourse: 'uuid-' + Math.random()
-          },
-          return: mockArchiveUserCourseFunc(
-            mockCurrentUserContentItems[1].id,
-            mockCurrentUserContentItems
-          )
-        })
-      },
-      {
-        request: {
-          query: ArchiveUserCourseDocument,
-          variables: {
-            id: mockCurrentUserContentItems[2].id
-          }
-        },
-        result: () => ({
-          data: {
-            ArchiveUserCourse: 'uuid-' + Math.random()
-          },
-          return: mockArchiveUserCourseFunc(
-            mockCurrentUserContentItems[2].id,
-            mockCurrentUserContentItems
-          )
-        })
-      },
-      {
-        request: {
-          query: ArchiveUserCourseDocument,
-          variables: {
-            id: mockCurrentUserContentItems[3].id
-          }
-        },
-        result: () => ({
-          data: {
-            ArchiveUserCourse: 'uuid-' + Math.random()
-          },
-          return: mockArchiveUserCourseFunc(
-            mockCurrentUserContentItems[3].id,
-            mockCurrentUserContentItems
-          )
-        })
-      },
-      // ArchiveUserCourse mockLearningPaths Mutations
-      {
-        request: {
-          query: ArchiveUserLearningPathDocument,
-          variables: {
-            id: mockLearningPaths[0].id
-          }
-        },
-        result: () => ({
-          data: {
-            ArchiveUserLearningPath: 'uuid-' + Math.random()
-          },
-          return: mockArchiveUserCourseFunc(mockLearningPaths[0].id, mockLearningPaths)
-        })
-      },
-      {
-        request: {
-          query: ArchiveUserLearningPathDocument,
-          variables: {
-            id: mockLearningPaths[1].id
-          }
-        },
-        result: () => ({
-          data: {
-            ArchiveUserLearningPath: 'uuid-' + Math.random()
-          },
-          return: mockArchiveUserCourseFunc(mockLearningPaths[1].id, mockLearningPaths)
-        })
-      },
-      {
-        request: {
-          query: ArchiveUserLearningPathDocument,
-          variables: {
-            id: mockLearningPaths[2].id
-          }
-        },
-        result: () => ({
-          data: {
-            ArchiveUserLearningPath: 'uuid-' + Math.random()
-          },
-          return: mockArchiveUserCourseFunc(mockLearningPaths[2].id, mockLearningPaths)
-        })
-      },
-      // ReinstateUserCourse Mutation
-      {
-        request: {
-          query: ReinstateUserCourseDocument,
-          variables: {
-            id: mockCurrentUserArchives[0].id
-          }
-        },
-        result: () => ({
-          data: {
-            ReinstateUserCourse: 'uuid-' + Math.random()
-          },
-          return: mockReinstateUserCourseFunc(mockCurrentUserArchives[0].id)
-        })
-      },
-      // ArchiveUserCourse mockEvents Mutations
-      {
-        request: {
-          query: ArchiveUserCourseDocument,
-          variables: {
-            id: mockEvents[0].id
-          }
-        },
-        result: () => ({
-          data: {
-            ArchiveUserCourse: 'uuid-' + Math.random()
-          },
-          return: mockArchiveUserCourseFunc(mockEvents[0].id, mockEvents)
-        })
-      },
-      {
-        request: {
-          query: ArchiveUserCourseDocument,
-          variables: {
-            id: mockEvents[1].id
-          }
-        },
-        result: () => ({
-          data: {
-            ArchiveUserCourse: 'uuid-' + Math.random()
-          },
-          return: mockArchiveUserCourseFunc(mockEvents[1].id, mockEvents)
-        })
-      },
-      {
-        request: {
-          query: ArchiveUserCourseDocument,
-          variables: {
-            id: mockEvents[2].id
-          }
-        },
-        result: () => ({
-          data: {
-            ArchiveUserCourse: 'uuid-' + Math.random()
-          },
-          return: mockArchiveUserCourseFunc(mockEvents[2].id, mockEvents)
-        })
-      },
-      // waitlist mutaion
-      {
-        request: {
-          query: UnenrollFromWaitlistDocument,
-          variables: {
-            id: mockWaitlistedData[0].id
-          }
-        },
-        result: () => ({
-          data: { UnenrollFromWaitlist: true },
-          return: mockUnenrollFromWaitlistFunc(mockWaitlistedData[0].id)
-        })
-      },
-      {
-        request: {
-          query: UnenrollFromWaitlistDocument,
-          variables: {
-            id: mockWaitlistedData[1].id
-          }
-        },
-        result: () => ({
-          data: { UnenrollFromWaitlist: true },
-          return: mockUnenrollFromWaitlistFunc(mockWaitlistedData[1].id)
-        })
-      },
-      {
-        request: {
-          query: UnenrollFromWaitlistDocument,
-          variables: {
-            id: mockWaitlistedData[2].id
-          }
-        },
-        result: () => ({
-          data: { UnenrollFromWaitlist: true },
-          return: mockUnenrollFromWaitlistFunc(mockWaitlistedData[2].id)
-        })
-      }
-    ]
+    addTypename: false,
+    defaultOptions: mockedApolloProviderOptions,
+    mocks: mockApolloResults
   }
 };

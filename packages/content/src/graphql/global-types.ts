@@ -1302,7 +1302,7 @@ export type Product = {
   alternativePricingRef?: Maybe<Scalars['Int']>;
   alternativePricingType?: Maybe<AlternativePricingType>;
   asset?: Maybe<Scalars['URL']>;
-  id?: Maybe<Scalars['ID']>;
+  id: Scalars['ID'];
   language?: Maybe<Scalars['String']>;
   longDescription?: Maybe<Scalars['String']>;
   name?: Maybe<Scalars['String']>;
@@ -1428,7 +1428,9 @@ export enum Status {
 export type Tag = {
   __typename?: 'Tag';
   id: Scalars['ID'];
+  isFolder: Scalars['Boolean'];
   label?: Maybe<Scalars['String']>;
+  updatedAt?: Maybe<Scalars['Date']>;
 };
 
 export type Testimonial = {
