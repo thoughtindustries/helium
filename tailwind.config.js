@@ -45,7 +45,8 @@ module.exports = {
         link: '#a9a9a9',
         hover: '#236c96',
         active: {
-          blue: '#311ac9'
+          blue: '#311ac9',
+          blueTinted: '#798cff'
         },
         'accent-highlight': '#111111',
         'accent-highlight-background': '#dddddd',
