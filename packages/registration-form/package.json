@@ -11,7 +11,7 @@
     "url": "git+https://github.com/thoughtindustries/helium.git"
   },
   "author": "Blake Reimer <blake.reimer@thoughtindustries.com>",
-  "license": "ISC",
+  "license": "MIT",
   "bugs": {
     "url": "https://github.com/thoughtindustries/helium/issues"
   },

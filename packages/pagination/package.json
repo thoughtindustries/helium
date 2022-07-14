@@ -4,7 +4,7 @@
   "description": "A base component for pagination",
   "author": "Lu Jiang <lu.jiang@thoughtindustries.com>",
   "homepage": "https://github.com/thoughtindustries/helium#readme",
-  "license": "ISC",
+  "license": "MIT",
   "main": "src/index.ts",
   "files": [
     "src"
