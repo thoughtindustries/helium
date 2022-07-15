@@ -9,4 +9,5 @@ node_modules
 dist
 *.local
 renderer/tailwind.css
+locales/translations.json
 ti-config.json
