@@ -4,7 +4,7 @@
       "name": "Query"
     },
     "mutationType": {
-      "name": "RedeemRedemptionCode"
+      "name": "ValidateRedemptionCode"
     },
     "subscriptionType": null,
     "types": [
@@ -117,7 +117,7 @@
             "deprecationReason": null
           },
           {
-            "name": "RedeemRedemptionCode",
+            "name": "ValidateRedemptionCode",
             "description": null,
             "args": [
               {
@@ -139,7 +139,7 @@
             ],
             "type": {
               "kind": "OBJECT",
-              "name": "RedeemRedemptionCode",
+              "name": "ValidateRedemptionCode",
               "ofType": null
             },
             "isDeprecated": false,
@@ -251,7 +251,7 @@
       },
       {
         "kind": "OBJECT",
-        "name": "RedeemRedemptionCode",
+        "name": "ValidateRedemptionCode",
         "description": null,
         "fields": [
           {

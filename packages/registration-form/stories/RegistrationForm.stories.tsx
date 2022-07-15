@@ -1,6 +1,6 @@
 import { Story } from '@storybook/react';
 import React from 'react';
-import { Redemption, RedeemRedemptionCodeDocument } from '../src';
+import { Redemption, ValidateRedemptionCodeDocument } from '../src';
 
 export default {
   title: 'Example/Redemption',
@@ -14,7 +14,7 @@ const mockApolloResultsFactory = (
   codeExpired: boolean
 ) => ({
   request: {
-    query: RedeemRedemptionCodeDocument,
+    query: ValidateRedemptionCodeDocument,
     variables: {
       code
     }

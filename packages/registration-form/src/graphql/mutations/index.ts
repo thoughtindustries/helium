@@ -1,1 +1,1 @@
-export * from './RedeemRedemptionCode.generated';
+export * from './ValidateRedemptionCode.generated';
