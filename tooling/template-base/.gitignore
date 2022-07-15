@@ -8,5 +8,6 @@ node_modules
 .DS_Store
 dist
 *.local
+renderer/tailwind.css
 locales/translations.json
 ti-config.json
