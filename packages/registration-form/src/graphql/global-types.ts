@@ -26,6 +26,11 @@ export type Scalars = {
   URL: string;
 };
 
+export type RedeemedRegistrationRedemptionResult = {
+  __typename?: 'RedeemedRegistrationRedemptionResult';
+  redeemed: Scalars['Boolean'];
+};
+
 export type ValidateRedemptionCodeResult = {
   __typename?: 'ValidateRedemptionCodeResult';
   alreadyRedeemed: Scalars['Boolean'];

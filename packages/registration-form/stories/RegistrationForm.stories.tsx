@@ -21,7 +21,7 @@ const mockApolloResultsFactory = (
   },
   result: {
     data: {
-      RedeemRedemptionCode: {
+      ValidateRedemptionCode: {
         valid,
         alreadyRedeemed,
         codeExpired
