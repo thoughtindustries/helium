@@ -7,7 +7,7 @@ const Redemption = (): JSX.Element => {
   const [response, setResponse] = useState<Props>();
 
   return (
-    <form className="mx-4 md:mx-40 text-center self-center">
+    <form>
       <Banner
         valid={response?.valid}
         alreadyRedeemed={response?.alreadyRedeemed}
