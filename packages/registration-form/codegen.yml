@@ -20,7 +20,7 @@ generates:
   # use this to re-generate global types from schema
   src/graphql/global-types.ts:
     plugins:
-      - "@thoughtindustries/graphql-codegen-plugin"
+      - '@thoughtindustries/graphql-codegen-plugin'
   src/:
     preset: near-operation-file
     presetConfig:

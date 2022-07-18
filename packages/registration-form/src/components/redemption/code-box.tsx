@@ -1,11 +1,11 @@
 import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { useRedeemRedemptionCodeMutation } from '../graphql';
+import { useValidateRedemptionCodeMutation } from '../../graphql';
 import { ResponseProps } from './types';
 
 const CodeBox = ({ setResponse }: ResponseProps): JSX.Element => {
   const { t } = useTranslation();
-  const [RedeemRedemptionCodeMutation, { loading }] = useRedeemRedemptionCodeMutation();
+  const [ValidateRedemptionCodeMutation, { loading }] = useValidateRedemptionCodeMutation();
   const [code, setCode] = useState<string>('');
   const [valid, setValid] = useState<boolean | undefined>();
 
@@ -14,11 +14,11 @@ const CodeBox = ({ setResponse }: ResponseProps): JSX.Element => {
   };
 
   const handleSubmit = async () => {
-    await RedeemRedemptionCodeMutation({ variables: { code: code } })
+    await ValidateRedemptionCodeMutation({ variables: { code: code } })
       .then(response => {
-        if (response && response.data && response.data.RedeemRedemptionCode) {
-          setResponse(response.data.RedeemRedemptionCode);
-          setValid(response.data.RedeemRedemptionCode?.valid);
+        if (response && response.data && response.data.ValidateRedemptionCode) {
+          setResponse(response.data.ValidateRedemptionCode);
+          setValid(response.data.ValidateRedemptionCode?.valid);
         }
       })
       .catch(error => console.log('Redemption Request Error: ', error));
