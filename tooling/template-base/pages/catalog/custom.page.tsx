@@ -1,7 +1,12 @@
 import React, { SyntheticEvent, useMemo } from 'react';
 import Layout from '../../components/Layout';
 import { usePageContext } from '../../renderer/usePageContext';
-import { Catalog, CatalogProvider, CatalogResultItem } from '@thoughtindustries/catalog';
+import {
+  CatalogResults,
+  Catalog,
+  CatalogProvider,
+  CatalogResultItem
+} from '@thoughtindustries/catalog';
 import { useAddResourceToQueueMutation } from '@thoughtindustries/content';
 import { Appearance, CurrentUser } from '../../types';
 
@@ -41,11 +46,7 @@ function CatalogItems() {
   );
 
   const [addResourceToQueue] = useAddResourceToQueueMutation();
-  const handleAddedToQueue = ({
-    slug,
-    kind,
-    displayCourse
-  }: CatalogResultItem): Promise<boolean | void> => {
+  const handleAddedToQueue = ({ slug, kind, displayCourse }: CatalogResultItem) => {
     const resourceId = displayCourse || slug;
     return resourceId
       ? addResourceToQueue({ variables: { resourceId, resourceType: kind } }).then()

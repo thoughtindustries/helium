@@ -27,8 +27,7 @@ function Page() {
   return (
     <>
       <CatalogNavBar/>
-      <Banner heading="Full Learning Catalog" subtext="Browse the full list of courses and learning paths."/>
-      <FilterAndCatalog/>
+      <Banner heading="My Dashboard" subtext="Your Dashboard is your game-changing collaborative space where you can view all of your learning in one place."/>
       <Footer/>
     </>
   );
