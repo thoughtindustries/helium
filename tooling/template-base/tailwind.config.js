@@ -37,9 +37,8 @@ module.exports = {
       '3xl': '2560px'
     },
     boxShadow: {
-      DEFAULT: '0 0 5px #4d90fe',
-      lg: '0 0 12px -2px rgba(0, 0, 0, 0.25)',
-      inner: 'inset 0 2px 2px rgb(0, 0, 0, 0.10);',
+      DEFAULT: '0px 0px 5px #4d90fe',
+      lg: '0px 0px 12px -2px rgba(0, 0, 0, 0.25)',
       none: 'none'
     },
     fontSize: {
