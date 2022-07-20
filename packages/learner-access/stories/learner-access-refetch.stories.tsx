@@ -158,6 +158,38 @@ const mockApolloUserWaitlistsResults = {
     }
   })
 };
+const mockApolloUserBookmarkFoldersResults = {
+  request: {
+    query: UserBookmarksDocument
+  },
+  result: {
+    data: {
+      UserWaitlist: repository.bookmarkFolderItems
+    }
+  },
+  newData: () => ({
+    data: {
+      UserWaitlist: repository.bookmarkFolderItems
+    }
+  })
+};
+
+const mockApolloUserBookmarksResults = {
+  request: {
+    query: UserBookmarksByFolderDocument
+  },
+  result: {
+    data: {
+      UserWaitlist: repository.bookmarkItems
+    }
+  },
+  newData: () => ({
+    data: {
+      UserWaitlist: repository.bookmarkItems
+    }
+  })
+};
+
 const mockApolloArchiveMutationFactory = (type: UserContentItemTypes) => {
   const mockMutations: any = [];
   const mutationFactory = (id: string, kind: GlobalTypes.ContentKind) => {
@@ -265,6 +297,7 @@ const mockApolloUnenrollWaitlistMutationFactory = () => {
   });
   return mockMutations;
 };
+
 const mockApolloQueryResults = [
   mockApolloUserContentGroupsResults,
   mockApolloUserContentItemsResultsFactory(UserContentItemTypes.MyLearning),
@@ -272,7 +305,9 @@ const mockApolloQueryResults = [
   mockApolloUserContentItemsResultsFactory(UserContentItemTypes.LearningPath),
   mockApolloUserContentItemsResultsFactory(UserContentItemTypes.Completed),
   mockApolloUserArchivesResults,
-  mockApolloUserWaitlistsResults
+  mockApolloUserWaitlistsResults,
+  mockApolloUserBookmarksResults,
+  mockApolloUserBookmarkFoldersResults
 ];
 const mockApolloResults = mockApolloQueryResults.concat(
   mockApolloArchiveMutationFactory(UserContentItemTypes.MyLearning),

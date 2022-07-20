@@ -3,7 +3,9 @@ import {
   UserContentItemsQuery,
   UserArchivesQuery,
   ContentGroupsQuery,
-  UserWaitlistQuery
+  UserWaitlistQuery,
+  UserBookmarksByFolderQuery,
+  UserBookmarksQuery
 } from '@thoughtindustries/content';
 
 type RequiredContentGroupsQuery = Required<ContentGroupsQuery>;
@@ -11,6 +13,19 @@ type UserContentGroup = RequiredContentGroupsQuery['UserContentGroups'][0];
 
 type RequiredUserContentItemsQuery = Required<UserContentItemsQuery>;
 type UserContentItem = RequiredUserContentItemsQuery['UserContentItems'][0];
+
+const getRandomId = (getSortId?: boolean) => {
+  if (getSortId) {
+    return '${(Math.random() + 1).toString(36).substring(7)}';
+  } else {
+    return `${(Math.random() + 1).toString(36).substring(7)}-${(Math.random() + 1)
+      .toString(36)
+      .substring(7)}-${(Math.random() + 1).toString(36).substring(7)}-${(Math.random() + 1)
+      .toString(36)
+      .substring(7)}-${(Math.random() + 1).toString(36).substring(7)}`;
+  }
+};
+
 const mockUserContentItemFactory = (
   id: string,
   kind: GlobalTypes.ContentKind,
@@ -78,6 +93,43 @@ const toUserArchivedItem = ({ id, title, kind }: UserContentItem): UserArchivedI
   waitlistActive: false
 });
 
+type RequiredUserBookmarksByFolderQuery = Required<UserBookmarksByFolderQuery>;
+type UserBookmarks = RequiredUserBookmarksByFolderQuery['UserBookmarksByFolder']['0'];
+const mockUserBookmarks = (id: string): UserBookmarks => ({
+  __typename: 'Bookmark',
+  id,
+  course: {
+    __typename: 'Course',
+    id: getRandomId(),
+    title: 'test Course',
+    slug: 'test-course',
+    status: GlobalTypes.Status['Published'],
+    courseGroup: {
+      __typename: 'CourseGroup',
+      id: getRandomId(),
+      authors: [],
+      source: '',
+      asset:
+        'https://d36ai2hkxl16us.cloudfront.net/thoughtindustries/image/upload/v1/course-uploads/3a131ac3-1a74-420d-b4da-ae10b18b2c68/5e88naxlo3py-manwritinginnotebookandlookingatcomputer.jpg',
+      kind: GlobalTypes.CourseGroupKind['CourseGroup'],
+      contentType: { __typename: 'ContentType', label: 'Course' }
+    }
+  },
+  topicId: getRandomId(),
+  note: 'Section-' + getRandomId(true),
+  createdAt: new Date().toISOString()
+});
+
+type RequiredUserBookmarksQuery = Required<UserBookmarksQuery>;
+type UserBookmarkFolders = RequiredUserBookmarksQuery['UserBookmarks'][0];
+const mockUserBookmarkFolders = (bookmarkCount: number): UserBookmarkFolders => ({
+  __typename: 'BookmarkFolder',
+  id: getRandomId(),
+  name: 'My Bookmark ' + getRandomId(true),
+  defaultFolder: true,
+  bookmarkCount
+});
+
 const toUserContentItem = ({ resource, resourceType }: UserArchivedItem): UserContentItem => ({
   ...mockUserContentItemFactory(resource as string, resourceType as GlobalTypes.ContentKind)
 });
@@ -93,6 +145,9 @@ export class LearnerAccessRepository {
   private _userContentItems: UserContentItem[];
   private _userArchivedItems: UserArchivedItem[];
   private _userWaitlistItems: UserWaitlistItem[];
+  private _userBookmarkFolderItems: UserBookmarkFolders[];
+  private _userBookmarkItems: UserBookmarks[];
+
   constructor() {
     const myLearningItemInProgress = mockUserContentItemFactory(
       '1',
@@ -115,6 +170,8 @@ export class LearnerAccessRepository {
     ];
     this._userArchivedItems = [mockUserArchivedItemFactory('5', GlobalTypes.ContentKind.Article)];
     this._userWaitlistItems = [mockUserWaitlistItemFactory('6', GlobalTypes.ContentKind.Course)];
+    this._userBookmarkItems = [mockUserBookmarks(getRandomId())];
+    this._userBookmarkFolderItems = [mockUserBookmarkFolders(this._userBookmarkItems.length)];
   }
 
   private _userContentItemMatcher(type: UserContentItemTypes) {
@@ -160,6 +217,14 @@ export class LearnerAccessRepository {
 
   get waitlistItems() {
     return this._userWaitlistItems;
+  }
+
+  get bookmarkItems() {
+    return this._userBookmarkItems;
+  }
+
+  get bookmarkFolderItems() {
+    return this._userBookmarkFolderItems;
   }
 
   get contentGroups() {
@@ -250,5 +315,25 @@ export class LearnerAccessRepository {
       this._userWaitlistItems.splice(matchingWaitlistItemIndex, 1);
     }
     return true;
+  }
+
+  destroyBookmarkFolder(id: string) {
+    const matchedBookmarkfolderItemIndex = this._userBookmarkFolderItems.findIndex(
+      ({ id: existingId }) => id === existingId
+    );
+    if (matchedBookmarkfolderItemIndex > -1) {
+      this._userBookmarkFolderItems.splice(matchedBookmarkfolderItemIndex, 1);
+    }
+    return id;
+  }
+
+  destroyBookmark(id: string) {
+    const matchedBookmarkItemIndex = this._userBookmarkItems.findIndex(
+      ({ id: existingId }) => id === existingId
+    );
+    if (matchedBookmarkItemIndex > -1) {
+      this._userBookmarkItems.splice(matchedBookmarkItemIndex, 1);
+    }
+    return id;
   }
 }

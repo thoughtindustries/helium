@@ -134,29 +134,6 @@ const CertificateUploadForm = ({ setShowForm }: CertificateUploadFormProps) => {
                     />
                   </div>
                 </div>
-                <div className="ember-view">
-                  <label>
-                    <span className="ember-view">
-                      <em>CEU&apos;s</em>
-                    </span>
-                  </label>
-                  <div className="ember-view">
-                    <div className="ember-view legacy-label">
-                      <label className="form__label">
-                        <div className="form__label__container"></div>
-                        <div className="form__input__container">
-                          <input
-                            className="focus:outline-none h-10 mb-4 text-base py-2 px-4 w-full bg-white rounded-none border-solid border box-border block mx-0 mt-0 p-2 text-black"
-                            placeholder="0"
-                            type="number"
-                            min="0"
-                            max="Infinity"
-                          />
-                        </div>
-                      </label>
-                    </div>
-                  </div>
-                </div>
               </div>
             </div>
             <div className="flex justify-end px-4">

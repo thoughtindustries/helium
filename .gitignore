@@ -108,3 +108,9 @@ dist
 **/node_modules
 **/worker/worker
 **/worker/script.js
+
+# ds store file
+.DS_Store
+
+# rethinkdb Local files
+rethinkdb_data

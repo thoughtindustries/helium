@@ -1,4 +1,4 @@
-import React, { useRef, useState, DragEvent } from 'react';
+import React, { useRef, useState, DragEvent, useEffect } from 'react';
 import {
   useUserBookmarksQuery,
   useUserBookmarksByFolderQuery,
@@ -9,6 +9,7 @@ import {
   LoadingDots,
   UserBookmarksQuery,
   UserBookmarksQueryResult,
+  UserBookmarksByFolderQueryResult,
   UserBookmarksByFolderQuery
 } from '@thoughtindustries/content';
 import { GrabIcon, RightArrowIcon, DownArrowIcon, EditIcon, TrashIcon } from '../Assets/Icons';
@@ -25,11 +26,19 @@ const BookmarkFolderName = ({ folder, refetchBookmarkFolders }: BookmarkFolderNa
   const [tryingToDelete, setTryingToDelete] = useState<boolean>(false);
   const { refetchContentGroups } = useLearnerAccess();
   const [updateBookmarkFolder] = useUpdateBookmarkFolderMutation();
-  const [destroyBookmarkFolderMutation] = useDestroyBookmarkFolderMutation({
-    variables: {
-      id: folder.id
-    }
-  });
+  const [destroyBookmarkFolder] = useDestroyBookmarkFolderMutation();
+
+  const handleDelete = () => {
+    destroyBookmarkFolder({
+      variables: {
+        id: folder.id
+      }
+    }).then(() => {
+      refetchBookmarkFolders();
+      setEditFolderName(!editFolderName);
+    });
+  };
+
   const handleSave = () => {
     updateBookmarkFolder({
       variables: {
@@ -37,7 +46,6 @@ const BookmarkFolderName = ({ folder, refetchBookmarkFolders }: BookmarkFolderNa
         name: folderName
       }
     }).then(() => {
-      refetchContentGroups();
       refetchBookmarkFolders();
       setEditFolderName(!editFolderName);
     });
@@ -119,7 +127,7 @@ const BookmarkFolderName = ({ folder, refetchBookmarkFolders }: BookmarkFolderNa
                           'This action cannot be undone and all bookmarks in this folder will be deleted.'
                         )
                       ) {
-                        destroyBookmarkFolderMutation();
+                        handleDelete();
                       }
                     }}
                   >
@@ -139,7 +147,7 @@ interface BookmarkItemsProps {
   folderId: string;
 }
 const BookmarkItems = ({ folderId }: BookmarkItemsProps): JSX.Element | null => {
-  const { data: bookmarks } = useUserBookmarksByFolderQuery({
+  const { data: bookmarks, refetch: refetchBookmark } = useUserBookmarksByFolderQuery({
     variables: { id: folderId }
   });
 
@@ -147,7 +155,12 @@ const BookmarkItems = ({ folderId }: BookmarkItemsProps): JSX.Element | null => 
   return (
     <>
       {bookmarks.UserBookmarksByFolder.map(item => (
-        <BookmarkItem key={item.id} item={item} folderId={folderId} />
+        <BookmarkItem
+          key={item.id}
+          bookmark={item}
+          folderId={folderId}
+          refetchBookmark={refetchBookmark}
+        />
       ))}
     </>
   );
@@ -155,40 +168,56 @@ const BookmarkItems = ({ folderId }: BookmarkItemsProps): JSX.Element | null => 
 
 type RequiredUserBookmarksByFolderQuery = Required<UserBookmarksByFolderQuery>;
 interface BookmarkItemProps {
-  item: RequiredUserBookmarksByFolderQuery['UserBookmarksByFolder'][0];
+  bookmark: RequiredUserBookmarksByFolderQuery['UserBookmarksByFolder'][0];
   folderId: string;
+  refetchBookmark: UserBookmarksByFolderQueryResult['refetch'];
 }
-const BookmarkItem = ({ item, folderId }: BookmarkItemProps) => {
+const BookmarkItem = ({ bookmark, folderId, refetchBookmark }: BookmarkItemProps) => {
   const [showContent, setShowContent] = useState<boolean>(false);
   const [editNotes, setEditNotes] = useState<boolean>(false);
-  const [notes, setNotes] = useState<string>(item.note || '');
-  const [destroyBookmarkMutation] = useDestroyBookmarkMutation({
-    variables: {
-      id: item.id
-    }
-  });
-  const [updateBookmarkMutation] = useUpdateBookmarkMutation({
-    variables: {
-      id: item.id,
-      note: notes,
-      bookmarkFolder: folderId
-    }
-  });
+  const [notes, setNotes] = useState<string>(bookmark.note || '');
+  const [updateBookmarkNote] = useUpdateBookmarkMutation();
+  const [destroyBookmark] = useDestroyBookmarkMutation();
+
+  const handleDelete = () => {
+    destroyBookmark({
+      variables: {
+        id: bookmark.id
+      }
+    }).then(() => {
+      refetchBookmark();
+    });
+  };
+
+  const handleSave = () => {
+    updateBookmarkNote({
+      variables: {
+        id: bookmark.id,
+        note: notes,
+        bookmarkFolder: folderId
+      }
+    }).then(() => {
+      refetchBookmark();
+      setEditNotes(!editNotes);
+    });
+  };
 
   return (
     <div
-      key={item.id}
+      key={bookmark.id}
       className="dashboard-access-list-item odd:bg-white text-black-light py-3 px-4 bg-white-mid border-gray-light border-b last:border-b-0"
     >
       <div className="row grid items-center grid-cols-12 gap-4">
         <div className="medium-7 columns col-span-6">
           <button onClick={() => setShowContent(!showContent)} className="inline-block">
             {showContent ? <DownArrowIcon /> : <RightArrowIcon />}
-            <span className="dashboard-access-list-item-expander__title ">{item.course.title}</span>
+            <span className="dashboard-access-list-item-expander__title ">
+              {bookmark.course.title}
+            </span>
           </button>
           {!showContent && (
             <div className="dashboard-access-list-item__description">
-              <p className="bookmark-note pt-2 pl-8 truncate w-full">{item.note}</p>
+              <p className="bookmark-note pt-2 pl-8 truncate w-full">{bookmark.note}</p>
             </div>
           )}
         </div>
@@ -212,8 +241,8 @@ const BookmarkItem = ({ item, folderId }: BookmarkItemProps) => {
             <div className="float-left relative w-1/3 px-4">
               <img
                 className="h-auto max-w-full"
-                src={item.course.courseGroup?.asset}
-                alt={item.course.title}
+                src={bookmark.course.courseGroup?.asset}
+                alt={bookmark.course.title}
               />
             </div>
             <div className="float-left relative px-4">
@@ -227,10 +256,7 @@ const BookmarkItem = ({ item, folderId }: BookmarkItemProps) => {
                       value={notes}
                     />
                     <button
-                      onClick={() => {
-                        updateBookmarkMutation();
-                        setEditNotes(false);
-                      }}
+                      onClick={handleSave}
                       className="text-white transition ease-in-out duration-200 border-gray-light border-solid border cursor-pointer inline-block font-normal text-sm mt-0 mr-0 mb-4 -ml-px pt-1.5 pb-2 px-4 relative text-center no-underline rounded-r-lg bg-[#405667] border-[#405667] hover:border-[#2c3c48] hover:bg-[#2c3c48] leading-3"
                     >
                       Save
@@ -238,7 +264,7 @@ const BookmarkItem = ({ item, folderId }: BookmarkItemProps) => {
                     <button
                       onClick={() => {
                         setEditNotes(false);
-                        setNotes(item.note || '');
+                        setNotes(bookmark.note || '');
                       }}
                       className="btn btn--bare btn--small"
                     >
@@ -251,7 +277,7 @@ const BookmarkItem = ({ item, folderId }: BookmarkItemProps) => {
                 )}
                 {!editNotes && (
                   <p className="leading-6 font-normal mb-2">
-                    {item.note + ' '}
+                    {bookmark.note + ' '}
                     <button
                       onClick={() => setEditNotes(true)}
                       className="btn btn--link btn--inherit-font btn--no-margin hover:text-hover"
@@ -264,7 +290,7 @@ const BookmarkItem = ({ item, folderId }: BookmarkItemProps) => {
                   <button
                     onClick={() => {
                       if (confirm('Are you sure?')) {
-                        destroyBookmarkMutation();
+                        handleDelete();
                       }
                     }}
                     className="bg-none rounded-none h-auto p-0 shadow-none text-black hover:text-hover"
@@ -300,6 +326,13 @@ const LoadBookmarks = (): JSX.Element => {
   });
   const [selectedFolderId, setSelectedFolderId] = useState<string | undefined>(undefined);
   const [dragging, setDragging] = useState<boolean>(false);
+  const [bookmarkList, setBookmarkList] = useState<UserBookmarksQuery['UserBookmarks'] | undefined>(
+    undefined
+  );
+
+  useEffect(() => {
+    if (bookmarkFolders) setBookmarkList(bookmarkFolders?.UserBookmarks);
+  }, [bookmarkFolders]);
 
   const draggedItem: any = useRef();
   const draggNode: any = useRef();
@@ -315,13 +348,12 @@ const LoadBookmarks = (): JSX.Element => {
   const handleDragEnter = (event: DragEvent<HTMLLIElement>, index: number) => {
     const current = draggedItem.current;
     if (draggNode.current !== event.target) {
-      // setBookmarkList((oldList: any) => {
-      //   const newList = JSON.parse(JSON.stringify(oldList));
-      //   newList.splice(index, 0, newList.splice(current, 1)[0]);
-      //   draggedItem.current = index;
-      //   localStorage.setItem('List', JSON.stringify(newList));
-      //   return newList;
-      // });
+      setBookmarkList((oldList: any) => {
+        const newList = JSON.parse(JSON.stringify(oldList));
+        newList.splice(index, 0, newList.splice(current, 1)[0]);
+        draggedItem.current = index;
+        return newList;
+      });
     }
   };
 
@@ -344,7 +376,7 @@ const LoadBookmarks = (): JSX.Element => {
       <div className="row-span-2">
         <div className="float-left px-4 relative">
           <ul className="w-[max-content] list-none m-0 p-0 dnd-drop grid h-full relative gap-2">
-            {bookmarkFolders.UserBookmarks.map((item, index) => {
+            {bookmarkList?.map((item, index) => {
               const activeBookmark =
                 item.id === selectedFolderId ? 'text-active-blue' : 'text-black-light';
               return (
@@ -394,8 +426,9 @@ const LoadBookmarks = (): JSX.Element => {
 
         <div className="flex flex-col pl-4">
           {selectedFolderId &&
-            bookmarkFolders.UserBookmarks.filter(item => item.id === selectedFolderId).map(
-              folder => (
+            bookmarkList
+              ?.filter(item => item.id === selectedFolderId)
+              .map(folder => (
                 <section key={folder.id}>
                   <BookmarkFolderName
                     folder={folder}
@@ -403,8 +436,7 @@ const LoadBookmarks = (): JSX.Element => {
                   />
                   <BookmarkItems folderId={folder.id} />
                 </section>
-              )
-            )}
+              ))}
         </div>
       </div>
     </div>

@@ -45,6 +45,8 @@ const LoadUserLearning = ({ query, kind, sort }: LoadedComponentProps): JSX.Elem
       variables: { id: '' }
     });
 
+    console.log('data', data);
+
     const courseCriteria = data?.UserCourseCompletionProgress;
 
     const { data: useUserCourseProgressData } = useUserCourseProgressQuery({
@@ -141,42 +143,12 @@ const LoadUserLearning = ({ query, kind, sort }: LoadedComponentProps): JSX.Elem
                     <i className="icon-stopwatch"></i>
                     <span className="user-engagement-stat__value ">
                       <ViewIcon />
-                      {/* {courseCriteria[0].percent} */}
+                      {/*  courseCriteria percent   */}
                       <span className="text-xs leading-8 align-top">%</span>
                     </span>
                   </div>
                 </li>
-                {/* {courseCriteria[courseCriteria.length - 1].percent > 0 &&
-                  courseCriteria[courseCriteria.length - 1].required.length > 0 && (
-                    <li className="ember-view user-engagement-stat user-engagement-stat--hours relative px-2.5 pb-5 block float-left h-auto pt-0">
-                      <div className="user-engagement-stat__label-container before:content-[''] before:bg-gray-light before:h-4/5 before:absolute before:top-0 before:right-0 before:w-px last:content-none">
-                        <div className="user-engagement-stat__label user-engagement-stat__label--with-hint h-8  text-ellipsis text-gray-mid overflow-hidden text-center uppercase">
-                          {courseCriteria[courseCriteria.length - 1].type ===
-                          'courseAssignmentComplete'
-                            ? 'COMPLETED ASSIGNMENTS'
-                            : 'REQUIRED PAGES VIEWED'}
-                        </div>
-                      </div>
-                      <div
-                        className="user-engagement-stat__value-container user-engagement-stat__value-container--huge text-2xl mt-1 text-center leading-10"
-                        
-                      >
-                        <i className="icon-stopwatch" ></i>
-                        <span className="user-engagement-stat__value">
-                          {courseCriteria[courseCriteria.length - 1].type ===
-                          'courseAssignmentComplete' ? (
-                            <FileIcon />
-                          ) : (
-                            <ViewIcon />
-                          )}
-                          {courseCriteria[courseCriteria.length - 1].completed.length +
-                            ' / ' +
-                            courseCriteria[courseCriteria.length - 1].required.length}{' '}
-                        </span>
-                      </div>
-                    </li>
-                  )} */}
-
+                {/*  courseCriteriacourse section  */}
                 <li className="ember-view user-engagement-stat user-engagement-stat--hours relative px-2.5 pb-5 block float-left h-auto pt-0 text-[#b6259e]">
                   <div className="user-engagement-stat__label-container before:content-[''] before:bg-gray-light before:h-4/5 before:absolute before:top-0 before:right-0 before:w-px before:last:content-none">
                     <div className="user-engagement-stat__label user-engagement-stat__label--with-hint h-8  text-ellipsis text-gray-mid overflow-hidden text-center uppercase">
