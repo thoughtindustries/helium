@@ -18,14 +18,15 @@ type AggregationProps = {
 };
 
 const AggregationBucket = ({ href, value, count }: AggregationBucketProps): JSX.Element => (
-  <li className="text-blue-600">
-    <a href={href} className="flex justify-between space-y-2 my-4 hover:bg-black">
-      <div className="text-sm pt-3 font-semibold ml-0">
-        <a href={href}>{value}</a>
-      </div>
-      <div className="mr-0">
+  <li className="rounded-lg pt-2">
+    <a
+      href={href}
+      className="flex justify-between pt-2 pl-2 hover:bg-blue-500 hover:text-white rounded"
+    >
+      <div className="text-sm font-semibold">{value}</div>
+      <div className="mt-0">
         {count && (
-          <button className="px-5 py-1 bg-gray-300 text-sm font-medium rounded-full">
+          <button className="px-4 py-0.5 mb-2 mr-2 bg-gray-300 hover:text-black text-sm font-medium rounded-full">
             {count}
           </button>
         )}
@@ -51,7 +52,7 @@ const Aggregation = ({
   const ariaId = `catalog-aggregation-dropdown-${index}`;
   return (
     <div className="bg-white px-5 py-3 rounded">
-      <div className={clsx(['bg-slate-500 py-4 px-3 rounded'], wrapperClassnames)}>
+      <div className={clsx([' py-4 px-3 rounded'], wrapperClassnames)}>
         <button
           className={`${buttonLinkClassnames}`}
           onClick={handleToggle}

@@ -1,13 +1,4 @@
 import React, { SyntheticEvent, useMemo } from 'react';
-import Layout from '../../components/Layout';
-import { usePageContext } from '../../renderer/usePageContext';
-import { Catalog, CatalogProvider, CatalogResultItem } from '@thoughtindustries/catalog';
-import { useAddResourceToQueueMutation } from '@thoughtindustries/content';
-import { Appearance, CurrentUser } from '../../types';
-import NavBar from '../../components/Navigation/HomepageNavBar';
-import LearningCat from '../../components/CatalogComp/LearningCat';
-import HomepageNavBar from '../../components/Navigation/HomepageNavBar';
-import CatalogNavBar from '../../components/Navigation/MobileNavBar';
 import Footer from '../../components/Footer/Footer';
 import FilterAndCatalog from '../../components/FilterAndCatalog/FilterAndCatalog';
 import Banner from '../../components/CatalogComp/Banner';

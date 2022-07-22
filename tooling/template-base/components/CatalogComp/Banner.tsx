@@ -1,6 +1,5 @@
 import { CatalogProvider } from '@thoughtindustries/catalog';
 import CatalogFilters from '@thoughtindustries/catalog/src/catalog-filters';
-import { printSourceLocation } from 'graphql';
 import React, { useMemo } from 'react';
 import { usePageContext } from '../../renderer/usePageContext';
 

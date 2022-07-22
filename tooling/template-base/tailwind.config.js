@@ -76,7 +76,8 @@ module.exports = {
       fontFamily: {
         primary: [getInstanceSetting('font', 'Inter'), 'Nunito', 'sans-serif'],
         header: [getInstanceSetting('font', 'Inter'), 'Nunito', 'sans-serif'],
-        secondary: [getInstanceSetting('altFont', 'Inter'), 'sans-serif']
+        secondary: [getInstanceSetting('altFont', 'Inter'), 'sans-serif'],
+        dashboardHeader: [getInstanceSetting('font', 'Roboto Condensed'), 'sans-serif']
       }
     }
   },
