@@ -1,8 +1,9 @@
-import { CatalogProvider, CatalogResultItem } from "@thoughtindustries/catalog";
-import CatalogFilters from "@thoughtindustries/catalog/src/catalog-filters";
-import { useAddResourceToQueueMutation } from "@thoughtindustries/content";
-import React, { SyntheticEvent, useMemo } from "react";
-import { usePageContext } from "../../renderer/usePageContext";
+import { CatalogProvider, CatalogResultItem } from '@thoughtindustries/catalog';
+import CatalogAggregations from '@thoughtindustries/catalog/src/catalog-aggregations';
+import CatalogFilters from '@thoughtindustries/catalog/src/catalog-filters';
+import { useAddResourceToQueueMutation } from '@thoughtindustries/content';
+import React, { SyntheticEvent, useMemo } from 'react';
+import { usePageContext } from '../../renderer/usePageContext';
 
 function Filter() {
   const pageContext = usePageContext();
@@ -34,7 +35,7 @@ function Filter() {
   return (
     <div className="px-4 py-7">
       <CatalogProvider config={config}>
-        <CatalogFilters/>
+        <CatalogAggregations />
       </CatalogProvider>
     </div>
   );

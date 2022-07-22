@@ -74,9 +74,9 @@ module.exports = {
         'link-hover': '#767676'
       },
       fontFamily: {
-        primary: [getInstanceSetting('font', 'Sintony'), 'Nunito', 'sans-serif'],
-        header: [getInstanceSetting('font', 'Sintony'), 'Nunito', 'sans-serif'],
-        secondary: [getInstanceSetting('altFont', 'Sintony'), 'sans-serif']
+        primary: [getInstanceSetting('font', 'Inter'), 'Nunito', 'sans-serif'],
+        header: [getInstanceSetting('font', 'Inter'), 'Nunito', 'sans-serif'],
+        secondary: [getInstanceSetting('altFont', 'Inter'), 'sans-serif']
       }
     }
   },

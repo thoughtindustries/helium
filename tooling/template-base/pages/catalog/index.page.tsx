@@ -7,13 +7,12 @@ import { Appearance, CurrentUser } from '../../types';
 import NavBar from '../../components/Navigation/HomepageNavBar';
 import LearningCat from '../../components/CatalogComp/LearningCat';
 import HomepageNavBar from '../../components/Navigation/HomepageNavBar';
-import CatalogNavBar from '../../components/Navigation/CatalogNavBar';
+import CatalogNavBar from '../../components/Navigation/MobileNavBar';
 import Footer from '../../components/Footer/Footer';
-import FilterAndCatalog from '../../components/CatalogSearch/FilterAndCatalog';
+import FilterAndCatalog from '../../components/FilterAndCatalog/FilterAndCatalog';
 import Banner from '../../components/CatalogComp/Banner';
-
-
-
+import MobileNavBar from '../../components/Navigation/MobileNavBar';
+import LargeSceenNavBar from '../../components/Navigation/LargeScreenNavBar';
 
 export { Page };
 export { documentProps };
@@ -26,11 +25,21 @@ const documentProps = {
 function Page() {
   return (
     <>
-      <CatalogNavBar/>
-      <Banner heading="Full Learning Catalog" subtext="Browse the full list of courses and learning paths."/>
-      <FilterAndCatalog/>
-      <Footer/>
+      <div className="font-primary">
+        <div className="block md:hidden">
+          <MobileNavBar />
+        </div>
+        <div className="hidden md:block">
+          <LargeSceenNavBar />
+        </div>
+        <Banner
+          heading="Full Learning Catalog"
+          subtext="Browse the full list of courses and learning paths."
+          searchBar={true}
+        />
+        <FilterAndCatalog />
+        <Footer />
+      </div>
     </>
   );
 }
-
