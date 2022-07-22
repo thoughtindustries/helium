@@ -1,7 +1,6 @@
 import React from 'react';
 import { useState } from 'react';
 import Logo from './Logo';
-import icon from '../../renderer/menubar.png';
 import avatar from '../../renderer/avatar.png';
 import xicon from '../../renderer/xicon.png';
 

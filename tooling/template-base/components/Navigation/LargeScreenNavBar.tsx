@@ -1,9 +1,7 @@
 import React from 'react';
 import { useState } from 'react';
 import Logo from './Logo';
-import icon from '../../renderer/menubar.png';
 import avatar from '../../renderer/avatar.png';
-import xicon from '../../renderer/xicon.png';
 import MobileMenu from './MobileMenu';
 import dropDownClosed from '../../renderer/dropDownClosed.png';
 import dropDownOpen from '../../renderer/dropDownOpen.png';
@@ -26,7 +24,7 @@ export default function LargeSceenNavBar() {
         <div className={`flex my-auto space-x-6 mx-auto md:block ${navbar ? 'block' : 'hidden'}`}>
           <ul className="items-center justify-between space-y-3 pt-4 md:space-y-0 md:flex md:space-x-6 w-full">
             <li className="md:hover:bg-white hover:bg-slate-100 rounded pl-2 py-1.5">
-              <a href="/">My Dashboard</a>
+              <a href="/dashboard">My Dashboard</a>
             </li>
             <li className="md:hover:bg-white hover:bg-slate-100 rounded pl-2 py-2">
               <a href="/catalog">Catalog</a>

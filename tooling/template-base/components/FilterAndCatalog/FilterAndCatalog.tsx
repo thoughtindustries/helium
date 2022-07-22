@@ -2,8 +2,6 @@ import { Catalog, CatalogProvider } from '@thoughtindustries/catalog';
 import { HydratedContentItem } from '@thoughtindustries/content';
 import React, { useMemo } from 'react';
 import { usePageContext } from '../../renderer/usePageContext';
-import FeaturedCardContent from '../FeaturedContent/FeaturedCardContent';
-import Filter from './Filter';
 
 const FilterAndCatalog = () => {
   const pageContext = usePageContext();
