@@ -46,12 +46,7 @@ const ContentTileStandardLayout = ({
   return (
     <ContentTileStandardLayoutContext.Provider value={value}>
       <ContentWrapper headerOptions={headerOptions}>
-        <ul
-          className={clsx([
-            'grid gap-5 grid-cols-1',
-            tileClassnameByDesktopColumnCount(desktopColumnCount)
-          ])}
-        >
+        <ul className={clsx(['grid gap-5 lg:grid-cols-3 md:grid-cols-2 grid-cols-1'])}>
           {children}
         </ul>
       </ContentWrapper>
@@ -62,38 +57,39 @@ const ContentTileStandardLayout = ({
 const ItemTitleBlock = ({
   title,
   courseStartDate,
-  timeZone
+  timeZone,
+  contentTypeLabel
 }: {
   title: string;
   courseStartDate?: string;
   timeZone?: string;
+  contentTypeLabel?: string;
 }) => (
   <p className="mb-1">
-    {title}
+    <div className="font-bold">{title}</div>
     {courseStartDate && (
       <>
-        <br />
-        <span className="text-xs text-gray-700">
-          {formatTime(courseStartDate, timeZone, 'MM/DD/YYYY')}
+        <span className="flex text-md text-gray-500 my-3">
+          {contentTypeLabel} | {formatTime(courseStartDate, timeZone, 'MM/DD/YYYY')}
         </span>
       </>
     )}
   </p>
 );
 
-const ItemSourceBlock = ({
-  contentTypeLabel,
-  source
-}: {
-  contentTypeLabel?: string;
-  source?: string;
-}) => (
-  <div className="text-xs text-gray-700">
-    {contentTypeLabel && <strong>{contentTypeLabel}</strong>}
-    {contentTypeLabel && source && <>|{source}</>}
-    {!contentTypeLabel && source && <strong>{source}</strong>}
-  </div>
-);
+// const ItemSourceBlock = ({
+//   contentTypeLabel,
+//   source
+// }: {
+//   contentTypeLabel?: string;
+//   source?: string;
+// }) => (
+//   <div className="font-light">
+//     {contentTypeLabel && <strong>{contentTypeLabel}</strong>}
+//     {contentTypeLabel && source && <>|{source}</>}
+//     {!contentTypeLabel && source && <strong>{source}</strong>}
+//   </div>
+// );
 
 // TODO: might consider extracting as common component
 const Star = ({ marked }: { marked: boolean }) => (
@@ -160,7 +156,7 @@ const ItemCtaBlock = ({
 }) => {
   if (isActive) {
     return (
-      <span className="border-none rounded-sm cursor-pointer inline-block text-sm font-normal leading-normal m-0 p-0 relative text-center no-underline transition-colors ease-in-out duration-200 text-accent float-right text-left h-auto hover:text-accent">
+      <span className="border-none rounded-sm cursor-pointer inline-block text-sm font-normal leading-normal m-0 p-0 relative no-underline transition-colors ease-in-out duration-200 text-accent float-right text-left h-auto hover:text-accent">
         {callToAction}
       </span>
     );
@@ -229,32 +225,32 @@ const Item = ({ ...item }: FeaturedContentContentItemProps): JSX.Element => {
     <li>
       <ItemLinkWrapper item={item} onClick={onClick}>
         <div
-          className={`grid grid-cols-1${gridItemDesktopClassnames} border border-solid border-gray-300 relative`}
+          className={`${gridItemDesktopClassnames} bg-white rounded-lg relative shadow-md p-6 space-y-6`}
         >
           {ribbon && <ItemRibbon ribbon={ribbon} attached />}
+          <ItemAssetBlock asset={asset} />
           <div className={`relative${assetWrapperDesktopClassnames}`}>
             {isCompleted && <ItemCompletedBlock />}
-            <ItemAssetBlock asset={asset} />
           </div>
-          <div className="p-2.5">
+          <div className="">
             {title && (
-              <ItemTitleBlock title={title} courseStartDate={courseStartDate} timeZone={timeZone} />
+              <ItemTitleBlock
+                title={title}
+                courseStartDate={courseStartDate}
+                timeZone={timeZone}
+                contentTypeLabel={contentTypeLabel}
+              />
             )}
-            <ItemSourceBlock contentTypeLabel={contentTypeLabel} source={source} />
-            {displayAuthors && <p className="text-xs mb-1 text-gray-700">{displayAuthors}</p>}
+            {/* <ItemSourceBlock contentTypeLabel={contentTypeLabel}  source={source} /> */}
             {description && (
-              <p className="text-xs text-gray-700 pt-1 mb-0 overflow-hidden">
-                {limitText(description, 75)}
+              <p className="text-md text-gray-500 font-light pt-1 mb-0 overflow-hidden">
+                {limitText(description, 60)}
               </p>
             )}
-            {rating && <Stars gradePercentage={rating} />}
             <hr className="my-3" />
-            <div className="text-base leading-none">
-              {canAddToQueue && (
+            <div className="text-base">
+              {/* {canAddToQueue && (
                 <div className="flex flex-wrap-reverse justify-between items-end">
-                  <span>
-                    <ItemQueueButton item={item} onClickAsync={onAddedToQueue} />
-                  </span>
                   <span>
                     <ItemCtaBlock isActive={isActive} callToAction={callToAction} />
                   </span>
@@ -262,17 +258,13 @@ const Item = ({ ...item }: FeaturedContentContentItemProps): JSX.Element => {
               )}
               {!canAddToQueue && priceInCents && (
                 <>
-                  <ItemPriceBlock
-                    priceInCents={priceInCents}
-                    hasAvailability={hasAvailability}
-                    suggestedRetailPriceInCents={suggestedRetailPriceInCents}
-                  />
                   <ItemCtaBlock isActive callToAction={callToAction} />
                 </>
               )}
               {!canAddToQueue && !priceInCents && (
                 <ItemCtaBlock isActive={isActive} callToAction={callToAction} />
-              )}
+              )} */}
+              <div className="flex justify-end font-light text-blue-500">View details</div>
             </div>
           </div>
         </div>
