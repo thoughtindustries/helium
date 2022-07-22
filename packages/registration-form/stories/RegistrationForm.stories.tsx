@@ -1,6 +1,10 @@
 import { Story } from '@storybook/react';
 import React from 'react';
-import { ValidateRedemptionCodeDocument, Registration } from '../src';
+import {
+  ValidateRedemptionCodeDocument,
+  RedeemRegistrationAndRedemptionCodesDocument,
+  Registration
+} from '../src';
 
 export default {
   title: 'Example/Registration',
@@ -30,6 +34,22 @@ const mockApolloResultsFactory = (
   }
 });
 
+const mockRegistrationResults = (validatedRedemptionCodes: Array<string>, redeemed: boolean) => ({
+  request: {
+    query: RedeemRegistrationAndRedemptionCodesDocument,
+    variables: {
+      validatedRedemptionCodes
+    }
+  },
+  result: {
+    data: {
+      RedeemRegistrationAndRedemptionCodes: {
+        redeemed
+      }
+    }
+  }
+});
+
 const mockUser = {
   id: 'uuid',
   firstName: 'First',
@@ -39,11 +59,14 @@ const mockUser = {
 };
 
 const mockApolloResults = [
-  mockApolloResultsFactory('validCode', true, false, false),
+  mockApolloResultsFactory('validCode1', true, false, false),
+  mockApolloResultsFactory('validCode2', true, false, false),
+  mockApolloResultsFactory('validCode3', true, false, false),
   mockApolloResultsFactory('invalidCode', false, false, false),
   mockApolloResultsFactory('', false, false, false),
   mockApolloResultsFactory('expiredCode', false, false, true),
-  mockApolloResultsFactory('alreadyRedeemedCode', false, true, false)
+  mockApolloResultsFactory('alreadyRedeemedCode', false, true, false),
+  mockRegistrationResults(['validCode1', 'validCode2', 'validCode3'], true)
 ];
 
 const Template: Story = () => <Registration currentUser={mockUser} />;
