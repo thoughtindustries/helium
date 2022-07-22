@@ -75,7 +75,7 @@ const ItemTitleBlock = ({
   courseStartDate?: string;
   timeZone?: string;
 }) => (
-  <div className="mb-1">
+  <div className="mb-1 font-normal text-lg">
     <HeightEqualizerElementWrapper name="title" as="h3" className="leading-6">
       {title}
     </HeightEqualizerElementWrapper>
@@ -96,7 +96,7 @@ const ItemSourceBlock = ({
   contentTypeLabel?: string;
   source?: string;
 }) => (
-  <HeightEqualizerElementWrapper name="source" className="text-xs text-gray-700 leading-4">
+  <HeightEqualizerElementWrapper name="source" className="text-sm text-gray-500">
     {contentTypeLabel && <strong>{contentTypeLabel}</strong>}
     {contentTypeLabel && source && <>|{source}</>}
     {!contentTypeLabel && source && <strong>{source}</strong>}
@@ -135,7 +135,7 @@ const ItemCtaBlock = ({
 }) => {
   if (isActive) {
     return (
-      <span className="border-none rounded-sm cursor-pointer inline-block text-sm font-normal leading-normal m-0 p-0 relative text-center no-underline transition-colors ease-in-out duration-200 text-accent float-right text-left h-auto hover:text-accent">
+      <span className="border-none text-blue-500 rounded-sm cursor-pointer inline-block text-sm font-normal leading-normal m-0 p-0 relative text-center no-underline transition-colors ease-in-out duration-200 float-right h-auto hover:text-accent">
         {callToAction}
       </span>
     );
@@ -262,69 +262,37 @@ const DisplayTypeResultsGridItem = ({
     <li>
       <>
         <ItemLinkWrapper item={item} onClick={onClick}>
-          <div className="grid grid-cols-1 border border-solid border-gray-300 relative">
-            {ribbon && <ItemRibbon ribbon={ribbon} attached attachedClassnames="-top-1" />}
-            <div className="relative">
-              {isCompleted && <ItemCompletedBlock />}
-              <ItemAssetBlock asset={asset} />
-            </div>
-            <div className="p-2.5">
-              {title && (
-                <ItemTitleBlock
-                  title={title}
-                  courseStartDate={displayCourseStartDate}
-                  timeZone={timeZone}
-                />
-              )}
-              <ItemSourceBlock contentTypeLabel={contentTypeLabel} source={source} />
-              <HeightEqualizerElementWrapper
-                name="authors"
-                as="p"
-                className="text-xs mb-1 text-gray-700 leading-4"
-              >
-                {displayAuthors}
-              </HeightEqualizerElementWrapper>
-              <HeightEqualizerElementWrapper
-                name="description"
-                as="p"
-                className="text-xs text-gray-700 pt-1 mb-0 leading-4"
-              >
-                {description && limitText(description, 75)}
-              </HeightEqualizerElementWrapper>
-              <div className="h-6">{rating && <Stars gradePercentage={rating} />}</div>
-              <hr className="my-3" />
-              <div className="text-base leading-none">
-                {canAddToQueue && (
-                  <div className="flex flex-wrap-reverse justify-between items-end">
-                    <span>
-                      <ItemQueueButton item={item} onAddedToQueue={onAddedToQueue} />
-                    </span>
-                    <span>
-                      <ItemCtaBlock isActive={isActive} callToAction={callToAction} />
-                    </span>
-                  </div>
+          <div className="grid grid-cols-1 relative">
+            <div className="bg-white px-4 py-4 rounded">
+              {ribbon && <ItemRibbon ribbon={ribbon} attached attachedClassnames="-top-1" />}
+              <div className="relative">
+                {isCompleted && <ItemCompletedBlock />}
+                <ItemAssetBlock asset={asset} />
+              </div>
+              <div className="pt-5">
+                {title && (
+                  <ItemTitleBlock
+                    title={title}
+                    courseStartDate={displayCourseStartDate}
+                    timeZone={timeZone}
+                  />
                 )}
-                {!canAddToQueue && priceInCents && (
-                  <>
-                    <ItemPriceBlock
-                      priceInCents={priceInCents}
-                      hasAvailability={hasAvailability}
-                      suggestedRetailPriceInCents={suggestedRetailPriceInCents}
-                      priceFormatFn={priceFormatFn}
-                    />
-                    <ItemCtaBlock isActive callToAction={callToAction} />
-                  </>
-                )}
-                {!canAddToQueue && !priceInCents && (
+                <ItemSourceBlock contentTypeLabel={contentTypeLabel} source={source} />
+                <div className="text-sm text-gray-500 pt-1 mb-0">
+                  {description && limitText(description, 100)}
+                </div>
+                <div className="h-6">{rating && <Stars gradePercentage={rating} />}</div>
+                <hr className="mb-2" />
+                <div className="text-base leading-none py-2">
                   <ItemCtaBlock isActive={isActive} callToAction={callToAction} />
-                )}
+                </div>
               </div>
             </div>
           </div>
         </ItemLinkWrapper>
-        {displayBundle && !availabilityStatus && (
+        {/* {displayBundle && !availabilityStatus && (
           <ItemBundleBlock {...displayBundle} priceFormatFn={priceFormatFn} />
-        )}
+        )} */}
       </>
     </li>
   );
