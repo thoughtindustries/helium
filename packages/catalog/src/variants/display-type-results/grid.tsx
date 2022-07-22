@@ -75,7 +75,7 @@ const ItemTitleBlock = ({
   title: string;
   courseStartDate?: string;
   timeZone?: string;
-  contentTypeLabel: string;
+  contentTypeLabel?: string;
 }) => (
   <div className="mb-1 font-normal text-lg">
     <HeightEqualizerElementWrapper name="title" as="h3" className="leading-6">
