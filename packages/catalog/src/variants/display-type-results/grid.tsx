@@ -69,11 +69,13 @@ const ItemCompletedBlock = () => {
 const ItemTitleBlock = ({
   title,
   courseStartDate,
-  timeZone
+  timeZone,
+  contentTypeLabel
 }: {
   title: string;
   courseStartDate?: string;
   timeZone?: string;
+  contentTypeLabel: string;
 }) => (
   <div className="mb-1 font-normal text-lg">
     <HeightEqualizerElementWrapper name="title" as="h3" className="leading-6">
@@ -82,7 +84,7 @@ const ItemTitleBlock = ({
     <HeightEqualizerElementWrapper name="course-date" className="leading-4">
       {courseStartDate && (
         <span className="text-xs text-gray-700">
-          {formatTime(courseStartDate, timeZone, 'MM/DD/YYYY')}
+          {contentTypeLabel} | {formatTime(courseStartDate, timeZone, 'MM/DD/YYYY')}
         </span>
       )}
     </HeightEqualizerElementWrapper>
@@ -275,6 +277,7 @@ const DisplayTypeResultsGridItem = ({
                     title={title}
                     courseStartDate={displayCourseStartDate}
                     timeZone={timeZone}
+                    contentTypeLabel={contentTypeLabel}
                   />
                 )}
                 <ItemSourceBlock contentTypeLabel={contentTypeLabel} source={source} />
