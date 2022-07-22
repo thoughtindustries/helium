@@ -1,10 +1,10 @@
 import { Story } from '@storybook/react';
 import React from 'react';
-import { Redemption, ValidateRedemptionCodeDocument } from '../src';
+import { ValidateRedemptionCodeDocument, Registration } from '../src';
 
 export default {
-  title: 'Example/Redemption',
-  component: Redemption
+  title: 'Example/Registration',
+  component: Registration
 };
 
 const mockApolloResultsFactory = (
@@ -29,6 +29,15 @@ const mockApolloResultsFactory = (
     }
   }
 });
+
+const mockUser = {
+  id: 'uuid',
+  firstName: 'First',
+  lastName: 'Last',
+  email: 'first.last@example.com',
+  roleKey: 'student'
+};
+
 const mockApolloResults = [
   mockApolloResultsFactory('validCode', true, false, false),
   mockApolloResultsFactory('invalidCode', false, false, false),
@@ -37,7 +46,7 @@ const mockApolloResults = [
   mockApolloResultsFactory('alreadyRedeemedCode', false, true, false)
 ];
 
-const Template: Story = () => <Redemption />;
+const Template: Story = () => <Registration currentUser={mockUser} />;
 
 export const Base: Story = Template.bind({});
 Base.parameters = {

@@ -15,7 +15,7 @@ const useRegistrationContext = () => {
   return context;
 };
 
-const Registration = (currentUser: CurrentUser): JSX.Element => {
+const Registration = ({ currentUser }: { currentUser: CurrentUser }): JSX.Element => {
   const { t } = useTranslation();
   const [response, setResponse] = useState<Props>();
   const [validatedRedemptionCodes, setValidatedRedemptionCodes] = useState<Array<string>>([]);

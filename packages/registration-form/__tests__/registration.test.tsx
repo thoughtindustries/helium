@@ -49,13 +49,7 @@ describe('@thoughtindustries/registration', () => {
     it('should render registration component', async () => {
       const { container } = render(
         <MockedProvider mocks={[mockApolloResults]} addTypename={false}>
-          <Registration
-            id={mockUser.id}
-            firstName={mockUser.firstName}
-            lastName={mockUser.lastName}
-            email={mockUser.email}
-            roleKey={mockUser.roleKey}
-          />
+          <Registration currentUser={mockUser} />
         </MockedProvider>
       );
       await waitFor(() => new Promise(res => setTimeout(res, 0)));
