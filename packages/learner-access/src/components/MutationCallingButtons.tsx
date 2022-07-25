@@ -12,6 +12,7 @@ import {
   ReinstateUserLearningPathMutationFn
 } from '@thoughtindustries/content';
 import { WarningMessageToolTip } from '../Assets/Tooltips';
+import { t } from 'i18next';
 
 type ArchiveButtonProps = {
   item: HydratedContentItem;
@@ -19,8 +20,7 @@ type ArchiveButtonProps = {
 };
 export const ArchiveButton = ({ item, onArchiveSuccessAsync }: ArchiveButtonProps) => {
   const [showPopup, setShowPopup] = useState<boolean>(false);
-  const text =
-    'Would you like to continue archiving this course? Doing so will remove this from your dashboard as an In Progress item.';
+  const text = t('dashboard.archive-warning');
   const [archiveUserLearningPathMutation] = useArchiveUserLearningPathMutation();
   const [archiveUserCourseMutation] = useArchiveUserCourseMutation();
   console.log('item.id', item.id);
@@ -53,7 +53,7 @@ export const ArchiveButton = ({ item, onArchiveSuccessAsync }: ArchiveButtonProp
         onClick={() => setShowPopup(true)}
         className="bg-white-mid border-solid border rounded-sm cursor-pointer inline-block font-normal text-xs m-0 py-[0.15rem] px-4 relative text-center no-underline ease-in-out border-gray-light font-sans transition duration-200 leading-5"
       >
-        <span>Archive</span>
+        <span>{t('archive.archive')}</span>
       </button>
       {showPopup && (
         <WarningMessageToolTip
@@ -72,8 +72,7 @@ type ReinstateButtonProps = {
 };
 export const ReinstateButton = ({ item, onReinstateSuccessAsync }: ReinstateButtonProps) => {
   const [showPopup, setShowPopup] = useState<boolean>(false);
-  const text =
-    'Would you like to continue reinstating this course? Doing so will move this back to being In Progress.';
+  const text = t('dashboard.archive-warning');
   const customPosition = 'right-2 top-[120%]';
   const [reinstateUserCourseMutation] = useReinstateUserCourseMutation({
     variables: { id: item.resource as string }

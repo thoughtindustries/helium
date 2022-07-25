@@ -81,7 +81,7 @@ const LearnerAccess = ({
         </i>
       </button>
       <span>
-        <span className="text-base">Activity</span>
+        <span className="text-base">{t('dashboard.activity')}</span>
       </span>
     </div>
   );
@@ -97,7 +97,7 @@ const LearnerAccess = ({
         </i>
       </button>
       <span>
-        <span className="text-base">Activity</span>
+        <span className="text-base">{t('dashboard.activity')}</span>
       </span>
     </div>
   );

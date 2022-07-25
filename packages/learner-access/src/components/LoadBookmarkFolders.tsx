@@ -14,301 +14,11 @@ import {
 } from '@thoughtindustries/content';
 import { GrabIcon, RightArrowIcon, DownArrowIcon, EditIcon, TrashIcon } from '../Assets/Icons';
 import useLearnerAccess from '../use-context';
-
-type RequiredUserBookmarksQuery = Required<UserBookmarksQuery>;
-interface BookmarkFolderNameProps {
-  folder: RequiredUserBookmarksQuery['UserBookmarks'][0];
-  refetchBookmarkFolders: UserBookmarksQueryResult['refetch'];
-}
-const BookmarkFolderName = ({ folder, refetchBookmarkFolders }: BookmarkFolderNameProps) => {
-  const [editFolderName, setEditFolderName] = useState<boolean>(false);
-  const [folderName, setFolderName] = useState<string>(folder.name);
-  const [tryingToDelete, setTryingToDelete] = useState<boolean>(false);
-  const { refetchContentGroups } = useLearnerAccess();
-  const [updateBookmarkFolder] = useUpdateBookmarkFolderMutation();
-  const [destroyBookmarkFolder] = useDestroyBookmarkFolderMutation();
-
-  const handleDelete = () => {
-    destroyBookmarkFolder({
-      variables: {
-        id: folder.id
-      }
-    }).then(() => {
-      refetchBookmarkFolders();
-      setEditFolderName(!editFolderName);
-    });
-  };
-
-  const handleSave = () => {
-    updateBookmarkFolder({
-      variables: {
-        id: folder.id,
-        name: folderName
-      }
-    }).then(() => {
-      refetchBookmarkFolders();
-      setEditFolderName(!editFolderName);
-    });
-  };
-
-  return (
-    <>
-      {editFolderName && (
-        <div className="bookmark-folder__edit-name flex">
-          <div className="ember-view input--large">
-            <div className="ember-view new-form-label">
-              <script type="text/x-placeholder"></script>
-              <label className="form__label" data-bindattr-4061="4061">
-                <div className="form__label__container" data-bindattr-4062="4062"></div>
-
-                <div className="form__input__container" data-bindattr-4065="4065">
-                  <input
-                    onChange={e => setFolderName(e.target.value)}
-                    className="h-10 leading-5 text-sm w-full focus:outline-none py-1 px-2 bg-white rounded-none border-solid border box-border inline-block mx-0 mt-0 mb-4 p-2 text-black transition shadow-sm border-gray-light"
-                    type="text"
-                    value={folderName}
-                  />
-                </div>
-              </label>
-            </div>
-          </div>
-          <button
-            onClick={handleSave}
-            className="bg-active-blue text-accent-contrast bg-accent rounded-sm cursor-pointer inline-block font-normal text-xs ml-2 h-10 mb-0 py-[0.15rem] px-4 relative text-center no-underline ease-in-out border-active-blue font-sans transition duration-200 leading-5"
-          >
-            <span>Save</span>
-          </button>
-          <button
-            onClick={() => {
-              setEditFolderName(!editFolderName);
-              setFolderName(folder.name);
-            }}
-            className="hover:text-hover bg-transparent rounded-sm cursor-pointer inline-block font-normal text-sm mx-0 mt-0 mb-4 py-2 px-4 relative shadow-none text-center no-underline"
-          >
-            <span>Cancel</span>
-          </button>
-        </div>
-      )}
-      {!editFolderName && (
-        <div className="bookmark-folder pb-5">
-          <span className="bookmark-folder-name pr-7 text-gray-mid text-base">{folderName}</span>
-          <span>
-            <button
-              onClick={() => setEditFolderName(!editFolderName)}
-              className="btn btn--link btn--inherit-font btn--no-margin"
-            >
-              {' '}
-              <EditIcon />
-            </button>
-            <div onClick={() => setTryingToDelete(!tryingToDelete)} className="inline-block ">
-              {!tryingToDelete && (
-                <button className="btn btn--bare-icon btn--small">
-                  <TrashIcon />
-                </button>
-              )}
-              {tryingToDelete && (
-                <span className="confirm-action__confirm">
-                  Are you sure🍇
-                  <button
-                    className="hover:text-hover"
-                    onClick={() => {
-                      setTryingToDelete(false);
-                    }}
-                  >
-                    <span>No</span>
-                  </button>
-                  /
-                  <button
-                    className="hover:text-hover"
-                    onClick={() => {
-                      setTryingToDelete(false);
-                      if (
-                        confirm(
-                          'This action cannot be undone and all bookmarks in this folder will be deleted.'
-                        )
-                      ) {
-                        handleDelete();
-                      }
-                    }}
-                  >
-                    <span>Yes</span>
-                  </button>
-                </span>
-              )}
-            </div>
-          </span>
-        </div>
-      )}
-    </>
-  );
-};
-
-interface BookmarkItemsProps {
-  folderId: string;
-}
-const BookmarkItems = ({ folderId }: BookmarkItemsProps): JSX.Element | null => {
-  const { data: bookmarks, refetch: refetchBookmark } = useUserBookmarksByFolderQuery({
-    variables: { id: folderId }
-  });
-
-  if (!bookmarks || !bookmarks.UserBookmarksByFolder) return null;
-  return (
-    <>
-      {bookmarks.UserBookmarksByFolder.map(item => (
-        <BookmarkItem
-          key={item.id}
-          bookmark={item}
-          folderId={folderId}
-          refetchBookmark={refetchBookmark}
-        />
-      ))}
-    </>
-  );
-};
-
-type RequiredUserBookmarksByFolderQuery = Required<UserBookmarksByFolderQuery>;
-interface BookmarkItemProps {
-  bookmark: RequiredUserBookmarksByFolderQuery['UserBookmarksByFolder'][0];
-  folderId: string;
-  refetchBookmark: UserBookmarksByFolderQueryResult['refetch'];
-}
-const BookmarkItem = ({ bookmark, folderId, refetchBookmark }: BookmarkItemProps) => {
-  const [showContent, setShowContent] = useState<boolean>(false);
-  const [editNotes, setEditNotes] = useState<boolean>(false);
-  const [notes, setNotes] = useState<string>(bookmark.note || '');
-  const [updateBookmarkNote] = useUpdateBookmarkMutation();
-  const [destroyBookmark] = useDestroyBookmarkMutation();
-
-  const handleDelete = () => {
-    destroyBookmark({
-      variables: {
-        id: bookmark.id
-      }
-    }).then(() => {
-      refetchBookmark();
-    });
-  };
-
-  const handleSave = () => {
-    updateBookmarkNote({
-      variables: {
-        id: bookmark.id,
-        note: notes,
-        bookmarkFolder: folderId
-      }
-    }).then(() => {
-      refetchBookmark();
-      setEditNotes(!editNotes);
-    });
-  };
-
-  return (
-    <div
-      key={bookmark.id}
-      className="dashboard-access-list-item odd:bg-white text-black-light py-3 px-4 bg-white-mid border-gray-light border-b last:border-b-0"
-    >
-      <div className="row grid items-center grid-cols-12 gap-4">
-        <div className="medium-7 columns col-span-6">
-          <button onClick={() => setShowContent(!showContent)} className="inline-block">
-            {showContent ? <DownArrowIcon /> : <RightArrowIcon />}
-            <span className="dashboard-access-list-item-expander__title ">
-              {bookmark.course.title}
-            </span>
-          </button>
-          {!showContent && (
-            <div className="dashboard-access-list-item__description">
-              <p className="bookmark-note pt-2 pl-8 truncate w-full">{bookmark.note}</p>
-            </div>
-          )}
-        </div>
-        <div className="medium-3 columns col-span-3">
-          <div className="catalog-list-item__info">
-            <strong>Course</strong>
-          </div>
-        </div>
-        <div className="medium-2 columns col-span-2 flex justify-end">
-          <a
-            href="/learn/topic/61285240-b509-422c-a4b2-f4400250922a/redirect"
-            className="bg-active-blue text-white rounded-sm cursor-pointer inline-block font-normal text-xs m-0 py-[0.15rem] px-4 relative text-center no-underline ease-in-out border-active-blue font-sans transition duration-200 leading-5"
-          >
-            <span id="i18n-164">View</span>
-          </a>
-        </div>
-      </div>
-      {showContent && (
-        <div className="mx-0 my-6 relative">
-          <div className="flex">
-            <div className="float-left relative w-1/3 px-4">
-              <img
-                className="h-auto max-w-full"
-                src={bookmark.course.courseGroup?.asset}
-                alt={bookmark.course.title}
-              />
-            </div>
-            <div className="float-left relative px-4">
-              <div className="dashboard-access-list-item__description">
-                {editNotes && (
-                  <div className="">
-                    <input
-                      className="h-7 focus:outline-none text-xs py-1 px-2 bg-white rounded-none border-solid border box-border inline-block mx-0 mt-0 mb-4 p-2 text-black w-auto transition shadow-sm border-gray-light"
-                      type="text"
-                      onChange={e => setNotes(e.target.value)}
-                      value={notes}
-                    />
-                    <button
-                      onClick={handleSave}
-                      className="text-white transition ease-in-out duration-200 border-gray-light border-solid border cursor-pointer inline-block font-normal text-sm mt-0 mr-0 mb-4 -ml-px pt-1.5 pb-2 px-4 relative text-center no-underline rounded-r-lg bg-[#405667] border-[#405667] hover:border-[#2c3c48] hover:bg-[#2c3c48] leading-3"
-                    >
-                      Save
-                    </button>
-                    <button
-                      onClick={() => {
-                        setEditNotes(false);
-                        setNotes(bookmark.note || '');
-                      }}
-                      className="btn btn--bare btn--small"
-                    >
-                      <span className="hover:text-hover bg-transparent rounded-sm cursor-pointer inline-block font-normal text-sm mx-0 mt-0 mb-4 py-2 px-4 relative shadow-none text-center no-underline">
-                        Cancel
-                      </span>
-                    </button>
-                    <p></p>
-                  </div>
-                )}
-                {!editNotes && (
-                  <p className="leading-6 font-normal mb-2">
-                    {bookmark.note + ' '}
-                    <button
-                      onClick={() => setEditNotes(true)}
-                      className="btn btn--link btn--inherit-font btn--no-margin hover:text-hover"
-                    >
-                      <span>(Edit)</span>
-                    </button>
-                  </p>
-                )}
-                <div>
-                  <button
-                    onClick={() => {
-                      if (confirm('Are you sure?')) {
-                        handleDelete();
-                      }
-                    }}
-                    className="bg-none rounded-none h-auto p-0 shadow-none text-black hover:text-hover"
-                  >
-                    <span>Remove Bookmark</span>
-                  </button>
-                </div>
-                <p></p>
-              </div>
-            </div>
-          </div>
-        </div>
-      )}
-    </div>
-  );
-};
+import { useTranslation } from 'react-i18next';
 
 const LoadBookmarks = (): JSX.Element => {
+  const { t } = useTranslation();
+
   const {
     data: bookmarkFolders,
     loading,
@@ -327,12 +37,12 @@ const LoadBookmarks = (): JSX.Element => {
   const [selectedFolderId, setSelectedFolderId] = useState<string | undefined>(undefined);
   const [dragging, setDragging] = useState<boolean>(false);
   const [bookmarkList, setBookmarkList] = useState<UserBookmarksQuery['UserBookmarks'] | undefined>(
-    undefined
+    bookmarkFolders?.UserBookmarks
   );
 
-  useEffect(() => {
-    if (bookmarkFolders) setBookmarkList(bookmarkFolders?.UserBookmarks);
-  }, [bookmarkFolders]);
+  if (bookmarkList !== bookmarkFolders?.UserBookmarks) {
+    setBookmarkList(bookmarkFolders?.UserBookmarks);
+  }
 
   const draggedItem: any = useRef();
   const draggNode: any = useRef();
@@ -367,7 +77,300 @@ const LoadBookmarks = (): JSX.Element => {
   const getDraggedStyle = (index: number) =>
     draggedItem.current == index ? ' bg-active-blueTinted' : null;
 
-  console.log('data from child', bookmarkFolders);
+  type RequiredUserBookmarksQuery = Required<UserBookmarksQuery>;
+  interface BookmarkFolderNameProps {
+    folder: RequiredUserBookmarksQuery['UserBookmarks'][0];
+    refetchBookmarkFolders: UserBookmarksQueryResult['refetch'];
+  }
+
+  const BookmarkFolderName = ({ folder, refetchBookmarkFolders }: BookmarkFolderNameProps) => {
+    const [editFolderName, setEditFolderName] = useState<boolean>(false);
+    const [folderName, setFolderName] = useState<string>(folder.name);
+    const [tryingToDelete, setTryingToDelete] = useState<boolean>(false);
+    const { refetchContentGroups } = useLearnerAccess();
+    const [updateBookmarkFolder] = useUpdateBookmarkFolderMutation();
+    const [destroyBookmarkFolder] = useDestroyBookmarkFolderMutation();
+
+    const handleDelete = () => {
+      destroyBookmarkFolder({
+        variables: {
+          id: folder.id
+        }
+      }).then(() => {
+        refetchBookmarkFolders();
+        setEditFolderName(!editFolderName);
+      });
+    };
+
+    const handleSave = () => {
+      updateBookmarkFolder({
+        variables: {
+          id: folder.id,
+          name: folderName
+        }
+      }).then(() => {
+        refetchBookmarkFolders();
+        setEditFolderName(!editFolderName);
+      });
+    };
+
+    return (
+      <>
+        {editFolderName && (
+          <div className="bookmark-folder__edit-name flex">
+            <div className="ember-view input--large">
+              <div className="ember-view new-form-label">
+                <script type="text/x-placeholder"></script>
+                <label className="form__label" data-bindattr-4061="4061">
+                  <div className="form__label__container" data-bindattr-4062="4062"></div>
+
+                  <div className="form__input__container" data-bindattr-4065="4065">
+                    <input
+                      onChange={e => setFolderName(e.target.value)}
+                      className="h-10 leading-5 text-sm w-full focus:outline-none py-1 px-2 bg-white rounded-none border-solid border box-border inline-block mx-0 mt-0 mb-4 p-2 text-black transition shadow-sm border-gray-light"
+                      type="text"
+                      value={folderName}
+                    />
+                  </div>
+                </label>
+              </div>
+            </div>
+            <button
+              onClick={handleSave}
+              className="bg-active-blue text-accent-contrast bg-accent rounded-sm cursor-pointer inline-block font-normal text-xs ml-2 h-10 mb-0 py-[0.15rem] px-4 relative text-center no-underline ease-in-out border-active-blue font-sans transition duration-200 leading-5"
+            >
+              <span>{t('dashboard.bookmark-save')}</span>
+            </button>
+            <button
+              onClick={() => {
+                setEditFolderName(!editFolderName);
+                setFolderName(folder.name);
+              }}
+              className="hover:text-hover bg-transparent rounded-sm cursor-pointer inline-block font-normal text-sm mx-0 mt-0 mb-4 py-2 px-4 relative shadow-none text-center no-underline"
+            >
+              <span>{t('bookmark.cancel')}</span>
+            </button>
+          </div>
+        )}
+        {!editFolderName && (
+          <div className="bookmark-folder pb-5">
+            <span className="bookmark-folder-name pr-7 text-gray-mid text-base">{folderName}</span>
+            <span>
+              <button
+                onClick={() => setEditFolderName(!editFolderName)}
+                className="btn btn--link btn--inherit-font btn--no-margin"
+              >
+                {' '}
+                <EditIcon />
+              </button>
+              <div onClick={() => setTryingToDelete(!tryingToDelete)} className="inline-block ">
+                {!tryingToDelete && (
+                  <button className="btn btn--bare-icon btn--small">
+                    <TrashIcon />
+                  </button>
+                )}
+                {tryingToDelete && (
+                  <span className="confirm-action__confirm">
+                    Are you sure🍇
+                    <button
+                      className="hover:text-hover"
+                      onClick={() => {
+                        setTryingToDelete(false);
+                      }}
+                    >
+                      <span>No</span>
+                    </button>
+                    /
+                    <button
+                      className="hover:text-hover"
+                      onClick={() => {
+                        setTryingToDelete(false);
+                        if (
+                          confirm(
+                            'This action cannot be undone and all bookmarks in this folder will be deleted.'
+                          )
+                        ) {
+                          handleDelete();
+                        }
+                      }}
+                    >
+                      <span>Yes</span>
+                    </button>
+                  </span>
+                )}
+              </div>
+            </span>
+          </div>
+        )}
+      </>
+    );
+  };
+
+  interface BookmarkItemsProps {
+    folderId: string;
+  }
+  const BookmarkItems = ({ folderId }: BookmarkItemsProps): JSX.Element | null => {
+    const { data: bookmarks, refetch: refetchBookmark } = useUserBookmarksByFolderQuery({
+      variables: { id: folderId }
+    });
+
+    if (!bookmarks || !bookmarks.UserBookmarksByFolder) return null;
+    return (
+      <>
+        {bookmarks.UserBookmarksByFolder.map(item => (
+          <BookmarkItem
+            key={item.id}
+            bookmark={item}
+            folderId={folderId}
+            refetchBookmark={refetchBookmark}
+          />
+        ))}
+      </>
+    );
+  };
+
+  type RequiredUserBookmarksByFolderQuery = Required<UserBookmarksByFolderQuery>;
+  interface BookmarkItemProps {
+    bookmark: RequiredUserBookmarksByFolderQuery['UserBookmarksByFolder'][0];
+    folderId: string;
+    refetchBookmark: UserBookmarksByFolderQueryResult['refetch'];
+  }
+  const BookmarkItem = ({ bookmark, folderId, refetchBookmark }: BookmarkItemProps) => {
+    const [showContent, setShowContent] = useState<boolean>(false);
+    const [editNotes, setEditNotes] = useState<boolean>(false);
+    const [notes, setNotes] = useState<string>(bookmark.note || '');
+    const [updateBookmarkNote] = useUpdateBookmarkMutation();
+    const [destroyBookmark] = useDestroyBookmarkMutation();
+
+    const handleDelete = () => {
+      destroyBookmark({
+        variables: {
+          id: bookmark.id
+        }
+      }).then(() => {
+        refetchBookmark();
+      });
+    };
+
+    const handleSave = () => {
+      updateBookmarkNote({
+        variables: {
+          id: bookmark.id,
+          note: notes,
+          bookmarkFolder: folderId
+        }
+      }).then(() => {
+        refetchBookmark();
+        setEditNotes(!editNotes);
+      });
+    };
+
+    return (
+      <div
+        key={bookmark.id}
+        className="dashboard-access-list-item odd:bg-white text-black-light py-3 px-4 bg-white-mid border-gray-light border-b last:border-b-0"
+      >
+        <div className="row grid items-center grid-cols-12 gap-4">
+          <div className="medium-7 columns col-span-6">
+            <button onClick={() => setShowContent(!showContent)} className="inline-block">
+              {showContent ? <DownArrowIcon /> : <RightArrowIcon />}
+              <span className="dashboard-access-list-item-expander__title ">
+                {bookmark.course.title}
+              </span>
+            </button>
+            {!showContent && (
+              <div className="dashboard-access-list-item__description">
+                <p className="bookmark-note pt-2 pl-8 truncate w-full">{bookmark.note}</p>
+              </div>
+            )}
+          </div>
+          <div className="medium-3 columns col-span-3">
+            <div className="catalog-list-item__info">
+              <strong>Course</strong>
+            </div>
+          </div>
+          <div className="medium-2 columns col-span-2 flex justify-end">
+            <a
+              href="/learn/topic/61285240-b509-422c-a4b2-f4400250922a/redirect"
+              className="bg-active-blue text-white rounded-sm cursor-pointer inline-block font-normal text-xs m-0 py-[0.15rem] px-4 relative text-center no-underline ease-in-out border-active-blue font-sans transition duration-200 leading-5"
+            >
+              <span id="i18n-164">{t('bookmark.view')}</span>
+            </a>
+          </div>
+        </div>
+        {showContent && (
+          <div className="mx-0 my-6 relative">
+            <div className="flex">
+              <div className="float-left relative w-1/3 px-4">
+                <img
+                  className="h-auto max-w-full"
+                  src={bookmark.course.courseGroup?.asset}
+                  alt={bookmark.course.title}
+                />
+              </div>
+              <div className="float-left relative px-4">
+                <div className="dashboard-access-list-item__description">
+                  {editNotes && (
+                    <div className="">
+                      <input
+                        className="h-7 focus:outline-none text-xs py-1 px-2 bg-white rounded-none border-solid border box-border inline-block mx-0 mt-0 mb-4 p-2 text-black w-auto transition shadow-sm border-gray-light"
+                        type="text"
+                        onChange={e => setNotes(e.target.value)}
+                        value={notes}
+                      />
+                      <button
+                        onClick={handleSave}
+                        className="text-white transition ease-in-out duration-200 border-gray-light border-solid border cursor-pointer inline-block font-normal text-sm mt-0 mr-0 mb-4 -ml-px pt-1.5 pb-2 px-4 relative text-center no-underline rounded-r-lg bg-[#405667] border-[#405667] hover:border-[#2c3c48] hover:bg-[#2c3c48] leading-3"
+                      >
+                        {t('dashboard.bookmark-save')}
+                      </button>
+                      <button
+                        onClick={() => {
+                          setEditNotes(false);
+                          setNotes(bookmark.note || '');
+                        }}
+                        className="btn btn--bare btn--small"
+                      >
+                        <span className="hover:text-hover bg-transparent rounded-sm cursor-pointer inline-block font-normal text-sm mx-0 mt-0 mb-4 py-2 px-4 relative shadow-none text-center no-underline">
+                          {t('bookmark.cancel')}
+                        </span>
+                      </button>
+                      <p></p>
+                    </div>
+                  )}
+                  {!editNotes && (
+                    <p className="leading-6 font-normal mb-2">
+                      {bookmark.note + ' '}
+                      <button
+                        onClick={() => setEditNotes(true)}
+                        className="btn btn--link btn--inherit-font btn--no-margin hover:text-hover"
+                      >
+                        <span>({t('bookmark.edit')})</span>
+                      </button>
+                    </p>
+                  )}
+                  <div>
+                    <button
+                      onClick={() => {
+                        if (confirm('Are you sure?')) {
+                          handleDelete();
+                        }
+                      }}
+                      className="bg-none rounded-none h-auto p-0 shadow-none text-black hover:text-hover"
+                    >
+                      <span>{t('bookmark.remove')}</span>
+                    </button>
+                  </div>
+                  <p></p>
+                </div>
+              </div>
+            </div>
+          </div>
+        )}
+      </div>
+    );
+  };
+
   if (loading) return <LoadingDots />;
   if (error) return <>{error.message}</>;
   if (!bookmarkFolders || !bookmarkFolders.UserBookmarks) return <></>;

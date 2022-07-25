@@ -9,6 +9,7 @@ import {
   UserCertificatesQuery
 } from '@thoughtindustries/content';
 import useLearnerAccess from '../use-context';
+import { t } from 'i18next';
 
 type RequiredUserCertifacesQuery = Required<UserCertificatesQuery>;
 type UserCertificate = RequiredUserCertifacesQuery['UserCertificates'][0];
@@ -31,7 +32,7 @@ const CertificateUploader = ({ setShowForm }: CertificateUploaderProps) => {
           className="rounded-sm cursor-pointer inline-block font-normal text-sm mx-0 mt-0 mb-4 py-2 px-5 relative text-center no-underline bg-grey-light duration-200 transition ease-in-out bg-active-blue border-active-blue text-accent-contrast bg-accent leading-5"
         >
           <UploadIcon />
-          <span style={{ marginLeft: '1rem' }}>Upload Third-Party Certificate</span>
+          <span style={{ marginLeft: '1rem' }}>{t('Upload Third-Party Certificate<')}</span>
         </button>
       </div>
     </div>
@@ -69,9 +70,7 @@ const CertificateUploadForm = ({ setShowForm }: CertificateUploadFormProps) => {
     <div className="border-solid p-4 text-black-light border-gray-light border-b last:border-b-0">
       <form className="">
         <p className="font-normal mb-4 leading-[1.45rem]">
-          {!showFileImage && (
-            <span id="i18n-323">Upload a third-party certificate. Please provide details.</span>
-          )}
+          {!showFileImage && <span id="i18n-323">{t('external-certificate.upload')}</span>}
         </p>
         <div className="flex justify-evenly">
           <div className="w-full">

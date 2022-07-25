@@ -745,32 +745,6 @@ const mockApolloResultsFactoryQuery = (
   })
 });
 
-// const mockApolloResultsFactoryMutation = (
-//   returnRelatedProducts: boolean,
-//   mockData: any,
-//   documents: any,
-//   productIds: string[],
-//   courseIds: string[]
-// ) => ({
-//   request: {
-//     query: documents,
-//     variables: {
-//       productIds,
-//       courseIds
-//     }
-//   },
-//   result: {
-//     data: {
-//       RelatedProducts: returnRelatedProducts ? [...mockData] : []
-//     }
-//   },
-//   newData: () => ({
-//     data: {
-//       RelatedProducts: returnRelatedProducts ? [...mockData] : []
-//     }
-//   })
-// });
-
 const mockApolloResults = [
   mockApolloResultsFactoryQuery(
     UserContentItemsDocument,
