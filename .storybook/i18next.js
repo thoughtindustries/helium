@@ -57,7 +57,8 @@ i18n.use(initReactI18next).init({
         'bookmark.view': 'View',
         'external-certificate.upload': 'Upload Third-Party Certificate',
         'bookmark.edit': 'Edit',
-        'external-certificate.upload': 'Upload Third-Party Certificate',
+        'external-certificate.instructions':
+          'Upload a third-party certificate. Please provide details.',
         'archive.archive': 'Archive',
         'dashboard.activity': 'Activity',
         'dashboard.started': 'Started',
