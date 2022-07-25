@@ -99,7 +99,7 @@ export const ReinstateButton = ({ item, onReinstateSuccessAsync }: ReinstateButt
         onClick={() => setShowPopup(true)}
         className="bg-active-blue relative text-accent-contrast bg-accent rounded-sm cursor-pointer inline-block font-normal text-xs mb-4 py-[0.15rem] px-4 text-center no-underline ease-in-out border-active-blue font-sans transition duration-200 leading-5"
       >
-        Reinstate
+        {t('archive.reinstate')}
       </button>
       {showPopup && (
         <WarningMessageToolTip

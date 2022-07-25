@@ -137,7 +137,7 @@ const LoadBookmarks = (): JSX.Element => {
             </div>
             <button
               onClick={handleSave}
-              className="bg-active-blue text-accent-contrast bg-accent rounded-sm cursor-pointer inline-block font-normal text-xs ml-2 h-10 mb-0 py-[0.15rem] px-4 relative text-center no-underline ease-in-out border-active-blue font-sans transition duration-200 leading-5"
+              className="bg-active-blue text-accent-contrast rounded-sm cursor-pointer inline-block font-normal text-xs ml-2 h-10 mb-0 py-[0.15rem] px-4 relative text-center no-underline ease-in-out border-active-blue font-sans transition duration-200 leading-5"
             >
               <span>{t('dashboard.bookmark-save')}</span>
             </button>
@@ -171,30 +171,26 @@ const LoadBookmarks = (): JSX.Element => {
                 )}
                 {tryingToDelete && (
                   <span className="confirm-action__confirm">
-                    Are you sure🍇
+                    {t('bookmark.delete-confirmation')}🍇
                     <button
                       className="hover:text-hover"
                       onClick={() => {
                         setTryingToDelete(false);
                       }}
                     >
-                      <span>No</span>
+                      <span>{t('no')}</span>
                     </button>
                     /
                     <button
                       className="hover:text-hover"
                       onClick={() => {
                         setTryingToDelete(false);
-                        if (
-                          confirm(
-                            'This action cannot be undone and all bookmarks in this folder will be deleted.'
-                          )
-                        ) {
+                        if (confirm(t('bookmark.delete-folder-confirmation'))) {
                           handleDelete();
                         }
                       }}
                     >
-                      <span>Yes</span>
+                      <span>{t('yes')}</span>
                     </button>
                   </span>
                 )}
@@ -286,12 +282,12 @@ const LoadBookmarks = (): JSX.Element => {
           </div>
           <div className="medium-3 columns col-span-3">
             <div className="catalog-list-item__info">
-              <strong>Course</strong>
+              <strong>{bookmark.course.courseGroup?.contentType?.label}</strong>
             </div>
           </div>
           <div className="medium-2 columns col-span-2 flex justify-end">
             <a
-              href="/learn/topic/61285240-b509-422c-a4b2-f4400250922a/redirect"
+              href={'/learn/topic/' + bookmark.course.id}
               className="bg-active-blue text-white rounded-sm cursor-pointer inline-block font-normal text-xs m-0 py-[0.15rem] px-4 relative text-center no-underline ease-in-out border-active-blue font-sans transition duration-200 leading-5"
             >
               <span id="i18n-164">{t('bookmark.view')}</span>
@@ -352,7 +348,7 @@ const LoadBookmarks = (): JSX.Element => {
                   <div>
                     <button
                       onClick={() => {
-                        if (confirm('Are you sure?')) {
+                        if (confirm(t('bookmark.delete-confirmation'))) {
                           handleDelete();
                         }
                       }}

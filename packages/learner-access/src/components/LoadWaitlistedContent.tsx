@@ -9,6 +9,7 @@ import {
 } from '@thoughtindustries/content';
 import useLearnerAccess from '../use-context';
 import { useTranslation } from 'react-i18next';
+import { t } from 'i18next';
 
 const LoadWaitlist = (): JSX.Element => {
   const { i18n } = useTranslation();
@@ -72,7 +73,7 @@ const LoadWaitlist = (): JSX.Element => {
                     onClick={() => handleUnenroll(id)}
                     className="bg-active-blue text-accent-contrast bg-accent rounded-sm cursor-pointer inline-block font-normal text-xs m-0 py-[0.15rem] px-4 relative text-center no-underline ease-in-out border-active-blue font-sans transition duration-200 leading-5"
                   >
-                    Unenroll from Waitlist
+                    {t('dashboard.unenroll-waitlist')}
                   </button>
                 </div>
               </div>

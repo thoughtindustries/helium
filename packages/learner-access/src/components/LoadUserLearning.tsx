@@ -26,6 +26,7 @@ import { ArchiveButton } from './MutationCallingButtons';
 import { Tooltip } from '../Assets/Tooltips';
 import { useTranslation } from 'react-i18next';
 import useLearnerAccess from '../use-context';
+import { t } from 'i18next';
 
 const LoadUserLearning = ({ query, kind, sort }: LoadedComponentProps): JSX.Element => {
   const { data, loading, error } = useUserContentItemsQuery({
@@ -93,7 +94,7 @@ const LoadUserLearning = ({ query, kind, sort }: LoadedComponentProps): JSX.Elem
                   <li className="text-accent-colorized-cyan user-engagement-stat user-engagement-stat--hours relative px-2.5 pb-5 block float-left h-auto pt-0">
                     <div className="user-engagement-stat__label-container before:content-[''] before:bg-gray-light before:h-4/5 before:absolute before:top-0 before:right-0 before:w-px last:content-none">
                       <div className="user-engagement-stat__label user-engagement-stat__label--with-hint h-8  text-ellipsis text-gray-mid overflow-hidden text-center uppercase">
-                        TOTAL HOURS
+                        {t('dashboard.hours').toUpperCase()}
                       </div>
                       <div className="user-engagement-stat__label-hint absolute right-0">
                         <Tooltip
@@ -119,7 +120,7 @@ const LoadUserLearning = ({ query, kind, sort }: LoadedComponentProps): JSX.Elem
                   <li className="ember-view user-engagement-stat user-engagement-stat--hours relative px-2.5 pb-5 block float-left h-auto pt-0">
                     <div className="user-engagement-stat__label-container before:content-[''] before:bg-gray-light before:h-4/5 before:absolute before:top-0 before:right-0 before:w-px last:content-none">
                       <div className="user-engagement-stat__label user-engagement-stat__label--with-hint h-8  text-ellipsis text-gray-mid overflow-hidden text-center uppercase">
-                        COLLABORATIONS
+                        {t('dashboard.collaborations').toUpperCase()}
                       </div>
                     </div>
 
@@ -135,7 +136,7 @@ const LoadUserLearning = ({ query, kind, sort }: LoadedComponentProps): JSX.Elem
                 <li className="ember-view user-engagement-stat user-engagement-stat--hours relative px-2.5 pb-5 block float-left h-auto pt-0">
                   <div className="user-engagement-stat__label-container before:content-[''] before:bg-gray-light before:h-4/5 before:absolute before:top-0 before:right-0 before:w-px last:content-none">
                     <div className="user-engagement-stat__label user-engagement-stat__label--with-hint h-8  text-ellipsis text-gray-mid overflow-hidden text-center uppercase">
-                      CONTENT VIEWED
+                      {t('completion.course-percent-viewed').toUpperCase()}
                     </div>
                   </div>
 
@@ -152,7 +153,7 @@ const LoadUserLearning = ({ query, kind, sort }: LoadedComponentProps): JSX.Elem
                 <li className="ember-view user-engagement-stat user-engagement-stat--hours relative px-2.5 pb-5 block float-left h-auto pt-0 text-[#b6259e]">
                   <div className="user-engagement-stat__label-container before:content-[''] before:bg-gray-light before:h-4/5 before:absolute before:top-0 before:right-0 before:w-px before:last:content-none">
                     <div className="user-engagement-stat__label user-engagement-stat__label--with-hint h-8  text-ellipsis text-gray-mid overflow-hidden text-center uppercase">
-                      COMPLETE
+                      {t('dashboard.completed').toUpperCase()}
                     </div>
                   </div>
 

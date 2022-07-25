@@ -3,6 +3,7 @@ import { NetworkStatus } from '@apollo/client';
 import { useUserArchivesQuery, LoadingDots, formatTime } from '@thoughtindustries/content';
 import { ReinstateButton } from './MutationCallingButtons';
 import useLearnerAccess from '../use-context';
+import { t } from 'i18next';
 const LoadArchivedContent = (): JSX.Element => {
   const {
     data,
@@ -57,7 +58,7 @@ const LoadArchivedContent = (): JSX.Element => {
                   <ReinstateButton item={item} onReinstateSuccessAsync={onReinstateSuccessAsync} />
                 )}
                 <small className="block text-gray-mid text-xs z-[-1] relative">
-                  Archived{' '}
+                  {t('dashboard.archived')}{' '}
                   {item.archivedAt && formatTime(item.archivedAt, undefined, 'MMM D, YYYY')}
                 </small>
               </div>

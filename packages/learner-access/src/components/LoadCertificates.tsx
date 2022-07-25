@@ -29,7 +29,7 @@ const CertificateUploader = ({ setShowForm }: CertificateUploaderProps) => {
       <div className="px-4">
         <button
           onClick={() => setShowForm(prev => !prev)}
-          className="rounded-sm cursor-pointer inline-block font-normal text-sm mx-0 mt-0 mb-4 py-2 px-5 relative text-center no-underline bg-grey-light duration-200 transition ease-in-out bg-active-blue border-active-blue text-accent-contrast bg-accent leading-5"
+          className="rounded-sm cursor-pointer inline-block font-normal text-sm mx-0 mt-0 mb-4 py-2 px-5 relative text-center no-underline bg-grey-light duration-200 transition ease-in-out bg-active-blue border-active-blue text-accent-contrast leading-5"
         >
           <UploadIcon />
           <span style={{ marginLeft: '1rem' }}>{t('external-certificate.upload')}</span>
@@ -145,13 +145,13 @@ const CertificateUploadForm = ({ setShowForm }: CertificateUploadFormProps) => {
                   data-ember-action="28579"
                   className="bg-white text-xs box-border cursor-pointer block h-10 mx-0 mt-0 mb-4 py-1 px-4 text-black w-full"
                 >
-                  Cancel
+                  {t('external-certificate.cancel')}
                 </button>
                 <button
                   onClick={() => createCertificateFromUploadMutation()}
                   className="bg-active-blue rounded-sm text-xs box-border cursor-pointer block h-10 mx-0 mt-0 mb-4 py-1 px-4 text-white w-full"
                 >
-                  Submit
+                  {t('external-certificate.submit')}
                 </button>
               </div>
             </div>
