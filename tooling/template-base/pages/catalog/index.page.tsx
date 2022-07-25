@@ -39,7 +39,11 @@ function CatalogItems() {
   );
 
   const [addResourceToQueue] = useAddResourceToQueueMutation();
-  const handleAddedToQueue = ({ slug, kind, displayCourse }: CatalogResultItem) => {
+  const handleAddedToQueue = ({
+    slug,
+    kind,
+    displayCourse
+  }: CatalogResultItem): Promise<boolean | void> => {
     const resourceId = displayCourse || slug;
     return resourceId
       ? addResourceToQueue({ variables: { resourceId, resourceType: kind } }).then()

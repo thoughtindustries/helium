@@ -1,0 +1,7 @@
+mutation ValidateRedemptionCode($code: String!) {
+  ValidateRedemptionCode(code: $code) {
+    valid
+    alreadyRedeemed
+    codeExpired
+  }
+}

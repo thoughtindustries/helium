@@ -1,3 +1,1 @@
-import Redemption from './redemption';
-
-export { Redemption };
+export * from './redemption';

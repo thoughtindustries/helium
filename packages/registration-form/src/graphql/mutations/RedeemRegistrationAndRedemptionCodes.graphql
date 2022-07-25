@@ -1,0 +1,5 @@
+mutation RedeemRegistrationAndRedemptionCodes($validatedRedemptionCodes: [String!]!) {
+  RedeemRegistrationAndRedemptionCodes(validatedRedemptionCodes: $validatedRedemptionCodes) {
+    redeemed
+  }
+}

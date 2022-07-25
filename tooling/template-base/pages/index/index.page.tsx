@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { SyntheticEvent } from 'react';
 import { useTranslation } from 'react-i18next';
 import Layout from '../../components/Layout';
 import { Hero } from '@thoughtindustries/hero';
@@ -6,7 +6,8 @@ import { LearnerAccess } from '@thoughtindustries/learner-access';
 import {
   FeaturedContent,
   ContentTileStandardLayout,
-  FeaturedContentContentItem
+  FeaturedContentContentItem,
+  FeaturedContentHydratedContentItem
 } from '@thoughtindustries/featured-content';
 import {
   hydrateContent,
@@ -42,10 +43,12 @@ function Page({ appearance, currentUser }: { appearance: Appearance; currentUser
 function FeaturedItems() {
   const { i18n } = useTranslation();
   const [addResourceToQueue] = useAddResourceToQueueMutation();
-  const handleAddedToQueue = (item: FeaturedContentContentItem): Promise<boolean | void> =>
-    item.displayCourse
-      ? addResourceToQueue({ variables: { resourceId: item.displayCourse } }).then()
+  const handleAddedToQueue = (item: FeaturedContentContentItem): Promise<boolean | void> => {
+    const { displayCourse } = item as FeaturedContentHydratedContentItem;
+    return displayCourse
+      ? addResourceToQueue({ variables: { resourceId: displayCourse } }).then()
       : Promise.resolve(undefined);
+  };
 
   const { data, loading, error } = useCatalogQuery({
     variables: {
@@ -54,7 +57,7 @@ function FeaturedItems() {
     }
   });
 
-  const handleClick = (evt, item: FeaturedContentContentItem) => {
+  const handleClick = (evt: SyntheticEvent, item: FeaturedContentContentItem) => {
     console.log('clicked!', item);
   };
 
@@ -67,7 +70,7 @@ function FeaturedItems() {
     content = <p>Error loading content</p>;
   }
   if (data) {
-    content = data.CatalogQuery.contentItems.map((item, index) => {
+    content = data.CatalogQuery?.contentItems?.map((item, index) => {
       const hydratedItem = hydrateContent(i18n, item);
       const { authors, description, href, ...restItemProps } = hydratedItem;
       const transformedItem = {
