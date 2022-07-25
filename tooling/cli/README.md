@@ -4,26 +4,13 @@
 
 Helium is an initiative to open up the Thought Industries architecture, providing customers and partners with rich capabilities and technologies to more easily customize and extend the Customer Learning Cloud to meet unique business needs. Helium enables designers and developers to fully customize front-end learning experiences and content types; extend learning delivery to more devices and applications; and eventually share learning courses and applications via a Thought Industries marketplace.
 
-## Getting Started
-
-Get started by creating a new Helium app.
-
-```sh
-$ npm init helium-app
-```
-
-Or with yarn:
-
-```sh
-$ yarn create helium-app
-```
 
 ## Commands
 
 ### `authenticate`
 
 ```sh
-$ helium authenticate [k]
+$ npm run authenticate [k]
 ```
 
 Authenticates a new project by validating against your Thought Industries instance and writing your `ti-config.json`. Note: re-running the command will overwrite existing data in your `ti-config.json`
@@ -37,7 +24,7 @@ Used when the Thought Industries instance is behind an untrusted SSL certificate
 ### `dev`
 
 ```sh
-$ helium dev [i] [p] [-k]
+$ npm run dev [i] [p] [-k]
 $ helium dev sandbox 3000 -k
 ```
 
@@ -60,8 +47,8 @@ Used when the Thought Industries instance is behind an untrusted SSL certificate
 ### `deploy`
 
 ```sh
-$ helium deploy <i> [-k]
-$ helium deploy sandbox -k
+$ npm run deploy <i> [-k]
+$ npm run deploy sandbox -k
 ```
 
 Builds and deploys the project
@@ -79,8 +66,8 @@ Used when the Thought Industries instance is behind an untrusted SSL certificate
 ### `update-translations`
 
 ```sh
-$ helium update-translations [i] [-k]
-$ helium update-translations sandbox -k
+$ npm run update-translations [i] [-k]
+$ npm run update-translations sandbox -k
 ```
 
 Fetches translations from Thought Industries instance and updates the `locales/translations-source.json` and `locales/translations.json` files.
