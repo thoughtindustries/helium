@@ -4,6 +4,20 @@
 
 Helium is an initiative to open up the Thought Industries architecture, providing customers and partners with rich capabilities and technologies to more easily customize and extend the Customer Learning Cloud to meet unique business needs. Helium enables designers and developers to fully customize front-end learning experiences and content types; extend learning delivery to more devices and applications; and eventually share learning courses and applications via a Thought Industries marketplace.
 
+## Getting Started
+
+Get started by creating a new Helium app.
+
+```sh
+$ npm init helium-app
+```
+
+Or with yarn:
+
+```sh
+$ yarn create helium-app
+```
+
 ## Commands
 
 ### `authenticate`
