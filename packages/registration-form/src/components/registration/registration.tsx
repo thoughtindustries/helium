@@ -4,6 +4,7 @@ import { Redemption } from '../redemption';
 import { isEmpty } from 'lodash';
 import { Props, ResponseProps, CurrentUser } from '../types';
 import { useRedeemRegistrationAndRedemptionCodesMutation } from '../../graphql';
+import Banner from '../redemption/banner';
 
 const RegistrationContext = createContext<ResponseProps | undefined>(undefined);
 
@@ -15,11 +16,11 @@ const useRegistrationContext = () => {
   return context;
 };
 
-const Registration = ({ currentUser }: { currentUser: CurrentUser }): JSX.Element => {
+const Registration = ({ currentUser }: { currentUser?: CurrentUser }): JSX.Element => {
   const { t } = useTranslation();
   const [response, setResponse] = useState<Props>();
   const [validatedRedemptionCodes, setValidatedRedemptionCodes] = useState<Array<string>>([]);
-  const [RedeemRegistrationAndRedemptionCodesMutation] =
+  const [RedeemRegistrationAndRedemptionCodesMutation, { loading }] =
     useRedeemRegistrationAndRedemptionCodesMutation();
   const emailRegex =
     /^(([^<>()[\].,;:\s@"]+(\.[^<>()[\].,;:\s@"]+)*)|(".+"))@(([^<>()[\].,;:\s@"]+\.)+[^<>()[\].,;:\s@"]{2,})$/i;
@@ -38,7 +39,8 @@ const Registration = ({ currentUser }: { currentUser: CurrentUser }): JSX.Elemen
       })
         .then(response => {
           if (response.data?.RedeemRegistrationAndRedemptionCodes.redeemed) {
-            // Redirect user
+            // TODO: Redirect user
+            alert('REGISTERED!');
           }
         })
         .catch(error => console.log('Redemption Request Error: ', error));
@@ -86,6 +88,11 @@ const Registration = ({ currentUser }: { currentUser: CurrentUser }): JSX.Elemen
           <h5 className="flex justify-center mb-8 text-sm text-gray-500">
             {t('redemption-code.redeem-course-copy-signed-in-manual-code')}
           </h5>
+          <Banner
+            valid={response?.valid}
+            alreadyRedeemed={response?.alreadyRedeemed}
+            codeExpired={response?.codeExpired}
+          />
           <p className="mb-4">
             <strong className="text-gray-600">{`${t('already-member')}\u00A0`}</strong>
             <button type="button">
@@ -127,7 +134,13 @@ const Registration = ({ currentUser }: { currentUser: CurrentUser }): JSX.Elemen
             type="password"
           />
         </>
-      ) : null}
+      ) : (
+        <Banner
+          valid={response?.valid}
+          alreadyRedeemed={response?.alreadyRedeemed}
+          codeExpired={response?.codeExpired}
+        />
+      )}
       <RegistrationContext.Provider
         value={{ response, setResponse, validatedRedemptionCodes, setValidatedRedemptionCodes }}
       >
@@ -135,10 +148,10 @@ const Registration = ({ currentUser }: { currentUser: CurrentUser }): JSX.Elemen
       </RegistrationContext.Provider>
       <div className="w-full border-t border-gray-200 my-4" />
       <button
-        className="text-white bg-indigo-700 hover:bg-indigo-600 inline-block font-normal text-sm text-center no-underline py-2 w-full md:w-1/4 rounded-md"
+        className="text-white bg-indigo-700 hover:bg-indigo-600 inline-block font-normal text-sm text-center no-underline py-2 w-full md:w-1/4 rounded-md disabled:bg-indigo-300 disabled:cursor-default"
         type="button"
         onClick={() => handleRegistration()}
-        // Disable button while loading
+        disabled={loading}
       >
         {t('redemption-code.redeem-code-preloaded')}
       </button>
