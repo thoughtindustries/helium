@@ -21,6 +21,8 @@ const Registration = ({ currentUser }: { currentUser: CurrentUser }): JSX.Elemen
   const [validatedRedemptionCodes, setValidatedRedemptionCodes] = useState<Array<string>>([]);
   const [RedeemRegistrationAndRedemptionCodesMutation] =
     useRedeemRegistrationAndRedemptionCodesMutation();
+  const emailRegex =
+    /^(([^<>()[\].,;:\s@"]+(\.[^<>()[\].,;:\s@"]+)*)|(".+"))@(([^<>()[\].,;:\s@"]+\.)+[^<>()[\].,;:\s@"]{2,})$/i;
   const [formData, setFormData] = useState({
     firstName: '',
     lastName: '',
@@ -40,11 +42,45 @@ const Registration = ({ currentUser }: { currentUser: CurrentUser }): JSX.Elemen
           }
         })
         .catch(error => console.log('Redemption Request Error: ', error));
+    } else {
+      let alertMessage = '';
+      if (isEmpty(currentUser)) {
+        if (isEmpty(formData.firstName)) {
+          alertMessage = alertMessage + t('first-name-alert');
+        }
+        if (isEmpty(formData.lastName)) {
+          alertMessage = alertMessage + `\n${t('last-name-alert')}`;
+        }
+        if (isEmpty(formData.email) || !emailRegex.test(formData.email)) {
+          alertMessage = alertMessage + `\n${t('valid-email-alert')}`;
+        }
+        if (
+          isEmpty(formData.password) ||
+          formData.password.length < 6 ||
+          formData.password !== formData.passwordConfirmation
+        ) {
+          alertMessage = alertMessage + `\n${t('password-length-alert')}`;
+        }
+        alertMessage = alertMessage + `\n${t('agree-terms-alert')}`;
+        alert(alertMessage);
+      }
+    }
+  };
+
+  const handleOnBlur = (e: React.FormEvent<HTMLInputElement>, field: string) => {
+    const classList = (e.target as HTMLInputElement).classList;
+
+    if (isEmpty(field)) {
+      classList.remove('ring-gray-300');
+      classList.add('ring-red-500');
+    } else {
+      classList.remove('ring-red-500');
+      classList.add('ring-gray-300');
     }
   };
 
   return (
-    <div className="mx-4 md:mx-40 text-center self-center">
+    <form className="mx-4 md:mx-40 text-center self-center">
       {isEmpty(currentUser) ? (
         <>
           <h5 className="flex justify-center mb-8 text-sm text-gray-500">
@@ -61,27 +97,34 @@ const Registration = ({ currentUser }: { currentUser: CurrentUser }): JSX.Elemen
               className="p-4 text-sm w-full ring-1 ring-gray-300 ring-inset shadow-inner focus:outline-none focus:ring-gray-500 mb-4 mr-4"
               placeholder={t('register-first-name')}
               onChange={e => setFormData({ ...formData, firstName: e.target.value })}
+              onBlur={e => handleOnBlur(e, formData.firstName)}
             />
             <input
               className="p-4 text-sm w-full ring-1 ring-gray-300 ring-inset shadow-inner focus:outline-none focus:ring-gray-500 mb-4"
               placeholder={t('register-last-name')}
               onChange={e => setFormData({ ...formData, lastName: e.target.value })}
+              onBlur={e => handleOnBlur(e, formData.lastName)}
             />
           </div>
           <input
             className="p-4 text-sm w-full ring-1 ring-gray-300 ring-inset shadow-inner focus:outline-none focus:ring-gray-500 mb-4"
             placeholder={t('register-email')}
             onChange={e => setFormData({ ...formData, email: e.target.value })}
+            onBlur={e => handleOnBlur(e, formData.email)}
           />
           <input
             className="p-4 text-sm w-full ring-1 ring-gray-300 ring-inset shadow-inner focus:outline-none focus:ring-gray-500 mb-4"
             placeholder={t('register-password')}
             onChange={e => setFormData({ ...formData, password: e.target.value })}
+            onBlur={e => handleOnBlur(e, formData.password)}
+            type="password"
           />
           <input
             className="p-4 text-sm w-full ring-1 ring-gray-300 ring-inset shadow-inner focus:outline-none focus:ring-gray-500 mb-4"
             placeholder={t('register-confirm-password')}
             onChange={e => setFormData({ ...formData, passwordConfirmation: e.target.value })}
+            onBlur={e => handleOnBlur(e, formData.passwordConfirmation)}
+            type="password"
           />
         </>
       ) : null}
@@ -95,10 +138,11 @@ const Registration = ({ currentUser }: { currentUser: CurrentUser }): JSX.Elemen
         className="text-white bg-indigo-700 hover:bg-indigo-600 inline-block font-normal text-sm text-center no-underline py-2 w-full md:w-1/4 rounded-md"
         type="button"
         onClick={() => handleRegistration()}
+        // Disable button while loading
       >
         {t('redemption-code.redeem-code-preloaded')}
       </button>
-    </div>
+    </form>
   );
 };
 

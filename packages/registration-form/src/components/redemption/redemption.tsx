@@ -4,10 +4,10 @@ import Banner from './banner';
 
 const Redemption = (): JSX.Element => {
   return (
-    <form>
+    <>
       <Banner />
       <CodeList />
-    </form>
+    </>
   );
 };
 
