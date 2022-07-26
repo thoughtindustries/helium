@@ -1,11 +1,11 @@
 import React from 'react';
-import CatalogComp from '../../components/CatalogComp/CatalogComp';
 import CTA from '../../components/CTA/CTA';
-import DocsAndResouces from '../../components/ExploreDocs/DocsAndResouces';
+import DocsAndResouces from '../../components/DocumentsAndResources/DocsAndResouces';
 import FeaturedContentComp from '../../components/FeaturedContent/FeaturedContentComp';
 import Footer from '../../components/Footer/Footer';
 import Hero from '../../components/Hero';
-import Navbar from '../../components/Navigation/Navbar';
+import HomepageNavbar from '../../components/Navigation/HomepageNavbar';
+import LearningInfo from '../../components/LearningInfo/LearningInfo';
 
 export { Page };
 export { documentProps };
@@ -18,11 +18,11 @@ const documentProps = {
 function Page() {
   return (
     <>
-      <Navbar />
+      <HomepageNavbar />
       <Hero />
       <FeaturedContentComp />
       <DocsAndResouces />
-      <CatalogComp />
+      <LearningInfo />
       <CTA />
       <Footer />
     </>

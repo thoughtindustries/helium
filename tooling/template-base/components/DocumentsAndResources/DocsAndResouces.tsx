@@ -11,10 +11,13 @@ const DocsAndResouces = () => {
       </div>
       {/* <div className="flex flex-row"></div> */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6 pt-8">
-        <DocLinks text="Wordpress documentation" />
-        <DocLinks text="StoryBook Documentation" />
-        <DocLinks text="GraphQL explorer" />
-        <DocLinks text="GraphQL documentation" />
+        <DocLinks text="Wordpress documentation" link="https://developer.wordpress.org/" />
+        <DocLinks
+          text="StoryBook Documentation"
+          link="https://thoughtindustries.github.io/helium/?path=/story/example-cart--base"
+        />
+        <DocLinks text="GraphQL explorer" link="/graphIQL" />
+        <DocLinks text="GraphQL documentation" link="https://graphql.org/learn/" />
       </div>
     </div>
   );

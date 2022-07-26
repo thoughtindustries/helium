@@ -3,13 +3,10 @@ import {
   useAddResourceToQueueMutation,
   useCatalogQuery
 } from '@thoughtindustries/content';
-import {
-  ContentTileStandardLayout,
-  FeaturedContent,
-  FeaturedContentContentItem
-} from '@thoughtindustries/featured-content';
+import { FeaturedContent, FeaturedContentContentItem } from '@thoughtindustries/featured-content';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
+import CatalogElementLayout from './CatalogElementLayout';
 
 const FeaturedCardContent = () => {
   const { i18n } = useTranslation();
@@ -48,11 +45,11 @@ const FeaturedCardContent = () => {
   return (
     <div className="px-4 py-6">
       <FeaturedContent>
-        <ContentTileStandardLayout desktopColumnCount={2} onAddedToQueue={handleAddedToQueue}>
+        <CatalogElementLayout desktopColumnCount={2} onAddedToQueue={handleAddedToQueue}>
           {contentItems.map((item, index) => (
-            <ContentTileStandardLayout.Item key={`item-${index}`} {...item} />
+            <CatalogElementLayout.Item key={`item-${index}`} {...item} />
           ))}
-        </ContentTileStandardLayout>
+        </CatalogElementLayout>
       </FeaturedContent>
       <p>&nbsp;</p>
     </div>

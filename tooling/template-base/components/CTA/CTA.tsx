@@ -6,7 +6,7 @@ const CTA = () => {
       <div className="flex flex-col text-white text-3xl font-bold">Are you ready to learn?</div>
       <div className="max-w-md mx-auto">
         <div className="flex flex-col text-gray-300 text-xl font-bold">
-          Whether you’re looking to grow your business, launch a new product, or simply want to
+          Whether youre looking to grow your business, launch a new product, or simply want to
           improve certain aspects of your life, we have the tools you need to achieve your goals.
         </div>
       </div>
