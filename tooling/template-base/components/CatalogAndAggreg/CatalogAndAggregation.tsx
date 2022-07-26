@@ -18,7 +18,7 @@ const CatalogAndAggregation: FC<CatalogProps> = ({
             <div className="col-span-full md:col-span-1">
               <CatalogAggregations />
             </div>
-            <div className="col-span-full md:col-span-2">
+            <div className="col-span-full md:col-span-2 ">
               <CatalogResults {...restResultsProps} />
             </div>
           </div>
