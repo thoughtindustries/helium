@@ -16,7 +16,13 @@ const useRegistrationContext = () => {
   return context;
 };
 
-const Registration = ({ currentUser }: { currentUser?: CurrentUser }): JSX.Element => {
+const Registration = ({
+  currentUser,
+  redirectUrl
+}: {
+  currentUser?: CurrentUser;
+  redirectUrl?: string;
+}): JSX.Element => {
   const { t } = useTranslation();
   const [response, setResponse] = useState<Props>();
   const [validatedRedemptionCodes, setValidatedRedemptionCodes] = useState<Array<string>>([]);
@@ -52,23 +58,23 @@ const Registration = ({ currentUser }: { currentUser?: CurrentUser }): JSX.Eleme
       ) {
         alertMessage = alertMessage + `\n${t('password-length-alert')}`;
       }
-
-      // Registration and validation
-      if (!isEmpty(alertMessage)) {
-        alert(alertMessage);
-      } else if (isEmpty(validatedRedemptionCodes)) {
-        alert(t('register-invalid-code-alert'));
-      } else {
-        await RedeemRegistrationAndRedemptionCodesMutation({
-          variables: { validatedRedemptionCodes: validatedRedemptionCodes }
+    }
+    // Registration and validation
+    if (!isEmpty(alertMessage) && isEmpty(currentUser)) {
+      alert(alertMessage);
+    } else if (isEmpty(validatedRedemptionCodes)) {
+      alert(t('register-invalid-code-alert'));
+    } else {
+      const uniqueCodes = [...new Set(validatedRedemptionCodes)];
+      await RedeemRegistrationAndRedemptionCodesMutation({
+        variables: { validatedRedemptionCodes: uniqueCodes }
+      })
+        .then(response => {
+          if (response.data?.RedeemRegistrationAndRedemptionCodes.redeemed) {
+            window.location.href = !isEmpty(redirectUrl) ? redirectUrl || '' : '/learn';
+          }
         })
-          .then(response => {
-            if (response.data?.RedeemRegistrationAndRedemptionCodes.redeemed) {
-              // TODO: Redirect user
-            }
-          })
-          .catch(error => console.log('Redemption Request Error: ', error));
-      }
+        .catch(error => console.log('Redemption Request Error: ', error));
     }
   };
 
