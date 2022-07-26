@@ -6,9 +6,6 @@ import CatalogError from '@thoughtindustries/catalog/src/catalog-error';
 import CatalogResults from './CatalogResults';
 
 const CatalogAndAggregation: FC<CatalogProps> = ({
-  title,
-  alternateTitleDisplay,
-  pagination,
   ...restResultsProps
 }: CatalogProps): JSX.Element => {
   const { t } = useTranslation();
