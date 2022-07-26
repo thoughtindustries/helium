@@ -75,6 +75,8 @@ i18n.use(initReactI18next).init({
         'register-first-name': 'First Name',
         'register-last-name': 'Last Name',
         'register-email': 'Email Address',
+        'register-invalid-code-alert':
+          'You have not validated any redemption codes. Please try again.',
         'register-password': 'Password',
         'register-confirm-password': 'Password Confirmation',
         'register-invalid-code-alert':

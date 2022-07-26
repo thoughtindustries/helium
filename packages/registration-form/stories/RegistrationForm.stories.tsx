@@ -6,9 +6,30 @@ import {
   Registration
 } from '../src';
 
+const mockUser = {
+  id: 'uuid',
+  firstName: 'First',
+  lastName: 'Last',
+  email: 'first.last@example.com',
+  roleKey: 'student'
+};
+
 export default {
   title: 'Example/Registration',
-  component: Registration
+  component: Registration,
+  argTypes: {
+    currentUser: {
+      name: 'currentUser',
+      options: ['loggedIn', 'loggedOut'],
+      mapping: {
+        loggedIn: mockUser,
+        loggedOut: null
+      },
+      control: { type: 'radio' },
+      description: 'Logged in user',
+      defaultValue: 'loggedIn'
+    }
+  }
 };
 
 const mockApolloResultsFactory = (
@@ -50,14 +71,6 @@ const mockRegistrationResults = (validatedRedemptionCodes: Array<string>, redeem
   }
 });
 
-const mockUser = {
-  id: 'uuid',
-  firstName: 'First',
-  lastName: 'Last',
-  email: 'first.last@example.com',
-  roleKey: 'student'
-};
-
 const mockApolloResults = [
   mockApolloResultsFactory('validCode1', true, false, false),
   mockApolloResultsFactory('validCode2', true, false, false),
@@ -69,7 +82,7 @@ const mockApolloResults = [
   mockRegistrationResults(['validCode1', 'validCode2', 'validCode3'], true)
 ];
 
-const Template: Story = () => <Registration currentUser={mockUser} />;
+const Template: Story = args => <Registration {...args} />;
 
 export const Base: Story = Template.bind({});
 Base.parameters = {

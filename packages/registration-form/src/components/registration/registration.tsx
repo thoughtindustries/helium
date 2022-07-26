@@ -33,38 +33,41 @@ const Registration = ({ currentUser }: { currentUser?: CurrentUser }): JSX.Eleme
   });
 
   const handleRegistration = async () => {
-    if (validatedRedemptionCodes.length > 0) {
-      await RedeemRegistrationAndRedemptionCodesMutation({
-        variables: { validatedRedemptionCodes: validatedRedemptionCodes }
-      })
-        .then(response => {
-          if (response.data?.RedeemRegistrationAndRedemptionCodes.redeemed) {
-            // TODO: Redirect user
-            alert('REGISTERED!');
-          }
-        })
-        .catch(error => console.log('Redemption Request Error: ', error));
-    } else {
-      let alertMessage = '';
-      if (isEmpty(currentUser)) {
-        if (isEmpty(formData.firstName)) {
-          alertMessage = alertMessage + t('first-name-alert');
-        }
-        if (isEmpty(formData.lastName)) {
-          alertMessage = alertMessage + `\n${t('last-name-alert')}`;
-        }
-        if (isEmpty(formData.email) || !emailRegex.test(formData.email)) {
-          alertMessage = alertMessage + `\n${t('valid-email-alert')}`;
-        }
-        if (
-          isEmpty(formData.password) ||
-          formData.password.length < 6 ||
-          formData.password !== formData.passwordConfirmation
-        ) {
-          alertMessage = alertMessage + `\n${t('password-length-alert')}`;
-        }
-        alertMessage = alertMessage + `\n${t('agree-terms-alert')}`;
+    let alertMessage = '';
+    // Form validation
+    if (isEmpty(currentUser)) {
+      if (isEmpty(formData.firstName)) {
+        alertMessage = alertMessage + t('first-name-alert');
+      }
+      if (isEmpty(formData.lastName)) {
+        alertMessage = alertMessage + `\n${t('last-name-alert')}`;
+      }
+      if (isEmpty(formData.email) || !emailRegex.test(formData.email)) {
+        alertMessage = alertMessage + `\n${t('valid-email-alert')}`;
+      }
+      if (
+        isEmpty(formData.password) ||
+        formData.password.length < 6 ||
+        formData.password !== formData.passwordConfirmation
+      ) {
+        alertMessage = alertMessage + `\n${t('password-length-alert')}`;
+      }
+
+      // Registration and validation
+      if (!isEmpty(alertMessage)) {
         alert(alertMessage);
+      } else if (isEmpty(validatedRedemptionCodes)) {
+        alert(t('register-invalid-code-alert'));
+      } else {
+        await RedeemRegistrationAndRedemptionCodesMutation({
+          variables: { validatedRedemptionCodes: validatedRedemptionCodes }
+        })
+          .then(response => {
+            if (response.data?.RedeemRegistrationAndRedemptionCodes.redeemed) {
+              // TODO: Redirect user
+            }
+          })
+          .catch(error => console.log('Redemption Request Error: ', error));
       }
     }
   };
