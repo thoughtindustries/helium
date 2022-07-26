@@ -4,7 +4,7 @@
   "description": "A base component for featured content",
   "author": "Rob Schillinger <robert.schillinger@thoughtindustries>",
   "homepage": "https://github.com/thoughtindustries/helium#readme",
-  "license": "ISC",
+  "license": "MIT",
   "main": "src/index.ts",
   "files": [
     "src"

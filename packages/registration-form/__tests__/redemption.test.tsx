@@ -1,7 +1,7 @@
 import React from 'react';
 import { render, waitFor } from '@testing-library/react';
 import { MockedProvider } from '@apollo/client/testing';
-import { Redemption, RedeemRedemptionCodeDocument } from '../src';
+import { Redemption, ValidateRedemptionCodeDocument } from '../src';
 
 jest.mock('react-i18next', () => ({
   useTranslation: () => {
@@ -25,7 +25,7 @@ Object.defineProperty(window, 'matchMedia', {
 
 const mockApolloResults = {
   request: {
-    query: RedeemRedemptionCodeDocument
+    query: ValidateRedemptionCodeDocument
   },
   result: {
     data: {

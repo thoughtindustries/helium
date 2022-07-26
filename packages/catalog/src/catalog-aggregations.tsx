@@ -18,13 +18,19 @@ type AggregationProps = {
 };
 
 const AggregationBucket = ({ href, value, count }: AggregationBucketProps): JSX.Element => (
-  <li>
+  <li className="rounded-lg pt-2">
     <a
       href={href}
-      className="inline-block leading-normal py-1.5 px-4 text-link hover:text-link-hover"
+      className="flex justify-between pt-2 pl-2 hover:bg-blue-500 hover:text-white rounded"
     >
-      {value}
-      {count && <span className="text-xs text-gray-700 pl-1">({count})</span>}
+      <div className="text-sm font-semibold">{value}</div>
+      <div className="mt-0">
+        {count && (
+          <button className="px-4 py-0.5 mb-2 mr-2 bg-gray-300 hover:text-black text-sm font-medium rounded-full">
+            {count}
+          </button>
+        )}
+      </div>
     </a>
   </li>
 );
@@ -41,26 +47,32 @@ const Aggregation = ({
   };
   const wrapperClassnames = isExpanded ? 'border-b mb-4 bg-gray-100' : '';
   const buttonLinkClassnames =
-    'w-full leading-normal text-left transition-colors ease-in-out duration-200 bg-none text-accent hover:text-accent-hover flex items-center gap-4';
+    'w-full leading-normal text-left transition-colors ease-in-out duration-200 bg-none text-accent flex items-center gap-4';
   const listClassnames = !isExpanded ? 'hidden' : '';
   const ariaId = `catalog-aggregation-dropdown-${index}`;
   return (
-    <div className={clsx(['border-t border-solid border-gray-400 py-3 px-2'], wrapperClassnames)}>
-      <button
-        className={buttonLinkClassnames}
-        onClick={handleToggle}
-        aria-expanded={isExpanded}
-        aria-labelledby={ariaId}
-      >
-        <span className="text-xl inline-block leading-4 text-center w-5 h-5">
-          {isExpanded && <ArrowDownIcon />}
-          {!isExpanded && <ArrowRightIcon />}
-        </span>
-        <span className="font-semibold">{label}</span>
-      </button>
-      <ul aria-hidden={!isExpanded} id={ariaId} className={clsx(['pl-6 text-sm'], listClassnames)}>
-        {aggregationBuckets}
-      </ul>
+    <div className="bg-white px-5 py-3 rounded">
+      <div className={clsx([' py-4 px-3 rounded'], wrapperClassnames)}>
+        <button
+          className={`${buttonLinkClassnames}`}
+          onClick={handleToggle}
+          aria-expanded={isExpanded}
+          aria-labelledby={ariaId}
+        >
+          <span className="text-xl inline-block leading-4 text-center w-5 h-5">
+            {isExpanded && <ArrowDownIcon />}
+            {!isExpanded && <ArrowRightIcon />}
+          </span>
+          <span className="font-semibold">{label}</span>
+        </button>
+        <ul
+          aria-hidden={!isExpanded}
+          id={ariaId}
+          className={clsx(['pl-6 text-sm'], listClassnames)}
+        >
+          {aggregationBuckets}
+        </ul>
+      </div>
     </div>
   );
 };
