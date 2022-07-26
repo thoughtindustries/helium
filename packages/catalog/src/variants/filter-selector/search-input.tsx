@@ -31,7 +31,7 @@ const SearchInput = ({
         className="md:h-full"
       >
         <input
-          className="border border-solid border-gray-400 shadow md:h-full md:m-0 md:border-none md:shadow-none w-full focus:outline-none p-2 text-sm rounded-md"
+          className="border border-solid border-gray-400 shadow md:h-full md:m-0 md:border-none md:shadow-none w-full focus:outline-none p-2 text-sm"
           placeholder={t('catalog-search-placeholder')}
           aria-label="Catalog Search"
           type="text"
