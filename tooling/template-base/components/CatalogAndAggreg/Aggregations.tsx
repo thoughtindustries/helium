@@ -26,7 +26,7 @@ const AggregationBucket = ({ href, value, count }: AggregationBucketProps): JSX.
       <div className="text-sm font-semibold">{value}</div>
       <div className="mt-0">
         {count && (
-          <button className="px-4 py-0.5 mb-2 mr-2 bg-gray-300 hover:text-black text-sm font-medium rounded-full">
+          <button className="px-4 py-0.5 mb-2 mr-2 bg-gray-300 text-sm font-medium rounded-full">
             {count}
           </button>
         )}
@@ -51,8 +51,8 @@ const Aggregation = ({
   const listClassnames = !isExpanded ? 'hidden' : '';
   const ariaId = `catalog-aggregation-dropdown-${index}`;
   return (
-    <div className="bg-white px-5 py-3 rounded">
-      <div className={clsx([' py-4 px-3 rounded'], wrapperClassnames)}>
+    <div className="bg-white p-6 rounded">
+      <div className={clsx(['py-4 px-3 rounded'], wrapperClassnames)}>
         <button
           className={`${buttonLinkClassnames}`}
           onClick={handleToggle}
