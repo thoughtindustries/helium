@@ -74,7 +74,14 @@ const ItemSourceBlock = ({
   courseStartDate?: string;
 }) => (
   <HeightEqualizerElementWrapper name="source" className="text-sm text-gray-500">
-    {contentTypeLabel} | {courseStartDate}
+    <p>
+      {courseStartDate && (
+        <span className="flex text-md text-gray-500">
+          {contentTypeLabel}
+          {/* | {formatTime(courseStartDate, timezone, 'MM/DD/YYYY')} */}
+        </span>
+      )}
+    </p>
   </HeightEqualizerElementWrapper>
 );
 
@@ -122,7 +129,7 @@ const DisplayTypeResultsGridItem = ({
       <>
         <ItemLinkWrapper item={item} onClick={onClick}>
           <div className="grid grid-cols-1 relative">
-            <div className="bg-white px-4 py-4 rounded">
+            <div className="bg-white px-6 py-6 rounded-md">
               {ribbon && <ItemRibbon ribbon={ribbon} attached attachedClassnames="-top-1" />}
               <div className="relative">
                 <ItemAssetBlock asset={asset} />
@@ -140,10 +147,10 @@ const DisplayTypeResultsGridItem = ({
                   contentTypeLabel={contentTypeLabel}
                   courseStartDate={courseStartDate}
                 />
-                <div className="text-sm text-gray-500 pt-1 mb-0">
-                  {description && limitText(description, 100)}
+                <div className="text-sm text-gray-500 pt-3 mb-0">
+                  {description && limitText(description, 75)}
                 </div>
-                <hr className="mb-2" />
+                <hr className="my-2" />
                 <div className="text-base leading-none py-2">
                   <ItemCtaBlock isActive={isActive} callToAction={callToAction} />
                 </div>
@@ -177,3 +184,6 @@ const DisplayTypeResultsGrid = ({
 
 DisplayTypeResultsGrid.displayName = 'DisplayTypeResultsGrid';
 export default DisplayTypeResultsGrid;
+function timezone(courseStartDate: string, timezone: any, arg2: string): React.ReactNode {
+  throw new Error('Function not implemented.');
+}

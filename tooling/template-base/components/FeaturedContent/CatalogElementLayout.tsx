@@ -112,38 +112,6 @@ const ItemRibbon = ({
   );
 };
 
-const ItemPriceBlock = ({
-  priceInCents,
-  hasAvailability,
-  suggestedRetailPriceInCents
-}: {
-  priceInCents?: number;
-  hasAvailability?: boolean;
-  suggestedRetailPriceInCents?: number;
-}) => {
-  if (hasAvailability) {
-    return null;
-  }
-
-  const formatter = new Intl.NumberFormat('en-US', {
-    style: 'currency',
-    currency: 'USD'
-  });
-
-  const priceFormat = (priceInCents: number) => formatter.format(priceInCents / 100);
-
-  return (
-    <>
-      <span>{priceFormat(priceInCents as number)}</span>
-      {suggestedRetailPriceInCents && (
-        <span className="line-through text-gray-700 text-xs">
-          {priceFormat(suggestedRetailPriceInCents as number)}
-        </span>
-      )}
-    </>
-  );
-};
-
 const Item = ({ ...item }: FeaturedContentContentItemProps): JSX.Element => {
   const { asset, title, description, isActive } = item;
   const { ribbon, isCompleted, courseStartDate, contentTypeLabel, authors, timeZone } =
