@@ -1,7 +1,7 @@
 import React from 'react';
 import logo from '../../renderer/trees1.png';
 
-const CatalogComp = () => {
+const LearningInfo = () => {
   return (
     <>
       <div className="flex flex-col pt-16 px-10 pb-20 bg-slate-50">
@@ -58,4 +58,4 @@ const CatalogComp = () => {
   );
 };
 
-export default CatalogComp;
+export default LearningInfo;

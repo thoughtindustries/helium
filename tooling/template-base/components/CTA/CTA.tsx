@@ -8,7 +8,12 @@ const CTA = () => {
       </div>
       <div className="max-w-md mx-auto">
         <div className="flex flex-col text-gray-300 text-xl font-bold">
+<<<<<<< HEAD
         Whether you’re looking to grow your business, launch a new product, or simply want to improve certain aspects of your life, we have the tools you need to achieve your goals.
+=======
+          Whether youre looking to grow your business, launch a new product, or simply want to
+          improve certain aspects of your life, we have the tools you need to achieve your goals.
+>>>>>>> 29502bb (feat: correct packages file)
         </div>
       </div>
       <a href="/sign-in">

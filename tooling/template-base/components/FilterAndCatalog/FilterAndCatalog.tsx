@@ -1,7 +1,8 @@
-import { Catalog, CatalogProvider } from '@thoughtindustries/catalog';
 import { HydratedContentItem } from '@thoughtindustries/content';
 import React, { useMemo } from 'react';
 import { usePageContext } from '../../renderer/usePageContext';
+import { CatalogProvider } from '@thoughtindustries/catalog';
+import CatalogAndAggregation from '../CatalogAndAggreg/CatalogAndAggregation';
 
 const FilterAndCatalog = () => {
   const pageContext = usePageContext();
@@ -22,7 +23,7 @@ const FilterAndCatalog = () => {
     <div className="grid md:grid-cols-3 grid-cols-1 py-24 px-12 md:px-20 bg-slate-100">
       <div className="col-span-3">
         <CatalogProvider config={config}>
-          <Catalog
+          <CatalogAndAggregation
             onAddedToQueue={function (item: HydratedContentItem): Promise<boolean | void> {
               throw new Error('Function not implemented.');
             }}
