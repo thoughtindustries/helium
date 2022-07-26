@@ -114,11 +114,11 @@ const CatalogFilters = (): JSX.Element => {
               </div>
             </div>
           )}
-          {/* {enableSort && (
+          {enableSort && (
             <div className="md:border-l md:border-l-solid md:border-l-gray-400 md:bg-white md:col-span-2 relative px-4 float-left mb-2 md:h-full md:mb-0 md:pr-0">
               <SortSelector enabledSorts={enabledSorts} sort={sort} />
             </div>
-          )} */}
+          )}
         </div>
       </div>
       {enableDisplayType && (
