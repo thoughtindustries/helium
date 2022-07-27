@@ -1,8 +1,11 @@
 <<<<<<< HEAD
+<<<<<<< HEAD
 import { hydrateContent, useAddResourceToQueueMutation, useCatalogQuery } from '@thoughtindustries/content';
 import { ContentTileStandardLayout, FeaturedContent, FeaturedContentContentItem } from '@thoughtindustries/featured-content'
 import React from 'react'
 =======
+=======
+>>>>>>> refs/remotes/origin/build-homepage-catalogpage
 import {
   hydrateContent,
   useAddResourceToQueueMutation,
@@ -10,12 +13,18 @@ import {
 } from '@thoughtindustries/content';
 import { FeaturedContent, FeaturedContentContentItem } from '@thoughtindustries/featured-content';
 import React from 'react';
+<<<<<<< HEAD
 >>>>>>> 29502bb (feat: correct packages file)
+=======
+>>>>>>> refs/remotes/origin/build-homepage-catalogpage
 import { useTranslation } from 'react-i18next';
 import CatalogElementLayout from './CatalogElementLayout';
 
 const FeaturedCardContent = () => {
+<<<<<<< HEAD
 
+=======
+>>>>>>> refs/remotes/origin/build-homepage-catalogpage
   const { i18n } = useTranslation();
   const [addResourceToQueue] = useAddResourceToQueueMutation();
   const handleAddedToQueue = (item: FeaturedContentContentItem): Promise<boolean | void> => {
@@ -53,12 +62,16 @@ const FeaturedCardContent = () => {
     <div className="px-4 py-6">
       <FeaturedContent>
 <<<<<<< HEAD
+<<<<<<< HEAD
         <ContentTileStandardLayout
           desktopColumnCount={2}
           onAddedToQueue={handleAddedToQueue}>
 =======
         <CatalogElementLayout desktopColumnCount={2} onAddedToQueue={handleAddedToQueue}>
 >>>>>>> 29502bb (feat: correct packages file)
+=======
+        <CatalogElementLayout desktopColumnCount={2} onAddedToQueue={handleAddedToQueue}>
+>>>>>>> refs/remotes/origin/build-homepage-catalogpage
           {contentItems.map((item, index) => (
             <CatalogElementLayout.Item key={`item-${index}`} {...item} />
           ))}
@@ -66,7 +79,14 @@ const FeaturedCardContent = () => {
       </FeaturedContent>
       <p>&nbsp;</p>
     </div>
+<<<<<<< HEAD
   )
 }
 
 export default FeaturedCardContent;
+=======
+  );
+};
+
+export default FeaturedCardContent;
+>>>>>>> refs/remotes/origin/build-homepage-catalogpage

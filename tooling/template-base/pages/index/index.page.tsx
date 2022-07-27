@@ -19,6 +19,7 @@ function Page() {
   return (
     <>
 <<<<<<< HEAD
+<<<<<<< HEAD
       <Navbar/>
       <Hero/>
       <FeaturedContentComp/>
@@ -27,6 +28,8 @@ function Page() {
       <CTA/>
       <Footer/>
 =======
+=======
+>>>>>>> refs/remotes/origin/build-homepage-catalogpage
       <HomepageNavbar />
       <Hero />
       <FeaturedContentComp />
@@ -34,7 +37,10 @@ function Page() {
       <LearningInfo />
       <CTA />
       <Footer />
+<<<<<<< HEAD
 >>>>>>> 29502bb (feat: correct packages file)
+=======
+>>>>>>> refs/remotes/origin/build-homepage-catalogpage
     </>
   );
 }
