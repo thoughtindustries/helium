@@ -19,11 +19,33 @@ function Page() {
   return (
     <>
       <HomepageNavbar />
-      <Hero />
+      <Hero
+        headline="Making Learning Successful"
+        body="Learning is a gateway to success. We aim to provide motivational content, strategies and courses to help you become successful and achieve your goals."
+        buttonUrl="/signin"
+        buttonText="Sign in"
+      />
       <FeaturedContentComp />
-      <DocsAndResouces />
+      <DocsAndResouces
+        headline="Explore Documentation and Resources"
+        description="Our developer documentation and tools cover everything you need to know to start building your new project. "
+        links={[
+          { text: 'Wordpress Documentation', linkUrl: 'https://developer.wordpress.org/' },
+          {
+            text: 'Storyook Documentation',
+            linkUrl: 'https://thoughtindustries.github.io/helium/?path=/story/example-cart--base'
+          },
+          { text: 'GraphQL Explorer', linkUrl: '/graphiql' },
+          { text: 'GraphQL Documentation', linkUrl: 'https://graphql.org/learn/' }
+        ]}
+      />
       <LearningInfo />
-      <CTA />
+      <CTA
+        headline="Are you ready to learn?"
+        body="Whether youre looking to grow your business, launch a new product, or simply want to improve certain aspects of your life, we have the tools you need to achieve your goals."
+        buttonUrl="/signin"
+        buttonText="Sign in"
+      />
       <Footer />
     </>
   );

@@ -30,12 +30,7 @@ const FeaturedCardContent = () => {
   }
 
   if (error) {
-    return (
-      <p>
-        There has been an error loading your content. Please check that you have assigned courses to
-        the user.
-      </p>
-    );
+    return <p>There has been an error loading your content.</p>;
   }
 
   const contentItems = (data.CatalogQuery.contentItems || [])

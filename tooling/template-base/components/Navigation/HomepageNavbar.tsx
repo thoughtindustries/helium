@@ -17,7 +17,7 @@ export default function NavBar() {
               <Logo />
             </div>
             <div className="md:hidden">
-              <button
+              <div
                 className="text-gray-700 rounded-md outline-none focus:border-gray-400 focus:border"
                 onClick={() => setNavbar(!navbar)}
               >
@@ -40,7 +40,7 @@ export default function NavBar() {
                     <img src={icon} />
                   </button>
                 )}
-              </button>
+              </div>
             </div>
           </div>
         </div>
