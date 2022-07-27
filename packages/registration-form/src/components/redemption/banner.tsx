@@ -1,6 +1,6 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
-import { Props } from './types';
+import { Props } from '../types';
 
 const Banner = ({ valid, alreadyRedeemed, codeExpired }: Props): JSX.Element => {
   const { t } = useTranslation();
