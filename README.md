@@ -10,6 +10,8 @@
 
 Helium is a frontend web development framework for building highly contextual, dynamic and personalized learning experiences. Helium provides you with a complete library of UI Components, Hooks, and Utilities that make building custom learning experiences fast, easy, and fun.
 
+Helium utilizes a modern technology stack that includes React, GraphQL, and Tailwind CSS to provide an exceptional developer experience. The out-of-the-box UI components make getting started easy and with GraphQL getting to the data you need is intuitive and fast.
+
 ## Getting Started
 #### Requirements:
 `npm` and `node` are pinned to specific versions using [Volta](https://volta.sh/), so you will want to [install it](https://docs.volta.sh/guide/getting-started) before anything else.
