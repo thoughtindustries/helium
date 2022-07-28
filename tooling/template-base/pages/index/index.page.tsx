@@ -36,7 +36,10 @@ function Page() {
             linkUrl: 'https://thoughtindustries.github.io/helium/?path=/story/example-cart--base'
           },
           { text: 'GraphQL Explorer', linkUrl: '/graphiql' },
-          { text: 'GraphQL Documentation', linkUrl: 'https://graphql.org/learn/' }
+          {
+            text: 'GraphQL Documentation',
+            linkUrl: 'https://thoughtindustries.github.io/helium-graphql/'
+          }
         ]}
       />
       <ProductInformationCards
