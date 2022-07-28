@@ -1,7 +1,7 @@
 import React from 'react';
 import { render, waitFor } from '@testing-library/react';
 import { MockedProvider } from '@apollo/client/testing';
-import { Redemption, ValidateRedemptionCodeDocument } from '../src';
+import { Registration, RedeemRegistrationAndRedemptionCodesDocument } from '../src';
 
 jest.mock('react-i18next', () => ({
   useTranslation: () => {
@@ -25,24 +25,31 @@ Object.defineProperty(window, 'matchMedia', {
 
 const mockApolloResults = {
   request: {
-    query: ValidateRedemptionCodeDocument
+    query: RedeemRegistrationAndRedemptionCodesDocument
   },
   result: {
     data: {
-      RedeemRedemptionCode: {
-        alreadyRedeemed: null,
-        valid: false
+      RedeemRegistrationAndRedemptionCodes: {
+        redeemed: true
       }
     }
   }
 };
 
-describe('@thoughtindustries/redemption', () => {
-  describe('Redemption Codes', () => {
-    it('should render redemption component', async () => {
+const mockUser = {
+  id: 'uuid',
+  firstName: 'First',
+  lastName: 'Last',
+  email: 'first.last@example.com',
+  roleKey: 'student'
+};
+
+describe('@thoughtindustries/registration', () => {
+  describe('Registration', () => {
+    it('should render registration component', async () => {
       const { container } = render(
         <MockedProvider mocks={[mockApolloResults]} addTypename={false}>
-          <Redemption />
+          <Registration currentUser={mockUser} />
         </MockedProvider>
       );
       await waitFor(() => new Promise(res => setTimeout(res, 0)));
@@ -71,6 +78,15 @@ describe('@thoughtindustries/redemption', () => {
                 redemption-code.add-redemption-code
               </button>
             </div>
+            <div
+              class="w-full border-t border-gray-200 my-4"
+            />
+            <button
+              class="text-white bg-indigo-700 hover:bg-indigo-600 inline-block font-normal text-sm text-center no-underline py-2 w-full md:w-1/4 rounded-md disabled:bg-indigo-300 disabled:cursor-default"
+              type="button"
+            >
+              redemption-code.redeem-code-preloaded
+            </button>
           </form>
         </div>
       `);
