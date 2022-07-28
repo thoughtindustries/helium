@@ -12,6 +12,7 @@ function Page() {
           "To go to your company's login page, enter your Thought Industries company domain name."
         }
         field1="Your company domain"
+        field1Placeholder="http:// domain.thoughtindustries.com"
         primaryButtonUrl="/"
         primaryButtonText="Continue with SSO"
         secondaryButtonUrl="/"
