@@ -963,6 +963,22 @@ Ensure the default browser behavior of the `hidden` attribute.
   width: 0.5rem;
 }
 
+.w-56 {
+  width: 14rem;
+}
+
+.w-\[176px\] {
+  width: 176px;
+}
+
+.w-\[400px\] {
+  width: 400px;
+}
+
+.w-\[1000px\] {
+  width: 1000px;
+}
+
 .max-w-screen-lg {
   max-width: 1024px;
 }
@@ -981,6 +997,10 @@ Ensure the default browser behavior of the `hidden` attribute.
 
 .max-w-none {
   max-width: none;
+}
+
+.flex-\[1_1_50\%\] {
+  flex: 1 1 50%;
 }
 
 .flex-grow {
@@ -1479,6 +1499,10 @@ Ensure the default browser behavior of the `hidden` attribute.
   padding: 0.625rem;
 }
 
+.p-56 {
+  padding: 14rem;
+}
+
 .px-4 {
   padding-left: 1rem;
   padding-right: 1rem;
@@ -1592,6 +1616,11 @@ Ensure the default browser behavior of the `hidden` attribute.
 .py-5 {
   padding-top: 1.25rem;
   padding-bottom: 1.25rem;
+}
+
+.px-28 {
+  padding-left: 7rem;
+  padding-right: 7rem;
 }
 
 .pr-2 {
@@ -2272,6 +2301,10 @@ Ensure the default browser behavior of the `hidden` attribute.
 
   .md\:w-8 {
     width: 2rem;
+  }
+
+  .md\:w-\[1000px\] {
+    width: 1000px;
   }
 
   .md\:max-w-\[960px\] {

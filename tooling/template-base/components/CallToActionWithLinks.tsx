@@ -9,17 +9,17 @@ const CallToActionWithLinks = (props: {
     linkUrl: string;
   }[];
 }) => {
-  const linkEl = props.links.map(link => (
-    <ButtonLink key={link.text} text={link.text} linkUrl={link.linkUrl} />
+  const linkEl = props.links.map((link, i) => (
+    <div key={i} className="flex-[1_1_50%]">
+      <ButtonLink key={link.text} text={link.text} linkUrl={link.linkUrl} />
+    </div>
   ));
 
   return (
     <div className="flex bg-white flex-col px-20 py-24 items-center text-center">
       <div className="text-4xl font-bold mx-auto ">{props.headline}</div>
       <div className="text-slate-500 text-xl font-light mx-5">{props.description}</div>
-      <div className="grid pt-5">
-        <div>{linkEl}</div>
-      </div>
+      <div className="flex flex-wrap px-28">{linkEl}</div>
     </div>
   );
 };
