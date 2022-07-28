@@ -1039,10 +1039,6 @@ Ensure the default browser behavior of the `hidden` attribute.
   resize: both;
 }
 
-.grid-flow-col {
-  grid-auto-flow: column;
-}
-
 .grid-cols-2 {
   grid-template-columns: repeat(2, minmax(0, 1fr));
 }
@@ -1731,11 +1727,11 @@ Ensure the default browser behavior of the `hidden` attribute.
 }
 
 .font-secondary {
-  font-family: Inter, sans-serif;
+  font-family: Roboto Condensed, sans-serif;
 }
 
 .font-header {
-  font-family: Inter, Nunito, sans-serif;
+  font-family: Roboto Condensed, Nunito, sans-serif;
 }
 
 .text-sm {
