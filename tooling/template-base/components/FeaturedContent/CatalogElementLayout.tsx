@@ -1,5 +1,4 @@
 import React, { createContext, useContext, useMemo } from 'react';
-import clsx from 'clsx';
 import { formatTime } from '@thoughtindustries/content';
 import {
   FeaturedContentContentProps,
@@ -8,10 +7,7 @@ import {
   FeaturedContentContentItemRibbon,
   FeaturedContentHydratedContentItem
 } from '@thoughtindustries/featured-content/types';
-import {
-  tileClassnameByDesktopColumnCount,
-  limitText
-} from '@thoughtindustries/featured-content/src/variants/content/utils';
+import { limitText } from '@thoughtindustries/featured-content/src/variants/content/utils';
 import ContentWrapper from '@thoughtindustries/featured-content/src/variants/content/wrapper';
 import ItemLinkWrapper from '@thoughtindustries/featured-content/src/variants/content/item-link-wrapper';
 import ItemAssetBlock from '@thoughtindustries/featured-content/src/variants/content/item-asset-block';
@@ -48,9 +44,7 @@ const ContentTileStandardLayout = ({
   return (
     <ContentTileStandardLayoutContext.Provider value={value}>
       <ContentWrapper headerOptions={headerOptions}>
-        <ul className={clsx(['grid gap-5 lg:grid-cols-3 md:grid-cols-2 grid-cols-1'])}>
-          {children}
-        </ul>
+        <ul className="grid gap-5 lg:grid-cols-3 md:grid-cols-2 grid-cols-1">{children}</ul>
       </ContentWrapper>
     </ContentTileStandardLayoutContext.Provider>
   );
@@ -79,7 +73,6 @@ const ItemTitleBlock = ({
   </p>
 );
 
-// TODO: might consider extracting as common component
 const ItemRibbon = ({
   ribbon,
   attached
@@ -113,7 +106,7 @@ const ItemRibbon = ({
 };
 
 const Item = ({ ...item }: FeaturedContentContentItemProps): JSX.Element => {
-  const { asset, title, description, isActive } = item;
+  const { asset, title, description } = item;
   const { ribbon, isCompleted, courseStartDate, contentTypeLabel, authors, timeZone } =
     item as FeaturedContentHydratedContentItem;
   const { onClick, desktopColumnCount } = useContentTileStandardLayoutContext();
@@ -141,7 +134,6 @@ const Item = ({ ...item }: FeaturedContentContentItemProps): JSX.Element => {
                 contentTypeLabel={contentTypeLabel}
               />
             )}
-            {/* <ItemSourceBlock contentTypeLabel={contentTypeLabel}  source={source} /> */}
             {description && (
               <p className="text-md text-gray-500 font-light pt-1 mb-0 overflow-hidden">
                 {limitText(description, 60)}
@@ -149,21 +141,6 @@ const Item = ({ ...item }: FeaturedContentContentItemProps): JSX.Element => {
             )}
             <hr className="my-3" />
             <div className="text-base">
-              {/* {canAddToQueue && (
-                <div className="flex flex-wrap-reverse justify-between items-end">
-                  <span>
-                    <ItemCtaBlock isActive={isActive} callToAction={callToAction} />
-                  </span>
-                </div>
-              )}
-              {!canAddToQueue && priceInCents && (
-                <>
-                  <ItemCtaBlock isActive callToAction={callToAction} />
-                </>
-              )}
-              {!canAddToQueue && !priceInCents && (
-                <ItemCtaBlock isActive={isActive} callToAction={callToAction} />
-              )} */}
               <div className="flex justify-end font-light text-blue-500">View details</div>
             </div>
           </div>

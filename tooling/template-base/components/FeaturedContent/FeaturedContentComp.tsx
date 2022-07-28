@@ -5,13 +5,11 @@ const FeaturedContentComp = () => {
   return (
     <section id="featuredcomp" className="bg-slate-50 py-24 px-12">
       <div className="">
-        {/* heading */}
         <h2 className="text-4xl font-bold text-center">Featured Catalog</h2>
         <h4 className="text-slate-500 text-center text-xl font-light">
           Our massive libary of resources engages and informs learners on everything from marking to
           finance and everything in between.
         </h4>
-
         <FeaturedCardContent />
       </div>
       <a href="/catalog">

@@ -1,7 +1,7 @@
 import React from 'react';
-import logo from '../../renderer/Vector.svg';
+import logo from '../renderer/Vector.svg';
 
-const DocLinks = (props: { text: string; linkUrl: string }) => {
+const ButtonLink = (props: { text: string; linkUrl: string }) => {
   return (
     <div className="m-8">
       <a href={props.linkUrl}>
@@ -14,4 +14,4 @@ const DocLinks = (props: { text: string; linkUrl: string }) => {
   );
 };
 
-export default DocLinks;
+export default ButtonLink;
