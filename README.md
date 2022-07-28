@@ -4,6 +4,12 @@
 
 [![Storybook Pages](https://github.com/thoughtindustries/helium/actions/workflows/storybook.yml/badge.svg)](https://github.com/thoughtindustries/helium/actions/workflows/storybook.yml)
 
+📚 [Developer Guide](https://developer.thoughtindustries.com/build/developer-guide/) | 🗣 [Discord](https://discord.gg/cTJBX4muVn) | 📝 [GraphQL Docs](https://thoughtindustries.github.io/helium-graphql/) | 🎨 [Storybook Docs](https://thoughtindustries.github.io/helium/?path=/story/example-featuredcontent--tile-standard-layout)
+
+## About
+
+Helium is a frontend web development framework for building highly contextual, dynamic and personalized learning experiences. Helium provides you with a complete library of UI Components, Hooks, and Utilities that make building custom learning experiences fast, easy, and fun.
+
 ## Getting Started
 #### Requirements:
 `npm` and `node` are pinned to specific versions using [Volta](https://volta.sh/), so you will want to [install it](https://docs.volta.sh/guide/getting-started) before anything else.
