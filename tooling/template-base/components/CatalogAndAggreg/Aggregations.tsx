@@ -45,13 +45,13 @@ const Aggregation = ({
   const handleToggle = () => {
     setIsExpanded(prevIsExpanded => !prevIsExpanded);
   };
-  const wrapperClassnames = isExpanded ? 'border-b mb-4 bg-gray-100' : '';
+
   const buttonLinkClassnames =
     'w-full leading-normal text-left transition-colors ease-in-out duration-200 bg-none text-accent flex items-center gap-4';
   const ariaId = `catalog-aggregation-dropdown-${index}`;
   return (
     <div className="bg-white p-6 rounded">
-      <div className={clsx('py-4 px-3 rounded', wrapperClassnames)}>
+      <div className={clsx('py-4 px-3 rounded', { 'border-b mb-4 bg-gray-100': isExpanded })}>
         <button
           className={`${buttonLinkClassnames}`}
           onClick={handleToggle}
