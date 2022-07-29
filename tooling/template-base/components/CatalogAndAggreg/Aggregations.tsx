@@ -51,7 +51,7 @@ const Aggregation = ({
   const ariaId = `catalog-aggregation-dropdown-${index}`;
   return (
     <div className="bg-white p-6 rounded">
-      <div className={clsx('py-4 px-3 rounded', { 'border-b mb-4 bg-gray-100': isExpanded })}>
+      <div className={clsx('py-4 px-3 rounded', isExpanded && 'border-b mb-4 bg-gray-100')}>
         <button
           className={`${buttonLinkClassnames}`}
           onClick={handleToggle}

@@ -1724,11 +1724,11 @@ Ensure the default browser behavior of the `hidden` attribute.
 }
 
 .font-secondary {
-  font-family: Roboto Condensed, sans-serif;
+  font-family: Inter, sans-serif;
 }
 
 .font-header {
-  font-family: Roboto Condensed, Nunito, sans-serif;
+  font-family: Inter, Nunito, sans-serif;
 }
 
 .text-3xl {
