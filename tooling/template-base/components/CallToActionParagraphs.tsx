@@ -13,33 +13,69 @@ const CallToActionParagraphs = (props: {
     }
   ];
 }) => {
-  // const arr: { heading: string; content: string; buttonText; string: buttonUrl; }[] = props.paragraphItems;
-  let i = 1;
-  const listItems = props.paragraphItems.map(item => {
-    const { heading, content, buttonText, buttonUrl } = item;
-    const leftAlignmentClasses = i % 2 === 0 ? 'hidden' : 'md:block hidden';
-    const rightAlignmentClasses = i % 2 !== 0 ? 'md:hidden block' : 'md:block';
-    console.log(i);
-    i += 1;
+  const RightAlignedSection = (props: {
+    item: {
+      heading: string;
+      content: string;
+      buttonText: string;
+      buttonUrl: string;
+    };
+  }) => {
     return (
-      <div key={i} className="flex flex-col px-4 mx-auto mt-10 mb-10 md:flex-row">
-        <div className={`flex   py-16 md:py-1 ${leftAlignmentClasses}`}>
+      <div className="flex flex-col px-4 mx-auto mt-10 mb-10 space-y-12 md:space-y-0 md:flex-row">
+        <div className="md:flex flex-col space-y-8 md:w-1/2 hidden">
           <img src={logo} alt="" />
         </div>
-        <div className="flex flex-col">
-          <h2 className="max-w-md font-bold text-2xl md:text-3xl">{heading}</h2>
-          <div className="max-w-sm text-slate-500 pt-6 text-lg">{content}</div>
-          <a href={buttonUrl} className="text-blue-900 py-10">
-            {buttonText} &#x2192;
+        <div className="flex flex-col med:w-1/2">
+          <h2 className="max-w-md font-bold text-left text-2xl md:text-3xl">
+            {props.item.heading}
+          </h2>
+          <div className="max-w-sm text-slate-500 text-left md:text-left pt-6 text-lg">
+            {props.item.content}
+          </div>
+          <a href={props.item.buttonUrl} className="text-blue-900 py-10">
+            {props.item.buttonText} &#x2192;
           </a>
         </div>
-
-        {/* numbered list */}
-        <div className={`flex flex-col py-16 md:py-1 ${rightAlignmentClasses}`}>
+        <div className="flex flex-col space-y-8 md:w-1/2 md:hidden">
           <img src={logo} alt="" />
         </div>
       </div>
     );
+  };
+
+  const LeftAlignedSection = (props: {
+    item: {
+      heading: string;
+      content: string;
+      buttonText: string;
+      buttonUrl: string;
+    };
+  }) => {
+    return (
+      <div className="flex flex-col px-4 mx-auto mt-10 mb-10 md:flex-row">
+        <div className="flex flex-col med:w-1/2">
+          <h2 className="max-w-md font-bold text-left text-2xl md:text-3xl">
+            {props.item.heading}
+          </h2>
+          <div className="max-w-sm text-slate-500 text-left md:text-left pt-6 text-lg">
+            {props.item.content}
+          </div>
+          <a href={props.item.buttonUrl} className="text-blue-900 py-10">
+            {props.item.buttonText} &#x2192;
+          </a>
+        </div>
+
+        {/* numbered list */}
+        <div className="flex flex-col md:w-1/2 py-16 md:py-1">
+          <img src={logo} alt="" />
+        </div>
+      </div>
+    );
+  };
+
+  const listItems = props.paragraphItems.map((item, i) => {
+    return i % 2 === 0 ? <RightAlignedSection item={item} /> : <LeftAlignedSection item={item} />;
   });
 
   return (
