@@ -1,65 +1,36 @@
 import React from 'react';
-import logo from '../renderer/trees1.png';
+import CallToActionParagraphs from './CallToActionParagraphs';
 
-const LearningInfo = (props: {
-  heading: string;
-  subheading: string;
-  leftParagraphHeading: string;
-  leftParagraphContent: string;
-  leftParagraphButtonText: string;
-  leftParagraphButtonUrl: string;
-  rightParagraphHeading: string;
-  rightParagraphContent: string;
-  rightParagraphButtonText: string;
-  rightParagraphButtonUrl: string;
-}) => {
+const LearningInfo = () => {
   return (
     <>
-      <div className="flex flex-col pt-16 px-10 pb-20 bg-slate-50">
-        <div className="text-3xl font-bold text-center">{props.heading}</div>
-        <div className="text-slate-500 text-xl font-normal text-center mx-5 pt-6">
-          {props.subheading}
-        </div>
-
-        <div className="flex flex-col px-4 mx-auto mt-10 mb-10 md:flex-row">
-          <div className="flex flex-col med:w-1/2">
-            <h2 className="max-w-md font-bold text-left text-2xl md:text-3xl">
-              {props.leftParagraphHeading}
-            </h2>
-            <div className="max-w-sm text-slate-500 text-left md:text-left pt-6 text-lg">
-              {props.leftParagraphContent}
-            </div>
-            <a href={props.leftParagraphButtonUrl} className="text-blue-900 py-10">
-              {props.leftParagraphButtonText} &#x2192;
-            </a>
-          </div>
-
-          {/* numbered list */}
-          <div className="flex flex-col md:w-1/2 py-16 md:py-1">
-            <img src={logo} alt="" />
-          </div>
-        </div>
-
-        <div className="flex flex-col px-4 mx-auto mt-10 mb-10 space-y-12 md:space-y-0 md:flex-row">
-          <div className="md:flex flex-col space-y-8 md:w-1/2 hidden">
-            <img src={logo} alt="" />
-          </div>
-          <div className="flex flex-col med:w-1/2">
-            <h2 className="max-w-md font-bold text-left text-2xl md:text-3xl">
-              {props.rightParagraphHeading}
-            </h2>
-            <div className="max-w-sm text-slate-500 text-left md:text-left pt-6 text-lg">
-              {props.rightParagraphContent}
-            </div>
-            <a href={props.rightParagraphButtonUrl} className="text-blue-900 py-10">
-              {props.rightParagraphButtonText} &#x2192;
-            </a>
-          </div>
-          <div className="flex flex-col space-y-8 md:w-1/2 md:hidden">
-            <img src={logo} alt="" />
-          </div>
-        </div>
-      </div>
+      <CallToActionParagraphs
+        heading="Your source for learning, community and success."
+        subheading="Find products, resources, and programs for every stage of your business journey."
+        paragraphItems={[
+          {
+            heading: 'Learning Tools and Resources',
+            content:
+              'Our goal is to help you become successful by providing learning materials to improve yourself or your company on various topics, such as marketing, business, finance and design.',
+            buttonText: 'View catalog',
+            buttonUrl: '/catalog'
+          },
+          {
+            heading: 'World Class Content',
+            content:
+              'Our content is curated for you. The Academy is focused on your everyday tasks and the goals you want to achieve.',
+            buttonText: 'View catalog',
+            buttonUrl: '/catalog'
+          },
+          {
+            heading: 'World Class Content',
+            content:
+              'Our content is curated for you. The Academy is focused on your everyday tasks and the goals you want to achieve.',
+            buttonText: 'View catalog',
+            buttonUrl: '/catalog'
+          }
+        ]}
+      />
     </>
   );
 };
