@@ -45,14 +45,13 @@ const Aggregation = ({
   const handleToggle = () => {
     setIsExpanded(prevIsExpanded => !prevIsExpanded);
   };
-  const wrapperClassnames = isExpanded ? 'border-b mb-4 bg-gray-100' : '';
+
   const buttonLinkClassnames =
     'w-full leading-normal text-left transition-colors ease-in-out duration-200 bg-none text-accent flex items-center gap-4';
-  const listClassnames = !isExpanded ? 'hidden' : '';
   const ariaId = `catalog-aggregation-dropdown-${index}`;
   return (
     <div className="bg-white p-6 rounded">
-      <div className={clsx(['py-4 px-3 rounded'], wrapperClassnames)}>
+      <div className={clsx('py-4 px-3 rounded', isExpanded && 'border-b mb-4 bg-gray-100')}>
         <button
           className={`${buttonLinkClassnames}`}
           onClick={handleToggle}
@@ -68,7 +67,7 @@ const Aggregation = ({
         <ul
           aria-hidden={!isExpanded}
           id={ariaId}
-          className={clsx(['pl-6 text-sm'], listClassnames)}
+          className={clsx('pl-6 text-sm', { hidden: !isExpanded })}
         >
           {aggregationBuckets}
         </ul>
@@ -82,7 +81,6 @@ const CatalogAggregations = (): JSX.Element => {
   const { aggregations, aggregationFilters, isCurated, token, tokenLabel } = params;
   const { data } = useLanguagesQueryQuery();
 
-  // derived value
   const firstAggregationFilterLabel = aggregationFilters.length
     ? aggregationFilters[0].label
     : undefined;
@@ -92,10 +90,6 @@ const CatalogAggregations = (): JSX.Element => {
     const isAggregationLabel = label === firstAggregationFilterLabel;
     const isTokenLabel = tokenLabel && label === tokenLabel;
     const isCurrentLabel = isAggregationLabel || isTokenLabel;
-    /**
-     * never expand first aggregation when using curated categories.
-     * otherwise, never expand the first aggregation when using token search.
-     */
     const shouldExpandFirst = !isCurated && !token;
     const isExpanded = isCurrentLabel || (shouldExpandFirst && index === 0);
 

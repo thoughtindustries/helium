@@ -9,8 +9,8 @@ const Footer = () => {
           <img src={logo} className="flex w-8 m-5 mx-auto" />
         </div>
         <div className="flex text-slate-500 space-x-6 justify-center font-semibold">
-          <a href="#">Home</a>
-          <a href="#">Catalog</a>
+          <a href="/">Home</a>
+          <a href="/catalog">Catalog</a>
           <a href="#">Help</a>
         </div>
         <hr className="my-5"></hr>

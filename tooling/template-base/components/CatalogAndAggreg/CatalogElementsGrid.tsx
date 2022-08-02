@@ -75,12 +75,7 @@ const ItemSourceBlock = ({
 }) => (
   <HeightEqualizerElementWrapper name="source" className="text-sm text-gray-500">
     <p>
-      {courseStartDate && (
-        <span className="flex text-md text-gray-500">
-          {contentTypeLabel}
-          {/* | {formatTime(courseStartDate, timezone, 'MM/DD/YYYY')} */}
-        </span>
-      )}
+      {courseStartDate && <span className="flex text-md text-gray-500">{contentTypeLabel}</span>}
     </p>
   </HeightEqualizerElementWrapper>
 );
@@ -158,9 +153,6 @@ const DisplayTypeResultsGridItem = ({
             </div>
           </div>
         </ItemLinkWrapper>
-        {/* {displayBundle && !availabilityStatus && (
-          <ItemBundleBlock {...displayBundle} priceFormatFn={priceFormatFn} />
-        )} */}
       </>
     </li>
   );
