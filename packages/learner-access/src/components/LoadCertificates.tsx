@@ -40,16 +40,23 @@ const CertificateUploader = ({ setShowForm }: CertificateUploaderProps) => {
 };
 
 type CertificateUploadFormProps = CertificateUploaderProps;
+
 const CertificateUploadForm = ({ setShowForm }: CertificateUploadFormProps) => {
-  const { data: data2 } = useUserCertificateFieldsQuery({
+  const [showFileImage, setShowFileImage] = useState<boolean>(false);
+  const [imageFromUpload, setImageFromUpload] = useState<string>('');
+  const { data: certificateUploadFields } = useUserCertificateFieldsQuery({
     variables: {}
   });
-  const [showFileImage, setShowFileImage] = useState<boolean>(false);
-  const [imageFromUpload, setImageFromUpload] = useState<string | ArrayBuffer | null>('');
+
+  const uploadFields = certificateUploadFields?.UserCertificateFields?.map(certificateField => ({
+    certificateFieldId: certificateField.id,
+    ...certificateField
+  }));
+
   const [createCertificateFromUploadMutation] = useCreateCertificateFromUploadMutation({
     variables: {
-      asset: 'item.contentItem.asset,',
-      certificateUploadFields: []
+      asset: imageFromUpload,
+      certificateUploadFields: uploadFields
     }
   });
 
@@ -60,8 +67,9 @@ const CertificateUploadForm = ({ setShowForm }: CertificateUploadFormProps) => {
     setShowFileImage(true);
 
     if (files) reader.readAsDataURL(files);
+    const url = reader?.result?.toString();
     reader.onload = () => {
-      setImageFromUpload(reader.result);
+      setImageFromUpload(url || '');
       console.log('image data', reader.result);
     };
   };
@@ -91,14 +99,14 @@ const CertificateUploadForm = ({ setShowForm }: CertificateUploadFormProps) => {
                     <>
                       <img
                         className="ember-view"
-                        src={imageFromUpload?.toString()}
+                        src={imageFromUpload}
                         alt="External Certificate"
                       />
                       <button
                         onClick={() => setShowFileImage(false)}
                         className="flex items-center justify-end h-auto border-[#405667] text-[#405667] text-right bg-none rounded-none border-solid border-t-4 clear-both font-bold p-0 shadow-none w-full"
                       >
-                        Remove Image
+                        {t('remove') + ' ' + t('wysiwyg.image')}
                         <RepeatIcon />
                       </button>
                     </>
@@ -111,7 +119,7 @@ const CertificateUploadForm = ({ setShowForm }: CertificateUploadFormProps) => {
             <div className="row">
               <div className="float-left px-4 relative w-full">
                 <div className="ember-view">
-                  <label>Certificate Grant Date</label>
+                  <label>{t('certificate.issued-date')}</label>
                   <div className="ember-view input__wrapper input__wrapper--clear">
                     <input
                       className="focus:outline-none h-10 mb-4 text-base py-2 px-4 w-full bg-white rounded-none border-solid border box-border block mx-0 mt-0 p-2 text-black cursor-pointer"
@@ -122,7 +130,7 @@ const CertificateUploadForm = ({ setShowForm }: CertificateUploadFormProps) => {
                   </div>
                 </div>
                 <div className="ember-view">
-                  <label>Certificate Expiration</label>
+                  <label>{t('certificate.expiration-date')}</label>
 
                   <div className="mb-4">
                     <input

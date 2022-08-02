@@ -76,11 +76,7 @@ const LoadUserLearning = ({ query, kind, sort }: LoadedComponentProps): JSX.Elem
         <div className={item.asset && 'grid grid-cols-3 row-span-2'}>
           {item.asset && (
             <div className="px-4">
-              <img
-                className="ember-view"
-                src="https://d36ai2hkxl16us.cloudfront.net/thoughtindustries/image/upload/a_exif,c_fill,w_600,h_288/v1/course-uploads/3a131ac3-1a74-420d-b4da-ae10b18b2c68/n2h0yafsqsbq-British_Isles.jpg"
-                alt=""
-              />
+              <img src={item.asset} alt="" />
             </div>
           )}
 
@@ -98,7 +94,7 @@ const LoadUserLearning = ({ query, kind, sort }: LoadedComponentProps): JSX.Elem
                       </div>
                       <div className="user-engagement-stat__label-hint absolute right-0">
                         <Tooltip
-                          description="This information is updated and verified as part of a nightly process"
+                          description={t('dashboard.nightly-hint')}
                           childComp={<HelpIcon />}
                         />
                       </div>
@@ -242,10 +238,10 @@ const LoadUserLearning = ({ query, kind, sort }: LoadedComponentProps): JSX.Elem
                 className="bg-active-blue text-white rounded-sm cursor-pointer inline-block font-normal text-xs m-0 py-[0.15rem] px-4 relative text-center no-underline ease-in-out border-active-blue font-sans transition duration-200 leading-5"
               >
                 {item.availabilityStatus == 'completed'
-                  ? 'View ' + item.contentTypeLabel
+                  ? t('view-course', { contentType: item.contentTypeLabel })
                   : item.availabilityStatus == 'started'
-                  ? 'Continue'
-                  : 'Start ' + item.contentTypeLabel}
+                  ? t('continue-course')
+                  : t('start-course', { contentType: item.contentTypeLabel })}
               </button>
             </div>
           </div>

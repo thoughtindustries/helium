@@ -40,7 +40,11 @@ const LoadBookmarks = (): JSX.Element => {
     bookmarkFolders?.UserBookmarks
   );
 
-  if (bookmarkList !== bookmarkFolders?.UserBookmarks) {
+  // useEffect(() => {
+  //   if (bookmarkFolders) setBookmarkList(bookmarkFolders?.UserBookmarks);
+  // }, [bookmarkFolders]);
+
+  if (bookmarkList != bookmarkFolders?.UserBookmarks) {
     setBookmarkList(bookmarkFolders?.UserBookmarks);
   }
 
@@ -57,11 +61,14 @@ const LoadBookmarks = (): JSX.Element => {
 
   const handleDragEnter = (event: DragEvent<HTMLLIElement>, index: number) => {
     const current = draggedItem.current;
+    console.log('dragged node', draggNode.current);
+    console.log('target', event.target);
     if (draggNode.current !== event.target) {
       setBookmarkList((oldList: any) => {
         const newList = JSON.parse(JSON.stringify(oldList));
         newList.splice(index, 0, newList.splice(current, 1)[0]);
         draggedItem.current = index;
+        console.log('newlist', newList);
         return newList;
       });
     }
@@ -87,7 +94,6 @@ const LoadBookmarks = (): JSX.Element => {
     const [editFolderName, setEditFolderName] = useState<boolean>(false);
     const [folderName, setFolderName] = useState<string>(folder.name);
     const [tryingToDelete, setTryingToDelete] = useState<boolean>(false);
-    const { refetchContentGroups } = useLearnerAccess();
     const [updateBookmarkFolder] = useUpdateBookmarkFolderMutation();
     const [destroyBookmarkFolder] = useDestroyBookmarkFolderMutation();
 
@@ -171,7 +177,7 @@ const LoadBookmarks = (): JSX.Element => {
                 )}
                 {tryingToDelete && (
                   <span className="confirm-action__confirm">
-                    {t('bookmark.delete-confirmation')}🍇
+                    {t('bookmark.delete-confirmation')}
                     <button
                       className="hover:text-hover"
                       onClick={() => {

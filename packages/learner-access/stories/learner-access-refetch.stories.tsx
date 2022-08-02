@@ -5,6 +5,7 @@ import {
   UserContentItemsDocument,
   UserArchivesDocument,
   UserCertificatesDocument,
+  UserCertificateFieldsDocument,
   UserBookmarksDocument,
   UserBookmarksByFolderDocument,
   UserWaitlistDocument,
@@ -189,6 +190,21 @@ const mockApolloUserBookmarksResults = {
     }
   })
 };
+const mockApolloUserCertificateFieldsResults = {
+  request: {
+    query: UserCertificateFieldsDocument
+  },
+  result: {
+    data: {
+      UserWaitlist: repository.certificateFieldItems
+    }
+  },
+  newData: () => ({
+    data: {
+      UserWaitlist: repository.certificateFieldItems
+    }
+  })
+};
 
 const mockApolloArchiveMutationFactory = (type: UserContentItemTypes) => {
   const mockMutations: any = [];
@@ -307,7 +323,8 @@ const mockApolloQueryResults = [
   mockApolloUserArchivesResults,
   mockApolloUserWaitlistsResults,
   mockApolloUserBookmarksResults,
-  mockApolloUserBookmarkFoldersResults
+  mockApolloUserBookmarkFoldersResults,
+  mockApolloUserCertificateFieldsResults
 ];
 const mockApolloResults = mockApolloQueryResults.concat(
   mockApolloArchiveMutationFactory(UserContentItemTypes.MyLearning),

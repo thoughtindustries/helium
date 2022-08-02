@@ -5,7 +5,8 @@ import {
   ContentGroupsQuery,
   UserWaitlistQuery,
   UserBookmarksByFolderQuery,
-  UserBookmarksQuery
+  UserBookmarksQuery,
+  UserCertificateFieldsQuery
 } from '@thoughtindustries/content';
 
 type RequiredContentGroupsQuery = Required<ContentGroupsQuery>;
@@ -34,6 +35,8 @@ const mockUserContentItemFactory = (
   title: `${kind} title`,
   kind,
   id,
+  asset:
+    'https://d36ai2hkxl16us.cloudfront.net/thoughtindustries/image/upload/v1483194374/unsplash/YvYBOSiBJE8/800x450',
   slug: `${kind}-${id}-slug`,
   contentTypeLabel: `${kind}Label`,
   availabilityStatus: isCompleted ? 'completed' : 'started',
@@ -96,23 +99,20 @@ const toUserArchivedItem = ({ id, title, kind }: UserContentItem): UserArchivedI
 type RequiredUserBookmarksByFolderQuery = Required<UserBookmarksByFolderQuery>;
 type UserBookmarks = RequiredUserBookmarksByFolderQuery['UserBookmarksByFolder']['0'];
 const mockUserBookmarks = (id: string): UserBookmarks => ({
-  __typename: 'Bookmark',
   id,
   course: {
-    __typename: 'Course',
     id: getRandomId(),
     title: 'test Course',
     slug: 'test-course',
     status: GlobalTypes.Status['Published'],
     courseGroup: {
-      __typename: 'CourseGroup',
       id: getRandomId(),
       authors: [],
       source: '',
       asset:
         'https://d36ai2hkxl16us.cloudfront.net/thoughtindustries/image/upload/v1/course-uploads/3a131ac3-1a74-420d-b4da-ae10b18b2c68/5e88naxlo3py-manwritinginnotebookandlookingatcomputer.jpg',
       kind: GlobalTypes.CourseGroupKind['CourseGroup'],
-      contentType: { __typename: 'ContentType', label: 'Course' }
+      contentType: { label: 'Course' }
     }
   },
   topicId: getRandomId(),
@@ -123,11 +123,21 @@ const mockUserBookmarks = (id: string): UserBookmarks => ({
 type RequiredUserBookmarksQuery = Required<UserBookmarksQuery>;
 type UserBookmarkFolders = RequiredUserBookmarksQuery['UserBookmarks'][0];
 const mockUserBookmarkFolders = (bookmarkCount: number): UserBookmarkFolders => ({
-  __typename: 'BookmarkFolder',
   id: getRandomId(),
   name: 'My Bookmark ' + getRandomId(true),
   defaultFolder: true,
   bookmarkCount
+});
+
+type RequiredUserCertificateFieldsQuery = Required<UserCertificateFieldsQuery>;
+type UserCertificateFields = RequiredUserCertificateFieldsQuery['UserCertificateFields'][0];
+
+const mockUserCertificateFields = (): UserCertificateFields => ({
+  id: getRandomId(true),
+  type: GlobalTypes.CertificateFieldType['AwardLabel'],
+  label: '_CEU_',
+  awardTypeId: 'zhl3j8d',
+  awardType: { id: 'zhl3j8d', pluralLabel: "_CEU's_" }
 });
 
 const toUserContentItem = ({ resource, resourceType }: UserArchivedItem): UserContentItem => ({
@@ -147,6 +157,7 @@ export class LearnerAccessRepository {
   private _userWaitlistItems: UserWaitlistItem[];
   private _userBookmarkFolderItems: UserBookmarkFolders[];
   private _userBookmarkItems: UserBookmarks[];
+  private _userCertificateFieldItems: UserCertificateFields[];
 
   constructor() {
     const myLearningItemInProgress = mockUserContentItemFactory(
@@ -172,6 +183,7 @@ export class LearnerAccessRepository {
     this._userWaitlistItems = [mockUserWaitlistItemFactory('6', GlobalTypes.ContentKind.Course)];
     this._userBookmarkItems = [mockUserBookmarks(getRandomId())];
     this._userBookmarkFolderItems = [mockUserBookmarkFolders(this._userBookmarkItems.length)];
+    this._userCertificateFieldItems = [mockUserCertificateFields()];
   }
 
   private _userContentItemMatcher(type: UserContentItemTypes) {
@@ -225,6 +237,10 @@ export class LearnerAccessRepository {
 
   get bookmarkFolderItems() {
     return this._userBookmarkFolderItems;
+  }
+
+  get certificateFieldItems() {
+    return this._userCertificateFieldItems;
   }
 
   get contentGroups() {
