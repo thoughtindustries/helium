@@ -5,6 +5,7 @@ import { isEmpty } from 'lodash';
 import { Props, ResponseProps, CurrentUser } from '../types';
 import { useRedeemRegistrationAndRedemptionCodesMutation } from '../../graphql';
 import Banner from '../redemption/banner';
+import { TermsConditions } from '../terms-conditions';
 
 const RegistrationContext = createContext<ResponseProps | undefined>(undefined);
 
@@ -156,14 +157,17 @@ const Registration = ({
         <Redemption />
       </RegistrationContext.Provider>
       <div className="w-full border-t border-gray-200 my-4" />
-      <button
-        className="text-white bg-indigo-700 hover:bg-indigo-600 inline-block font-normal text-sm text-center no-underline py-2 w-full md:w-1/4 rounded-md disabled:bg-indigo-300 disabled:cursor-default"
-        type="button"
-        onClick={() => handleRegistration()}
-        disabled={loading}
-      >
-        {t('redemption-code.redeem-code-preloaded')}
-      </button>
+      <div className="flex flex-col md:flex-row text-sm text-gray-500 justify-between">
+        <TermsConditions />
+        <button
+          className="text-white bg-indigo-700 hover:bg-indigo-600 inline-block font-normal text-sm text-center no-underline py-2 w-full md:w-1/4 rounded-md disabled:bg-indigo-300 disabled:cursor-default"
+          type="button"
+          onClick={() => handleRegistration()}
+          disabled={loading}
+        >
+          {t('redemption-code.redeem-code-preloaded')}
+        </button>
+      </div>
     </form>
   );
 };
