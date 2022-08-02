@@ -1,10 +1,35 @@
 import { Story } from '@storybook/react';
 import React from 'react';
-import { Redemption, ValidateRedemptionCodeDocument } from '../src';
+import {
+  ValidateRedemptionCodeDocument,
+  RedeemRegistrationAndRedemptionCodesDocument,
+  Registration
+} from '../src';
+
+const mockUser = {
+  id: 'uuid',
+  firstName: 'First',
+  lastName: 'Last',
+  email: 'first.last@example.com',
+  roleKey: 'student'
+};
 
 export default {
-  title: 'Example/Redemption',
-  component: Redemption
+  title: 'Example/Registration',
+  component: Registration,
+  argTypes: {
+    currentUser: {
+      name: 'currentUser',
+      options: ['loggedIn', 'loggedOut'],
+      mapping: {
+        loggedIn: mockUser,
+        loggedOut: null
+      },
+      control: { type: 'radio' },
+      description: 'Logged in user',
+      defaultValue: 'loggedIn'
+    }
+  }
 };
 
 const mockApolloResultsFactory = (
@@ -29,15 +54,35 @@ const mockApolloResultsFactory = (
     }
   }
 });
+
+const mockRegistrationResults = (validatedRedemptionCodes: Array<string>, redeemed: boolean) => ({
+  request: {
+    query: RedeemRegistrationAndRedemptionCodesDocument,
+    variables: {
+      validatedRedemptionCodes
+    }
+  },
+  result: {
+    data: {
+      RedeemRegistrationAndRedemptionCodes: {
+        redeemed
+      }
+    }
+  }
+});
+
 const mockApolloResults = [
-  mockApolloResultsFactory('validCode', true, false, false),
+  mockApolloResultsFactory('validCode1', true, false, false),
+  mockApolloResultsFactory('validCode2', true, false, false),
+  mockApolloResultsFactory('validCode3', true, false, false),
   mockApolloResultsFactory('invalidCode', false, false, false),
   mockApolloResultsFactory('', false, false, false),
   mockApolloResultsFactory('expiredCode', false, false, true),
-  mockApolloResultsFactory('alreadyRedeemedCode', false, true, false)
+  mockApolloResultsFactory('alreadyRedeemedCode', false, true, false),
+  mockRegistrationResults(['validCode1', 'validCode2', 'validCode3'], true)
 ];
 
-const Template: Story = () => <Redemption />;
+const Template: Story = args => <Registration {...args} />;
 
 export const Base: Story = Template.bind({});
 Base.parameters = {

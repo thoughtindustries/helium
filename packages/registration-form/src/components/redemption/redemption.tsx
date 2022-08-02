@@ -1,20 +1,25 @@
 import React, { useState } from 'react';
-import CodeList from './code-list';
-import Banner from './banner';
-import { Props } from './types';
+import { useTranslation } from 'react-i18next';
+import CodeBox from './code-box';
 
 const Redemption = (): JSX.Element => {
-  const [response, setResponse] = useState<Props>();
+  const { t } = useTranslation();
+  const [count, setCount] = useState<number>(1);
+  const list = Array.from(Array(count), (_, i) => <CodeBox key={`code-box-${i}`} />);
 
   return (
-    <form className="mx-4 md:mx-40 text-center self-center">
-      <Banner
-        valid={response?.valid}
-        alreadyRedeemed={response?.alreadyRedeemed}
-        codeExpired={response?.codeExpired}
-      />
-      <CodeList setResponse={setResponse} />
-    </form>
+    <div>
+      {list}
+      <button
+        className="flex justify-left text-indigo-700 text-sm"
+        type="button"
+        onClick={() => {
+          setCount(count + 1);
+        }}
+      >
+        {t('redemption-code.add-redemption-code')}
+      </button>
+    </div>
   );
 };
 

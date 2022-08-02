@@ -91,6 +91,10 @@ i18n.use(initReactI18next).init({
         'dashboard.current': 'My Learning',
         'dashboard.events': 'Events',
         'dashboard.waitlisted': 'Waitlisted',
+        'first-name-alert': 'Please enter your first name.',
+        'last-name-alert': 'Please enter your last name.',
+        'password-length-alert':
+          'Please enter a password that is at least six characters long and matches the password confirmation.',
         'redemption-code.validate': 'Validate',
         'redemption-code.placeholder': 'Enter Code Here',
         'redemption-code.add-redemption-code': '+ Add Another Code',
@@ -111,6 +115,8 @@ i18n.use(initReactI18next).init({
         'register-first-name': 'First Name',
         'register-last-name': 'Last Name',
         'register-email': 'Email Address',
+        'register-invalid-code-alert':
+          'You have not validated any redemption codes. Please try again.',
         'register-password': 'Password',
         'register-confirm-password': 'Password Confirmation',
         'register-invalid-code-alert':
@@ -136,7 +142,8 @@ i18n.use(initReactI18next).init({
         remove: 'Remove',
         total: 'Total:',
         'total-due-now': 'Total Due Today:',
-        undo: 'Undo'
+        undo: 'Undo',
+        'valid-email-alert': 'Please enter a valid email address.'
       }
     }
   }
