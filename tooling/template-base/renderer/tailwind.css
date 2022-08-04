@@ -662,10 +662,6 @@ Ensure the default browser behavior of the `hidden` attribute.
   display: flex;
 }
 
-.table {
-  display: table;
-}
-
 .grid {
   display: grid;
 }
@@ -762,12 +758,12 @@ Ensure the default browser behavior of the `hidden` attribute.
   max-width: 24rem;
 }
 
-.max-w-none {
-  max-width: none;
-}
-
 .max-w-full {
   max-width: 100%;
+}
+
+.max-w-none {
+  max-width: none;
 }
 
 .flex-\[1_1_50\%\] {
@@ -1298,10 +1294,6 @@ Ensure the default browser behavior of the `hidden` attribute.
   text-transform: uppercase;
 }
 
-.italic {
-  font-style: italic;
-}
-
 .ordinal {
   --tw-ordinal: ordinal;
   font-variant-numeric: var(--tw-ordinal) var(--tw-slashed-zero) var(--tw-numeric-figure) var(--tw-numeric-spacing) var(--tw-numeric-fraction);
@@ -1371,11 +1363,6 @@ Ensure the default browser behavior of the `hidden` attribute.
 .text-gray-800 {
   --tw-text-opacity: 1;
   color: rgb(31 41 55 / var(--tw-text-opacity));
-}
-
-.underline {
-  -webkit-text-decoration-line: underline;
-          text-decoration-line: underline;
 }
 
 .no-underline {

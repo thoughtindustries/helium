@@ -3,8 +3,8 @@ import { useState } from 'react';
 import Logo from './Logo';
 import avatar from '../../renderer/avatar.png';
 import MobileMenu from './MobileMenu';
-import dropDownClosed from '../../renderer/dropDownClosed.png';
-import dropDownOpen from '../../renderer/dropDownOpen.png';
+import dropDownClosed from '../../renderer/dropDownClosed.svg';
+import dropDownOpen from '../../renderer/dropDownOpen.svg';
 
 export default function LargeSceenNavBar() {
   const [navbar, setNavbar] = useState(false);

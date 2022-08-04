@@ -1,8 +1,8 @@
 import React from 'react';
 import { useState } from 'react';
 import Logo from './Logo';
-import icon from '../../renderer/vector.png';
-import xicon from '../../renderer/xicon.png';
+import icon from '../../renderer/vector.svg';
+import xicon from '../../renderer/xicon.svg';
 
 export default function NavBar() {
   const [navbar, setNavbar] = useState(false);

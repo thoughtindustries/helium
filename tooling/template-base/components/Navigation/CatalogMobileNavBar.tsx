@@ -2,7 +2,7 @@ import React from 'react';
 import { useState } from 'react';
 import Logo from './Logo';
 import avatar from '../../renderer/avatar.png';
-import xicon from '../../renderer/xicon.png';
+import xicon from '../../renderer/xicon.svg';
 
 export default function MobileNavBar() {
   const [navbar, setNavbar] = useState(false);
