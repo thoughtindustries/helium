@@ -1,4 +1,4 @@
-import React, { SyntheticEvent, useMemo } from 'react';
+import React from 'react';
 import Footer from '../../components/Footer/Footer';
 import FilterAndCatalog from '../../components/FilterAndCatalog/FilterAndCatalog';
 import Banner from '../../components/Banner';

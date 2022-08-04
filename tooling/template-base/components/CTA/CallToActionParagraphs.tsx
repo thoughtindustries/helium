@@ -1,5 +1,5 @@
 import React from 'react';
-import logo from '../renderer/trees1.png';
+import logo from '../../renderer/trees.png';
 
 const CallToActionParagraphs = (props: {
   heading: string;

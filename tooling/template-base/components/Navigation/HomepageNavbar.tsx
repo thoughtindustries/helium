@@ -1,7 +1,7 @@
 import React from 'react';
 import { useState } from 'react';
 import Logo from './Logo';
-import icon from '../../renderer/hamburgericon.png';
+import icon from '../../renderer/vector.png';
 import xicon from '../../renderer/xicon.png';
 
 export default function NavBar() {

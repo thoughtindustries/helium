@@ -2,10 +2,10 @@ import React from 'react';
 import CTA from '../../components/CTA/CTA';
 import FeaturedContentComp from '../../components/FeaturedContent/FeaturedContentComp';
 import Footer from '../../components/Footer/Footer';
-import Hero from '../../components/Hero';
+import Hero from '../../components/Hero/Hero';
 import HomepageNavbar from '../../components/Navigation/HomepageNavbar';
-import CallToActionWithLinks from '../../components/CallToActionWithLinks';
-import CallToActionParagraphs from '../../components/CallToActionParagraphs';
+import CallToActionWithLinks from '../../components/CTA/CallToActionWithLinks';
+import CallToActionParagraphs from '../../components/CTA/CallToActionParagraphs';
 
 export { Page };
 export { documentProps };
