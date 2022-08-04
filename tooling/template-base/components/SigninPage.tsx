@@ -1,5 +1,5 @@
 import React from 'react';
-import Logo from './Navigation/Logo';
+import Logo from './Logo';
 
 const SigninPage = (props: {
   heading: string;

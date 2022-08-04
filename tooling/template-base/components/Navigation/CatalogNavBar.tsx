@@ -1,6 +1,6 @@
 import React from 'react';
 import { useState } from 'react';
-import Logo from './Logo';
+import Logo from '../Logo';
 import avatar from '../../renderer/avatar.png';
 import MobileMenu from './MobileMenu';
 import dropDownClosed from '../../renderer/dropDownClosed.png';
@@ -16,7 +16,7 @@ export default function LargeSceenNavBar() {
           <div className="flex items-center justify-between md:block">
             {/* logo */}
             <div className="">
-              <Logo />
+              <Logo logoLink="/" style="h-11" />
             </div>
             <div className="md:hidden"></div>
           </div>

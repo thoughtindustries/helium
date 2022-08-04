@@ -1,6 +1,6 @@
 import React from 'react';
 import { useState } from 'react';
-import Logo from './Logo';
+import Logo from '../Logo';
 import avatar from '../../renderer/avatar.png';
 import xicon from '../../renderer/xicon.png';
 
@@ -14,7 +14,7 @@ export default function MobileNavBar() {
           <div className="flex items-center justify-between md:block">
             {/* logo */}
             <div className="">
-              <Logo />
+              <Logo logoLink="/" style="h-9" />
             </div>
             <div className="md:hidden">
               <button
