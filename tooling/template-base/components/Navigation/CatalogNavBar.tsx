@@ -30,7 +30,7 @@ export default function LargeSceenNavBar() {
               <a href="/catalog">Catalog</a>
             </li>
             <li className="md:hover:bg-white hover:bg-slate-100 rounded pl-2 py-2">
-              <a href="/help">Help</a>
+              <a href="/">Help</a>
             </li>
             <hr></hr>
           </ul>

@@ -1,7 +1,12 @@
-import React from 'react';
+import React, { useMemo } from 'react';
 import avatar from '../../renderer/avatar.png';
+import { usePageContext } from '../../renderer/usePageContext';
+import { PageContextProvider } from '../../renderer/usePageContext';
 
 const MobileMenu = () => {
+  const pageContext = usePageContext();
+  const { currentUser } = pageContext;
+
   return (
     <div className="">
       <ul className="space-y-2">
@@ -11,23 +16,25 @@ const MobileMenu = () => {
           </div>
           <div className="mx-3 my-auto">
             <button className="hover:text-blue-700">
-              <a href="/sign-in">My Profile</a>
+              <a href="/learn/profile">My Profile</a>
             </button>
           </div>
         </div>
         <hr></hr>
         <li className="md:hover:bg-white hover:bg-slate-100 rounded pl-2 pt-4 pb-2">
-          <a href="/">Account</a>
+          <a href="/learn/profile">{currentUser?.id}</a>
         </li>
         <li className="md:hover:bg-white hover:bg-slate-100 rounded pl-2 py-2">
-          <a href="/catalog">Transcript</a>
+          <a href="/">Transcript</a>
         </li>
         <li className="md:hover:bg-white hover:bg-slate-100 rounded pl-2 pt-2 pb-4">
-          <a href="/help">Support</a>
+          <a href="/">Support</a>
         </li>
         <hr></hr>
-        <div className="text-center pt-5 text-sm text-blue-900 hover:text-blue-700">Sign out</div>
-        <hr></hr>
+        {/* check if the user is logged */}
+        <a href="/learn/profile">
+          <div className="text-center pt-5 text-sm text-blue-900 hover:text-blue-700">Sign out</div>
+        </a>
       </ul>
     </div>
   );
