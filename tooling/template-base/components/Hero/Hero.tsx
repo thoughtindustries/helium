@@ -1,5 +1,5 @@
 import React from 'react';
-import overlay from '../renderer/Overlay.png';
+import overlay from '../../renderer/Overlay.png';
 
 const Hero = (props: { headline: string; body: string; buttonUrl: string; buttonText: string }) => {
   return (

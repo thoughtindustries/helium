@@ -1,5 +1,5 @@
 import React from 'react';
-import logo from '../renderer/trees1.png';
+import logo from '../../renderer/trees.png';
 
 const CallToActionParagraphs = (props: {
   heading: string;
@@ -75,7 +75,11 @@ const CallToActionParagraphs = (props: {
   };
 
   const listItems = props.paragraphItems.map((item, i) => {
-    return i % 2 === 0 ? <RightAlignedSection item={item} /> : <LeftAlignedSection item={item} />;
+    return i % 2 === 0 ? (
+      <RightAlignedSection item={item} key={i} />
+    ) : (
+      <LeftAlignedSection item={item} key={i} />
+    );
   });
 
   return (

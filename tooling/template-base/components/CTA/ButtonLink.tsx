@@ -1,5 +1,5 @@
 import React from 'react';
-import logo from '../renderer/Vector.svg';
+import logo from '../../renderer/share.svg';
 
 const ButtonLink = (props: { text: string; linkUrl: string }) => {
   return (
