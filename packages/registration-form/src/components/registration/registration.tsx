@@ -27,6 +27,7 @@ const Registration = ({
   const { t } = useTranslation();
   const [response, setResponse] = useState<Props>();
   const [openModal, setOpenModal] = useState<boolean>(false);
+  const [agreeToTerms, setAgreeToTerms] = useState<boolean>(false);
   const [validatedRedemptionCodes, setValidatedRedemptionCodes] = useState<Array<string>>([]);
   const [RedeemRegistrationAndRedemptionCodesMutation, { loading }] =
     useRedeemRegistrationAndRedemptionCodesMutation();
@@ -66,6 +67,8 @@ const Registration = ({
       alert(alertMessage);
     } else if (isEmpty(validatedRedemptionCodes)) {
       alert(t('register-invalid-code-alert'));
+    } else if (!agreeToTerms) {
+      alert(t('agree-terms-alert'));
     } else {
       const uniqueCodes = [...new Set(validatedRedemptionCodes)];
       await RedeemRegistrationAndRedemptionCodesMutation({
@@ -159,7 +162,9 @@ const Registration = ({
           validatedRedemptionCodes,
           setValidatedRedemptionCodes,
           openModal,
-          setOpenModal
+          setOpenModal,
+          agreeToTerms,
+          setAgreeToTerms
         }}
       >
         <Redemption />

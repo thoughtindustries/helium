@@ -5,7 +5,7 @@ import { useRegistrationContext } from '../registration/registration';
 
 const TermsConditions = (): JSX.Element => {
   const { t } = useTranslation();
-  const { setOpenModal } = useRegistrationContext();
+  const { setOpenModal, agreeToTerms, setAgreeToTerms } = useRegistrationContext();
 
   const handleOpenModal = () => {
     // graphql call
@@ -15,7 +15,7 @@ const TermsConditions = (): JSX.Element => {
   return (
     <div className="flex flex-row items-center mb-4">
       <TermsConditionsModal />
-      <input className="mr-2" type="checkbox" />
+      <input className="mr-2" type="checkbox" onClick={() => setAgreeToTerms(!agreeToTerms)} />
       <div style={{ display: 'flex', flexDirection: 'row' }}>
         <p>{`${t('agree-terms')}\u00A0`}</p>
         <button className="text-gray-700" type="button" onClick={() => handleOpenModal()}>

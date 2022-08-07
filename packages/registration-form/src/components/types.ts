@@ -13,6 +13,8 @@ export interface ResponseProps {
   validatedRedemptionCodes: Array<string>;
   openModal: boolean;
   setOpenModal: React.Dispatch<SetStateAction<boolean>>;
+  agreeToTerms: boolean;
+  setAgreeToTerms: React.Dispatch<SetStateAction<boolean>>;
 }
 
 export interface CurrentUser {
