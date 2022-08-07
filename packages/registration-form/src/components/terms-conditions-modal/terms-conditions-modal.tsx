@@ -4,10 +4,13 @@ import { useTranslation } from 'react-i18next';
 import { CloseIcon } from '../icons';
 import { useRegistrationContext } from '../registration/registration';
 import Terms from './terms';
+import { LoadingDots } from '@thoughtindustries/content';
+import { TermsProps } from '../types';
 
-const TermsConditionsModal = (): JSX.Element => {
+const TermsConditionsModal = ({ loading }: TermsProps): JSX.Element => {
   const { t } = useTranslation();
   const { openModal, setOpenModal } = useRegistrationContext();
+
   return (
     <Dialog className="relative z-[9000]" open={openModal} onClose={() => setOpenModal(false)}>
       <Dialog.Overlay className="fixed inset-0 bg-black opacity-[.35]" aria-hidden="true" />
@@ -24,11 +27,17 @@ const TermsConditionsModal = (): JSX.Element => {
               <CloseIcon />
             </button>
           </Dialog.Title>
-          <div className="p-4 relative h-[calc(100vh-60px)] md:h-auto md:max-h-[calc(100vh-156px)] overflow-y-auto">
-            <Dialog.Description as="div" className="flex flex-col">
-              <Terms />
-            </Dialog.Description>
-          </div>
+          {loading === true ? (
+            <div className="py-4">
+              <LoadingDots />
+            </div>
+          ) : (
+            <div className="p-4 relative h-[calc(100vh-60px)] md:h-auto md:max-h-[calc(100vh-156px)] overflow-y-auto">
+              <Dialog.Description as="div" className="flex flex-col">
+                <Terms />
+              </Dialog.Description>
+            </div>
+          )}
         </div>
       </div>
     </Dialog>

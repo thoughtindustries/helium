@@ -109,7 +109,12 @@ const Registration = ({
           />
           <p className="mb-4">
             <strong className="text-gray-600">{`${t('already-member')}\u00A0`}</strong>
-            <button type="button">
+            <button
+              type="button"
+              onClick={() => {
+                window.location.href = !isEmpty(redirectUrl) ? redirectUrl || '' : '/learn/sign_in';
+              }}
+            >
               <strong>{t('sign-in')}</strong>
             </button>
           </p>

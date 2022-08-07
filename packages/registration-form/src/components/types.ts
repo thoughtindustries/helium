@@ -6,6 +6,10 @@ export interface Props {
   codeExpired: boolean | undefined;
 }
 
+export interface TermsProps {
+  loading: boolean;
+}
+
 export interface ResponseProps {
   response: Props | undefined;
   setResponse: React.Dispatch<SetStateAction<Props | undefined>>;

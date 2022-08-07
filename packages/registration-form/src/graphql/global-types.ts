@@ -31,6 +31,11 @@ export type RedeemedRegistrationRedemptionResult = {
   redeemed: Scalars['Boolean'];
 };
 
+export type TermsAndConditions = {
+  __typename?: 'TermsAndConditions';
+  globalTerms?: Maybe<Scalars['String']>;
+};
+
 export type ValidateRedemptionCodeResult = {
   __typename?: 'ValidateRedemptionCodeResult';
   alreadyRedeemed: Scalars['Boolean'];
