@@ -11,6 +11,8 @@ export interface ResponseProps {
   setResponse: React.Dispatch<SetStateAction<Props | undefined>>;
   setValidatedRedemptionCodes: React.Dispatch<SetStateAction<string[]>>;
   validatedRedemptionCodes: Array<string>;
+  openModal: boolean;
+  setOpenModal: React.Dispatch<SetStateAction<boolean>>;
 }
 
 export interface CurrentUser {
