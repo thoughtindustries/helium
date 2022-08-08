@@ -1,6 +1,6 @@
 import React from 'react';
 import { useState } from 'react';
-import Logo from './Logo';
+import Logo from '../Logo.tsx';
 import icon from '../../renderer/vector.svg';
 import xicon from '../../renderer/xicon.svg';
 
