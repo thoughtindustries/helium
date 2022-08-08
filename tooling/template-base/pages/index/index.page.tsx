@@ -3,12 +3,8 @@ import CTA from '../../components/CTA/CTA';
 import FeaturedContentComp from '../../components/FeaturedContent/FeaturedContentComp';
 import Footer from '../../components/Footer/Footer';
 import Hero from '../../components/Hero/Hero';
-import HomepageNavbar from '../../components/Navigation/HomepageNavbar';
 import CallToActionWithLinks from '../../components/CTA/CallToActionWithLinks';
 import CallToActionParagraphs from '../../components/CTA/CallToActionParagraphs';
-import { usePageContext } from '../../renderer/usePageContext';
-import CatalogMobileNavBar from '../../components/Navigation/CatalogMobileNavBar';
-import CatalogNavBar from '../../components/Navigation/CatalogNavBar';
 import NavBar from '../../components/Navigation/NavBar';
 
 export { Page };

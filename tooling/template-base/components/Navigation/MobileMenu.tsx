@@ -1,6 +1,6 @@
 import React, { useMemo } from 'react';
 import { usePageContext } from '../../renderer/usePageContext';
-import Avatar from '../Avatar';
+import Avatar from '../Avatar/Avatar';
 
 const MobileMenu = () => {
   const pageContext = usePageContext();

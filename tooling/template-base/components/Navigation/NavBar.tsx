@@ -8,7 +8,9 @@ const NavBar = () => {
   const pageContext = usePageContext();
   const { currentUser } = pageContext;
   let navbar;
+  console.log(currentUser?.asset);
   if (currentUser) {
+    // signed in
     navbar = (
       <>
         <div className="block md:hidden">
@@ -20,6 +22,7 @@ const NavBar = () => {
       </>
     );
   } else {
+    // signed out
     navbar = <HomepageNavbar />;
   }
   return navbar;

@@ -1,11 +1,10 @@
 import React from 'react';
 import { useState } from 'react';
-import Logo from './Logo';
-import avatar from '../../renderer/avatar.png';
+import Logo from '../Logo/Logo';
 import MobileMenu from './MobileMenu';
 import dropDownClosed from '../../renderer/dropDownClosed.svg';
 import dropDownOpen from '../../renderer/dropDownOpen.svg';
-import Avatar from '../Avatar';
+import Avatar from '../Avatar/Avatar';
 
 export default function LargeSceenNavBar() {
   const [navbar, setNavbar] = useState(false);
@@ -31,7 +30,7 @@ export default function LargeSceenNavBar() {
               <a href="/catalog">Catalog</a>
             </li>
             <li className="md:hover:bg-white hover:bg-slate-100 rounded pl-2 py-2">
-              <a href="/">Help</a>
+              <a href="/support">Help</a>
             </li>
             <hr></hr>
           </ul>

@@ -1,8 +1,9 @@
 import React from 'react';
 import { useState } from 'react';
-import Logo from './Logo';
+import Logo from '../Logo/Logo.tsx';
 import avatar from '../../renderer/avatar.png';
 import xicon from '../../renderer/xicon.svg';
+import Avatar from '../Avatar/Avatar';
 
 export default function MobileNavBar() {
   const [navbar, setNavbar] = useState(false);
@@ -37,7 +38,8 @@ export default function MobileNavBar() {
                     className="block h-9 w-9 md:hidden"
                     onClick={() => setNavbar(!navbar)}
                   >
-                    <img src={avatar} />
+                    {/* this shoulc not re render */}
+                    <Avatar style="" />
                   </button>
                 )}
               </button>
@@ -58,7 +60,7 @@ export default function MobileNavBar() {
             <hr></hr>
             <div className="flex">
               <div className="h-11 w-11">
-                <img src={avatar} />
+                <Avatar style="" />
               </div>
               <div className="mx-3 my-auto">
                 <button className="hover:text-blue-700">
