@@ -5,6 +5,7 @@ import avatar from '../../renderer/avatar.png';
 import MobileMenu from './MobileMenu';
 import dropDownClosed from '../../renderer/dropDownClosed.svg';
 import dropDownOpen from '../../renderer/dropDownOpen.svg';
+import Avatar from '../Avatar';
 
 export default function LargeSceenNavBar() {
   const [navbar, setNavbar] = useState(false);
@@ -21,7 +22,7 @@ export default function LargeSceenNavBar() {
             <div className="md:hidden"></div>
           </div>
         </div>
-        <div className={`flex my-auto space-x-6 mx-auto md:block ${navbar ? 'block' : 'hidden'}`}>
+        <div className={`flex ml-8 my-auto space-x-6 md:block ${navbar ? 'block' : 'hidden'}`}>
           <ul className="items-center justify-between space-y-3 md:space-y-0 md:flex md:space-x-6 w-full">
             <li className="md:hover:bg-white hover:bg-slate-100 rounded pl-2 py-1.5">
               <a href="/dashboard">My Dashboard</a>
@@ -41,14 +42,14 @@ export default function LargeSceenNavBar() {
             {navbar ? (
               <button id="icon" type="submit" className="block" onClick={() => setNavbar(!navbar)}>
                 <div className="flex items-center space-x-3 mr-3">
-                  <img src={avatar} />
+                  <Avatar style="" />
                   <img src={dropDownOpen} />
                 </div>
               </button>
             ) : (
               <button id="icon" type="submit" className="block" onClick={() => setNavbar(!navbar)}>
                 <div className="flex items-center space-x-3 mr-3">
-                  <img src={avatar} />
+                  <Avatar style="" />
                   <img src={dropDownClosed} />
                 </div>
               </button>

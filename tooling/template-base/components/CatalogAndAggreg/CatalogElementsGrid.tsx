@@ -1,5 +1,4 @@
 import React from 'react';
-import { formatTime } from '@thoughtindustries/content';
 import {
   CatalogParams,
   HeightEqualizer,
@@ -41,29 +40,8 @@ const HeightEqualizerElementWrapper = ({
   );
 };
 
-const ItemTitleBlock = ({
-  title,
-  courseStartDate,
-  timeZone,
-  contentTypeLabel
-}: {
-  title: string;
-  courseStartDate?: string;
-  timeZone?: string;
-  contentTypeLabel?: string;
-}) => (
-  <div className="mb-1 font-normal text-lg">
-    <HeightEqualizerElementWrapper name="title" as="h3" className="leading-6">
-      {title}
-    </HeightEqualizerElementWrapper>
-    <HeightEqualizerElementWrapper name="course-date" className="leading-4">
-      {courseStartDate && (
-        <span className="text-xs text-gray-700">
-          {contentTypeLabel} | {formatTime(courseStartDate, timeZone, 'MM/DD/YYYY')}
-        </span>
-      )}
-    </HeightEqualizerElementWrapper>
-  </div>
+const ItemTitleBlock = ({ title }: { title: string }) => (
+  <div className="font-semibold text-lg">{title}</div>
 );
 
 const ItemSourceBlock = ({
@@ -75,7 +53,9 @@ const ItemSourceBlock = ({
 }) => (
   <HeightEqualizerElementWrapper name="source" className="text-sm text-gray-500">
     <p>
-      {courseStartDate && <span className="flex text-md text-gray-500">{contentTypeLabel}</span>}
+      {courseStartDate && (
+        <span className="flex text-md text-gray-500 font-semibold">{contentTypeLabel}</span>
+      )}
     </p>
   </HeightEqualizerElementWrapper>
 );
@@ -124,12 +104,12 @@ const DisplayTypeResultsGridItem = ({
       <>
         <ItemLinkWrapper item={item} onClick={onClick}>
           <div className="grid grid-cols-1 relative">
-            <div className="bg-white px-6 py-6 rounded-md">
+            <div className="bg-white rounded-md">
               {ribbon && <ItemRibbon ribbon={ribbon} attached attachedClassnames="-top-1" />}
               <div className="relative">
                 <ItemAssetBlock asset={asset} />
               </div>
-              <div className="pt-5">
+              <div className="p-8 space-y-4">
                 {title && (
                   <ItemTitleBlock
                     title={title}
@@ -142,7 +122,7 @@ const DisplayTypeResultsGridItem = ({
                   contentTypeLabel={contentTypeLabel}
                   courseStartDate={courseStartDate}
                 />
-                <div className="text-sm text-gray-500 pt-3 mb-0">
+                <div className="text-sm text-gray-500">
                   {description && limitText(description, 75)}
                 </div>
                 <hr className="my-2" />

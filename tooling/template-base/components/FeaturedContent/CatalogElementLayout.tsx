@@ -118,7 +118,7 @@ const Item = ({ ...item }: FeaturedContentContentItemProps): JSX.Element => {
     <li>
       <ItemLinkWrapper item={item} onClick={onClick}>
         <div
-          className={`${gridItemDesktopClassnames} bg-white rounded-lg relative shadow-md p-6 space-y-6`}
+          className={`${gridItemDesktopClassnames} bg-white rounded-lg relative shadow-md space-y-6`}
         >
           {ribbon && <ItemRibbon ribbon={ribbon} attached />}
           <ItemAssetBlock asset={asset} />

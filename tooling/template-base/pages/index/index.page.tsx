@@ -6,6 +6,10 @@ import Hero from '../../components/Hero/Hero';
 import HomepageNavbar from '../../components/Navigation/HomepageNavbar';
 import CallToActionWithLinks from '../../components/CTA/CallToActionWithLinks';
 import CallToActionParagraphs from '../../components/CTA/CallToActionParagraphs';
+import { usePageContext } from '../../renderer/usePageContext';
+import CatalogMobileNavBar from '../../components/Navigation/CatalogMobileNavBar';
+import CatalogNavBar from '../../components/Navigation/CatalogNavBar';
+import NavBar from '../../components/Navigation/NavBar';
 
 export { Page };
 export { documentProps };
@@ -18,7 +22,7 @@ const documentProps = {
 function Page() {
   return (
     <>
-      <HomepageNavbar />
+      <NavBar />
       <Hero
         headline="Making Learning Successful"
         body="Learning is a gateway to success. We aim to provide motivational content, strategies and courses to help you become successful and achieve your goals."

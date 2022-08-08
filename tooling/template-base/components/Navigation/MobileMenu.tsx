@@ -1,7 +1,6 @@
 import React, { useMemo } from 'react';
-import avatar from '../../renderer/avatar.png';
 import { usePageContext } from '../../renderer/usePageContext';
-import { PageContextProvider } from '../../renderer/usePageContext';
+import Avatar from '../Avatar';
 
 const MobileMenu = () => {
   const pageContext = usePageContext();
@@ -11,9 +10,7 @@ const MobileMenu = () => {
     <div className="">
       <ul className="space-y-2">
         <div className="flex py-5">
-          <div className="h-11 w-11">
-            <img src={avatar} />
-          </div>
+          <Avatar style="h-11 w-11" />
           <div className="mx-3 my-auto">
             <button className="hover:text-blue-700">
               <a href="/learn/profile">My Profile</a>
@@ -21,9 +18,9 @@ const MobileMenu = () => {
           </div>
         </div>
         <hr></hr>
-        <li className="md:hover:bg-white hover:bg-slate-100 rounded pl-2 pt-4 pb-2">
-          <a href="/learn/profile">{currentUser?.id}</a>
-        </li>
+        <a href="/learn/profile">
+          <li className="md:hover:bg-white hover:bg-slate-100 rounded pl-2 pt-4 pb-2">Account</li>
+        </a>
         <li className="md:hover:bg-white hover:bg-slate-100 rounded pl-2 py-2">
           <a href="/">Transcript</a>
         </li>
