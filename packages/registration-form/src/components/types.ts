@@ -6,10 +6,6 @@ export interface Props {
   codeExpired: boolean | undefined;
 }
 
-export interface TermsProps {
-  loading: boolean;
-}
-
 export interface ResponseProps {
   response: Props | undefined;
   setResponse: React.Dispatch<SetStateAction<Props | undefined>>;
@@ -19,6 +15,11 @@ export interface ResponseProps {
   setOpenModal: React.Dispatch<SetStateAction<boolean>>;
   agreeToTerms: boolean;
   setAgreeToTerms: React.Dispatch<SetStateAction<boolean>>;
+}
+
+export interface GlobalTermsProps {
+  loading: boolean;
+  globalTerms: string;
 }
 
 export interface CurrentUser {

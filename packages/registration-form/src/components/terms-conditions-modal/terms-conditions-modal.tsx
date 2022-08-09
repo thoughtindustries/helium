@@ -5,11 +5,12 @@ import { CloseIcon } from '../icons';
 import { useRegistrationContext } from '../registration/registration';
 import Terms from './terms';
 import { LoadingDots } from '@thoughtindustries/content';
-import { TermsProps } from '../types';
+import { useTermsAndConditionsContext } from '../terms-conditions/terms-conditions';
 
-const TermsConditionsModal = ({ loading }: TermsProps): JSX.Element => {
+const TermsConditionsModal = (): JSX.Element => {
   const { t } = useTranslation();
   const { openModal, setOpenModal } = useRegistrationContext();
+  const { loading } = useTermsAndConditionsContext();
 
   return (
     <Dialog className="relative z-[9000]" open={openModal} onClose={() => setOpenModal(false)}>

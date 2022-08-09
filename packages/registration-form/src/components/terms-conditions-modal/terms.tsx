@@ -1,8 +1,38 @@
 import React from 'react';
+import { gql, useQuery } from '@apollo/client';
+import { isEmpty } from 'lodash';
+import { useTermsAndConditionsContext } from '../terms-conditions/terms-conditions';
 
-const TermsConditionsModal = (): JSX.Element => {
+const GlobalTerms = ({ globalTerms }: { globalTerms: string }): JSX.Element => {
+  const query = gql`
+    query CompanyDetailsQuery {
+      CompanyDetails {
+        __typename
+        name
+      }
+    }
+  `;
+
+  const { data } = useQuery(query);
+  const companyName = data && data.CompanyDetails.name;
+  const parser = new DOMParser();
+  const htmlString = parser.parseFromString(globalTerms, 'text/html');
+  const content = htmlString.documentElement.textContent;
   return (
     <>
+      <h4 className="font-bold text-xl text-gray-800 mb-4">{companyName}</h4>
+      <div>{content}</div>
+      <div className="w-full border-t border-gray-200 my-4" />
+    </>
+  );
+};
+
+const TermsConditionsModal = (): JSX.Element => {
+  const { globalTerms } = useTermsAndConditionsContext();
+
+  return (
+    <>
+      {!isEmpty(globalTerms) ? <GlobalTerms globalTerms={globalTerms} /> : null}
       <h4 className="font-bold text-xl text-gray-800 mb-4">
         Thought Industries Terms &amp; Conditions
       </h4>
