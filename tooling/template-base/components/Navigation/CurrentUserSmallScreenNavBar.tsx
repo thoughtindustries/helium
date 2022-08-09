@@ -1,10 +1,10 @@
 import React from 'react';
 import { useState } from 'react';
-import Logo from '../Logo/Logo';
-import icon from '../../renderer/vector.svg';
+import Logo from '../Logo/Logo.tsx';
 import xicon from '../../renderer/xicon.svg';
+import Avatar from '../Avatar/Avatar';
 
-export default function NavBar() {
+export default function CurrentUserSmallScreenNavBar() {
   const [navbar, setNavbar] = useState(false);
 
   return (
@@ -17,35 +17,36 @@ export default function NavBar() {
               <Logo />
             </div>
             <div className="md:hidden">
-              <div
-                className="text-gray-700 rounded-md outline-none focus:border-gray-400 focus:border"
+              <button
+                className="p-2 text-gray-700 rounded-md outline-none focus:border-gray-400 focus:border"
                 onClick={() => setNavbar(!navbar)}
               >
                 {navbar ? (
                   <button
+                    id="icon"
                     type="submit"
-                    className="block md:hidden"
+                    className="block h-9 w-9 md:hidden"
                     onClick={() => setNavbar(!navbar)}
                   >
-                    {/* open */}
                     <img src={xicon} />
                   </button>
                 ) : (
                   <button
+                    id="icon"
                     type="submit"
-                    className="block md:hidden"
+                    className="block h-9 w-9 md:hidden"
                     onClick={() => setNavbar(!navbar)}
                   >
-                    {/* closed */}
-                    <img src={icon} />
+                    {/* this shoulc not re render */}
+                    <Avatar style="" />
                   </button>
                 )}
-              </div>
+              </button>
             </div>
           </div>
         </div>
         <div className={`flex my-auto space-x-6 mx-auto md:block ${navbar ? 'block' : 'hidden'}`}>
-          <ul className="items-center justify-between space-y-3 pt-4 md:pt-0 md:space-y-0 md:flex md:space-x-6 w-full">
+          <ul className="items-center justify-between space-y-3 pt-4 md:space-y-0 md:flex md:space-x-6 w-full">
             <li className="md:hover:bg-white hover:bg-slate-100 rounded pl-2 py-1.5">
               <a href="/">Home</a>
             </li>
@@ -56,9 +57,31 @@ export default function NavBar() {
               <a href="/support">Help</a>
             </li>
             <hr></hr>
-            <button className="md:hidden my-auto items-center bg-blue-900 hover:bg-blue-700 text-white font-bold py-2 px-4 w-full rounded">
-              Sign in
-            </button>
+            <div className="flex">
+              <div className="h-11 w-11">
+                <Avatar style="" />
+              </div>
+              <div className="mx-3 my-auto">
+                <button className="hover:text-blue-700">
+                  <a href="/learn/profile">My Profile</a>
+                </button>
+              </div>
+            </div>
+            <hr></hr>
+            <li className="md:hover:bg-white hover:bg-slate-100 rounded pl-2 py-1.5">
+              <a href="/account">Account</a>
+            </li>
+            <li className="md:hover:bg-white hover:bg-slate-100 rounded pl-2 py-2">
+              <a href="/transcript">Transcript</a>
+            </li>
+            <li className="md:hover:bg-white hover:bg-slate-100 rounded pl-2 py-2">
+              <a href="/support">Support</a>
+            </li>
+            <hr></hr>
+            <div className="text-center pt-5 text-sm text-blue-900 hover:text-blue-700">
+              Sign out
+            </div>
+            <hr></hr>
           </ul>
         </div>
 

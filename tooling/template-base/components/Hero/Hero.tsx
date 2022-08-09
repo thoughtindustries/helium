@@ -18,7 +18,7 @@ const Hero = (props: { headline: string; body: string; buttonUrl: string; button
           </a>
         </div>
       </div> */}
-      <div className="relative h-96 w-full">
+      <div className="relative h-96 w-full z-0">
         <img src={overlay} className="object-cover h-96 w-full" />
         <div className="absolute text-white top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-center">
           <div className="text-2xl sm:text-3xl md:text-5xl">{props.headline}</div>

@@ -11,19 +11,19 @@ const Avatar = (props: { style: string }) => {
   if (currentUser?.asset) {
     // return the users avatar
     snippet = (
-      <a href="/">
-        <img src={currentUser?.asset} className={`${props.style} rounded-full`} />
-      </a>
+      // <a href="/">
+      <img src={currentUser?.asset} className={`${props.style} rounded-full`} />
+      // </a>
     );
   } else {
     // return the initals
     const userInitials = currentUser?.firstName?.split('')[0] + currentUser?.lastName?.split('')[0];
     snippet = (
-      <a href="/">
-        <div className="bg-slate-50 h-11 w-11 rounded-full font-bold">
-          <div className="p-2.5">{userInitials}</div>
-        </div>
-      </a>
+      // <a href="/">
+      <div className="bg-slate-50 h-11 w-11 rounded-full font-bold">
+        <div className="p-2.5">{userInitials}</div>
+      </div>
+      // </a>
     );
   }
   return snippet;

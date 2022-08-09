@@ -1,12 +1,13 @@
 import React from 'react';
 import { usePageContext } from '../../renderer/usePageContext';
-import CatalogMobileNavBar from './CatalogMobileNavBar';
-import CatalogNavBar from './CatalogNavBar';
-import HomepageNavbar from './HomepageNavbar';
+import CurrentUserSmallScreenNavBar from './CurrentUserSmallScreenNavBar';
+import CurrentUserNavBar from './CurrentUserNavBar';
+import UserLoginNavBar from './UserLoginNavBar';
 
 const NavBar = () => {
   const pageContext = usePageContext();
   const { currentUser } = pageContext;
+
   let navbar;
   console.log(currentUser?.asset);
   if (currentUser) {
@@ -14,16 +15,16 @@ const NavBar = () => {
     navbar = (
       <>
         <div className="block md:hidden">
-          <CatalogMobileNavBar />
+          <CurrentUserSmallScreenNavBar />
         </div>
         <div className="hidden md:block">
-          <CatalogNavBar />
+          <CurrentUserNavBar />
         </div>
       </>
     );
   } else {
     // signed out
-    navbar = <HomepageNavbar />;
+    navbar = <UserLoginNavBar />;
   }
   return navbar;
 };

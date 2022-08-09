@@ -524,6 +524,10 @@ Ensure the default browser behavior of the `hidden` attribute.
   z-index: 10;
 }
 
+.z-0 {
+  z-index: 0;
+}
+
 .col-span-full {
   grid-column: 1 / -1;
 }
@@ -774,12 +778,12 @@ Ensure the default browser behavior of the `hidden` attribute.
   max-width: 24rem;
 }
 
-.max-w-none {
-  max-width: none;
-}
-
 .max-w-full {
   max-width: 100%;
+}
+
+.max-w-none {
+  max-width: none;
 }
 
 .flex-\[1_1_50\%\] {
@@ -1026,16 +1030,16 @@ Ensure the default browser behavior of the `hidden` attribute.
      object-fit: cover;
 }
 
+.p-24 {
+  padding: 6rem;
+}
+
 .p-2\.5 {
   padding: 0.625rem;
 }
 
 .p-2 {
   padding: 0.5rem;
-}
-
-.p-24 {
-  padding: 6rem;
 }
 
 .p-6 {
