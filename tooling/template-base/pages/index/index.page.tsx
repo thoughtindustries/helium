@@ -6,6 +6,7 @@ import Hero from '../../components/Hero/Hero';
 import CallToActionWithLinks from '../../components/CTA/CallToActionWithLinks';
 import CallToActionParagraphs from '../../components/CTA/CallToActionParagraphs';
 import NavBar from '../../components/Navigation/NavBar';
+import { HydratedContentItem } from '@thoughtindustries/content';
 
 export { Page };
 export { documentProps };
@@ -25,7 +26,12 @@ function Page() {
         buttonUrl="/signin"
         buttonText="Sign in"
       />
-      <FeaturedContentComp />
+      <FeaturedContentComp
+        onAddedToQueue={function (item: HydratedContentItem): Promise<boolean | void> {
+          throw new Error('Function not implemented.');
+        }}
+        numberOfContentItems={3}
+      />
       <CallToActionWithLinks
         headline="Explore Documentation and Resources"
         description="Our developer documentation and tools cover everything you need to know to start building your new project. "

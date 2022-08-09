@@ -20,6 +20,7 @@ type DisplayTypeResultsGridProps = Pick<CatalogResultsProps, 'onClick' | 'onAdde
   Pick<CatalogParams, 'displayAuthorsEnabled' | 'displayStartDateEnabled' | 'displayBundle'> & {
     items: CatalogResultItem[];
     priceFormatFn: PriceFormatFn;
+    numberOfContentItems: number;
   };
 
 type DisplayTypeResultsGridItemProps = Omit<DisplayTypeResultsGridProps, 'items'> & {
@@ -137,21 +138,19 @@ const DisplayTypeResultsGridItem = ({
   );
 };
 
-const DisplayTypeResultsGrid = (
-  { items, ...restProps }: DisplayTypeResultsGridProps,
-  props: { numberOfContentItems: number }
-): JSX.Element => {
+const DisplayTypeResultsGrid = ({
+  items,
+  ...restProps
+}: DisplayTypeResultsGridProps): JSX.Element => {
   let contentItems;
-  if (props.numberOfContentItems) {
-    console.log('yes');
+  if (restProps.numberOfContentItems) {
     contentItems = items
-      .slice(0, props.numberOfContentItems)
+      .slice(0, restProps.numberOfContentItems)
       .filter(({ isNotCompleted }) => !isNotCompleted)
       .map((item, index) => (
         <DisplayTypeResultsGridItem key={`result-item-${index}`} item={item} {...restProps} />
       ));
   } else {
-    console.log('no');
     contentItems = items
       .filter(({ isNotCompleted }) => !isNotCompleted)
       .map((item, index) => (

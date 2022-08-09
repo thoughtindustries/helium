@@ -26,7 +26,6 @@ function Page() {
           onAddedToQueue={function (item: HydratedContentItem): Promise<boolean | void> {
             throw new Error('Function not implemented.');
           }}
-          numberOfContentItems={3}
         />
         <Footer />
       </div>

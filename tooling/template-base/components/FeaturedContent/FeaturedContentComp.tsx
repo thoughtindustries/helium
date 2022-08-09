@@ -1,10 +1,12 @@
-import { CatalogProvider } from '@thoughtindustries/catalog';
+import { CatalogProps, CatalogProvider } from '@thoughtindustries/catalog';
 import { HydratedContentItem } from '@thoughtindustries/content';
-import React, { useMemo } from 'react';
+import React, { FC, useMemo } from 'react';
 import { usePageContext } from '../../renderer/usePageContext';
 import CatalogResults from '../CatalogAndAggreg/CatalogResults';
 
-const FeaturedContentComp = () => {
+const FeaturedContentComp: FC<CatalogProps> = ({
+  ...restResultsProps
+}: CatalogProps): JSX.Element => {
   const pageContext = usePageContext();
   const {
     urlParsed: { pathname, searchString }
@@ -29,11 +31,7 @@ const FeaturedContentComp = () => {
         <div className="grid md:grid-cols-3 grid-cols-1 py-24 px-12 md:px-20 ">
           <div className="col-span-3">
             <CatalogProvider config={config}>
-              <CatalogResults
-                onAddedToQueue={function (item: HydratedContentItem): Promise<boolean | void> {
-                  throw new Error('Function not implemented.');
-                }}
-              />
+              <CatalogResults {...restResultsProps} />
             </CatalogProvider>
           </div>
         </div>
