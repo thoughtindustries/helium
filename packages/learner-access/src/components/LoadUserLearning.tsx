@@ -112,7 +112,7 @@ const LoadUserLearning = ({ query, kind, sort }: LoadedComponentProps): JSX.Elem
                 )}
 
                 {courseCollaborations && (
-                  <li className="ember-view user-engagement-stat user-engagement-stat--hours relative px-2.5 pb-5 block float-left h-auto pt-0">
+                  <li className="user-engagement-stat user-engagement-stat--hours relative px-2.5 pb-5 block float-left h-auto pt-0">
                     <div className="user-engagement-stat__label-container before:content-[''] before:bg-gray-light before:h-4/5 before:absolute before:top-0 before:right-0 before:w-px last:content-none">
                       <div className="user-engagement-stat__label user-engagement-stat__label--with-hint h-8  text-ellipsis text-gray-mid overflow-hidden text-center uppercase">
                         {t('dashboard.collaborations').toUpperCase()}
@@ -128,7 +128,7 @@ const LoadUserLearning = ({ query, kind, sort }: LoadedComponentProps): JSX.Elem
                     </div>
                   </li>
                 )}
-                <li className="ember-view user-engagement-stat user-engagement-stat--hours relative px-2.5 pb-5 block float-left h-auto pt-0">
+                <li className="user-engagement-stat user-engagement-stat--hours relative px-2.5 pb-5 block float-left h-auto pt-0">
                   <div className="user-engagement-stat__label-container before:content-[''] before:bg-gray-light before:h-4/5 before:absolute before:top-0 before:right-0 before:w-px last:content-none">
                     <div className="user-engagement-stat__label user-engagement-stat__label--with-hint h-8  text-ellipsis text-gray-mid overflow-hidden text-center uppercase">
                       {t('completion.course-percent-viewed').toUpperCase()}
@@ -145,7 +145,7 @@ const LoadUserLearning = ({ query, kind, sort }: LoadedComponentProps): JSX.Elem
                   </div>
                 </li>
                 {/*  courseCriteriacourse section  */}
-                <li className="ember-view user-engagement-stat user-engagement-stat--hours relative px-2.5 pb-5 block float-left h-auto pt-0 text-[#b6259e]">
+                <li className="user-engagement-stat user-engagement-stat--hours relative px-2.5 pb-5 block float-left h-auto pt-0 text-[#b6259e]">
                   <div className="user-engagement-stat__label-container before:content-[''] before:bg-gray-light before:h-4/5 before:absolute before:top-0 before:right-0 before:w-px before:last:content-none">
                     <div className="user-engagement-stat__label user-engagement-stat__label--with-hint h-8  text-ellipsis text-gray-mid overflow-hidden text-center uppercase">
                       {t('dashboard.completed').toUpperCase()}
@@ -164,19 +164,14 @@ const LoadUserLearning = ({ query, kind, sort }: LoadedComponentProps): JSX.Elem
             </div>
 
             <div className="user-engagement-progress-bar ">
-              <div
-                id="ember8032"
-                className="ember-view nice round progress colorized rounded-[999px] bg-gray-light border-white border-solid border h-4 mb-2 p-px"
-              >
+              <div className="nice round progress colorized rounded-[999px] bg-gray-light border-white border-solid border h-4 mb-2 p-px">
                 <span className="block h-full w-full rounded-[999px] bg-gradient-to-r from-accent-colorized-cyan to-accent-colorized-lime ease-in-out duration-200 transition-width"></span>
               </div>
             </div>
           </div>
         </div>
         <div className=" archive mt-2 row-end-4 text-black-light relative">
-          {item.callToAction !== 'completed' && (
-            <ArchiveButton item={item} onArchiveSuccessAsync={onArchiveSuccessAsync} />
-          )}
+          <ArchiveButton item={item} onArchiveSuccessAsync={onArchiveSuccessAsync} />
         </div>
       </div>
     );
@@ -236,11 +231,7 @@ const LoadUserLearning = ({ query, kind, sort }: LoadedComponentProps): JSX.Elem
                 }}
                 className="bg-active-blue text-white rounded-sm cursor-pointer inline-block font-normal text-xs m-0 py-[0.15rem] px-4 relative text-center no-underline ease-in-out border-active-blue font-sans transition duration-200 leading-5"
               >
-                {item.callToAction == 'completed'
-                  ? t('view-course', { contentType: item.contentTypeLabel })
-                  : item.callToAction == 'started'
-                  ? t('continue-course')
-                  : t('start-course', { contentType: item.contentTypeLabel })}
+                {item.callToAction}
               </button>
             </div>
           </div>
