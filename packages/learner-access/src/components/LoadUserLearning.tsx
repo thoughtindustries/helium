@@ -26,7 +26,6 @@ import { ArchiveButton } from './MutationCallingButtons';
 import { Tooltip } from '../Assets/Tooltips';
 import { useTranslation } from 'react-i18next';
 import useLearnerAccess from '../use-context';
-import { t } from 'i18next';
 
 const LoadUserLearning = ({ query, kind, sort }: LoadedComponentProps): JSX.Element => {
   const { data, loading, error } = useUserContentItemsQuery({
@@ -39,27 +38,27 @@ const LoadUserLearning = ({ query, kind, sort }: LoadedComponentProps): JSX.Elem
     ssr: false
   });
 
-  const { i18n } = useTranslation();
+  const { i18n, t } = useTranslation();
 
   const ExpandedContent = ({ item }: { item: HydratedContentItem }): JSX.Element => {
     const { data } = useUserCourseCompletionProgressQuery({
-      variables: { id: '' }
+      variables: { id: item.id }
     });
-
-    console.log('data', data);
 
     const courseCriteria = data?.UserCourseCompletionProgress;
 
-    const { data: useUserCourseProgressData } = useUserCourseProgressQuery({
-      variables: { id: '' }
-    });
+    const { data: useUserCourseProgressData, error: UserCourseProgressError } =
+      useUserCourseProgressQuery({
+        variables: { id: item.id }
+      });
+
     const courseProgress = useUserCourseProgressData?.UserCourseProgress;
 
     const { data: courseCollaborationsData } = useUserCourseCollaborationsQuery({
-      variables: { courseId: '' }
+      variables: { courseId: item.id }
     });
+
     const courseCollaborations = courseCollaborationsData?.UserCourseCollaborations;
-    console.log('courseCompletion progress', useUserCourseProgressData);
 
     const { refetchContentGroups } = useLearnerAccess();
     const onArchiveSuccessAsync = useCallback(async () => {
@@ -104,9 +103,9 @@ const LoadUserLearning = ({ query, kind, sort }: LoadedComponentProps): JSX.Elem
                       <i className="icon-stopwatch"></i>
                       <span className="user-engagement-stat__value">
                         <StopwatchIcon />
-                        {courseProgress.totalTime && courseProgress.totalTime > 3600
-                          ? courseProgress.totalTime
-                          : '0.0'}
+                        {((courseProgress.totalTime ? courseProgress.totalTime : 0) / 3600).toFixed(
+                          1
+                        )}
                       </span>
                     </div>
                   </li>
@@ -175,7 +174,7 @@ const LoadUserLearning = ({ query, kind, sort }: LoadedComponentProps): JSX.Elem
           </div>
         </div>
         <div className=" archive mt-2 row-end-4 text-black-light relative">
-          {item.availabilityStatus !== 'completed' && (
+          {item.callToAction !== 'completed' && (
             <ArchiveButton item={item} onArchiveSuccessAsync={onArchiveSuccessAsync} />
           )}
         </div>
@@ -237,15 +236,15 @@ const LoadUserLearning = ({ query, kind, sort }: LoadedComponentProps): JSX.Elem
                 }}
                 className="bg-active-blue text-white rounded-sm cursor-pointer inline-block font-normal text-xs m-0 py-[0.15rem] px-4 relative text-center no-underline ease-in-out border-active-blue font-sans transition duration-200 leading-5"
               >
-                {item.availabilityStatus == 'completed'
+                {item.callToAction == 'completed'
                   ? t('view-course', { contentType: item.contentTypeLabel })
-                  : item.availabilityStatus == 'started'
+                  : item.callToAction == 'started'
                   ? t('continue-course')
                   : t('start-course', { contentType: item.contentTypeLabel })}
               </button>
             </div>
           </div>
-          {showContent && item.kind !== 'inPersonEventCourse' && <ExpandedContent item={item} />}
+          {showContent && <ExpandedContent item={item} />}
         </div>
       </div>
     );
