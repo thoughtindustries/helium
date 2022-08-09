@@ -51,8 +51,10 @@ const CatalogResults = ({
   onAddedToQueue,
   priceFormat,
   companyDefaultLocale,
-  currencyCode
+  currencyCode,
+  numberOfContentItems
 }: CatalogResultsProps): JSX.Element => {
+  console.log(numberOfContentItems);
   const { params } = useCatalog();
   const {
     aggregations,
@@ -67,7 +69,8 @@ const CatalogResults = ({
     displayDescriptionOnCalendar
   } = params;
   const { i18n, t } = useTranslation();
-
+  // const numberOfItems = numberOfContentItems;
+  // console.log(numberOfItems);
   let activeFilterDescription;
   if (aggregationFilters.length) {
     const { label: filterLabel, value: filterValue } = aggregationFilters[0];
@@ -125,7 +128,11 @@ const CatalogResults = ({
       {activeFilter}
       {emptyResults}
       {hasResults && activeDisplayType && (
-        <DisplayTypeResults {...resultsProps} activeDisplayType={activeDisplayType} />
+        <DisplayTypeResults
+          numberOfContentItems={numberOfContentItems}
+          {...resultsProps}
+          activeDisplayType={activeDisplayType}
+        />
       )}
     </>
   );

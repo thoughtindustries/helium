@@ -81,8 +81,7 @@ const ItemCtaBlock = ({
 const DisplayTypeResultsGridItem = ({
   onClick,
   displayStartDateEnabled,
-  item,
-  priceFormatFn
+  item
 }: DisplayTypeResultsGridItemProps): JSX.Element => {
   const {
     asset,
@@ -138,15 +137,28 @@ const DisplayTypeResultsGridItem = ({
   );
 };
 
-const DisplayTypeResultsGrid = ({
-  items,
-  ...restProps
-}: DisplayTypeResultsGridProps): JSX.Element => {
-  const contentItems = items
-    .filter(({ isNotCompleted }) => !isNotCompleted)
-    .map((item, index) => (
-      <DisplayTypeResultsGridItem key={`result-item-${index}`} item={item} {...restProps} />
-    ));
+const DisplayTypeResultsGrid = (
+  { items, ...restProps }: DisplayTypeResultsGridProps,
+  props: { numberOfContentItems: number }
+): JSX.Element => {
+  let contentItems;
+  if (props.numberOfContentItems) {
+    console.log('yes');
+    contentItems = items
+      .slice(0, props.numberOfContentItems)
+      .filter(({ isNotCompleted }) => !isNotCompleted)
+      .map((item, index) => (
+        <DisplayTypeResultsGridItem key={`result-item-${index}`} item={item} {...restProps} />
+      ));
+  } else {
+    console.log('no');
+    contentItems = items
+      .filter(({ isNotCompleted }) => !isNotCompleted)
+      .map((item, index) => (
+        <DisplayTypeResultsGridItem key={`result-item-${index}`} item={item} {...restProps} />
+      ));
+  }
+
   return (
     <HeightEqualizer>
       <ul className="grid gap-5 grid-cols-1 md:grid-cols-2 lg:grid-cols-3">{contentItems}</ul>
@@ -156,6 +168,3 @@ const DisplayTypeResultsGrid = ({
 
 DisplayTypeResultsGrid.displayName = 'DisplayTypeResultsGrid';
 export default DisplayTypeResultsGrid;
-function timezone(courseStartDate: string, timezone: any, arg2: string): React.ReactNode {
-  throw new Error('Function not implemented.');
-}

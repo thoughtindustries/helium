@@ -3,6 +3,7 @@ import Footer from '../../components/Footer/Footer';
 import Banner from '../../components/Banner';
 import NavBar from '../../components/Navigation/NavBar';
 import CatalogAndAggregation from '../../components/CatalogAndAggreg/CatalogAndAggregation';
+import { HydratedContentItem } from '@thoughtindustries/content';
 
 export { Page };
 export { documentProps };
@@ -25,6 +26,7 @@ function Page() {
           onAddedToQueue={function (item: HydratedContentItem): Promise<boolean | void> {
             throw new Error('Function not implemented.');
           }}
+          numberOfContentItems={3}
         />
         <Footer />
       </div>
