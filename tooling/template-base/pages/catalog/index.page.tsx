@@ -1,8 +1,8 @@
 import React from 'react';
 import Footer from '../../components/Footer/Footer';
-import FilterAndCatalog from '../../components/FilterAndCatalog/FilterAndCatalog';
 import Banner from '../../components/Banner';
 import NavBar from '../../components/Navigation/NavBar';
+import CatalogAndAggregation from '../../components/CatalogAndAggreg/CatalogAndAggregation';
 
 export { Page };
 export { documentProps };
@@ -21,7 +21,11 @@ function Page() {
           heading="Full Learning Catalog"
           subtext="Browse the full list of courses and learning paths."
         />
-        <FilterAndCatalog />
+        <CatalogAndAggregation
+          onAddedToQueue={function (item: HydratedContentItem): Promise<boolean | void> {
+            throw new Error('Function not implemented.');
+          }}
+        />
         <Footer />
       </div>
     </>
