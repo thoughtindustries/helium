@@ -2,6 +2,7 @@ import React from 'react';
 import { gql, useQuery } from '@apollo/client';
 import { isEmpty } from 'lodash';
 import { useTermsAndConditionsContext } from '../terms-conditions/terms-conditions';
+import parse from 'html-react-parser';
 
 const GlobalTerms = ({ globalTerms }: { globalTerms: string }): JSX.Element => {
   const query = gql`
@@ -15,9 +16,21 @@ const GlobalTerms = ({ globalTerms }: { globalTerms: string }): JSX.Element => {
 
   const { data } = useQuery(query);
   const companyName = data && data.CompanyDetails.name;
-  const parser = new DOMParser();
-  const htmlString = parser.parseFromString(globalTerms, 'text/html');
-  const content = htmlString.documentElement.textContent;
+  // Apply tailwind stylings to global terms
+  if (globalTerms.includes('<ol>')) {
+    globalTerms = globalTerms.replace(
+      '<ol>',
+      '<ol className="text-sm mb-4 text-gray-600 list-decimal pl-8">'
+    );
+  }
+  if (globalTerms.includes('<ul>')) {
+    globalTerms = globalTerms.replace(
+      '<ul>',
+      '<ul className="text-sm mb-4 text-gray-600 list-disc pl-8">'
+    );
+  }
+  const content = parse(globalTerms);
+
   return (
     <>
       <h4 className="font-bold text-xl text-gray-800 mb-4">{companyName}</h4>
