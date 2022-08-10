@@ -1,0 +1,13 @@
+query UserArchives {
+  UserArchives {
+    id
+    user
+    resource
+    resourceType
+    status
+    archivedAt
+    name
+    reinstatable
+    waitlistActive
+  }
+}

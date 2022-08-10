@@ -1,28 +1,56 @@
 fragment ContentFragment on Content {
   alternativePricingType
   asset
+  altDescriptionBody
+  alternativePricingRef
+  alternativePricingType
   authors
+  authorsAndInstructors
   availabilityStatus
   bulkPurchasingEnabled
   canAddToQueue
+  contentTypeAssetAspectRatio
   contentTypeLabel
   courseEndDate
   courseGracePeriodEnded
   courseGroup
   coursePresold
   courseStartDate
+  createdAt
   currentUserMayReschedule
   currentUserUnmetCoursePrerequisites
   currentUserUnmetLearningPathPrerequisites
+  customFields
   description
   displayCourse
   displayCourseSlug
+  displayDate
+  embeddedEnabled
+  enrollmentCount
+  expiresAt
   kind
   hasChildren
   hideCourseDescription
   id
   isActive
+  language
+  location {
+    id
+    name
+    room
+    address1
+    address2
+    city
+    state
+    zipCode
+    country
+    timeZone
+  }
+  meetingStartDate
+  metaDescription
+  metaTitle
   priceInCents
+  publishDate
   rating
   ribbon {
     color
@@ -31,11 +59,17 @@ fragment ContentFragment on Content {
     label
     slug
   }
+  seatsLimit
+  sessionTitle
+  status
+  sku
   slug
   source
   suggestedRetailPriceInCents
   timeZone
   title
+  updatedAt
+  waitlistCount
   waitlistingEnabled
   waitlistingTriggered
 }

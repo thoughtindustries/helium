@@ -1,0 +1,24 @@
+query UserBookmarksByFolder($id: ID!) {
+  UserBookmarksByFolder(id: $id) {
+    id
+    course {
+      id
+      title
+      slug
+      status
+      courseGroup {
+        id
+        authors
+        source
+        asset
+        kind
+        contentType {
+          label
+        }
+      }
+    }
+    topicId
+    note
+    createdAt
+  }
+}

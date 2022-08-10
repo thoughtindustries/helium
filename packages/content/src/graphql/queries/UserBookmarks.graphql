@@ -1,0 +1,8 @@
+query UserBookmarks {
+  UserBookmarks {
+    id
+    name
+    defaultFolder
+    bookmarkCount
+  }
+}
