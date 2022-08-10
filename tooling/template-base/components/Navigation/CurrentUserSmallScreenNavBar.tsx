@@ -1,10 +1,10 @@
 import React from 'react';
 import { useState } from 'react';
-import Logo from '../Logo';
-import avatar from '../../renderer/avatar.png';
+import Logo from '../Logo/Logo';
 import xicon from '../../renderer/xicon.svg';
+import Avatar from '../Avatar/Avatar';
 
-export default function MobileNavBar() {
+export default function CurrentUserSmallScreenNavBar() {
   const [navbar, setNavbar] = useState(false);
 
   return (
@@ -37,7 +37,8 @@ export default function MobileNavBar() {
                     className="block h-9 w-9 md:hidden"
                     onClick={() => setNavbar(!navbar)}
                   >
-                    <img src={avatar} />
+                    {/* this shoulc not re render */}
+                    <Avatar style="" />
                   </button>
                 )}
               </button>
@@ -53,28 +54,28 @@ export default function MobileNavBar() {
               <a href="/catalog">Catalog</a>
             </li>
             <li className="md:hover:bg-white hover:bg-slate-100 rounded pl-2 py-2">
-              <a href="/help">Help</a>
+              <a href="/support">Help</a>
             </li>
             <hr></hr>
             <div className="flex">
               <div className="h-11 w-11">
-                <img src={avatar} />
+                <Avatar style="" />
               </div>
               <div className="mx-3 my-auto">
                 <button className="hover:text-blue-700">
-                  <a href="/sign-in">My Profile</a>
+                  <a href="/learn/profile">My Profile</a>
                 </button>
               </div>
             </div>
             <hr></hr>
             <li className="md:hover:bg-white hover:bg-slate-100 rounded pl-2 py-1.5">
-              <a href="/">Account</a>
+              <a href="/account">Account</a>
             </li>
             <li className="md:hover:bg-white hover:bg-slate-100 rounded pl-2 py-2">
-              <a href="/catalog">Transcript</a>
+              <a href="/transcript">Transcript</a>
             </li>
             <li className="md:hover:bg-white hover:bg-slate-100 rounded pl-2 py-2">
-              <a href="/help">Support</a>
+              <a href="/support">Support</a>
             </li>
             <hr></hr>
             <div className="text-center pt-5 text-sm text-blue-900 hover:text-blue-700">

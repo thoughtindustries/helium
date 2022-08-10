@@ -1,7 +1,25 @@
-import React from 'react';
-import FeaturedCardContent from './FeaturedCardContent';
+import { CatalogProps, CatalogProvider } from '@thoughtindustries/catalog';
+import { HydratedContentItem } from '@thoughtindustries/content';
+import React, { FC, useMemo } from 'react';
+import { usePageContext } from '../../renderer/usePageContext';
+import CatalogResults from '../CatalogAndAggreg/CatalogResults';
 
-const FeaturedContentComp = () => {
+const FeaturedContentComp: FC<CatalogProps> = ({
+  ...restResultsProps
+}: CatalogProps): JSX.Element => {
+  const pageContext = usePageContext();
+  const {
+    urlParsed: { pathname, searchString }
+  } = pageContext;
+  const config = useMemo(
+    () => ({
+      parsedUrl: {
+        pathname,
+        searchString
+      }
+    }),
+    [pathname, searchString]
+  );
   return (
     <section id="featuredcomp" className="bg-slate-50 py-24 px-12">
       <div className="">
@@ -10,7 +28,13 @@ const FeaturedContentComp = () => {
           Our massive libary of resources engages and informs learners on everything from marking to
           finance and everything in between.
         </h4>
-        <FeaturedCardContent />
+        <div className="grid md:grid-cols-3 grid-cols-1 py-24 px-12 md:px-20 ">
+          <div className="col-span-3">
+            <CatalogProvider config={config}>
+              <CatalogResults {...restResultsProps} />
+            </CatalogProvider>
+          </div>
+        </div>
       </div>
       <a href="/catalog">
         <button className="flex my-10 bg-blue-900 text-white font-bold py-3 px-5 rounded mx-auto">
