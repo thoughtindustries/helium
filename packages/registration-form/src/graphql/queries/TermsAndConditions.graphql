@@ -1,4 +1,4 @@
-mutation TermsAndConditions {
+query TermsAndConditions {
   TermsAndConditions {
     globalTerms
   }

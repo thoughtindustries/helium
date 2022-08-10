@@ -2,7 +2,7 @@ import React from 'react';
 import { gql, useQuery } from '@apollo/client';
 import { isEmpty } from 'lodash';
 import { useTermsAndConditionsContext } from '../terms-conditions/terms-conditions';
-import parse from 'html-react-parser';
+import parse, { HTMLReactParserOptions, domToReact, attributesToProps } from 'html-react-parser';
 
 const GlobalTerms = ({ globalTerms }: { globalTerms: string }): JSX.Element => {
   const query = gql`
@@ -17,19 +17,26 @@ const GlobalTerms = ({ globalTerms }: { globalTerms: string }): JSX.Element => {
   const { data } = useQuery(query);
   const companyName = data && data.CompanyDetails.name;
   // Apply tailwind stylings to global terms
-  if (globalTerms.includes('<ol>')) {
-    globalTerms = globalTerms.replace(
-      '<ol>',
-      '<ol className="text-sm mb-4 text-gray-600 list-decimal pl-8">'
-    );
-  }
-  if (globalTerms.includes('<ul>')) {
-    globalTerms = globalTerms.replace(
-      '<ul>',
-      '<ul className="text-sm mb-4 text-gray-600 list-disc pl-8">'
-    );
-  }
-  const content = parse(globalTerms);
+  const options: HTMLReactParserOptions = {
+    replace: ({ name, attribs, children }: any) => {
+      if (isEmpty(attribs)) {
+        if (name === 'ul') {
+          const props = attributesToProps({
+            className: 'text-sm mb-4 text-gray-600 list-disc pl-8'
+          });
+          return <ul {...props}>{domToReact(children, options)}</ul>;
+        }
+        if (name === 'ol') {
+          const props = attributesToProps({
+            className: 'text-sm mb-4 text-gray-600 list-decimal pl-8'
+          });
+          return <ol {...props}>{domToReact(children, options)}</ol>;
+        }
+      }
+    }
+  };
+
+  const content = parse(globalTerms, options);
 
   return (
     <>

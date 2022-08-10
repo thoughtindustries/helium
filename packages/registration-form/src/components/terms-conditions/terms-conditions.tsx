@@ -2,10 +2,13 @@ import React, { useState, createContext, useContext } from 'react';
 import { useTranslation } from 'react-i18next';
 import { TermsConditionsModal } from '../terms-conditions-modal';
 import { useRegistrationContext } from '../registration/registration';
-import { useTermsAndConditionsMutation } from '../../graphql';
+import { useTermsAndConditionsQuery } from '../../graphql';
 import { GlobalTermsProps } from '../types';
 
-const TermsAndConditionsContext = createContext<GlobalTermsProps | undefined>(undefined);
+const TermsAndConditionsContext = createContext<GlobalTermsProps>({
+  loading: false,
+  globalTerms: ''
+});
 
 const useTermsAndConditionsContext = () => {
   const context = useContext(TermsAndConditionsContext);
@@ -18,19 +21,15 @@ const useTermsAndConditionsContext = () => {
 const TermsConditions = (): JSX.Element => {
   const { t } = useTranslation();
   const { setOpenModal, agreeToTerms, setAgreeToTerms } = useRegistrationContext();
-  const [TermsAndConditionsMutation, { loading }] = useTermsAndConditionsMutation();
+  const { data, loading } = useTermsAndConditionsQuery();
   const [globalTerms, setGlobalTerms] = useState<string>('');
 
   const handleOpenModal = async () => {
-    await TermsAndConditionsMutation()
-      .then(response => {
-        if (response.data?.TermsAndConditions.globalTerms) {
-          setGlobalTerms(response.data.TermsAndConditions.globalTerms);
-        }
-      })
-      .catch(error => console.log('Terms and Conditions Request Error: ', error));
-    if (!loading) {
-      setOpenModal(true);
+    if (data && data.TermsAndConditions && data.TermsAndConditions.globalTerms) {
+      setGlobalTerms(data.TermsAndConditions.globalTerms);
+      if (!loading) {
+        setOpenModal(true);
+      }
     }
   };
 

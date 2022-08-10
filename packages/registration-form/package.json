@@ -6,6 +6,9 @@
   "scripts": {
     "generate": "graphql-codegen --config codegen.yml"
   },
+  "publishConfig": {
+    "access": "public"
+  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/thoughtindustries/helium.git"
