@@ -15,7 +15,7 @@ export default function CurrentUserNavBar() {
           <div className="flex items-center justify-between md:block">
             {/* logo */}
             <div className="">
-              <Logo />
+              <Logo style="h-11" />
             </div>
             <div className="md:hidden"></div>
           </div>

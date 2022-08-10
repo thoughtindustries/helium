@@ -1,6 +1,6 @@
 import React from 'react';
 import { useState } from 'react';
-import Logo from '../Logo/Logo.tsx';
+import Logo from '../Logo/Logo';
 import xicon from '../../renderer/xicon.svg';
 import Avatar from '../Avatar/Avatar';
 
@@ -14,7 +14,7 @@ export default function CurrentUserSmallScreenNavBar() {
           <div className="flex items-center justify-between md:block">
             {/* logo */}
             <div className="">
-              <Logo />
+              <Logo style="h-11" />
             </div>
             <div className="md:hidden">
               <button
