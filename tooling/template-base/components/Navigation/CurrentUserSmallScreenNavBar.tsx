@@ -38,7 +38,7 @@ export default function CurrentUserSmallScreenNavBar() {
                     onClick={() => setNavbar(!navbar)}
                   >
                     {/* this shoulc not re render */}
-                    <Avatar style="" />
+                    <Avatar size="medium" />
                   </button>
                 )}
               </button>
@@ -59,7 +59,7 @@ export default function CurrentUserSmallScreenNavBar() {
             <hr></hr>
             <div className="flex">
               <div className="h-11 w-11">
-                <Avatar style="" />
+                <Avatar size="medium" />
               </div>
               <div className="mx-3 my-auto">
                 <button className="hover:text-blue-700">
