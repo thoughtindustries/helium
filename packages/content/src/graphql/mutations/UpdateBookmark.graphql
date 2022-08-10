@@ -1,0 +1,5 @@
+mutation UpdateBookmark($id: ID!, $note: String, $bookmarkFolder: ID!) {
+  UpdateBookmark(id: $id, note: $note, bookmarkFolder: $bookmarkFolder) {
+    id
+  }
+}
