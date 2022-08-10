@@ -1,8 +1,6 @@
 import React from 'react';
-
 const Tabs = () => {
   const [openTab, setOpenTab] = React.useState(1);
-  const { data, loading, error } = useContentGroupsQuery();
   return (
     <>
       <div className="flex flex-wrap">
