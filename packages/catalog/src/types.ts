@@ -22,8 +22,6 @@ export interface CatalogResultsProps {
   companyDefaultLocale?: string;
   /** currency code to format price */
   currencyCode?: string;
-  /** number of items to return */
-  numberOfContentItems?: number;
 }
 
 export type PaginationFnArgs = {

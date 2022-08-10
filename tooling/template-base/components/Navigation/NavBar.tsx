@@ -9,7 +9,6 @@ const NavBar = () => {
   const { currentUser } = pageContext;
 
   let navbar;
-  console.log(currentUser?.asset);
   if (currentUser) {
     // signed in
     navbar = (
