@@ -14,7 +14,7 @@ export default function CurrentUserSmallScreenNavBar() {
           <div className="flex items-center justify-between md:block">
             {/* logo */}
             <div className="">
-              <Logo size="medium" />
+              <Logo size="" />
             </div>
             <div className="md:hidden">
               <button
@@ -34,7 +34,7 @@ export default function CurrentUserSmallScreenNavBar() {
                   <button
                     id="icon"
                     type="submit"
-                    className="block h-9 w-9 md:hidden"
+                    className="block md:hidden"
                     onClick={() => setNavbar(!navbar)}
                   >
                     <Avatar size="" />

@@ -14,7 +14,7 @@ export default function UserLoginNavBar() {
           <div className="flex items-center justify-between md:block">
             {/* logo */}
             <div className="">
-              <Logo size="medium" />
+              <Logo size="" />
             </div>
             <div className="md:hidden">
               <div
