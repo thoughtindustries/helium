@@ -40,14 +40,14 @@ export default function CurrentUserNavBar() {
             {navbar ? (
               <button id="icon" type="submit" className="block" onClick={() => setNavbar(!navbar)}>
                 <div className="flex items-center space-x-3 mr-3">
-                  <Avatar size="medium" />
+                  <Avatar size="" />
                   <img src={dropDownOpen} />
                 </div>
               </button>
             ) : (
               <button id="icon" type="submit" className="block" onClick={() => setNavbar(!navbar)}>
                 <div className="flex items-center space-x-3 mr-3">
-                  <Avatar size="medium" />
+                  <Avatar size="" />
                   <img src={dropDownClosed} />
                 </div>
               </button>
