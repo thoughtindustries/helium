@@ -6,7 +6,9 @@ const Footer = () => {
     <>
       <div className="pt-2 pb-6">
         <div className="flex justify-center">
-          <Logo logoLink="/" style="flex w-8 m-5 mx-auto" />
+          <div className="flex w-8 m-5 mx-auto">
+            <Logo size="small" />
+          </div>
         </div>
         <div className="flex text-slate-500 space-x-6 justify-center font-semibold">
           <a href="/">Home</a>

@@ -1,10 +1,14 @@
-import { CatalogProps, CatalogProvider } from '@thoughtindustries/catalog';
-import { HydratedContentItem } from '@thoughtindustries/content';
+import { CatalogProps, CatalogProvider, CatalogResultsProps } from '@thoughtindustries/catalog';
 import React, { FC, useMemo } from 'react';
 import { usePageContext } from '../../renderer/usePageContext';
 import CatalogResults from '../CatalogAndAggreg/CatalogResults';
 
-const FeaturedContentComp: FC<CatalogProps> = ({
+interface CatalogResultsWithLimitProps extends CatalogResultsProps {
+  /** number of items to return */
+  numberOfContentItems?: number;
+}
+
+const FeaturedContentComp: FC<CatalogResultsWithLimitProps> = ({
   ...restResultsProps
 }: CatalogProps): JSX.Element => {
   const pageContext = usePageContext();

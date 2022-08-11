@@ -1,0 +1,4 @@
+{
+  "installDependencies": true,
+  "startCommand": "echo 'Welcome to Helium starter app'"
+}

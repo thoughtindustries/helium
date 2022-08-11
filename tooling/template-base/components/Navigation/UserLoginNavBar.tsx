@@ -1,7 +1,7 @@
 import React from 'react';
 import { useState } from 'react';
 import Logo from '../Logo/Logo';
-import icon from '../../renderer/vector.svg';
+import icon from '../../renderer/hamburger.svg';
 import xicon from '../../renderer/xicon.svg';
 
 export default function UserLoginNavBar() {
@@ -14,7 +14,7 @@ export default function UserLoginNavBar() {
           <div className="flex items-center justify-between md:block">
             {/* logo */}
             <div className="">
-              <Logo logoLink="/" style="h-11" />
+              <Logo size="" />
             </div>
             <div className="md:hidden">
               <div

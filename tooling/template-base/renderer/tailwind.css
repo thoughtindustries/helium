@@ -823,6 +823,10 @@ Ensure the default browser behavior of the `hidden` attribute.
   display: flex;
 }
 
+.table {
+  display: table;
+}
+
 .grid {
   display: grid;
 }
@@ -835,16 +839,12 @@ Ensure the default browser behavior of the `hidden` attribute.
   display: none;
 }
 
-.h-2\.5 {
-  height: 0.625rem;
+.h-9 {
+  height: 2.25rem;
 }
 
-.h-2 {
-  height: 0.5rem;
-}
-
-.h-10 {
-  height: 2.5rem;
+.h-11 {
+  height: 2.75rem;
 }
 
 .h-5 {
@@ -867,8 +867,8 @@ Ensure the default browser behavior of the `hidden` attribute.
   height: 24rem;
 }
 
-.h-9 {
-  height: 2.25rem;
+.h-10 {
+  height: 2.5rem;
 }
 
 .h-0 {
@@ -887,16 +887,8 @@ Ensure the default browser behavior of the `hidden` attribute.
   height: 100%;
 }
 
-.h-3\.5 {
-  height: 0.875rem;
-}
-
-.h-7 {
-  height: 1.75rem;
-}
-
-.h-3 {
-  height: 0.75rem;
+.w-80 {
+  width: 20rem;
 }
 
 .w-full {
@@ -1792,8 +1784,8 @@ Ensure the default browser behavior of the `hidden` attribute.
   text-transform: uppercase;
 }
 
-.not-italic {
-  font-style: normal;
+.italic {
+  font-style: italic;
 }
 
 .ordinal {
@@ -1902,19 +1894,9 @@ Ensure the default browser behavior of the `hidden` attribute.
   color: rgb(31 41 55 / var(--tw-text-opacity));
 }
 
-.text-accent-contrast {
-  --tw-text-opacity: 1;
-  color: rgb(255 255 255 / var(--tw-text-opacity));
-}
-
-.text-\[\#b6259e\] {
-  --tw-text-opacity: 1;
-  color: rgb(182 37 158 / var(--tw-text-opacity));
-}
-
-.text-\[\#405667\] {
-  --tw-text-opacity: 1;
-  color: rgb(64 86 103 / var(--tw-text-opacity));
+.underline {
+  -webkit-text-decoration-line: underline;
+          text-decoration-line: underline;
 }
 
 .no-underline {

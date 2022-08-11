@@ -14,7 +14,7 @@ export default function CurrentUserSmallScreenNavBar() {
           <div className="flex items-center justify-between md:block">
             {/* logo */}
             <div className="">
-              <Logo logoLink="/" style="h-9" />
+              <Logo size="" />
             </div>
             <div className="md:hidden">
               <button
@@ -34,11 +34,10 @@ export default function CurrentUserSmallScreenNavBar() {
                   <button
                     id="icon"
                     type="submit"
-                    className="block h-9 w-9 md:hidden"
+                    className="block md:hidden"
                     onClick={() => setNavbar(!navbar)}
                   >
-                    {/* this shoulc not re render */}
-                    <Avatar style="" />
+                    <Avatar size="" />
                   </button>
                 )}
               </button>
@@ -58,9 +57,7 @@ export default function CurrentUserSmallScreenNavBar() {
             </li>
             <hr></hr>
             <div className="flex">
-              <div className="h-11 w-11">
-                <Avatar style="" />
-              </div>
+              <Avatar size="" />
               <div className="mx-3 my-auto">
                 <button className="hover:text-blue-700">
                   <a href="/learn/profile">My Profile</a>
