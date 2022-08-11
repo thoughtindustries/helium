@@ -75,7 +75,7 @@ const LoadUserLearning = ({ query, kind, sort }: LoadedComponentProps): JSX.Elem
   if (!data || !data.UserContentItems) return <></>;
 
   return (
-    <section>
+    <section className="grid gap-5 grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
       {data.UserContentItems.map(item => {
         const hydratedItem = hydrateContent(i18n, item);
         if (hydratedItem.isCompleted) {
