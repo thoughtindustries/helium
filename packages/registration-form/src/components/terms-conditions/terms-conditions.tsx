@@ -2,7 +2,7 @@ import React, { useState, createContext, useContext } from 'react';
 import { useTranslation } from 'react-i18next';
 import { TermsConditionsModal } from '../terms-conditions-modal';
 import { useRegistrationContext } from '../registration/registration';
-import { useTermsAndConditionsQuery } from '../../graphql';
+import { useTermsAndConditionsLazyQuery } from '../../graphql';
 import { GlobalTermsProps } from '../types';
 
 const TermsAndConditionsContext = createContext<GlobalTermsProps>({
@@ -21,15 +21,16 @@ const useTermsAndConditionsContext = () => {
 const TermsConditions = (): JSX.Element => {
   const { t } = useTranslation();
   const { setOpenModal, agreeToTerms, setAgreeToTerms } = useRegistrationContext();
-  const { data, loading } = useTermsAndConditionsQuery();
+  const [queryTerms, { loading }] = useTermsAndConditionsLazyQuery();
   const [globalTerms, setGlobalTerms] = useState<string>('');
 
   const handleOpenModal = async () => {
-    if (data && data.TermsAndConditions && data.TermsAndConditions.globalTerms) {
-      setGlobalTerms(data.TermsAndConditions.globalTerms);
-      if (!loading) {
-        setOpenModal(true);
+    const { data } = await queryTerms();
+    if (data && !loading) {
+      if (data.TermsAndConditions.globalTerms) {
+        setGlobalTerms(data.TermsAndConditions.globalTerms);
       }
+      setOpenModal(true);
     }
   };
 
