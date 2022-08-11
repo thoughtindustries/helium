@@ -8,9 +8,9 @@ import {
   LoadArchivedContent,
   LoadWaitlist,
   LoadBookmarks,
-  LoadCertificates,
-  LoadUserLearning
+  LoadCertificates
 } from '@thoughtindustries/learner-access/src/components';
+import LoadUserLearning from './LoadUserLeaning';
 import { LoadingDots, useContentGroupsQuery } from '@thoughtindustries/content';
 import LearnerAccessContext from '@thoughtindustries/learner-access/src/context';
 import { getAvailableTabs } from '@thoughtindustries/learner-access/src/utilities';
@@ -217,8 +217,8 @@ const LearnerAccess = ({
       <div className="pt-16 px-10 pb-20">
         <div className="text-2xl font-bold font-header">Activity</div>
         {allowCollapse && (
-          <div className="my-0 -mx-4 max-w-none w-auto py-4 px-8 text-slate-700 text-black-light text-sm">
-            <div className="border border-solid">
+          <div className="">
+            <div className="">
               {collapsed ? activityCollapsed : activityExpanded}
               {!collapsed ? dashboardAccessTabs : ''}
               {tabContent()}
