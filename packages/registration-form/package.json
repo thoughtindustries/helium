@@ -6,6 +6,9 @@
   "scripts": {
     "generate": "graphql-codegen --config codegen.yml"
   },
+  "publishConfig": {
+    "access": "public"
+  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/thoughtindustries/helium.git"
@@ -20,6 +23,7 @@
     "@apollo/client": "^3.6.9",
     "@graphql-codegen/introspection": "^2.2.0",
     "graphql": "^16.5.0",
+    "html-react-parser": "^3.0.1",
     "i18next": "^21.8.14"
   },
   "devDependencies": {

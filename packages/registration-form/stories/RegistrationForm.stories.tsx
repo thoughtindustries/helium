@@ -3,7 +3,8 @@ import React from 'react';
 import {
   ValidateRedemptionCodeDocument,
   RedeemRegistrationAndRedemptionCodesDocument,
-  Registration
+  Registration,
+  TermsAndConditionsDocument
 } from '../src';
 
 const mockUser = {
@@ -71,6 +72,19 @@ const mockRegistrationResults = (validatedRedemptionCodes: Array<string>, redeem
   }
 });
 
+const mockTermsAndConditionsResults = (globalTerms: string) => ({
+  request: {
+    query: TermsAndConditionsDocument
+  },
+  result: {
+    data: {
+      TermsAndConditions: {
+        globalTerms
+      }
+    }
+  }
+});
+
 const mockApolloResults = [
   mockApolloResultsFactory('validCode1', true, false, false),
   mockApolloResultsFactory('validCode2', true, false, false),
@@ -79,7 +93,8 @@ const mockApolloResults = [
   mockApolloResultsFactory('', false, false, false),
   mockApolloResultsFactory('expiredCode', false, false, true),
   mockApolloResultsFactory('alreadyRedeemedCode', false, true, false),
-  mockRegistrationResults(['validCode1', 'validCode2', 'validCode3'], true)
+  mockRegistrationResults(['validCode1', 'validCode2', 'validCode3'], true),
+  mockTermsAndConditionsResults('<p>Test Global Terms </p>')
 ];
 
 const Template: Story = args => <Registration {...args} />;
