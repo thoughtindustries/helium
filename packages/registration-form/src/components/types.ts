@@ -11,6 +11,15 @@ export interface ResponseProps {
   setResponse: React.Dispatch<SetStateAction<Props | undefined>>;
   setValidatedRedemptionCodes: React.Dispatch<SetStateAction<string[]>>;
   validatedRedemptionCodes: Array<string>;
+  openModal: boolean;
+  setOpenModal: React.Dispatch<SetStateAction<boolean>>;
+  agreeToTerms: boolean;
+  setAgreeToTerms: React.Dispatch<SetStateAction<boolean>>;
+}
+
+export interface GlobalTermsProps {
+  loading: boolean;
+  globalTerms: string;
 }
 
 export interface CurrentUser {
