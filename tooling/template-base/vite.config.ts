@@ -1,12 +1,18 @@
 import { tiConfig } from '@thoughtindustries/helium-server';
-// @ts-ignore: There is no declarations file for this package
-import mdx from './vendor/mdx';
 
-const mdxOptions = {
-  remarkPlugins: [],
-  rehypePlugins: []
-};
+import { defineConfig } from 'vite';
 
-tiConfig.plugins.push(mdx(mdxOptions));
+export default defineConfig(async () => {
+  const remarkFrontmatter = await import('remark-frontmatter');
+  const remarkMdxFrontmatter = await import('remark-mdx-frontmatter');
+  const mdx = await import('@mdx-js/rollup');
 
-export default tiConfig;
+  const mdxOptions = {
+    remarkPlugins: [remarkFrontmatter, remarkMdxFrontmatter.default],
+    rehypePlugins: []
+  };
+
+  tiConfig.plugins.push(mdx.default(mdxOptions));
+
+  return tiConfig;
+});

@@ -898,6 +898,10 @@ Ensure the default browser behavior of the `hidden` attribute.
   flex-grow: 1;
 }
 
+.grow {
+  flex-grow: 1;
+}
+
 .table-auto {
   table-layout: auto;
 }
@@ -1276,6 +1280,14 @@ Ensure the default browser behavior of the `hidden` attribute.
 
 .bg-clip-padding {
   background-clip: padding-box;
+}
+
+.p-10 {
+  padding: 2.5rem;
+}
+
+.p-5 {
+  padding: 1.25rem;
 }
 
 .p-8 {
