@@ -65,11 +65,11 @@ const LoadUserLearning = ({ query, kind, sort }: LoadedComponentProps): JSX.Elem
         <div className="flex flex-row basis-8/12">
           <div className="flex flex-row basis-8/12">
             {/* course image */}
-            <div className="pt-4 pl-6 basis-4/12">
+            <div className="py-4 pl-6 basis-4/12">
               {item.asset ? (
-                <img src={item.asset} className="" />
+                <img src={item.asset} className="rounded-md" />
               ) : (
-                <img src={dashboardDefault} className="" />
+                <img src={dashboardDefault} className="rounded-md" />
               )}
             </div>
             {/* course title */}
@@ -85,7 +85,7 @@ const LoadUserLearning = ({ query, kind, sort }: LoadedComponentProps): JSX.Elem
             {/* continue button */}
             <div className="flex items-center text-sm font-semibold text-blue-400">Continue</div>
             {/* drop down menu */}
-            <div className="flex items-center pr-2">
+            <div className="flex items-center pr-4">
               <img src={dropDownClosed} className="h-2" />
             </div>
           </div>
@@ -191,7 +191,11 @@ const LoadUserLearning = ({ query, kind, sort }: LoadedComponentProps): JSX.Elem
             if (hydratedItem.isCompleted) {
               return null;
             }
-            return <DisplayListView key={item.id} item={hydratedItem} />;
+            return (
+              <div key={item.id} className="odd:bg-slate-50 even:bg-white">
+                <DisplayListView key={item.id} item={hydratedItem} />
+              </div>
+            );
           })}
         </div>
       )}
