@@ -1,4 +1,4 @@
-import React, { useCallback, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import dashboardDefault from '../../renderer/dashboardDefault.png';
 import listViewSelector from '../../renderer/listViewSelector.svg';
 import gridNotSelected from '../../renderer/gridNotSelected.svg';
@@ -34,12 +34,22 @@ import { useTranslation } from 'react-i18next';
 import useLearnerAccess from '@thoughtindustries/learner-access/src/use-context';
 import Logo from '../Logo/Logo';
 import { assertType } from 'graphql';
+import { stringify } from 'querystring';
 
 const LoadUserLearning = ({ query, kind, sort }: LoadedComponentProps): JSX.Element => {
-  const [gridViewActive, setGridActive] = useState(false);
-  const updateGrudState = () => {
-    setGridActive(true);
+  const [gridViewActive, setGridActive] = useState(true);
+
+  // update state to display grid only on mobile
+  const handleResize = () => {
+    if (window.innerWidth < 768) {
+      setGridActive(true);
+    }
   };
+
+  useEffect(() => {
+    window.addEventListener('resize', handleResize);
+  });
+
   const { data, loading, error } = useUserContentItemsQuery({
     variables: {
       query,
@@ -58,7 +68,6 @@ const LoadUserLearning = ({ query, kind, sort }: LoadedComponentProps): JSX.Elem
   }
 
   const DisplayListView = ({ item }: ContentUiProps) => {
-    const [showContent, setShowContent] = useState<boolean>(false);
     const [listViewDropDown, setListViewDropDown] = useState(false);
 
     const { data, loading, error } = useUserCourseCompletionProgressQuery({
@@ -67,12 +76,12 @@ const LoadUserLearning = ({ query, kind, sort }: LoadedComponentProps): JSX.Elem
       }
     });
 
-    console.log(data);
-
     return (
       // list flex container
       <>
-        <div className="flex flex-col w-full">
+        <div
+          className={`flex flex-col w-full ${listViewDropDown ? 'border-l-4 border-blue-700' : ''}`}
+        >
           <div className="flex flex-row basis-8/12">
             <div className="flex flex-row basis-8/12">
               {/* course image */}
@@ -91,13 +100,15 @@ const LoadUserLearning = ({ query, kind, sort }: LoadedComponentProps): JSX.Elem
             <div className="flex flex-row basis-4/12 justify-between">
               {/* course completion */}
               <div className="flex items-center pr-6 text-sm font-semibold font-primary text-gray-500">
-                {/* {data} */}
+                {data?.UserCourseCompletionProgress?.map((item, i) => (
+                  <div key={i}>{item.type === 'coursePercentViewed' && item.percent + '%'}</div>
+                ))}
               </div>
               {/* continue button */}
-              <div className="flex items-center text-sm font-semibold text-blue-400">Continue</div>
+              <div className="flex items-center text-sm font-semibold text-blue-700">Continue</div>
               {/* drop down menu */}
               <button
-                className="flex items-center pr-4"
+                className="flex items-center pr-6"
                 onClick={() => setListViewDropDown(!listViewDropDown)}
               >
                 {listViewDropDown ? (
@@ -116,9 +127,15 @@ const LoadUserLearning = ({ query, kind, sort }: LoadedComponentProps): JSX.Elem
   };
 
   const ListDisplayDropDown = ({ item }: ContentUiProps) => {
+    const { data, loading, error } = useUserCourseCompletionProgressQuery({
+      variables: {
+        id: item.id
+      }
+    });
+
     return (
       // {/* list drop down */}
-      <div className="flex flex-col bg-slate-50 p-6 space-y-6 mb-5">
+      <div className="flex flex-col bg-slate-50 p-6 space-y-6 border-l-4 border-blue-700">
         {/* article and duration */}
         <div className="flex flex-row">
           <div className="py-1 px-3 rounded-full bg-green-200">
@@ -129,37 +146,28 @@ const LoadUserLearning = ({ query, kind, sort }: LoadedComponentProps): JSX.Elem
         </div>
         {/* course information */}
         <div className="flex flex-row justify-between gap-4">
-          <div className="flex flex-grow pl-6 py-6 bg-white rounded-md">
-            <div className="flex flex-col">
-              <div className="text-sm text-gray-500">Passed Assessments</div>
-              <div className="text-3xl font-bold pt-2">0/1</div>
-            </div>
-          </div>
-          <div className="flex flex-grow pl-6 py-6 bg-white rounded-md">
-            <div className="flex flex-col">
-              <div className="text-sm text-gray-500">Required Pages Viewed</div>
-              <div className="text-3xl font-bold pt-2">4/6</div>
-            </div>
-          </div>
-          <div className="flex flex-grow pl-6 py-6 bg-white rounded-md">
-            <div className="flex flex-col">
-              <div className="text-sm text-gray-500">Collaboration</div>
-              <div className="text-3xl font-bold pt-2">2</div>
-            </div>
-          </div>
+          {data?.UserCourseCompletionProgress?.map(
+            item =>
+              item?.type !== 'coursePercentViewed' && (
+                <div className="flex flex-grow pl-6 py-6 bg-white rounded-md">
+                  <div className="flex flex-col">
+                    <div className="text-sm text-gray-500">{item?.type}</div>
+                    <div className="text-3xl font-bold pt-2">1/1</div>
+                  </div>
+                </div>
+              )
+          )}
         </div>
         {/* course description */}
-        <div className="text-sm font-semibold">{item.description}</div>
+        {item.description && <div className="text-sm font-semibold">{item.description}</div>}
       </div>
     );
   };
 
   const DisplayGridView = ({ item }: ContentUiProps) => {
-    const [showContent, setShowContent] = useState<boolean>(false);
-
     return (
       // {/* course card */}
-      <div className="w-[300px] m-8">
+      <div className="m-8">
         {/* course image */}
         {item.asset ? (
           <div>
@@ -171,7 +179,7 @@ const LoadUserLearning = ({ query, kind, sort }: LoadedComponentProps): JSX.Elem
           </div>
         )}
         {/* card content */}
-        <div className="p-8 border rounded-b-md">
+        <div className="p-8 border rounded-b-md space-y-4">
           {/* course title */}
           <div className="text-lg font-semibold">{item.title}</div>
           {/* course info */}
@@ -179,6 +187,8 @@ const LoadUserLearning = ({ query, kind, sort }: LoadedComponentProps): JSX.Elem
             {item.contentTypeLabel} | {item.displayDate}
           </div>
           <div className={item.description ? 'py-4' : ''}>{item.description}</div>
+          <hr className=""></hr>
+          <div className="flex justify-end text-blue-700">Continue</div>
         </div>
       </div>
     );
@@ -189,12 +199,11 @@ const LoadUserLearning = ({ query, kind, sort }: LoadedComponentProps): JSX.Elem
   if (error) return <>{error.message}</>;
 
   if (!data || !data.UserContentItems) return <></>;
-  console.log(gridViewActive);
 
   return (
     <>
       {/* grid/list toggle */}
-      <div className="flex justify-end p-3">
+      <div className="hidden sm:flex justify-end p-3">
         {/* list display button */}
         {gridViewActive ? (
           <button
@@ -240,7 +249,7 @@ const LoadUserLearning = ({ query, kind, sort }: LoadedComponentProps): JSX.Elem
         </div>
       ) : (
         // list flex container
-        <div className="flex flex-col w-full">
+        <div className="sm:flex flex-col w-full hidden">
           {/* title and progress */}
           <div className="flex flex-row bg-slate-50 px-6 py-3 rounded-t-md">
             <div className="text-sm font-semibold basis-8/12">Title</div>
