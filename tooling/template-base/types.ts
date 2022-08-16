@@ -22,6 +22,7 @@ export type CurrentUser = {
   email: string;
   address1?: string;
   address2?: string;
+  asset: string;
   roleKey: string;
   city?: string;
   state?: string;

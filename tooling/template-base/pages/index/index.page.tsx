@@ -2,10 +2,11 @@ import React from 'react';
 import CTA from '../../components/CTA/CTA';
 import FeaturedContentComp from '../../components/FeaturedContent/FeaturedContentComp';
 import Footer from '../../components/Footer/Footer';
-import Hero from '../../components/Hero';
-import HomepageNavbar from '../../components/Navigation/HomepageNavbar';
-import CallToActionWithLinks from '../../components/CallToActionWithLinks';
-import CallToActionParagraphs from '../../components/CallToActionParagraphs';
+import Hero from '../../components/Hero/Hero';
+import CallToActionWithLinks from '../../components/CTA/CallToActionWithLinks';
+import CallToActionParagraphs from '../../components/CTA/CallToActionParagraphs';
+import NavBar from '../../components/Navigation/NavBar';
+import { HydratedContentItem } from '@thoughtindustries/content';
 
 export { Page };
 export { documentProps };
@@ -18,14 +19,19 @@ const documentProps = {
 function Page() {
   return (
     <>
-      <HomepageNavbar />
+      <NavBar />
       <Hero
         headline="Making Learning Successful"
         body="Learning is a gateway to success. We aim to provide motivational content, strategies and courses to help you become successful and achieve your goals."
         buttonUrl="/signin"
         buttonText="Sign in"
       />
-      <FeaturedContentComp />
+      <FeaturedContentComp
+        onAddedToQueue={function (item: HydratedContentItem): Promise<boolean | void> {
+          throw new Error('Function not implemented.');
+        }}
+        numberOfContentItems={3}
+      />
       <CallToActionWithLinks
         headline="Explore Documentation and Resources"
         description="Our developer documentation and tools cover everything you need to know to start building your new project. "

@@ -27,12 +27,14 @@ const DisplayTypeResults = ({
   displayStartDateEnabled,
   onClick,
   onAddedToQueue,
-  priceFormatFn
+  priceFormatFn,
+  numberOfContentItems
 }: DisplayTypeResultsProps): JSX.Element => {
   const baseProps = {
     items: hydratedResults,
     onAddedToQueue,
-    priceFormatFn
+    priceFormatFn,
+    numberOfContentItems
   };
   const props = {
     ...baseProps,
@@ -51,7 +53,8 @@ const CatalogResults = ({
   onAddedToQueue,
   priceFormat,
   companyDefaultLocale,
-  currencyCode
+  currencyCode,
+  numberOfContentItems
 }: CatalogResultsProps): JSX.Element => {
   const { params } = useCatalog();
   const {
@@ -67,7 +70,6 @@ const CatalogResults = ({
     displayDescriptionOnCalendar
   } = params;
   const { i18n, t } = useTranslation();
-
   let activeFilterDescription;
   if (aggregationFilters.length) {
     const { label: filterLabel, value: filterValue } = aggregationFilters[0];
@@ -125,7 +127,11 @@ const CatalogResults = ({
       {activeFilter}
       {emptyResults}
       {hasResults && activeDisplayType && (
-        <DisplayTypeResults {...resultsProps} activeDisplayType={activeDisplayType} />
+        <DisplayTypeResults
+          numberOfContentItems={numberOfContentItems}
+          {...resultsProps}
+          activeDisplayType={activeDisplayType}
+        />
       )}
     </>
   );

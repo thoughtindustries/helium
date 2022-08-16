@@ -1,10 +1,10 @@
 import React from 'react';
 import { useState } from 'react';
-import Logo from '../Logo';
-import icon from '../../renderer/hamburgericon.png';
-import xicon from '../../renderer/xicon.png';
+import Logo from '../Logo/Logo';
+import icon from '../../renderer/hamburger.svg';
+import xicon from '../../renderer/xicon.svg';
 
-export default function NavBar() {
+export default function UserLoginNavBar() {
   const [navbar, setNavbar] = useState(false);
 
   return (
@@ -14,7 +14,7 @@ export default function NavBar() {
           <div className="flex items-center justify-between md:block">
             {/* logo */}
             <div className="">
-              <Logo logoLink="/" style="h-11" />
+              <Logo size="" />
             </div>
             <div className="md:hidden">
               <div
@@ -53,7 +53,7 @@ export default function NavBar() {
               <a href="/catalog">Catalog</a>
             </li>
             <li className="md:hover:bg-white hover:bg-slate-100 rounded pl-2 py-2">
-              <a href="javascript:void(0)">Help</a>
+              <a href="/support3">Help</a>
             </li>
             <hr></hr>
             <button className="md:hidden my-auto items-center bg-blue-900 hover:bg-blue-700 text-white font-bold py-2 px-4 w-full rounded">

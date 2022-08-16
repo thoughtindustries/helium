@@ -3,6 +3,23 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.1.0-alpha.20](https://github.com/thoughtindustries/helium/compare/@thoughtindustries/helium-template@1.1.0-alpha.19...@thoughtindustries/helium-template@1.1.0-alpha.20) (2022-08-10)
+
+
+### Bug Fixes
+
+* typings and misc in demo app ([#137](https://github.com/thoughtindustries/helium/issues/137)) ([63adb50](https://github.com/thoughtindustries/helium/commit/63adb50ff8f22e75e7dac97917278ce8ee4b9103))
+
+
+### Features
+
+* init stylings ([5257f35](https://github.com/thoughtindustries/helium/commit/5257f35ad9ad5feec6c30ac7e3e786801ce1ebe5))
+* use stackblitz ([#144](https://github.com/thoughtindustries/helium/issues/144)) ([2a9d700](https://github.com/thoughtindustries/helium/commit/2a9d700b4dfacae02e7e42bc6e40038d78163b54))
+
+
+
+
+
 # [1.1.0-alpha.19](https://github.com/thoughtindustries/helium/compare/@thoughtindustries/helium-template@1.1.0-alpha.18...@thoughtindustries/helium-template@1.1.0-alpha.19) (2022-06-24)
 
 
