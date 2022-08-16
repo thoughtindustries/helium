@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import dashboardDefault from '../../renderer/dashboardDefault.png';
 import listViewSelector from '../../renderer/listViewSelector.svg';
 import gridNotSelected from '../../renderer/gridNotSelected.svg';
@@ -8,33 +8,13 @@ import dropDownOpen from '../../renderer/dropDownOpen.svg';
 
 import { LoadedComponentProps } from '@thoughtindustries/learner-access/src/types';
 import {
-  RightArrowIcon,
-  DownArrowIcon,
-  HelpIcon,
-  StopwatchIcon,
-  ChatIcon,
-  ViewIcon,
-  FileIcon
-} from '@thoughtindustries/learner-access/src/Assets/Icons';
-import {
   useUserContentItemsQuery,
-  useUserCourseProgressQuery,
   useUserCourseCompletionProgressQuery,
-  useUserCourseCollaborationsQuery,
-  useUserCourseAwardCountsQuery,
   LoadingDots,
-  GlobalTypes,
   hydrateContent,
-  HydratedContentItem,
-  formatTime
+  HydratedContentItem
 } from '@thoughtindustries/content';
-import { ArchiveButton } from '@thoughtindustries/learner-access/src/components/MutationCallingButtons';
-import { Tooltip } from '@thoughtindustries/learner-access/src/Assets/Tooltips';
 import { useTranslation } from 'react-i18next';
-import useLearnerAccess from '@thoughtindustries/learner-access/src/use-context';
-import Logo from '../Logo/Logo';
-import { assertType } from 'graphql';
-import { stringify } from 'querystring';
 
 const LoadUserLearning = ({ query, kind, sort }: LoadedComponentProps): JSX.Element => {
   const [gridViewActive, setGridActive] = useState(true);
@@ -70,7 +50,7 @@ const LoadUserLearning = ({ query, kind, sort }: LoadedComponentProps): JSX.Elem
   const DisplayListView = ({ item }: ContentUiProps) => {
     const [listViewDropDown, setListViewDropDown] = useState(false);
 
-    const { data, loading, error } = useUserCourseCompletionProgressQuery({
+    const { data } = useUserCourseCompletionProgressQuery({
       variables: {
         id: item.id
       }
@@ -127,7 +107,7 @@ const LoadUserLearning = ({ query, kind, sort }: LoadedComponentProps): JSX.Elem
   };
 
   const ListDisplayDropDown = ({ item }: ContentUiProps) => {
-    const { data, loading, error } = useUserCourseCompletionProgressQuery({
+    const { data } = useUserCourseCompletionProgressQuery({
       variables: {
         id: item.id
       }
