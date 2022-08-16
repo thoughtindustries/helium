@@ -1,19 +1,12 @@
-import React, { SyntheticEvent } from 'react';
-import { useTranslation } from 'react-i18next';
-import Layout from '../../components/Layout';
-import { Hero } from '@thoughtindustries/hero';
-import {
-  FeaturedContent,
-  ContentTileStandardLayout,
-  FeaturedContentContentItem,
-  FeaturedContentHydratedContentItem
-} from '@thoughtindustries/featured-content';
-import {
-  hydrateContent,
-  useCatalogQuery,
-  useAddResourceToQueueMutation
-} from '@thoughtindustries/content';
-import { Appearance, CurrentUser } from '../../types';
+import React from 'react';
+import CTA from '../../components/CTA/CTA';
+import FeaturedContentComp from '../../components/FeaturedContent/FeaturedContentComp';
+import Footer from '../../components/Footer/Footer';
+import Hero from '../../components/Hero/Hero';
+import CallToActionWithLinks from '../../components/CTA/CallToActionWithLinks';
+import CallToActionParagraphs from '../../components/CTA/CallToActionParagraphs';
+import NavBar from '../../components/Navigation/NavBar';
+import { HydratedContentItem } from '@thoughtindustries/content';
 
 export { Page };
 export { documentProps };
@@ -23,76 +16,72 @@ const documentProps = {
   description: 'The home page'
 };
 
-function Page({ appearance, currentUser }: { appearance: Appearance; currentUser: CurrentUser }) {
+function Page() {
   return (
-    <Layout appearance={appearance} currentUser={currentUser}>
-      <div className="flex flex-col items-start space-y-2">
-        <Hero
-          title="Welcome to Helium!"
-          subtitle="This page is completely rendered in React. Go ahead and edit it at pages/index/index.page.jsx"
-          asset="https://d36ai2hkxl16us.cloudfront.net/thoughtindustries/image/upload/a_exif,c_fill,w_1500/v1426249885/sq5qv0uebvfywkxbw3cc.jpg"
-        />
-        <FeaturedItems />
-      </div>
-    </Layout>
-  );
-}
-
-function FeaturedItems() {
-  const { i18n } = useTranslation();
-  const [addResourceToQueue] = useAddResourceToQueueMutation();
-  const handleAddedToQueue = (item: FeaturedContentContentItem): Promise<boolean | void> => {
-    const { displayCourse } = item as FeaturedContentHydratedContentItem;
-    return displayCourse
-      ? addResourceToQueue({ variables: { resourceId: displayCourse } }).then()
-      : Promise.resolve(undefined);
-  };
-
-  const { data, loading, error } = useCatalogQuery({
-    variables: {
-      query:
-        'courseGroup:5ce1f5cf-4a4e-5e43-a7d7-8b4963b44d63 OR courseGroup:95897223-339b-529b-bc09-03e83fdb0377 OR courseGroup:8c99a587-f64f-5655-9a16-5f016a3a8321 OR courseGroup:15f4c8e7-41f8-517c-832d-d20e7295717e'
-    }
-  });
-
-  const handleClick = (evt: SyntheticEvent, item: FeaturedContentContentItem) => {
-    console.log('clicked!', item);
-  };
-
-  let content;
-
-  if (loading) {
-    content = <p>Loading content</p>;
-  }
-  if (error) {
-    content = <p>Error loading content</p>;
-  }
-  if (data) {
-    content = data.CatalogQuery?.contentItems?.map((item, index) => {
-      const hydratedItem = hydrateContent(i18n, item);
-      const { authors, description, href, ...restItemProps } = hydratedItem;
-      const transformedItem = {
-        ...restItemProps,
-        authors,
-        shortDescription: description && `${description.substring(0, 75)} ...`,
-        linkUrl: href
-      };
-      return <ContentTileStandardLayout.Item key={`item-${index}`} {...transformedItem} />;
-    });
-  }
-
-  return (
-    <div className="px-4">
-      <FeaturedContent>
-        <ContentTileStandardLayout
-          desktopColumnCount={4}
-          headerOptions={{ title: 'Featured Content' }}
-          onAddedToQueue={handleAddedToQueue}
-          onClick={handleClick}
-        >
-          {content}
-        </ContentTileStandardLayout>
-      </FeaturedContent>
-    </div>
+    <>
+      <NavBar />
+      <Hero
+        headline="Making Learning Successful"
+        body="Learning is a gateway to success. We aim to provide motivational content, strategies and courses to help you become successful and achieve your goals."
+        buttonUrl="/signin"
+        buttonText="Sign in"
+      />
+      <FeaturedContentComp
+        onAddedToQueue={function (item: HydratedContentItem): Promise<boolean | void> {
+          throw new Error('Function not implemented.');
+        }}
+        numberOfContentItems={3}
+      />
+      <CallToActionWithLinks
+        headline="Explore Documentation and Resources"
+        description="Our developer documentation and tools cover everything you need to know to start building your new project. "
+        links={[
+          { text: 'Wordpress Documentation', linkUrl: 'https://developer.wordpress.org/' },
+          {
+            text: 'Storyook Documentation',
+            linkUrl: 'https://thoughtindustries.github.io/helium/?path=/story/example-cart--base'
+          },
+          { text: 'GraphQL Explorer', linkUrl: '/graphiql' },
+          {
+            text: 'GraphQL Documentation',
+            linkUrl: 'https://thoughtindustries.github.io/helium-graphql/'
+          }
+        ]}
+      />
+      <CallToActionParagraphs
+        heading="Your source for learning, community and success."
+        subheading="Find products, resources, and programs for every stage of your business journey."
+        paragraphItems={[
+          {
+            heading: 'Learning Tools and Resources',
+            content:
+              'Our goal is to help you become successful by providing learning materials to improve yourself or your company on various topics, such as marketing, business, finance and design.',
+            buttonText: 'View catalog',
+            buttonUrl: '/catalog'
+          },
+          {
+            heading: 'World Class Content',
+            content:
+              'Our content is curated for you. The Academy is focused on your everyday tasks and the goals you want to achieve.',
+            buttonText: 'View catalog',
+            buttonUrl: '/catalog'
+          },
+          {
+            heading: 'World Class Content',
+            content:
+              'Our content is curated for you. The Academy is focused on your everyday tasks and the goals you want to achieve.',
+            buttonText: 'View catalog',
+            buttonUrl: '/catalog'
+          }
+        ]}
+      />
+      <CTA
+        headline="Are you ready to learn?"
+        body="Whether youre looking to grow your business, launch a new product, or simply want to improve certain aspects of your life, we have the tools you need to achieve your goals."
+        buttonUrl="/signin"
+        buttonText="Sign in"
+      />
+      <Footer />
+    </>
   );
 }

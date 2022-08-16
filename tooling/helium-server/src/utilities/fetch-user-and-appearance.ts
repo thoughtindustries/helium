@@ -16,6 +16,7 @@ const USER_QUERY = /* GraphQL */ `
       country
       telephone
       externalCustomerId
+      asset
       ref1
       ref2
       ref3

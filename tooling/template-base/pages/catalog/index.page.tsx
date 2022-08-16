@@ -1,9 +1,9 @@
-import React, { SyntheticEvent, useMemo } from 'react';
-import Layout from '../../components/Layout';
-import { usePageContext } from '../../renderer/usePageContext';
-import { Catalog, CatalogProvider, CatalogResultItem } from '@thoughtindustries/catalog';
-import { useAddResourceToQueueMutation } from '@thoughtindustries/content';
-import { Appearance, CurrentUser } from '../../types';
+import React from 'react';
+import Footer from '../../components/Footer/Footer';
+import Banner from '../../components/Banner';
+import NavBar from '../../components/Navigation/NavBar';
+import CatalogAndAggregation from '../../components/CatalogAndAggreg/CatalogAndAggregation';
+import { HydratedContentItem } from '@thoughtindustries/content';
 
 export { Page };
 export { documentProps };
@@ -13,52 +13,22 @@ const documentProps = {
   description: 'The catalog page'
 };
 
-function Page({ appearance, currentUser }: { appearance: Appearance; currentUser: CurrentUser }) {
+function Page() {
   return (
-    <Layout appearance={appearance} currentUser={currentUser}>
-      <div className="flex flex-col space-y-2">
-        <CatalogItems />
+    <>
+      <div className="font-primary">
+        <NavBar />
+        <Banner
+          heading="Full Learning Catalog"
+          subtext="Browse the full list of courses and learning paths."
+        />
+        <CatalogAndAggregation
+          onAddedToQueue={function (item: HydratedContentItem): Promise<boolean | void> {
+            throw new Error('Function not implemented.');
+          }}
+        />
+        <Footer />
       </div>
-    </Layout>
-  );
-}
-
-function CatalogItems() {
-  const pageContext = usePageContext();
-  const {
-    urlParsed: { pathname, searchString }
-  } = pageContext;
-  const config = useMemo(
-    () => ({
-      parsedUrl: {
-        pathname,
-        searchString
-      }
-    }),
-    [pathname, searchString]
-  );
-
-  const [addResourceToQueue] = useAddResourceToQueueMutation();
-  const handleAddedToQueue = ({
-    slug,
-    kind,
-    displayCourse
-  }: CatalogResultItem): Promise<boolean | void> => {
-    const resourceId = displayCourse || slug;
-    return resourceId
-      ? addResourceToQueue({ variables: { resourceId, resourceType: kind } }).then()
-      : Promise.resolve(undefined);
-  };
-
-  const handleClick = (evt: SyntheticEvent, item: CatalogResultItem) => {
-    console.log('clicked!', item);
-  };
-
-  return (
-    <div className="px-4">
-      <CatalogProvider config={config}>
-        <Catalog onAddedToQueue={handleAddedToQueue} onClick={handleClick} />
-      </CatalogProvider>
-    </div>
+    </>
   );
 }

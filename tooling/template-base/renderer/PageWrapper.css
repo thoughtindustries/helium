@@ -1,5 +1,8 @@
 /* This CSS is common to all pages */
 
+/* import inter font */
+@import url('https://rsms.me/inter/inter.css');
+
 body {
   margin: 0;
   font-family: sans-serif;
