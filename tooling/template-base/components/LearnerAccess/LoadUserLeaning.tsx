@@ -40,7 +40,7 @@ const LoadUserLearning = ({ query, kind, sort }: LoadedComponentProps): JSX.Elem
     ssr: false
   });
 
-  const { i18n, t } = useTranslation();
+  const { i18n } = useTranslation();
 
   interface ContentUiProps {
     item: HydratedContentItem;
@@ -55,6 +55,10 @@ const LoadUserLearning = ({ query, kind, sort }: LoadedComponentProps): JSX.Elem
         id: item.id
       }
     });
+
+    // item link
+    const hydratedItem = hydrateContent(i18n, item);
+    const itemLink = hydratedItem.href;
 
     return (
       // list flex container
@@ -85,7 +89,9 @@ const LoadUserLearning = ({ query, kind, sort }: LoadedComponentProps): JSX.Elem
                 ))}
               </div>
               {/* continue button */}
-              <div className="flex items-center text-sm font-semibold text-blue-700">Continue</div>
+              <a href={itemLink} className="flex items-center text-sm font-semibold text-blue-700">
+                <div className="">Continue</div>
+              </a>
               {/* drop down menu */}
               <button
                 className="flex items-center pr-6"
@@ -145,6 +151,10 @@ const LoadUserLearning = ({ query, kind, sort }: LoadedComponentProps): JSX.Elem
   };
 
   const DisplayGridView = ({ item }: ContentUiProps) => {
+    // item link
+    const hydratedItem = hydrateContent(i18n, item);
+    const itemLink = hydratedItem.href;
+
     return (
       // {/* course card */}
       <div className="m-8">
@@ -168,7 +178,9 @@ const LoadUserLearning = ({ query, kind, sort }: LoadedComponentProps): JSX.Elem
           </div>
           <div className={item.description ? 'py-4' : ''}>{item.description}</div>
           <hr className=""></hr>
-          <div className="flex justify-end text-blue-700">Continue</div>
+          <a href={itemLink} className="flex justify-end text-blue-700">
+            <div className="">Continue</div>
+          </a>
         </div>
       </div>
     );

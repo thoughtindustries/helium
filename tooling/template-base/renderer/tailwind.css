@@ -825,16 +825,16 @@ Ensure the default browser behavior of the `hidden` attribute.
   height: 0px;
 }
 
-.h-full {
-  height: 100%;
-}
-
 .h-8 {
   height: 2rem;
 }
 
 .h-7 {
   height: 1.75rem;
+}
+
+.h-full {
+  height: 100%;
 }
 
 .w-full {
