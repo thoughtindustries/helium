@@ -1,5 +1,5 @@
 import React from 'react';
-import SigninPage from '../../components/SigninPage';
+import SigninPage from '../../components/Signin/SigninPage';
 
 export { Page };
 
