@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { usePageContext } from '../renderer/usePageContext';
 import CourseSidebar from './CourseSidebar';
 
@@ -13,15 +13,15 @@ export default function CourseLayout({
   let pageQuery = 1;
 
   const { search } = pageContext.urlParsed;
-  if (search?.page && parseInt(search.page)) {
-    pageQuery = parseInt(search.page);
+  if (search?.page) {
+    const pageInt = parseInt(search.page, 10);
+    pageQuery = isNaN(pageInt) ? 1 : pageInt;
   }
 
   const [currentPageIndex, setCurrentPage] = useState<number>(pageQuery - 1);
-  const [nextIsDisabled, setNextIsDisabled] = useState<boolean>(
-    currentPageIndex >= coursePages.length - 1
-  );
-  const [prevIsDisabled, setPrevIsDisabled] = useState<boolean>(currentPageIndex === 0);
+
+  const nextIsDisabled = currentPageIndex >= coursePages.length - 1;
+  const prevIsDisabled = currentPageIndex === 0;
   const currentView = coursePages[currentPageIndex];
 
   const handleForward = () => {
@@ -35,11 +35,6 @@ export default function CourseLayout({
       setCurrentPage(currentPageIndex - 1);
     }
   };
-
-  useEffect(() => {
-    setNextIsDisabled(currentPageIndex >= coursePages.length - 1);
-    setPrevIsDisabled(currentPageIndex === 0);
-  }, [currentPageIndex, coursePages.length]);
 
   return (
     <div className="h-full bg-gray-100 p-8">
