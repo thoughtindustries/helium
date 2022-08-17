@@ -15,7 +15,7 @@ export default function CourseLayout({
   const { search } = pageContext.urlParsed;
   if (search?.page) {
     const pageInt = parseInt(search.page, 10);
-    pageQuery = isNaN(pageInt) ? 1 : pageInt;
+    pageQuery = isNaN(pageInt) || pageInt < 1 ? 1 : pageInt;
   }
 
   const [currentPageIndex, setCurrentPage] = useState<number>(pageQuery - 1);
