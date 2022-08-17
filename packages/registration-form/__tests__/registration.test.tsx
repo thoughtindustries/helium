@@ -81,12 +81,37 @@ describe('@thoughtindustries/registration', () => {
             <div
               class="w-full border-t border-gray-200 my-4"
             />
-            <button
-              class="text-white bg-indigo-700 hover:bg-indigo-600 inline-block font-normal text-sm text-center no-underline py-2 w-full md:w-1/4 rounded-md disabled:bg-indigo-300 disabled:cursor-default"
-              type="button"
+            <div
+              class="flex flex-col md:flex-row text-sm text-gray-500 justify-between"
             >
-              redemption-code.redeem-code-preloaded
-            </button>
+              <div
+                class="flex flex-row items-center mb-4"
+              >
+                <input
+                  class="mr-2"
+                  type="checkbox"
+                />
+                <div
+                  style="display: flex; flex-direction: row;"
+                >
+                  <p>
+                    agree-terms\u00A0
+                  </p>
+                  <button
+                    class="text-gray-700"
+                    type="button"
+                  >
+                    terms-and-conditions
+                  </button>
+                </div>
+              </div>
+              <button
+                class="text-white bg-indigo-700 hover:bg-indigo-600 inline-block font-normal text-sm text-center no-underline py-2 w-full md:w-1/4 rounded-md disabled:bg-indigo-300 disabled:cursor-default"
+                type="button"
+              >
+                redemption-code.redeem-code-preloaded
+              </button>
+            </div>
           </form>
         </div>
       `);
