@@ -749,6 +749,10 @@ Ensure the default browser behavior of the `hidden` attribute.
   margin-left: -1px;
 }
 
+.mt-2 {
+  margin-top: 0.5rem;
+}
+
 .box-border {
   box-sizing: border-box;
 }
@@ -1340,6 +1344,11 @@ Ensure the default browser behavior of the `hidden` attribute.
 .bg-\[\#405667\] {
   --tw-bg-opacity: 1;
   background-color: rgb(64 86 103 / var(--tw-bg-opacity));
+}
+
+.bg-gray-500 {
+  --tw-bg-opacity: 1;
+  background-color: rgb(107 114 128 / var(--tw-bg-opacity));
 }
 
 .bg-none {

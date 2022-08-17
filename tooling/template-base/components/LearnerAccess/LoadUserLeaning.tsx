@@ -85,7 +85,9 @@ const LoadUserLearning = ({ query, kind, sort }: LoadedComponentProps): JSX.Elem
               {/* course completion */}
               <div className="flex items-center pr-6 text-sm font-semibold font-primary text-gray-500">
                 {data?.UserCourseCompletionProgress?.map((item, i) => (
-                  <div key={i}>{item.type === 'coursePercentViewed' && item.percent + '%'}</div>
+                  <div key={i}>
+                    {item.type === 'coursePercentViewed' && item.percent + '% Completed'}
+                  </div>
                 ))}
               </div>
               {/* continue button */}
@@ -121,32 +123,35 @@ const LoadUserLearning = ({ query, kind, sort }: LoadedComponentProps): JSX.Elem
 
     return (
       // {/* list drop down */}
-      <div className="flex flex-col bg-slate-50 p-6 space-y-6 border-l-4 border-blue-700">
-        {/* article and duration */}
-        <div className="flex flex-row">
-          <div className="py-1 px-3 rounded-full bg-green-200">
-            <div className="text-sm font-semibold">{item.contentTypeLabel}</div>
+      <>
+        <hr className="bg-gray-500"></hr>
+        <div className="flex flex-col bg-slate-50 p-6 space-y-6 border-l-4 border-blue-700">
+          {/* article and duration */}
+          <div className="flex flex-row">
+            <div className="py-1 px-3 rounded-full bg-green-200">
+              <div className="text-sm font-semibold">{item.contentTypeLabel}</div>
+            </div>
+            <div className="flex items-center text-gray-500 px-4">|</div>
+            <div className="flex items-center text-gray-500 font-sm font-semibold">30 mins</div>
           </div>
-          <div className="flex items-center text-gray-500 px-4">|</div>
-          <div className="flex items-center text-gray-500 font-sm font-semibold">30 mins</div>
-        </div>
-        {/* course information */}
-        <div className="flex flex-row justify-between gap-4">
-          {data?.UserCourseCompletionProgress?.map(
-            item =>
-              item?.type !== 'coursePercentViewed' && (
-                <div className="flex flex-grow pl-6 py-6 bg-white rounded-md">
-                  <div className="flex flex-col">
-                    <div className="text-sm text-gray-500">{item?.type}</div>
-                    <div className="text-3xl font-bold pt-2">1/1</div>
+          {/* course information */}
+          <div className="flex flex-row justify-between gap-4">
+            {data?.UserCourseCompletionProgress?.map(
+              item =>
+                item?.type !== 'coursePercentViewed' && (
+                  <div className="flex flex-grow pl-6 py-6 bg-white rounded-md">
+                    <div className="flex flex-col">
+                      <div className="text-sm text-gray-500">{item?.type}</div>
+                      <div className="text-3xl font-bold pt-2">1/1</div>
+                    </div>
                   </div>
-                </div>
-              )
-          )}
+                )
+            )}
+          </div>
+          {/* course description */}
+          {item.description && <div className="text-sm font-semibold">{item.description}</div>}
         </div>
-        {/* course description */}
-        {item.description && <div className="text-sm font-semibold">{item.description}</div>}
-      </div>
+      </>
     );
   };
 
