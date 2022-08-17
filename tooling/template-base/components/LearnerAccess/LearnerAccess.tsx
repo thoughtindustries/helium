@@ -7,10 +7,10 @@ import {
 import {
   LoadArchivedContent,
   LoadWaitlist,
-  LoadBookmarks,
-  LoadCertificates
+  LoadBookmarks
 } from '@thoughtindustries/learner-access/src/components';
 import LoadUserLearning from './LoadUserLeaning';
+import LoadCertificates from './LoadCertification';
 import { LoadingDots, useContentGroupsQuery } from '@thoughtindustries/content';
 import LearnerAccessContext from '@thoughtindustries/learner-access/src/context';
 import { getAvailableTabs } from '@thoughtindustries/learner-access/src/utilities';

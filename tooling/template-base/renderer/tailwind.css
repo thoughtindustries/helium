@@ -649,16 +649,6 @@ Ensure the default browser behavior of the `hidden` attribute.
   margin-bottom: 1.25rem;
 }
 
-.my-auto {
-  margin-top: auto;
-  margin-bottom: auto;
-}
-
-.mx-3 {
-  margin-left: 0.75rem;
-  margin-right: 0.75rem;
-}
-
 .my-0 {
   margin-top: 0px;
   margin-bottom: 0px;
@@ -667,6 +657,16 @@ Ensure the default browser behavior of the `hidden` attribute.
 .mx-0 {
   margin-left: 0px;
   margin-right: 0px;
+}
+
+.my-auto {
+  margin-top: auto;
+  margin-bottom: auto;
+}
+
+.mx-3 {
+  margin-left: 0.75rem;
+  margin-right: 0.75rem;
 }
 
 .my-1\.5 {
@@ -749,10 +749,6 @@ Ensure the default browser behavior of the `hidden` attribute.
   margin-left: -1px;
 }
 
-.mt-2 {
-  margin-top: 0.5rem;
-}
-
 .box-border {
   box-sizing: border-box;
 }
@@ -829,16 +825,16 @@ Ensure the default browser behavior of the `hidden` attribute.
   height: 0px;
 }
 
+.h-full {
+  height: 100%;
+}
+
 .h-8 {
   height: 2rem;
 }
 
 .h-7 {
   height: 1.75rem;
-}
-
-.h-full {
-  height: 100%;
 }
 
 .w-full {
@@ -1237,12 +1233,12 @@ Ensure the default browser behavior of the `hidden` attribute.
   border-bottom-width: 1px;
 }
 
-.border-l-4 {
-  border-left-width: 4px;
-}
-
 .border-t-4 {
   border-top-width: 4px;
+}
+
+.border-l-4 {
+  border-left-width: 4px;
 }
 
 .border-solid {
@@ -1263,6 +1259,11 @@ Ensure the default browser behavior of the `hidden` attribute.
   border-color: rgb(209 213 219 / var(--tw-border-opacity));
 }
 
+.border-\[\#405667\] {
+  --tw-border-opacity: 1;
+  border-color: rgb(64 86 103 / var(--tw-border-opacity));
+}
+
 .border-blue-700 {
   --tw-border-opacity: 1;
   border-color: rgb(29 78 216 / var(--tw-border-opacity));
@@ -1270,11 +1271,6 @@ Ensure the default browser behavior of the `hidden` attribute.
 
 .border-transparent {
   border-color: transparent;
-}
-
-.border-\[\#405667\] {
-  --tw-border-opacity: 1;
-  border-color: rgb(64 86 103 / var(--tw-border-opacity));
 }
 
 .bg-slate-50 {
@@ -1322,6 +1318,11 @@ Ensure the default browser behavior of the `hidden` attribute.
   background-color: rgb(30 58 138 / var(--tw-bg-opacity));
 }
 
+.bg-gray-500 {
+  --tw-bg-opacity: 1;
+  background-color: rgb(107 114 128 / var(--tw-bg-opacity));
+}
+
 .bg-green-200 {
   --tw-bg-opacity: 1;
   background-color: rgb(187 247 208 / var(--tw-bg-opacity));
@@ -1344,11 +1345,6 @@ Ensure the default browser behavior of the `hidden` attribute.
 .bg-\[\#405667\] {
   --tw-bg-opacity: 1;
   background-color: rgb(64 86 103 / var(--tw-bg-opacity));
-}
-
-.bg-gray-500 {
-  --tw-bg-opacity: 1;
-  background-color: rgb(107 114 128 / var(--tw-bg-opacity));
 }
 
 .bg-none {
@@ -1765,12 +1761,12 @@ Ensure the default browser behavior of the `hidden` attribute.
   line-height: .75rem;
 }
 
-.leading-8 {
-  line-height: 2rem;
-}
-
 .leading-\[1\.45rem\] {
   line-height: 1.45rem;
+}
+
+.leading-8 {
+  line-height: 2rem;
 }
 
 .leading-6 {
@@ -1837,16 +1833,6 @@ Ensure the default browser behavior of the `hidden` attribute.
   color: rgb(51 65 85 / var(--tw-text-opacity));
 }
 
-.text-blue-700 {
-  --tw-text-opacity: 1;
-  color: rgb(29 78 216 / var(--tw-text-opacity));
-}
-
-.text-gray-800 {
-  --tw-text-opacity: 1;
-  color: rgb(31 41 55 / var(--tw-text-opacity));
-}
-
 .text-accent-contrast {
   --tw-text-opacity: 1;
   color: rgb(255 255 255 / var(--tw-text-opacity));
@@ -1855,6 +1841,16 @@ Ensure the default browser behavior of the `hidden` attribute.
 .text-\[\#405667\] {
   --tw-text-opacity: 1;
   color: rgb(64 86 103 / var(--tw-text-opacity));
+}
+
+.text-blue-700 {
+  --tw-text-opacity: 1;
+  color: rgb(29 78 216 / var(--tw-text-opacity));
+}
+
+.text-gray-800 {
+  --tw-text-opacity: 1;
+  color: rgb(31 41 55 / var(--tw-text-opacity));
 }
 
 .underline {
@@ -1873,15 +1869,15 @@ Ensure the default browser behavior of the `hidden` attribute.
   box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow);
 }
 
-.shadow {
-  --tw-shadow: 0px 0px 5px #4d90fe;
-  --tw-shadow-colored: 0px 0px 5px var(--tw-shadow-color);
-  box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow);
-}
-
 .shadow-none {
   --tw-shadow: 0 0 #0000;
   --tw-shadow-colored: 0 0 #0000;
+  box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow);
+}
+
+.shadow {
+  --tw-shadow: 0px 0px 5px #4d90fe;
+  --tw-shadow-colored: 0px 0px 5px var(--tw-shadow-color);
   box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow);
 }
 
