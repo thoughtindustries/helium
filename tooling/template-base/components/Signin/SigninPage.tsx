@@ -1,17 +1,7 @@
 import React from 'react';
 import Logo from '../Logo/Logo';
 
-const SigninPage = (props: {
-  heading: string;
-  field1: string;
-  field1Placeholder?: string;
-  field2?: string;
-  subHeading?: string;
-  primaryButtonUrl: string;
-  primaryButtonText: string;
-  secondaryButtonUrl: string;
-  secondaryButtonText: string;
-}) => {
+const SigninPage = () => {
   return (
     <div className="flex flex-col items-center py-12 px-8 space-y-4">
       {/* logo component */}
