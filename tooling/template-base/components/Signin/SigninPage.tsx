@@ -32,7 +32,7 @@ const SigninPage = () => {
           ></input>
         </div>
         {/* sign in button */}
-        <form action="/signin">
+        <form action="/learn/dashboard">
           <button
             type="submit"
             className="h-12 p-2.5 px-4 bg-indigo-800 hover:bg-blue-500 rounded-md w-full"
@@ -40,7 +40,7 @@ const SigninPage = () => {
             <div className="text-sm font-semibold text-white">Sign in</div>
           </button>
         </form>
-        <form action="/forgotpassword" className="items-center">
+        <form action="/learn/forget" className="items-center">
           <button
             type="submit"
             className="p-8 w-full text-indigo-800 hover:text-blue-500 text-center font-semibold justify-center"
