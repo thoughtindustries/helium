@@ -2,12 +2,11 @@ import React, { useState } from 'react';
 import Logo from '../Logo/Logo';
 
 const SigninPage = () => {
-  const [formData, setFormData] = useState({
-    email: '',
-    password: ''
-  });
+  const [userEmail, setUserEmail] = useState('');
+  const [userPassword, setUserPassword] = useState('');
 
-  const signInHandler = () => {
+  const signInHandler = e => {
+    e.preventDefault();
     console.log('Login Mutation Here');
   };
 
@@ -28,8 +27,8 @@ const SigninPage = () => {
               type="email"
               id="Email"
               className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-              placeholder=""
               required
+              onChange={e => setUserEmail(e.target.value)}
             ></input>
           </div>
           <div>
@@ -39,6 +38,7 @@ const SigninPage = () => {
               id="Password"
               className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
               required
+              onChange={e => setUserPassword(e.target.value)}
             ></input>
           </div>
           <button
@@ -55,6 +55,7 @@ const SigninPage = () => {
           >
             Forgot Password
           </button>
+          {console.log('email: ', userEmail, '/n', 'password', userPassword)}
         </a>
       </div>
     </div>
