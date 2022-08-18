@@ -54,7 +54,7 @@ const generateConfigFile = async (dir, instances) => {
     });
   }
 
-  return writeFile(fileName, JSON.stringify({ instances: data }));
+  return writeFile(fileName, JSON.stringify({ instances: data }, null, 2));
 };
 
 module.exports = { initProject, generateTranslationFile };
