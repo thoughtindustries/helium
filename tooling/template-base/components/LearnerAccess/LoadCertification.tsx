@@ -184,9 +184,9 @@ const LoadCertificates = ({
     ssr: false
   });
   const { companyEnableExternalCertificateUploads } = useLearnerAccess();
-
-  console.log('query: ', query);
-
+  {
+    console.log('error: ', error);
+  }
   console.log('data from child', data);
   if (loading) return <LoadingDots />;
   if (error) return <>{error.message}</>;
