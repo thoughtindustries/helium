@@ -7,6 +7,9 @@ const SigninPage = () => {
 
   const signInHandler = e => {
     console.log('Login Mutation Here');
+    e.preventDefault();
+    (document.getElementById('Email') as HTMLInputElement).value = '';
+    (document.getElementById('Password') as HTMLInputElement).value = '';
   };
 
   return (
