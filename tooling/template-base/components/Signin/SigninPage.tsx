@@ -6,8 +6,10 @@ const SigninPage = () => {
   const [userPassword, setUserPassword] = useState('');
 
   const signInHandler = e => {
-    e.preventDefault();
     console.log('Login Mutation Here');
+    e.preventDefault();
+    (document.getElementById('Email') as HTMLInputElement).value = '';
+    (document.getElementById('Password') as HTMLInputElement).value = '';
   };
 
   return (
@@ -55,7 +57,6 @@ const SigninPage = () => {
           >
             Forgot Password
           </button>
-          {console.log('email: ', userEmail, '/n', 'password', userPassword)}
         </a>
       </div>
     </div>
