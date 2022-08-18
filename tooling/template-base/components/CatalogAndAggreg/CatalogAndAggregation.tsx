@@ -1,9 +1,8 @@
 import React, { FC, useMemo } from 'react';
-import { CatalogProps } from '@thoughtindustries/catalog/src/types';
 import CatalogAggregations from './Aggregations';
-import CatalogError from '@thoughtindustries/catalog/src/catalog-error';
+import CatalogError from './CatalogError';
 import CatalogResults from './CatalogResults';
-import { CatalogProvider } from '@thoughtindustries/catalog';
+import { CatalogProvider, CatalogProps } from '@thoughtindustries/catalog';
 import { usePageContext } from '../../renderer/usePageContext';
 
 const CatalogAndAggregation: FC<CatalogProps> = ({
