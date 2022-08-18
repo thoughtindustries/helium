@@ -50,14 +50,14 @@ const SigninPage = () => {
             <div className="text-sm font-semibold text-white">Sign in</div>
           </button>
         </form>
-        <a href="/learn/forget" className="items-center">
-          <button
-            type="submit"
-            className="p-8 w-full text-indigo-800 hover:text-blue-500 text-center font-semibold justify-center"
+        <div className="flex justify-center">
+          <a
+            href="/learn/forget"
+            className="items-center px-8 w-full text-indigo-800 hover:text-blue-500 text-center font-semibold justify-center"
           >
             Forgot Password
-          </button>
-        </a>
+          </a>
+        </div>
       </div>
     </div>
   );
