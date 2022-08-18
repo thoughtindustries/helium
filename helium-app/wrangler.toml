@@ -1,0 +1,13 @@
+name = "helium"
+account_id = "3c49509121bdd3d119fedece56db7d73"
+type = "webpack"
+workers_dev = true
+compatibility_date = "2021-09-17"
+webpack_config = "./webpack.config.js"
+
+[vars]
+INSTANCE_NAME = "prod"
+
+[site]
+bucket = "./dist/client"
+entry-point = "./worker"
