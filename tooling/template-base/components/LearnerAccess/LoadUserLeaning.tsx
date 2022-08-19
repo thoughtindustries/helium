@@ -141,6 +141,8 @@ const LoadUserLearning = ({ query, kind, sort }: LoadedComponentProps): JSX.Elem
                 item?.type !== 'coursePercentViewed' && (
                   <div className="flex flex-grow pl-6 py-6 bg-white rounded-md">
                     <div className="flex flex-col">
+                      {console.log(data?.UserCourseCompletionProgress)}
+                      {console.log(item.required)}
                       <div className="text-sm text-gray-500">
                         {item?.type?.replace(/([A-Z]+)/g, ' $1').replace(/([A-Z][a-z])/g, ' $1')}
                       </div>
