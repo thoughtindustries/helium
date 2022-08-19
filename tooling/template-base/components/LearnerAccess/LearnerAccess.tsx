@@ -1,4 +1,7 @@
-import React, { useCallback, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
+import dropDownOpen from '../../renderer/dropDownOpen.svg';
+import dropDownClosed from '../../renderer/dropDownClosed.svg';
+
 import {
   AvailableTab,
   LearnerAccessProps,
@@ -26,9 +29,10 @@ const LearnerAccess = ({
   companyEnableExternalCertificateUploads,
   companyHasWaitlistingFeature
 }: LearnerAccessProps): JSX.Element => {
-  const [collapsed, setCollapsed] = useState<boolean>(true);
   const [activeTabKey, setActiveTabKey] = useState<TabKey | undefined>(undefined);
   const [availableTabs, setAvailableTabs] = useState<AvailableTab[]>([]);
+  const [tabDropDownActive, setTabDropDownActive] = useState(false);
+  const [button, setButton] = useState(false);
   const {
     loading,
     error,
@@ -55,11 +59,24 @@ const LearnerAccess = ({
     }
   });
 
+  // update state to display grid only on mobile
+  const handleResize = () => {
+    if (window.innerWidth < 600) {
+      setButton(true);
+    } else {
+      setButton(false);
+    }
+  };
+
+  useEffect(() => {
+    window.addEventListener('resize', handleResize);
+  }, []);
+
   const { t } = useTranslation();
 
   const resetActiveTab = useCallback(
     () => setActiveTabKey(availableTabs.length ? availableTabs[0].key : undefined),
-    []
+    [availableTabs]
   );
 
   if (loading) {
@@ -74,38 +91,6 @@ const LearnerAccess = ({
     setActiveTabKey(currentTabKey);
   };
 
-  const activityCollapsed = (
-    <div className="border-b border-solid leading-5 p-4 bg-gradient-to-t from-white to-gray-lightest">
-      <button
-        className="border-gray-300 leading-3 border-solid border h-5 text-center mr-2 w-5"
-        onClick={() => setCollapsed(false)}
-      >
-        <i className="icon-plus text-xl font-thin leading-3 not-italic" aria-label="expand">
-          +
-        </i>
-      </button>
-      <span>
-        <span className="text-base">{t('dashboard.activity')}</span>
-      </span>
-    </div>
-  );
-
-  const activityExpanded = (
-    <div className="border-b border-solid leading-5 p-4 bg-gradient-to-t from-white to-gray-lightest">
-      <button
-        className="border-gray-300 leading-3 border-solid border h-5 text-center mr-2 w-5"
-        onClick={() => setCollapsed(true)}
-      >
-        <i className="icon-hyphen text-xl font-thin leading-3 not-italic" aria-label="collapse">
-          -
-        </i>
-      </button>
-      <span>
-        <span className="text-base">{t('dashboard.activity')}</span>
-      </span>
-    </div>
-  );
-
   const styleLi = {
     className: `${classNames} inline-block text-[14px] pt-4 pr-6 relative`
   };
@@ -119,35 +104,115 @@ const LearnerAccess = ({
   const selectedStyleSpan = {
     className: `${styleSpan.className} font-bold`
   };
-  const dashboardAccessTabs = (
-    <ul className="" role="tablist">
-      {availableTabs.map(({ key, count }, index) => {
-        const activeTab = key === activeTabKey ? true : false;
-        const activeClassLi = activeTab ? selectedStyleLi : styleLi;
-        const activeClassSpan = activeTab ? selectedStyleSpan : styleSpan;
-        return (
-          // tab name and count
-          <li key={index} {...activeClassLi}>
+
+  const TabButton = () => {
+    return (
+      <>
+        <div className="p-2 text-gray-700 rounded-md outline-none focus:border-gray-400 focus:border">
+          {!tabDropDownActive ? (
             <button
-              onClick={() => {
-                handleTabSelection(key);
-              }}
-              className="text-center text-sm font-semibold py-4 border-b-2 hover:border-blue-400"
-              role="tab"
-              aria-selected={activeTab}
-              aria-controls={'access-section-' + index}
+              id="icon"
+              type="submit"
+              className="block w-full bg-white hover:bg-gray-100 text-gray-800 py-2 px-4 border border-gray-400 rounded "
+              onClick={() => setTabDropDownActive(!tabDropDownActive)}
             >
-              <span {...activeClassSpan}>{t(localizedTabLabelMapping[key], { count })}</span>
-              {key !== TabKey.Bookmark && (
-                <span className="border border-solid border-gray-light text-xs font-bold rounded-lg bg-white inline-block leading-4 ml-1 py-0 px-1 text-center">
-                  {count}
-                </span>
-              )}
+              <div className="flex flex-row justify-between text-lg">
+                {activeTabKey}
+                <img src={dropDownClosed} className="" />
+              </div>
             </button>
-          </li>
-        );
-      })}
-    </ul>
+          ) : (
+            <button
+              id="icon"
+              type="submit"
+              className="block w-full bg-white hover:bg-gray-100 text-gray-800 font-semibold py-2 px-4 border border-gray-400 rounded shadow"
+              onClick={() => setTabDropDownActive(!tabDropDownActive)}
+            >
+              <div className="flex flex-row justify-between text-lg">
+                {activeTabKey}
+                <img src={dropDownOpen} className="" />
+              </div>
+            </button>
+          )}
+        </div>
+        {availableTabs.map(({ key, count }, index) => {
+          const activeTab = key === activeTabKey ? true : false;
+          const activeClassLi = activeTab ? selectedStyleLi : styleLi;
+          const activeClassSpan = activeTab ? selectedStyleSpan : styleSpan;
+          return (
+            <>
+              {/* tab name and count desktop */}
+              {tabDropDownActive ? (
+                <>
+                  {/* dropdown menu */}
+                  <div className="flex my-auto space-x-6 mx-auto md:block">
+                    <ul className="items-center justify-between p-5 space-y-3 pt-4 md:space-y-0 md:flex md:space-x-6 w-full">
+                      <li key={index} {...activeClassLi}>
+                        <button
+                          onClick={() => {
+                            handleTabSelection(key);
+                          }}
+                          className=""
+                          role="tab"
+                          aria-selected={activeTab}
+                          aria-controls={'access-section-' + index}
+                        >
+                          <span {...activeClassSpan}>
+                            {t(localizedTabLabelMapping[key], { count })}
+                          </span>
+                        </button>
+                      </li>
+                    </ul>
+                  </div>
+                </>
+              ) : (
+                <></>
+              )}
+            </>
+          );
+        })}
+      </>
+    );
+  };
+
+  const dashboardAccessTabs = (
+    <>
+      {/* dropdown button */}
+      {/* {buttonDropDown &&} */}
+      {button ? (
+        <TabButton />
+      ) : (
+        <ul className="" role="tablist">
+          {availableTabs.map(({ key, count }, index) => {
+            const activeTab = key === activeTabKey ? true : false;
+            const activeClassLi = activeTab ? selectedStyleLi : styleLi;
+            const activeClassSpan = activeTab ? selectedStyleSpan : styleSpan;
+            return (
+              <>
+                <li key={index} {...activeClassLi}>
+                  <button
+                    onClick={() => {
+                      handleTabSelection(key);
+                    }}
+                    className="text-center text-sm font-semibold py-4 border-b-2 hover:border-blue-400"
+                    role="tab"
+                    aria-selected={activeTab}
+                    aria-controls={'access-section-' + index}
+                  >
+                    <span {...activeClassSpan}>{t(localizedTabLabelMapping[key], { count })}</span>
+                    {key !== TabKey.Bookmark && (
+                      <span className="border border-solid border-gray-light text-xs font-bold rounded-lg bg-white inline-block leading-4 ml-1 py-0 px-1 text-center">
+                        {count}
+                      </span>
+                    )}
+                  </button>
+                </li>
+              </>
+            );
+          })}
+        </ul>
+      )}
+    </>
   );
   // tab container
   const tabContent = () => {
@@ -218,18 +283,14 @@ const LearnerAccess = ({
         <div className="text-2xl font-bold font-header">Activity</div>
         {allowCollapse && (
           <div className="">
-            <div className="">
-              {collapsed ? activityCollapsed : activityExpanded}
-              {!collapsed ? dashboardAccessTabs : ''}
-              {tabContent()}
-            </div>
+            <div className="">{tabContent()}</div>
           </div>
         )}
         {!allowCollapse && (
           <div className="max-w-none w-auto text-slate-700 text-black-light text-sm">
             <div className="">
               {dashboardAccessTabs}
-              <hr className=""></hr>
+              {!button && <hr className=""></hr>}
               {tabContent()}
             </div>
           </div>

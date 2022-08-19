@@ -21,7 +21,7 @@ const LoadUserLearning = ({ query, kind, sort }: LoadedComponentProps): JSX.Elem
 
   // update state to display grid only on mobile
   const handleResize = () => {
-    if (window.innerWidth < 768) {
+    if (window.innerWidth < 600) {
       setGridActive(true);
     }
   };
