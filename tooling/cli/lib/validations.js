@@ -1,5 +1,5 @@
 const fetch = require('isomorphic-unfetch');
-const url = require('url');
+const { instanceEndpoint } = require('./helpers/urls');
 
 const isAbsoluteUrl = url => {
   return new Promise((resolve, reject) => {
@@ -41,19 +41,31 @@ const isEmail = value => {
   });
 };
 
-const isInstance = instance => {
-  const pingUrl = url.resolve(instance.instanceUrl, '/incoming/v2/ping');
-  const options = {
-    method: 'GET',
-    headers: {
-      Authorization: `Bearer ${instance.apiKey}`
+const AUTH_QUERY = /* GraphQL */ `
+  query CompanyDetailsQuery {
+    CompanyDetails {
+      name
     }
+  }
+`;
+
+const isInstance = instance => {
+  const endpoint = instanceEndpoint(instance);
+  const options = {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({
+      query: AUTH_QUERY
+    })
   };
 
-  return fetch(pingUrl, options)
-    .then(res => res.json())
-    .then(({ valid }) => {
-      return !!valid;
+  return fetch(endpoint, options)
+    .then(r => r.json())
+    .then(({ data }) => {
+      if (data && data.CompanyDetails) {
+        return true;
+      }
+      return false;
     })
     .catch(e => {
       console.error(`Error validating instance: ${e.message}`);
