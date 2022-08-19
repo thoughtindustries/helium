@@ -3,6 +3,23 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.2.0](https://github.com/thoughtindustries/helium/compare/@thoughtindustries/helium-server@1.1.4...@thoughtindustries/helium-server@1.2.0) (2022-08-17)
+
+
+### Bug Fixes
+
+* checkout files to most recent version from staging ([b975df5](https://github.com/thoughtindustries/helium/commit/b975df5a72d672f281274a90539fcb1668a90334))
+
+
+### Features
+
+* adding asset to CurrentUser type ([b967a69](https://github.com/thoughtindustries/helium/commit/b967a693e6e39cb0094afc4e354904cd6ec8b533))
+* removing unintentional changes ([fe87ed8](https://github.com/thoughtindustries/helium/commit/fe87ed83e96d1631fbc678f1293478741ea5f130))
+
+
+
+
+
 ## [1.1.4](https://github.com/thoughtindustries/helium/compare/@thoughtindustries/helium-server@1.1.3...@thoughtindustries/helium-server@1.1.4) (2022-08-10)
 
 **Note:** Version bump only for package @thoughtindustries/helium-server
