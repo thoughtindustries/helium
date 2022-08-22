@@ -6,7 +6,7 @@ import gridSelected from '../../renderer/gridSelected.svg';
 import dropDownClosed from '../../renderer/dropDownClosed.svg';
 import dropDownOpen from '../../renderer/dropDownOpen.svg';
 
-import { LoadedComponentProps } from './LearnerAccessPackages/learner-access/src/types';
+import { LoadedComponentProps } from '@thoughtindustries/learner-access/src/types';
 import {
   useUserContentItemsQuery,
   useUserCourseCompletionProgressQuery,

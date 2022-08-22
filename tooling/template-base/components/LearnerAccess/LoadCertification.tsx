@@ -1,6 +1,6 @@
 import React, { Dispatch, SetStateAction, useState } from 'react';
-import { LearnerAccessProps } from './LearnerAccessPackages/learner-access/src/types';
-import { UploadIcon, RepeatIcon } from './LearnerAccessPackages/learner-access/src/Assets/Icons';
+import { LearnerAccessProps } from '@thoughtindustries/learner-access/src/types';
+import { UploadIcon, RepeatIcon } from '@thoughtindustries/learner-access/src/Assets/Icons';
 import {
   useUserCertificatesQuery,
   useCreateCertificateFromUploadMutation,
@@ -8,7 +8,7 @@ import {
   LoadingDots,
   UserCertificatesQuery
 } from '@thoughtindustries/content';
-import useLearnerAccess from './LearnerAccessPackages/learner-access/src/use-context';
+import useLearnerAccess from '@thoughtindustries/learner-access/src/use-context';
 import { t } from 'i18next';
 
 type RequiredUserCertifacesQuery = Required<UserCertificatesQuery>;

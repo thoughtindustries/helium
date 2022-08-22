@@ -6,19 +6,22 @@ import {
   AvailableTab,
   LearnerAccessProps,
   TabKey
-} from './LearnerAccessPackages/learner-access/src/types';
+} from '@thoughtindustries/learner-access/src/types';
+import {
+  LoadArchivedContent,
+  LoadWaitlist,
+  LoadBookmarks
+} from '@thoughtindustries/learner-access/src/components';
 import LoadUserLearning from './LoadUserLeaning';
 import LoadCertificates from './LoadCertification';
 import { LoadingDots, useContentGroupsQuery } from '@thoughtindustries/content';
-import LearnerAccessContext from './LearnerAccessPackages/learner-access/src/context';
-import { getAvailableTabs } from './LearnerAccessPackages/learner-access/src/utilities';
+import LearnerAccessContext from '@thoughtindustries/learner-access/src/context';
+import { getAvailableTabs } from '@thoughtindustries/learner-access/src/utilities';
 import { useTranslation } from 'react-i18next';
-import { localizedTabLabelMapping } from './LearnerAccessPackages/learner-access/src/constants';
-import LoadArchivedContent from './LoadArchivedContent';
-import LoadBookmarks from './LoadBookmarkFolders';
-import LoadWaitlist from './LoadWaitlistedContent';
+import { localizedTabLabelMapping } from '@thoughtindustries/learner-access/src/constants';
 
 const LearnerAccess = ({
+  allowCollapse,
   classNames,
   displayExpiredCertificateInformation,
   query,
@@ -277,13 +280,21 @@ const LearnerAccess = ({
     >
       {/* title */}
       <div className="pt-16 px-10 pb-20">
-        <div className="max-w-none w-auto text-slate-700 text-black-light text-sm">
+        <div className="text-2xl font-bold font-header">Activity</div>
+        {allowCollapse && (
           <div className="">
-            {dashboardAccessTabs}
-            {!button && <hr className=""></hr>}
-            {tabContent()}
+            <div className="">{tabContent()}</div>
           </div>
-        </div>
+        )}
+        {!allowCollapse && (
+          <div className="max-w-none w-auto text-slate-700 text-black-light text-sm">
+            <div className="">
+              {dashboardAccessTabs}
+              {!button && <hr className=""></hr>}
+              {tabContent()}
+            </div>
+          </div>
+        )}
       </div>
     </LearnerAccessContext.Provider>
   );
