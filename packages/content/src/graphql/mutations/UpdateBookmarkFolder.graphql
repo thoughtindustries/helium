@@ -1,6 +1,0 @@
-mutation UpdateBookmarkFolder($id: ID!, $name: String!) {
-  UpdateBookmarkFolder(id: $id, name: $name) {
-    id
-    name
-  }
-}

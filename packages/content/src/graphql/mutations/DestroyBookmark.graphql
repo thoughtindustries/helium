@@ -1,3 +1,0 @@
-mutation DestroyBookmark($id: ID!) {
-  DestroyBookmark(id: $id)
-}

@@ -1,3 +1,0 @@
-mutation ReinstateUserLearningPath($id: ID!) {
-  ReinstateUserLearningPath(id: $id)
-}

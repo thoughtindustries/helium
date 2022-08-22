@@ -1,3 +1,0 @@
-mutation ArchiveUserLearningPath($id: ID!) {
-  ArchiveUserLearningPath(id: $id)
-}
