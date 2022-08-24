@@ -36,23 +36,21 @@ export default function CurrentUserNavBar() {
         </div>
 
         <div className="hidden md:block">
-          <div className="hidden md:block">
-            {navbar ? (
-              <button id="icon" type="submit" className="block" onClick={() => setNavbar(!navbar)}>
-                <div className="flex items-center space-x-3 mr-3">
-                  <Avatar size="" />
-                  <img src={dropDownOpen} />
-                </div>
-              </button>
-            ) : (
-              <button id="icon" type="submit" className="block" onClick={() => setNavbar(!navbar)}>
-                <div className="flex items-center space-x-3 mr-3">
-                  <Avatar size="" />
-                  <img src={dropDownClosed} />
-                </div>
-              </button>
-            )}
-          </div>
+          {navbar ? (
+            <button id="icon" type="submit" className="block" onClick={() => setNavbar(!navbar)}>
+              <div className="flex items-center space-x-3 mr-3">
+                <Avatar size="" />
+                <img src={dropDownOpen} />
+              </div>
+            </button>
+          ) : (
+            <button id="icon" type="submit" className="block" onClick={() => setNavbar(!navbar)}>
+              <div className="flex items-center space-x-3 mr-3">
+                <Avatar size="" />
+                <img src={dropDownClosed} />
+              </div>
+            </button>
+          )}
         </div>
       </div>
       {/* dropdown menu */}
