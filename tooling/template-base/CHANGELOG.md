@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.1.0-alpha.23](https://github.com/thoughtindustries/helium/compare/@thoughtindustries/helium-template@1.1.0-alpha.22...@thoughtindustries/helium-template@1.1.0-alpha.23) (2022-08-24)
+
+
+### Features
+
+* add engine version requirements to template-base ([#154](https://github.com/thoughtindustries/helium/issues/154)) ([9ed63f0](https://github.com/thoughtindustries/helium/commit/9ed63f0d7b059a3e8f5ddfc7321d6b865559dd88))
+
+
+
+
+
 # [1.1.0-alpha.22](https://github.com/thoughtindustries/helium/compare/@thoughtindustries/helium-template@1.1.0-alpha.21...@thoughtindustries/helium-template@1.1.0-alpha.22) (2022-08-18)
 
 

@@ -1,6 +1,6 @@
 {
   "name": "@thoughtindustries/helium-template",
-  "version": "1.1.0-alpha.22",
+  "version": "1.1.0-alpha.23",
   "scripts": {
     "authenticate": "helium authenticate",
     "deploy": "helium deploy",
@@ -47,7 +47,7 @@
     "vite-plugin-ssr": "^0.3.59"
   },
   "devDependencies": {
-    "@thoughtindustries/helium": "^1.1.0-alpha.7",
+    "@thoughtindustries/helium": "^1.1.0-alpha.8",
     "@types/node": "^17.0.23",
     "@types/react": "^17.0.39",
     "tsup": "^6.2.1",
