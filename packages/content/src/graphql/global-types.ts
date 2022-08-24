@@ -395,6 +395,7 @@ export enum CertificateResourceType {
 export type CertificateTemplate = {
   __typename?: 'CertificateTemplate';
   asset?: Maybe<Scalars['URL']>;
+  assetLibraryId?: Maybe<Scalars['ID']>;
   customCss?: Maybe<Scalars['String']>;
   expirationDate?: Maybe<Scalars['Date']>;
   expirationDays?: Maybe<Scalars['Int']>;
@@ -516,9 +517,12 @@ export type Client = {
 
 export type Company = {
   __typename?: 'Company';
+  appearanceSettings?: Maybe<AppearanceSettings>;
   catalogBlock?: Maybe<Block>;
   catalogVisibilityEmails?: Maybe<Array<Scalars['String']>>;
   id: Scalars['ID'];
+  micrositeFooter?: Maybe<MicrositeBlock>;
+  micrositeHeader?: Maybe<MicrositeBlock>;
   name?: Maybe<Scalars['String']>;
   organization?: Maybe<Organization>;
   subdomain?: Maybe<Scalars['String']>;
@@ -1170,6 +1174,20 @@ export type Meeting = {
   title?: Maybe<Scalars['String']>;
 };
 
+export type MicrositeBlock = {
+  __typename?: 'MicrositeBlock';
+  html?: Maybe<Scalars['String']>;
+  id: Scalars['ID'];
+  links?: Maybe<Array<MicrositeBlockLink>>;
+};
+
+export type MicrositeBlockLink = {
+  __typename?: 'MicrositeBlockLink';
+  asset?: Maybe<Scalars['String']>;
+  href: Scalars['String'];
+  label: Scalars['String'];
+};
+
 export type Milestone = {
   __typename?: 'Milestone';
   completionCriteria?: Maybe<Array<MilestoneCompletionCriteria>>;
@@ -1575,11 +1593,9 @@ export enum UserCustomFieldType {
 
 export type UserProgress = {
   __typename?: 'UserProgress';
-  course: Scalars['ID'];
   percentComplete?: Maybe<Scalars['Int']>;
   totalTime?: Maybe<Scalars['Int']>;
   totalViews?: Maybe<Scalars['Int']>;
-  user: Scalars['ID'];
 };
 
 export type UserRecommendedTag = {

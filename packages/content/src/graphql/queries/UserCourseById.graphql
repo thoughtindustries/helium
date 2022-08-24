@@ -1,0 +1,17 @@
+query UserCourseById($id: ID!) {
+  UserCourseById(id: $id) {
+    id
+    title
+    slug
+    createdAt
+    updatedAt
+    courseStartDate
+    courseEndDate
+    status
+    webinarId
+    parentCourseId
+    hasChildren
+    roster
+    discussionsEnabled
+  }
+}

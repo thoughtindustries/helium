@@ -67,12 +67,27 @@ module.exports = {
           80: '#cfcfcf',
           90: '#e7e7e7'
         },
+        active: {
+          blue: '#311ac9',
+          blueTinted: '#798cff'
+        },
+        'accent-colorized': {
+          cyan: '#1c83ae',
+          lime: '#8ad56e',
+          Matisse: '#17779f'
+        },
+        hover: '#236c96',
         'accent-contrast': '#ffffff',
         'accent-contrast-tinted-background': '#b3b3b3',
         'accent-hover': '#2b2b2b',
         'secondary-hover': '#2b2b2b',
         'secondary-contrast': '#ffffff',
-        'link-hover': '#767676'
+        'white-mid': '#f8f8f8',
+        'link-hover': '#767676',
+        'black-light': '#333333',
+        'gray-mid': '#656565',
+        'gray-light': ' #cbcbcb',
+        'gray-lightest': '#e9e9e9'
       },
       fontFamily: {
         primary: [getInstanceSetting('font', 'Sintony'), 'Nunito', 'sans-serif'],

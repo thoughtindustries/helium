@@ -8,7 +8,9 @@ import {
   StopwatchIcon,
   ChatIcon,
   ViewIcon,
-  FileIcon
+  FileIcon,
+  CheckIcon,
+  AwardCountIconGenerator
 } from '../Assets/Icons';
 import {
   useUserContentItemsQuery,
@@ -17,11 +19,12 @@ import {
   useUserCourseCollaborationsQuery,
   useUserCourseAwardCountsQuery,
   LoadingDots,
-  GlobalTypes,
   hydrateContent,
   HydratedContentItem,
-  formatTime
+  formatTime,
+  useUserCourseByIdQuery
 } from '@thoughtindustries/content';
+
 import { ArchiveButton } from './MutationCallingButtons';
 import { Tooltip } from '../Assets/Tooltips';
 import { useTranslation } from 'react-i18next';
@@ -40,20 +43,61 @@ const LoadUserLearning = ({ query, kind, sort }: LoadedComponentProps): JSX.Elem
 
   const { i18n, t } = useTranslation();
 
+  const AwardCountsContent = (courseId: string) => {
+    const { data, loading, error } = useUserCourseAwardCountsQuery({
+      variables: {
+        courseId
+      }
+    });
+
+    const awardCount = data?.UserCourseAwardCounts;
+
+    return awardCount?.map((awardCount, index) => (
+      <li
+        key={awardCount.id}
+        className="user-engagement-stat user-engagement-stat--hours relative px-2.5 pb-5 block float-left h-auto pt-0"
+      >
+        <div className="user-engagement-stat__label-container before:content-[''] before:bg-gray-light before:h-4/5 before:absolute before:top-0 before:right-0 before:w-px last:content-none">
+          <div className="user-engagement-stat__label user-engagement-stat__label--with-hint h-8  text-ellipsis text-gray-mid overflow-hidden text-center uppercase">
+            {awardCount.label}
+          </div>
+          {index == 0 && (
+            <div
+              className="user-engagement-stat__label-hint absolute"
+              style={{ top: '-.8rem', right: '-2.2rem' }}
+            >
+              <Tooltip description={t('dashboard.nightly-hint')} childComp={<HelpIcon />} />
+            </div>
+          )}
+        </div>
+
+        <div className="user-engagement-stat__value-container user-engagement-stat__value-container--huge text-2xl mt-1 text-center leading-10">
+          <span className="user-engagement-stat__value">
+            {AwardCountIconGenerator(awardCount.icon)}
+            <span className="user-engagement-stat__value">{awardCount.count}</span>
+          </span>
+        </div>
+      </li>
+    ));
+  };
+
   const ExpandedContent = ({ item }: { item: HydratedContentItem }): JSX.Element => {
-    const { data } = useUserCourseCompletionProgressQuery({
+    const { data: UserCourseCompletionProgressQuery } = useUserCourseCompletionProgressQuery({
+      variables: { id: item.id }
+    });
+    const courseCriteriaProgress = UserCourseCompletionProgressQuery?.UserCourseCompletionProgress;
+
+    const { data: useUserCourseProgressData } = useUserCourseProgressQuery({
       variables: { id: item.id }
     });
 
-    const courseCriteria = data?.UserCourseCompletionProgress;
-
-    const { data: useUserCourseProgressData, error: UserCourseProgressError } =
-      useUserCourseProgressQuery({
-        variables: { id: item.id }
-      });
-
     const courseProgress = useUserCourseProgressData?.UserCourseProgress;
 
+    const { data: courseByIdData } = useUserCourseByIdQuery({
+      variables: { id: item.id }
+    });
+
+    const courseData = courseByIdData?.UserCourseById;
     const { data: courseCollaborationsData } = useUserCourseCollaborationsQuery({
       variables: { courseId: item.id }
     });
@@ -67,6 +111,14 @@ const LoadUserLearning = ({ query, kind, sort }: LoadedComponentProps): JSX.Elem
       await new Promise(res => setTimeout(res, 100));
       await refetchContentGroups();
     }, [refetchContentGroups]);
+
+    const calcProgressBar = () =>
+      courseProgress?.percentComplete ? `[${courseProgress?.percentComplete}%]` : '0%';
+
+    const criteriaProgressByType = courseCriteriaProgress?.reduce((grouped: any, progress) => {
+      if (progress.type != undefined) grouped[progress.type] = progress;
+      return grouped;
+    }, {});
 
     return (
       <div
@@ -86,12 +138,15 @@ const LoadUserLearning = ({ query, kind, sort }: LoadedComponentProps): JSX.Elem
             <div className="user-engagement-stats">
               <ul className="my-0 -mx-3 p-0 grid grid-cols-4 text-xs text-gray-mid font-primary">
                 {courseProgress && (
-                  <li className="text-accent-colorized-cyan user-engagement-stat user-engagement-stat--hours relative px-2.5 pb-5 block float-left h-auto pt-0">
+                  <li className="user-engagement-stat user-engagement-stat--hours relative px-2.5 pb-5 block float-left h-auto pt-0">
                     <div className="user-engagement-stat__label-container before:content-[''] before:bg-gray-light before:h-4/5 before:absolute before:top-0 before:right-0 before:w-px last:content-none">
                       <div className="user-engagement-stat__label user-engagement-stat__label--with-hint h-8  text-ellipsis text-gray-mid overflow-hidden text-center uppercase">
                         {t('dashboard.hours').toUpperCase()}
                       </div>
-                      <div className="user-engagement-stat__label-hint absolute right-0">
+                      <div
+                        className="user-engagement-stat__label-hint absolute"
+                        style={{ top: '-.8rem', right: '-2.2rem' }}
+                      >
                         <Tooltip
                           description={t('dashboard.nightly-hint')}
                           childComp={<HelpIcon />}
@@ -100,7 +155,6 @@ const LoadUserLearning = ({ query, kind, sort }: LoadedComponentProps): JSX.Elem
                     </div>
 
                     <div className="user-engagement-stat__value-container user-engagement-stat__value-container--huge text-2xl mt-1 text-center leading-10">
-                      <i className="icon-stopwatch"></i>
                       <span className="user-engagement-stat__value">
                         <StopwatchIcon />
                         {((courseProgress.totalTime ? courseProgress.totalTime : 0) / 3600).toFixed(
@@ -111,7 +165,7 @@ const LoadUserLearning = ({ query, kind, sort }: LoadedComponentProps): JSX.Elem
                   </li>
                 )}
 
-                {courseCollaborations && (
+                {courseData?.discussionsEnabled && (
                   <li className="user-engagement-stat user-engagement-stat--hours relative px-2.5 pb-5 block float-left h-auto pt-0">
                     <div className="user-engagement-stat__label-container before:content-[''] before:bg-gray-light before:h-4/5 before:absolute before:top-0 before:right-0 before:w-px last:content-none">
                       <div className="user-engagement-stat__label user-engagement-stat__label--with-hint h-8  text-ellipsis text-gray-mid overflow-hidden text-center uppercase">
@@ -120,7 +174,6 @@ const LoadUserLearning = ({ query, kind, sort }: LoadedComponentProps): JSX.Elem
                     </div>
 
                     <div className="user-engagement-stat__value-container user-engagement-stat__value-container--huge text-2xl mt-1 text-center leading-10">
-                      <i className="icon-stopwatch"></i>
                       <span className="user-engagement-stat__value">
                         <ChatIcon />
                         {courseCollaborations}
@@ -128,46 +181,124 @@ const LoadUserLearning = ({ query, kind, sort }: LoadedComponentProps): JSX.Elem
                     </div>
                   </li>
                 )}
-                <li className="user-engagement-stat user-engagement-stat--hours relative px-2.5 pb-5 block float-left h-auto pt-0">
-                  <div className="user-engagement-stat__label-container before:content-[''] before:bg-gray-light before:h-4/5 before:absolute before:top-0 before:right-0 before:w-px last:content-none">
-                    <div className="user-engagement-stat__label user-engagement-stat__label--with-hint h-8  text-ellipsis text-gray-mid overflow-hidden text-center uppercase">
-                      {t('completion.course-percent-viewed').toUpperCase()}
+                {criteriaProgressByType?.coursePercentViewed && (
+                  <li className="user-engagement-stat user-engagement-stat--hours relative px-2.5 pb-5 block float-left h-auto pt-0">
+                    <div className="user-engagement-stat__label-container before:content-[''] before:bg-gray-light before:h-4/5 before:absolute before:top-0 before:right-0 before:w-px last:content-none">
+                      <div className="user-engagement-stat__label user-engagement-stat__label--with-hint h-8  text-ellipsis text-gray-mid overflow-hidden text-center uppercase">
+                        {t('completion.course-percent-viewed').toUpperCase()}
+                      </div>
                     </div>
-                  </div>
 
-                  <div className="user-engagement-stat__value-container user-engagement-stat__value-container--huge text-2xl mt-1 text-center leading-10">
-                    <i className="icon-stopwatch"></i>
-                    <span className="user-engagement-stat__value ">
-                      <ViewIcon />
-                      {/*  courseCriteria percent   */}
-                      <span className="text-xs leading-8 align-top">%</span>
-                    </span>
-                  </div>
-                </li>
-                {/*  courseCriteriacourse section  */}
-                <li className="user-engagement-stat user-engagement-stat--hours relative px-2.5 pb-5 block float-left h-auto pt-0 text-[#b6259e]">
-                  <div className="user-engagement-stat__label-container before:content-[''] before:bg-gray-light before:h-4/5 before:absolute before:top-0 before:right-0 before:w-px before:last:content-none">
-                    <div className="user-engagement-stat__label user-engagement-stat__label--with-hint h-8  text-ellipsis text-gray-mid overflow-hidden text-center uppercase">
-                      {t('dashboard.completed').toUpperCase()}
+                    <div className="user-engagement-stat__value-container user-engagement-stat__value-container--huge text-2xl mt-1 text-center leading-10">
+                      <span className="user-engagement-stat__value ">
+                        <ViewIcon />
+                        {criteriaProgressByType?.coursePercentViewed.percent}
+                        <span className="text-xs leading-8 align-top">%</span>
+                      </span>
                     </div>
-                  </div>
+                  </li>
+                )}
 
-                  <div className="user-engagement-stat__value-container user-engagement-stat__value-container--huge text-2xl mt-1 text-center leading-10">
-                    <i className="icon-stopwatch"></i>
-                    <span className="user-engagement-stat__value">
-                      {courseProgress?.percentComplete}
-                      <span className="text-xs leading-8 align-top">%</span>
-                    </span>
-                  </div>
-                </li>
+                {criteriaProgressByType?.courseAssignmentComplete && (
+                  <li className="user-engagement-stat user-engagement-stat--hours relative px-2.5 pb-5 block float-left h-auto pt-0">
+                    <div className="user-engagement-stat__label-container before:content-[''] before:bg-gray-light before:h-4/5 before:absolute before:top-0 before:right-0 before:w-px last:content-none">
+                      <div className="user-engagement-stat__label user-engagement-stat__label--with-hint h-8  text-ellipsis text-gray-mid overflow-hidden text-center uppercase">
+                        {t('dashboard.assignments').toUpperCase()}
+                      </div>
+                    </div>
+
+                    <div className="user-engagement-stat__value-container user-engagement-stat__value-container--huge text-2xl mt-1 text-center leading-10">
+                      <span className="user-engagement-stat__value ">
+                        <FileIcon />
+                        <span className="user-engagement-stat__value">{`${criteriaProgressByType?.courseAssignmentComplete?.completed}`}</span>
+                        <span className="user-engagement-stat__value--muted">
+                          / {`${criteriaProgressByType?.courseAssignmentComplete?.required.length}`}
+                        </span>
+                      </span>
+                    </div>
+                  </li>
+                )}
+                {criteriaProgressByType?.courseAssessmentPassed && (
+                  <li className="user-engagement-stat user-engagement-stat--hours relative px-2.5 pb-5 block float-left h-auto pt-0">
+                    <div className="user-engagement-stat__label-container before:content-[''] before:bg-gray-light before:h-4/5 before:absolute before:top-0 before:right-0 before:w-px last:content-none">
+                      <div className="user-engagement-stat__label user-engagement-stat__label--with-hint h-8  text-ellipsis text-gray-mid overflow-hidden text-center uppercase">
+                        {t('completion.course-assessments-passed').toUpperCase()}
+                      </div>
+                    </div>
+
+                    <div className="user-engagement-stat__value-container user-engagement-stat__value-container--huge text-2xl mt-1 text-center leading-10">
+                      <span className="user-engagement-stat__value ">
+                        <CheckIcon />
+                        <span className="user-engagement-stat__value">{`${criteriaProgressByType?.courseAssessmentPassed?.completed.length}`}</span>
+                        <span className="user-engagement-stat__value--muted">
+                          / {`${criteriaProgressByType?.courseAssessmentPassed?.required.length}`}
+                        </span>
+                      </span>
+                    </div>
+                  </li>
+                )}
+                {criteriaProgressByType?.courseTopicViewed && (
+                  <li className="user-engagement-stat user-engagement-stat--hours relative px-2.5 pb-5 block float-left h-auto pt-0">
+                    <div className="user-engagement-stat__label-container before:content-[''] before:bg-gray-light before:h-4/5 before:absolute before:top-0 before:right-0 before:w-px last:content-none">
+                      <div className="user-engagement-stat__label user-engagement-stat__label--with-hint h-8  text-ellipsis text-gray-mid overflow-hidden text-center uppercase">
+                        {t('completion.course-topic-viewed').toUpperCase()}
+                      </div>
+                    </div>
+
+                    <div className="user-engagement-stat__value-container user-engagement-stat__value-container--huge text-2xl mt-1 text-center leading-10">
+                      <span className="user-engagement-stat__value ">
+                        <ViewIcon />
+                        <span className="text-xs leading-8 align-top">{`${criteriaProgressByType?.courseTopicViewed?.completed.length} / ${criteriaProgressByType?.courseTopicViewed?.required.length}`}</span>
+                      </span>
+                    </div>
+                  </li>
+                )}
+                {criteriaProgressByType?.videoPercentViewed && (
+                  <li className="user-engagement-stat user-engagement-stat--hours relative px-2.5 pb-5 block float-left h-auto pt-0">
+                    <div className="user-engagement-stat__label-container before:content-[''] before:bg-gray-light before:h-4/5 before:absolute before:top-0 before:right-0 before:w-px last:content-none">
+                      <div className="user-engagement-stat__label user-engagement-stat__label--with-hint h-8  text-ellipsis text-gray-mid overflow-hidden text-center uppercase">
+                        {t('completion.course-video-viewed').toUpperCase()}
+                      </div>
+                    </div>
+
+                    <div className="user-engagement-stat__value-container user-engagement-stat__value-container--huge text-2xl mt-1 text-center leading-10">
+                      <span className="user-engagement-stat__value ">
+                        <ViewIcon />
+                        <span className="text-xs leading-8 align-top">{`${criteriaProgressByType?.videoPercentViewed?.completed.length} / ${criteriaProgressByType?.videoPercentViewed?.required.length}`}</span>
+                      </span>
+                    </div>
+                  </li>
+                )}
+                {courseData && (
+                  <li className="user-engagement-stat user-engagement-stat--hours relative px-2.5 pb-5 block float-left h-auto pt-0 text-[#b6259e]">
+                    <div className="user-engagement-stat__label-container before:content-[''] before:bg-gray-light before:h-4/5 before:absolute before:top-0 before:right-0 before:w-px last:content-none">
+                      <div className="user-engagement-stat__label user-engagement-stat__label--with-hint h-8  text-ellipsis text-gray-mid overflow-hidden text-center uppercase">
+                        {t('dashboard.completed').toUpperCase()}
+                      </div>
+                    </div>
+
+                    <div className="user-engagement-stat__value-container user-engagement-stat__value-container--huge text-2xl mt-1 text-center leading-10">
+                      <span className="user-engagement-stat__value">
+                        {courseProgress?.percentComplete}
+                        <span className="text-xs leading-8 align-top">%</span>
+                      </span>
+                    </div>
+                  </li>
+                )}
+                {AwardCountsContent(item.id)}
               </ul>
             </div>
 
-            <div className="user-engagement-progress-bar ">
-              <div className="nice round progress colorized rounded-[999px] bg-gray-light border-white border-solid border h-4 mb-2 p-px">
-                <span className="block h-full w-full rounded-[999px] bg-gradient-to-r from-accent-colorized-cyan to-accent-colorized-lime ease-in-out duration-200 transition-width"></span>
+            {courseData && (
+              <div className="user-engagement-progress-bar ">
+                <div className="nice round progress colorized rounded-[999px] bg-gray-light border-white border-solid border h-4 mb-2 p-px">
+                  <span
+                    className="block h-full rounded-[999px] bg-gradient-to-r from-accent-colorized-cyan to-accent-colorized-lime ease-in-out duration-200 transition-width"
+                    style={{ width: calcProgressBar() }}
+                  ></span>
+                </div>
               </div>
-            </div>
+            )}
           </div>
         </div>
         <div className=" archive mt-2 row-end-4 text-black-light relative">
@@ -187,7 +318,7 @@ const LoadUserLearning = ({ query, kind, sort }: LoadedComponentProps): JSX.Elem
     return (
       <div
         key={item.id}
-        className="border-solid p-4 text-black-light border-gray-light px-4 py-[0.5rem] even:bg-white-mid border-b last:border-b-0"
+        className="p-4 text-black-light border-gray-light px-4 py-[0.5rem] even:bg-white-mid border-b last:border-b-0"
       >
         <div className="my-0 mx-auto max-w-full w-full">
           <div className="grid items-center grid-cols-12 gap-4">
@@ -233,6 +364,20 @@ const LoadUserLearning = ({ query, kind, sort }: LoadedComponentProps): JSX.Elem
               >
                 {item.callToAction}
               </button>
+              <div className="flex flex-col">
+                {item.currentUserMayReschedule && (
+                  <a className="hover:text-hover" href={`/learn/reschedule/${item.title}`}>
+                    <small>
+                      <span>{t('reschedule-course')}</span>
+                    </small>
+                  </a>
+                )}
+                {item.expiresAt && (
+                  <small>
+                    <span className="text-gray-mid">{t('access-expires')}</span>{' '}
+                  </small>
+                )}
+              </div>
             </div>
           </div>
           {showContent && <ExpandedContent item={item} />}

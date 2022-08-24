@@ -58,7 +58,8 @@ module.exports = {
         },
         'accent-colorized': {
           cyan: '#1c83ae',
-          lime: '#8ad56e'
+          lime: '#8ad56e',
+          Matisse: '#17779f'
         },
         'accent-contrast': '#ffffff',
         'accent-contrast-tinted-background': '#b3b3b3',

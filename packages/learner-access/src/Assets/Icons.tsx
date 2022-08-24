@@ -18,9 +18,7 @@ const arrowStyle: React.CSSProperties = {
 
 const HelpIconStyle: React.CSSProperties = {
   width: '30px',
-  height: '30px',
-  position: 'absolute',
-  bottom: '25px'
+  height: '30px'
 };
 
 const MoveIconStyle: React.CSSProperties = {
@@ -31,7 +29,7 @@ const MoveIconStyle: React.CSSProperties = {
 };
 
 export const UploadIcon = (): JSX.Element => (
-  <i className="icon-upload" style={{ display: 'inline-block', position: 'relative' }}>
+  <i className="icon-upload fill-current" style={{ display: 'inline-block', position: 'relative' }}>
     <svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -20 150 50" style={uploadStyle}>
       <path
         style={{
@@ -65,7 +63,7 @@ export const UploadIcon = (): JSX.Element => (
 
 export const AlertIcon = () => (
   <i
-    className="icon-alert"
+    className="icon-alert fill-current"
     aria-label="alert"
     style={{ display: 'inline-block', position: 'relative' }}
   >
@@ -124,7 +122,7 @@ export const HelpIcon = (): JSX.Element => (
   <i
     className="icon-help"
     aria-label="upload"
-    style={{ display: 'inline-block', position: 'relative', marginRight: '2rem' }}
+    style={{ display: 'inline-block', position: '', marginRight: '2rem' }}
   >
     <svg xmlns="http://www.w3.org/2000/svg" viewBox="10 -20 1 55" style={HelpIconStyle}>
       <path
@@ -166,7 +164,7 @@ export const EditIcon = (): JSX.Element => (
 
 export const StopwatchIcon = (): JSX.Element => (
   <i
-    className="icon-stopwatch"
+    className="icon-stopwatch fill-current"
     style={{ display: 'inline-block', position: 'relative', top: '2px' }}
   >
     <svg
@@ -182,11 +180,11 @@ export const StopwatchIcon = (): JSX.Element => (
 );
 
 export const ChatIcon = (): JSX.Element => (
-  <i className="icon-chat" style={{ display: 'inline-block', position: 'relative', top: '2px' }}>
+  <i className="icon-chat fill-current" style={{ display: 'inline-block', top: '2px' }}>
     <svg
       xmlns="http://www.w3.org/2000/svg"
       className="fill-current"
-      viewBox="0 0 48 48"
+      viewBox="0 -5 71 28"
       width={32}
       height={32}
     >
@@ -196,7 +194,10 @@ export const ChatIcon = (): JSX.Element => (
 );
 
 export const ViewIcon = (): JSX.Element => (
-  <i className="icon-view" style={{ display: 'inline-block', position: 'relative', top: '2px' }}>
+  <i
+    className="icon-view fill-current"
+    style={{ display: 'inline-block', position: 'relative', top: '2px' }}
+  >
     <svg
       xmlns="http://www.w3.org/2000/svg"
       viewBox="1 -15 150 70"
@@ -211,7 +212,13 @@ export const ViewIcon = (): JSX.Element => (
 
 export const FileIcon = (): JSX.Element => (
   <i className="icon-file" style={{ display: 'inline-block', position: 'relative', top: '2px' }}>
-    <svg xmlns="http://www.w3.org/2000/svg" width={32} height={32} className="fill-current">
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      width={32}
+      height={32}
+      viewBox="0 0 95 35"
+      className="fill-current"
+    >
       <path
         style={{
           stroke: 'none',
@@ -225,8 +232,11 @@ export const FileIcon = (): JSX.Element => (
 );
 
 export const TrashIcon = (): JSX.Element => (
-  <i className="trash-file" style={{ display: 'inline-block', position: 'relative', top: '4px' }}>
-    <svg viewBox="1 -15 20 46" xmlns="http://www.w3.org/2000/svg" width={32} height={32}>
+  <i
+    className="trash-file fill-current"
+    style={{ display: 'inline-block', position: 'relative', top: '4px' }}
+  >
+    <svg viewBox="0 0 95 25" width={32} height={32} xmlns="http://www.w3.org/2000/svg">
       <path
         style={{
           stroke: 'none',
@@ -241,7 +251,10 @@ export const TrashIcon = (): JSX.Element => (
 );
 
 export const RepeatIcon = (): JSX.Element => (
-  <i className="trash-repeat" style={{ display: 'inline-block', position: 'relative' }}>
+  <i
+    className="trash-repeat fill-current"
+    style={{ display: 'inline-block', position: 'relative' }}
+  >
     <svg xmlns="http://www.w3.org/2000/svg" width={34} height={34} viewBox="-11 0 70 80">
       <path
         style={{
@@ -272,3 +285,309 @@ export const RepeatIcon = (): JSX.Element => (
     </svg>
   </i>
 );
+
+export const CheckIcon = (): JSX.Element => (
+  <i className="icon-check fill-current" style={{ display: 'inline-block', position: 'relative' }}>
+    <svg xmlns="http://www.w3.org/2000/svg" width={32} height={32} viewBox="0 0 130 25">
+      <path
+        style={{
+          stroke: 'none',
+          fillRule: 'nonzero',
+          fill: '#656565',
+          fillOpacity: 1
+        }}
+        d="M42 78a7.897 7.897 0 0 1-5.07-1.813L9.676 52.755a3.02 3.02 0 0 1-.367-4.176l6.328-7.746a3.007 3.007 0 0 1 2.066-1.094 3.007 3.007 0 0 1 2.227.723L41.2 58.93l34.198-37.543a3 3 0 0 1 4.22-.219l7.456 6.691c.594.536.953 1.282.992 2.078a2.99 2.99 0 0 1-.773 2.172L47.961 75.348A8.08 8.08 0 0 1 42 78Zm0 0"
+      />
+    </svg>
+  </i>
+);
+
+export const FullStarIcon = (): JSX.Element => (
+  <i className="icon-star fill-current" style={{ display: 'inline-block', position: 'relative' }}>
+    <svg xmlns="http://www.w3.org/2000/svg" width={32} height={32} viewBox="0 0 130 25">
+      <path
+        style={{
+          stroke: 'none',
+          fillRule: 'nonzero',
+          fill: '#656565',
+          fillOpacity: 1
+        }}
+        d="m31.531 4.867 5.75 17.024 17.965.21c1.547.016 2.188 1.989.945 2.91L41.777 35.739l5.356 17.153c.46 1.476-1.215 2.691-2.477 1.797L30 44.293 15.344 54.688c-1.262.89-2.938-.325-2.477-1.801l5.352-17.153L3.805 25.008c-1.239-.922-.598-2.89.949-2.91l17.965-.207 5.75-17.024c.496-1.465 2.566-1.465 3.062 0Zm0 0"
+      />
+    </svg>
+  </i>
+);
+
+export const HalfStarIcon = (): JSX.Element => (
+  <i className="icon-star fill-current" style={{ display: 'inline-block', position: 'relative' }}>
+    <svg xmlns="http://www.w3.org/2000/svg" width={32} height={32} viewBox="0 0 130 25">
+      <path
+        style={{
+          stroke: 'none',
+          fillRule: 'nonzero',
+          fill: '#656565',
+          fillOpacity: 1
+        }}
+        d="M79.602 97.2c-.403 0-.801-.2-1-.4L50 78.603 21.398 97c-.597.398-1.597.398-2.199 0-.597-.398-1-1.398-.8-2.2l8.8-32.8L.801 40.398C0 39.801-.2 39 0 38.2c.2-.8 1-1.398 1.8-1.398L35.8 35 48.2 3.2c.198-.598 1-1.2 1.8-1.2s1.602.602 1.8 1.2L64.2 35l34 1.8c.8 0 1.6.598 1.8 1.4.2.8 0 1.6-.602 2.198L72.801 62l8.597 32.8c.204.802 0 1.598-.796 2.2-.204 0-.602.2-1 .2ZM50 74.2s.8.198 1 .402L76.2 90.8l-7.598-29c-.204-.801 0-1.602.597-2l23.403-19.2-30-1.601c-.801 0-1.403-.602-1.801-1.2L50 9.603Zm0 0"
+      />
+    </svg>
+  </i>
+);
+
+export const LightbulbIcon = (): JSX.Element => (
+  <i
+    className="icon-lightbulb fill-current"
+    style={{ display: 'inline-block', position: 'relative' }}
+  >
+    <svg xmlns="http://www.w3.org/2000/svg" width={32} height={32} viewBox="0 0 130 25">
+      <path
+        style={{
+          stroke: 'none',
+          fillRule: 'nonzero',
+          fill: '#656565',
+          fillOpacity: 1
+        }}
+        d="M24 2.5c-8.523.266-15.23 7.371-15 15.898a16.25 16.25 0 0 0 5.441 12.239 2.48 2.48 0 0 1 .86 1.863H14a1.5 1.5 0 0 0 0 3h20a1.5 1.5 0 0 0 0-3h-1.3c.003-.723.32-1.406.87-1.875A16.242 16.242 0 0 0 39 18.398C39.23 9.871 32.523 2.766 24 2.5Zm0 3c6.867.266 12.23 6.031 12 12.898.031 3.801-1.57 7.43-4.398 9.965a5.464 5.464 0 0 0-1.903 4.137H25.5v-4.871a5.466 5.466 0 0 0 2.387-1.399l1.172-1.171a1.504 1.504 0 0 0-.063-2.055 1.504 1.504 0 0 0-2.055-.063l-1.171 1.172a2.504 2.504 0 0 1-3.54 0l-1.171-1.172a1.504 1.504 0 0 0-2.055.063 1.504 1.504 0 0 0-.063 2.055l1.172 1.18a5.496 5.496 0 0 0 2.387 1.394V32.5h-4.2c0-1.586-.69-3.09-1.89-4.125A13.242 13.242 0 0 1 12 18.398C11.77 11.531 17.133 5.766 24 5.5Zm-8.063 31a1.5 1.5 0 0 0 .063 3h.5v.5a5.508 5.508 0 0 0 5.5 5.5h4a5.508 5.508 0 0 0 5.5-5.5v-.5h.5a1.5 1.5 0 0 0 0-3H15.937Zm3.563 3h9v.5a2.507 2.507 0 0 1-2.5 2.5h-4a2.507 2.507 0 0 1-2.5-2.5Zm0 0"
+      />
+    </svg>
+  </i>
+);
+
+export const LikeIcon = (): JSX.Element => (
+  <i className="icon-like fill-current" style={{ display: 'inline-block', position: 'relative' }}>
+    <svg xmlns="http://www.w3.org/2000/svg" width={32} height={32} viewBox="0 0 130 25">
+      <path
+        style={{
+          stroke: 'none',
+          fillRule: 'nonzero',
+          fill: '#656565',
+          fillOpacity: 1
+        }}
+        d="M48 8c-2.352 0-4.617 1.453-6.125 3.813-.055.078-.14.109-.188.187L19.375 42.625A18.041 18.041 0 0 0 16 53.188V72c0 9.89 8.11 18 18 18h38c3.031 0 5.54-1.227 7.25-2.875s2.75-3.68 2.75-5.75c0-1.71-.398-3.117-.813-4.188C83.133 76.141 86 74.157 86 69.626c0-2.852-1.383-4.719-2.75-5.938 1.367-1.343 2.75-3.32 2.75-6.312 0-4.484-2.844-6.32-4.5-7.188.172-1.03.5-2.546.5-4.374 0-3.915-3.695-7.594-9.125-7.626h-.063c-6.21-.18-21.21-.187-24.937-.187.664-1.492 1.148-2.531 2.375-5.313 1.867-4.234 3.828-8.671 4.438-10.374v-.063C55.227 20.82 56 19.406 56 17.187c0-3.085-1.203-5.492-2.813-7C51.578 8.68 49.703 8 48 8Zm0 4c.492 0 1.594.336 2.438 1.125.843.79 1.562 1.953 1.562 4.063 0 1.359-.406 1.93-1.063 3.687v.063c-.398 1.117-2.437 5.882-4.312 10.125C44.75 35.304 43 39.188 43 39.188a2.002 2.002 0 0 0 .148 1.898c.368.562.993.906 1.664.914 0 0 21.258-.008 27.938.188h.063c3.726 0 5.187 2.359 5.187 3.624 0 1.602-.563 5.063-.563 5.063a1.994 1.994 0 0 0 1.313 2.188S82 54.108 82 57.374c0 2.93-2.938 4.688-2.938 4.688A2.008 2.008 0 0 0 78 63.937a1.99 1.99 0 0 0 1.25 1.75S82 66.695 82 69.626c0 3.297-4.125 4.875-4.125 4.875a1.984 1.984 0 0 0-1.234 1.297 1.98 1.98 0 0 0 .296 1.766S78 79 78 81.374c0 .531-.46 1.875-1.5 2.875S73.969 86 72 86H34c-7.71 0-14-6.29-14-14V53.187c0-2.992.883-5.726 2.625-8.187.008-.016-.008-.047 0-.063L45 14.188c.047-.062.086-.124.125-.187.898-1.492 2.11-2 2.875-2Zm0 0"
+      />
+    </svg>
+  </i>
+);
+
+export const LoadingIcon = (): JSX.Element => (
+  <i
+    className="icon-loading fill-current"
+    style={{ display: 'inline-block', position: 'relative' }}
+  >
+    <svg xmlns="http://www.w3.org/2000/svg" width={32} height={32} viewBox="0 0 130 25">
+      <path
+        style={{
+          stroke: 'none',
+          fillRule: 'evenodd',
+          fill: '#656565',
+          fillOpacity: 1
+        }}
+        d="M71.469 14.762c2.992 0 5.453 2.46 5.453 5.449V39.8c0 2.988-2.461 5.449-5.453 5.449-2.989 0-5.45-2.46-5.45-5.45V20.21c0-2.987 2.461-5.448 5.45-5.448ZM71.469 104.918c2.992 0 5.453 2.46 5.453 5.45v19.585c0 2.992-2.461 5.453-5.453 5.453-2.989 0-5.45-2.46-5.45-5.453v-19.586c0-2.988 2.461-5.449 5.45-5.449ZM11.148 75.082c0-2.988 2.461-5.45 5.45-5.45h19.59c2.988 0 5.449 2.462 5.449 5.45 0 2.992-2.461 5.45-5.45 5.45h-19.59c-2.988 0-5.449-2.458-5.449-5.45ZM101.273 75.082c0-2.988 2.461-5.45 5.45-5.45h19.59c2.988 0 5.449 2.462 5.449 5.45 0 2.992-2.461 5.45-5.45 5.45h-19.59c-2.988 0-5.449-2.458-5.449-5.45ZM28.805 32.418a5.456 5.456 0 0 1 7.695 0l13.855 13.86a5.45 5.45 0 0 1 0 7.69 5.45 5.45 0 0 1-7.69 0L28.804 40.11a5.45 5.45 0 0 1 0-7.691ZM92.555 96.168a5.444 5.444 0 0 1 7.691 0l13.86 13.855a5.45 5.45 0 0 1 0 7.692 5.456 5.456 0 0 1-7.696 0l-13.855-13.856a5.45 5.45 0 0 1 0-7.691ZM28.805 117.715a5.456 5.456 0 0 0 7.695 0l13.855-13.856a5.45 5.45 0 0 0 0-7.691 5.444 5.444 0 0 0-7.69 0l-13.86 13.855a5.45 5.45 0 0 0 0 7.692ZM92.555 54a5.45 5.45 0 0 0 7.691 0l13.86-13.86a5.45 5.45 0 0 0 0-7.69 5.456 5.456 0 0 0-7.696 0L92.555 46.308a5.45 5.45 0 0 0 0 7.691Zm0 0"
+      />
+    </svg>
+  </i>
+);
+
+export const SignpostIcon = (): JSX.Element => (
+  <i
+    className="icon-signpost fill-current"
+    style={{ display: 'inline-block', position: 'relative' }}
+  >
+    <svg xmlns="http://www.w3.org/2000/svg" width={32} height={32} viewBox="0 0 130 25">
+      <path
+        style={{
+          stroke: 'none',
+          fillRule: 'nonzero',
+          fill: '#656565',
+          fillOpacity: 1
+        }}
+        d="M49 2c-2.734 0-5 2.266-5 5v5H19.812A1.992 1.992 0 0 0 18 14v24c0 1.102.898 2 2 2h24v6H11.812c-.539.055-1.039.32-1.374.75l-10 12a1.998 1.998 0 0 0 0 2.5l10 12c.382.477.953.75 1.562.75h32v26h4V74h2v26h4V74h26c1.102 0 2-.898 2-2V48c0-1.102-.898-2-2-2H54v-6h34c.61 0 1.18-.273 1.563-.75l10-12a1.998 1.998 0 0 0 0-2.5l-10-12A1.997 1.997 0 0 0 88 12H54V7c0-2.734-2.266-5-5-5Zm0 4c.57 0 1 .43 1 1v5h-2V7c0-.57.43-1 1-1ZM22 16h65.063l8.312 10-8.313 10H22Zm26 24h2v6h-2ZM12.937 50H78v20H12.937L4.626 60Zm0 0"
+      />
+    </svg>
+  </i>
+);
+
+export const FlagIcon = (): JSX.Element => (
+  <i className="icon-flag fill-current" style={{ display: 'inline-block', position: 'relative' }}>
+    <svg xmlns="http://www.w3.org/2000/svg" width={32} height={32} viewBox="0 0 130 25">
+      <path
+        style={{
+          stroke: 'none',
+          fillRule: 'nonzero',
+          fill: '#656565',
+          fillOpacity: 1
+        }}
+        d="M26 0C15.953 0 9.758.992 6 2.063c-1.883.53-3.156 1.109-4 1.562-.273.148-.422.305-.625.438-.047.03-.14.03-.188.062-.21.11-.406.258-.562.438H.562L.5 4.688c-.07.054-.133.117-.188.187L0 5.125v.5a1.336 1.336 0 0 0 0 .25V98c-.008.719.367 1.39.992 1.758.625.36 1.39.36 2.016 0 .625-.367 1-1.04.992-1.758V61.312c.836-.335 2.094-.804 4.375-1.374C12.188 58.977 18.031 58 26 58c7.805 0 13.594 1.922 20.625 3.938C53.656 63.953 61.844 66 74 66c14.047 0 25-6.25 25-6.25l1-.563V4.626L97.062 6.25C95.422 7.14 86.023 12 74 12c-9.555 0-16.219-2.813-23.25-5.813C43.719 3.188 36.32 0 26 0Zm0 4c9.508 0 16.156 2.813 23.188 5.813C56.218 12.813 63.648 16 74 16c10.766 0 18.227-3.188 22-5v45.688C94.633 57.422 85.898 62 74 62c-11.703 0-19.375-1.953-26.313-3.938C40.75 56.078 34.462 54 26 54c-8.297 0-14.438 1.023-18.563 2.063-2.226.562-2.375.765-3.437 1.187V7.062c.57-.296 1.547-.68 3.125-1.125C10.406 5.008 16.219 4 26 4Zm0 0"
+      />
+    </svg>
+  </i>
+);
+export const TagIcon = (): JSX.Element => (
+  <i className="icon-tag fill-current" style={{ display: 'inline-block', position: 'relative' }}>
+    <svg xmlns="http://www.w3.org/2000/svg" width={32} height={32} viewBox="0 0 130 25">
+      <path
+        style={{
+          stroke: 'none',
+          fillRule: 'nonzero',
+          fill: '#656565',
+          fillOpacity: 1
+        }}
+        d="M60.8 0H40.16c-.855 0-1.656.332-2.262.938L.95 37.886A3.161 3.161 0 0 0 0 40.152c0 .86.336 1.664.945 2.266l20.633 20.637c.606.61 1.41.949 2.27.949.859 0 1.664-.34 2.265-.945l36.953-36.954c.602-.605.938-1.41.938-2.265V3.2c0-1.766-1.438-3.2-3.203-3.2Zm1.071 23.84c0 .285-.113.555-.312.758L24.598 61.555a1.073 1.073 0 0 1-1.504-.004L2.449 40.906a1.058 1.058 0 0 1-.316-.754c0-.28.113-.547.32-.754L39.406 2.445c.2-.199.473-.312.754-.312H60.8c.59 0 1.071.48 1.071 1.066Zm0 0"
+      />
+      <path
+        style={{
+          stroke: 'none',
+          fillRule: 'nonzero',
+          fill: '#656565',
+          fillOpacity: 1
+        }}
+        d="M50.137 8.535a5.34 5.34 0 0 0-5.336 5.332 5.34 5.34 0 0 0 5.336 5.332 5.336 5.336 0 0 0 5.332-5.332 5.336 5.336 0 0 0-5.332-5.332Zm0 8.531a3.2 3.2 0 0 1-3.2-3.199 3.2 3.2 0 0 1 3.2-3.199 3.2 3.2 0 0 1 3.199 3.2 3.2 3.2 0 0 1-3.2 3.198Zm0 0"
+      />
+    </svg>
+  </i>
+);
+export const GlobeIcon = (): JSX.Element => (
+  <i className="icon-Glob fill-current" style={{ display: 'inline-block', position: 'relative' }}>
+    <svg xmlns="http://www.w3.org/2000/svg" width={32} height={32} viewBox="0 0 130 25">
+      <path
+        style={{
+          stroke: 'none',
+          fillRule: 'nonzero',
+          fill: '#656565',
+          fillOpacity: 1
+        }}
+        d="M24 4C12.977 4 4 12.977 4 24s8.977 20 20 20 20-8.977 20-20S35.023 4 24 4Zm0 4c.496 0 1.04.203 1.734.863.696.66 1.446 1.766 2.094 3.223.492 1.11.895 2.46 1.242 3.914H18.93c.347-1.453.75-2.805 1.242-3.914.648-1.457 1.398-2.563 2.094-3.223C22.96 8.203 23.504 8 24 8Zm-7.098 1.668c-.129.262-.265.52-.386.793-.723 1.629-1.286 3.512-1.707 5.539h-4.664a15.995 15.995 0 0 1 6.757-6.332Zm14.196 0A15.995 15.995 0 0 1 37.855 16h-4.664c-.421-2.027-.984-3.91-1.707-5.54-.12-.273-.257-.53-.386-.792ZM8.523 20h5.672A42.867 42.867 0 0 0 14 24c0 1.371.074 2.707.195 4H8.523A16.062 16.062 0 0 1 8 24c0-1.387.195-2.719.523-4Zm9.711 0h11.532A36.59 36.59 0 0 1 30 24a36.59 36.59 0 0 1-.234 4H18.234A36.59 36.59 0 0 1 18 24c0-1.387.094-2.715.234-4Zm15.57 0h5.673c.328 1.281.523 2.613.523 4s-.195 2.719-.523 4h-5.672c.12-1.293.195-2.629.195-4s-.074-2.707-.195-4Zm-23.66 12h4.665c.421 2.027.984 3.91 1.707 5.54.12.273.257.53.386.792A15.995 15.995 0 0 1 10.145 32Zm8.786 0h10.14c-.347 1.453-.75 2.805-1.242 3.914-.648 1.457-1.398 2.563-2.094 3.223-.695.66-1.238.863-1.734.863s-1.04-.203-1.734-.863c-.696-.66-1.446-1.766-2.094-3.223-.492-1.11-.895-2.46-1.242-3.914Zm14.261 0h4.664a15.995 15.995 0 0 1-6.757 6.332c.129-.262.265-.52.386-.793.723-1.629 1.286-3.512 1.707-5.539Zm0 0"
+      />
+    </svg>
+  </i>
+);
+export const HeartIcon = (): JSX.Element => (
+  <i className="icon-heart fill-current" style={{ display: 'inline-block', position: 'relative' }}>
+    <svg xmlns="http://www.w3.org/2000/svg" width={32} height={32} viewBox="0 0 130 25">
+      <path
+        style={{
+          stroke: 'none',
+          fillRule: 'nonzero',
+          fill: '#656565',
+          fillOpacity: 1
+        }}
+        d="M33 6c-5.79 0-9 4.18-9 4.18S20.79 6 15 6C8.926 6 4 10.926 4 17c0 8.344 9.824 16.426 12.563 18.98C19.715 38.922 24 42.7 24 42.7s4.285-3.778 7.438-6.72C34.175 33.426 44 25.344 44 17c0-6.074-4.926-11-11-11Zm-3.379 26.219c-.351.32-.66.597-.91.832A344.845 344.845 0 0 1 24 37.344a347.11 347.11 0 0 1-4.71-4.293c-.25-.235-.56-.512-.911-.832C15.539 29.652 8 22.839 8 17c0-3.86 3.14-7 7-7 3.652 0 5.773 2.55 5.828 2.617L24 16l3.172-3.383C27.192 12.59 29.348 10 33 10c3.86 0 7 3.14 7 7 0 5.84-7.54 12.652-10.379 15.219Zm0 0"
+      />
+    </svg>
+  </i>
+);
+export const BusinessuserIcon = (): JSX.Element => (
+  <i
+    className="icon-businessuser fill-current"
+    style={{ display: 'inline-block', position: 'relative' }}
+  >
+    <svg xmlns="http://www.w3.org/2000/svg" width={32} height={32} viewBox="0 0 130 25">
+      <path
+        style={{
+          stroke: 'none',
+          fillRule: 'nonzero',
+          fill: '#656565',
+          fillOpacity: 1
+        }}
+        d="M151.781 164.043a5.02 5.02 0 0 0 5.024-5.023v-39.118c0-10.515-3.946-24.398-21.5-33.675 6.078-8.829 9.664-19.52 9.664-31.04 0-30.148-24.387-54.675-54.371-54.675-29.961 0-54.34 24.527-54.34 54.675 0 11.543 3.597 22.25 9.695 31.09C32.352 93.73 25.2 105.242 25.2 119.902v39.114a5.025 5.025 0 1 0 10.051 0v-39.114c0-11.593 5.738-20.004 17.352-25.699 7.308 7.207 16.605 12.371 26.996 14.531l-10.84 52.836a5.031 5.031 0 0 0 1.777 4.942l17.34 13.863a5.001 5.001 0 0 0 3.133 1.102 5.007 5.007 0 0 0 3.14-1.102l17.32-13.867a5.03 5.03 0 0 0 1.782-4.95l-11.031-52.98c10.16-2.234 19.265-7.324 26.437-14.406 12.117 5.707 18.098 14.125 18.098 25.73v39.121c0 2.77 2.25 5.02 5.027 5.02Zm-60.773 5.973-11.793-9.43 9.55-46.543h4.32l9.692 46.547Zm-.41-70.203c-24.418 0-44.293-20.024-44.293-44.626 0-24.605 19.875-44.632 44.293-44.632 24.445 0 44.316 20.023 44.316 44.629 0 24.605-19.871 44.629-44.316 44.629Zm0 0"
+      />
+    </svg>
+  </i>
+);
+export const GiftIcon = (): JSX.Element => (
+  <i className="icon-gift fill-current" style={{ display: 'inline-block', position: 'relative' }}>
+    <svg xmlns="http://www.w3.org/2000/svg" width={32} height={32} viewBox="0 0 130 25">
+      <path
+        style={{
+          stroke: 'none',
+          fillRule: 'nonzero',
+          fill: '#656565',
+          fillOpacity: 1
+        }}
+        d="M24.625 2c-3.86 0-6.734 1.29-8.438 3.313C14.485 7.335 14 9.851 14 12c0 5.11 2.766 9.258 6.563 11.938 1.171.828 2.414 1.484 3.75 2.062H2v22h4v50h88V48h4V26H75.687c1.336-.578 2.579-1.234 3.75-2.063C83.234 21.258 86 17.11 86 12c0-2.148-.484-4.664-2.188-6.688C82.11 3.29 79.234 2 75.376 2c-3.992 0-7.219 1.688-9.625 4-2.406 2.313-4.133 5.227-5.75 8-1.617 2.773-3.14 5.438-4.75 7.25C53.64 23.063 52.172 24 50 24s-3.64-.938-5.25-2.75C43.14 19.437 41.617 16.773 40 14c-1.617-2.773-3.344-5.688-5.75-8-2.406-2.313-5.633-4-9.625-4Zm0 4c2.93 0 4.93 1.063 6.813 2.875 1.882 1.813 3.539 4.398 5.125 7.125 1.585 2.727 3.14 5.563 5.187 7.875.04.047.086.078.125.125H34c-4.031 0-8.195-1.203-11.188-3.313C19.82 18.578 18 15.727 18 12c0-1.508.36-3 1.25-4.063C20.14 6.875 21.602 6 24.625 6Zm50.75 0c3.023 0 4.484.875 5.375 1.938C81.64 9 82 10.492 82 12c0 3.727-1.82 6.578-4.813 8.688C74.195 22.797 70.031 24 66 24h-7.875c.04-.047.086-.078.125-.125 2.047-2.313 3.602-5.148 5.188-7.875 1.585-2.727 3.242-5.313 5.124-7.125C70.445 7.062 72.445 6 75.376 6ZM6 30h32v14H6Zm36 0h16v16c-.016.148-.016.29 0 .438V94H42V46.375c.016-.125.016-.25 0-.375a1.336 1.336 0 0 0 0-.25v-.188Zm20 0h32v14H62ZM10 48h28v46H10Zm52 0h28v46H62Zm0 0"
+      />
+    </svg>
+  </i>
+);
+export const CheckfileIcon = (): JSX.Element => (
+  <i
+    className="icon-checkfile fill-current"
+    style={{ display: 'inline-block', position: 'relative' }}
+  >
+    <svg xmlns="http://www.w3.org/2000/svg" width={32} height={32} viewBox="0 0 130 25">
+      <path
+        style={{
+          stroke: 'none',
+          fillRule: 'evenodd',
+          fill: '#656565',
+          fillOpacity: 1
+        }}
+        d="M12 5c-1.66 0-3 1.34-3 3v32c0 1.64 1.34 3 3 3h24c1.64 0 3-1.36 3-3V17.82c0-.879-.398-1.718-1.059-2.28L26.461 5.7a2.994 2.994 0 0 0-1.961-.74H11.96ZM7 8c0-2.781 2.219-5 5-5h12.52c1.18 0 2.34.422 3.242 1.2l11.457 9.82a4.972 4.972 0 0 1 1.742 3.78v22.16c0 2.759-2.242 5-5 5h-24a4.99 4.99 0 0 1-5-5v-32Zm0 0"
+      />
+      <path
+        style={{
+          stroke: 'none',
+          fillRule: 'evenodd',
+          fill: '#656565',
+          fillOpacity: 1
+        }}
+        d="M25 12V5h2v7c0 1.64 1.34 3 3 3h9v2h-9c-2.781 0-5-2.238-5-5ZM32.7 24.7l-11 11c-.4.378-1.04.378-1.419 0l-5.02-5 1.4-1.419 4.28 4.278L31.22 23.262l1.402 1.398Zm0 0"
+      />
+    </svg>
+  </i>
+);
+
+export const StarIcon = (): JSX.Element => (
+  <i className="icon-star fill-current" style={{ display: 'inline-block', position: 'relative' }}>
+    <svg xmlns="http://www.w3.org/2000/svg" width={32} height={32} viewBox="0 0 130 25">
+      <path
+        style={{
+          stroke: 'none',
+          fillRule: 'nonzero',
+          fill: '#696969',
+          fillOpacity: 1
+        }}
+        d="M50 2c-.824 0-1.566.508-1.863 1.277L35.805 35.07 1.898 36.8a2 2 0 0 0-1.164 3.547l26.403 21.587-8.672 32.754a2 2 0 0 0 3.015 2.195L50 78.578l28.52 18.305a2 2 0 0 0 3.016-2.195l-8.673-32.754 26.403-21.586a2 2 0 0 0-1.164-3.547l-33.907-1.73L51.863 3.276A1.998 1.998 0 0 0 50 2Zm0 7.527 10.934 28.196a2 2 0 0 0 1.765 1.273l30.02 1.535-23.383 19.121a2.004 2.004 0 0 0-.668 2.059l7.684 29.027-25.27-16.222a1.993 1.993 0 0 0-2.164 0l-25.27 16.222 7.684-29.027a2.004 2.004 0 0 0-.668-2.059L7.281 40.532l30.02-1.536a2 2 0 0 0 1.765-1.273Zm0 0"
+      />
+    </svg>
+  </i>
+);
+
+export const AwardCountIconGenerator = (iconType: any) => {
+  switch (iconType) {
+    case 'icon-full-star':
+      return <FullStarIcon />;
+    case 'icon-half-star':
+      return <HalfStarIcon />;
+    case 'icon-lightbulb':
+      return <LightbulbIcon />;
+    case 'icon-like':
+      return <LikeIcon />;
+    case 'icon-loading':
+      return <LoadingIcon />;
+    case 'icon-signpost':
+      return <SignpostIcon />;
+    case 'icon-flag':
+      return <FlagIcon />;
+    case 'icon-heart':
+      return <HeartIcon />;
+    case 'icon-check':
+      return <ChatIcon />;
+    case 'icon-gift':
+      return <GiftIcon />;
+    case 'icon-stopwatch':
+      return <StopwatchIcon />;
+    case 'icon-checkfile':
+      return <CheckfileIcon />;
+    case 'icon-tag':
+      return <TagIcon />;
+    case 'icon-globe':
+      return <GlobeIcon />;
+    case 'icon-star':
+      return <StarIcon />;
+    case 'icon-businessuser':
+      return <BusinessuserIcon />;
+    default:
+      return <></>;
+  }
+};
