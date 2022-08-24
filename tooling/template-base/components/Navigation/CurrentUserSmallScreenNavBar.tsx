@@ -17,7 +17,7 @@ export default function CurrentUserSmallScreenNavBar() {
               <Logo size="" />
             </div>
             <div className="md:hidden">
-              <button
+              <div
                 className="p-2 text-gray-700 rounded-md outline-none focus:border-gray-400 focus:border"
                 onClick={() => setNavbar(!navbar)}
               >
@@ -40,7 +40,7 @@ export default function CurrentUserSmallScreenNavBar() {
                     <Avatar size="" />
                   </button>
                 )}
-              </button>
+              </div>
             </div>
           </div>
         </div>
