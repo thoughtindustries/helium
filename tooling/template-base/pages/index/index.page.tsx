@@ -36,7 +36,7 @@ function Page() {
         headline="Explore Documentation and Resources"
         description="Our developer documentation and tools cover everything you need to know to start building your new project. "
         links={[
-          { text: 'Wordpress Documentation', linkUrl: 'https://developer.wordpress.org/' },
+          { text: 'Helium Developer Guide', linkUrl: 'https://developer.thoughtindustries.com/' },
           {
             text: 'Storyook Documentation',
             linkUrl: 'https://thoughtindustries.github.io/helium/?path=/story/example-cart--base'
