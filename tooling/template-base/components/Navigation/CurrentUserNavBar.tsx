@@ -35,7 +35,7 @@ export default function CurrentUserNavBar() {
           </ul>
         </div>
 
-        <div className="hidden md:block">
+        <button className="hidden md:block">
           {navbar ? (
             <button id="icon" type="submit" className="block" onClick={() => setNavbar(!navbar)}>
               <div className="flex items-center space-x-3 mr-3">
@@ -51,7 +51,7 @@ export default function CurrentUserNavBar() {
               </div>
             </button>
           )}
-        </div>
+        </button>
       </div>
       {/* dropdown menu */}
       <div
