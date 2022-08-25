@@ -3,6 +3,29 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.1.0-alpha.23](https://github.com/thoughtindustries/helium/compare/@thoughtindustries/helium-template@1.1.0-alpha.22...@thoughtindustries/helium-template@1.1.0-alpha.23) (2022-08-24)
+
+
+### Features
+
+* add engine version requirements to template-base ([#154](https://github.com/thoughtindustries/helium/issues/154)) ([9ed63f0](https://github.com/thoughtindustries/helium/commit/9ed63f0d7b059a3e8f5ddfc7321d6b865559dd88))
+
+
+
+
+
+# [1.1.0-alpha.22](https://github.com/thoughtindustries/helium/compare/@thoughtindustries/helium-template@1.1.0-alpha.21...@thoughtindustries/helium-template@1.1.0-alpha.22) (2022-08-18)
+
+
+### Features
+
+* format ticonfig ([#148](https://github.com/thoughtindustries/helium/issues/148)) ([46b3ebd](https://github.com/thoughtindustries/helium/commit/46b3ebdd42dede67fe75327777a0707dd33d8ae6))
+* use local catalog error component ([#150](https://github.com/thoughtindustries/helium/issues/150)) ([7c37ef4](https://github.com/thoughtindustries/helium/commit/7c37ef441d802c35bd0603c7d7f76dbdbffee35a))
+
+
+
+
+
 # [1.1.0-alpha.21](https://github.com/thoughtindustries/helium/compare/@thoughtindustries/helium-template@1.1.0-alpha.20...@thoughtindustries/helium-template@1.1.0-alpha.21) (2022-08-17)
 
 

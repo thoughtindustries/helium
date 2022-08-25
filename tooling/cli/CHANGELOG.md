@@ -3,6 +3,26 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.1.0-alpha.8](https://github.com/thoughtindustries/helium/compare/@thoughtindustries/helium@1.1.0-alpha.7...@thoughtindustries/helium@1.1.0-alpha.8) (2022-08-24)
+
+**Note:** Version bump only for package @thoughtindustries/helium
+
+
+
+
+
+# [1.1.0-alpha.7](https://github.com/thoughtindustries/helium/compare/@thoughtindustries/helium@1.1.0-alpha.6...@thoughtindustries/helium@1.1.0-alpha.7) (2022-08-18)
+
+
+### Features
+
+* format ticonfig ([#148](https://github.com/thoughtindustries/helium/issues/148)) ([46b3ebd](https://github.com/thoughtindustries/helium/commit/46b3ebdd42dede67fe75327777a0707dd33d8ae6))
+* update cli authentication operation ([#145](https://github.com/thoughtindustries/helium/issues/145)) ([41918f1](https://github.com/thoughtindustries/helium/commit/41918f138318962551fff57854dfd7d3b0e59fa2))
+
+
+
+
+
 # [1.1.0-alpha.6](https://github.com/thoughtindustries/helium/compare/@thoughtindustries/helium@1.1.0-alpha.5...@thoughtindustries/helium@1.1.0-alpha.6) (2022-04-08)
 
 **Note:** Version bump only for package @thoughtindustries/helium
