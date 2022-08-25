@@ -36,8 +36,7 @@ const LoadUserLearning = ({ query, kind, sort }: LoadedComponentProps): JSX.Elem
       kind,
       sort
     },
-    fetchPolicy: 'network-only',
-    ssr: false
+    fetchPolicy: 'network-only'
   });
 
   const { i18n } = useTranslation();
