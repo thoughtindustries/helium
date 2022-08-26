@@ -1,4 +1,5 @@
 import React, { Dispatch, SetStateAction, useState } from 'react';
+import dashboardDefault from '../../renderer/dashboardDefault.png';
 import { LearnerAccessProps } from '@thoughtindustries/learner-access/src/types';
 import { UploadIcon, RepeatIcon } from '@thoughtindustries/learner-access/src/Assets/Icons';
 import {
@@ -10,6 +11,7 @@ import {
 } from '@thoughtindustries/content';
 import useLearnerAccess from '@thoughtindustries/learner-access/src/use-context';
 import { t } from 'i18next';
+import LearnerAccessGridView from './GridView';
 
 type RequiredUserCertifacesQuery = Required<UserCertificatesQuery>;
 type UserCertificate = RequiredUserCertifacesQuery['UserCertificates'][0];
@@ -17,7 +19,7 @@ interface CertificateProps {
   item: UserCertificate;
 }
 const Certificate = ({ item }: CertificateProps) => {
-  return <>Certificate Line Item {item.id}</>;
+  return <LearnerAccessGridView item={item.contentItem} itemUrl="" />;
 };
 
 interface CertificateUploaderProps {
@@ -193,9 +195,11 @@ const LoadCertificates = ({
   if (showForm) return <CertificateUploadForm setShowForm={setShowForm} />;
   return (
     <>
-      {data?.UserCertificates?.map(item => (
-        <Certificate key={item.id} item={item} />
-      ))}
+      <div className="grid gap-5 self-center grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
+        {data?.UserCertificates?.map(item => (
+          <Certificate key={item.id} item={item} />
+        ))}
+      </div>
       {!!companyEnableExternalCertificateUploads && (
         <CertificateUploader setShowForm={setShowForm} />
       )}

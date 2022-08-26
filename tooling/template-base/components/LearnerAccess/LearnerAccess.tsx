@@ -1,6 +1,4 @@
 import React, { useCallback, useEffect, useState } from 'react';
-import dropDownOpen from '../../renderer/dropDownOpen.svg';
-import dropDownClosed from '../../renderer/dropDownClosed.svg';
 
 import {
   AvailableTab,
@@ -13,7 +11,7 @@ import {
   LoadBookmarks
 } from '@thoughtindustries/learner-access/src/components';
 import LoadUserLearning from './LoadUserLeaning';
-import LoadCertificates from './LoadCertification';
+import LoadCertificates from './LoadCertificates';
 import { LoadingDots, useContentGroupsQuery } from '@thoughtindustries/content';
 import LearnerAccessContext from '@thoughtindustries/learner-access/src/context';
 import { getAvailableTabs } from '@thoughtindustries/learner-access/src/utilities';
@@ -21,7 +19,6 @@ import { useTranslation } from 'react-i18next';
 import { localizedTabLabelMapping } from '@thoughtindustries/learner-access/src/constants';
 
 const LearnerAccess = ({
-  allowCollapse,
   classNames,
   displayExpiredCertificateInformation,
   query,
@@ -31,7 +28,6 @@ const LearnerAccess = ({
 }: LearnerAccessProps): JSX.Element => {
   const [activeTabKey, setActiveTabKey] = useState<TabKey | undefined>(undefined);
   const [availableTabs, setAvailableTabs] = useState<AvailableTab[]>([]);
-  const [tabDropDownActive, setTabDropDownActive] = useState(false);
   const [button, setButton] = useState(false);
   const {
     loading,
@@ -108,33 +104,6 @@ const LearnerAccess = ({
   const TabButton = () => {
     return (
       <>
-        <div className="p-2 text-gray-700 rounded-md outline-none focus:border-gray-400 focus:border">
-          {!tabDropDownActive ? (
-            <button
-              id="icon"
-              type="submit"
-              className="block w-full bg-white hover:bg-gray-100 text-gray-800 py-2 px-4 border border-gray-400 rounded "
-              onClick={() => setTabDropDownActive(!tabDropDownActive)}
-            >
-              <div className="flex flex-row justify-between text-lg">
-                {activeTabKey}
-                <img src={dropDownClosed} className="" />
-              </div>
-            </button>
-          ) : (
-            <button
-              id="icon"
-              type="submit"
-              className="block w-full bg-white hover:bg-gray-100 text-gray-800 font-semibold py-2 px-4 border border-gray-400 rounded shadow"
-              onClick={() => setTabDropDownActive(!tabDropDownActive)}
-            >
-              <div className="flex flex-row justify-between text-lg">
-                {activeTabKey}
-                <img src={dropDownOpen} className="" />
-              </div>
-            </button>
-          )}
-        </div>
         {availableTabs.map(({ key, count }, index) => {
           const activeTab = key === activeTabKey ? true : false;
           const activeClassLi = activeTab ? selectedStyleLi : styleLi;
@@ -142,32 +111,29 @@ const LearnerAccess = ({
           return (
             <>
               {/* tab name and count desktop */}
-              {tabDropDownActive ? (
-                <>
-                  {/* dropdown menu */}
-                  <div className="flex my-auto space-x-6 mx-auto md:block">
-                    <ul className="items-center justify-between p-5 space-y-3 pt-4 md:space-y-0 md:flex md:space-x-6 w-full">
-                      <li key={index} {...activeClassLi}>
-                        <button
-                          onClick={() => {
-                            handleTabSelection(key);
-                          }}
-                          className=""
-                          role="tab"
-                          aria-selected={activeTab}
-                          aria-controls={'access-section-' + index}
-                        >
-                          <span {...activeClassSpan}>
-                            {t(localizedTabLabelMapping[key], { count })}
-                          </span>
-                        </button>
-                      </li>
-                    </ul>
-                  </div>
-                </>
-              ) : (
-                <></>
-              )}
+              <>
+                {/* dropdown menu */}
+                <div className="flex my-auto space-x-6 mx-auto md:block">
+                  <ul className="items-center justify-between p-5 space-y-3 pt-4 md:space-y-0 md:flex md:space-x-6 w-full">
+                    <li key={index} {...activeClassLi}>
+                      <button
+                        onClick={() => {
+                          handleTabSelection(key);
+                        }}
+                        className=""
+                        role="tab"
+                        aria-selected={activeTab}
+                        aria-controls={'access-section-' + index}
+                      >
+                        <span {...activeClassSpan}>
+                          {t(localizedTabLabelMapping[key], { count })}
+                        </span>
+                      </button>
+                    </li>
+                  </ul>
+                </div>
+              </>
+              ) : (<></>
             </>
           );
         })}
@@ -281,20 +247,13 @@ const LearnerAccess = ({
       {/* title */}
       <div className="pt-16 px-10 pb-20">
         <div className="text-2xl font-bold font-header">Activity</div>
-        {allowCollapse && (
+        <div className="max-w-none w-auto text-slate-700 text-black-light text-sm">
           <div className="">
-            <div className="">{tabContent()}</div>
+            {dashboardAccessTabs}
+            {!button && <hr className=""></hr>}
+            {tabContent()}
           </div>
-        )}
-        {!allowCollapse && (
-          <div className="max-w-none w-auto text-slate-700 text-black-light text-sm">
-            <div className="">
-              {dashboardAccessTabs}
-              {!button && <hr className=""></hr>}
-              {tabContent()}
-            </div>
-          </div>
-        )}
+        </div>
       </div>
     </LearnerAccessContext.Provider>
   );
