@@ -1,10 +1,12 @@
-import React, { useContext, useState } from 'react';
-import { ListViewDropDown } from './DropDownContext';
+import React, { useState } from 'react';
 import dashboardDefault from '../../renderer/dashboardDefault.png';
 import dropDownClosed from '../../renderer/dropDownClosed.svg';
 import dropDownOpen from '../../renderer/dropDownOpen.svg';
 import LearnerAccessListDisplayDropDown from './ListDisplayDropDown';
-import { HydratedContentItem } from '@thoughtindustries/content';
+import {
+  HydratedContentItem,
+  useUserCourseCompletionProgressQuery
+} from '@thoughtindustries/content';
 
 interface ContentUiProps {
   item: HydratedContentItem;
@@ -14,6 +16,12 @@ interface ContentUiProps {
 const LearnerAccessDisplayListView = ({ item }: ContentUiProps) => {
   // const listViewDropDown = useContext(ListViewDropDown)
   const [listViewDropDown, setListViewDropDown] = useState(false);
+
+  const { data } = useUserCourseCompletionProgressQuery({
+    variables: {
+      id: item.id
+    }
+  });
 
   return (
     <>
@@ -38,7 +46,7 @@ const LearnerAccessDisplayListView = ({ item }: ContentUiProps) => {
           <div className="flex flex-row basis-4/12 justify-between">
             {/* course completion */}
             <div className="flex items-center pr-6 text-sm font-semibold font-primary text-gray-500">
-              {itemData?.UserCourseCompletionProgress?.map((item, i) => (
+              {data?.UserCourseCompletionProgress?.map((item, i) => (
                 <div key={i}>
                   {item.type === 'coursePercentViewed' && item.percent + '% Completed'}
                 </div>
@@ -63,7 +71,7 @@ const LearnerAccessDisplayListView = ({ item }: ContentUiProps) => {
         </div>
       </div>
       {/* listDisplayDropDown */}
-      {listViewDropDown && <LearnerAccessListDisplayDropDown item={item} itemData={itemData} />}
+      {listViewDropDown && <LearnerAccessListDisplayDropDown item={item} />}
     </>
   );
 };

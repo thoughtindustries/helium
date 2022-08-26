@@ -1,5 +1,4 @@
 import React, { Dispatch, SetStateAction, useState } from 'react';
-import dashboardDefault from '../../renderer/dashboardDefault.png';
 import { LearnerAccessProps } from '@thoughtindustries/learner-access/src/types';
 import { UploadIcon, RepeatIcon } from '@thoughtindustries/learner-access/src/Assets/Icons';
 import {
@@ -19,7 +18,7 @@ interface CertificateProps {
   item: UserCertificate;
 }
 const Certificate = ({ item }: CertificateProps) => {
-  return <LearnerAccessGridView item={item.contentItem} itemUrl="" />;
+  return <LearnerAccessGridView item={item.contentItem} />;
 };
 
 interface CertificateUploaderProps {

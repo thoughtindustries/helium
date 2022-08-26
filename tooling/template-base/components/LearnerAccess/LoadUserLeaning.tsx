@@ -1,10 +1,7 @@
-import React, { useContext, useEffect, useState } from 'react';
-import dashboardDefault from '../../renderer/dashboardDefault.png';
+import React, { useEffect, useState } from 'react';
 import listViewSelector from '../../renderer/listViewSelector.svg';
 import gridNotSelected from '../../renderer/gridNotSelected.svg';
 import gridSelected from '../../renderer/gridSelected.svg';
-import dropDownClosed from '../../renderer/dropDownClosed.svg';
-import dropDownOpen from '../../renderer/dropDownOpen.svg';
 
 import { LoadedComponentProps } from '@thoughtindustries/learner-access/src/types';
 import {
