@@ -5,11 +5,9 @@ import {
   LearnerAccessProps,
   TabKey
 } from '@thoughtindustries/learner-access/src/types';
-import {
-  LoadArchivedContent,
-  LoadWaitlist,
-  LoadBookmarks
-} from '@thoughtindustries/learner-access/src/components';
+import { LoadWaitlist } from '@thoughtindustries/learner-access/src/components';
+import LoadArchivedContent from './LoadArchivedContent';
+import LoadBookmarks from './LoadBookmarks';
 import LoadUserLearning from './LoadUserLeaning';
 import LoadCertificates from './LoadCertificates';
 import { LoadingDots, useContentGroupsQuery } from '@thoughtindustries/content';
@@ -133,7 +131,6 @@ const LearnerAccess = ({
                   </ul>
                 </div>
               </>
-              ) : (<></>
             </>
           );
         })}
