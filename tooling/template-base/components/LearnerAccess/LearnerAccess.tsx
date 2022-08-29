@@ -104,29 +104,26 @@ const LearnerAccess = ({
           const activeClassSpan = activeTab ? selectedStyleSpan : styleSpan;
           return (
             <>
-              {/* tab name and count desktop */}
-              <>
-                {/* dropdown menu */}
-                <div className="flex my-auto space-x-6 mx-auto md:block">
-                  <ul className="items-center justify-between p-5 space-y-3 pt-4 md:space-y-0 md:flex md:space-x-6 w-full">
-                    <li key={index} {...activeClassLi}>
-                      <button
-                        onClick={() => {
-                          handleTabSelection(key);
-                        }}
-                        className=""
-                        role="tab"
-                        aria-selected={activeTab}
-                        aria-controls={'access-section-' + index}
-                      >
-                        <span {...activeClassSpan}>
-                          {t(localizedTabLabelMapping[key], { count })}
-                        </span>
-                      </button>
-                    </li>
-                  </ul>
-                </div>
-              </>
+              {/* dropdown menu */}
+              <div className="flex my-auto space-x-6 mx-auto md:block">
+                <ul className="items-center justify-between p-5 space-y-3 pt-4 md:space-y-0 md:flex md:space-x-6 w-full">
+                  <li key={index} {...activeClassLi}>
+                    <button
+                      onClick={() => {
+                        handleTabSelection(key);
+                      }}
+                      className=""
+                      role="tab"
+                      aria-selected={activeTab}
+                      aria-controls={'access-section-' + index}
+                    >
+                      <span {...activeClassSpan}>
+                        {t(localizedTabLabelMapping[key], { count })}
+                      </span>
+                    </button>
+                  </li>
+                </ul>
+              </div>
             </>
           );
         })}
@@ -159,11 +156,6 @@ const LearnerAccess = ({
                     aria-controls={'access-section-' + index}
                   >
                     <span {...activeClassSpan}>{t(localizedTabLabelMapping[key], { count })}</span>
-                    {/* {key !== TabKey.Bookmark && (
-                      <span className="border border-solid border-gray-light text-xs font-bold rounded-lg bg-white inline-block leading-4 ml-1 py-0 px-1 text-center">
-                        {count}
-                      </span>
-                    )} */}
                   </button>
                 </li>
               </>

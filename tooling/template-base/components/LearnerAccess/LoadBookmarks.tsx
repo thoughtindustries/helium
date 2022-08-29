@@ -44,30 +44,6 @@ const LoadBookmarks = (): JSX.Element => {
     setBookmarkList(bookmarkFolders?.UserBookmarks);
   }
 
-  const draggedItem: any = useRef();
-  const draggNode: any = useRef();
-
-  const handleDragEnter = (event: DragEvent<HTMLLIElement>, index: number) => {
-    const current = draggedItem.current;
-    console.log('dragged node', draggNode.current);
-    console.log('target', event.target);
-    if (draggNode.current !== event.target) {
-      setBookmarkList((oldList: any) => {
-        const newList = JSON.parse(JSON.stringify(oldList));
-        newList.splice(index, 0, newList.splice(current, 1)[0]);
-        draggedItem.current = index;
-        console.log('newlist', newList);
-        return newList;
-      });
-    }
-  };
-
-  const handleDragEnd = () => {
-    draggNode.current.removeEventListener('dragend', handleDragEnd);
-    draggedItem.current = null;
-    draggNode.current = null;
-  };
-
   type RequiredUserBookmarksQuery = Required<UserBookmarksQuery>;
   interface BookmarkFolderNameProps {
     folder: RequiredUserBookmarksQuery['UserBookmarks'][0];

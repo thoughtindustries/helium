@@ -6,14 +6,12 @@ import gridSelected from '../../renderer/gridSelected.svg';
 import { LoadedComponentProps } from './Types/types';
 import {
   useUserContentItemsQuery,
-  useUserCourseCompletionProgressQuery,
   LoadingDots,
   hydrateContent,
   HydratedContentItem
 } from '@thoughtindustries/content';
 import { useTranslation } from 'react-i18next';
 import LearnerAccessGridView from './GridView';
-import LearnerAccessListDisplayDropDown from './ListDisplayDropDown';
 import LearnerAccessDisplayListView from './DisplayListView';
 
 const LoadUserLearning = ({ query, kind, sort }: LoadedComponentProps): JSX.Element => {
@@ -47,39 +45,16 @@ const LoadUserLearning = ({ query, kind, sort }: LoadedComponentProps): JSX.Elem
   }
 
   const DisplayListView = ({ item }: ContentUiProps) => {
-    // const [listViewDropDown, setListViewDropDown] = useContext(false);
-
-    // item link
-    const hydratedItem = hydrateContent(i18n, item);
-    const itemLink = hydratedItem.href;
-
     return (
       // list flex container
-      <LearnerAccessDisplayListView item={item} itemData={data} />
-    );
-  };
-
-  const ListDisplayDropDown = ({ item }: ContentUiProps) => {
-    const { data } = useUserCourseCompletionProgressQuery({
-      variables: {
-        id: item.id
-      }
-    });
-
-    return (
-      // {/* list drop down */}
-      <LearnerAccessListDisplayDropDown item={item} itemData={data} />
+      <LearnerAccessDisplayListView item={item} />
     );
   };
 
   const DisplayGridView = ({ item }: ContentUiProps) => {
-    // item link
-    const hydratedItem = hydrateContent(i18n, item);
-    const itemLink = hydratedItem.href;
-
     return (
       // {/* course card */}
-      <LearnerAccessGridView item={item} itemUrl={itemLink} />
+      <LearnerAccessGridView item={item} />
     );
   };
 
