@@ -50,35 +50,61 @@ const LoadWaitlist = (): JSX.Element => {
         return (
           <div
             key={id}
-            className="border-solid p-4 text-black-light border-gray-light px-4 py-[0.5rem] odd:bg-white-mid border-b last:border-b-0"
+            className="odd:bg-slate-100 text-black-light py-3 px-4 bg-white-mid rounded border-blue-700"
           >
-            <div className="my-0 mx-auto max-w-full w-full">
-              <div className="grid items-center grid-cols-12 gap-4">
-                <div className="col-span-4">
-                  <button className="btn btn--link btn--inherit-font dashboard-access-list-item-expander">
-                    <span className="dashboard-access-list-item-expander__title text-gray-mid">
-                      {title}
-                    </span>
-                  </button>
+            <div className="flex flex-col w-full">
+              <div className="flex flex-row">
+                <div className="flex flex-row basis-4/12">
+                  {/* course title */}
+                  <div className="flex items-center p-6 text-sm font-semibold font-primary">
+                    {title}
+                  </div>
                 </div>
-
-                <div className="col-span-2"></div>
-
-                <div className="col-span-3 text-gray-mid">
-                  <strong>{contentTypeLabel}</strong>
-                </div>
-
-                <div className="col-start-11 col-span-2 text-right">
-                  <button
-                    onClick={() => handleUnenroll(id)}
-                    className="bg-active-blue text-accent-contrast bg-accent rounded-sm cursor-pointer inline-block font-normal text-xs m-0 py-[0.15rem] px-4 relative text-center no-underline ease-in-out border-active-blue font-sans transition duration-200 leading-5"
-                  >
-                    {t('dashboard.unenroll-waitlist')}
-                  </button>
+                <div className="flex flex-row basis-8/12 justify-between">
+                  <div className="flex items-center text-sm font-semibold">{contentTypeLabel}</div>
+                  <div className="flex items-center">
+                    <button
+                      onClick={() => handleUnenroll(id)}
+                      className="bg-active-blue text-accent-contrast bg-accent rounded-sm cursor-pointer inline-block font-normal text-xs m-0 py-[0.15rem] px-4 relative text-center no-underline ease-in-out border-active-blue font-sans transition duration-200 leading-5"
+                    >
+                      {t('dashboard.unenroll-waitlist')}
+                    </button>
+                  </div>
                 </div>
               </div>
             </div>
           </div>
+          // <div
+          //   key={id}
+          //   className="border-solid p-4 text-black-light border-gray-light px-4 py-[0.5rem] odd:bg-white-mid border-b last:border-b-0"
+          // >
+          //   <div className="my-0 mx-auto max-w-full w-full">
+          //     <div className="grid items-center grid-cols-12 gap-4">
+          //       <div className="col-span-4">
+          //         <button className="btn btn--link btn--inherit-font dashboard-access-list-item-expander">
+          //           <span className="dashboard-access-list-item-expander__title text-gray-mid">
+          //             {title}
+          //           </span>
+          //         </button>
+          //       </div>
+
+          //       <div className="col-span-2"></div>
+
+          //       <div className="col-span-3 text-gray-mid">
+          //         <strong>{contentTypeLabel}</strong>
+          //       </div>
+
+          //       <div className="col-start-11 col-span-2 text-right">
+          //         <button
+          //           onClick={() => handleUnenroll(id)}
+          //           className="bg-active-blue text-accent-contrast bg-accent rounded-sm cursor-pointer inline-block font-normal text-xs m-0 py-[0.15rem] px-4 relative text-center no-underline ease-in-out border-active-blue font-sans transition duration-200 leading-5"
+          //         >
+          //           {t('dashboard.unenroll-waitlist')}
+          //         </button>
+          //       </div>
+          //     </div>
+          //   </div>
+          // </div>
         );
       })}
     </>
