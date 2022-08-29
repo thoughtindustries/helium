@@ -5,7 +5,7 @@ import {
   LearnerAccessProps,
   TabKey
 } from '@thoughtindustries/learner-access/src/types';
-import { LoadWaitlist } from '@thoughtindustries/learner-access/src/components';
+import LoadWaitlist from './LoadWishlistedContent';
 import LoadArchivedContent from './LoadArchivedContent';
 import LoadBookmarks from './LoadBookmarks';
 import LoadUserLearning from './LoadUserLeaning';

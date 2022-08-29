@@ -15,14 +15,7 @@ import {
   UserBookmarksByFolderQueryResult,
   UserBookmarksByFolderQuery
 } from '@thoughtindustries/content';
-import {
-  GrabIcon,
-  RightArrowIcon,
-  DownArrowIcon,
-  EditIcon,
-  TrashIcon
-} from '@thoughtindustries/learner-access/src/Assets/Icons';
-import useLearnerAccess from '@thoughtindustries/learner-access/src/use-context';
+import { EditIcon, TrashIcon } from '@thoughtindustries/learner-access/src/Assets/Icons';
 import { useTranslation } from 'react-i18next';
 
 const LoadBookmarks = (): JSX.Element => {
@@ -44,7 +37,6 @@ const LoadBookmarks = (): JSX.Element => {
     }
   });
   const [selectedFolderId, setSelectedFolderId] = useState<string | undefined>(undefined);
-  const [dragging, setDragging] = useState<boolean>(false);
   const [bookmarkList, setBookmarkList] = useState<UserBookmarksQuery['UserBookmarks'] | undefined>(
     bookmarkFolders?.UserBookmarks
   );
@@ -59,14 +51,6 @@ const LoadBookmarks = (): JSX.Element => {
 
   const draggedItem: any = useRef();
   const draggNode: any = useRef();
-
-  const handleDragStart = (event: DragEvent<HTMLLIElement>, index: number) => {
-    draggedItem.current = index;
-    draggNode.current = event.target;
-    draggNode.current.addEventListener('dragend', handleDragEnd);
-    draggedItem.current = index;
-    setDragging(true);
-  };
 
   const handleDragEnter = (event: DragEvent<HTMLLIElement>, index: number) => {
     const current = draggedItem.current;
@@ -84,14 +68,10 @@ const LoadBookmarks = (): JSX.Element => {
   };
 
   const handleDragEnd = () => {
-    setDragging(false);
     draggNode.current.removeEventListener('dragend', handleDragEnd);
     draggedItem.current = null;
     draggNode.current = null;
   };
-
-  const getDraggedStyle = (index: number) =>
-    draggedItem.current == index ? ' bg-active-blueTinted' : null;
 
   type RequiredUserBookmarksQuery = Required<UserBookmarksQuery>;
   interface BookmarkFolderNameProps {
@@ -281,7 +261,7 @@ const LoadBookmarks = (): JSX.Element => {
       <div
         key={bookmark.id}
         className={`odd:bg-slate-100 text-black-light py-3 px-4 bg-white-mid rounded  ${
-          listViewDropDown ? 'border-l-4 border-blue-700' : ''
+          listViewDropDown ? 'border-l-4 border-blue-700 pb-4' : ''
         }`}
       >
         <div className="flex flex-col w-full">
@@ -294,13 +274,14 @@ const LoadBookmarks = (): JSX.Element => {
             </div>
             <div className="flex flex-row basis-8/12 justify-between">
               {/* view button */}
+
+              <div className="flex items-center text-sm px-2 w-48">{bookmark.note}</div>
               <a
                 href="'/learn/topic/' + bookmark.course.id"
                 className="flex items-center text-sm font-semibold text-blue-700"
               >
                 <div className="">{t('bookmark.view')}</div>
               </a>
-              <div className="flex items-center text-sm px-2">{bookmark.note}</div>
               <button
                 className="flex items-center pr-6"
                 onClick={() => setListViewDropDown(!listViewDropDown)}
@@ -349,9 +330,9 @@ const LoadBookmarks = (): JSX.Element => {
                 {bookmark.note + ' '}
                 <button
                   onClick={() => setEditNotes(true)}
-                  className="btn btn--link btn--inherit-font btn--no-margin hover:text-hover"
+                  className="px-2 btn btn--link btn--inherit-font btn--no-margin hover:text-hover"
                 >
-                  <span>({t('bookmark.edit')})</span>
+                  <EditIcon />
                 </button>
               </p>
             )}
@@ -362,7 +343,7 @@ const LoadBookmarks = (): JSX.Element => {
                     handleDelete();
                   }
                 }}
-                className="shadow-none text-black hover:text-hover bg-blue-100 px-2 rounded-full"
+                className="text-white text-xs shadow-none hover:text-hover bg-black px-4 py-2 rounded"
               >
                 <span>{t('bookmark.remove')}</span>
               </button>
