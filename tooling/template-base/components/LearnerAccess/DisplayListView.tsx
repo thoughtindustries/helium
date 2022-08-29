@@ -7,6 +7,7 @@ import {
   HydratedContentItem,
   useUserCourseCompletionProgressQuery
 } from '@thoughtindustries/content';
+import clsx from 'clsx';
 
 interface ContentUiProps {
   item: HydratedContentItem;
@@ -14,20 +15,20 @@ interface ContentUiProps {
 }
 
 const LearnerAccessDisplayListView = ({ item }: ContentUiProps) => {
-  // const listViewDropDown = useContext(ListViewDropDown)
   const [listViewDropDown, setListViewDropDown] = useState(false);
 
   const { data } = useUserCourseCompletionProgressQuery({
     variables: {
       id: item.id
-    }
+    },
+    fetchPolicy: 'network-only'
   });
+
+  const DropDownClassNames = listViewDropDown ? 'border-l-4 border-blue-700' : '';
 
   return (
     <>
-      <div
-        className={`flex flex-col w-full  ${listViewDropDown ? 'border-l-4 border-blue-700' : ''}`}
-      >
+      <div className={clsx(['flex flex-col w-full', DropDownClassNames])}>
         <div className="flex flex-row basis-8/12">
           <div className="flex flex-row basis-8/12">
             {/* course image */}

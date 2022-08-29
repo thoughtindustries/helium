@@ -4,7 +4,7 @@ import { AvailableTab, LearnerAccessProps, TabKey } from './Types/types';
 import LoadWaitlist from './LoadWishlistedContent';
 import LoadArchivedContent from './LoadArchivedContent';
 import LoadBookmarks from './LoadBookmarks';
-import LoadUserLearning from './LoadUserLeaning';
+import LoadUserLearning from './LoadUserLearning';
 import LoadCertificates from './LoadCertificates';
 import { LoadingDots, useContentGroupsQuery } from '@thoughtindustries/content';
 import LearnerAccessContext from './Context/context';

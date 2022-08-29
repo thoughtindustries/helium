@@ -181,13 +181,9 @@ const LoadCertificates = ({
       query: query,
       includeExpiredCertificates: displayExpiredCertificateInformation
     },
-    fetchPolicy: 'network-only',
-    ssr: false
+    fetchPolicy: 'network-only'
   });
   const { companyEnableExternalCertificateUploads } = useLearnerAccess();
-  {
-    console.log('error: ', error);
-  }
   console.log('data from child', data);
   if (loading) return <LoadingDots />;
   if (error) return <>{error.message}</>;

@@ -12,7 +12,8 @@ const LearnerAccessListDisplayDropDown = ({ item }: ContentUiProps) => {
   const { data } = useUserCourseCompletionProgressQuery({
     variables: {
       id: item.id
-    }
+    },
+    fetchPolicy: 'network-only'
   });
   return (
     <>
