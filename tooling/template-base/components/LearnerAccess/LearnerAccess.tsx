@@ -166,11 +166,11 @@ const LearnerAccess = ({
                     aria-controls={'access-section-' + index}
                   >
                     <span {...activeClassSpan}>{t(localizedTabLabelMapping[key], { count })}</span>
-                    {key !== TabKey.Bookmark && (
+                    {/* {key !== TabKey.Bookmark && (
                       <span className="border border-solid border-gray-light text-xs font-bold rounded-lg bg-white inline-block leading-4 ml-1 py-0 px-1 text-center">
                         {count}
                       </span>
-                    )}
+                    )} */}
                   </button>
                 </li>
               </>
