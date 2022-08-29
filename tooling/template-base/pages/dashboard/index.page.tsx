@@ -24,7 +24,7 @@ function Page() {
           heading="My Dashboard"
           subtext="Your Dashboard is your game-changing collaborative space where you can view all your learning in one place."
         />
-        <LearnerAccess />
+        <LearnerAccess companyHasWaitlistingFeature={true} />
         <FeaturedContentComp
           onAddedToQueue={function (item: HydratedContentItem): Promise<boolean | void> {
             throw new Error('Function not implemented.');
