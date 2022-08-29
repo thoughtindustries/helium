@@ -1,4 +1,4 @@
-import { TabKey } from './types';
+import { TabKey } from '../Types/types';
 
 export const localizedTabLabelMapping: { [key in TabKey]: string } = {
   [TabKey.Current]: 'dashboard.current',

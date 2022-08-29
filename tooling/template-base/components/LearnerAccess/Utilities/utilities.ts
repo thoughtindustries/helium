@@ -1,5 +1,5 @@
 import { GlobalTypes } from '@thoughtindustries/content';
-import { AvailableTab, TabKey } from './types';
+import { AvailableTab, TabKey } from '../Types/types';
 
 export const getAvailableTabs = (
   contentGroups: GlobalTypes.ContentGroup[],

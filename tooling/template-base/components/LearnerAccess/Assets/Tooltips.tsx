@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { AlertIcon } from '../Assets/Icons';
+import { AlertIcon } from './Icons';
 
 interface ParentCompProps {
   childComp?: React.ReactNode;

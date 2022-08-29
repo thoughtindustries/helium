@@ -3,7 +3,7 @@ import listViewSelector from '../../renderer/listViewSelector.svg';
 import gridNotSelected from '../../renderer/gridNotSelected.svg';
 import gridSelected from '../../renderer/gridSelected.svg';
 
-import { LoadedComponentProps } from '@thoughtindustries/learner-access/src/types';
+import { LoadedComponentProps } from './Types/types';
 import {
   useUserContentItemsQuery,
   useUserCourseCompletionProgressQuery,

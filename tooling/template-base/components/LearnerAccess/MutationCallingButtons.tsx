@@ -11,7 +11,7 @@ import {
   ReinstateUserCourseMutationFn,
   ReinstateUserLearningPathMutationFn
 } from '@thoughtindustries/content';
-import { WarningMessageToolTip } from '../Assets/Tooltips';
+import { WarningMessageToolTip } from './Assets/Tooltips';
 import { t } from 'i18next';
 
 type ArchiveButtonProps = {

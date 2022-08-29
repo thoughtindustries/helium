@@ -1,20 +1,16 @@
 import React, { useCallback, useEffect, useState } from 'react';
 
-import {
-  AvailableTab,
-  LearnerAccessProps,
-  TabKey
-} from '@thoughtindustries/learner-access/src/types';
+import { AvailableTab, LearnerAccessProps, TabKey } from './Types/types';
 import LoadWaitlist from './LoadWishlistedContent';
 import LoadArchivedContent from './LoadArchivedContent';
 import LoadBookmarks from './LoadBookmarks';
 import LoadUserLearning from './LoadUserLeaning';
 import LoadCertificates from './LoadCertificates';
 import { LoadingDots, useContentGroupsQuery } from '@thoughtindustries/content';
-import LearnerAccessContext from '@thoughtindustries/learner-access/src/context';
-import { getAvailableTabs } from '@thoughtindustries/learner-access/src/utilities';
+import LearnerAccessContext from './Context/context';
+import { getAvailableTabs } from './Utilities/utilities';
 import { useTranslation } from 'react-i18next';
-import { localizedTabLabelMapping } from '@thoughtindustries/learner-access/src/constants';
+import { localizedTabLabelMapping } from './Constants/constants';
 
 const LearnerAccess = ({
   classNames,

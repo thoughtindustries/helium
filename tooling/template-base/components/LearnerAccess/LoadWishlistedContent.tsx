@@ -7,7 +7,7 @@ import {
   hydrateContent,
   GlobalTypes
 } from '@thoughtindustries/content';
-import useLearnerAccess from '@thoughtindustries/learner-access/src/use-context';
+import useLearnerAccess from './Context/use-context';
 import { useTranslation } from 'react-i18next';
 import { t } from 'i18next';
 

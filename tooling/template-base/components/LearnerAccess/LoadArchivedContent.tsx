@@ -1,8 +1,8 @@
-import React, { useCallback, useEffect } from 'react';
+import React, { useCallback } from 'react';
 import { NetworkStatus } from '@apollo/client';
 import { useUserArchivesQuery, LoadingDots, formatTime } from '@thoughtindustries/content';
-import { ReinstateButton } from '@thoughtindustries/learner-access/src/components/MutationCallingButtons';
-import useLearnerAccess from '@thoughtindustries/learner-access/src/use-context';
+import { ReinstateButton } from './MutationCallingButtons';
+import useLearnerAccess from './Context/use-context';
 import { t } from 'i18next';
 const LoadArchivedContent = (): JSX.Element => {
   const {

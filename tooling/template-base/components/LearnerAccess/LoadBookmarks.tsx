@@ -1,5 +1,4 @@
-import React, { useRef, useState, DragEvent, useEffect } from 'react';
-import dashboardDefault from '../../renderer/dashboardDefault.png';
+import React, { useRef, useState, DragEvent } from 'react';
 import dropDownClosed from '../../renderer/dropDownClosed.svg';
 import dropDownOpen from '../../renderer/dropDownOpen.svg';
 import {
@@ -15,7 +14,7 @@ import {
   UserBookmarksByFolderQueryResult,
   UserBookmarksByFolderQuery
 } from '@thoughtindustries/content';
-import { EditIcon, TrashIcon } from '@thoughtindustries/learner-access/src/Assets/Icons';
+import { EditIcon, TrashIcon } from './Assets/Icons';
 import { useTranslation } from 'react-i18next';
 
 const LoadBookmarks = (): JSX.Element => {
@@ -40,10 +39,6 @@ const LoadBookmarks = (): JSX.Element => {
   const [bookmarkList, setBookmarkList] = useState<UserBookmarksQuery['UserBookmarks'] | undefined>(
     bookmarkFolders?.UserBookmarks
   );
-
-  // useEffect(() => {
-  //   if (bookmarkFolders) setBookmarkList(bookmarkFolders?.UserBookmarks);
-  // }, [bookmarkFolders]);
 
   if (bookmarkList != bookmarkFolders?.UserBookmarks) {
     setBookmarkList(bookmarkFolders?.UserBookmarks);
