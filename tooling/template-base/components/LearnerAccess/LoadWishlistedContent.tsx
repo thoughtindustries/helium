@@ -44,13 +44,13 @@ const LoadWaitlist = (): JSX.Element => {
   if (error) return <>{error.message}</>;
   if (!data || !data.UserWaitlist) return <></>;
   return (
-    <>
+    <div className="py-5">
       {data.UserWaitlist.map(item => {
         const { id, title, contentTypeLabel } = hydrateContent(i18n, item as GlobalTypes.Content);
         return (
           <div
             key={id}
-            className="odd:bg-slate-100 text-black-light py-3 px-4 bg-white-mid rounded border-blue-700"
+            className="odd:bg-slate-100 text-black-light py-3 px-4 bg-white-mid rounded"
           >
             <div className="flex flex-col w-full">
               <div className="flex flex-row">
@@ -76,7 +76,7 @@ const LoadWaitlist = (): JSX.Element => {
           </div>
         );
       })}
-    </>
+    </div>
   );
 };
 export default LoadWaitlist;
