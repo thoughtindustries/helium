@@ -1,6 +1,6 @@
 import React from 'react';
 import { HydratedContentItem } from '@thoughtindustries/content';
-import dashboardDefault from '../../renderer/dashboardDefault.png';
+import dashboardDefault from '../../../renderer/dashboardDefault.png';
 
 interface ContentUiProps {
   item: HydratedContentItem;

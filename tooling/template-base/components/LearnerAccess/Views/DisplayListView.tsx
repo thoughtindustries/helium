@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
-import dashboardDefault from '../../renderer/dashboardDefault.png';
-import dropDownClosed from '../../renderer/dropDownClosed.svg';
-import dropDownOpen from '../../renderer/dropDownOpen.svg';
+import dashboardDefault from '../../../renderer/dashboardDefault.png';
+import dropDownClosed from '../../../renderer/dropDownClosed.svg';
+import dropDownOpen from '../../../renderer/dropDownOpen.svg';
 import LearnerAccessListDisplayDropDown from './ListDisplayDropDown';
 import {
   HydratedContentItem,

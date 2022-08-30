@@ -10,7 +10,7 @@ import {
 } from '@thoughtindustries/content';
 import useLearnerAccess from './Context/use-context';
 import { t } from 'i18next';
-import LearnerAccessGridView from './GridView';
+import LearnerAccessGridView from './Views/GridView';
 
 type RequiredUserCertifacesQuery = Required<UserCertificatesQuery>;
 type UserCertificate = RequiredUserCertifacesQuery['UserCertificates'][0];

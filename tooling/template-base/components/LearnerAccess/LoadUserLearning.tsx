@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react';
 import listViewSelector from '../../renderer/listViewSelector.svg';
-import gridNotSelected from '../../renderer/gridNotSelected.svg';
 import gridSelected from '../../renderer/gridSelected.svg';
 
 import { LoadedComponentProps } from './Types/types';
@@ -11,8 +10,8 @@ import {
   HydratedContentItem
 } from '@thoughtindustries/content';
 import { useTranslation } from 'react-i18next';
-import LearnerAccessGridView from './GridView';
-import LearnerAccessDisplayListView from './DisplayListView';
+import LearnerAccessGridView from './Views/GridView';
+import LearnerAccessDisplayListView from './Views/DisplayListView';
 
 const LoadUserLearning = ({ query, kind, sort }: LoadedComponentProps): JSX.Element => {
   const [gridViewActive, setGridActive] = useState(true);
