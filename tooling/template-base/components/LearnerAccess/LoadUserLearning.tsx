@@ -64,42 +64,27 @@ const LoadUserLearning = ({ query, kind, sort }: LoadedComponentProps): JSX.Elem
 
   if (!data || !data.UserContentItems) return <></>;
 
+  const listViewClassNames = gridViewActive
+    ? 'flex border rounded-l-md w-9 h-9 place-content-center items-center'
+    : 'flex border rounded-l-md w-9 h-9 place-content-center items-center bg-blue-600';
+
+  const gridViewClassNames = gridViewActive
+    ? 'flex border rounded-r-md w-9 h-9 place-content-center items-center bg-blue-600'
+    : 'flex border rounded-r-md w-9 h-9 place-content-center items-center';
+
   return (
     <>
       {/* grid/list toggle */}
       <div className="hidden sm:flex justify-end p-3">
         {/* list display button */}
-        {gridViewActive ? (
-          <button
-            className="flex border rounded-l-md w-9 h-9 place-content-center items-center"
-            onClick={() => setGridActive(false)}
-          >
-            <img src={listViewSelector} />
-          </button>
-        ) : (
-          <button
-            className="flex border rounded-l-md w-9 h-9 place-content-center items-center bg-blue-600"
-            onClick={() => setGridActive(false)}
-          >
-            <img src={listViewSelector} />
-          </button>
-        )}
+        <button className={listViewClassNames} onClick={() => setGridActive(false)}>
+          <img src={listViewSelector} />
+        </button>
+
         {/* grid display button */}
-        {gridViewActive ? (
-          <button
-            className="flex border rounded-r-md w-9 h-9 place-content-center items-center bg-blue-600"
-            onClick={() => setGridActive(true)}
-          >
-            <img src={gridSelected} />
-          </button>
-        ) : (
-          <button
-            className="flex border rounded-r-md w-9 h-9 place-content-center items-center"
-            onClick={() => setGridActive(true)}
-          >
-            <img src={gridNotSelected} />
-          </button>
-        )}
+        <button className={gridViewClassNames} onClick={() => setGridActive(true)}>
+          <img src={gridSelected} />
+        </button>
       </div>
       {gridViewActive ? (
         <div className="grid gap-5 self-center grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
