@@ -1,0 +1,19 @@
+query RusticiLaunchScormQuery(
+  $id: ID!
+  $type: ContentOrTopicEnum
+  $isPreview: Boolean!
+) {
+  RusticiLaunchScorm(
+    id: $id
+    type: $type
+    isPreview: $isPreview
+  ) {
+    url
+    registrationId
+    courseTitle
+    fullscreenEmbed
+    height
+    width
+    registrationCheckerJWT
+  }
+}

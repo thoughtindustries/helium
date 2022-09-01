@@ -1,0 +1,15 @@
+mutation UpdateAssessmentAttemptMutation(
+  $activeQuestion: QuestionInput
+  $assessmentAttempt: AssessmentAttemptInput
+) {
+  UpdateAssessmentAttempt(
+    activeQuestion: $activeQuestion
+    assessmentAttempt: $assessmentAttempt
+  ) {
+    id
+    status
+    questions {
+      questionId
+    }
+  }
+}
