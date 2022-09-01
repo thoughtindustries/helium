@@ -14,8 +14,7 @@ const LoadArchivedContent = (): JSX.Element => {
   } = useUserArchivesQuery({
     variables: {},
     fetchPolicy: 'network-only',
-    notifyOnNetworkStatusChange: true,
-    ssr: false
+    notifyOnNetworkStatusChange: true
   });
   const isRefetching = networkStatus === NetworkStatus.refetch;
   const { refetchContentGroups, resetActiveTab } = useLearnerAccess();
