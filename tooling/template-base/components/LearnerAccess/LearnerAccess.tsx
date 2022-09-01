@@ -11,6 +11,7 @@ import LearnerAccessContext from './Context/context';
 import { getAvailableTabs } from './Utilities/utilities';
 import { useTranslation } from 'react-i18next';
 import { localizedTabLabelMapping } from './Constants/constants';
+import clsx from 'clsx';
 
 const LearnerAccess = ({
   classNames,
@@ -76,20 +77,13 @@ const LearnerAccess = ({
   const handleTabSelection = (currentTabKey: TabKey) => {
     setActiveTabKey(currentTabKey);
   };
-
-  const styleLi = {
-    className: `${classNames} inline-block text-[14px] pt-4 pr-6 relative`
-  };
-  const selectedStyleLi = {
-    className: `${styleLi.className} bg-white border-active-blue`
-  };
-
-  const styleSpan = {
-    className: `${classNames} inline-block hover:text-hover`
-  };
-  const selectedStyleSpan = {
-    className: `${styleSpan.className} font-bold`
-  };
+  const styleLi = clsx(classNames, 'inline-block text-[14px] pt-4 pr-6 relative');
+  const selectedStyleLi = clsx(
+    classNames,
+    'inline-block text-[14px] pt-4 pr-6 relative bg-white border-active-blue'
+  );
+  const styleSpan = clsx(classNames, 'inline-block hover:text-hover');
+  const selectedStyleSpan = clsx(classNames, 'inline-block hover:text-hover  font-bold');
 
   const TabButton = () => {
     return (
@@ -133,7 +127,7 @@ const LearnerAccess = ({
       {button ? (
         <TabButton />
       ) : (
-        <ul className="" role="tablist">
+        <ul className="items-center pt-4 md:space-y-0 sm:flex sm:space-x-6 w-full" role="tablist">
           {availableTabs.map(({ key, count }, index) => {
             const activeTab = key === activeTabKey ? true : false;
             const activeClassLi = activeTab ? selectedStyleLi : styleLi;
