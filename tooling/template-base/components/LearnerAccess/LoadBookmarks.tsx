@@ -228,16 +228,15 @@ const LoadBookmarks = (): JSX.Element => {
       });
     };
 
-    // href = function () {
-    //   const kind = bookmark.id.get('bookmark.course.courseGroup.kind');
-    //   if bookmark.course.courseGroup?.contentType
-    //   if (['courseGroup', 'microCourse', 'webinarCourse', 'inPersonEventCourse'].includes(bookmark.course.courseGroup)) {
-    //     return `/learn/topic/${this.get('bookmark.topicId')}/redirect`;
-    //   } else {
-    //     return `/learn/${kind.toLowerCase()}/${this.get('bookmark.course.slug')}`;
-    //   }
-    // }
-    // bookmark.course.courseGroup
+    const kind = bookmark?.course?.courseGroup?.kind;
+    let path = '';
+    if (kind != undefined) {
+      if (['courseGroup', 'microCourse', 'webinarCourse', 'inPersonEventCourse'].includes(kind)) {
+        path = `/learn/topic/${bookmark.topicId}/redirect`;
+      } else {
+        path = `/learn/${kind.toLowerCase()}/${'bookmark.course.slug'}`;
+      }
+    }
 
     return (
       <div
@@ -258,10 +257,7 @@ const LoadBookmarks = (): JSX.Element => {
               {/* view button */}
 
               <div className="flex items-center text-sm px-2 w-48">{bookmark.note}</div>
-              <a
-                href="'/learn/topic/' + bookmark.course.id"
-                className="flex items-center text-sm font-semibold text-blue-700"
-              >
+              <a href={path} className="flex items-center text-sm font-semibold text-blue-700">
                 <div className="">{t('bookmark.view')}</div>
               </a>
               <button
