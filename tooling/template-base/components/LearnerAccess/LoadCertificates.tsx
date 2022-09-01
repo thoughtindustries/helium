@@ -33,7 +33,7 @@ const CertificateUploader = ({ setShowForm }: CertificateUploaderProps) => {
           className="rounded-sm cursor-pointer inline-block font-normal text-sm mx-0 mt-0 mb-4 py-2 px-5 relative text-center no-underline bg-grey-light duration-200 transition ease-in-out bg-active-blue border-active-blue text-accent-contrast leading-5"
         >
           <UploadIcon />
-          <span style={{ marginLeft: '1rem' }}>{t('external-certificate.upload')}</span>
+          <span className="ml-4">{t('external-certificate.upload')}</span>
         </button>
       </div>
     </div>
@@ -71,7 +71,6 @@ const CertificateUploadForm = ({ setShowForm }: CertificateUploadFormProps) => {
     const url = reader?.result?.toString();
     reader.onload = () => {
       setImageFromUpload(url || '');
-      console.log('image data', reader.result);
     };
   };
 
@@ -184,7 +183,6 @@ const LoadCertificates = ({
     fetchPolicy: 'network-only'
   });
   const { companyEnableExternalCertificateUploads } = useLearnerAccess();
-  console.log('data from child', data);
   if (loading) return <LoadingDots />;
   if (error) return <>{error.message}</>;
   if (showForm) return <CertificateUploadForm setShowForm={setShowForm} />;

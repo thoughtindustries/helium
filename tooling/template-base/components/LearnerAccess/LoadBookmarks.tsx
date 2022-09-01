@@ -228,6 +228,17 @@ const LoadBookmarks = (): JSX.Element => {
       });
     };
 
+    // href = function () {
+    //   const kind = bookmark.id.get('bookmark.course.courseGroup.kind');
+    //   if bookmark.course.courseGroup?.contentType
+    //   if (['courseGroup', 'microCourse', 'webinarCourse', 'inPersonEventCourse'].includes(bookmark.course.courseGroup)) {
+    //     return `/learn/topic/${this.get('bookmark.topicId')}/redirect`;
+    //   } else {
+    //     return `/learn/${kind.toLowerCase()}/${this.get('bookmark.course.slug')}`;
+    //   }
+    // }
+    // bookmark.course.courseGroup
+
     return (
       <div
         key={bookmark.id}
