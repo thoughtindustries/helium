@@ -2,6 +2,7 @@ import {
   HydratedContentItem,
   useUserCourseCompletionProgressQuery
 } from '@thoughtindustries/content';
+import clsx from 'clsx';
 import React from 'react';
 interface ContentUiProps {
   item: HydratedContentItem;
@@ -18,14 +19,21 @@ const LearnerAccessListDisplayDropDown = ({ item }: ContentUiProps) => {
   return (
     <>
       <hr className="bg-gray-500"></hr>
-      <div className="flex flex-col bg-slate-50 p-6 space-y-6 border-l-4 border-blue-700">
+      <div
+        className={clsx(
+          'flex flex-col bg-slate-50 space-y-6 border-l-4 border-blue-700',
+          item.description ? 'p-6' : 'px-6 pt-6'
+        )}
+      >
         {/* article and duration */}
         <div className="flex flex-row">
           <div className="py-1 px-3 rounded-full bg-green-200">
             <div className="text-sm font-semibold">{item.contentTypeLabel}</div>
           </div>
           <div className="flex items-center text-gray-500 px-4">|</div>
-          <div className="flex items-center text-gray-500 font-sm font-semibold">30 mins</div>
+          <div className="flex items-center text-gray-500 font-sm font-semibold">
+            {item.courseEndDate}
+          </div>
         </div>
         {/* course information */}
         <div className="flex flex-row justify-between gap-4">

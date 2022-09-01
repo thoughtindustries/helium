@@ -51,11 +51,7 @@ const LearnerAccess = ({
 
   // update state to display grid only on mobile
   const handleResize = () => {
-    if (window.innerWidth < 600) {
-      setButton(true);
-    } else {
-      setButton(false);
-    }
+    setButton(window.innerWidth < 600);
   };
 
   useEffect(() => {

@@ -173,7 +173,8 @@ const LoadBookmarks = (): JSX.Element => {
   }
   const BookmarkItems = ({ folderId }: BookmarkItemsProps): JSX.Element | null => {
     const { data: bookmarks, refetch: refetchBookmark } = useUserBookmarksByFolderQuery({
-      variables: { id: folderId }
+      variables: { id: folderId },
+      fetchPolicy: 'network-only'
     });
 
     if (!bookmarks || !bookmarks.UserBookmarksByFolder) return null;
