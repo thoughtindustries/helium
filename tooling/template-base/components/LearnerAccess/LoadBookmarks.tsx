@@ -28,7 +28,6 @@ const LoadBookmarks = (): JSX.Element => {
   } = useUserBookmarksQuery({
     variables: {},
     fetchPolicy: 'network-only',
-    ssr: false,
     onCompleted: data => {
       if (data.UserBookmarks?.length && !selectedFolderId) {
         setSelectedFolderId(data.UserBookmarks[0].id);

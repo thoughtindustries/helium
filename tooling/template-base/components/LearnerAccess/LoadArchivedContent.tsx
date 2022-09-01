@@ -25,7 +25,6 @@ const LoadArchivedContent = (): JSX.Element => {
     }
     await refetchContentGroups();
   }, [refetchContentGroups, refetchArchives, resetActiveTab]);
-  console.log('data from child', data);
   if (loading || isRefetching) return <LoadingDots />;
   if (error) return <>{error.message}</>;
   if (!data || !data.UserArchives) return <></>;
