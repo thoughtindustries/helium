@@ -8,7 +8,7 @@ import {
   useUserCourseCompletionProgressQuery
 } from '@thoughtindustries/content';
 import clsx from 'clsx';
-
+import { t } from 'i18next';
 interface ContentUiProps {
   item: HydratedContentItem;
   index?: number;
@@ -24,11 +24,11 @@ const LearnerAccessDisplayListView = ({ item }: ContentUiProps) => {
     fetchPolicy: 'network-only'
   });
 
-  const DropDownClassNames = listViewDropDown ? 'border-l-4 border-blue-700' : '';
-
   return (
     <>
-      <div className={clsx(['flex flex-col w-full', DropDownClassNames])}>
+      <div
+        className={clsx('flex flex-col w-full', listViewDropDown && 'border-1-4 border-blue-700')}
+      >
         <div className="flex flex-row basis-8/12">
           <div className="flex flex-row basis-8/12">
             {/* course image */}
@@ -55,7 +55,7 @@ const LearnerAccessDisplayListView = ({ item }: ContentUiProps) => {
             </div>
             {/* continue button */}
             <a href={item.href} className="flex items-center text-sm font-semibold text-blue-700">
-              <div className="">Continue</div>
+              <div className="">{t('Continue')}</div>
             </a>
             {/* drop down menu */}
             <button
