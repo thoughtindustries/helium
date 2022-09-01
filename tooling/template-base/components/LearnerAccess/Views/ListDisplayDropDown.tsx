@@ -31,10 +31,6 @@ const LearnerAccessListDisplayDropDown = ({ item }: ContentUiProps) => {
           <div className="py-1 px-3 rounded-full bg-green-200">
             <div className="text-sm font-semibold">{item.contentTypeLabel}</div>
           </div>
-          <div className="flex items-center text-gray-500 px-4">|</div>
-          <div className="flex items-center text-gray-500 font-sm font-semibold">
-            {item.courseEndDate}
-          </div>
         </div>
         {/* course information */}
         <div className="flex flex-row justify-between gap-4">
