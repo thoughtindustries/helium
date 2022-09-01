@@ -16,6 +16,7 @@ const LearnerAccessListDisplayDropDown = ({ item }: ContentUiProps) => {
     },
     fetchPolicy: 'network-only'
   });
+  const slash = '/';
   return (
     <>
       <hr className="bg-gray-500"></hr>
@@ -46,7 +47,13 @@ const LearnerAccessListDisplayDropDown = ({ item }: ContentUiProps) => {
                       {item?.type?.replace(/([A-Z]+)/g, ' $1').replace(/([A-Z][a-z])/g, ' $1')}
                     </div>
                     <div className="text-3xl font-bold pt-2">
-                      {item.completed?.length}/{item.required?.length}
+                      {item.required && item.completed ? (
+                        <>
+                          {item.completed?.length}/{item.required?.length}
+                        </>
+                      ) : (
+                        'N/A'
+                      )}
                     </div>
                   </div>
                 </div>

@@ -2,6 +2,7 @@ import React from 'react';
 import { HydratedContentItem } from '@thoughtindustries/content';
 import dashboardDefault from '../../../renderer/dashboardDefault.png';
 
+import { t } from 'i18next';
 interface ContentUiProps {
   item: HydratedContentItem;
   index?: number;
@@ -31,7 +32,7 @@ const LearnerAccessGridView = ({ item }: ContentUiProps) => {
         <div className={item.description ? 'py-4' : ''}>{item.description}</div>
         <hr className=""></hr>
         <a href={item.href} className="flex justify-end text-blue-700">
-          <div className="">Continue</div>
+          <div className="">{t('Continue')}</div>
         </a>
       </div>
     </div>
