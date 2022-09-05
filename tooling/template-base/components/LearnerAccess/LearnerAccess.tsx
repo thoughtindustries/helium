@@ -11,10 +11,10 @@ import LearnerAccessContext from './Context/context';
 import { getAvailableTabs } from './Utilities/utilities';
 import { useTranslation } from 'react-i18next';
 import { localizedTabLabelMapping } from './Constants/constants';
-import clsx from 'clsx';
+import dropDownClosed from '../../renderer/dropDownClosed.svg';
+import dropDownOpen from '../../renderer/dropDownOpen.svg';
 
 const LearnerAccess = ({
-  classNames,
   displayExpiredCertificateInformation,
   query,
   userHasManagerInterfaceAccess,
@@ -24,6 +24,7 @@ const LearnerAccess = ({
   const [activeTabKey, setActiveTabKey] = useState<TabKey | undefined>(undefined);
   const [availableTabs, setAvailableTabs] = useState<AvailableTab[]>([]);
   const [button, setButton] = useState(false);
+  const [dropDownActive, setDropDownActive] = useState(false);
   const {
     loading,
     error,
@@ -52,7 +53,7 @@ const LearnerAccess = ({
 
   // update state to display grid only on mobile
   const handleResize = () => {
-    setButton(window.innerWidth < 600);
+    setButton(window.innerWidth < 640);
   };
 
   useEffect(() => {
@@ -77,46 +78,47 @@ const LearnerAccess = ({
   const handleTabSelection = (currentTabKey: TabKey) => {
     setActiveTabKey(currentTabKey);
   };
-  const styleLi = clsx(classNames, 'inline-block text-[14px] pt-4 pr-6 relative');
-  const selectedStyleLi = clsx(
-    classNames,
-    'inline-block text-[14px] pt-4 pr-6 relative bg-white border-active-blue'
-  );
-  const styleSpan = clsx(classNames, 'inline-block hover:text-hover');
-  const selectedStyleSpan = clsx(classNames, 'inline-block hover:text-hover  font-bold');
 
   const TabButton = () => {
     return (
       <>
-        {availableTabs.map(({ key, count }, index) => {
-          const activeTab = key === activeTabKey ? true : false;
-          const activeClassLi = activeTab ? selectedStyleLi : styleLi;
-          const activeClassSpan = activeTab ? selectedStyleSpan : styleSpan;
-          return (
-            <>
-              {/* dropdown menu */}
-              <div className="flex my-auto space-x-6 mx-auto md:block">
-                <ul className="items-center justify-between p-5 space-y-3 pt-4 md:space-y-0 md:flex md:space-x-6 w-full">
-                  <li key={index} {...activeClassLi}>
-                    <button
-                      onClick={() => {
-                        handleTabSelection(key);
-                      }}
-                      className=""
-                      role="tab"
-                      aria-selected={activeTab}
-                      aria-controls={'access-section-' + index}
-                    >
-                      <span {...activeClassSpan}>
-                        {t(localizedTabLabelMapping[key], { count })}
-                      </span>
-                    </button>
-                  </li>
-                </ul>
-              </div>
-            </>
-          );
-        })}
+        <button
+          className="flex justify-between rounded-md py-3 pl-4 pr-3 border w-full text-md font-medium"
+          onClick={() => setDropDownActive(!dropDownActive)}
+        >
+          {activeTabKey}
+          {dropDownActive ? (
+            <img className="pt-2" src={dropDownOpen} />
+          ) : (
+            <img className="pt-2" src={dropDownClosed} />
+          )}
+        </button>
+        {dropDownActive && (
+          <div className="border mt-2 rounded-md">
+            {availableTabs.map(({ key }, index) => {
+              const activeTabClassName = key === activeTabKey ? 'font-bold underline' : '';
+              return (
+                <>
+                  {/* dropdown menu -> only visible on smaller screens */}
+                  <div className="flex my-auto space-x-6 mx-auto md:block">
+                    <ul className="items-center justify-between p-5 space-y-3 md:space-y-0 md:flex md:space-x-6 w-full">
+                      <li key={index}>
+                        <button
+                          onClick={() => {
+                            handleTabSelection(key);
+                          }}
+                          className={activeTabClassName}
+                        >
+                          <span>{t(localizedTabLabelMapping[key])}</span>
+                        </button>
+                      </li>
+                    </ul>
+                  </div>
+                </>
+              );
+            })}
+          </div>
+        )}
       </>
     );
   };
@@ -128,23 +130,19 @@ const LearnerAccess = ({
         <TabButton />
       ) : (
         <ul className="items-center pt-4 md:space-y-0 sm:flex sm:space-x-6 w-full" role="tablist">
-          {availableTabs.map(({ key, count }, index) => {
-            const activeTab = key === activeTabKey ? true : false;
-            const activeClassLi = activeTab ? selectedStyleLi : styleLi;
-            const activeClassSpan = activeTab ? selectedStyleSpan : styleSpan;
+          {availableTabs.map(({ key }, index) => {
+            const activeTabClassName =
+              key === activeTabKey ? 'py-3 font-semibold border-b border-blue-500' : '';
             return (
               <>
-                <li key={index} {...activeClassLi}>
+                <li key={index}>
                   <button
                     onClick={() => {
                       handleTabSelection(key);
                     }}
-                    className="text-center text-sm font-semibold py-4 border-b-2 hover:border-blue-400"
-                    role="tab"
-                    aria-selected={activeTab}
-                    aria-controls={'access-section-' + index}
+                    className={activeTabClassName}
                   >
-                    <span {...activeClassSpan}>{t(localizedTabLabelMapping[key], { count })}</span>
+                    <span>{t(localizedTabLabelMapping[key])}</span>
                   </button>
                 </li>
               </>
