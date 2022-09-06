@@ -23,16 +23,13 @@ export const ArchiveButton = ({ item, onArchiveSuccessAsync }: ArchiveButtonProp
   const text = t('dashboard.archive-warning');
   const [archiveUserLearningPathMutation] = useArchiveUserLearningPathMutation();
   const [archiveUserCourseMutation] = useArchiveUserCourseMutation();
-  console.log('item.id', item.id);
 
   const handleMutation = async () => {
     let neededMutation: ArchiveUserLearningPathMutationFn | ArchiveUserCourseMutationFn;
     if (item.kind === 'learningPath') {
       neededMutation = archiveUserLearningPathMutation;
-      console.log('learning paths');
     } else {
       neededMutation = archiveUserCourseMutation;
-      console.log('course');
     }
     return neededMutation({
       variables: { id: item.id },
@@ -85,10 +82,8 @@ export const ReinstateButton = ({ item, onReinstateSuccessAsync }: ReinstateButt
     let neededMutation: ReinstateUserCourseMutationFn | ReinstateUserLearningPathMutationFn;
     if (item.resourceType === 'learningPath') {
       neededMutation = reinstateUserLearningPathMutaion;
-      console.log('learning paths');
     } else {
       neededMutation = reinstateUserCourseMutation;
-      console.log('course');
     }
     return neededMutation().then(onReinstateSuccessAsync);
   };

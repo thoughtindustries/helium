@@ -12,6 +12,7 @@ import {
 import { useTranslation } from 'react-i18next';
 import LearnerAccessGridView from './Views/GridView';
 import LearnerAccessDisplayListView from './Views/DisplayListView';
+import clsx from 'clsx';
 
 const LoadUserLearning = ({ query, kind, sort }: LoadedComponentProps): JSX.Element => {
   const [gridViewActive, setGridActive] = useState(true);
@@ -52,34 +53,44 @@ const LoadUserLearning = ({ query, kind, sort }: LoadedComponentProps): JSX.Elem
 
   if (!data || !data.UserContentItems) return <></>;
 
-  const listViewClassNames = gridViewActive
-    ? 'flex border rounded-l-md w-9 h-9 place-content-center items-center'
-    : 'flex border rounded-l-md w-9 h-9 place-content-center items-center bg-blue-600';
-
-  const gridViewClassNames = gridViewActive
-    ? 'flex border rounded-r-md w-9 h-9 place-content-center items-center bg-blue-600'
-    : 'flex border rounded-r-md w-9 h-9 place-content-center items-center';
-
-  const displayTypeClassNames = gridViewActive
-    ? 'grid gap-5 self-center grid-cols-1 md:grid-cols-2 lg:grid-cols-3'
-    : 'sm:flex flex-col w-full hidden';
-
   return (
     <>
       {/* grid/list toggle */}
       <div className="hidden sm:flex justify-end p-3">
         {/* list display button */}
-        <button className={listViewClassNames} onClick={() => setGridActive(false)}>
+        <button
+          className={clsx(
+            gridViewActive
+              ? 'flex border rounded-l-md w-9 h-9 place-content-center items-center'
+              : 'flex border rounded-l-md w-9 h-9 place-content-center items-center bg-blue-600'
+          )}
+          onClick={() => setGridActive(false)}
+        >
           <img src={listViewSelector} />
         </button>
 
         {/* grid display button */}
-        <button className={gridViewClassNames} onClick={() => setGridActive(true)}>
+        <button
+          className={clsx(
+            gridViewActive
+              ? 'flex border rounded-r-md w-9 h-9 place-content-center items-center bg-blue-600'
+              : 'flex border rounded-r-md w-9 h-9 place-content-center items-center'
+          )}
+          onClick={() => setGridActive(true)}
+        >
           <img src={gridSelected} />
         </button>
       </div>
 
-      <div className={displayTypeClassNames}>
+      {/* className={clsx('flex flex-col w-full', listViewDropDown && 'border-1-4 border-blue-700')} */}
+
+      <div
+        className={clsx(
+          gridViewActive
+            ? 'grid gap-5 self-center grid-cols-1 md:grid-cols-2 lg:grid-cols-3'
+            : 'sm:flex flex-col w-full hidden'
+        )}
+      >
         {/* title and progress */}
         {!gridViewActive && (
           <div className="flex flex-row bg-slate-50 px-6 py-3 rounded-t-md">

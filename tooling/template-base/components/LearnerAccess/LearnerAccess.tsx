@@ -1,7 +1,7 @@
 import React, { useCallback, useEffect, useState } from 'react';
 
 import { AvailableTab, LearnerAccessProps, TabKey } from './Types/types';
-import LoadWaitlist from './LoadWishlistedContent';
+import LoadWaitlist from './LoadWaitlistedContent';
 import LoadArchivedContent from './LoadArchivedContent';
 import LoadBookmarks from './LoadBookmarks';
 import LoadUserLearning from './LoadUserLearning';

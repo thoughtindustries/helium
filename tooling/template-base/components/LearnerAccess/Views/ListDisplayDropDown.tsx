@@ -16,7 +16,6 @@ const LearnerAccessListDisplayDropDown = ({ item }: ContentUiProps) => {
     },
     fetchPolicy: 'network-only'
   });
-  const slash = '/';
   return (
     <>
       <hr className="bg-gray-500"></hr>
