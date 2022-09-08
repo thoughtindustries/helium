@@ -1,5 +1,5 @@
 {
-  "name": "@thoughtindustries/registration-form",
+  "name": "@thoughtindustries/user",
   "version": "1.2.0",
   "description": "A base component for registration form",
   "main": "src/index.ts",
