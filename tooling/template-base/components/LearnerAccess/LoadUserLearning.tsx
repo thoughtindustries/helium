@@ -17,6 +17,16 @@ import clsx from 'clsx';
 const LoadUserLearning = ({ query, kind, sort }: LoadedComponentProps): JSX.Element => {
   const [gridViewActive, setGridActive] = useState(true);
 
+  const handleResize = () => {
+    if (window.innerWidth < 640) {
+      setGridActive(true);
+    }
+  };
+
+  useEffect(() => {
+    window.addEventListener('resize', handleResize);
+  }, []);
+
   const { data, loading, error } = useUserContentItemsQuery({
     variables: {
       query,
@@ -79,8 +89,6 @@ const LoadUserLearning = ({ query, kind, sort }: LoadedComponentProps): JSX.Elem
           <img src={gridSelected} />
         </button>
       </div>
-
-      {/* className={clsx('flex flex-col w-full', listViewDropDown && 'border-1-4 border-blue-700')} */}
 
       <div
         className={clsx(

@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import dashboardDefault from '../../../renderer/dashboardDefault.png';
 import dropDownClosed from '../../../renderer/dropDownClosed.svg';
 import dropDownOpen from '../../../renderer/dropDownOpen.svg';
 import LearnerAccessListDisplayDropDown from './ListDisplayDropDown';
@@ -9,6 +8,7 @@ import {
 } from '@thoughtindustries/content';
 import clsx from 'clsx';
 import { t } from 'i18next';
+import { useAppearanceContext } from '../../../pages/dashboard/index.page';
 interface ContentUiProps {
   item: HydratedContentItem;
   index?: number;
@@ -24,6 +24,9 @@ const LearnerAccessDisplayListView = ({ item }: ContentUiProps) => {
     fetchPolicy: 'network-only'
   });
 
+  const appearance = useAppearanceContext();
+  const assetImage = item.asset ? item.asset : appearance.logoAsset;
+
   return (
     <>
       <div
@@ -33,12 +36,11 @@ const LearnerAccessDisplayListView = ({ item }: ContentUiProps) => {
           <div className="flex flex-row basis-8/12">
             {/* course image */}
             <div className="py-4 pl-6 basis-4/12">
-              {item.asset ? (
-                <img src={item.asset} className="rounded-md" />
-              ) : (
-                <img src={dashboardDefault} className="rounded-md" />
-              )}
+              <div>
+                <img src={assetImage} className={clsx('rounded-md', !item.asset && 'p-4')} />
+              </div>
             </div>
+
             {/* course title */}
             <div className="flex items-center px-6 text-sm font-semibold font-primary">
               {item.title}

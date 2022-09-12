@@ -51,6 +51,7 @@ const LearnerAccess = ({
         companyEnableExternalCertificateUploads,
         companyHasWaitlistingFeature
       );
+
       // reset active tab key if not included in available tabs
       if (activeTabKey && !newAvailableTabs.find(({ key }) => key === activeTabKey)) {
         setActiveTabKey(undefined);
@@ -61,7 +62,7 @@ const LearnerAccess = ({
     }
   });
 
-  // update state to display grid only on mobile
+  // update state to display button only on mobile
   const handleResize = () => {
     setButton(window.innerWidth < 640);
   };
