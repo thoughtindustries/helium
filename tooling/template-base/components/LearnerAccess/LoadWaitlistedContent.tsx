@@ -44,7 +44,6 @@ const LoadWaitlist = (): JSX.Element => {
   return (
     <div className="py-5">
       {data.UserWaitlist.map(item => {
-        // const { id, title, contentTypeLabel } = hydrateContent(i18n, item as GlobalTypes.Content);
         return (
           <div
             key={item.id}

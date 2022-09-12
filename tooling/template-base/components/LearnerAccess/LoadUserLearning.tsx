@@ -60,9 +60,8 @@ const LoadUserLearning = ({ query, kind, sort }: LoadedComponentProps): JSX.Elem
         {/* list display button */}
         <button
           className={clsx(
-            gridViewActive
-              ? 'flex border rounded-l-md w-9 h-9 place-content-center items-center'
-              : 'flex border rounded-l-md w-9 h-9 place-content-center items-center bg-blue-600'
+            'flex border rounded-l-md w-9 h-9 place-content-center items-center',
+            !gridViewActive && 'bg-blue-600'
           )}
           onClick={() => setGridActive(false)}
         >
@@ -72,9 +71,8 @@ const LoadUserLearning = ({ query, kind, sort }: LoadedComponentProps): JSX.Elem
         {/* grid display button */}
         <button
           className={clsx(
-            gridViewActive
-              ? 'flex border rounded-r-md w-9 h-9 place-content-center items-center bg-blue-600'
-              : 'flex border rounded-r-md w-9 h-9 place-content-center items-center'
+            'flex border rounded-r-md w-9 h-9 place-content-center items-center',
+            gridViewActive && 'bg-blue-600'
           )}
           onClick={() => setGridActive(true)}
         >
