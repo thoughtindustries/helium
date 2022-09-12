@@ -10,9 +10,19 @@ import { LoadingDots, useContentGroupsQuery } from '@thoughtindustries/content';
 import LearnerAccessContext from './Context/context';
 import { getAvailableTabs } from './Utilities/utilities';
 import { useTranslation } from 'react-i18next';
-import { localizedTabLabelMapping } from './Constants/constants';
 import dropDownClosed from '../../renderer/dropDownClosed.svg';
 import dropDownOpen from '../../renderer/dropDownOpen.svg';
+
+const localizedTabLabelMapping: { [key in TabKey]: string } = {
+  [TabKey.Current]: 'dashboard.current',
+  [TabKey.Events]: 'dashboard.events',
+  [TabKey.LearningPath]: 'learning-path',
+  [TabKey.Completed]: 'dashboard.completed',
+  [TabKey.Archived]: 'dashboard.archived',
+  [TabKey.Bookmark]: 'dashboard.bookmark',
+  [TabKey.Certificate]: 'dashboard.certificates',
+  [TabKey.Waitlist]: 'dashboard.waitlisted'
+};
 
 const LearnerAccess = ({
   displayExpiredCertificateInformation,
