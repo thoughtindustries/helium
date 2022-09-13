@@ -20,15 +20,15 @@ export default function CurrentUserNavBar() {
             <div className="md:hidden"></div>
           </div>
         </div>
-        <div className={`flex ml-8 my-auto space-x-6 md:block ${navbar ? 'block' : 'hidden'}`}>
+        <div className={`flex my-auto space-x-6 md:block ${navbar ? 'block' : 'hidden'}`}>
           <ul className="items-center justify-between space-y-3 md:space-y-0 md:flex md:space-x-6 w-full">
-            <li className="md:hover:bg-white hover:bg-slate-100 rounded pl-2 py-1.5">
+            <li className="md:hover:bg-white hover:bg-slate-100 rounded py-1.5">
               <a href="/dashboard">My Dashboard</a>
             </li>
-            <li className="md:hover:bg-white hover:bg-slate-100 rounded pl-2 py-2">
+            <li className="md:hover:bg-white hover:bg-slate-100 rounded py-2">
               <a href="/catalog">Catalog</a>
             </li>
-            <li className="md:hover:bg-white hover:bg-slate-100 rounded pl-2 py-2">
+            <li className="md:hover:bg-white hover:bg-slate-100 rounded py-2">
               <a href="/support">Help</a>
             </li>
             <hr></hr>
