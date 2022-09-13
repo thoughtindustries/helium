@@ -11,8 +11,8 @@ interface ContentUiProps {
 
 const LearnerAccessGridView = ({ item }: ContentUiProps) => {
   // const apperence = useAppearanceContext();
-  const pageContext = usePageContext();
-  const assetImage = item.asset ? item.asset : pageContext.appearance?.logoAsset;
+  const { appearance } = usePageContext();
+  const assetImage = item.asset ? item.asset : appearance?.logoAsset;
   return (
     <div className="m-8">
       {/* course image */}

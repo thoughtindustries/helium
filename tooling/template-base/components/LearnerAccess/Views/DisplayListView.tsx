@@ -24,8 +24,8 @@ const LearnerAccessDisplayListView = ({ item }: ContentUiProps) => {
     fetchPolicy: 'network-only'
   });
 
-  const pageContext = usePageContext();
-  const assetImage = item.asset ? item.asset : pageContext.appearance?.logoAsset;
+  const { appearance } = usePageContext();
+  const assetImage = item.asset ? item.asset : appearance?.logoAsset;
 
   return (
     <>
