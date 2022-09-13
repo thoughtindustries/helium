@@ -1,0 +1,6 @@
+query ContentGroups($query: String, $includeExpiredCertificates: Boolean) {
+  UserContentGroups(query: $query, includeExpiredCertificates: $includeExpiredCertificates) {
+    kind
+    count
+  }
+}

@@ -1,0 +1,11 @@
+query UserWaitlist {
+  UserWaitlist {
+    id
+    contentTypeLabel
+    title
+    kind
+    slug
+    displayCourse
+    displayCourseSlug
+  }
+}

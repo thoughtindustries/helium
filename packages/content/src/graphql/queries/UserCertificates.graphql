@@ -1,0 +1,25 @@
+query UserCertificates($query: String, $includeExpiredCertificates: Boolean) {
+  UserCertificates(query: $query, includeExpiredCertificates: $includeExpiredCertificates) {
+    id
+    resourceId
+    expirationDate
+    isExpired
+    externalResourceTitle
+    url
+    source
+    contentItem {
+      id
+      asset
+      courseEndDate
+      courseStartDate
+      coursePresold
+      description
+      kind
+      slug
+      availabilityStatus
+      contentTypeLabel
+      title
+      timeZone
+    }
+  }
+}
