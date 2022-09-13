@@ -8,7 +8,7 @@ import {
 } from '@thoughtindustries/content';
 import clsx from 'clsx';
 import { t } from 'i18next';
-import { useAppearanceContext } from '../../../pages/dashboard/index.page';
+import { usePageContext } from '../../../renderer/usePageContext';
 interface ContentUiProps {
   item: HydratedContentItem;
   index?: number;
@@ -24,8 +24,8 @@ const LearnerAccessDisplayListView = ({ item }: ContentUiProps) => {
     fetchPolicy: 'network-only'
   });
 
-  const appearance = useAppearanceContext();
-  const assetImage = item.asset ? item.asset : appearance.logoAsset;
+  const pageContext = usePageContext();
+  const assetImage = item.asset ? item.asset : pageContext.appearance?.logoAsset;
 
   return (
     <>

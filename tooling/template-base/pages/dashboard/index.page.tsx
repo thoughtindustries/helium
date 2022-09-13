@@ -5,7 +5,6 @@ import NavBar from '../../components/Navigation/NavBar';
 import LearnerAccess from '../../components/LearnerAccess/LearnerAccess';
 import FeaturedContentComp from '../../components/FeaturedContent/FeaturedContentComp';
 import { HydratedContentItem } from '@thoughtindustries/content';
-import { Appearance } from '../../types';
 
 export { Page };
 export { documentProps };
@@ -15,38 +14,24 @@ const documentProps = {
   description: 'The catalog page'
 };
 
-const AppearanceContext = createContext<Appearance | undefined>(undefined);
-
-const useAppearanceContext = () => {
-  const context = useContext(AppearanceContext);
-  if (!context) {
-    throw new Error('No context found for RegistrationContext');
-  }
-  return context;
-};
-
-function Page(props: { appearance: Appearance }) {
+function Page() {
   return (
     <>
-      <AppearanceContext.Provider value={props.appearance}>
-        <div className="font-primary">
-          <NavBar />
-          <Banner
-            heading="My Dashboard"
-            subtext="Your Dashboard is your game-changing collaborative space where you can view all your learning in one place."
-          />
-          <LearnerAccess companyHasWaitlistingFeature={true} />
-          <FeaturedContentComp
-            onAddedToQueue={function (item: HydratedContentItem): Promise<boolean | void> {
-              throw new Error('Function not implemented.');
-            }}
-            numberOfContentItems={3}
-          />
-          <Footer />
-        </div>
-      </AppearanceContext.Provider>
+      <div className="font-primary">
+        <NavBar />
+        <Banner
+          heading="My Dashboard"
+          subtext="Your Dashboard is your game-changing collaborative space where you can view all your learning in one place."
+        />
+        <LearnerAccess companyHasWaitlistingFeature={true} />
+        <FeaturedContentComp
+          onAddedToQueue={function (item: HydratedContentItem): Promise<boolean | void> {
+            throw new Error('Function not implemented.');
+          }}
+          numberOfContentItems={3}
+        />
+        <Footer />
+      </div>
     </>
   );
 }
-
-export { useAppearanceContext };

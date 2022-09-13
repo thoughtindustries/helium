@@ -1,17 +1,18 @@
 import React from 'react';
 import { HydratedContentItem } from '@thoughtindustries/content';
-import { useAppearanceContext } from '../../../pages/dashboard/index.page';
 
 import { t } from 'i18next';
 import clsx from 'clsx';
+import { usePageContext } from '../../../renderer/usePageContext';
 interface ContentUiProps {
   item: HydratedContentItem;
   index?: number;
 }
 
 const LearnerAccessGridView = ({ item }: ContentUiProps) => {
-  const apperence = useAppearanceContext();
-  const assetImage = item.asset ? item.asset : apperence.logoAsset;
+  // const apperence = useAppearanceContext();
+  const pageContext = usePageContext();
+  const assetImage = item.asset ? item.asset : pageContext.appearance?.logoAsset;
   return (
     <div className="m-8">
       {/* course image */}
