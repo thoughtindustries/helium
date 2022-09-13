@@ -6,7 +6,7 @@ const Footer = () => {
     <>
       <div className="pt-2 pb-6">
         <div className="flex justify-center">
-          <div className="flex w-8 m-5 mx-auto">
+          <div className="flex m-5 mx-auto">
             <Logo size="small" />
           </div>
         </div>
