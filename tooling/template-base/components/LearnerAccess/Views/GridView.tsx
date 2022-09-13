@@ -36,7 +36,7 @@ const LearnerAccessGridView = ({ item }: ContentUiProps) => {
         <div className={item.description ? 'py-4' : ''}>{item.description}</div>
         <hr className=""></hr>
         <a href={item.href} className="flex justify-end text-blue-700">
-          <div className="">{t('Continue')}</div>
+          <div className="">{item.callToAction}</div>
         </a>
       </div>
     </div>

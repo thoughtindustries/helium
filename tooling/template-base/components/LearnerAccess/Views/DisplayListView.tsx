@@ -57,7 +57,7 @@ const LearnerAccessDisplayListView = ({ item }: ContentUiProps) => {
             </div>
             {/* continue button */}
             <a href={item.href} className="flex items-center text-sm font-semibold text-blue-700">
-              <div className="">{t('Continue')}</div>
+              <div className="">{item.callToAction}</div>
             </a>
             {/* drop down menu */}
             <button
