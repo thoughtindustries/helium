@@ -52,6 +52,7 @@ i18n.use(initReactI18next).init({
         'dashboard.certificates': 'Certifications',
         'dashboard.collaborations': 'Collaborations',
         'first-name-alert': 'Please enter your first name.',
+        'forgot-password-question': 'Forgot your password?',
         'last-name-alert': 'Please enter your last name.',
         'password-length-alert':
           'Please enter a password that is at least six characters long and matches the password confirmation.',

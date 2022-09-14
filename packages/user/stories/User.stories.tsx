@@ -4,7 +4,8 @@ import {
   ValidateRedemptionCodeDocument,
   RedeemRegistrationAndRedemptionCodesDocument,
   Registration,
-  TermsAndConditionsDocument
+  TermsAndConditionsDocument,
+  Login
 } from '../src';
 
 const mockUser = {
@@ -16,8 +17,8 @@ const mockUser = {
 };
 
 export default {
-  title: 'Example/Registration',
-  component: Registration,
+  title: 'Example/User',
+  component: Login,
   argTypes: {
     currentUser: {
       name: 'currentUser',
@@ -97,11 +98,14 @@ const mockApolloResults = [
   mockTermsAndConditionsResults('<p>Test Global Terms </p>')
 ];
 
-const Template: Story = args => <Registration {...args} />;
+const RegistrationTemplate: Story = args => <Registration {...args} />;
+const LoginTemplate: Story = () => <Login />;
 
-export const Base: Story = Template.bind({});
-Base.parameters = {
+export const RegistrationForm: Story = RegistrationTemplate.bind({});
+RegistrationForm.parameters = {
   apolloClient: {
     mocks: mockApolloResults
   }
 };
+
+export const LoginForm: Story = LoginTemplate.bind({});
