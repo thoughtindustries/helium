@@ -17,7 +17,10 @@ Helium utilizes a modern technology stack that includes React, GraphQL, and Tail
 `npm` and `node` are pinned to specific versions using [Volta](https://volta.sh/), so you will want to [install it](https://docs.volta.sh/guide/getting-started) before anything else.
 
 ### Installing Locally
-To install and run this Helium repo locally, clone the repo and run the following commands:
+To install and run this Helium repo locally, run the following commands:
+```bash
+$ git clone https://github.com/thoughtindustries/helium
+```
 ```bash
 $ npm install
 ```
