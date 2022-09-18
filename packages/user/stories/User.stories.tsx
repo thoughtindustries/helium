@@ -5,7 +5,8 @@ import {
   RedeemRegistrationAndRedemptionCodesDocument,
   Registration,
   TermsAndConditionsDocument,
-  Login
+  Login,
+  LoginDocument
 } from '../src';
 
 const mockUser = {
@@ -86,6 +87,17 @@ const mockTermsAndConditionsResults = (globalTerms: string) => ({
   }
 });
 
+const mockLoginResults = () => ({
+  request: {
+    query: LoginDocument
+  },
+  result: {
+    data: {
+      Login
+    }
+  }
+});
+
 const mockApolloResults = [
   mockApolloResultsFactory('validCode1', true, false, false),
   mockApolloResultsFactory('validCode2', true, false, false),
@@ -95,7 +107,8 @@ const mockApolloResults = [
   mockApolloResultsFactory('expiredCode', false, false, true),
   mockApolloResultsFactory('alreadyRedeemedCode', false, true, false),
   mockRegistrationResults(['validCode1', 'validCode2', 'validCode3'], true),
-  mockTermsAndConditionsResults('<p>Test Global Terms </p>')
+  mockTermsAndConditionsResults('<p>Test Global Terms </p>'),
+  mockLoginResults()
 ];
 
 const RegistrationTemplate: Story = args => <Registration {...args} />;
@@ -109,3 +122,8 @@ RegistrationForm.parameters = {
 };
 
 export const LoginForm: Story = LoginTemplate.bind({});
+LoginForm.parameters = {
+  apolloClient: {
+    mocks: mockApolloResults
+  }
+};

@@ -56,7 +56,7 @@ describe('@thoughtindustries/registration', () => {
       expect(container).toMatchInlineSnapshot(`
         <div>
           <form
-            class="mx-4 md:mx-40 text-center self-center"
+            class="flex flex-col justify-center min-h-screen mx-4 md:mx-40"
           >
             <div>
               <div>

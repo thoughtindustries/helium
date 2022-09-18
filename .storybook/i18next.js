@@ -54,6 +54,11 @@ i18n.use(initReactI18next).init({
         'first-name-alert': 'Please enter your first name.',
         'forgot-password-question': 'Forgot your password?',
         'last-name-alert': 'Please enter your last name.',
+        'login-disabled':
+          'Your account has been disabled. Please contact your account administrator.',
+        'login-invalid-password': 'Invalid email or password.',
+        'login-too-many-attempts':
+          'You have made too many log in attempts. Please try again in 30 minutes.',
         'password-length-alert':
           'Please enter a password that is at least six characters long and matches the password confirmation.',
         'redemption-code.validate': 'Validate',

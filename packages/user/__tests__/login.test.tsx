@@ -46,43 +46,43 @@ describe('@thoughtindustries/login', () => {
       );
       await waitFor(() => new Promise(res => setTimeout(res, 0)));
       expect(container).toMatchInlineSnapshot(`
-      <div>
-        <div
-          class="flex flex-col justify-center items-center min-h-screen px-4"
-        >
-          <h2
-            class="text-2xl pb-4"
-          >
-            sign-in
-          </h2>
-          <input
-            class="p-4 text-sm w-full md:w-2/3 ring-1 ring-gray-300 ring-inset shadow-inner focus:outline-none focus:ring-gray-500 mb-4"
-            placeholder="register-email"
-          />
-          <input
-            class="p-4 text-sm w-full md:w-2/3 ring-1 ring-gray-300 ring-inset shadow-inner focus:outline-none focus:ring-gray-500 mb-4"
-            placeholder="register-password"
-            type="password"
-          />
+        <div>
           <div
-            class="flex flex-col-reverse md:flex-row justify-between w-full md:w-2/3"
+            class="flex flex-col justify-center items-center min-h-screen mx-4 md:mx-40"
           >
-            <button
-              type="button"
-            >
-              <p>
-                forgot-password-question
-              </p>
-            </button>
-            <button
-              class="text-white bg-indigo-700 hover:bg-indigo-600 inline-block font-normal text-sm text-center no-underline py-2 w-full md:w-1/4 rounded-md disabled:bg-indigo-300 disabled:cursor-default"
-              type="button"
+            <h2
+              class="text-2xl pb-4"
             >
               sign-in
-            </button>
+            </h2>
+            <input
+              class="p-4 text-sm w-full ring-1 ring-gray-300 ring-inset shadow-inner focus:outline-none focus:ring-gray-500 mb-4"
+              placeholder="register-email"
+            />
+            <input
+              class="p-4 text-sm w-full ring-1 ring-gray-300 ring-inset shadow-inner focus:outline-none focus:ring-gray-500 mb-4"
+              placeholder="register-password"
+              type="password"
+            />
+            <div
+              class="flex flex-col-reverse md:flex-row justify-between w-full"
+            >
+              <button
+                type="button"
+              >
+                <p>
+                  forgot-password-question
+                </p>
+              </button>
+              <button
+                class="text-white bg-indigo-700 hover:bg-indigo-600 inline-block font-normal text-sm text-center no-underline py-2 w-full md:w-1/4 rounded-md disabled:bg-indigo-300 disabled:cursor-default"
+                type="button"
+              >
+                sign-in
+              </button>
+            </div>
           </div>
         </div>
-      </div>
       `);
     });
   });
