@@ -59,6 +59,8 @@ i18n.use(initReactI18next).init({
         'login-invalid-password': 'Invalid email or password.',
         'login-too-many-attempts':
           'You have made too many log in attempts. Please try again in 30 minutes.',
+        'must-reset-password':
+          "To gain access to your account, you will have to reset your password. Please check your email to continue the password reset process. After resetting your password, you'll be able to login.",
         'password-length-alert':
           'Please enter a password that is at least six characters long and matches the password confirmation.',
         'redemption-code.validate': 'Validate',
@@ -87,6 +89,8 @@ i18n.use(initReactI18next).init({
         'register-confirm-password': 'Password Confirmation',
         'register-invalid-code-alert':
           'You have not validated any redemption codes. Please try again.',
+        'verify-email.not-validated-statement':
+          'This account requires validation via email confirmation. An email has been sent to you with instructions to validate your email address. After you cofirm your account, you will be able to sign in and access your learning.',
         course: 'Course',
         'filter-by': 'Filter by',
         'filter-no-courses':

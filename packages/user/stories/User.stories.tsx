@@ -1,5 +1,7 @@
 import { Story } from '@storybook/react';
 import React from 'react';
+import { ApolloError } from '@apollo/client';
+import { GraphQLError } from 'graphql';
 import {
   ValidateRedemptionCodeDocument,
   RedeemRegistrationAndRedemptionCodesDocument,
@@ -87,15 +89,15 @@ const mockTermsAndConditionsResults = (globalTerms: string) => ({
   }
 });
 
-const mockLoginResults = () => ({
+const mockLoginResults = (email: string, password: string, message: string) => ({
   request: {
-    query: LoginDocument
-  },
-  result: {
-    data: {
-      Login
+    query: LoginDocument,
+    variables: {
+      email,
+      password
     }
-  }
+  },
+  error: new ApolloError({ graphQLErrors: [new GraphQLError(message)] })
 });
 
 const mockApolloResults = [
@@ -108,7 +110,11 @@ const mockApolloResults = [
   mockApolloResultsFactory('alreadyRedeemedCode', false, true, false),
   mockRegistrationResults(['validCode1', 'validCode2', 'validCode3'], true),
   mockTermsAndConditionsResults('<p>Test Global Terms </p>'),
-  mockLoginResults()
+  mockLoginResults('', '', '401 Unauthorized'),
+  mockLoginResults('locked@test.com', 'locked4ever', '423 Locked'),
+  mockLoginResults('throttled@test.com', 'try2hard', 'User Throttled'),
+  mockLoginResults('password@test.com', 'stalepassword', 'Password reset required'),
+  mockLoginResults('email@test.com', 'verifyemail', 'Email verification required')
 ];
 
 const RegistrationTemplate: Story = args => <Registration {...args} />;

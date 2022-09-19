@@ -68,6 +68,7 @@ describe('@thoughtindustries/login', () => {
               class="flex flex-col-reverse md:flex-row justify-between w-full"
             >
               <button
+                class="pt-4 md:pt-0"
                 type="button"
               >
                 <p>

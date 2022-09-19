@@ -16,7 +16,7 @@ const Login = (): JSX.Element => {
       variables: { email: creds.email, password: creds.password }
     })
       .then(() => {
-        return true;
+        window.location.href = '/learn/dashboard';
       })
       .catch(error => {
         if (error.graphQLErrors[0] && error.graphQLErrors[0].message) {
@@ -29,6 +29,12 @@ const Login = (): JSX.Element => {
           }
           if (message === 'User Throttled') {
             setResponse({ valid: false, message: t('login-too-many-attempts') });
+          }
+          if (message === 'Password reset required') {
+            setResponse({ valid: false, message: t('must-reset-password') });
+          }
+          if (message === 'Email verification required') {
+            setResponse({ valid: false, message: t('verify-email.not-validated-statement') });
           }
         }
       });
