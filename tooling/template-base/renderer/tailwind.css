@@ -720,12 +720,36 @@ Ensure the default browser behavior of the `hidden` attribute.
   margin-bottom: 1rem;
 }
 
+.mt-2 {
+  margin-top: 0.5rem;
+}
+
+.ml-2 {
+  margin-left: 0.5rem;
+}
+
+.mb-0 {
+  margin-bottom: 0px;
+}
+
+.mr-0 {
+  margin-right: 0px;
+}
+
+.-ml-px {
+  margin-left: -1px;
+}
+
+.ml-4 {
+  margin-left: 1rem;
+}
+
 .mr-3 {
   margin-right: 0.75rem;
 }
 
-.ml-8 {
-  margin-left: 2rem;
+.box-border {
+  box-sizing: border-box;
 }
 
 .block {
@@ -860,8 +884,8 @@ Ensure the default browser behavior of the `hidden` attribute.
   width: 0.5rem;
 }
 
-.w-8 {
-  width: 2rem;
+.min-w-\[175px\] {
+  min-width: 175px;
 }
 
 .max-w-screen-lg {

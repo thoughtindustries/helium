@@ -11,7 +11,7 @@ import {
   PriceFormatFn
 } from '@thoughtindustries/catalog/src/types';
 import ItemLinkWrapper from '@thoughtindustries/catalog/src/variants/display-type-results/item-link-wrapper';
-import ItemAssetBlock from '@thoughtindustries/catalog/src/variants/display-type-results/item-asset-block';
+import ItemAssetBlock from './catalog-item-asset-block';
 import ItemRibbon from '@thoughtindustries/catalog/src/variants/display-type-results/item-ribbon';
 import clsx from 'clsx';
 import { limitText } from '@thoughtindustries/catalog/src/variants/display-type-results/utilities';
