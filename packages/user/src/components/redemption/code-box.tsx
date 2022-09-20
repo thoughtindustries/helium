@@ -19,10 +19,28 @@ const CodeBox = (): JSX.Element => {
     await ValidateRedemptionCodeMutation({ variables: { code: code } })
       .then(response => {
         if (response && response.data && response.data.ValidateRedemptionCode) {
-          setResponse(response.data.ValidateRedemptionCode);
           setValid(response.data.ValidateRedemptionCode?.valid);
           if (response.data.ValidateRedemptionCode.valid) {
+            setResponse({
+              valid: true,
+              message: t('redemption-code.redeem-code-manual-validated')
+            });
             setValidatedRedemptionCodes([...validatedRedemptionCodes, code]);
+          } else if (response.data.ValidateRedemptionCode?.alreadyRedeemed) {
+            setResponse({
+              valid: false,
+              message: t('redemption-code.manual-already-redeemed-error')
+            });
+          } else if (response.data.ValidateRedemptionCode?.codeExpired) {
+            setResponse({
+              valid: false,
+              message: t('redemption-code.manual-code-expired')
+            });
+          } else {
+            setResponse({
+              valid: false,
+              message: t('redemption-code.manual-code-not-found-error')
+            });
           }
         }
       })

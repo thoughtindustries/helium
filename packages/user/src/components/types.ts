@@ -1,14 +1,13 @@
 import { SetStateAction } from 'react';
 
-export interface Props {
+export interface ValidationProps {
   valid: boolean | undefined;
-  alreadyRedeemed: boolean | undefined;
-  codeExpired: boolean | undefined;
+  message: string | undefined;
 }
 
 export interface ResponseProps {
-  response: Props | undefined;
-  setResponse: React.Dispatch<SetStateAction<Props | undefined>>;
+  response: ValidationProps | undefined;
+  setResponse: React.Dispatch<SetStateAction<ValidationProps | undefined>>;
   setValidatedRedemptionCodes: React.Dispatch<SetStateAction<string[]>>;
   validatedRedemptionCodes: Array<string>;
   openModal: boolean;
