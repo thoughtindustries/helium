@@ -68,6 +68,7 @@ const Login = (): JSX.Element => {
         onChange={e => setCreds({ ...creds, email: e.target.value })}
         onBlur={e => handleOnBlur(e, creds.email)}
         onKeyPress={handleKeypress}
+        type="email"
       />
       <input
         className="p-4 text-sm w-full ring-1 ring-gray-300 ring-inset shadow-inner focus:outline-none focus:ring-gray-500 mb-4"

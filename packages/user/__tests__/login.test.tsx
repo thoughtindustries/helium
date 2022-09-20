@@ -58,6 +58,7 @@ describe('@thoughtindustries/login', () => {
             <input
               class="p-4 text-sm w-full ring-1 ring-gray-300 ring-inset shadow-inner focus:outline-none focus:ring-gray-500 mb-4"
               placeholder="register-email"
+              type="email"
             />
             <input
               class="p-4 text-sm w-full ring-1 ring-gray-300 ring-inset shadow-inner focus:outline-none focus:ring-gray-500 mb-4"
