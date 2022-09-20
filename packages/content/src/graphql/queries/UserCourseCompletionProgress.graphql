@@ -1,0 +1,8 @@
+query UserCourseCompletionProgress($id: ID!) {
+  UserCourseCompletionProgress(id: $id) {
+    type
+    required
+    completed
+    percent
+  }
+}

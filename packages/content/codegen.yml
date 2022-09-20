@@ -1,8 +1,8 @@
 overwrite: true
-schema: "https://home.ti.test/helium"
+schema: 'https://home.ti.test/helium'
 # # use the local copy of schema introspected from remote schema
 # schema: "graphql.schema.json"
-documents: "src/**/*.graphql"
+documents: 'src/**/*.graphql'
 config:
   avoidOptionals: false
   maybeValue: T
@@ -22,7 +22,7 @@ generates:
   # use this to re-generate global types from schema
   src/graphql/global-types.ts:
     plugins:
-      - "@thoughtindustries/graphql-codegen-plugin"
+      - '@thoughtindustries/graphql-codegen-plugin'
   src/:
     preset: near-operation-file
     presetConfig:
@@ -30,8 +30,8 @@ generates:
       baseTypesPath: graphql/global-types.ts
       extension: .generated.tsx
     plugins:
-      - "typescript-operations"
-      - "typescript-react-apollo"
+      - 'typescript-operations'
+      - 'typescript-react-apollo'
   # # use this to re-generate schema from remote schema
   # ./graphql.schema.json:
   #   plugins:

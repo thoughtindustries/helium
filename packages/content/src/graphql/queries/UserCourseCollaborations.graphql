@@ -1,0 +1,3 @@
+query UserCourseCollaborations($courseId: ID!) {
+  UserCourseCollaborations(courseId: $courseId)
+}
