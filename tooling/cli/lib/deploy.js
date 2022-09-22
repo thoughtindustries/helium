@@ -55,7 +55,6 @@ const JOB_QUERY = /* GraphQL */ `
 
   try {
     const policyData = await getHeliumUploadData(instance);
-    console.log({ policyData });
     const { key } = policyData;
 
     if (!policyData.key || !policyData.signedUrl) {
