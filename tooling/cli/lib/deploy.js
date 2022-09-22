@@ -53,14 +53,14 @@ const JOB_QUERY = /* GraphQL */ `
     throw new Error('Could not locate instance in configuration file.');
   }
 
-  const policyData = await getHeliumUploadData(instance);
-  const { key } = policyData;
-
-  if (!policyData.key || !policyData.signedUrl) {
-    throw new Error('Could not retrieve helium keys.');
-  }
-
   try {
+    const policyData = await getHeliumUploadData(instance);
+    console.log({ policyData });
+    const { key } = policyData;
+
+    if (!policyData.key || !policyData.signedUrl) {
+      throw new Error('Could not retrieve helium keys.');
+    }
     // ensure translations are up to date
     await generateTranslationFile(OP_DIR, [instance], true);
     // trim translations file down to only keys used in project
@@ -196,31 +196,42 @@ async function triggerBatch(instance, key) {
 }
 
 async function getHeliumUploadData(instance) {
-  const endpoint = instanceEndpoint(instance);
+  return new Promise((resolve, reject) => {
+    const endpoint = instanceEndpoint(instance);
 
-  const options = {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ query: KEY_QUERY, variables: { nickname: instance.nickname } })
-  };
-
-  let responseData = {};
-  const launchData = await fetch(endpoint, options).then(r => r.json());
-
-  if (launchData && launchData.data) {
-    const {
-      data: {
-        HeliumLaunchData: { key, signedUrl }
-      }
-    } = launchData;
-
-    responseData = {
-      key,
-      signedUrl
+    const options = {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ query: KEY_QUERY, variables: { nickname: instance.nickname } })
     };
-  }
 
-  return responseData;
+    let responseData = {};
+    fetch(endpoint, options)
+      .then(r => r.json())
+      .then(res => {
+        const resObj = res;
+        if (res && res.data) {
+          const {
+            data: {
+              HeliumLaunchData: { key, signedUrl }
+            }
+          } = res;
+
+          responseData = {
+            key,
+            signedUrl
+          };
+          resolve(responseData);
+        } else if (launchData && launchData.errors) {
+          const err = resObj.errors[0];
+          reject(err.message);
+        }
+        resolve(responseData);
+      })
+      .catch(err => {
+        reject(err.message);
+      });
+  });
 }
 
 const UPLOAD_TRIES = 3;
