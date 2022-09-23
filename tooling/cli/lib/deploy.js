@@ -208,7 +208,6 @@ async function getHeliumUploadData(instance) {
     fetch(endpoint, options)
       .then(r => r.json())
       .then(res => {
-        console.log({ res });
         const resObj = res;
         if (resObj && resObj.data.HeliumLaunchData) {
           //there is still a null object in the data
