@@ -208,27 +208,29 @@ async function getHeliumUploadData(instance) {
     fetch(endpoint, options)
       .then(r => r.json())
       .then(res => {
+        console.log({ res });
         const resObj = res;
-        if (res && res.data) {
+        if (resObj && resObj.data.HeliumLaunchData) {
+          //there is still a null object in the data
           const {
             data: {
               HeliumLaunchData: { key, signedUrl }
             }
-          } = res;
+          } = resObj;
 
           responseData = {
             key,
             signedUrl
           };
           resolve(responseData);
-        } else if (launchData && launchData.errors) {
+        } else if (resObj && resObj.errors) {
           const err = resObj.errors[0];
           reject(err.message);
         }
         resolve(responseData);
       })
       .catch(err => {
-        reject(err.message);
+        reject(err);
       });
   });
 }
