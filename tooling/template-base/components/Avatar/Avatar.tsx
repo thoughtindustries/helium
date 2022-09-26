@@ -22,12 +22,19 @@ const Avatar = (props: { size: string }) => {
     snippet = <img src={currentUser?.asset} className={`${avatarSize} rounded-full`} />;
   } else {
     // return the initals
-    const userInitials = currentUser?.firstName?.split('')[0] + currentUser?.lastName?.split('')[0];
-    snippet = (
-      <div className={`${avatarSize} bg-slate-50 rounded-full font-bold`}>
-        <div className="p-2.5">{userInitials}</div>
-      </div>
-    );
+    try {
+      if (currentUser?.firstName && currentUser?.lastName) {
+        const userInitials =
+          currentUser?.firstName.split('')[0] + currentUser?.lastName.split('')[0];
+        snippet = (
+          <div className={`${avatarSize} bg-slate-50 rounded-full font-bold`}>
+            <div className="p-2.5">{userInitials}</div>
+          </div>
+        );
+      }
+    } catch (err) {
+      return err;
+    }
   }
   return snippet;
 };
