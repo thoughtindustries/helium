@@ -17,7 +17,7 @@ const getFilePaths = async (dir, filePaths = []) => {
         await getFilePaths(filePath, newFilePaths);
       }
     }
-  } catch (err) {}
+  } catch {}
   return newFilePaths;
 };
 

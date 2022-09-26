@@ -204,11 +204,11 @@ async function getHeliumUploadData(instance) {
       body: JSON.stringify({ query: KEY_QUERY, variables: { nickname: instance.nickname } })
     };
 
-    let responseData = {};
     fetch(endpoint, options)
       .then(r => r.json())
       .then(res => {
         const resObj = res;
+        const responseData = {};
         if (resObj && resObj.data.HeliumLaunchData) {
           //there is still a null object in the data
           const {
@@ -226,7 +226,6 @@ async function getHeliumUploadData(instance) {
           const err = resObj.errors[0];
           reject(err.message);
         }
-        resolve(responseData);
       })
       .catch(err => {
         reject(err);
