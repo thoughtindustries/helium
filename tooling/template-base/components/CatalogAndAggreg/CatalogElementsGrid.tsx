@@ -110,14 +110,7 @@ const DisplayTypeResultsGridItem = ({
                 <ItemAssetBlock asset={asset} />
               </div>
               <div className="p-8 space-y-4">
-                {title && (
-                  <ItemTitleBlock
-                    title={title}
-                    courseStartDate={displayCourseStartDate}
-                    timeZone={timeZone}
-                    contentTypeLabel={contentTypeLabel}
-                  />
-                )}
+                {title && <ItemTitleBlock title={title} />}
                 <ItemSourceBlock
                   contentTypeLabel={contentTypeLabel}
                   courseStartDate={courseStartDate}
