@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { usePageContext } from '../../renderer/usePageContext';
 
 const Avatar = (props: { size: string }) => {
@@ -33,10 +33,10 @@ const Avatar = (props: { size: string }) => {
         );
       }
     } catch (err) {
-      return err;
+      snippet = err;
     }
   }
-  return snippet;
+  return <>{snippet}</>;
 };
 
 export default Avatar;

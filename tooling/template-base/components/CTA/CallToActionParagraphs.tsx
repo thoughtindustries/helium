@@ -1,17 +1,17 @@
 import React from 'react';
 import logo from '../../renderer/trees.png';
 
+type paragraphItemsArgs = {
+  heading: string;
+  content: string;
+  buttonText: string;
+  buttonUrl: string;
+};
+
 const CallToActionParagraphs = (props: {
   heading: string;
   subheading: string;
-  paragraphItems: [
-    {
-      heading: string;
-      content: string;
-      buttonText: string;
-      buttonUrl: string;
-    }
-  ];
+  paragraphItems: paragraphItemsArgs[];
 }) => {
   const RightAlignedSection = (props: {
     item: {
