@@ -208,7 +208,6 @@ async function getHeliumUploadData(instance) {
       .then(r => r.json())
       .then(res => {
         const resObj = res;
-        const responseData = {};
         if (resObj && resObj.data.HeliumLaunchData) {
           //there is still a null object in the data
           const {
@@ -217,7 +216,7 @@ async function getHeliumUploadData(instance) {
             }
           } = resObj;
 
-          responseData = {
+          const responseData = {
             key,
             signedUrl
           };
