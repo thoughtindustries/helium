@@ -1,5 +1,5 @@
 import React from 'react';
-import logo from '../../renderer/logo.svg';
+import logo from '../Assets/logoImage';
 import { usePageContext } from '../../renderer/usePageContext';
 
 const Logo = (props: { size: string }) => {
@@ -10,19 +10,19 @@ const Logo = (props: { size: string }) => {
   if (props.size === 'large') {
     logoElement = (
       <a href="/">
-        <img src={companyLogo} className="h-14" />
+        <div className="h-14">{companyLogo}</div>
       </a>
     );
   } else if (props.size === 'small') {
     logoElement = (
       <a href="/">
-        <img src={companyLogo} className="h-9" />
+        <div className="h-9">{companyLogo}</div>
       </a>
     );
   } else {
     logoElement = (
       <a href="/">
-        <img src={companyLogo} className="h-11" />
+        <div className="h-11">{companyLogo}</div>
       </a>
     );
   }

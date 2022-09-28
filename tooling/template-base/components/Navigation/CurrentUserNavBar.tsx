@@ -1,8 +1,8 @@
 import React from 'react';
 import { useState } from 'react';
 import Logo from '../Logo/Logo';
-import dropDownClosed from '../../renderer/dropDownClosed.svg';
-import dropDownOpen from '../../renderer/dropDownOpen.svg';
+import dropDownClosed from '../Assets/dropDownClosed';
+import dropDownOpen from '../Assets/dropDownOpen';
 import Avatar from '../Avatar/Avatar';
 
 export default function CurrentUserNavBar() {
@@ -40,14 +40,14 @@ export default function CurrentUserNavBar() {
             <button id="icon" type="submit" className="block" onClick={() => setNavbar(!navbar)}>
               <div className="flex items-center space-x-3 mr-3">
                 <Avatar size="" />
-                <img src={dropDownOpen} />
+                <div>{dropDownOpen}</div>
               </div>
             </button>
           ) : (
             <button id="icon" type="submit" className="block" onClick={() => setNavbar(!navbar)}>
               <div className="flex items-center space-x-3 mr-3">
                 <Avatar size="" />
-                <img src={dropDownClosed} />
+                <div>{dropDownClosed}</div>
               </div>
             </button>
           )}

@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import dropDownClosed from '../../../renderer/dropDownClosed.svg';
-import dropDownOpen from '../../../renderer/dropDownOpen.svg';
+import dropDownClosed from '../../Assets/dropDownClosed';
+import dropDownOpen from '../../Assets/dropDownOpen';
 import LearnerAccessListDisplayDropDown from './ListDisplayDropDown';
 import {
   HydratedContentItem,
@@ -65,9 +65,9 @@ const LearnerAccessDisplayListView = ({ item }: ContentUiProps) => {
               onClick={() => setListViewDropDown(!listViewDropDown)}
             >
               {listViewDropDown ? (
-                <img src={dropDownOpen} className="h-2" />
+                <div className="h-2">{dropDownOpen}</div>
               ) : (
-                <img src={dropDownClosed} className="h-2" />
+                <div className="h-2">{dropDownClosed}</div>
               )}
             </button>
           </div>
