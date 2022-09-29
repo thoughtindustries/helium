@@ -1,6 +1,6 @@
 import React from 'react';
 
-const HeroImage = (
+export const HeroImage = (): JSX.Element => (
   <svg
     width="1358"
     height="546"

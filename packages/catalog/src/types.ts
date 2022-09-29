@@ -23,7 +23,7 @@ export interface CatalogResultsProps {
   /** currency code to format price */
   currencyCode?: string;
   /** specify number of items to return from catalog */
-  numberOfContentItems?: number | undefined;
+  numberOfContentItems?: number;
 }
 
 export type PaginationFnArgs = {
