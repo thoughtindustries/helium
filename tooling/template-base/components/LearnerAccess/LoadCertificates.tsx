@@ -11,6 +11,8 @@ import {
 import useLearnerAccess from './Context/use-context';
 import { t } from 'i18next';
 import LearnerAccessGridView from './Views/GridView';
+import { usePageContext } from '../../renderer/usePageContext';
+import clsx from 'clsx';
 
 type RequiredUserCertifacesQuery = Required<UserCertificatesQuery>;
 type UserCertificate = RequiredUserCertifacesQuery['UserCertificates'][0];
@@ -18,7 +20,38 @@ interface CertificateProps {
   item: UserCertificate;
 }
 const Certificate = ({ item }: CertificateProps) => {
-  return <LearnerAccessGridView item={item.contentItem} />;
+  const contentItem = item.contentItem;
+  const { appearance } = usePageContext();
+  const assetImage = contentItem?.asset ? contentItem.asset : appearance?.logoAsset;
+  return (
+    <div className="m-8">
+      {/* course image */}
+      <div>
+        <img
+          src={assetImage}
+          className={clsx(
+            contentItem?.description && 'w-full rounded-t-md',
+            !contentItem?.asset && 'p-10 w-full border rounded-t-md'
+          )}
+        />
+      </div>
+
+      {/* card content */}
+      <div className="p-8 border rounded-b-md space-y-4">
+        {/* course title */}
+        <div className="text-lg font-semibold">{contentItem?.title}</div>
+        {/* course info */}
+        <div className="text-gray-500 text-sm font-semibold">
+          {contentItem?.contentTypeLabel} | {contentItem?.courseStartDate}
+        </div>
+        <div className={contentItem?.description ? 'py-4' : ''}>{contentItem?.description}</div>
+        <hr className=""></hr>
+        <a href={item.url} className="flex justify-end text-blue-700">
+          <div className="">{t('continue')}</div>
+        </a>
+      </div>
+    </div>
+  );
 };
 
 interface CertificateUploaderProps {
