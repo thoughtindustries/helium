@@ -46,7 +46,12 @@ export type CurrentUser = {
 export type PageContext = {
   Page: (pageProps: PageProps) => React.ReactElement;
   pageProps: PageProps;
-  pageExports: Record<string, unknown>;
+  pageExports: {
+    documentProps?: {
+      title?: string;
+      description?: string;
+    };
+  };
   documentProps?: {
     title?: string;
     description?: string;
