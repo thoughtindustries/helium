@@ -1,5 +1,4 @@
 import { PageContext } from './../types';
-import { documentProps } from '../pages/index/index.page';
 
 export { getPageMeta };
 

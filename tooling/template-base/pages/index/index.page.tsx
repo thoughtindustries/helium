@@ -7,13 +7,13 @@ import CallToActionWithLinks from '../../components/CTA/CallToActionWithLinks';
 import CallToActionParagraphs from '../../components/CTA/CallToActionParagraphs';
 import NavBar from '../../components/Navigation/NavBar';
 import { HydratedContentItem } from '@thoughtindustries/content';
+import { getPageMeta } from '../../renderer/getPageMeta';
 
 export { Page };
 export { documentProps };
 
 const documentProps = {
-  title: 'Home Page',
-  description: 'The home page'
+  getPageMeta
 };
 
 function Page() {
