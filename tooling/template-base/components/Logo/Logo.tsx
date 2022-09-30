@@ -10,19 +10,19 @@ const Logo = (props: { size: string }) => {
   if (props.size === 'large') {
     logoElement = (
       <a href="/">
-        <div className="h-14">{companyLogo}</div>
+        <img src={companyLogo} className="h-14" />
       </a>
     );
   } else if (props.size === 'small') {
     logoElement = (
       <a href="/">
-        <div className="h-9">{companyLogo}</div>
+        <img src={companyLogo} className="h-9" />
       </a>
     );
   } else {
     logoElement = (
       <a href="/">
-        <div className="h-11">{companyLogo}</div>
+        <img src={companyLogo} className="h-11" />
       </a>
     );
   }
