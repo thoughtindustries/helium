@@ -1,5 +1,5 @@
 import React from 'react';
-import logo from '../../renderer/trees.png';
+import Trees from '../Assets/trees';
 
 type paragraphItemsArgs = {
   heading: string;
@@ -24,7 +24,7 @@ const CallToActionParagraphs = (props: {
     return (
       <div className="flex flex-col px-4 mx-auto mt-10 mb-10 space-y-12 md:space-y-0 md:flex-row">
         <div className="md:flex flex-col space-y-8 md:w-1/2 hidden">
-          <img src={logo} alt="" />
+          <img src={Trees} className="p-4 md:p-8" />
         </div>
         <div className="flex flex-col med:w-1/2">
           <h2 className="max-w-md font-bold text-left text-2xl md:text-3xl">
@@ -38,7 +38,7 @@ const CallToActionParagraphs = (props: {
           </a>
         </div>
         <div className="flex flex-col space-y-8 md:w-1/2 md:hidden">
-          <img src={logo} alt="" />
+          <img src={Trees} className="p-4 md:p-8" />
         </div>
       </div>
     );
@@ -68,7 +68,7 @@ const CallToActionParagraphs = (props: {
 
         {/* numbered list */}
         <div className="flex flex-col md:w-1/2 py-16 md:py-1">
-          <img src={logo} alt="" />
+          <img src={Trees} className="p-4 md:p-8" />
         </div>
       </div>
     );
