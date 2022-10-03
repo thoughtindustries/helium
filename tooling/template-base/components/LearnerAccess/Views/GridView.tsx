@@ -1,8 +1,7 @@
 import React from 'react';
 import { HydratedContentItem } from '@thoughtindustries/content';
+import defaultLogo from '../../Assets/logoImage';
 
-import { t } from 'i18next';
-import clsx from 'clsx';
 import { usePageContext } from '../../../renderer/usePageContext';
 interface ContentUiProps {
   item: HydratedContentItem;
@@ -11,20 +10,16 @@ interface ContentUiProps {
 
 const LearnerAccessGridView = ({ item }: ContentUiProps) => {
   const { appearance } = usePageContext();
-  const assetImage = item.asset ? item.asset : appearance?.logoAsset;
+  const companyLogo = appearance?.logoAsset ? appearance?.logoAsset : defaultLogo;
+
   return (
     <div className="m-8">
-      {/* course image */}
-      <div>
-        <img
-          src={assetImage}
-          className={clsx(
-            item.description && 'w-full rounded-t-md',
-            !item.asset && 'p-10 w-full border rounded-t-md'
-          )}
-        />
+      <div className="flex justify-center border rounded-t-md">
+        <div>
+          {/* course image */}
+          <img src={companyLogo} className="p-12 max-w-12" />
+        </div>
       </div>
-
       {/* card content */}
       <div className="p-8 border rounded-b-md space-y-4">
         {/* course title */}
