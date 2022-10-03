@@ -1,10 +1,11 @@
 import React from 'react';
-import logo from '../Assets/logoImage';
+import defaultLogo from '../Assets/logoImage';
 import { usePageContext } from '../../renderer/usePageContext';
 
 const Logo = (props: { size: string }) => {
   const { appearance } = usePageContext();
-  const companyLogo = appearance?.logoAsset ? appearance?.logoAsset : logo;
+
+  const companyLogo = appearance?.logoAsset ? appearance?.logoAsset : defaultLogo;
 
   let logoElement;
   if (props.size === 'large') {
