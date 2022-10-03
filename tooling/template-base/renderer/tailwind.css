@@ -908,6 +908,14 @@ Ensure the default browser behavior of the `hidden` attribute.
   width: 6rem;
 }
 
+.w-14 {
+  width: 3.5rem;
+}
+
+.w-11 {
+  width: 2.75rem;
+}
+
 .min-w-\[175px\] {
   min-width: 175px;
 }
