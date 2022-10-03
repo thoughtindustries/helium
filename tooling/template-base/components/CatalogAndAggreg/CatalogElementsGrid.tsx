@@ -20,7 +20,7 @@ type DisplayTypeResultsGridProps = Pick<CatalogResultsProps, 'onClick' | 'onAdde
   Pick<CatalogParams, 'displayAuthorsEnabled' | 'displayStartDateEnabled' | 'displayBundle'> & {
     items: CatalogResultItem[];
     priceFormatFn: PriceFormatFn;
-    numberOfContentItems: number;
+    numberOfContentItems: number | undefined;
   };
 
 type DisplayTypeResultsGridItemProps = Omit<DisplayTypeResultsGridProps, 'items'> & {
