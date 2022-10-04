@@ -6,7 +6,7 @@ const Hero = (props: { headline: string; body: string; buttonUrl: string; button
     <>
       <div className="relative h-96 w-full z-0">
         <div className="absolute h-96 w-full bg-gray-900 opacity-50" />
-        <img src={HeroImage} className="object-cover h-96 w-full" />
+        {HeroImage}
         <div className="absolute text-white top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-center">
           <div className="text-2xl sm:text-3xl md:text-5xl">{props.headline}</div>
           <div className="font-bold text-sm sm:text-lg md:text-xl">{props.body}</div>
