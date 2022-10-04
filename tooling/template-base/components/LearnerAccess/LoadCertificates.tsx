@@ -7,21 +7,26 @@ import {
   useUserCertificateFieldsQuery,
   LoadingDots,
   UserCertificatesQuery,
-  HydratedContentItem
+  hydrateContent
 } from '@thoughtindustries/content';
 import useLearnerAccess from './Context/use-context';
 import { t } from 'i18next';
 import LearnerAccessGridView from './Views/GridView';
+import { usePageContext } from '../../renderer/usePageContext';
+import clsx from 'clsx';
+import { useTranslation } from 'react-i18next';
+import { Content } from '@thoughtindustries/content/src/graphql/global-types';
 
-type UserCertificateItem = {
-  contentItem: HydratedContentItem;
-};
+type RequiredUserCertifacesQuery = Required<UserCertificatesQuery>;
+type UserCertificate = RequiredUserCertifacesQuery['UserCertificates'][0];
 interface CertificateProps {
-  item: UserCertificateItem;
+  item: UserCertificate;
 }
-
 const Certificate = ({ item }: CertificateProps) => {
-  return <LearnerAccessGridView item={item.contentItem} />;
+  const { i18n } = useTranslation();
+  const contentItem = item.contentItem as Content;
+  const hydratedContentItem = hydrateContent(i18n, contentItem);
+  return <LearnerAccessGridView item={hydratedContentItem} />;
 };
 
 interface CertificateUploaderProps {

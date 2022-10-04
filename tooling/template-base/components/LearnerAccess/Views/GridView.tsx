@@ -26,7 +26,15 @@ const LearnerAccessGridView = ({ item }: ContentUiProps) => {
         <div className="text-lg font-semibold">{item.title}</div>
         {/* course info */}
         <div className="text-gray-500 text-sm font-semibold">
-          {item.contentTypeLabel} | {item.displayDate}
+          {item.displayDate ? (
+            <div className="flex flex-row">
+              <div>{item.contentTypeLabel}</div>
+              <div>|</div>
+              <div>{item.displayDate}</div>
+            </div>
+          ) : (
+            <div>{item.contentTypeLabel}</div>
+          )}
         </div>
         <div className={item.description ? 'py-4' : ''}>{item.description}</div>
         <hr className=""></hr>
