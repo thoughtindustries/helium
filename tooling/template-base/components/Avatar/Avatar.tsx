@@ -7,11 +7,11 @@ const Avatar = (props: { size: string }) => {
 
   let avatarSize;
   if (props.size === 'large') {
-    avatarSize = avatarSize = 'h-13';
+    avatarSize = avatarSize = 'h-13 w-13';
   } else if (props.size === 'small') {
-    avatarSize = avatarSize = 'h-9';
+    avatarSize = avatarSize = 'h-9 w-9';
   } else {
-    avatarSize = 'h-11';
+    avatarSize = 'h-11 w-11';
   }
 
   let snippet;

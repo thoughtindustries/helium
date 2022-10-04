@@ -916,6 +916,10 @@ Ensure the default browser behavior of the `hidden` attribute.
   width: 2.75rem;
 }
 
+.w-12 {
+  width: 3rem;
+}
+
 .min-w-\[175px\] {
   min-width: 175px;
 }
@@ -1339,6 +1343,11 @@ Ensure the default browser behavior of the `hidden` attribute.
 .object-cover {
   -o-object-fit: cover;
      object-fit: cover;
+}
+
+.object-fill {
+  -o-object-fit: fill;
+     object-fit: fill;
 }
 
 .p-24 {
