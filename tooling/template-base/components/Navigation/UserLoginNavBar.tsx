@@ -4,7 +4,7 @@ import Logo from '../Logo/Logo';
 import icon from '../../renderer/hamburger.svg';
 import xicon from '../../renderer/xicon.svg';
 
-export default function CurrentUserNavBar() {
+export default function UserLoginNavBar() {
   const [navbar, setNavbar] = useState(false);
 
   return (
