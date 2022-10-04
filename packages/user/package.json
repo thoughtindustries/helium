@@ -1,7 +1,7 @@
 {
-  "name": "@thoughtindustries/registration-form",
-  "version": "1.2.0",
-  "description": "A base component for registration form",
+  "name": "@thoughtindustries/user",
+  "version": "1.0.0",
+  "description": "A base component for user login and registration",
   "main": "src/index.ts",
   "scripts": {
     "generate": "graphql-codegen --config codegen.yml"

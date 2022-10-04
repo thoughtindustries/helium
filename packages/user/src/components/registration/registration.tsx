@@ -2,9 +2,9 @@ import React, { useState, createContext, useContext } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Redemption } from '../redemption';
 import { isEmpty } from 'lodash';
-import { Props, ResponseProps, CurrentUser } from '../types';
+import { ValidationProps, ResponseProps, CurrentUser } from '../types';
 import { useRedeemRegistrationAndRedemptionCodesMutation } from '../../graphql';
-import Banner from '../redemption/banner';
+import { Banner } from '../banner';
 import { TermsConditions } from '../terms-conditions';
 
 const RegistrationContext = createContext<ResponseProps | undefined>(undefined);
@@ -25,7 +25,7 @@ const Registration = ({
   redirectUrl?: string;
 }): JSX.Element => {
   const { t } = useTranslation();
-  const [response, setResponse] = useState<Props>();
+  const [response, setResponse] = useState<ValidationProps>();
   const [openModal, setOpenModal] = useState<boolean>(false);
   const [agreeToTerms, setAgreeToTerms] = useState<boolean>(false);
   const [validatedRedemptionCodes, setValidatedRedemptionCodes] = useState<Array<string>>([]);
@@ -96,17 +96,12 @@ const Registration = ({
   };
 
   return (
-    <form className="mx-4 md:mx-40 text-center self-center">
+    <form className="flex flex-col justify-center text-center min-h-screen mx-4 md:mx-40">
       {isEmpty(currentUser) ? (
         <>
           <h5 className="flex justify-center mb-8 text-sm text-gray-500">
             {t('redemption-code.redeem-course-copy-signed-in-manual-code')}
           </h5>
-          <Banner
-            valid={response?.valid}
-            alreadyRedeemed={response?.alreadyRedeemed}
-            codeExpired={response?.codeExpired}
-          />
           <p className="mb-4">
             <strong className="text-gray-600">{`${t('already-member')}\u00A0`}</strong>
             <button
@@ -154,11 +149,7 @@ const Registration = ({
           />
         </>
       ) : (
-        <Banner
-          valid={response?.valid}
-          alreadyRedeemed={response?.alreadyRedeemed}
-          codeExpired={response?.codeExpired}
-        />
+        <Banner valid={response?.valid} message={response?.message} />
       )}
       <RegistrationContext.Provider
         value={{

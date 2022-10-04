@@ -1,10 +1,14 @@
 import { Story } from '@storybook/react';
 import React from 'react';
+import { ApolloError } from '@apollo/client';
+import { GraphQLError } from 'graphql';
 import {
   ValidateRedemptionCodeDocument,
   RedeemRegistrationAndRedemptionCodesDocument,
   Registration,
-  TermsAndConditionsDocument
+  TermsAndConditionsDocument,
+  Login,
+  LoginDocument
 } from '../src';
 
 const mockUser = {
@@ -16,8 +20,8 @@ const mockUser = {
 };
 
 export default {
-  title: 'Example/Registration',
-  component: Registration,
+  title: 'Example/User',
+  component: Login,
   argTypes: {
     currentUser: {
       name: 'currentUser',
@@ -85,6 +89,17 @@ const mockTermsAndConditionsResults = (globalTerms: string) => ({
   }
 });
 
+const mockLoginResults = (email: string, password: string, message: string) => ({
+  request: {
+    query: LoginDocument,
+    variables: {
+      email,
+      password
+    }
+  },
+  error: new ApolloError({ graphQLErrors: [new GraphQLError(message)] })
+});
+
 const mockApolloResults = [
   mockApolloResultsFactory('validCode1', true, false, false),
   mockApolloResultsFactory('validCode2', true, false, false),
@@ -94,13 +109,26 @@ const mockApolloResults = [
   mockApolloResultsFactory('expiredCode', false, false, true),
   mockApolloResultsFactory('alreadyRedeemedCode', false, true, false),
   mockRegistrationResults(['validCode1', 'validCode2', 'validCode3'], true),
-  mockTermsAndConditionsResults('<p>Test Global Terms </p>')
+  mockTermsAndConditionsResults('<p>Test Global Terms </p>'),
+  mockLoginResults('', '', '401 Unauthorized'),
+  mockLoginResults('locked@test.com', 'locked4ever', '423 Locked'),
+  mockLoginResults('throttled@test.com', 'try2hard', 'User Throttled'),
+  mockLoginResults('password@test.com', 'stalepassword', 'Password reset required'),
+  mockLoginResults('email@test.com', 'verifyemail', 'Email verification required')
 ];
 
-const Template: Story = args => <Registration {...args} />;
+const RegistrationTemplate: Story = args => <Registration {...args} />;
+const LoginTemplate: Story = () => <Login />;
 
-export const Base: Story = Template.bind({});
-Base.parameters = {
+export const RegistrationForm: Story = RegistrationTemplate.bind({});
+RegistrationForm.parameters = {
+  apolloClient: {
+    mocks: mockApolloResults
+  }
+};
+
+export const LoginForm: Story = LoginTemplate.bind({});
+LoginForm.parameters = {
   apolloClient: {
     mocks: mockApolloResults
   }
