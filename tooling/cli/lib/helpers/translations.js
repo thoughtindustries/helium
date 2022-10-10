@@ -4,7 +4,7 @@ const { writeFile } = require('fs/promises');
 const { instanceEndpoint } = require('./urls');
 
 const TRANSLATIONS_QUERY = /* GraphQL */ `
-  query CompanyTranslationsQuery($namespace: String!) {
+  query CompanyTranslationsQuery($namespace: TranslationNamespace!) {
     CompanyTranslations(namespace: $namespace) {
       id
       lang
