@@ -1,8 +1,8 @@
 import React from 'react';
 import { useState } from 'react';
 import Logo from '../Logo/Logo';
-import icon from '../../renderer/hamburger.svg';
-import xicon from '../../renderer/xicon.svg';
+import xicon from '../Assets/xicon';
+import hamburger from '../Assets/hamburger';
 
 export default function UserLoginNavBar() {
   const [navbar, setNavbar] = useState(false);
@@ -42,7 +42,7 @@ export default function UserLoginNavBar() {
             onClick={() => setNavbar(!navbar)}
           >
             <button type="submit" className="" onClick={() => setNavbar(!navbar)}>
-              {navbar ? <img src={xicon} /> : <img src={icon} />}
+              {navbar ? <div>{xicon}</div> : <div>{hamburger}</div>}
             </button>
           </div>
         </div>

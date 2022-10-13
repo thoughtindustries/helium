@@ -10,8 +10,8 @@ import { LoadingDots, useContentGroupsQuery } from '@thoughtindustries/content';
 import LearnerAccessContext from './Context/context';
 import { getAvailableTabs } from './Utilities/utilities';
 import { useTranslation } from 'react-i18next';
-import dropDownClosed from '../../renderer/dropDownClosed.svg';
-import dropDownOpen from '../../renderer/dropDownOpen.svg';
+import dropDownClosed from '../Assets/dropDownClosed';
+import dropDownOpen from '../Assets/dropDownOpen';
 
 const localizedTabLabelMapping: { [key in TabKey]: string } = {
   [TabKey.Current]: 'dashboard.current',
@@ -99,9 +99,9 @@ const LearnerAccess = ({
         >
           {activeTabKey}
           {dropDownActive ? (
-            <img className="pt-2" src={dropDownOpen} />
+            <div className="pt-2">{dropDownOpen}</div>
           ) : (
-            <img className="pt-2" src={dropDownClosed} />
+            <div className="pt-2">{dropDownClosed}</div>
           )}
         </button>
         {dropDownActive && (

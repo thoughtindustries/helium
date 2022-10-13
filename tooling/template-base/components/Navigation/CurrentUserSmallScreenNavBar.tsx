@@ -1,7 +1,7 @@
 import React from 'react';
 import { useState } from 'react';
 import Logo from '../Logo/Logo';
-import xicon from '../../renderer/xicon.svg';
+import Xicon from '../Assets/xicon';
 import Avatar from '../Avatar/Avatar';
 
 export default function CurrentUserSmallScreenNavBar() {
@@ -28,7 +28,7 @@ export default function CurrentUserSmallScreenNavBar() {
                     className="block h-9 w-9 md:hidden"
                     onClick={() => setNavbar(!navbar)}
                   >
-                    <img src={xicon} />
+                    <div>{Xicon}</div>
                   </button>
                 ) : (
                   <button

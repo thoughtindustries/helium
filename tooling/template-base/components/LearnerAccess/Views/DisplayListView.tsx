@@ -1,14 +1,16 @@
 import React, { useState } from 'react';
-import dropDownClosed from '../../../renderer/dropDownClosed.svg';
-import dropDownOpen from '../../../renderer/dropDownOpen.svg';
+import dropDownClosed from '../../Assets/dropDownClosed';
+import dropDownOpen from '../../Assets/dropDownOpen';
 import LearnerAccessListDisplayDropDown from './ListDisplayDropDown';
+import defaultLogo from '../../Assets/logoImage';
+
 import {
   HydratedContentItem,
   useUserCourseCompletionProgressQuery
 } from '@thoughtindustries/content';
 import clsx from 'clsx';
-import { t } from 'i18next';
 import { usePageContext } from '../../../renderer/usePageContext';
+
 interface ContentUiProps {
   item: HydratedContentItem;
   index?: number;
@@ -17,6 +19,9 @@ interface ContentUiProps {
 const LearnerAccessDisplayListView = ({ item }: ContentUiProps) => {
   const [listViewDropDown, setListViewDropDown] = useState(false);
 
+  const { appearance } = usePageContext();
+  const companyLogo = appearance?.logoAsset ? appearance?.logoAsset : defaultLogo;
+
   const { data } = useUserCourseCompletionProgressQuery({
     variables: {
       id: item.id
@@ -24,8 +29,7 @@ const LearnerAccessDisplayListView = ({ item }: ContentUiProps) => {
     fetchPolicy: 'network-only'
   });
 
-  const { appearance } = usePageContext();
-  const assetImage = item.asset ? item.asset : appearance?.logoAsset;
+  const courseAsset = item.asset ? item.asset : companyLogo;
 
   return (
     <>
@@ -36,8 +40,11 @@ const LearnerAccessDisplayListView = ({ item }: ContentUiProps) => {
           <div className="flex flex-row basis-8/12">
             {/* course image */}
             <div className="py-4 pl-6 basis-4/12">
-              <div>
-                <img src={assetImage} className={clsx('rounded-md', !item.asset && 'p-4')} />
+              <div className="flex justify-center">
+                <img
+                  src={courseAsset}
+                  className={clsx('rounded-md', !item.asset && 'md:h-20 lg:h-32 py-4')}
+                />
               </div>
             </div>
 
@@ -65,9 +72,9 @@ const LearnerAccessDisplayListView = ({ item }: ContentUiProps) => {
               onClick={() => setListViewDropDown(!listViewDropDown)}
             >
               {listViewDropDown ? (
-                <img src={dropDownOpen} className="h-2" />
+                <div className="h-2">{dropDownOpen}</div>
               ) : (
-                <img src={dropDownClosed} className="h-2" />
+                <div className="h-2">{dropDownClosed}</div>
               )}
             </button>
           </div>
