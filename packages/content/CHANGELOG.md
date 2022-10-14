@@ -3,6 +3,23 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.1.0-alpha.4](https://github.com/thoughtindustries/helium/compare/@thoughtindustries/content@1.1.0-alpha.3...@thoughtindustries/content@1.1.0-alpha.4) (2022-09-22)
+
+
+### Bug Fixes
+
+* merge packages/content ([6c8be18](https://github.com/thoughtindustries/helium/commit/6c8be1817b7c9580fd53d0ccc2d83b5949c551dc))
+* remove merge packages/learner-access ([df7527d](https://github.com/thoughtindustries/helium/commit/df7527dfd310f3bc223ebe9edfec89bd5d9432f4))
+
+
+### Features
+
+* merge packages/content/src/graphql/queries/ from learner-access branch ([e5c9897](https://github.com/thoughtindustries/helium/commit/e5c98976260dad60354e2fe5592c1104582f2ee4))
+
+
+
+
+
 # [1.1.0-alpha.3](https://github.com/thoughtindustries/helium/compare/@thoughtindustries/content@1.1.0-alpha.2...@thoughtindustries/content@1.1.0-alpha.3) (2022-08-10)
 
 **Note:** Version bump only for package @thoughtindustries/content

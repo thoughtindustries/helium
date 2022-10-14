@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.1.3](https://github.com/thoughtindustries/helium/compare/@thoughtindustries/dashboard-stats@1.1.2...@thoughtindustries/dashboard-stats@1.1.3) (2022-09-22)
+
+**Note:** Version bump only for package @thoughtindustries/dashboard-stats
+
+
+
+
+
 ## [1.1.2](https://github.com/thoughtindustries/helium/compare/@thoughtindustries/dashboard-stats@1.1.1...@thoughtindustries/dashboard-stats@1.1.2) (2022-08-10)
 
 **Note:** Version bump only for package @thoughtindustries/dashboard-stats

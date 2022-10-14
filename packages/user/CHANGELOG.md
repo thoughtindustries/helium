@@ -3,6 +3,26 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# 1.1.0 (2022-09-22)
+
+
+### Bug Fixes
+
+* peer review updates ([4399888](https://github.com/thoughtindustries/helium/commit/4399888ecf539a9207f8f2bdd5f40c40f994c30d))
+
+
+### Features
+
+* banner refactor + styling updates ([deeb58f](https://github.com/thoughtindustries/helium/commit/deeb58fc205f6de62a5959ffa4a023f45d233d90))
+* init ([e9ed7d8](https://github.com/thoughtindustries/helium/commit/e9ed7d8ad5afa2efbc61dd20e59875f67c4daaf8))
+* login hook ([d19a6d8](https://github.com/thoughtindustries/helium/commit/d19a6d800140c3bd1425a081697dbb02e1764cb1))
+* storybook mocks ([63c3d26](https://github.com/thoughtindustries/helium/commit/63c3d2627a97598518bfb5f9eb852e428fb91325))
+* storybook updates + snapshot test ([0d90f87](https://github.com/thoughtindustries/helium/commit/0d90f879e82b2d7631b9c2a0d8094dc3a70038f5))
+
+
+
+
+
 # 1.2.0 (2022-08-17)
 
 
