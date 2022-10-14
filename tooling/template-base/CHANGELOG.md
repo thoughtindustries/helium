@@ -3,6 +3,37 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.1.0-alpha.26](https://github.com/thoughtindustries/helium/compare/@thoughtindustries/helium-template@1.1.0-alpha.25...@thoughtindustries/helium-template@1.1.0-alpha.26) (2022-10-14)
+
+
+### Bug Fixes
+
+* center of nav bar items and other refactoring ([177cb86](https://github.com/thoughtindustries/helium/commit/177cb86cf4971bd2bf7b8ec1cd0c0543fc1830db))
+* certificate grid view ([f22685a](https://github.com/thoughtindustries/helium/commit/f22685ab477fb17deba98fd32d885ba85acfe42a))
+* dashboard courseAsset ([61de833](https://github.com/thoughtindustries/helium/commit/61de833ddac8aa6e2a4facc0cdf63f4a00c07f21))
+* navbar error ([cddd27a](https://github.com/thoughtindustries/helium/commit/cddd27a57a25ee6c81f4ebe9da2325e3a6d0eabb))
+* numberOfContentItems type ([d04893b](https://github.com/thoughtindustries/helium/commit/d04893b7f803716b3559ac1ab6bdc0e15ace5b88))
+* remove 'Object is of type 'unknown' error ([a956b90](https://github.com/thoughtindustries/helium/commit/a956b90e3ce0f036a83602afbc4b5a388ca8ac5f))
+* remove error regarding the import of tree.tsx ([69146ac](https://github.com/thoughtindustries/helium/commit/69146ac864798547cab1f66f71d77ab244c9ace8))
+* remove heroImage import error ([c141c4b](https://github.com/thoughtindustries/helium/commit/c141c4b987cdf7532300c9201989c79dd2f9bb2a))
+* remove logo import error ([33cc94a](https://github.com/thoughtindustries/helium/commit/33cc94ad3bb4213ff708710b61a1e5849b385a21))
+* remove logo import error ([8fe0a6e](https://github.com/thoughtindustries/helium/commit/8fe0a6ed63fb8948d9c4a25741b607a76aad67e5))
+* remove react-dom module import error ([52557df](https://github.com/thoughtindustries/helium/commit/52557df6bfadb8b246e18a79e12be349b9bbd600))
+* remove type error from Certificate component ([46097cb](https://github.com/thoughtindustries/helium/commit/46097cbff4747b65fd25ec5f48819d11b5be24c1))
+* renaming of component ([b19df75](https://github.com/thoughtindustries/helium/commit/b19df75318b1ca301c680c5d51220df3098fc10c))
+* revert change in LoadCertificates.tsx ([d528c45](https://github.com/thoughtindustries/helium/commit/d528c453d2290f47aa1fae0d3b78ec1540f332cf))
+* width added to avatar styling ([50a8f1b](https://github.com/thoughtindustries/helium/commit/50a8f1b71c9f45472b11ae39f6e1e36cbe09094c))
+
+
+### Features
+
+* user can now add personal styling to renamed ctaAsset element ([db4ff4d](https://github.com/thoughtindustries/helium/commit/db4ff4da379cd3d7392022a800eacca8130a1765))
+* user can now add styling to heroImage ([810b5f6](https://github.com/thoughtindustries/helium/commit/810b5f657edc2f1dd72722e172f72e13fac6f6f9))
+
+
+
+
+
 # [1.1.0-alpha.25](https://github.com/thoughtindustries/helium/compare/@thoughtindustries/helium-template@1.1.0-alpha.24...@thoughtindustries/helium-template@1.1.0-alpha.25) (2022-09-22)
 
 

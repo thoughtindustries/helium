@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.1.3](https://github.com/thoughtindustries/helium/compare/@thoughtindustries/cart@1.1.2...@thoughtindustries/cart@1.1.3) (2022-10-14)
+
+**Note:** Version bump only for package @thoughtindustries/cart
+
+
+
+
+
 ## [1.1.2](https://github.com/thoughtindustries/helium/compare/@thoughtindustries/cart@1.1.1...@thoughtindustries/cart@1.1.2) (2022-09-22)
 
 **Note:** Version bump only for package @thoughtindustries/cart
