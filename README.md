@@ -1,4 +1,6 @@
-# Helium
+<p align="center">
+    <a href="https://developer.thoughtindustries.com/build/developer-guide/"><img src="./.github/images/helium_logo.png" alt="Helium Logo"/></a>
+</p>
 
 [![Test Suite](https://github.com/thoughtindustries/helium/actions/workflows/jest.yml/badge.svg)](https://github.com/thoughtindustries/helium/actions/workflows/jest.yml)
 
