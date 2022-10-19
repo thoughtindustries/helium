@@ -16,6 +16,7 @@ type PageContextInit = {
     statusCode: number;
     body: string;
   };
+  redirectTo?: string;
 };
 
 type SHA256 = () => string;
