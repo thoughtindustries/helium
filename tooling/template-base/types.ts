@@ -44,6 +44,7 @@ export type CurrentUser = {
 };
 
 export type PageContext = {
+  _pageId: string;
   Page: (pageProps: PageProps) => React.ReactElement;
   pageProps: PageProps;
   pageExports: {
@@ -52,6 +53,7 @@ export type PageContext = {
       description?: string;
     };
   };
+  redirectTo?: string;
   documentProps?: {
     title?: string;
     description?: string;

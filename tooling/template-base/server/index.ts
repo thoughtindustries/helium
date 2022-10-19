@@ -15,7 +15,7 @@ async function startServer() {
     });
   }
 
-  const port = process.env.PORT || 3000;
+  const port = process.env.PORT ? parseInt(process.env.PORT, 10) : 3000;
   const app = await setupHeliumServer(root, viteDevServer, port);
 
   app.listen(port);
