@@ -1,5 +1,5 @@
 const isProduction = process.env.NODE_ENV === 'production';
-const { setupHeliumServer } = require('@thoughtindustries/helium-server');
+import { setupHeliumServer } from '@thoughtindustries/helium-server';
 const root = `${__dirname}/..`;
 
 startServer();

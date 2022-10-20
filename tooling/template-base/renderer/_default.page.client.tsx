@@ -5,7 +5,7 @@ import { ApolloProvider } from '@apollo/client';
 import { I18nextProvider } from 'react-i18next';
 import i18n from './i18n';
 import { PageContext } from '../types';
-import { makeApolloClient } from '@thoughtindustries/helium-server';
+import makeApolloClient from '@thoughtindustries/helium-server/make-apollo-client';
 
 export { render };
 
