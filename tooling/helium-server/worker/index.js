@@ -65,3 +65,22 @@ function isAssetUrl(url) {
   const { pathname } = new URL(url);
   return pathname.startsWith('/assets/') || pathname.endsWith('manifest.json');
 }
+
+export default {
+  async fetch(request, event, context) {
+    try {
+      if (event.request.method === 'OPTIONS') {
+        event.respondWith(handleOptions(event));
+      } else {
+        event.respondWith(
+          handleFetchEvent(event).catch(err => {
+            console.error(err.stack);
+          })
+        );
+      }
+    } catch (err) {
+      console.error(err.stack);
+      event.respondWith(new Response('Internal Error', { status: 500 }));
+    }
+  }
+};

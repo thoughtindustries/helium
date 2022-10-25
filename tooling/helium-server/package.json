@@ -14,6 +14,7 @@
       "import": "./dist/index.mjs",
       "types": "./dist/index.d.ts"
     },
+    "./worker": "./worker/index.js",
     "./*": "./src/utilities/*.ts"
   },
   "scripts": {
@@ -24,8 +25,7 @@
   "files": [
     "dist",
     "src",
-    "worker",
-    "webpack.config.js"
+    "worker"
   ],
   "repository": {
     "type": "git",
