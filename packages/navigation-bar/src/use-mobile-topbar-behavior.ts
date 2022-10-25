@@ -20,7 +20,7 @@ export function useMobileTopbarBehavior<TRef extends HTMLElement>(): MobileTopba
   const [currentMenuId, setCurrentMenuId] = useState<string | undefined>(undefined);
 
   const navigate = useCallback(
-    (direction, menuId?: string) => {
+    (direction: number, menuId?: string) => {
       if (scrollableRef.current) {
         const newLevel = currentLevel + direction;
         const percentage = -newLevel * 100;

@@ -22,10 +22,10 @@
   "bugs": {
     "url": "https://github.com/thoughtindustries/helium/issues"
   },
-  "dependencies": {
-    "@apollo/client": "^3.5.10",
+  "devDependencies": {
+    "@apollo/client": "^3.7.0",
     "@thoughtindustries/content": "^1.1.0-alpha.5",
-    "graphql": "^16.3.0",
-    "react-i18next": "^11.16.2"
+    "graphql": "^16.6.0",
+    "react-i18next": "^11.18.6"
   }
 }

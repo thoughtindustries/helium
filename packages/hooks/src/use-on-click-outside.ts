@@ -1,6 +1,8 @@
 import { RefObject, useCallback } from 'react';
 import useWindowEventListener from './use-window-event-listener';
 
+type CallbackEvent = MouseEvent | PointerEvent;
+
 /**
  * Reference: https://usehooks.com/useOnClickOutside/
  *
@@ -10,12 +12,12 @@ import useWindowEventListener from './use-window-event-listener';
  */
 export default function useOnClickOutside<TRef extends HTMLElement>(
   ref: RefObject<TRef>,
-  callback: (event: MouseEvent | PointerEvent) => void
+  callback: (event: CallbackEvent) => void
 ) {
   const listener = useCallback(
-    event => {
+    (event: CallbackEvent) => {
       // Do nothing if clicking ref's element or descendent elements
-      if (!ref.current || ref.current.contains(event.target)) {
+      if (!ref.current || ref.current.contains(event.target as Node)) {
         return;
       }
       callback(event);

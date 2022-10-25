@@ -1,6 +1,9 @@
-import React, { FC } from 'react';
+import React, { FC, ReactNode } from 'react';
 
-const FilterWrapper: FC = ({ children }) => (
+interface FilterWrapperProps {
+  children: ReactNode;
+}
+const FilterWrapper: FC<FilterWrapperProps> = ({ children }) => (
   <span className="py-3 ml-1 inline-block">{children}</span>
 );
 

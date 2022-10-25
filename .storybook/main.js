@@ -17,6 +17,7 @@ module.exports = {
     'storybook-addon-apollo-client',
     'storybook-react-i18next'
   ],
+  framework: '@storybook/react',
   typescript: {
     check: true,
     checkOptions: {
