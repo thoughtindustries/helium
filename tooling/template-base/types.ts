@@ -47,7 +47,7 @@ export type PageContext = {
   _pageId: string;
   Page: (pageProps: PageProps) => React.ReactElement;
   pageProps: PageProps;
-  pageExports: {
+  exports: {
     documentProps?: {
       title?: string;
       description?: string;

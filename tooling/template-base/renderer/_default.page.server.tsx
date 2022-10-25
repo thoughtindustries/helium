@@ -3,6 +3,7 @@ import { PageWrapper } from './PageWrapper';
 import { escapeInject, dangerouslySkipEscape } from 'vite-plugin-ssr';
 import { getDataFromTree } from '@apollo/client/react/ssr';
 import { ApolloProvider } from '@apollo/client';
+import { getPageMeta } from './getPageMeta';
 import { I18nextProvider } from 'react-i18next';
 import i18n from './i18n';
 import { PageContext } from '../types';
@@ -32,7 +33,7 @@ const render: RenderFn = async pageContext => {
   const { Page, pageProps, apolloClient, appearance, currentUser, queryParams } = pageContext;
 
   // See https://vite-plugin-ssr.com/html-head
-  const { documentProps } = pageContext;
+  const documentProps = getPageMeta(pageContext);
   const title = (documentProps && documentProps.title) || 'Vite SSR app';
   const desc = (documentProps && documentProps.description) || 'App using Vite + vite-plugin-ssr';
 
