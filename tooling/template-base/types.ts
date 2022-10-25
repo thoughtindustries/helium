@@ -60,7 +60,7 @@ export type PageContext = {
   };
   pageHtml: string;
   routeParams: Record<string, string>;
-  url: string;
+  urlOriginal: string;
   urlPathname: string;
   urlParsed: {
     pathname: string;
