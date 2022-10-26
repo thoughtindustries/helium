@@ -772,10 +772,6 @@ Ensure the default browser behavior of the `hidden` attribute.
   display: flex;
 }
 
-.table {
-  display: table;
-}
-
 .grid {
   display: grid;
 }
@@ -792,10 +788,6 @@ Ensure the default browser behavior of the `hidden` attribute.
   height: 100%;
 }
 
-.h-96 {
-  height: 24rem;
-}
-
 .h-9 {
   height: 2.25rem;
 }
@@ -810,6 +802,10 @@ Ensure the default browser behavior of the `hidden` attribute.
 
 .h-auto {
   height: auto;
+}
+
+.h-96 {
+  height: 24rem;
 }
 
 .h-10 {
@@ -848,10 +844,6 @@ Ensure the default browser behavior of the `hidden` attribute.
   width: 25%;
 }
 
-.w-full {
-  width: 100%;
-}
-
 .w-9 {
   width: 2.25rem;
 }
@@ -862,6 +854,10 @@ Ensure the default browser behavior of the `hidden` attribute.
 
 .w-80 {
   width: 20rem;
+}
+
+.w-full {
+  width: 100%;
 }
 
 .w-5 {
@@ -1023,10 +1019,6 @@ Ensure the default browser behavior of the `hidden` attribute.
 
 .items-center {
   align-items: center;
-}
-
-.items-stretch {
-  align-items: stretch;
 }
 
 .justify-start {
@@ -1321,11 +1313,6 @@ Ensure the default browser behavior of the `hidden` attribute.
 .object-cover {
   -o-object-fit: cover;
      object-fit: cover;
-}
-
-.object-fill {
-  -o-object-fit: fill;
-     object-fit: fill;
 }
 
 .p-24 {
@@ -1663,10 +1650,6 @@ Ensure the default browser behavior of the `hidden` attribute.
 
 .uppercase {
   text-transform: uppercase;
-}
-
-.italic {
-  font-style: italic;
 }
 
 .ordinal {

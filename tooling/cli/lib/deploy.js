@@ -66,20 +66,21 @@ const JOB_QUERY = /* GraphQL */ `
     await gatherUsedTranslations();
     // hash queries for whitelisting
     await writeGraphqlManifest();
-    await uploadHeliumProject(policyData);
+    await createAndUpdateContent();
+    // await uploadHeliumProject(policyData);
     // reset translations file to include all keys for local development
-    await resetTranslationFile();
-    const batchJobId = await triggerBatch(instance, key);
-    const fetchStatus = () => checkDeploymentJobStatus(instance, batchJobId);
-    const processing = result => {
-      if (result === 'FAILED') {
-        throw new Error('Batch deployment failed');
-      }
+    // await resetTranslationFile();
+    // const batchJobId = await triggerBatch(instance, key);
+    // const fetchStatus = () => checkDeploymentJobStatus(instance, batchJobId);
+    // const processing = result => {
+    //   if (result === 'FAILED') {
+    //     throw new Error('Batch deployment failed');
+    //   }
 
-      return result !== 'SUCCEEDED';
-    };
+    //   return result !== 'SUCCEEDED';
+    // };
 
-    await poll(fetchStatus, processing, 3000);
+    // await poll(fetchStatus, processing, 3000);
   } catch (e) {
     throw new Error(e);
   }
@@ -333,4 +334,54 @@ function wait(ms = 1000) {
   return new Promise(resolve => {
     setTimeout(resolve, ms);
   });
+}
+
+async function createAndUpdateContent() {
+  const courseFilePaths = await getFilePaths(path.join(OP_DIR, 'pages/learn/course'));
+  const contentByCourse = courseFilePaths.reduce((hash, filePath) => {
+    const { courseSlug, topicSlug } = getPathContents(filePath);
+    const maybeCourseContent = hash[courseSlug];
+
+    if (maybeCourseContent) {
+      hash[courseSlug].course = courseSlug;
+    } else {
+      hash[courseSlug] = { course: courseSlug };
+    }
+
+    if (topicSlug) {
+      // get metadata from frontmatter
+      const existingTopics = maybeCourseContent.topics || [];
+      hash[courseSlug].topics = [...existingTopics, topicSlug];
+    }
+
+    return hash;
+  }, {});
+
+  console.log('>>> contentByCourse', contentByCourse);
+
+  return;
+}
+
+function getPathContents(filePath) {
+  const [, contentPath] = filePath.split('/learn/course/');
+  return {
+    courseSlug: getCourseSlug(contentPath),
+    topicSlug: getTopicSlug(contentPath)
+  };
+}
+
+function getCourseSlug(contentPath) {
+  const [coursePath] = contentPath.split('/');
+  return coursePath.trim().toLowerCase();
+}
+
+function getTopicSlug(contentPath) {
+  const isTopicPath = contentPath.includes('/topics/');
+  if (isTopicPath) {
+    const [, topicFile] = contentPath.split('/topics/');
+    const [topicSlug] = topicFile.split('.');
+    return topicSlug.trim().toLowerCase();
+  }
+
+  return false;
 }
