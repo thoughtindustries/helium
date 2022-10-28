@@ -1,7 +1,7 @@
 import { renderPage } from 'vite-plugin-ssr';
 import jwt_decode from 'jwt-decode';
 import initPageContext from './init-page-context';
-import { tiConfig } from '../src';
+import tiConfig from 'tiConfig';
 
 export { handleSsr };
 
