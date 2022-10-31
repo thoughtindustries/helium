@@ -20,7 +20,7 @@
   "bugs": {
     "url": "https://github.com/thoughtindustries/helium/issues"
   },
-  "devDependencies": {
+  "dependencies": {
     "react": "^18.2.0",
     "react-dom": "^18.2.0"
   },

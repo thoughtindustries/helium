@@ -20,7 +20,7 @@
   "bugs": {
     "url": "https://github.com/thoughtindustries/helium/issues"
   },
-  "devDependencies": {
+  "dependencies": {
     "@apollo/client": "^3.7.0",
     "@thoughtindustries/content": "^1.1.0-alpha.5",
     "@thoughtindustries/header": "^1.0.0-alpha.9",

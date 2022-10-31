@@ -19,7 +19,7 @@
     "url": "https://github.com/thoughtindustries/helium/issues"
   },
   "homepage": "https://github.com/thoughtindustries/helium#readme",
-  "devDependencies": {
+  "dependencies": {
     "@apollo/client": "^3.7.0",
     "@graphql-codegen/introspection": "^2.2.0",
     "@types/lodash": "^4.14.182",

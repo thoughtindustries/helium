@@ -20,7 +20,7 @@
   "bugs": {
     "url": "https://github.com/thoughtindustries/helium/issues"
   },
-  "devDependencies": {
+  "dependencies": {
     "@thoughtindustries/hooks": "^1.1.1",
     "clsx": "^1.1.1",
     "i18next": "^21.10.0",

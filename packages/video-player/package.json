@@ -22,7 +22,7 @@
     "url": "https://github.com/thoughtindustries/helium/issues"
   },
   "homepage": "https://github.com/thoughtindustries/helium#readme",
-  "devDependencies": {
+  "dependencies": {
     "@thoughtindustries/content": "^1.1.0-alpha.5",
     "@thoughtindustries/hooks": "^1.1.1",
     "react": "^18.2.0",

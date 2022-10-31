@@ -22,7 +22,7 @@
   "bugs": {
     "url": "https://github.com/thoughtindustries/helium/issues"
   },
-  "devDependencies": {
+  "dependencies": {
     "@apollo/client": "^3.7.0",
     "dayjs": "^1.10.8",
     "graphql": "^16.6.0",
