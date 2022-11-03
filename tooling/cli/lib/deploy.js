@@ -35,8 +35,12 @@ const KEY_QUERY = /* GraphQL */ `
 `;
 
 const BATCH_QUERY = /* GraphQL */ `
-  query HeliumBatchQuery($key: String!, $nickname: String!) {
-    HeliumBatch(key: $key, nickname: $nickname)
+  query HeliumBatchQuery(
+    $key: String!
+    $nickname: String!
+    $workerVersion: HeliumDeploymentWorkerVersion
+  ) {
+    HeliumBatch(key: $key, nickname: $nickname, workerVersion: $workerVersion)
   }
 `;
 
@@ -172,7 +176,7 @@ async function triggerBatch(instance, key) {
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
         query: BATCH_QUERY,
-        variables: { key, nickname: instance.nickname }
+        variables: { key, nickname: instance.nickname, workerVersion: 'v2' }
       })
     };
 
