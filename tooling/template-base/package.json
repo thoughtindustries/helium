@@ -9,10 +9,9 @@
     "dev:vite": "concurrently \"npm run dev:css\" \"npm run dev:server\"",
     "dev:css": "tailwindcss -o ./renderer/tailwind.css --watch",
     "dev:server": "tsup ./server/index.ts && node ./dist/index.js",
-    "build": "npm run build:css && npm run build:vite && npm run build:worker",
+    "build": "npm run build:css && npm run build:vite",
     "build:css": "tailwindcss -o ./renderer/tailwind.css",
-    "build:vite": "vite build",
-    "build:worker": "wrangler build"
+    "build:vite": "vite build"
   },
   "publishConfig": {
     "access": "public"
