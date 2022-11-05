@@ -7,6 +7,7 @@ const fetch = require('isomorphic-unfetch');
 const childProcess = require('child_process');
 const tar = require('tar');
 const os = require('os');
+const semver = require('semver');
 
 const { getFilePaths } = require('./helpers/filepaths');
 const { instanceEndpoint } = require('./helpers/urls');
@@ -22,6 +23,8 @@ const OP_DIR = process.cwd();
 const TMP_DIR = os.tmpdir();
 const configPath = path.join(OP_DIR, '/ti-config');
 const config = require(configPath);
+const packageManifestPath = path.join(OP_DIR, '/package');
+const packageManifest = require(packageManifestPath);
 
 const INSTANCE_NAME = process.env.INSTANCE_NAME;
 
@@ -169,6 +172,7 @@ async function uploadHeliumProject(policyData) {
 }
 
 async function triggerBatch(instance, key) {
+  const workerVersion = getWorkerVersion();
   return new Promise((resolve, reject) => {
     const endpoint = instanceEndpoint(instance);
     const options = {
@@ -176,7 +180,7 @@ async function triggerBatch(instance, key) {
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
         query: BATCH_QUERY,
-        variables: { key, nickname: instance.nickname, workerVersion: 'v2' }
+        variables: { key, nickname: instance.nickname, workerVersion }
       })
     };
 
@@ -337,4 +341,12 @@ function wait(ms = 1000) {
   return new Promise(resolve => {
     setTimeout(resolve, ms);
   });
+}
+
+function getWorkerVersion() {
+  const { vite: viteVersion } = packageManifest.dependencies || {};
+  if (semver.satisfies(semver.coerce(viteVersion), '>=3')) {
+    return 'v2';
+  }
+  return 'v1';
 }
