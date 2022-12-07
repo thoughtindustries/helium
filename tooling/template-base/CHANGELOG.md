@@ -3,6 +3,114 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.1.0-alpha.26](https://github.com/thoughtindustries/helium/compare/@thoughtindustries/helium-template@1.1.0-alpha.25...@thoughtindustries/helium-template@1.1.0-alpha.26) (2022-10-14)
+
+
+### Bug Fixes
+
+* center of nav bar items and other refactoring ([177cb86](https://github.com/thoughtindustries/helium/commit/177cb86cf4971bd2bf7b8ec1cd0c0543fc1830db))
+* certificate grid view ([f22685a](https://github.com/thoughtindustries/helium/commit/f22685ab477fb17deba98fd32d885ba85acfe42a))
+* dashboard courseAsset ([61de833](https://github.com/thoughtindustries/helium/commit/61de833ddac8aa6e2a4facc0cdf63f4a00c07f21))
+* navbar error ([cddd27a](https://github.com/thoughtindustries/helium/commit/cddd27a57a25ee6c81f4ebe9da2325e3a6d0eabb))
+* numberOfContentItems type ([d04893b](https://github.com/thoughtindustries/helium/commit/d04893b7f803716b3559ac1ab6bdc0e15ace5b88))
+* remove 'Object is of type 'unknown' error ([a956b90](https://github.com/thoughtindustries/helium/commit/a956b90e3ce0f036a83602afbc4b5a388ca8ac5f))
+* remove error regarding the import of tree.tsx ([69146ac](https://github.com/thoughtindustries/helium/commit/69146ac864798547cab1f66f71d77ab244c9ace8))
+* remove heroImage import error ([c141c4b](https://github.com/thoughtindustries/helium/commit/c141c4b987cdf7532300c9201989c79dd2f9bb2a))
+* remove logo import error ([33cc94a](https://github.com/thoughtindustries/helium/commit/33cc94ad3bb4213ff708710b61a1e5849b385a21))
+* remove logo import error ([8fe0a6e](https://github.com/thoughtindustries/helium/commit/8fe0a6ed63fb8948d9c4a25741b607a76aad67e5))
+* remove react-dom module import error ([52557df](https://github.com/thoughtindustries/helium/commit/52557df6bfadb8b246e18a79e12be349b9bbd600))
+* remove type error from Certificate component ([46097cb](https://github.com/thoughtindustries/helium/commit/46097cbff4747b65fd25ec5f48819d11b5be24c1))
+* renaming of component ([b19df75](https://github.com/thoughtindustries/helium/commit/b19df75318b1ca301c680c5d51220df3098fc10c))
+* revert change in LoadCertificates.tsx ([d528c45](https://github.com/thoughtindustries/helium/commit/d528c453d2290f47aa1fae0d3b78ec1540f332cf))
+* width added to avatar styling ([50a8f1b](https://github.com/thoughtindustries/helium/commit/50a8f1b71c9f45472b11ae39f6e1e36cbe09094c))
+
+
+### Features
+
+* user can now add personal styling to renamed ctaAsset element ([db4ff4d](https://github.com/thoughtindustries/helium/commit/db4ff4da379cd3d7392022a800eacca8130a1765))
+* user can now add styling to heroImage ([810b5f6](https://github.com/thoughtindustries/helium/commit/810b5f657edc2f1dd72722e172f72e13fac6f6f9))
+
+
+
+
+
+# [1.1.0-alpha.25](https://github.com/thoughtindustries/helium/compare/@thoughtindustries/helium-template@1.1.0-alpha.24...@thoughtindustries/helium-template@1.1.0-alpha.25) (2022-09-22)
+
+
+### Bug Fixes
+
+* homepage imports ([a64e50f](https://github.com/thoughtindustries/helium/commit/a64e50f9619794c277d06d847902677c135d63ec))
+* merge packages/content ([6c8be18](https://github.com/thoughtindustries/helium/commit/6c8be1817b7c9580fd53d0ccc2d83b5949c551dc))
+* remove merge packages/learner-access ([50c137f](https://github.com/thoughtindustries/helium/commit/50c137f1ce6b90cdd161df30e4f1ede6eaacb940))
+* removing unused imports ([50d5618](https://github.com/thoughtindustries/helium/commit/50d56187e485b01ded4e37e914c26668b4bc4e38))
+* revert commit ([7ae7d26](https://github.com/thoughtindustries/helium/commit/7ae7d2614c8154da46f96598a69154e938290cbe))
+* tailwind.css ([f1f7bae](https://github.com/thoughtindustries/helium/commit/f1f7baebae3e58e26ecbd6cff810770ce46fc486))
+* tailwind.css ([6341d57](https://github.com/thoughtindustries/helium/commit/6341d57c77eecce433f58b97fed3bb452eed56c9))
+* update Tabs.tsx ([99e618b](https://github.com/thoughtindustries/helium/commit/99e618b5cb3a131a0650bcee5ef75dfc617ed5e1))
+
+
+### Features
+
+* add dropdown functionality to dashboard page ([413900a](https://github.com/thoughtindustries/helium/commit/413900a23374145567aa01117dadec42c01a5a4e))
+* adding certification custom comp ([4cdab5c](https://github.com/thoughtindustries/helium/commit/4cdab5cb322bf962ad4665c55573ca7a4e7b9fdb))
+* adding key to course completion map ([039d04d](https://github.com/thoughtindustries/helium/commit/039d04dd7ab6be374d6405a23241334afdbc1150))
+* availableTabs dropdown on small screens. ([65765d9](https://github.com/thoughtindustries/helium/commit/65765d99af8590f82ddad0b0a29a1837e17e2dc7))
+* banner refactor + styling updates ([deeb58f](https://github.com/thoughtindustries/helium/commit/deeb58fc205f6de62a5959ffa4a023f45d233d90))
+* continue button now linking to course ([571ffbc](https://github.com/thoughtindustries/helium/commit/571ffbc52f5d4c42b43106b52e2a1f30124a0bf7))
+* courseProgressionCriteria displayed corretly ([50196f3](https://github.com/thoughtindustries/helium/commit/50196f35742293cc56f5546112361a1484254035))
+* dashbaord tabs ([631b56d](https://github.com/thoughtindustries/helium/commit/631b56d125a948eded746dc950ad13bb542fb657))
+* dropdown refactor bookmarks ([3203004](https://github.com/thoughtindustries/helium/commit/32030049b96b47c778e23c01232b55dfb0ae027e))
+* learnerAccess now displaying as grid ([3c63583](https://github.com/thoughtindustries/helium/commit/3c63583e9da0fc68077664a3725e37d7cfa6ff37))
+* list/grid state display on user dashboard ([f165d00](https://github.com/thoughtindustries/helium/commit/f165d00e0f30df2318b64f73e000d127c7ed4c8f))
+* Logo component displays company Logo, defaulting to a placeholder when a user has not provided one ([#159](https://github.com/thoughtindustries/helium/issues/159)) ([11c7342](https://github.com/thoughtindustries/helium/commit/11c7342d6c3ddc25040e0dad255015247a40db69))
+* Logo import correction ([5d95245](https://github.com/thoughtindustries/helium/commit/5d95245403d2751353db3f548af572fa15da6efb))
+* moving CTA files ([c4261c9](https://github.com/thoughtindustries/helium/commit/c4261c906281646dd61a1dc40d97756acd345ada))
+* remove count from tabs ([64d8870](https://github.com/thoughtindustries/helium/commit/64d8870bf9eabbf5dc5c866ff82701f5b4da90c8))
+* replace default logo on homepahe and catalog page ([5d64b9d](https://github.com/thoughtindustries/helium/commit/5d64b9d1b42e5a1b85c9530a4af73bd302c2be3d))
+* reusable components for diffent views of dashboard data / certificates styling ([4a2aaaa](https://github.com/thoughtindustries/helium/commit/4a2aaaa10549a2053994650170ece0418b1e3311))
+* reusable components for different views of dashboard data / certificates styling ([513b02b](https://github.com/thoughtindustries/helium/commit/513b02ba625d9d7bc6ac94be0f78c337b8ba64ba))
+* sign in page styling complete ([504c406](https://github.com/thoughtindustries/helium/commit/504c406903489598dbdba571e66386d7aef67286))
+* signin page styling ([d79ef44](https://github.com/thoughtindustries/helium/commit/d79ef44d57de8db049e5849bd90278733abde203))
+* storybook updates + snapshot test ([0d90f87](https://github.com/thoughtindustries/helium/commit/0d90f879e82b2d7631b9c2a0d8094dc3a70038f5))
+* styling of archived content and bookmarks ([8f955ea](https://github.com/thoughtindustries/helium/commit/8f955eaa82fffd029dcb4e36b4dac9dc18beb3c0))
+* styling of dropdown-add margin ([a482223](https://github.com/thoughtindustries/helium/commit/a48222388ce76272e9f6b24f1a9430fccd88d48f))
+* styling of tabs in LearnerAccess ([6f8df92](https://github.com/thoughtindustries/helium/commit/6f8df92be86ad78d23b8c42938bb87e79399a80a))
+* tab dropdown on mobile screen size ([db0f1d1](https://github.com/thoughtindustries/helium/commit/db0f1d1aba685ce1ed306e3fdfb24b076bfd7c9f))
+* tailwind ([70b4887](https://github.com/thoughtindustries/helium/commit/70b48879d4eadac8ce6b06b85e9017b9688b35be))
+* tailwind ([54149e0](https://github.com/thoughtindustries/helium/commit/54149e0041e09137da3d63c54e8da8e5b8322b05))
+* tailwind ([723cefb](https://github.com/thoughtindustries/helium/commit/723cefb20782c7f27597c357ad23b545ef95ef38))
+* tailwind.css ([d6940c1](https://github.com/thoughtindustries/helium/commit/d6940c17f6e67799fa80dfbaa643ecd0df75c670))
+* tailwind.css ([e8033fa](https://github.com/thoughtindustries/helium/commit/e8033fa246a6ab7aaffe222973bbf917d0c81931))
+* tailwind.css ([ae3f151](https://github.com/thoughtindustries/helium/commit/ae3f15166e46d7910a565b6b9d8a95eae4f64028))
+* update tailwind.css ([8df8c27](https://github.com/thoughtindustries/helium/commit/8df8c27e92c2d340760c1c9b800d20974cc551d3))
+* updated dashboard styling ([844f4e2](https://github.com/thoughtindustries/helium/commit/844f4e28586986b1cc98f2c39ee0d352d278d485))
+* updated styling ([6d38785](https://github.com/thoughtindustries/helium/commit/6d38785c2811252fb5ffb09cb78902bd67d5abe9))
+* user LearnerAccess now displaying as card ([49e35f4](https://github.com/thoughtindustries/helium/commit/49e35f4b1a2ec228f5b5df8391eb2d788f04d01b))
+* wishlisted styling ([5ccbaa7](https://github.com/thoughtindustries/helium/commit/5ccbaa74df28adb1f3ff59a9d4b5b007347180b2))
+
+
+
+
+
+# [1.1.0-alpha.24](https://github.com/thoughtindustries/helium/compare/@thoughtindustries/helium-template@1.1.0-alpha.23...@thoughtindustries/helium-template@1.1.0-alpha.24) (2022-09-13)
+
+**Note:** Version bump only for package @thoughtindustries/helium-template
+
+
+
+
+
+# [1.1.0-alpha.23](https://github.com/thoughtindustries/helium/compare/@thoughtindustries/helium-template@1.1.0-alpha.22...@thoughtindustries/helium-template@1.1.0-alpha.23) (2022-08-24)
+
+
+### Features
+
+* add engine version requirements to template-base ([#154](https://github.com/thoughtindustries/helium/issues/154)) ([9ed63f0](https://github.com/thoughtindustries/helium/commit/9ed63f0d7b059a3e8f5ddfc7321d6b865559dd88))
+
+
+
+
+
 # [1.1.0-alpha.22](https://github.com/thoughtindustries/helium/compare/@thoughtindustries/helium-template@1.1.0-alpha.21...@thoughtindustries/helium-template@1.1.0-alpha.22) (2022-08-18)
 
 

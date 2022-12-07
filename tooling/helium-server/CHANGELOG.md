@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.2.1](https://github.com/thoughtindustries/helium/compare/@thoughtindustries/helium-server@1.2.0...@thoughtindustries/helium-server@1.2.1) (2022-09-13)
+
+
+### Bug Fixes
+
+* remove closing angle bracket from regex match ([#160](https://github.com/thoughtindustries/helium/issues/160)) ([dbfdc2a](https://github.com/thoughtindustries/helium/commit/dbfdc2a76cb085a8896f0b84333a7655ec6b7f8e))
+
+
+
+
+
 # [1.2.0](https://github.com/thoughtindustries/helium/compare/@thoughtindustries/helium-server@1.1.4...@thoughtindustries/helium-server@1.2.0) (2022-08-17)
 
 

@@ -3,6 +3,22 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.2.0-alpha.5](https://github.com/thoughtindustries/helium/compare/@thoughtindustries/featured-content@1.2.0-alpha.4...@thoughtindustries/featured-content@1.2.0-alpha.5) (2022-10-14)
+
+**Note:** Version bump only for package @thoughtindustries/featured-content
+
+
+
+
+
+# [1.2.0-alpha.4](https://github.com/thoughtindustries/helium/compare/@thoughtindustries/featured-content@1.2.0-alpha.3...@thoughtindustries/featured-content@1.2.0-alpha.4) (2022-09-22)
+
+**Note:** Version bump only for package @thoughtindustries/featured-content
+
+
+
+
+
 # [1.2.0-alpha.3](https://github.com/thoughtindustries/helium/compare/@thoughtindustries/featured-content@1.2.0-alpha.2...@thoughtindustries/featured-content@1.2.0-alpha.3) (2022-08-10)
 
 **Note:** Version bump only for package @thoughtindustries/featured-content

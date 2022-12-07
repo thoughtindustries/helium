@@ -1,0 +1,32 @@
+{
+  "name": "@thoughtindustries/user",
+  "version": "1.1.1",
+  "description": "A base component for user login and registration",
+  "main": "src/index.ts",
+  "scripts": {
+    "generate": "graphql-codegen --config codegen.yml"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/thoughtindustries/helium.git"
+  },
+  "author": "Blake Reimer <blake.reimer@thoughtindustries.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/thoughtindustries/helium/issues"
+  },
+  "homepage": "https://github.com/thoughtindustries/helium#readme",
+  "dependencies": {
+    "@apollo/client": "^3.6.9",
+    "@graphql-codegen/introspection": "^2.2.0",
+    "graphql": "^16.5.0",
+    "html-react-parser": "^3.0.1",
+    "i18next": "^21.8.14"
+  },
+  "devDependencies": {
+    "@types/lodash": "^4.14.182"
+  }
+}
