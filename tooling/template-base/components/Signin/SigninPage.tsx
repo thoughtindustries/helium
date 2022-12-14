@@ -1,12 +1,23 @@
-import React, { useState } from 'react';
+import React, { useState, FormEvent } from 'react';
+import { useLoginMutation } from '@thoughtindustries/user';
 import Logo from '../Logo/Logo';
 
 const SigninPage = () => {
   const [userEmail, setUserEmail] = useState('');
   const [userPassword, setUserPassword] = useState('');
+  const [login] = useLoginMutation();
 
-  const signInHandler = e => {
-    console.log('Login Mutation Here');
+  const signInHandler = async (e: FormEvent) => {
+    e.preventDefault();
+    await login({
+      variables: { email: userEmail, password: userPassword }
+    })
+      .then(() => {
+        window.location.href = '/';
+      })
+      .catch(error => {
+        console.log('Handle Login Mutation Error Here');
+      });
   };
 
   return (
