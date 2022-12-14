@@ -1,7 +1,8 @@
 import express from 'express';
+import cookieParser from 'cookie-parser';
 import { createPageRenderer } from 'vite-plugin-ssr';
 import findTiInstance from './../utilities/find-ti-instance';
-import fetchUserAndAppearance from './../utilities/fetch-user-and-appearance';
+import { fetchUserAndAppearance, fetchUser } from './../utilities/fetch-user-and-appearance';
 import initPageContext from './../utilities/init-page-context';
 import fetch, { Response } from 'node-fetch';
 import expressPlayground from 'graphql-playground-middleware-express';
@@ -19,6 +20,7 @@ export default async function setupHeliumServer(root: string, viteDevServer: any
   }
 
   const app = express();
+  app.use(cookieParser());
   const tiInstance = await findTiInstance(instanceName);
 
   if (isProduction) {
@@ -63,14 +65,27 @@ export default async function setupHeliumServer(root: string, viteDevServer: any
   }
 
   const renderPage = createPageRenderer({ viteDevServer, isProduction, root });
-  let currentUser = {};
+
+  // company appearance is bound to server lifetime
   let appearanceBlock = {};
 
   app.get('*', async (req, res, next) => {
-    if (!Object.keys(currentUser).length || !Object.keys(appearanceBlock).length) {
-      const userAndAppearance = await fetchUserAndAppearance(tiInstance);
+    // current user is bound to each server request
+    let currentUser = {};
+    const shouldFetchAppearance = !Object.keys(appearanceBlock).length;
+    const requestCookieAuthToken = req.cookies['authToken'];
+
+    // fetch appearance (batch operation to fetch current user if applied)
+    if (shouldFetchAppearance) {
+      const userAndAppearance = await fetchUserAndAppearance(tiInstance, requestCookieAuthToken);
       currentUser = userAndAppearance.currentUser;
       appearanceBlock = userAndAppearance.appearanceBlock;
+    }
+
+    // fetch current user
+    const shouldFetchUser = !!requestCookieAuthToken && !Object.keys(currentUser).length;
+    if (shouldFetchUser) {
+      currentUser = await fetchUser(tiInstance, requestCookieAuthToken);
     }
 
     const url = req.originalUrl;
