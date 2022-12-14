@@ -39,11 +39,12 @@ export default async function initPageContext(
 }
 
 function makeApolloServerClient(heliumEndpoint, isProduction, sha256, authToken, port) {
+  const authTokenHeaders = authToken ? { authToken } : {};
   let link = setContext((_, { headers }) => {
     return {
       headers: {
         ...headers,
-        authToken: authToken ? `${authToken}` : ''
+        ...authTokenHeaders
       }
     };
   });
