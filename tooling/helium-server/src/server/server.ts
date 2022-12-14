@@ -3,7 +3,7 @@ import { createPageRenderer } from 'vite-plugin-ssr';
 import findTiInstance from './../utilities/find-ti-instance';
 import fetchUserAndAppearance from './../utilities/fetch-user-and-appearance';
 import initPageContext from './../utilities/init-page-context';
-import fetch from 'isomorphic-unfetch';
+import fetch, { Response } from 'node-fetch';
 import expressPlayground from 'graphql-playground-middleware-express';
 
 const isProduction = process.env.NODE_ENV === 'production';
@@ -46,10 +46,16 @@ export default async function setupHeliumServer(root: string, viteDevServer: any
 
       fetch(heliumEndpoint, options)
         .then((tiRes: Response) => {
+          // forward authToken in header if set
+          const tiCookies = tiRes.headers.raw()['set-cookie'];
+          const tiAuthTokenCookie = tiCookies.find(c => /authToken=/.test(c));
+          if (tiAuthTokenCookie) {
+            res.setHeader('set-cookie', tiAuthTokenCookie);
+          }
           res.status(tiRes.status);
           return tiRes;
         })
-        .then((r: Body) => r.json())
+        .then((r: Response) => r.json())
         .then((data: Record<string, any>) => {
           res.send(data);
         });

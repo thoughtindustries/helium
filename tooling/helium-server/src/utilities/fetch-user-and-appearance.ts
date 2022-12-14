@@ -1,4 +1,4 @@
-import fetch from 'isomorphic-unfetch';
+import fetch from 'node-fetch';
 
 const USER_QUERY = /* GraphQL */ `
   query UserAndAppearanceQuery {

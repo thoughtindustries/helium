@@ -43,7 +43,7 @@
     "crypto-hash": "^2.0.1",
     "express": "^4.17.3",
     "graphql-playground-middleware-express": "^1.7.23",
-    "isomorphic-unfetch": "^3.1.0",
+    "node-fetch": "^2.6.7",
     "vite-plugin-ssr": "^0.3.59"
   },
   "devDependencies": {
