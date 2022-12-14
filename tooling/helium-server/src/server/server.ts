@@ -97,7 +97,7 @@ export default async function setupHeliumServer(root: string, viteDevServer: any
       heliumEndpoint,
       isProduction,
       null,
-      null,
+      requestCookieAuthToken,
       port
     );
 

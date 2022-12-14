@@ -61,11 +61,12 @@ function makeApolloServerClient(
   authToken?: string | null,
   port?: number | undefined
 ) {
+  const authTokenHeaders = authToken ? { authToken } : {};
   let link = setContext((_, { headers }) => {
     return {
       headers: {
         ...headers,
-        authToken: authToken ? `${authToken}` : ''
+        ...authTokenHeaders
       }
     };
   });
