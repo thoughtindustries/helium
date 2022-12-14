@@ -32,17 +32,18 @@ export default async function setupHeliumServer(root: string, viteDevServer: any
     app.get('/graphiql', expressPlayground({ endpoint: '/graphql' }));
     // proxying graphql requests in dev environment because of CORS errors
     app.post('/graphql', async (req, res) => {
-      const reqBody = req.body;
+      const { body: reqBody, headers: reqHeaders } = req;
 
-      if (Array.isArray(reqBody)) {
-        reqBody.push({ user: tiInstance.email });
-      } else {
-        reqBody.user = tiInstance.email;
+      // parse request header and pass-thru authToken header
+      const reqAuthToken = reqHeaders['authToken'] || reqHeaders['authtoken'];
+      const headers: any = { 'Content-Type': 'application/json' };
+      if (reqAuthToken) {
+        headers['authToken'] = reqAuthToken;
       }
 
       const options = {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+        headers,
         body: JSON.stringify(reqBody)
       };
 
