@@ -1,4 +1,4 @@
-import fetch, { RequestInit } from 'node-fetch';
+import fetch from 'isomorphic-unfetch';
 
 const USER_FRAGMENT = /* GraphQL */ `
   fragment UserFragment on User {

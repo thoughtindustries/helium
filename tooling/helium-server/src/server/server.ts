@@ -4,12 +4,14 @@ import { createPageRenderer } from 'vite-plugin-ssr';
 import findTiInstance from './../utilities/find-ti-instance';
 import { fetchUserAndAppearance, fetchUser } from './../utilities/fetch-user-and-appearance';
 import initPageContext from './../utilities/init-page-context';
-import fetch, { Response } from 'node-fetch';
+import fetch from 'isomorphic-unfetch';
 import expressPlayground from 'graphql-playground-middleware-express';
 
 const isProduction = process.env.NODE_ENV === 'production';
 const instanceName = process.env.INSTANCE || '';
 const heliumEndpoint = process.env.HELIUM_ENDPOINT;
+const COOKIE_OR_HEADER_NAME_AUTHTOKEN = 'authToken';
+const cookieAuthTokenRegexp = /authToken=/;
 
 export default async function setupHeliumServer(root: string, viteDevServer: any, port: number) {
   if (!heliumEndpoint) {
@@ -35,10 +37,12 @@ export default async function setupHeliumServer(root: string, viteDevServer: any
       const { body: reqBody, headers: reqHeaders } = req;
 
       // parse request header and pass-thru authToken header
-      const reqAuthToken = reqHeaders['authToken'] || reqHeaders['authtoken'];
+      const reqAuthToken =
+        reqHeaders[COOKIE_OR_HEADER_NAME_AUTHTOKEN] ||
+        reqHeaders[COOKIE_OR_HEADER_NAME_AUTHTOKEN.toLowerCase()];
       const headers: any = { 'Content-Type': 'application/json' };
       if (reqAuthToken) {
-        headers['authToken'] = reqAuthToken;
+        headers[COOKIE_OR_HEADER_NAME_AUTHTOKEN] = reqAuthToken;
       }
 
       const options = {
@@ -48,10 +52,16 @@ export default async function setupHeliumServer(root: string, viteDevServer: any
       };
 
       fetch(heliumEndpoint, options)
-        .then((tiRes: Response) => {
+        /**
+         * since this runs in node env, 'isomorphic-unfetch` proxies to 'node-fetch`.
+         * 'node-fetch' offers API to extract cookies from response header, which
+         * is not part of the standard 'Response' type. cast the response to 'any' to
+         * avoid TS errors.
+         */
+        .then((tiRes: any) => {
           // forward authToken in header if set
-          const tiCookies = tiRes.headers.raw()['set-cookie'];
-          const tiAuthTokenCookie = tiCookies.find(c => /authToken=/.test(c));
+          const tiCookies: string[] = tiRes.headers.raw ? tiRes.headers.raw()['set-cookie'] : [];
+          const tiAuthTokenCookie = tiCookies.find(c => cookieAuthTokenRegexp.test(c));
           if (tiAuthTokenCookie) {
             res.setHeader('set-cookie', tiAuthTokenCookie);
           }
@@ -74,7 +84,7 @@ export default async function setupHeliumServer(root: string, viteDevServer: any
     // current user is bound to each server request
     let currentUser = {};
     const shouldFetchAppearance = !Object.keys(appearanceBlock).length;
-    const requestCookieAuthToken = req.cookies['authToken'];
+    const requestCookieAuthToken = req.cookies[COOKIE_OR_HEADER_NAME_AUTHTOKEN];
 
     // fetch appearance (batch operation to fetch current user if applied)
     if (shouldFetchAppearance) {
