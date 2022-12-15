@@ -54,17 +54,17 @@ export default function CurrentUserNavBar() {
                 <Avatar size="small" />
                 <div className="mx-3 my-auto">
                   <button className="hover:text-blue-700">
-                    <a href="/learn/profile">My Profile</a>
+                    <a href="/learn/account?tab=dashboard.account_profile">My Profile</a>
                   </button>
                 </div>
               </div>
               <hr></hr>
-              <a href="/learn/profile">
+              <a href="/learn/account?tab=dashboard.account_profile">
                 <li className="md:hover:bg-white hover:bg-slate-100 rounded pl-2 pt-4 pb-2">
-                  Account
+                  My Account
                 </li>
               </a>
-              <a href="/transcript">
+              <a href="learn/transcript">
                 <li className="md:hover:bg-white hover:bg-slate-100 rounded pl-2 py-2">
                   Transcript
                 </li>
@@ -75,7 +75,7 @@ export default function CurrentUserNavBar() {
                 </li>
               </a>
               <hr></hr>
-              <a href="/signout">
+              <a href="/learn/sign_out">
                 <div className="text-center pt-5 text-sm text-blue-900 hover:text-blue-700">
                   Sign out
                 </div>
