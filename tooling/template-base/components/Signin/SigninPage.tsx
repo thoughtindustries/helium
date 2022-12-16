@@ -1,11 +1,17 @@
 import React, { useState, FormEvent } from 'react';
-import { useLoginMutation } from '@thoughtindustries/user';
+import { gql, useMutation } from '@apollo/client';
 import Logo from '../Logo/Logo';
+
+const LoginDocument = gql`
+  mutation LoginMutation($email: String!, $password: String!) {
+    Login(email: $email, password: $password)
+  }
+`;
 
 const SigninPage = () => {
   const [userEmail, setUserEmail] = useState('');
   const [userPassword, setUserPassword] = useState('');
-  const [login] = useLoginMutation();
+  const [login] = useMutation(LoginDocument);
 
   const signInHandler = async (e: FormEvent) => {
     e.preventDefault();
