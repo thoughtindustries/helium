@@ -59,7 +59,7 @@ export default function CurrentUserNavBar() {
                 </div>
               </div>
               <hr></hr>
-              <a href="/learn/account?tab=dashboard.account_profile">
+              <a href="/learn/account?tab=dashboard.account">
                 <li className="md:hover:bg-white hover:bg-slate-100 rounded pl-2 pt-4 pb-2">
                   My Account
                 </li>
