@@ -1,5 +1,5 @@
 import React from 'react';
-import logo from '../../renderer/share.svg';
+import share from '../Assets/share';
 
 const ButtonLink = (props: { text: string; linkUrl: string }) => {
   return (
@@ -7,7 +7,7 @@ const ButtonLink = (props: { text: string; linkUrl: string }) => {
       <a href={props.linkUrl} className="">
         <button className="flex flex-row justify-center shadow-md rounded-full bg-slate-100 text-black font-semibold text-lg w-80 h-11 py-2 text-center">
           {props.text}
-          <img src={logo} className="pl-2 pt-1" />
+          <div className="pl-2 pt-1">{share}</div>
         </button>
       </a>
     </div>

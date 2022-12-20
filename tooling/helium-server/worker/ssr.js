@@ -91,8 +91,8 @@ function decryptUserAndAppearance(userAndAppearanceToken, tiInstance) {
 function resolveAssetUrls(url, htmlString) {
   const urlObj = new URL(url);
   const resolvedString = htmlString.replace(
-    / (src|href)="\/assets\/(.*?)">/g,
-    ` $1="${urlObj.origin}/assets/$2">`
+    / (src|href)="\/assets\/(.*?)"/g,
+    ` $1="${urlObj.origin}/assets/$2"`
   );
   return resolvedString;
 }

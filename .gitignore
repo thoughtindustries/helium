@@ -108,3 +108,4 @@ dist
 **/node_modules
 **/worker/worker
 **/worker/script.js
+.DS_Store

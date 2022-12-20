@@ -3,19 +3,21 @@ const path = require('path');
 
 const getFilePaths = async (dir, filePaths = []) => {
   const newFilePaths = filePaths;
-  const contents = await readdir(dir);
 
-  for (const content of contents) {
-    const filePath = path.join(dir, content);
-    const fileStat = await stat(filePath);
+  try {
+    const contents = await readdir(dir);
 
-    if (fileStat.isFile()) {
-      newFilePaths.push(filePath);
-    } else {
-      await getFilePaths(filePath, newFilePaths);
+    for (const content of contents) {
+      const filePath = path.join(dir, content);
+      const fileStat = await stat(filePath);
+
+      if (fileStat.isFile()) {
+        newFilePaths.push(filePath);
+      } else {
+        await getFilePaths(filePath, newFilePaths);
+      }
     }
-  }
-
+  } catch {}
   return newFilePaths;
 };
 
