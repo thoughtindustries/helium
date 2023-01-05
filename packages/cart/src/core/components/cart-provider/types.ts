@@ -1,3 +1,4 @@
+import { ReactNode } from 'react';
 import { GlobalTypes } from '../../graphql';
 
 export enum EcommItemType {
@@ -124,4 +125,6 @@ export type CartAction =
 export interface CartProviderProps {
   /** url for checkout link */
   checkoutUrl: string;
+  /** children */
+  children?: ReactNode;
 }

@@ -44,7 +44,6 @@ describe('@thoughtindustries/login', () => {
           <Login />
         </MockedProvider>
       );
-      await waitFor(() => new Promise(res => setTimeout(res, 0)));
       expect(container).toMatchInlineSnapshot(`
         <div>
           <div

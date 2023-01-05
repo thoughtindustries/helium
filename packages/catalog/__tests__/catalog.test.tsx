@@ -1,5 +1,5 @@
 import React from 'react';
-import { render, waitFor } from '@testing-library/react';
+import { render, screen } from '@testing-library/react';
 import { MockedProvider } from '@apollo/client/testing';
 import { CatalogProvider, Catalog } from '../src';
 import {
@@ -196,9 +196,9 @@ const mockedApolloProviderOptions = {
 
 const resolveQueriesAsync = async () => {
   // wait till catalog content query resolves
-  await waitFor(() => new Promise(res => setTimeout(res, 0)));
+  expect(await screen.findByText(mockContentItem.title)).toBeInTheDocument();
   // wait till languages query resolves
-  await waitFor(() => new Promise(res => setTimeout(res, 0)));
+  expect(await screen.findByText(mockLanguages[0].label)).toBeInTheDocument();
 };
 
 describe('@thoughtindustries/catalog', () => {
@@ -211,9 +211,7 @@ describe('@thoughtindustries/catalog', () => {
 
     it('should error when rendered without a parent <CatalogProvider />', () => {
       const spy = jest.spyOn(global.console, 'error').mockImplementation(jest.fn());
-      expect(() =>
-        render(<Catalog onAddedToQueue={handleAddedToQueue}>children</Catalog>)
-      ).toThrowError();
+      expect(() => render(<Catalog onAddedToQueue={handleAddedToQueue} />)).toThrowError();
       spy.mockRestore();
     });
 
