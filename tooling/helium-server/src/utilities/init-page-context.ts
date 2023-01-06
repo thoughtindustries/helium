@@ -91,6 +91,12 @@ function makeApolloServerClient(
   return new ApolloClient({
     ssrMode: true,
     link: link as any,
-    cache: new InMemoryCache()
+    cache: new InMemoryCache({
+      typePolicies: {
+        UserAwardCount: {
+          keyFields: ['id', 'label', 'count']
+        }
+      }
+    })
   });
 }
