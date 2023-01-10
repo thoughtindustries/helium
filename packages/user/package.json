@@ -7,7 +7,8 @@
     "generate": "graphql-codegen --config codegen.yml"
   },
   "publishConfig": {
-    "access": "public"
+    "access": "public",
+    "tag": "beta"
   },
   "repository": {
     "type": "git",
