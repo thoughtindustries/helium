@@ -44,25 +44,27 @@ export type CurrentUser = {
 };
 
 export type PageContext = {
+  _pageId: string;
   Page: (pageProps: PageProps) => React.ReactElement;
   pageProps: PageProps;
-  pageExports: {
+  exports: {
     documentProps?: {
       title?: string;
       description?: string;
     };
   };
+  redirectTo?: string;
   documentProps?: {
     title?: string;
     description?: string;
   };
   pageHtml: string;
   routeParams: Record<string, string>;
-  url: string;
+  urlOriginal: string;
   urlPathname: string;
   urlParsed: {
     pathname: string;
-    searchString?: string;
+    searchOriginal?: string;
     search: null | Record<string, string>;
     hash: null | string;
   };

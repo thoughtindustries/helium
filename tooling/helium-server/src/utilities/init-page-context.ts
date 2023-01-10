@@ -5,7 +5,7 @@ import { createPersistedQueryLink } from '@apollo/client/link/persisted-queries'
 import { setContext } from '@apollo/client/link/context';
 
 type PageContextInit = {
-  url: string;
+  urlOriginal: string;
   apolloClient: ApolloClient<NormalizedCacheObject>;
   heliumEndpoint: string;
   appearance: Record<string, unknown>;
@@ -16,6 +16,7 @@ type PageContextInit = {
     statusCode: number;
     body: string;
   };
+  redirectTo?: string;
 };
 
 type SHA256 = () => string;
@@ -40,7 +41,7 @@ export default async function initPageContext(
   );
 
   const pageContextInit = {
-    url,
+    urlOriginal: url,
     apolloClient,
     heliumEndpoint,
     appearance,

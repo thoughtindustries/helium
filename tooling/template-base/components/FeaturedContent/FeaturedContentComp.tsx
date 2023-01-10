@@ -13,7 +13,7 @@ const FeaturedContentComp: FC<CatalogResultsWithLimitProps> = ({
 }: CatalogProps): JSX.Element => {
   const pageContext = usePageContext();
   const {
-    urlParsed: { pathname, searchString }
+    urlParsed: { pathname, searchOriginal: searchString }
   } = pageContext;
   const config = useMemo(
     () => ({

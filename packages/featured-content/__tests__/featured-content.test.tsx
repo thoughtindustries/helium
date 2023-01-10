@@ -1,5 +1,5 @@
 import React from 'react';
-import { render, waitFor } from '@testing-library/react';
+import { render, screen } from '@testing-library/react';
 import { MockedProvider } from '@apollo/client/testing';
 import {
   FeaturedContent,
@@ -74,6 +74,9 @@ const mockItems = {
 };
 
 const mockFeedUrl = 'https://foo/bar';
+const mockRssItem1 = { title: 'Link 1', link: '/rss-link1' };
+const mockRssItem2 = { title: 'Link 2', link: '/rss-link2' };
+const mockRssItem3 = { title: 'Link 3', link: '/rss-link3' };
 const mockApolloResults = {
   sidebarRss: {
     request: {
@@ -84,11 +87,7 @@ const mockApolloResults = {
     },
     result: {
       data: {
-        RssItems: [
-          { title: 'Link 1', link: '/rss-link1' },
-          { title: 'Link 2', link: '/rss-link2' },
-          { title: 'Link 3', link: '/rss-link3' }
-        ]
+        RssItems: [mockRssItem1, mockRssItem2, mockRssItem3]
       }
     }
   }
@@ -470,7 +469,7 @@ describe('@thoughtindustries/featured-content', () => {
           </FeaturedContent>
         </MockedProvider>
       );
-      await waitFor(() => new Promise(res => setTimeout(res, 0)));
+      expect(await screen.findByText(mockRssItem1.title)).toBeInTheDocument();
       expect(container).toMatchInlineSnapshot(`
         <div>
           <div
@@ -639,7 +638,7 @@ describe('@thoughtindustries/featured-content', () => {
           <SidebarRss title="RSS" feedUrl={mockFeedUrl} />
         </MockedProvider>
       );
-      await waitFor(() => new Promise(res => setTimeout(res, 0)));
+      expect(await screen.findByText(mockRssItem1.title)).toBeInTheDocument();
       expect(container).toMatchInlineSnapshot(`
         <div>
           <div
@@ -686,7 +685,7 @@ describe('@thoughtindustries/featured-content', () => {
           <SidebarRss title="RSS" feedUrl={mockFeedUrl} />
         </MockedProvider>
       );
-      await waitFor(() => new Promise(res => setTimeout(res, 0)));
+      expect(await screen.findByText('please-wait')).toBeInTheDocument();
       expect(container).toMatchInlineSnapshot(`
         <div>
           <div

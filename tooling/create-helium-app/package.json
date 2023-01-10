@@ -3,7 +3,7 @@
   "publishConfig": {
     "access": "public"
   },
-  "version": "1.0.0-alpha.28",
+  "version": "1.1.0",
   "main": "index.js",
   "license": "MIT",
   "bin": {
@@ -22,5 +22,9 @@
     "inquirer": "^8.2.0",
     "kolorist": "^1.5.0",
     "minimist": "^1.2.5"
+  },
+  "engines": {
+    "node": ">=16.18.1",
+    "npm": ">=8.19.2"
   }
 }

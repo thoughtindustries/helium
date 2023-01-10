@@ -10,8 +10,8 @@ export { Page };
 export { documentProps };
 
 const documentProps = {
-  title: 'Catalog Page',
-  description: 'The catalog page'
+  title: 'Dashboard Page',
+  description: 'The dashboard page'
 };
 
 function Page() {

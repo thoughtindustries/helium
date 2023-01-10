@@ -1,13 +1,14 @@
 {
   "name": "@thoughtindustries/user",
-  "version": "1.1.1",
+  "version": "1.2.0-beta.0",
   "description": "A base component for user login and registration",
   "main": "src/index.ts",
   "scripts": {
     "generate": "graphql-codegen --config codegen.yml"
   },
   "publishConfig": {
-    "access": "public"
+    "access": "public",
+    "tag": "beta"
   },
   "repository": {
     "type": "git",
@@ -20,13 +21,11 @@
   },
   "homepage": "https://github.com/thoughtindustries/helium#readme",
   "dependencies": {
-    "@apollo/client": "^3.6.9",
+    "@apollo/client": "^3.7.0",
     "@graphql-codegen/introspection": "^2.2.0",
-    "graphql": "^16.5.0",
+    "@types/lodash": "^4.14.182",
+    "graphql": "^16.6.0",
     "html-react-parser": "^3.0.1",
-    "i18next": "^21.8.14"
-  },
-  "devDependencies": {
-    "@types/lodash": "^4.14.182"
+    "i18next": "^21.10.0"
   }
 }

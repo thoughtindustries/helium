@@ -14,12 +14,12 @@ function hasKey<O>(obj: O, key: PropertyKey): key is keyof O {
 
 function fetchProperty(pageContext: PageContext, property: string) {
   /**
-   * pageContext.pageExports.documentProps for static titles (defined in the `export { documentProps }` of the page's `.page.js`)
+   * pageContext.exports.documentProps for static titles (defined in the `export { documentProps }` of the page's `.page.js`)
    * pageContext.documentProps for dynamic tiles (defined in the `export addContextProps()` of the page's `.page.server.js`)
    */
   let result;
-  if (hasKey(pageContext.pageExports.documentProps || {}, property)) {
-    result = (pageContext.pageExports.documentProps || {})[property];
+  if (hasKey(pageContext.exports.documentProps || {}, property)) {
+    result = (pageContext.exports.documentProps || {})[property];
   } else if (hasKey(pageContext.documentProps || {}, property)) {
     result = (pageContext.documentProps || {})[property];
   }
