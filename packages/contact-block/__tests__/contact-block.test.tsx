@@ -106,7 +106,6 @@ describe('@thoughtindustries/contact-block', () => {
                    
                 </p>
               </div>
-              
             </div>
           </div>
         </div>

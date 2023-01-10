@@ -30,7 +30,7 @@ export default function useCarouselBehavior<TRef extends HTMLElement>({
   const hasNextItem = itemCount > currentPosition + 1;
 
   const navigate = useCallback(
-    direction => {
+    (direction: number) => {
       if (scrollableRef.current) {
         const newPosition = currentPosition + direction;
         const percentage = -newPosition * 100;

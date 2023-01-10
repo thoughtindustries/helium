@@ -52,7 +52,6 @@ describe('@thoughtindustries/registration', () => {
           <Registration currentUser={mockUser} />
         </MockedProvider>
       );
-      await waitFor(() => new Promise(res => setTimeout(res, 0)));
       expect(container).toMatchInlineSnapshot(`
         <div>
           <form

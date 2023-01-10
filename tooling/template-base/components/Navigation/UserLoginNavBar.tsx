@@ -25,7 +25,7 @@ export default function UserLoginNavBar() {
               <a href="/catalog">Catalog</a>
             </li>
             <li className="md:hover:bg-white hover:bg-slate-100 rounded py-2 pl-4">
-              <a href="/support3">Help</a>
+              <a href="/support">Help</a>
             </li>
             <hr></hr>
           </ul>
@@ -61,7 +61,7 @@ export default function UserLoginNavBar() {
                 <a href="/catalog">Catalog</a>
               </li>
               <li className="md:hover:bg-white hover:bg-slate-100 rounded pl-2 py-2">
-                <a href="/support3">Help</a>
+                <a href="/support">Help</a>
               </li>
               <hr></hr>
               <button className="md:hidden my-auto items-center bg-blue-900 hover:bg-blue-700 text-white font-bold py-2 px-4 w-full rounded">

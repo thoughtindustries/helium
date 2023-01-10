@@ -1,5 +1,5 @@
 import React from 'react';
-import { render, waitFor } from '@testing-library/react';
+import { render, screen } from '@testing-library/react';
 import { DashboardStats } from '../src';
 import { MockedProvider } from '@apollo/client/testing';
 import { UserStatsDocument } from '@thoughtindustries/dashboard-stats';
@@ -49,7 +49,8 @@ describe('@thoughtindustries/dashboard-stats', () => {
           <DashboardStats />
         </MockedProvider>
       );
-      await waitFor(() => new Promise(res => setTimeout(res, 0)));
+      // wait for data fetching to complete
+      expect(await screen.findByText('DASHBOARD.AVAILABLE')).toBeInTheDocument();
       expect(container).toMatchInlineSnapshot(`
         <div>
           <div

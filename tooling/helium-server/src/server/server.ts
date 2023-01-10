@@ -1,6 +1,6 @@
 import express from 'express';
 import cookieParser from 'cookie-parser';
-import { createPageRenderer } from 'vite-plugin-ssr';
+import { renderPage } from 'vite-plugin-ssr';
 import findTiInstance from './../utilities/find-ti-instance';
 import { fetchUserAndAppearance, fetchUser } from './../utilities/fetch-user-and-appearance';
 import initPageContext from './../utilities/init-page-context';
@@ -75,8 +75,6 @@ export default async function setupHeliumServer(root: string, viteDevServer: any
     });
   }
 
-  const renderPage = createPageRenderer({ viteDevServer, isProduction, root });
-
   // company appearance is bound to server lifetime
   let appearanceBlock = {};
 
@@ -112,12 +110,16 @@ export default async function setupHeliumServer(root: string, viteDevServer: any
       port
     );
 
-    const { httpResponse } = result;
+    const { httpResponse, redirectTo } = result;
 
-    if (!httpResponse) return next();
+    if (redirectTo) {
+      res.redirect(redirectTo);
+    } else {
+      if (!httpResponse) return next();
 
-    const { statusCode, body } = httpResponse;
-    res.status(statusCode).send(body);
+      const { statusCode, body } = httpResponse;
+      res.status(statusCode).send(body);
+    }
   });
 
   return app;

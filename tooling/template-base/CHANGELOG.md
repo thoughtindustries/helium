@@ -3,6 +3,22 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.2.0-beta.0](https://github.com/thoughtindustries/helium/compare/@thoughtindustries/helium-template@1.1.0-alpha.26...@thoughtindustries/helium-template@1.2.0-beta.0) (2023-01-06)
+
+
+### Bug Fixes
+
+* correct link for account ([1eaebf3](https://github.com/thoughtindustries/helium/commit/1eaebf326516760ed616d8b69c7511243a4825c1))
+
+
+### Features
+
+* upgrade deps ([#169](https://github.com/thoughtindustries/helium/issues/169)) ([4442f35](https://github.com/thoughtindustries/helium/commit/4442f35f6013119bb5e9baf154bdab9a3583b543))
+
+
+
+
+
 # [1.1.0-alpha.26](https://github.com/thoughtindustries/helium/compare/@thoughtindustries/helium-template@1.1.0-alpha.25...@thoughtindustries/helium-template@1.1.0-alpha.26) (2022-10-14)
 
 

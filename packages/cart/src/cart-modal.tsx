@@ -289,17 +289,17 @@ const CartModal = ({
           </Dialog.Title>
           <div className="p-4 relative h-[calc(100vh-60px)] md:h-auto md:max-h-[calc(100vh-156px)] overflow-y-auto">
             <Dialog.Description as="div" className="flex flex-col divide-y divide-gray-400">
-              {!hasItems && t('cart.empty')}
-              {hasItems &&
-                items.map((item, key) => (
-                  <Item
-                    key={key}
-                    item={item}
-                    priceFormatFn={priceFormatFn}
-                    removeItem={removeItem}
-                    toggleItemInstructorAccess={toggleItemInstructorAccess}
-                  />
-                ))}
+              {hasItems
+                ? items.map((item, key) => (
+                    <Item
+                      key={key}
+                      item={item}
+                      priceFormatFn={priceFormatFn}
+                      removeItem={removeItem}
+                      toggleItemInstructorAccess={toggleItemInstructorAccess}
+                    />
+                  ))
+                : t('cart.empty')}
             </Dialog.Description>
             {hasItemsWithQuantity && (
               <div className="border-solid border-t-2 border-accent text-accent text-xl bg-gray-100 text-right p-4">

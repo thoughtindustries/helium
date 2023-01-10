@@ -24,7 +24,7 @@ export default async function initPageContext(
   );
 
   const pageContextInit = {
-    url,
+    urlOriginal: url,
     apolloClient,
     heliumEndpoint,
     appearance,
