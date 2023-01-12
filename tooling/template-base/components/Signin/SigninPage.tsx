@@ -1,12 +1,29 @@
-import React, { useState } from 'react';
+import React, { useState, FormEvent } from 'react';
+import { gql, useMutation } from '@apollo/client';
 import Logo from '../Logo/Logo';
+
+const LoginDocument = gql`
+  mutation LoginMutation($email: String!, $password: String!) {
+    Login(email: $email, password: $password)
+  }
+`;
 
 const SigninPage = () => {
   const [userEmail, setUserEmail] = useState('');
   const [userPassword, setUserPassword] = useState('');
+  const [login] = useMutation(LoginDocument);
 
-  const signInHandler = e => {
-    console.log('Login Mutation Here');
+  const signInHandler = async (e: FormEvent) => {
+    e.preventDefault();
+    await login({
+      variables: { email: userEmail, password: userPassword }
+    })
+      .then(() => {
+        window.location.href = '/learn/';
+      })
+      .catch(error => {
+        console.log('Handle Login Mutation Error Here');
+      });
   };
 
   return (
