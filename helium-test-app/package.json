@@ -1,0 +1,65 @@
+{
+  "name": "-helium-test-app",
+  "version": "1.2.0-beta.0",
+  "scripts": {
+    "authenticate": "helium authenticate",
+    "deploy": "helium deploy",
+    "dev": "helium dev",
+    "update-translations": "helium update-translations",
+    "dev:vite": "concurrently \"npm run dev:css\" \"npm run dev:server\"",
+    "dev:css": "tailwindcss -o ./renderer/tailwind.css --watch",
+    "dev:server": "tsup ./server/index.ts && node ./dist/index.js",
+    "build": "npm run build:css && npm run build:vite",
+    "build:css": "tailwindcss -o ./renderer/tailwind.css",
+    "build:vite": "vite build"
+  },
+  "publishConfig": {
+    "access": "public",
+    "tag": "beta"
+  },
+  "dependencies": {
+    "@apollo/client": "^3.7.0",
+    "@cloudflare/kv-asset-handler": "^0.2.0",
+    "@graphql-tools/graphql-tag-pluck": "^7.1.3",
+    "@mdx-js/rollup": "^2.1.3",
+    "@tailwindcss/line-clamp": "^0.3.1",
+    "@thoughtindustries/cart": "^1.2.0-beta.0",
+    "@thoughtindustries/catalog": "^1.2.0-beta.0",
+    "@thoughtindustries/content": "^1.2.0-beta.0",
+    "@thoughtindustries/featured-content": "^1.3.0-beta.0",
+    "@thoughtindustries/helium-server": "^2.0.0",
+    "@thoughtindustries/hero": "^1.1.0-beta.0",
+    "@thoughtindustries/navigation-bar": "^1.2.0-beta.0",
+    "clsx": "^1.2.1",
+    "concurrently": "^7.0.0",
+    "cross-env": "^7.0.3",
+    "graphql": "^16.6.0",
+    "i18next": "^21.10.0",
+    "jwt-decode": "^3.1.2",
+    "node-html-parser": "^4.1.5",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "react-i18next": "^11.18.6",
+    "remark-frontmatter": "^4.0.1",
+    "remark-mdx-frontmatter": "^2.0.3",
+    "tailwindcss": "^3.0.9",
+    "vite": "^3.1.8",
+    "vite-plugin-ssr": "^0.4.43"
+  },
+  "devDependencies": {
+    "@thoughtindustries/helium": "^1.2.0-beta.0",
+    "@types/node": "^17.0.23",
+    "@types/react": "^18.0.21",
+    "@types/react-dom": "^18.0.6",
+    "tsup": "^6.2.1",
+    "typescript": "^4.5.5"
+  },
+  "engines": {
+    "node": ">=16.18.1",
+    "npm": ">=8.19.2"
+  },
+  "volta": {
+    "node": "16.18.1",
+    "npm": "8.19.2"
+  }
+}
