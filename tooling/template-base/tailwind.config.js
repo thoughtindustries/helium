@@ -23,6 +23,7 @@ function getInstanceSetting(settingName, defaultSetting) {
 
 module.exports = {
   content: [
+    './atoms/**/*.{js,jsx,ts,tsx}',
     './pages/**/*.{js,jsx,ts,tsx}',
     './components/**/*.{js,jsx,ts,tsx}',
     './dist/**/*.{js,jsx,ts,tsx}'

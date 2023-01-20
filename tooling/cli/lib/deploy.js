@@ -17,6 +17,7 @@ const {
   transformDoc,
   hashQuery
 } = require('./helpers/graphql');
+const { dirHasAtoms, getAtomsHash, copyCompiledTailwind } = require('./helpers/atoms');
 
 const OP_DIR = process.cwd();
 const TMP_DIR = os.tmpdir();
@@ -41,8 +42,8 @@ const BATCH_QUERY = /* GraphQL */ `
 `;
 
 const JOB_QUERY = /* GraphQL */ `
-  query HeliumDeploymentStatusQuery($jobId: ID!) {
-    HeliumDeploymentStatus(jobId: $jobId)
+  query HeliumDeploymentStatusQuery($jobId: ID!, $key: String, $atomsHash: String) {
+    HeliumDeploymentStatus(jobId: $jobId, key: $key, atomsHash: $atomsHash)
   }
 `;
 
@@ -64,13 +65,24 @@ const JOB_QUERY = /* GraphQL */ `
     await generateTranslationFile(OP_DIR, [instance], true);
     // trim translations file down to only keys used in project
     await gatherUsedTranslations();
+    // build project
+    const hasAtoms = await dirHasAtoms(OP_DIR);
+    await buildProject(hasAtoms);
+
+    let atomsHash;
+    if (hasAtoms) {
+      atomsHash = await getAtomsHash(OP_DIR);
+      // copy over tailwind file to compiled atoms dir
+      await copyCompiledTailwind(OP_DIR, atomsHash);
+    }
+
     // hash queries for whitelisting
     await writeGraphqlManifest();
     await uploadHeliumProject(policyData);
     // reset translations file to include all keys for local development
     await resetTranslationFile();
     const batchJobId = await triggerBatch(instance, key);
-    const fetchStatus = () => checkDeploymentJobStatus(instance, batchJobId);
+    const fetchStatus = () => checkDeploymentJobStatus(instance, batchJobId, key, atomsHash);
     const processing = result => {
       if (result === 'FAILED') {
         throw new Error('Batch deployment failed');
@@ -81,7 +93,7 @@ const JOB_QUERY = /* GraphQL */ `
 
     await poll(fetchStatus, processing, 3000);
   } catch (e) {
-    throw new Error(e);
+    throw new Error(e.message);
   }
 })()
   .then(() => {
@@ -93,11 +105,25 @@ const JOB_QUERY = /* GraphQL */ `
     process.exit(1);
   });
 
+async function buildProject(hasAtoms) {
+  return new Promise((resolve, reject) => {
+    const exec = childProcess.exec;
+    const buildCommandSuffix = hasAtoms ? 'atoms' : 'vite';
+    const parseProcess = exec(`npm run build:css && npm run build:${buildCommandSuffix}`);
+
+    parseProcess.stdout.pipe(process.stdout);
+    parseProcess.stderr.pipe(process.stderr);
+
+    parseProcess.on('error', err => reject(err)).on('exit', () => resolve());
+  });
+}
+
 async function gatherUsedTranslations() {
   return new Promise((resolve, reject) => {
     const parserScript = path.join(__dirname, 'parse-translations.js');
     const exec = childProcess.exec;
-    const parseProcess = exec(`node ${parserScript} && npm run build:vite`);
+
+    const parseProcess = exec(`node ${parserScript}`);
 
     parseProcess.stdout.pipe(process.stdout);
     parseProcess.stderr.pipe(process.stderr);
@@ -279,15 +305,22 @@ function findTIInstance() {
   return instance;
 }
 
-async function checkDeploymentJobStatus(instance, jobId) {
+async function checkDeploymentJobStatus(instance, jobId, key, atomsHash) {
   return new Promise((resolve, reject) => {
     const endpoint = instanceEndpoint(instance);
+    const variables = { jobId };
+
+    if (key && atomsHash) {
+      variables.key = key;
+      variables.atomsHash = atomsHash;
+    }
+
     const options = {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
         query: JOB_QUERY,
-        variables: { jobId }
+        variables
       })
     };
 

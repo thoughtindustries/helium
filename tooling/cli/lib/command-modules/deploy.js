@@ -1,4 +1,5 @@
 const childProcess = require('child_process');
+const { readdir } = require('fs/promises');
 const path = require('path');
 
 exports.command = 'deploy <instance> [-k]';
@@ -18,7 +19,7 @@ exports.builder = cmd => {
     });
 };
 
-exports.handler = function (argv) {
+exports.handler = async function (argv) {
   const exec = childProcess.exec;
   const env = {
     ...process.env,
@@ -26,19 +27,13 @@ exports.handler = function (argv) {
     NODE_TLS_REJECT_UNAUTHORIZED: argv.insecure ? '0' : '1'
   };
 
-  const devProcess = exec('npm run build:vite', { env });
-  devProcess.stdout.pipe(process.stdout);
-  devProcess.stderr.pipe(process.stderr);
+  const deployScriptPath = path.resolve(__dirname, './../deploy.js');
+  const deployProcess = exec(`node ${deployScriptPath}`, { env });
 
-  devProcess.on('exit', () => {
-    const deployScriptPath = path.resolve(__dirname, './../deploy.js');
-    const deployProcess = exec(`node ${deployScriptPath}`, { env });
+  deployProcess.stdout.pipe(process.stdout);
+  deployProcess.stderr.pipe(process.stderr);
 
-    deployProcess.stdout.pipe(process.stdout);
-    deployProcess.stderr.pipe(process.stderr);
-
-    deployProcess.on('exit', code =>
-      console.log(`deployProcess process exited with code ${code.toString()}`)
-    );
-  });
+  deployProcess.on('exit', code =>
+    console.log(`deployProcess process exited with code ${code.toString()}`)
+  );
 };
