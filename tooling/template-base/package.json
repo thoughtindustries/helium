@@ -15,7 +15,8 @@
     "build:atoms": "vite build -c vite.atoms.config.ts && vite build"
   },
   "publishConfig": {
-    "access": "public"
+    "access": "public",
+    "tag": "beta"
   },
   "dependencies": {
     "@apollo/client": "^3.7.0",

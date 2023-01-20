@@ -10,7 +10,8 @@
     "helium": "lib/index.js"
   },
   "publishConfig": {
-    "access": "public"
+    "access": "public",
+    "tag": "beta"
   },
   "dependencies": {
     "@graphql-tools/graphql-tag-pluck": "^7.1.3",
