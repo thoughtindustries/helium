@@ -83,9 +83,8 @@ const JOB_QUERY = /* GraphQL */ `
     let atomsStyleHash;
     if (hasAtoms) {
       atomsScriptHash = await getAtomsHash(OP_DIR, 'script');
-      atomsStyleHash = (await getAtomsHash(OP_DIR, 'style')) || atomsScriptHash;
-
-      await compileStyles(OP_DIR, atomsStyleHash);
+      const possibleStyleHash = (await getAtomsHash(OP_DIR, 'style')) || atomsScriptHash;
+      atomsStyleHash = await compileStyles(OP_DIR, possibleStyleHash);
     }
 
     // hash queries for whitelisting
