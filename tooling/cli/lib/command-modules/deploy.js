@@ -1,5 +1,4 @@
 const childProcess = require('child_process');
-const { readdir } = require('fs/promises');
 const path = require('path');
 
 exports.command = 'deploy <instance> [-k]';

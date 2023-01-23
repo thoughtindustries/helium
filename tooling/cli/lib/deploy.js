@@ -17,7 +17,7 @@ const {
   transformDoc,
   hashQuery
 } = require('./helpers/graphql');
-const { dirHasAtoms, getAtomsHash, copyCompiledTailwind } = require('./helpers/atoms');
+const { dirHasAtoms, getAtomsHash, compileStyles } = require('./helpers/atoms');
 
 const OP_DIR = process.cwd();
 const TMP_DIR = os.tmpdir();
@@ -42,8 +42,18 @@ const BATCH_QUERY = /* GraphQL */ `
 `;
 
 const JOB_QUERY = /* GraphQL */ `
-  query HeliumDeploymentStatusQuery($jobId: ID!, $key: String, $atomsHash: String) {
-    HeliumDeploymentStatus(jobId: $jobId, key: $key, atomsHash: $atomsHash)
+  query HeliumDeploymentStatusQuery(
+    $jobId: ID!
+    $key: String
+    $atomsScriptHash: String
+    $atomsStyleHash: String
+  ) {
+    HeliumDeploymentStatus(
+      jobId: $jobId
+      key: $key
+      atomsScriptHash: $atomsScriptHash
+      atomsStyleHash: $atomsStyleHash
+    )
   }
 `;
 
@@ -69,11 +79,13 @@ const JOB_QUERY = /* GraphQL */ `
     const hasAtoms = await dirHasAtoms(OP_DIR);
     await buildProject(hasAtoms);
 
-    let atomsHash;
+    let atomsScriptHash;
+    let atomsStyleHash;
     if (hasAtoms) {
-      atomsHash = await getAtomsHash(OP_DIR);
-      // copy over tailwind file to compiled atoms dir
-      await copyCompiledTailwind(OP_DIR, atomsHash);
+      atomsScriptHash = await getAtomsHash(OP_DIR, 'script');
+      atomsStyleHash = (await getAtomsHash(OP_DIR, 'style')) || atomsScriptHash;
+
+      await compileStyles(OP_DIR, atomsStyleHash);
     }
 
     // hash queries for whitelisting
@@ -82,7 +94,10 @@ const JOB_QUERY = /* GraphQL */ `
     // reset translations file to include all keys for local development
     await resetTranslationFile();
     const batchJobId = await triggerBatch(instance, key);
-    const fetchStatus = () => checkDeploymentJobStatus(instance, batchJobId, key, atomsHash);
+
+    const fetchStatus = () =>
+      checkDeploymentJobStatus(instance, batchJobId, key, atomsScriptHash, atomsStyleHash);
+
     const processing = result => {
       if (result === 'FAILED') {
         throw new Error('Batch deployment failed');
@@ -93,7 +108,7 @@ const JOB_QUERY = /* GraphQL */ `
 
     await poll(fetchStatus, processing, 3000);
   } catch (e) {
-    throw new Error(e.message);
+    throw new Error(e);
   }
 })()
   .then(() => {
@@ -305,14 +320,15 @@ function findTIInstance() {
   return instance;
 }
 
-async function checkDeploymentJobStatus(instance, jobId, key, atomsHash) {
+async function checkDeploymentJobStatus(instance, jobId, key, atomsScriptHash, atomsStyleHash) {
   return new Promise((resolve, reject) => {
     const endpoint = instanceEndpoint(instance);
     const variables = { jobId };
 
-    if (key && atomsHash) {
+    if (key && atomsScriptHash && atomsStyleHash) {
       variables.key = key;
-      variables.atomsHash = atomsHash;
+      variables.atomsScriptHash = atomsScriptHash;
+      variables.atomsStyleHash = atomsStyleHash;
     }
 
     const options = {

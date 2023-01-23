@@ -1,6 +1,6 @@
 const { getFilePaths } = require('./filepaths');
 const path = require('path');
-const { copyFile } = require('fs/promises');
+const { access, readFile, writeFile } = require('fs/promises');
 
 const dirHasAtoms = async dir => {
   const contents = await getFilePaths(dir);
@@ -10,13 +10,16 @@ const dirHasAtoms = async dir => {
   return hasAtomsDir && hasAtomsConfig;
 };
 
-const getAtomsHash = async dir => {
+const getAtomsHash = async (dir, type) => {
   const hashedAssets = (await getFilePaths(path.join(dir, '/dist/assets'))) || [];
   if (!hashedAssets.length) {
     throw new Error('No compiled Atoms found.');
   }
 
-  const idx = hashedAssets.find(asset => /\/?index-([a-zA-Z]|\d)+.(ts|tsx|js|jsx)$/.test(asset));
+  const regex =
+    type === 'script' ? /\/?index-([a-zA-Z]|\d)+.(ts|tsx|js|jsx)$/ : /\/?style-([a-zA-Z]|\d)+.css$/;
+
+  const idx = hashedAssets.find(asset => regex.test(asset));
 
   if (!idx) {
     throw new Error('No Atoms index found.');
@@ -31,13 +34,34 @@ const getAtomsHash = async dir => {
   return idxHash;
 };
 
-const copyCompiledTailwind = async (dir, atomsHash) => {
-  const heliumTailwindPath = path.join(dir, '/renderer/tailwind.css');
-  const atomsTailwindPath = path.join(dir, `dist/assets/tailwind-${atomsHash}.css`);
+const compileStyles = async (dir, atomsStyleHash) => {
+  let styles = '';
 
-  await copyFile(heliumTailwindPath, atomsTailwindPath);
+  const atomsStylePath = path.join(dir, `dist/assets/style-${atomsStyleHash}.css`);
+  const atomsStyleContents = await getFileContents(atomsStylePath);
+  if (atomsStyleContents) {
+    styles += atomsStyleContents;
+  }
+
+  const heliumTailwindPath = path.join(dir, '/renderer/tailwind.css');
+  const tailwindContents = await getFileContents(heliumTailwindPath);
+  if (tailwindContents) {
+    styles += `\n${tailwindContents}`;
+  }
+
+  await writeFile(atomsStylePath, styles, { encoding: 'utf-8' });
 
   return;
 };
 
-module.exports = { dirHasAtoms, getAtomsHash, copyCompiledTailwind };
+const getFileContents = async path => {
+  try {
+    await access(path);
+    const contents = await readFile(path);
+    return contents;
+  } catch {
+    return null;
+  }
+};
+
+module.exports = { dirHasAtoms, getAtomsHash, compileStyles };
