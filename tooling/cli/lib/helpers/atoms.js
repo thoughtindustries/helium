@@ -13,7 +13,7 @@ const dirHasAtoms = async dir => {
 const getAtomsHash = async (dir, type) => {
   const hashedAssets = (await getFilePaths(path.join(dir, '/dist/assets'))) || [];
   if (!hashedAssets.length) {
-    throw new Error('No compiled Atoms found.');
+    throw new Error('No compiled Atoms assets found.');
   }
 
   const regex =
@@ -21,14 +21,14 @@ const getAtomsHash = async (dir, type) => {
 
   const idx = hashedAssets.find(asset => regex.test(asset));
 
-  if (!idx) {
+  if (!idx && type !== 'style') {
     throw new Error('No Atoms index found.');
   }
 
   const idxHash = idx.match(/-(([a-zA-Z]|\d)+\.)/)[0].replace(/(-|\.)/g, '');
 
   if (!idxHash) {
-    throw new Error('No Atoms index hash found.');
+    throw new Error('No Atoms asset hash found.');
   }
 
   return idxHash;
@@ -49,7 +49,10 @@ const compileStyles = async (dir, atomsStyleHash) => {
     styles += `\n${tailwindContents}`;
   }
 
-  await writeFile(atomsStylePath, styles, { encoding: 'utf-8' });
+  const updatedStyleHash = crypto.createHash('md5').update(styles, 'utf8').digest('hex').slice(6);
+  const updatedStylePath = path.join(dir, `dist/assets/style-${updatedStyleHash}.css`);
+
+  await writeFile(updatedStylePath, styles, { encoding: 'utf8' });
 
   return;
 };
