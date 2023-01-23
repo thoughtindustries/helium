@@ -21,17 +21,13 @@ const getAtomsHash = async (dir, type) => {
 
   const idx = hashedAssets.find(asset => regex.test(asset));
 
-  if (!idx && type !== 'style') {
-    throw new Error('No Atoms index found.');
+  if (!idx) {
+    return null;
   }
 
   const idxHash = idx.match(/-(([a-zA-Z]|\d)+\.)/)[0].replace(/(-|\.)/g, '');
 
-  if (!idxHash) {
-    throw new Error('No Atoms asset hash found.');
-  }
-
-  return idxHash;
+  return idxHash || null;
 };
 
 const compileStyles = async (dir, atomsStyleHash) => {
@@ -54,7 +50,7 @@ const compileStyles = async (dir, atomsStyleHash) => {
 
   await writeFile(updatedStylePath, styles, { encoding: 'utf8' });
 
-  return;
+  return updatedStyleHash;
 };
 
 const getFileContents = async path => {
