@@ -20,7 +20,8 @@ export const passToClient = [
   'currentUser',
   'isProduction',
   'queryParams',
-  'authToken'
+  'authToken',
+  'routeParams'
 ];
 
 export { render };

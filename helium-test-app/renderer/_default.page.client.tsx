@@ -22,6 +22,9 @@ async function render(pageContext: PageContext) {
     authToken
   } = pageContext;
 
+  console.log('>>>pageProps: ', pageProps);
+  console.log('>>>PageContext: ', pageContext);
+
   const apolloClient = await makeApolloClient(
     heliumEndpoint,
     apolloInitialState,
@@ -33,6 +36,8 @@ async function render(pageContext: PageContext) {
     i18n.changeLanguage(currentUser.lang);
   }
 
+  console.log(pageContext.routeParams);
+
   hydrateRoot(
     document.getElementById('page-view')!,
     <ApolloProvider client={apolloClient}>
@@ -43,6 +48,7 @@ async function render(pageContext: PageContext) {
             appearance={appearance}
             currentUser={currentUser}
             queryParams={queryParams}
+            routeParams={pageContext.routeParams}
           />
         </PageWrapper>
       </I18nextProvider>
