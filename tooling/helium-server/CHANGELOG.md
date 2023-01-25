@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.0.1](https://github.com/thoughtindustries/helium/compare/@thoughtindustries/helium-server@2.0.0...@thoughtindustries/helium-server@2.0.1) (2023-01-25)
+
+
+### Bug Fixes
+
+* set custom cache key for UserAwardCount type objects ([#176](https://github.com/thoughtindustries/helium/issues/176)) ([80c9086](https://github.com/thoughtindustries/helium/commit/80c9086c9eafa82d5ed6ca0df0fdf1549dda6bfe))
+
+
+
+
+
 # [2.0.0](https://github.com/thoughtindustries/helium/compare/@thoughtindustries/helium-server@1.2.1...@thoughtindustries/helium-server@2.0.0) (2023-01-06)
 
 

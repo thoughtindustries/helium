@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.3.0-beta.1](https://github.com/thoughtindustries/helium/compare/@thoughtindustries/featured-content@1.3.0-beta.0...@thoughtindustries/featured-content@1.3.0-beta.1) (2023-01-25)
+
+
+### Features
+
+* add dist tag ([#178](https://github.com/thoughtindustries/helium/issues/178)) ([402c673](https://github.com/thoughtindustries/helium/commit/402c67371b68a72d488c977701551b8a91ef5959))
+
+
+
+
+
 # [1.3.0-beta.0](https://github.com/thoughtindustries/helium/compare/@thoughtindustries/featured-content@1.2.0-alpha.5...@thoughtindustries/featured-content@1.3.0-beta.0) (2023-01-06)
 
 
