@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.2.0-beta.2](https://github.com/thoughtindustries/helium/compare/@thoughtindustries/helium@1.2.0-beta.1...@thoughtindustries/helium@1.2.0-beta.2) (2023-01-25)
+
+
+### Bug Fixes
+
+* add required crypto module ([#181](https://github.com/thoughtindustries/helium/issues/181)) ([6c5b1a9](https://github.com/thoughtindustries/helium/commit/6c5b1a9d18a6cb3ae8ecad29def950d181eff0fd))
+
+
+
+
+
 # [1.2.0-beta.1](https://github.com/thoughtindustries/helium/compare/@thoughtindustries/helium@1.2.0-beta.0...@thoughtindustries/helium@1.2.0-beta.1) (2023-01-25)
 
 
