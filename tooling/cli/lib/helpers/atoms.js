@@ -1,6 +1,7 @@
 const { getFilePaths } = require('./filepaths');
 const path = require('path');
 const { access, readFile, writeFile } = require('fs/promises');
+const crypto = require('crypto');
 
 const dirHasAtoms = async dir => {
   const contents = await getFilePaths(dir);
