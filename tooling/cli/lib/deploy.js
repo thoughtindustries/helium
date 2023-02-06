@@ -57,6 +57,25 @@ const JOB_QUERY = /* GraphQL */ `
   }
 `;
 
+class CustomError extends Error {
+  constructor(message) {
+    super(message);
+    // Ensure the name of this error is the same as the class name
+    this.name = this.constructor.name;
+    // This clips the constructor invocation from the stack trace.
+    // It's not absolutely essential, but it does make the stack trace a little nicer.
+    //  @see Node.js reference (bottom)
+    Error.captureStackTrace(this, this.constructor);
+  }
+}
+
+class DeploymentError extends CustomError {
+  constructor(message, payload) {
+    super(message);
+    this.payload = { ...payload };
+  }
+}
+
 (async function () {
   const instance = findTIInstance();
 
@@ -99,7 +118,7 @@ const JOB_QUERY = /* GraphQL */ `
 
     const processing = result => {
       if (result === 'FAILED') {
-        throw new Error('Batch deployment failed');
+        throw new DeploymentError('Batch deployment failed', { jobId: batchJobId });
       }
 
       return result !== 'SUCCEEDED';
@@ -107,6 +126,9 @@ const JOB_QUERY = /* GraphQL */ `
 
     await poll(fetchStatus, processing, 3000);
   } catch (e) {
+    if (e instanceof DeploymentError) {
+      throw e;
+    }
     throw new Error(e);
   }
 })()
@@ -116,7 +138,11 @@ const JOB_QUERY = /* GraphQL */ `
   })
   .catch(err => {
     console.error('>>> Error deploying: ', err);
-    process.exit(1);
+    if (err instanceof DeploymentError) {
+      process.send(err.payload);
+    } else {
+      process.exit(1);
+    }
   });
 
 async function buildProject(hasAtoms) {
