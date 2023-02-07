@@ -56,7 +56,7 @@ exports.handler = function (argv) {
       const deployLogScriptPath = path.resolve(__dirname, './../deployment-log.js');
       const deployLogProcess = fork(deployLogScriptPath, undefined, { env });
 
-      deployLogProcess.send({ jobId: message.jobId });
+      deployLogProcess.send(message);
 
       /**
        * It expects message from deploy log process when fetching batch of deployment job log completes.

@@ -118,7 +118,7 @@ class DeploymentError extends CustomError {
 
     const processing = result => {
       if (result === 'FAILED') {
-        throw new DeploymentError('Batch deployment failed', { jobId: batchJobId });
+        throw new DeploymentError('Batch deployment failed', { jobId: batchJobId, instance });
       }
 
       return result !== 'SUCCEEDED';
