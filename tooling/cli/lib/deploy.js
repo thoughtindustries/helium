@@ -83,51 +83,47 @@ class DeploymentError extends CustomError {
     throw new Error('Could not locate instance in configuration file.');
   }
 
-  try {
-    const policyData = await getHeliumUploadData(instance);
-    const { key } = policyData;
+  const policyData = await getHeliumUploadData(instance);
+  const { key } = policyData;
 
-    if (!policyData.key || !policyData.signedUrl) {
-      throw new Error('Could not retrieve helium keys.');
-    }
-    // ensure translations are up to date
-    await generateTranslationFile(OP_DIR, [instance], true);
-    // trim translations file down to only keys used in project
-    await gatherUsedTranslations();
-    // build project
-    const hasAtoms = await dirHasAtoms(OP_DIR);
-    await buildProject(hasAtoms);
-
-    let atomsScriptHash;
-    let atomsStyleHash;
-    if (hasAtoms) {
-      atomsScriptHash = await getAtomsHash(OP_DIR, 'script');
-      const possibleStyleHash = (await getAtomsHash(OP_DIR, 'style')) || atomsScriptHash;
-      atomsStyleHash = await compileStyles(OP_DIR, possibleStyleHash);
-    }
-
-    // hash queries for whitelisting
-    await writeGraphqlManifest();
-    await uploadHeliumProject(policyData);
-    // reset translations file to include all keys for local development
-    await resetTranslationFile();
-    const batchJobId = await triggerBatch(instance, key);
-
-    const fetchStatus = () =>
-      checkDeploymentJobStatus(instance, batchJobId, key, atomsScriptHash, atomsStyleHash);
-
-    const processing = result => {
-      if (result === 'FAILED') {
-        throw new DeploymentError('Batch deployment failed', { jobId: batchJobId, instance });
-      }
-
-      return result !== 'SUCCEEDED';
-    };
-
-    await poll(fetchStatus, processing, 3000);
-  } catch (e) {
-    throw e;
+  if (!policyData.key || !policyData.signedUrl) {
+    throw new Error('Could not retrieve helium keys.');
   }
+  // ensure translations are up to date
+  await generateTranslationFile(OP_DIR, [instance], true);
+  // trim translations file down to only keys used in project
+  await gatherUsedTranslations();
+  // build project
+  const hasAtoms = await dirHasAtoms(OP_DIR);
+  await buildProject(hasAtoms);
+
+  let atomsScriptHash;
+  let atomsStyleHash;
+  if (hasAtoms) {
+    atomsScriptHash = await getAtomsHash(OP_DIR, 'script');
+    const possibleStyleHash = (await getAtomsHash(OP_DIR, 'style')) || atomsScriptHash;
+    atomsStyleHash = await compileStyles(OP_DIR, possibleStyleHash);
+  }
+
+  // hash queries for whitelisting
+  await writeGraphqlManifest();
+  await uploadHeliumProject(policyData);
+  // reset translations file to include all keys for local development
+  await resetTranslationFile();
+  const batchJobId = await triggerBatch(instance, key);
+
+  const fetchStatus = () =>
+    checkDeploymentJobStatus(instance, batchJobId, key, atomsScriptHash, atomsStyleHash);
+
+  const processing = result => {
+    if (result === 'FAILED') {
+      throw new DeploymentError('Batch deployment failed', { jobId: batchJobId, instance });
+    }
+
+    return result !== 'SUCCEEDED';
+  };
+
+  await poll(fetchStatus, processing, 3000);
 })()
   .then(() => {
     console.log('>>> Deploy successful!');
