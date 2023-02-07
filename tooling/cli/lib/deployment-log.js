@@ -1,7 +1,6 @@
 const { instanceEndpoint } = require('./helpers/urls');
 const fetch = require('isomorphic-unfetch');
 
-const INSTANCE_NAME = process.env.INSTANCE_NAME;
 const BATCH_LOGS_QUERY = /* GraphQL */ `
   query HeliumDeploymentLogQuery($jobId: ID!, $filters: HeliumDeploymentLogFiltersInput) {
     HeliumDeploymentLog(jobId: $jobId, filters: $filters) {
@@ -45,7 +44,7 @@ function fetchDeploymentLogs(instance, jobId, filters) {
   });
 }
 
-process.on('message', async ({ jobId, nextForwardToken }) => {
+process.on('message', async ({ jobId, nextForwardToken, instance }) => {
   try {
     const filters = {
       limit: BATCH_LOG_LIMIT,
@@ -53,7 +52,7 @@ process.on('message', async ({ jobId, nextForwardToken }) => {
       nextToken: nextForwardToken
     };
     const { events, nextForwardToken: nextForwardTokenNew } = await fetchDeploymentLogs(
-      INSTANCE_NAME,
+      instance,
       jobId,
       filters
     );
@@ -68,7 +67,7 @@ process.on('message', async ({ jobId, nextForwardToken }) => {
       process.exit(0);
     } else {
       // Report back to parent process
-      process.send({ jobId, nextForwardToken: nextForwardTokenNew });
+      process.send({ jobId, nextForwardToken: nextForwardTokenNew, instance });
     }
   } catch (err) {
     console.error('>>> Error fetching deployment log: ', err);

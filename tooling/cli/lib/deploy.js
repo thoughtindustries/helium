@@ -126,10 +126,7 @@ class DeploymentError extends CustomError {
 
     await poll(fetchStatus, processing, 3000);
   } catch (e) {
-    if (e instanceof DeploymentError) {
-      throw e;
-    }
-    throw new Error(e);
+    throw e;
   }
 })()
   .then(() => {
@@ -144,6 +141,11 @@ class DeploymentError extends CustomError {
       process.exit(1);
     }
   });
+
+// Add message event handler to keep the process running until manually closed
+process.on('message', message => {
+  console.log('>>> Deploy process receive message', message);
+});
 
 async function buildProject(hasAtoms) {
   return new Promise((resolve, reject) => {
@@ -373,7 +375,7 @@ async function checkDeploymentJobStatus(instance, jobId, key, atomsScriptHash, a
         if (resObj.data) {
           resolve(resObj.data.HeliumDeploymentStatus);
         } else {
-          const err = resObj.errors;
+          const err = resObj.errors[0];
           reject(err.message);
         }
       })

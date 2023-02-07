@@ -40,11 +40,12 @@ exports.handler = function (argv) {
 
   /**
    * It expects message from deploy process when deployment job returns 'FAILURE'.
-   * The message body should include jobId.
+   * The message body should include jobId and TI instance object.
    * In the message handler:
    * - prompt user question to fetch deployment job log
    * - manually disconnect from deploy process
-   * - fork new process to fetch deployment job
+   * - if user answers 'Yes', fork new process to fetch deployment job and forward
+   * message to trigger fetch
    */
   deployProcess.on('message', async message => {
     console.log('>>> deployProcess message received on parent', message);
