@@ -48,7 +48,6 @@ exports.handler = function (argv) {
    * message to trigger fetch
    */
   deployProcess.on('message', async message => {
-    console.log('>>> deployProcess message received on parent', message);
     const fetchLogsAnswers = await promptQuestions([DEPLOYMENT_LOG_FETCH_QUESTION]);
     deployProcess.disconnect();
     if (fetchLogsAnswers.shouldFetchLogs) {
@@ -67,7 +66,6 @@ exports.handler = function (argv) {
        * - if user answers 'Yes', forward message to deploy log process to fetch next batch of log
        */
       deployLogProcess.on('message', async msg => {
-        console.log('>>> deployLogProcess message received on parent', msg);
         const fetchMoreLogsAnswers = await promptQuestions([DEPLOYMENT_LOG_FETCH_MORE_QUESTION]);
         if (fetchMoreLogsAnswers.shouldFetchMoreLogs) {
           deployLogProcess.send(msg);
@@ -75,30 +73,13 @@ exports.handler = function (argv) {
           deployLogProcess.disconnect();
         }
       });
-      deployLogProcess.on('disconnect', () => {
-        console.log('>>> deployLogProcess IPC disconnected on parent');
-      });
-      deployLogProcess.on('error', error => {
-        console.log('>>> deployLogProcess error received on parent', error);
-      });
+
       deployLogProcess.on('exit', code => {
-        console.log('>>> deployLogProcess exit received on parent with code', code);
-      });
-      deployLogProcess.on('close', code => {
-        console.log('>>> deployLogProcess close received on parent with code', code);
+        console.log(`deployLogProcess process exited with code ${code.toString()}`);
       });
     }
   });
 
-  deployProcess.on('disconnect', () => {
-    console.log('>>> deployProcess IPC disconnected on parent');
-  });
-  deployProcess.on('error', error => {
-    console.log('>>> deployProcess error received on parent', error);
-  });
-  deployProcess.on('close', code => {
-    console.log('>>> deployProcess close received on parent with code', code);
-  });
   deployProcess.on('exit', code =>
     console.log(`deployProcess process exited with code ${code.toString()}`)
   );

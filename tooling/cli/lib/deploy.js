@@ -375,7 +375,7 @@ async function checkDeploymentJobStatus(instance, jobId, key, atomsScriptHash, a
         if (resObj.data) {
           resolve(resObj.data.HeliumDeploymentStatus);
         } else {
-          const err = resObj.errors[0];
+          const err = resObj.errors;
           reject(err.message);
         }
       })
