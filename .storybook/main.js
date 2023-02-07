@@ -1,7 +1,7 @@
 const path = require('path');
 
-module.exports = {
-  stories: ['../packages/**/stories/*.stories.mdx', '../packages/**/stories/*.stories.tsx'],
+const config = {
+  stories: ['../packages'],
   addons: [
     '@storybook/addon-storysource',
     '@storybook/addon-links',
@@ -17,7 +17,10 @@ module.exports = {
     'storybook-addon-apollo-client',
     'storybook-react-i18next'
   ],
-  framework: '@storybook/react',
+  framework: {
+    name: '@storybook/react-vite',
+    options: {}
+  },
   typescript: {
     check: true,
     checkOptions: {
@@ -26,3 +29,5 @@ module.exports = {
     reactDocgen: false
   }
 };
+
+export default config;
