@@ -1,13 +1,7 @@
 const childProcess = require('child_process');
 const path = require('path');
-const inquirer = require('inquirer');
+const { promptQuestions } = require('../helpers/prompts');
 const { DEPLOYMENT_LOG_FETCH_QUESTION, DEPLOYMENT_LOG_FETCH_MORE_QUESTION } = require('../prompts');
-
-const promptQuestions = async questions => {
-  return new Promise((resolve, reject) => {
-    inquirer.prompt(questions).then(resolve).catch(reject);
-  });
-};
 
 exports.command = 'deploy <instance> [-k]';
 exports.describe = 'Compile and deploy a specified instance';
