@@ -57,22 +57,16 @@ const JOB_QUERY = /* GraphQL */ `
   }
 `;
 
-class CustomError extends Error {
-  constructor(message) {
+class DeploymentError extends Error {
+  #payload;
+  constructor(message, payload) {
     super(message);
     // Ensure the name of this error is the same as the class name
     this.name = this.constructor.name;
-    // This clips the constructor invocation from the stack trace.
-    // It's not absolutely essential, but it does make the stack trace a little nicer.
-    //  @see Node.js reference (bottom)
-    Error.captureStackTrace(this, this.constructor);
+    this.#payload = { ...payload };
   }
-}
-
-class DeploymentError extends CustomError {
-  constructor(message, payload) {
-    super(message);
-    this.payload = { ...payload };
+  getPayload() {
+    return this.#payload;
   }
 }
 
@@ -132,7 +126,7 @@ class DeploymentError extends CustomError {
   .catch(err => {
     console.error('>>> Error deploying: ', err);
     if (err instanceof DeploymentError) {
-      process.send(err.payload);
+      process.send(err.getPayload());
     } else {
       process.exit(1);
     }
