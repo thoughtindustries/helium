@@ -280,7 +280,8 @@ function uploadToS3(filePath, fileSize, policyData, tryCount = 0) {
     const options = {
       method: 'PUT',
       body: createReadStream(filePath),
-      headers: { 'Content-Length': fileSize }
+      headers: { 'Content-Length': fileSize },
+      duplex: 'half'
     };
 
     fetch(signedUrl, options)
