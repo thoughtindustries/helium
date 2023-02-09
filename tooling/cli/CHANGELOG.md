@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.2.0-beta.3](https://github.com/thoughtindustries/helium/compare/@thoughtindustries/helium@1.2.0-beta.2...@thoughtindustries/helium@1.2.0-beta.3) (2023-02-09)
+
+
+### Bug Fixes
+
+* set duplex option when using stream as body in request ([#184](https://github.com/thoughtindustries/helium/issues/184)) ([05741f1](https://github.com/thoughtindustries/helium/commit/05741f1889bd8068b40e984e46342782868057ce))
+
+
+
+
+
 # [1.2.0-beta.2](https://github.com/thoughtindustries/helium/compare/@thoughtindustries/helium@1.2.0-beta.1...@thoughtindustries/helium@1.2.0-beta.2) (2023-01-25)
 
 
