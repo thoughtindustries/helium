@@ -70,7 +70,12 @@ async function* deploymentLogsGenerator(jobId, instance) {
     const chunk = events.map(({ timestamp, message }) => `(${timestamp}) ${message}\n`).join('');
     yield chunk;
 
-    if (!events.length || !nextForwardTokenNew || nextForwardTokenNew === nextForwardToken) {
+    if (
+      !events.length ||
+      events.length < BATCH_LOG_LIMIT ||
+      !nextForwardTokenNew ||
+      nextForwardTokenNew === nextForwardToken
+    ) {
       hasMoreLog = false;
     } else {
       nextForwardToken = nextForwardTokenNew;
