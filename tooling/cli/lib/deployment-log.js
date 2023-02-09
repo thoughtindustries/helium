@@ -1,5 +1,9 @@
 const { instanceEndpoint } = require('./helpers/urls');
 const fetch = require('isomorphic-unfetch');
+const fs = require('fs');
+const path = require('path');
+const OP_DIR = process.cwd();
+const { pipeline } = require('stream');
 
 const BATCH_LOGS_QUERY = /* GraphQL */ `
   query HeliumDeploymentLogQuery($jobId: ID!, $filters: HeliumDeploymentLogFiltersInput) {
@@ -14,9 +18,8 @@ const BATCH_LOGS_QUERY = /* GraphQL */ `
 `;
 const BATCH_LOG_LIMIT = 10000;
 
-function fetchDeploymentLogs(instance, jobId, filters) {
+function fetchDeploymentLogs(endpoint, jobId, filters) {
   return new Promise((resolve, reject) => {
-    const endpoint = instanceEndpoint(instance);
     const options = {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
@@ -44,33 +47,53 @@ function fetchDeploymentLogs(instance, jobId, filters) {
   });
 }
 
-process.on('message', async ({ jobId, nextForwardToken, instance }) => {
-  try {
-    const filters = {
-      limit: BATCH_LOG_LIMIT,
-      startFromHead: true,
-      nextToken: nextForwardToken
-    };
+async function* deploymentLogsGenerator(jobId, instance) {
+  // prepare for log fetch iterations
+  const endpoint = instanceEndpoint(instance);
+  let nextForwardToken;
+  let hasMoreLog = true;
+  const baseFilters = {
+    limit: BATCH_LOG_LIMIT,
+    startFromHead: true
+  };
+
+  // paging through log events
+  while (hasMoreLog) {
+    console.log(`>>> Fetching ${!nextForwardToken ? 'first' : 'next'} batch of log events`);
+    const filters = { ...baseFilters, nextToken: nextForwardToken };
     const { events, nextForwardToken: nextForwardTokenNew } = await fetchDeploymentLogs(
-      instance,
+      endpoint,
       jobId,
       filters
     );
-    events.forEach(({ timestamp, message }) => console.log(`>>> (${timestamp}) ${message}`));
-    if (
-      !events.length ||
-      events.length < BATCH_LOG_LIMIT ||
-      !nextForwardTokenNew ||
-      nextForwardTokenNew === nextForwardToken
-    ) {
-      console.log('>>> You have reached the end of the deployment log.');
-      process.exit(0);
+
+    const chunk = events.map(({ timestamp, message }) => `(${timestamp}) ${message}\n`).join('');
+    yield chunk;
+
+    if (!events.length || !nextForwardTokenNew || nextForwardTokenNew === nextForwardToken) {
+      hasMoreLog = false;
     } else {
-      // Report back to parent process
-      process.send({ jobId, nextForwardToken: nextForwardTokenNew, instance });
+      nextForwardToken = nextForwardTokenNew;
     }
-  } catch (err) {
-    console.error('>>> Error fetching deployment log: ', err);
-    process.exit(1);
   }
+
+  return;
+}
+
+process.on('message', ({ jobId, instance }) => {
+  // create fs write stream
+  const logFilePath = path.join(OP_DIR, `deploy-log-${Date.now()}.log`);
+  const writableStream = fs.createWriteStream(logFilePath);
+
+  // use pipeline from async iterator to write stream
+  pipeline(deploymentLogsGenerator(jobId, instance), writableStream, error => {
+    if (error) {
+      console.error('>>> Error fetching deployment log: ', error);
+      console.log(`>>> Partial deployment log events are saved to file ${logFilePath}`);
+      process.exit(1);
+    } else {
+      console.log(`>>> Deployment log events are saved to file ${logFilePath}`);
+      process.exit(0);
+    }
+  });
 });

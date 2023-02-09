@@ -1,7 +1,7 @@
 const childProcess = require('child_process');
 const path = require('path');
 const { promptQuestions } = require('../helpers/prompts');
-const { DEPLOYMENT_LOG_FETCH_QUESTION, DEPLOYMENT_LOG_FETCH_MORE_QUESTION } = require('../prompts');
+const { DEPLOYMENT_LOG_FETCH_QUESTION } = require('../prompts');
 
 exports.command = 'deploy <instance> [-k]';
 exports.describe = 'Compile and deploy a specified instance';
@@ -45,28 +45,11 @@ exports.handler = function (argv) {
     const fetchLogsAnswers = await promptQuestions([DEPLOYMENT_LOG_FETCH_QUESTION]);
     deployProcess.disconnect();
     if (fetchLogsAnswers.shouldFetchLogs) {
-      // Process for deployment log - 2-way IPC between child and parent
+      // Process for deployment log - 1-way IPC from parent to child
       const deployLogScriptPath = path.resolve(__dirname, './../deployment-log.js');
       const deployLogProcess = fork(deployLogScriptPath, undefined, { env });
 
       deployLogProcess.send(message);
-
-      /**
-       * It expects message from deploy log process when fetching batch of deployment job log completes.
-       * The message body should include jobId and token to fetch next batch of log.
-       * In the message handler:
-       * - prompt user question to fetch more deployment job log
-       * - if user answers 'No', manually disconnect from deploy log process
-       * - if user answers 'Yes', forward message to deploy log process to fetch next batch of log
-       */
-      deployLogProcess.on('message', async msg => {
-        const fetchMoreLogsAnswers = await promptQuestions([DEPLOYMENT_LOG_FETCH_MORE_QUESTION]);
-        if (fetchMoreLogsAnswers.shouldFetchMoreLogs) {
-          deployLogProcess.send(msg);
-        } else {
-          deployLogProcess.disconnect();
-        }
-      });
 
       deployLogProcess.on('exit', code => {
         console.log(`deployLogProcess process exited with code ${code.toString()}`);

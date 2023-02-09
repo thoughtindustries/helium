@@ -38,14 +38,7 @@ const DEPLOYMENT_LOG_FETCH_QUESTION = {
   message: 'Would you like to fetch logs for the deployment?'
 };
 
-const DEPLOYMENT_LOG_FETCH_MORE_QUESTION = {
-  type: 'confirm',
-  name: 'shouldFetchMoreLogs',
-  message: 'Would you like to fetch next batch of logs for the deployment?'
-};
-
 module.exports = {
   INSTANCE_QUESTIONS,
-  DEPLOYMENT_LOG_FETCH_QUESTION,
-  DEPLOYMENT_LOG_FETCH_MORE_QUESTION
+  DEPLOYMENT_LOG_FETCH_QUESTION
 };
