@@ -9,11 +9,12 @@ export default async function makeApolloClient(
   isProduction: boolean,
   authToken: string | undefined
 ) {
+  const authTokenHeaders = authToken ? { authToken } : {};
   let link = setContext((_, { headers }) => {
     return {
       headers: {
         ...headers,
-        authToken: authToken ? `${authToken}` : ''
+        ...authTokenHeaders
       }
     };
   });
