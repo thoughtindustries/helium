@@ -75,7 +75,7 @@ $ npm run storybook
 
 Once running, the Storybook will be visible at `localhost:6006`.
 
-Beyond local development, the Storybook is also intended as a way for external users to preview the component library. Whenever component additions/changes are merged into `main` the Storybook is re-built and published here: [https://didactic-fortnight-370c9d3f.pages.github.io/](https://didactic-fortnight-370c9d3f.pages.github.io/).
+Beyond local development, the Storybook is also intended as a way for external users to preview the component library. Whenever component additions/changes are merged into `main` the Storybook is re-built and published here: [https://thoughtindustries.github.io/helium](https://thoughtindustries.github.io/helium).
 
 Finally, [tests](https://github.com/thoughtindustries/helium/blob/staging/packages/header/__tests__/header.test.tsx)! Because these tools and components are intended for external consumption, it's imperative that each is accompanied with a test suite. These are straightforward enough to set up, and simple to run with the command `jest --watch` (Note: as with `npm` workspace commands, this should be run from root as well).
 
