@@ -102,6 +102,134 @@ export type ArchivedContent = {
   waitlistActive: Scalars['Boolean'];
 };
 
+export type ArticlePage = PageEntity & {
+  __typename?: 'ArticlePage';
+  accessibilityAudioAsset?: Maybe<Scalars['String']>;
+  accessibilityAudioAssetTitle?: Maybe<Scalars['String']>;
+  accessibilityAudioAssetUrl?: Maybe<Scalars['AbsoluteOrRelativeURL']>;
+  catalogAsset?: Maybe<Scalars['String']>;
+  clientId?: Maybe<Scalars['ID']>;
+  companyId: Scalars['ID'];
+  completionTimeSeconds?: Maybe<Scalars['Int']>;
+  contentDescription?: Maybe<Scalars['String']>;
+  contentEstimate?: Maybe<Scalars['String']>;
+  contentTime?: Maybe<Scalars['String']>;
+  createdAt: Scalars['Date'];
+  editableByChildren?: Maybe<Scalars['Boolean']>;
+  id: Scalars['ID'];
+  indentationLevel?: Maybe<Scalars['Int']>;
+  languages: Array<ArticlePageLanguage>;
+  lessonId: Scalars['ID'];
+  publishDate?: Maybe<Scalars['Date']>;
+  title?: Maybe<Scalars['String']>;
+  type: TopicType;
+  updatedAt: Scalars['Date'];
+  videoAsset?: Maybe<Scalars['String']>;
+};
+
+export type ArticlePageLanguage = {
+  __typename?: 'ArticlePageLanguage';
+  allowAudioDownload?: Maybe<Scalars['Boolean']>;
+  audioAsset?: Maybe<Scalars['String']>;
+  audioAssetUrl?: Maybe<Scalars['AbsoluteOrRelativeURL']>;
+  body?: Maybe<Scalars['String']>;
+  copyright?: Maybe<Scalars['String']>;
+  externalUrl?: Maybe<Scalars['String']>;
+  externalUrlCallToAction?: Maybe<Scalars['String']>;
+  label?: Maybe<Scalars['String']>;
+  language?: Maybe<Scalars['String']>;
+  pdfAsset?: Maybe<Scalars['String']>;
+  pdfAssetSecondary?: Maybe<Scalars['String']>;
+  pdfAssetSecondaryUrl?: Maybe<Scalars['AbsoluteOrRelativeURL']>;
+  pdfAssetTitle?: Maybe<Scalars['String']>;
+  pdfAssetTitleSecondary?: Maybe<Scalars['String']>;
+  pdfAssetUrl?: Maybe<Scalars['AbsoluteOrRelativeURL']>;
+  subtitle?: Maybe<Scalars['String']>;
+  title?: Maybe<Scalars['String']>;
+};
+
+export type AssessmentPageEntity = {
+  accessibilityAudioAsset?: Maybe<Scalars['String']>;
+  accessibilityAudioAssetTitle?: Maybe<Scalars['String']>;
+  accessibilityAudioAssetUrl?: Maybe<Scalars['AbsoluteOrRelativeURL']>;
+  catalogAsset?: Maybe<Scalars['String']>;
+  clientId?: Maybe<Scalars['ID']>;
+  companyId: Scalars['ID'];
+  completionTimeSeconds?: Maybe<Scalars['Int']>;
+  contentDescription?: Maybe<Scalars['String']>;
+  contentEstimate?: Maybe<Scalars['String']>;
+  contentTime?: Maybe<Scalars['String']>;
+  createdAt: Scalars['Date'];
+  editableByChildren?: Maybe<Scalars['Boolean']>;
+  id: Scalars['ID'];
+  indentationLevel?: Maybe<Scalars['Int']>;
+  instructorAssessment?: Maybe<Scalars['Boolean']>;
+  lessonId: Scalars['ID'];
+  questions: Array<QuizQuestion>;
+  title?: Maybe<Scalars['String']>;
+  type: TopicType;
+  updatedAt: Scalars['Date'];
+};
+
+export type AssignmentPage = PageEntity & {
+  __typename?: 'AssignmentPage';
+  accessibilityAudioAsset?: Maybe<Scalars['String']>;
+  accessibilityAudioAssetTitle?: Maybe<Scalars['String']>;
+  accessibilityAudioAssetUrl?: Maybe<Scalars['AbsoluteOrRelativeURL']>;
+  allowExternalActivity?: Maybe<Scalars['Boolean']>;
+  allowVideoSubmission?: Maybe<Scalars['Boolean']>;
+  catalogAsset?: Maybe<Scalars['String']>;
+  clientId?: Maybe<Scalars['ID']>;
+  companyId: Scalars['ID'];
+  completionTimeSeconds?: Maybe<Scalars['Int']>;
+  contentDescription?: Maybe<Scalars['String']>;
+  contentEstimate?: Maybe<Scalars['String']>;
+  contentTime?: Maybe<Scalars['String']>;
+  createdAt: Scalars['Date'];
+  dueAt?: Maybe<Scalars['Date']>;
+  editableByChildren?: Maybe<Scalars['Boolean']>;
+  enableDiscussionAssignment?: Maybe<Scalars['Boolean']>;
+  externalActivityButtonText?: Maybe<Scalars['String']>;
+  externalActivityButtonUrl?: Maybe<Scalars['String']>;
+  hideDiscussionUntilCommentPost?: Maybe<Scalars['Boolean']>;
+  id: Scalars['ID'];
+  indentationLevel?: Maybe<Scalars['Int']>;
+  lessonId: Scalars['ID'];
+  postTextBlock?: Maybe<Scalars['String']>;
+  preTextBlock?: Maybe<Scalars['String']>;
+  preventProgression?: Maybe<Scalars['Boolean']>;
+  title?: Maybe<Scalars['String']>;
+  type: TopicType;
+  updatedAt: Scalars['Date'];
+};
+
+export type AudioPage = PageEntity & {
+  __typename?: 'AudioPage';
+  accessibilityAudioAsset?: Maybe<Scalars['String']>;
+  accessibilityAudioAssetTitle?: Maybe<Scalars['String']>;
+  accessibilityAudioAssetUrl?: Maybe<Scalars['AbsoluteOrRelativeURL']>;
+  audioAsset?: Maybe<Scalars['String']>;
+  caption?: Maybe<Scalars['String']>;
+  catalogAsset?: Maybe<Scalars['String']>;
+  clientId?: Maybe<Scalars['ID']>;
+  companyId: Scalars['ID'];
+  completionTimeSeconds?: Maybe<Scalars['Int']>;
+  contentDescription?: Maybe<Scalars['String']>;
+  contentEstimate?: Maybe<Scalars['String']>;
+  contentTime?: Maybe<Scalars['String']>;
+  createdAt: Scalars['Date'];
+  editableByChildren?: Maybe<Scalars['Boolean']>;
+  id: Scalars['ID'];
+  indentationLevel?: Maybe<Scalars['Int']>;
+  lessonId: Scalars['ID'];
+  postTextBlock?: Maybe<Scalars['String']>;
+  preTextBlock?: Maybe<Scalars['String']>;
+  sidebarIsHidden?: Maybe<Scalars['Boolean']>;
+  title?: Maybe<Scalars['String']>;
+  type: TopicType;
+  updatedAt: Scalars['Date'];
+};
+
 export type AwardType = {
   __typename?: 'AwardType';
   deleted?: Maybe<Scalars['Boolean']>;
@@ -231,7 +359,10 @@ export type CatalogMeta = {
   isCurated: Scalars['Boolean'];
   queryCustomFields: Scalars['JSON'];
   resultsDisplayType: ContentItemDisplayType;
+  /** @deprecated Use `selectedSortColumn` and `selectedSortDirection` */
   selectedSort: Scalars['String'];
+  selectedSortColumn: SortColumn;
+  selectedSortDirection: SortDirection;
   sortCourseStartDateEnabled: Scalars['Boolean'];
   sortCreatedAtEnabled: Scalars['Boolean'];
   sortPublishDateEnabled: Scalars['Boolean'];
@@ -395,6 +526,7 @@ export enum CertificateResourceType {
 export type CertificateTemplate = {
   __typename?: 'CertificateTemplate';
   asset?: Maybe<Scalars['URL']>;
+  assetLibraryId?: Maybe<Scalars['ID']>;
   customCss?: Maybe<Scalars['String']>;
   expirationDate?: Maybe<Scalars['Date']>;
   expirationDays?: Maybe<Scalars['Int']>;
@@ -516,11 +648,17 @@ export type Client = {
 
 export type Company = {
   __typename?: 'Company';
+  appearanceSettings?: Maybe<AppearanceSettings>;
   catalogBlock?: Maybe<Block>;
   catalogVisibilityEmails?: Maybe<Array<Scalars['String']>>;
+  copyrightName?: Maybe<Scalars['String']>;
   id: Scalars['ID'];
+  micrositeFooter?: Maybe<MicrositeBlock>;
+  micrositeHeader?: Maybe<MicrositeBlock>;
   name?: Maybe<Scalars['String']>;
   organization?: Maybe<Organization>;
+  rootLayout?: Maybe<RootLayout>;
+  schoolName?: Maybe<Scalars['String']>;
   subdomain?: Maybe<Scalars['String']>;
 };
 
@@ -561,6 +699,7 @@ export type CompetencyAssessmentResource = Layout | LearningPath;
 
 export type Content = {
   __typename?: 'Content';
+  acceptBadgeUrl?: Maybe<Scalars['String']>;
   altDescriptionBody?: Maybe<Scalars['String']>;
   alternativePricingRef?: Maybe<Scalars['Int']>;
   alternativePricingType?: Maybe<AlternativePricingType>;
@@ -568,6 +707,8 @@ export type Content = {
   authors?: Maybe<Array<Maybe<Scalars['String']>>>;
   authorsAndInstructors?: Maybe<Array<Scalars['String']>>;
   availabilityStatus?: Maybe<Scalars['String']>;
+  badgeName?: Maybe<Scalars['String']>;
+  badgeUrl?: Maybe<Scalars['String']>;
   bulkPurchasingEnabled?: Maybe<Scalars['Boolean']>;
   canAddToQueue?: Maybe<Scalars['Boolean']>;
   contentTypeAssetAspectRatio?: Maybe<Scalars['String']>;
@@ -578,6 +719,7 @@ export type Content = {
   coursePresold: Scalars['Boolean'];
   courseStartDate?: Maybe<Scalars['Date']>;
   createdAt?: Maybe<Scalars['Date']>;
+  credlyBadgeExpiresAt?: Maybe<Scalars['Date']>;
   currentUserMayReschedule: Scalars['Boolean'];
   currentUserUnmetCoursePrerequisites?: Maybe<Array<Maybe<Scalars['ID']>>>;
   currentUserUnmetLearningPathPrerequisites?: Maybe<Array<Maybe<Scalars['ID']>>>;
@@ -588,11 +730,15 @@ export type Content = {
   displayDate?: Maybe<Scalars['Date']>;
   embeddedEnabled?: Maybe<Scalars['Boolean']>;
   enrollmentCount?: Maybe<Scalars['Int']>;
+  enrollmentEndDate?: Maybe<Scalars['Date']>;
+  enrollmentStartDate?: Maybe<Scalars['Date']>;
   expiresAt?: Maybe<Scalars['Date']>;
   hasChildren: Scalars['Boolean'];
   hideCourseDescription: Scalars['Boolean'];
   id: Scalars['ID'];
+  imageUrl?: Maybe<Scalars['String']>;
   isActive: Scalars['Boolean'];
+  issuedAt?: Maybe<Scalars['Date']>;
   kind?: Maybe<ContentKind>;
   language?: Maybe<Scalars['String']>;
   location?: Maybe<Location>;
@@ -608,6 +754,7 @@ export type Content = {
   sku?: Maybe<Scalars['String']>;
   slug: Scalars['Slug'];
   source?: Maybe<Scalars['String']>;
+  state?: Maybe<Scalars['String']>;
   status?: Maybe<Status>;
   suggestedRetailPriceInCents?: Maybe<Scalars['Int']>;
   tags?: Maybe<Array<Maybe<Tag>>>;
@@ -632,6 +779,7 @@ export enum ContentGroupKind {
   Certificates = 'certificates',
   CompletedItems = 'completedItems',
   ContentItems = 'contentItems',
+  CredlyBadgeCourses = 'credlyBadgeCourses',
   EventItems = 'eventItems',
   LearningPaths = 'learningPaths',
   WaitlistedCourses = 'waitlistedCourses'
@@ -921,6 +1069,54 @@ export type EmailLayoutSettings = {
   id: Scalars['ID'];
 };
 
+export type ExpandableListItem = {
+  __typename?: 'ExpandableListItem';
+  altText?: Maybe<Scalars['String']>;
+  asset?: Maybe<Scalars['String']>;
+  description?: Maybe<Scalars['String']>;
+  title: Scalars['String'];
+};
+
+export type FlipCardPage = PageEntity & {
+  __typename?: 'FlipCardPage';
+  accessibilityAudioAsset?: Maybe<Scalars['String']>;
+  accessibilityAudioAssetTitle?: Maybe<Scalars['String']>;
+  accessibilityAudioAssetUrl?: Maybe<Scalars['AbsoluteOrRelativeURL']>;
+  caption?: Maybe<Scalars['String']>;
+  catalogAsset?: Maybe<Scalars['String']>;
+  clientId?: Maybe<Scalars['ID']>;
+  companyId: Scalars['ID'];
+  completionTimeSeconds?: Maybe<Scalars['Int']>;
+  contentDescription?: Maybe<Scalars['String']>;
+  contentEstimate?: Maybe<Scalars['String']>;
+  contentTime?: Maybe<Scalars['String']>;
+  createdAt: Scalars['Date'];
+  editableByChildren?: Maybe<Scalars['Boolean']>;
+  flipCards: Array<FlipCards>;
+  gridLayout?: Maybe<Scalars['String']>;
+  id: Scalars['ID'];
+  indentationLevel?: Maybe<Scalars['Int']>;
+  lessonId: Scalars['ID'];
+  postTextBlock?: Maybe<Scalars['String']>;
+  preTextBlock?: Maybe<Scalars['String']>;
+  sidebarIsHidden?: Maybe<Scalars['Boolean']>;
+  title?: Maybe<Scalars['String']>;
+  type: TopicType;
+  updatedAt: Scalars['Date'];
+};
+
+export type FlipCards = {
+  __typename?: 'FlipCards';
+  altText?: Maybe<Scalars['String']>;
+  asset: Scalars['String'];
+  backgroundColor?: Maybe<Scalars['String']>;
+  cardType?: Maybe<Scalars['String']>;
+  description: Scalars['String'];
+  frontText?: Maybe<Scalars['String']>;
+  textColor?: Maybe<Scalars['String']>;
+  title?: Maybe<Scalars['String']>;
+};
+
 export type GlobalNavigationLink = {
   __typename?: 'GlobalNavigationLink';
   href?: Maybe<Scalars['String']>;
@@ -1089,6 +1285,7 @@ export type Lesson = {
   slug: Scalars['Slug'];
   slugOrId?: Maybe<Scalars['String']>;
   title?: Maybe<Scalars['String']>;
+  topics: Array<PageResource>;
 };
 
 export type License = {
@@ -1140,6 +1337,32 @@ export type LicenseNode = {
   parentLicenseId?: Maybe<Scalars['ID']>;
 };
 
+export type ListRollPage = PageEntity & {
+  __typename?: 'ListRollPage';
+  accessibilityAudioAsset?: Maybe<Scalars['String']>;
+  accessibilityAudioAssetTitle?: Maybe<Scalars['String']>;
+  accessibilityAudioAssetUrl?: Maybe<Scalars['AbsoluteOrRelativeURL']>;
+  catalogAsset?: Maybe<Scalars['String']>;
+  clientId?: Maybe<Scalars['ID']>;
+  companyId: Scalars['ID'];
+  completionTimeSeconds?: Maybe<Scalars['Int']>;
+  contentDescription?: Maybe<Scalars['String']>;
+  contentEstimate?: Maybe<Scalars['String']>;
+  contentTime?: Maybe<Scalars['String']>;
+  createdAt: Scalars['Date'];
+  description?: Maybe<Scalars['String']>;
+  editableByChildren?: Maybe<Scalars['Boolean']>;
+  expandableLists: Array<ExpandableListItem>;
+  id: Scalars['ID'];
+  indentationLevel?: Maybe<Scalars['Int']>;
+  lessonId: Scalars['ID'];
+  postTextBlock?: Maybe<Scalars['String']>;
+  preTextBlock?: Maybe<Scalars['String']>;
+  title?: Maybe<Scalars['String']>;
+  type: TopicType;
+  updatedAt: Scalars['Date'];
+};
+
 export type Location = {
   __typename?: 'Location';
   address1: Scalars['String'];
@@ -1152,6 +1375,46 @@ export type Location = {
   state?: Maybe<Scalars['String']>;
   timeZone?: Maybe<Scalars['String']>;
   zipCode?: Maybe<Scalars['String']>;
+};
+
+export type Marker = {
+  __typename?: 'Marker';
+  seconds: Scalars['Int'];
+  text: Scalars['String'];
+};
+
+export type MatchPairPage = PageEntity & {
+  __typename?: 'MatchPairPage';
+  accessibilityAudioAsset?: Maybe<Scalars['String']>;
+  accessibilityAudioAssetTitle?: Maybe<Scalars['String']>;
+  accessibilityAudioAssetUrl?: Maybe<Scalars['AbsoluteOrRelativeURL']>;
+  catalogAsset?: Maybe<Scalars['String']>;
+  clientId?: Maybe<Scalars['ID']>;
+  companyId: Scalars['ID'];
+  completionTimeSeconds?: Maybe<Scalars['Int']>;
+  contentDescription?: Maybe<Scalars['String']>;
+  contentEstimate?: Maybe<Scalars['String']>;
+  contentTime?: Maybe<Scalars['String']>;
+  createdAt: Scalars['Date'];
+  editableByChildren?: Maybe<Scalars['Boolean']>;
+  id: Scalars['ID'];
+  indentationLevel?: Maybe<Scalars['Int']>;
+  lessonId: Scalars['ID'];
+  matchPairs: Array<MatchPairs>;
+  postTextBlock?: Maybe<Scalars['String']>;
+  preTextBlock?: Maybe<Scalars['String']>;
+  sidebarIsHidden?: Maybe<Scalars['Boolean']>;
+  title?: Maybe<Scalars['String']>;
+  type: TopicType;
+  updatedAt: Scalars['Date'];
+};
+
+export type MatchPairs = {
+  __typename?: 'MatchPairs';
+  asset: Scalars['String'];
+  caption: Scalars['String'];
+  clue: Scalars['String'];
+  label: Scalars['String'];
 };
 
 export type Meeting = {
@@ -1168,6 +1431,49 @@ export type Meeting = {
   startDate: Scalars['Date'];
   timeZone?: Maybe<Scalars['String']>;
   title?: Maybe<Scalars['String']>;
+};
+
+export type MeetingPage = PageEntity & {
+  __typename?: 'MeetingPage';
+  accessibilityAudioAsset?: Maybe<Scalars['String']>;
+  accessibilityAudioAssetTitle?: Maybe<Scalars['String']>;
+  accessibilityAudioAssetUrl?: Maybe<Scalars['AbsoluteOrRelativeURL']>;
+  catalogAsset?: Maybe<Scalars['String']>;
+  clientId?: Maybe<Scalars['ID']>;
+  companyId: Scalars['ID'];
+  completionTimeSeconds?: Maybe<Scalars['Int']>;
+  contentDescription?: Maybe<Scalars['String']>;
+  contentEstimate?: Maybe<Scalars['String']>;
+  contentTime?: Maybe<Scalars['String']>;
+  createdAt: Scalars['Date'];
+  editableByChildren?: Maybe<Scalars['Boolean']>;
+  id: Scalars['ID'];
+  indentationLevel?: Maybe<Scalars['Int']>;
+  lessonId: Scalars['ID'];
+  meeting?: Maybe<Scalars['String']>;
+  meetingAttendeeInfo?: Maybe<Scalars['String']>;
+  meetingSubtitle?: Maybe<Scalars['String']>;
+  meetingTitle?: Maybe<Scalars['String']>;
+  postTextBlock?: Maybe<Scalars['String']>;
+  preTextBlock?: Maybe<Scalars['String']>;
+  preventProgression?: Maybe<Scalars['Boolean']>;
+  title?: Maybe<Scalars['String']>;
+  type: TopicType;
+  updatedAt: Scalars['Date'];
+};
+
+export type MicrositeBlock = {
+  __typename?: 'MicrositeBlock';
+  html?: Maybe<Scalars['String']>;
+  id: Scalars['ID'];
+  links?: Maybe<Array<MicrositeBlockLink>>;
+};
+
+export type MicrositeBlockLink = {
+  __typename?: 'MicrositeBlockLink';
+  asset?: Maybe<Scalars['String']>;
+  href: Scalars['String'];
+  label: Scalars['String'];
 };
 
 export type Milestone = {
@@ -1271,6 +1577,102 @@ export type Organization = {
   name?: Maybe<Scalars['String']>;
 };
 
+export type PdfViewerPage = PageEntity & {
+  __typename?: 'PDFViewerPage';
+  accessibilityAudioAsset?: Maybe<Scalars['String']>;
+  accessibilityAudioAssetTitle?: Maybe<Scalars['String']>;
+  accessibilityAudioAssetUrl?: Maybe<Scalars['AbsoluteOrRelativeURL']>;
+  asset?: Maybe<Scalars['String']>;
+  catalogAsset?: Maybe<Scalars['String']>;
+  clientId?: Maybe<Scalars['ID']>;
+  companyId: Scalars['ID'];
+  completionTimeSeconds?: Maybe<Scalars['Int']>;
+  contentDescription?: Maybe<Scalars['String']>;
+  contentEstimate?: Maybe<Scalars['String']>;
+  contentTime?: Maybe<Scalars['String']>;
+  createdAt: Scalars['Date'];
+  editableByChildren?: Maybe<Scalars['Boolean']>;
+  fileDownloadDisabled?: Maybe<Scalars['Boolean']>;
+  id: Scalars['ID'];
+  indentationLevel?: Maybe<Scalars['Int']>;
+  lessonId: Scalars['ID'];
+  printDisabled?: Maybe<Scalars['Boolean']>;
+  searchDisabled?: Maybe<Scalars['Boolean']>;
+  title?: Maybe<Scalars['String']>;
+  type: TopicType;
+  updatedAt: Scalars['Date'];
+};
+
+export type PageEntity = {
+  accessibilityAudioAsset?: Maybe<Scalars['String']>;
+  accessibilityAudioAssetTitle?: Maybe<Scalars['String']>;
+  accessibilityAudioAssetUrl?: Maybe<Scalars['AbsoluteOrRelativeURL']>;
+  catalogAsset?: Maybe<Scalars['String']>;
+  clientId?: Maybe<Scalars['ID']>;
+  companyId: Scalars['ID'];
+  completionTimeSeconds?: Maybe<Scalars['Int']>;
+  contentDescription?: Maybe<Scalars['String']>;
+  contentEstimate?: Maybe<Scalars['String']>;
+  contentTime?: Maybe<Scalars['String']>;
+  createdAt: Scalars['Date'];
+  editableByChildren?: Maybe<Scalars['Boolean']>;
+  id: Scalars['ID'];
+  indentationLevel?: Maybe<Scalars['Int']>;
+  lessonId: Scalars['ID'];
+  title?: Maybe<Scalars['String']>;
+  type: TopicType;
+  updatedAt: Scalars['Date'];
+};
+
+export type PageResource =
+  | ArticlePage
+  | AssignmentPage
+  | AudioPage
+  | FlipCardPage
+  | ListRollPage
+  | MatchPairPage
+  | MeetingPage
+  | PdfViewerPage
+  | PresentationPage
+  | QuizPage
+  | ScormPage
+  | SlideshowPage
+  | SurveyPage
+  | TallyPage
+  | TestPage
+  | TextPage
+  | VideoPage
+  | WorkbookPage;
+
+export type PresentationPage = PageEntity & {
+  __typename?: 'PresentationPage';
+  accessibilityAudioAsset?: Maybe<Scalars['String']>;
+  accessibilityAudioAssetTitle?: Maybe<Scalars['String']>;
+  accessibilityAudioAssetUrl?: Maybe<Scalars['AbsoluteOrRelativeURL']>;
+  catalogAsset?: Maybe<Scalars['String']>;
+  client?: Maybe<Scalars['String']>;
+  clientId?: Maybe<Scalars['ID']>;
+  company: Scalars['String'];
+  companyId: Scalars['ID'];
+  completionTimeSeconds?: Maybe<Scalars['Int']>;
+  contentDescription?: Maybe<Scalars['String']>;
+  contentEstimate?: Maybe<Scalars['String']>;
+  contentTime?: Maybe<Scalars['String']>;
+  createdAt: Scalars['Date'];
+  editableByChildren?: Maybe<Scalars['Boolean']>;
+  id: Scalars['ID'];
+  indentationLevel?: Maybe<Scalars['Int']>;
+  lesson?: Maybe<Scalars['String']>;
+  lessonId: Scalars['ID'];
+  postTextBlock?: Maybe<Scalars['String']>;
+  preTextBlock?: Maybe<Scalars['String']>;
+  showSidebar?: Maybe<Scalars['Boolean']>;
+  slides: Array<Slides>;
+  title?: Maybe<Scalars['String']>;
+  type: TopicType;
+  updatedAt: Scalars['Date'];
+};
+
 export type Product = {
   __typename?: 'Product';
   alternativePricingRef?: Maybe<Scalars['Int']>;
@@ -1303,6 +1705,130 @@ export type PurchasedCourse = {
   status: Scalars['String'];
 };
 
+export type QuestionChoice = {
+  __typename?: 'QuestionChoice';
+  altText?: Maybe<Scalars['String']>;
+  asset?: Maybe<Scalars['String']>;
+  choiceId?: Maybe<Scalars['String']>;
+  correct: Scalars['Boolean'];
+  points?: Maybe<Scalars['Int']>;
+  response?: Maybe<Scalars['String']>;
+  value?: Maybe<Scalars['String']>;
+};
+
+export enum QuestionDisplayOption {
+  Always = 'always',
+  AssessmentOnly = 'assessmentOnly',
+  ResultsOnly = 'resultsOnly'
+}
+
+export type QuestionTable = {
+  __typename?: 'QuestionTable';
+  headers?: Maybe<Array<QuestionTableCell>>;
+  rows?: Maybe<Array<Maybe<Array<QuestionTableCell>>>>;
+};
+
+export type QuestionTableCell = {
+  __typename?: 'QuestionTableCell';
+  locked: Scalars['Boolean'];
+  value?: Maybe<Scalars['String']>;
+  weight?: Maybe<Scalars['String']>;
+};
+
+export type QuizPage = AssessmentPageEntity &
+  PageEntity & {
+    __typename?: 'QuizPage';
+    accessibilityAudioAsset?: Maybe<Scalars['String']>;
+    accessibilityAudioAssetTitle?: Maybe<Scalars['String']>;
+    accessibilityAudioAssetUrl?: Maybe<Scalars['AbsoluteOrRelativeURL']>;
+    allowToResume?: Maybe<Scalars['Boolean']>;
+    catalogAsset?: Maybe<Scalars['String']>;
+    clientId?: Maybe<Scalars['ID']>;
+    companyId: Scalars['ID'];
+    completionTimeSeconds?: Maybe<Scalars['Int']>;
+    contentDescription?: Maybe<Scalars['String']>;
+    contentEstimate?: Maybe<Scalars['String']>;
+    contentTime?: Maybe<Scalars['String']>;
+    continueAfterTimerExpires?: Maybe<Scalars['Boolean']>;
+    createdAt: Scalars['Date'];
+    displayAllHints?: Maybe<Scalars['Boolean']>;
+    displayAttemptNumbers?: Maybe<Scalars['Int']>;
+    editableByChildren?: Maybe<Scalars['Boolean']>;
+    failMessage?: Maybe<Scalars['String']>;
+    hintControlEnabled?: Maybe<Scalars['Boolean']>;
+    id: Scalars['ID'];
+    indentationLevel?: Maybe<Scalars['Int']>;
+    instructorAssessment?: Maybe<Scalars['Boolean']>;
+    isGraded?: Maybe<Scalars['Boolean']>;
+    lessonId: Scalars['ID'];
+    maxAttempts?: Maybe<Scalars['Int']>;
+    minPassingPercent?: Maybe<Scalars['Int']>;
+    navigationDisabled?: Maybe<Scalars['Boolean']>;
+    passMessage?: Maybe<Scalars['String']>;
+    preventProgression?: Maybe<Scalars['Boolean']>;
+    questionSkipEnabled?: Maybe<Scalars['Boolean']>;
+    questions: Array<QuizQuestion>;
+    showAnswerAfterPass?: Maybe<Scalars['Boolean']>;
+    startMessage?: Maybe<Scalars['String']>;
+    timeLimitInSeconds?: Maybe<Scalars['Int']>;
+    timePerQuestionInSeconds?: Maybe<Scalars['Int']>;
+    timerEnabled?: Maybe<Scalars['Boolean']>;
+    title?: Maybe<Scalars['String']>;
+    type: TopicType;
+    updatedAt: Scalars['Date'];
+  };
+
+export type QuizQuestion = {
+  __typename?: 'QuizQuestion';
+  addAndDeleteRowsEnabled?: Maybe<Scalars['Boolean']>;
+  additionalContent?: Maybe<Scalars['String']>;
+  body?: Maybe<Scalars['String']>;
+  choices?: Maybe<Array<QuestionChoice>>;
+  copyAnswerFromAssessmentId?: Maybe<Scalars['String']>;
+  copyAnswerFromQuestionId?: Maybe<Scalars['String']>;
+  displayOption?: Maybe<QuestionDisplayOption>;
+  fileSubmissionAsset?: Maybe<Scalars['String']>;
+  gradedAsCorrect?: Maybe<Scalars['Boolean']>;
+  hasChoices?: Maybe<Scalars['Boolean']>;
+  isBooleanChoice?: Maybe<Scalars['Boolean']>;
+  isBooleanChoiceOrMultipleChoice?: Maybe<Scalars['Boolean']>;
+  isEssay?: Maybe<Scalars['Boolean']>;
+  isFileSubmission?: Maybe<Scalars['Boolean']>;
+  isImageComparison?: Maybe<Scalars['Boolean']>;
+  isLikert?: Maybe<Scalars['Boolean']>;
+  isMultipleChoice?: Maybe<Scalars['Boolean']>;
+  isOpenEnded?: Maybe<Scalars['Boolean']>;
+  isOpenEndedOrEssay: Scalars['Boolean'];
+  isSelectBoxes?: Maybe<Scalars['Boolean']>;
+  isTable?: Maybe<Scalars['Boolean']>;
+  mustSelectAllCorrectChoices?: Maybe<Scalars['Boolean']>;
+  openEndedResponse?: Maybe<Scalars['String']>;
+  parentQuestion?: Maybe<Scalars['String']>;
+  placeholder?: Maybe<Scalars['String']>;
+  postText?: Maybe<Scalars['String']>;
+  postText2?: Maybe<Scalars['String']>;
+  postTextDisplayOption?: Maybe<QuestionDisplayOption>;
+  postTextDisplayOption2?: Maybe<QuestionDisplayOption>;
+  preText?: Maybe<Scalars['String']>;
+  preText2?: Maybe<Scalars['String']>;
+  preTextDisplayOption?: Maybe<QuestionDisplayOption>;
+  preTextDisplayOption2?: Maybe<QuestionDisplayOption>;
+  preselectedChoices?: Maybe<Array<QuestionChoice>>;
+  questionCategoryId?: Maybe<Scalars['ID']>;
+  questionId?: Maybe<Scalars['String']>;
+  questionType?: Maybe<Scalars['String']>;
+  required?: Maybe<Scalars['Boolean']>;
+  response?: Maybe<Scalars['String']>;
+  scormInteractionType?: Maybe<Scalars['String']>;
+  selectedChoice?: Maybe<QuestionChoice>;
+  selectedChoiceOrNoChoiceAvailable?: Maybe<Scalars['Boolean']>;
+  shouldCheckAnswers?: Maybe<Scalars['Boolean']>;
+  shouldDisplayOnResults?: Maybe<Scalars['Boolean']>;
+  table?: Maybe<QuestionTable>;
+  tableResponse?: Maybe<QuestionTable>;
+  type?: Maybe<Scalars['String']>;
+};
+
 export type Resource = {
   __typename?: 'Resource';
   id: Scalars['ID'];
@@ -1316,6 +1842,14 @@ export type Ribbon = {
   darkerColor?: Maybe<Scalars['String']>;
   label?: Maybe<Scalars['String']>;
   slug: Scalars['Slug'];
+};
+
+export type RootLayout = {
+  __typename?: 'RootLayout';
+  favicon?: Maybe<Scalars['String']>;
+  footerScripts?: Maybe<Scalars['String']>;
+  headerScripts?: Maybe<Scalars['String']>;
+  id: Scalars['ID'];
 };
 
 export type RssItem = {
@@ -1370,6 +1904,42 @@ export type SsoSettings = {
   samlSingleSignonUrl?: Maybe<Scalars['URL']>;
 };
 
+export type ScormPage = PageEntity & {
+  __typename?: 'ScormPage';
+  accessibilityAudioAsset?: Maybe<Scalars['String']>;
+  accessibilityAudioAssetTitle?: Maybe<Scalars['String']>;
+  accessibilityAudioAssetUrl?: Maybe<Scalars['AbsoluteOrRelativeURL']>;
+  catalogAsset?: Maybe<Scalars['String']>;
+  centralLibraryItemId?: Maybe<Scalars['String']>;
+  clientId?: Maybe<Scalars['ID']>;
+  companyId: Scalars['ID'];
+  completionTimeSeconds?: Maybe<Scalars['Int']>;
+  contentDescription?: Maybe<Scalars['String']>;
+  contentEstimate?: Maybe<Scalars['String']>;
+  contentTime?: Maybe<Scalars['String']>;
+  createdAt: Scalars['Date'];
+  directoryEntryPoint?: Maybe<Scalars['String']>;
+  editableByChildren?: Maybe<Scalars['Boolean']>;
+  embeddedEnabled?: Maybe<Scalars['Boolean']>;
+  enabledRevertProgress?: Maybe<Scalars['Boolean']>;
+  fullscreenEmbed?: Maybe<Scalars['Boolean']>;
+  height?: Maybe<Scalars['Int']>;
+  id: Scalars['ID'];
+  indentationLevel?: Maybe<Scalars['Int']>;
+  isCentralLibraryItem?: Maybe<Scalars['Boolean']>;
+  lessonId: Scalars['ID'];
+  postTextBlock?: Maybe<Scalars['String']>;
+  preTextBlock?: Maybe<Scalars['String']>;
+  preventProgression?: Maybe<Scalars['Boolean']>;
+  resetSessionAfterComplete?: Maybe<Scalars['Boolean']>;
+  scoTitle?: Maybe<Scalars['String']>;
+  title?: Maybe<Scalars['String']>;
+  type: TopicType;
+  updatedAt: Scalars['Date'];
+  useProxy?: Maybe<Scalars['Boolean']>;
+  width?: Maybe<Scalars['Int']>;
+};
+
 export type SeatPackage = {
   __typename?: 'SeatPackage';
   seats: Scalars['Int'];
@@ -1386,8 +1956,65 @@ export type Section = {
   id: Scalars['ID'];
   lessons?: Maybe<Array<Maybe<Lesson>>>;
   slug: Scalars['Slug'];
+  status?: Maybe<Status>;
   title?: Maybe<Scalars['String']>;
 };
+
+export type Slides = {
+  __typename?: 'Slides';
+  altText?: Maybe<Scalars['String']>;
+  asset: Scalars['String'];
+  audioAsset?: Maybe<Scalars['String']>;
+  caption?: Maybe<Scalars['String']>;
+  timeSeconds?: Maybe<Scalars['Int']>;
+  title?: Maybe<Scalars['String']>;
+  unrestrictedHeight: Scalars['Boolean'];
+};
+
+export type SlideshowPage = PageEntity & {
+  __typename?: 'SlideshowPage';
+  accessibilityAudioAsset?: Maybe<Scalars['String']>;
+  accessibilityAudioAssetTitle?: Maybe<Scalars['String']>;
+  accessibilityAudioAssetUrl?: Maybe<Scalars['AbsoluteOrRelativeURL']>;
+  catalogAsset?: Maybe<Scalars['String']>;
+  clientId?: Maybe<Scalars['ID']>;
+  companyId: Scalars['ID'];
+  completionTimeSeconds?: Maybe<Scalars['Int']>;
+  contentDescription?: Maybe<Scalars['String']>;
+  contentEstimate?: Maybe<Scalars['String']>;
+  contentTime?: Maybe<Scalars['String']>;
+  createdAt: Scalars['Date'];
+  editableByChildren?: Maybe<Scalars['Boolean']>;
+  id: Scalars['ID'];
+  indentationLevel?: Maybe<Scalars['Int']>;
+  lessonId: Scalars['ID'];
+  postTextBlock?: Maybe<Scalars['String']>;
+  preTextBlock?: Maybe<Scalars['String']>;
+  showSidebar?: Maybe<Scalars['Boolean']>;
+  slides: Array<Slides>;
+  title?: Maybe<Scalars['String']>;
+  type: TopicType;
+  updatedAt: Scalars['Date'];
+};
+
+export enum SortColumn {
+  CourseStartDate = 'courseStartDate',
+  CreatedAt = 'createdAt',
+  DisplayDate = 'displayDate',
+  Label = 'label',
+  LastActiveAt = 'lastActiveAt',
+  Name = 'name',
+  ParentName = 'parentName',
+  PublishDate = 'publishDate',
+  Relevance = 'relevance',
+  Title = 'title',
+  UpdatedAt = 'updatedAt'
+}
+
+export enum SortDirection {
+  Asc = 'asc',
+  Desc = 'desc'
+}
 
 export enum Status {
   Archived = 'archived',
@@ -1399,6 +2026,34 @@ export enum Status {
   Published = 'published'
 }
 
+export type SurveyPage = AssessmentPageEntity &
+  PageEntity & {
+    __typename?: 'SurveyPage';
+    accessibilityAudioAsset?: Maybe<Scalars['String']>;
+    accessibilityAudioAssetTitle?: Maybe<Scalars['String']>;
+    accessibilityAudioAssetUrl?: Maybe<Scalars['AbsoluteOrRelativeURL']>;
+    catalogAsset?: Maybe<Scalars['String']>;
+    clientId?: Maybe<Scalars['ID']>;
+    companyId: Scalars['ID'];
+    completionTimeSeconds?: Maybe<Scalars['Int']>;
+    contentDescription?: Maybe<Scalars['String']>;
+    contentEstimate?: Maybe<Scalars['String']>;
+    contentTime?: Maybe<Scalars['String']>;
+    createdAt: Scalars['Date'];
+    editableByChildren?: Maybe<Scalars['Boolean']>;
+    id: Scalars['ID'];
+    indentationLevel?: Maybe<Scalars['Int']>;
+    instructorAssessment?: Maybe<Scalars['Boolean']>;
+    isGraded?: Maybe<Scalars['Boolean']>;
+    lessonId: Scalars['ID'];
+    preventProgression?: Maybe<Scalars['Boolean']>;
+    questions: Array<QuizQuestion>;
+    resultsMessage?: Maybe<Scalars['String']>;
+    title?: Maybe<Scalars['String']>;
+    type: TopicType;
+    updatedAt: Scalars['Date'];
+  };
+
 export type Tag = {
   __typename?: 'Tag';
   id: Scalars['ID'];
@@ -1406,6 +2061,90 @@ export type Tag = {
   label?: Maybe<Scalars['String']>;
   updatedAt?: Maybe<Scalars['Date']>;
 };
+
+export type TallyPage = AssessmentPageEntity &
+  PageEntity & {
+    __typename?: 'TallyPage';
+    accessibilityAudioAsset?: Maybe<Scalars['String']>;
+    accessibilityAudioAssetTitle?: Maybe<Scalars['String']>;
+    accessibilityAudioAssetUrl?: Maybe<Scalars['AbsoluteOrRelativeURL']>;
+    altText?: Maybe<Scalars['String']>;
+    asset: Scalars['String'];
+    audioAsset?: Maybe<Scalars['String']>;
+    caption?: Maybe<Scalars['String']>;
+    catalogAsset?: Maybe<Scalars['String']>;
+    clientId?: Maybe<Scalars['ID']>;
+    companyId: Scalars['ID'];
+    completionTimeSeconds?: Maybe<Scalars['Int']>;
+    contentDescription?: Maybe<Scalars['String']>;
+    contentEstimate?: Maybe<Scalars['String']>;
+    contentTime?: Maybe<Scalars['String']>;
+    createdAt: Scalars['Date'];
+    displayAllHints?: Maybe<Scalars['Boolean']>;
+    editableByChildren?: Maybe<Scalars['Boolean']>;
+    id: Scalars['ID'];
+    indentationLevel?: Maybe<Scalars['Int']>;
+    instructorAssessment?: Maybe<Scalars['Boolean']>;
+    lessonId: Scalars['ID'];
+    questionSkipEnabled?: Maybe<Scalars['Boolean']>;
+    questions: Array<QuizQuestion>;
+    resultsMessage?: Maybe<Scalars['String']>;
+    scoreTiers: Array<TallyPageScoreTier>;
+    startMessage?: Maybe<Scalars['String']>;
+    timeSeconds?: Maybe<Scalars['Int']>;
+    title?: Maybe<Scalars['String']>;
+    type: TopicType;
+    unrestrictedHeight: Scalars['Boolean'];
+    updatedAt: Scalars['Date'];
+  };
+
+export type TallyPageScoreTier = {
+  __typename?: 'TallyPageScoreTier';
+  body?: Maybe<Scalars['String']>;
+  lowerBound: Scalars['Int'];
+  title: Scalars['String'];
+  upperBound: Scalars['Int'];
+};
+
+export type TestPage = AssessmentPageEntity &
+  PageEntity & {
+    __typename?: 'TestPage';
+    accessibilityAudioAsset?: Maybe<Scalars['String']>;
+    accessibilityAudioAssetTitle?: Maybe<Scalars['String']>;
+    accessibilityAudioAssetUrl?: Maybe<Scalars['AbsoluteOrRelativeURL']>;
+    allowToResume?: Maybe<Scalars['Boolean']>;
+    catalogAsset?: Maybe<Scalars['String']>;
+    clientId?: Maybe<Scalars['ID']>;
+    companyId: Scalars['ID'];
+    completionTimeSeconds?: Maybe<Scalars['Int']>;
+    contentDescription?: Maybe<Scalars['String']>;
+    contentEstimate?: Maybe<Scalars['String']>;
+    contentTime?: Maybe<Scalars['String']>;
+    continueAfterTimerExpires?: Maybe<Scalars['Boolean']>;
+    createdAt: Scalars['Date'];
+    editableByChildren?: Maybe<Scalars['Boolean']>;
+    failMessage?: Maybe<Scalars['String']>;
+    hideQuestionResults?: Maybe<Scalars['Boolean']>;
+    id: Scalars['ID'];
+    indentationLevel?: Maybe<Scalars['Int']>;
+    instructorAssessment?: Maybe<Scalars['Boolean']>;
+    isGraded?: Maybe<Scalars['Boolean']>;
+    lessonId: Scalars['ID'];
+    maxAttempts?: Maybe<Scalars['Int']>;
+    minPassingPercent?: Maybe<Scalars['Int']>;
+    passMessage?: Maybe<Scalars['String']>;
+    preventProgression?: Maybe<Scalars['Boolean']>;
+    questionSkipEnabled?: Maybe<Scalars['Boolean']>;
+    questions: Array<QuizQuestion>;
+    randomizeChoices: Scalars['Boolean'];
+    startMessage?: Maybe<Scalars['String']>;
+    subsetSize?: Maybe<Scalars['Int']>;
+    timeLimitInSeconds?: Maybe<Scalars['Int']>;
+    timePerQuestionInSeconds?: Maybe<Scalars['Int']>;
+    title?: Maybe<Scalars['String']>;
+    type: TopicType;
+    updatedAt: Scalars['Date'];
+  };
 
 export type Testimonial = {
   __typename?: 'Testimonial';
@@ -1420,6 +2159,42 @@ export enum TextAlignment {
   Center = 'center',
   Left = 'left'
 }
+
+export type TextPage = PageEntity & {
+  __typename?: 'TextPage';
+  accessibilityAudioAsset?: Maybe<Scalars['String']>;
+  accessibilityAudioAssetTitle?: Maybe<Scalars['String']>;
+  accessibilityAudioAssetUrl?: Maybe<Scalars['AbsoluteOrRelativeURL']>;
+  body?: Maybe<Scalars['String']>;
+  catalogAsset?: Maybe<Scalars['String']>;
+  clientId?: Maybe<Scalars['ID']>;
+  companyId: Scalars['ID'];
+  completionTimeSeconds?: Maybe<Scalars['Int']>;
+  contentDescription?: Maybe<Scalars['String']>;
+  contentEstimate?: Maybe<Scalars['String']>;
+  contentTime?: Maybe<Scalars['String']>;
+  createdAt: Scalars['Date'];
+  editableByChildren?: Maybe<Scalars['Boolean']>;
+  id: Scalars['ID'];
+  indentationLevel?: Maybe<Scalars['Int']>;
+  lessonId: Scalars['ID'];
+  sidebarIsHidden: Scalars['Boolean'];
+  sidebarItems: Array<TextPageSidebar>;
+  title?: Maybe<Scalars['String']>;
+  type: TopicType;
+  updatedAt: Scalars['Date'];
+};
+
+export type TextPageSidebar = {
+  __typename?: 'TextPageSidebar';
+  adDimensions?: Maybe<Scalars['String']>;
+  adTargeting?: Maybe<Scalars['String']>;
+  adUnitId?: Maybe<Scalars['String']>;
+  altText?: Maybe<Scalars['String']>;
+  asset?: Maybe<Scalars['String']>;
+  caption?: Maybe<Scalars['String']>;
+  videoAsset?: Maybe<Scalars['String']>;
+};
 
 export type Topic = {
   __typename?: 'Topic';
@@ -1512,6 +2287,7 @@ export type User = {
   name?: Maybe<Scalars['String']>;
   purchasedBundles?: Maybe<Array<PurchasedBundle>>;
   purchasedCourses?: Maybe<Array<PurchasedCourse>>;
+  recommendedSlugs?: Maybe<Array<UserRecommendedSlug>>;
   recommendedTags?: Maybe<Array<UserRecommendedTag>>;
   ref1?: Maybe<Scalars['String']>;
   ref2?: Maybe<Scalars['String']>;
@@ -1575,17 +2351,51 @@ export enum UserCustomFieldType {
 
 export type UserProgress = {
   __typename?: 'UserProgress';
-  course: Scalars['ID'];
   percentComplete?: Maybe<Scalars['Int']>;
   totalTime?: Maybe<Scalars['Int']>;
   totalViews?: Maybe<Scalars['Int']>;
-  user: Scalars['ID'];
+};
+
+export type UserRecommendedSlug = {
+  __typename?: 'UserRecommendedSlug';
+  boost: Scalars['Int'];
+  slug: Scalars['String'];
 };
 
 export type UserRecommendedTag = {
   __typename?: 'UserRecommendedTag';
   boost: Scalars['Int'];
   label: Scalars['String'];
+};
+
+export type VideoPage = PageEntity & {
+  __typename?: 'VideoPage';
+  accessibilityAudioAsset?: Maybe<Scalars['String']>;
+  accessibilityAudioAssetTitle?: Maybe<Scalars['String']>;
+  accessibilityAudioAssetUrl?: Maybe<Scalars['AbsoluteOrRelativeURL']>;
+  asset?: Maybe<Scalars['String']>;
+  body?: Maybe<Scalars['String']>;
+  catalogAsset?: Maybe<Scalars['String']>;
+  clientId?: Maybe<Scalars['ID']>;
+  companyId: Scalars['ID'];
+  completionTimeSeconds?: Maybe<Scalars['Int']>;
+  contentDescription?: Maybe<Scalars['String']>;
+  contentEstimate?: Maybe<Scalars['String']>;
+  contentTime?: Maybe<Scalars['String']>;
+  createdAt: Scalars['Date'];
+  editableByChildren?: Maybe<Scalars['Boolean']>;
+  id: Scalars['ID'];
+  indentationLevel?: Maybe<Scalars['Int']>;
+  lessonId: Scalars['ID'];
+  markers: Array<Marker>;
+  postAsset?: Maybe<Scalars['String']>;
+  posterImageAsset?: Maybe<Scalars['String']>;
+  preAsset?: Maybe<Scalars['String']>;
+  preTextBlock?: Maybe<Scalars['String']>;
+  sidebarIsHidden?: Maybe<Scalars['Boolean']>;
+  title?: Maybe<Scalars['String']>;
+  type: TopicType;
+  updatedAt: Scalars['Date'];
 };
 
 export type WaitlistedCourse = {
@@ -1626,3 +2436,32 @@ export type WebinarDate = {
   webexTrainingSessionKey?: Maybe<Scalars['String']>;
   zoomOccurrenceKey?: Maybe<Scalars['String']>;
 };
+
+export type WorkbookPage = AssessmentPageEntity &
+  PageEntity & {
+    __typename?: 'WorkbookPage';
+    accessibilityAudioAsset?: Maybe<Scalars['String']>;
+    accessibilityAudioAssetTitle?: Maybe<Scalars['String']>;
+    accessibilityAudioAssetUrl?: Maybe<Scalars['AbsoluteOrRelativeURL']>;
+    catalogAsset?: Maybe<Scalars['String']>;
+    clientId?: Maybe<Scalars['ID']>;
+    companyId: Scalars['ID'];
+    completionTimeSeconds?: Maybe<Scalars['Int']>;
+    contentDescription?: Maybe<Scalars['String']>;
+    contentEstimate?: Maybe<Scalars['String']>;
+    contentTime?: Maybe<Scalars['String']>;
+    createdAt: Scalars['Date'];
+    editableByChildren?: Maybe<Scalars['Boolean']>;
+    id: Scalars['ID'];
+    indentationLevel?: Maybe<Scalars['Int']>;
+    instructorAssessment?: Maybe<Scalars['Boolean']>;
+    lessonId: Scalars['ID'];
+    linked?: Maybe<Scalars['Boolean']>;
+    preventProgression?: Maybe<Scalars['Boolean']>;
+    questions: Array<QuizQuestion>;
+    resultsMessage?: Maybe<Scalars['String']>;
+    startMessage?: Maybe<Scalars['String']>;
+    title?: Maybe<Scalars['String']>;
+    type: TopicType;
+    updatedAt: Scalars['Date'];
+  };

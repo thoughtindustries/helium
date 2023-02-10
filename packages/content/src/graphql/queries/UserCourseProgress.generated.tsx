@@ -11,8 +11,6 @@ export type UserCourseProgressQuery = {
   __typename?: 'Query';
   UserCourseProgress?: {
     __typename?: 'UserProgress';
-    user: string;
-    course: string;
     totalViews?: number;
     totalTime?: number;
     percentComplete?: number;
@@ -22,8 +20,6 @@ export type UserCourseProgressQuery = {
 export const UserCourseProgressDocument = gql`
   query UserCourseProgress($id: ID!) {
     UserCourseProgress(id: $id) {
-      user
-      course
       totalViews
       totalTime
       percentComplete
