@@ -1,6 +1,6 @@
 import { SortDirection } from '../..';
 import { SORT_DELIMITER } from './constants';
-import { Sort, SortField } from './types';
+import { Sort, SortColumn } from './types';
 
 const parseSort = (sort: string): Sort | undefined => {
   if (!sort) {
@@ -13,7 +13,7 @@ const parseSort = (sort: string): Sort | undefined => {
     return;
   }
 
-  const field = splitSort[0] as SortField;
+  const field = splitSort[0] as SortColumn;
 
   if (!field) {
     return;

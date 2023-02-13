@@ -9,9 +9,23 @@ export enum SortField {
   UpdatedAt = 'updatedAt',
   CreatedAt = 'createdAt',
   Title = 'title',
-  PublishedDate = 'publishDate',
+  PublishDate = 'publishDate',
   CourseStartDate = 'courseStartDate',
   Relevance = 'relevance'
+}
+
+export enum SortColumn {
+  CourseStartDate = 'courseStartDate',
+  CreatedAt = 'createdAt',
+  DisplayDate = 'displayDate',
+  Label = 'label',
+  LastActiveAt = 'lastActiveAt',
+  Name = 'name',
+  ParentName = 'parentName',
+  PublishDate = 'publishDate',
+  Relevance = 'relevance',
+  Title = 'title',
+  UpdatedAt = 'updatedAt'
 }
 
 export enum SortDirection {
@@ -20,7 +34,7 @@ export enum SortDirection {
 }
 
 export type Sort = {
-  field: SortField;
+  field: SortColumn;
   direction?: SortDirection;
 };
 

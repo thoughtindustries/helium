@@ -22,6 +22,8 @@ jest.mock('react-i18next', () => ({
 
 type MockQueryProps = {
   displayType: GlobalTypes.ContentItemDisplayType;
+  sortColumn: GlobalTypes.SortColumn;
+  sortDirection: GlobalTypes.SortDirection;
 };
 const mockBundle = {
   id: 'uuid-bundle',
@@ -114,7 +116,9 @@ const mockContentItem = {
 const mockContentItemFactory = (length: number) =>
   Array.from({ length }, () => ({ ...mockContentItem }));
 const mockCatalogContentFactory = ({
-  displayType
+  displayType,
+  sortColumn,
+  sortDirection
 }: MockQueryProps): CatalogContentQuery['CatalogContent'] => ({
   contentItems: mockContentItemFactory(1),
   meta: {
@@ -126,7 +130,8 @@ const mockCatalogContentFactory = ({
     aggregations: mockAggregations,
     contentTypes: mockContentTypes,
     resultsDisplayType: displayType,
-    selectedSort: 'displayDate:asc',
+    selectedSortColumn: sortColumn,
+    selectedSortDirection: sortDirection,
     sortUpdatedAtEnabled: true,
     sortCreatedAtEnabled: true,
     sortTitleEnabled: true,
@@ -155,15 +160,14 @@ const mockApolloResultsFactory = (props: MockQueryProps) => [
       query: CatalogContentDocument,
       variables: {
         page: 1,
-        sort: undefined,
+        sortColumn: undefined,
+        sortDirection: undefined,
         resultsDisplayType: undefined,
         token: undefined,
         contentTypes: [],
         query: undefined,
         labels: [],
-        values: [],
-        layoutId: undefined,
-        widgetId: undefined
+        values: []
       }
     },
     result: {
@@ -217,7 +221,9 @@ describe('@thoughtindustries/catalog', () => {
 
     it('should render list view', async () => {
       const displayType = GlobalTypes.ContentItemDisplayType.List;
-      const apolloMock = mockApolloResultsFactory({ displayType });
+      const sortColumn = GlobalTypes.SortColumn.DisplayDate;
+      const sortDirection = GlobalTypes.SortDirection.Asc;
+      const apolloMock = mockApolloResultsFactory({ displayType, sortColumn, sortDirection });
       const { container } = render(
         <MockedProvider
           mocks={[...apolloMock]}
@@ -1056,7 +1062,9 @@ describe('@thoughtindustries/catalog', () => {
 
     it('should render grid view', async () => {
       const displayType = GlobalTypes.ContentItemDisplayType.Grid;
-      const apolloMock = mockApolloResultsFactory({ displayType });
+      const sortColumn = GlobalTypes.SortColumn.DisplayDate;
+      const sortDirection = GlobalTypes.SortDirection.Asc;
+      const apolloMock = mockApolloResultsFactory({ displayType, sortColumn, sortDirection });
       const { container } = render(
         <MockedProvider
           mocks={[...apolloMock]}
@@ -1972,7 +1980,9 @@ describe('@thoughtindustries/catalog', () => {
 
     it('should render calendar view', async () => {
       const displayType = GlobalTypes.ContentItemDisplayType.Calendar;
-      const apolloMock = mockApolloResultsFactory({ displayType });
+      const sortColumn = GlobalTypes.SortColumn.DisplayDate;
+      const sortDirection = GlobalTypes.SortDirection.Asc;
+      const apolloMock = mockApolloResultsFactory({ displayType, sortColumn, sortDirection });
       const { container } = render(
         <MockedProvider
           mocks={[...apolloMock]}

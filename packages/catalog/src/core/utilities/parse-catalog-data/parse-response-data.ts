@@ -1,5 +1,5 @@
 import { GlobalTypes, CatalogContentQuery } from '@thoughtindustries/content';
-import { CatalogParams, Sort, SortDirection, SortField } from './types';
+import { CatalogParams, Sort, SortColumn, SortDirection } from './types';
 
 const toEnabledSorts = ({
   sortUpdatedAtEnabled,
@@ -18,22 +18,22 @@ const toEnabledSorts = ({
 }): Sort[] => {
   const sorts = [];
   if (sortUpdatedAtEnabled) {
-    sorts.push({ field: SortField.UpdatedAt, direction: SortDirection.Desc });
+    sorts.push({ field: SortColumn.UpdatedAt, direction: SortDirection.Desc });
   }
   if (sortCreatedAtEnabled) {
-    sorts.push({ field: SortField.CreatedAt, direction: SortDirection.Desc });
+    sorts.push({ field: SortColumn.CreatedAt, direction: SortDirection.Desc });
   }
   if (sortTitleEnabled) {
-    sorts.push({ field: SortField.Title, direction: SortDirection.Asc });
+    sorts.push({ field: SortColumn.Title, direction: SortDirection.Asc });
   }
   if (sortPublishDateEnabled) {
-    sorts.push({ field: SortField.PublishedDate, direction: SortDirection.Desc });
+    sorts.push({ field: SortColumn.PublishDate, direction: SortDirection.Desc });
   }
   if (sortCourseStartDateEnabled) {
-    sorts.push({ field: SortField.CourseStartDate, direction: SortDirection.Asc });
+    sorts.push({ field: SortColumn.CourseStartDate, direction: SortDirection.Asc });
   }
   if (sortRelevanceEnabled) {
-    sorts.push({ field: SortField.Relevance });
+    sorts.push({ field: SortColumn.Relevance });
   }
   return sorts;
 };

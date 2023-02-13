@@ -1,5 +1,6 @@
 import { GlobalTypes } from '@thoughtindustries/content';
-import { SortDirection, SortField } from '../../../../src/core/utilities';
+import { SortColumn } from '@thoughtindustries/content/src/graphql/global-types';
+import { SortDirection } from '../../../../src/core/utilities';
 import { CatalogURLManager } from '../../../../src/core/utilities/manage-catalog-url';
 
 const setup = ({
@@ -431,7 +432,7 @@ describe('@thoughtindustries/catalog/core/CatalogURLManager', () => {
       const manager = setup({ searchString });
 
       const actual = manager.composeURLForSetSort({
-        field: SortField.PublishedDate,
+        field: SortColumn.PublishDate,
         direction: SortDirection.Asc
       });
       expect(actual).toMatchInlineSnapshot(`"/base?token=abc&page=3&sort=publishDate%3Aasc"`);
@@ -443,7 +444,7 @@ describe('@thoughtindustries/catalog/core/CatalogURLManager', () => {
       const manager = setup({ searchString, isCurated: true });
 
       const actual = manager.composeURLForSetSort({
-        field: SortField.PublishedDate,
+        field: SortColumn.PublishDate,
         direction: SortDirection.Asc
       });
       expect(actual).toMatchInlineSnapshot(`"/base?sort=publishDate%3Aasc"`);
