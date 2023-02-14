@@ -6,7 +6,7 @@ import LoadArchivedContent from './LoadArchivedContent';
 import LoadBookmarks from './LoadBookmarks';
 import LoadUserLearning from './LoadUserLearning';
 import LoadCertificates from './LoadCertificates';
-import { LoadingDots, useContentGroupsQuery } from '@thoughtindustries/content';
+import { GlobalTypes, LoadingDots, useContentGroupsQuery } from '@thoughtindustries/content';
 import LearnerAccessContext from './Context/context';
 import { getAvailableTabs } from './Utilities/utilities';
 import { useTranslation } from 'react-i18next';
@@ -170,35 +170,46 @@ const LearnerAccess = ({
         return (
           <LoadUserLearning
             query={query}
-            kind={['courseGroup', 'article', 'video', 'shareableContentObject', 'xApiObject']}
+            kind={
+              (GlobalTypes.ContentKind.CourseGroup,
+              GlobalTypes.ContentKind.Article,
+              GlobalTypes.ContentKind.Video,
+              GlobalTypes.ContentKind.ShareableContentObject,
+              GlobalTypes.ContentKind.XApiObject)
+            }
           />
         );
       case TabKey.Events:
         return (
           <LoadUserLearning
             query={query}
-            kind={['webinar', 'webinarCourse', 'inPersonEvent', 'inPersonEventCourse']}
-            sort="displayDate"
+            kind={
+              (GlobalTypes.ContentKind.Webinar,
+              GlobalTypes.ContentKind.Webinar,
+              GlobalTypes.ContentKind.InPersonEvent,
+              GlobalTypes.ContentKind.InPersonEventCourse)
+            }
+            sortColumn={GlobalTypes.SortColumn.DisplayDate}
           />
         );
       case TabKey.LearningPath:
-        return <LoadUserLearning query={query} kind={['learningPath']} />;
+        return <LoadUserLearning query={query} kind={GlobalTypes.ContentKind.LearningPath} />;
       case TabKey.Completed:
         return (
           <LoadUserLearning
             query={query}
-            kind={[
-              'learningPath',
-              'courseGroup',
-              'article',
-              'video',
-              'shareableContentObject',
-              'xApiObject',
-              'webinar',
-              'webinarCourse',
-              'inPersonEvent',
-              'inPersonEventCourse'
-            ]}
+            kind={
+              (GlobalTypes.ContentKind.LearningPath,
+              GlobalTypes.ContentKind.CourseGroup,
+              GlobalTypes.ContentKind.Article,
+              GlobalTypes.ContentKind.Video,
+              GlobalTypes.ContentKind.ShareableContentObject,
+              GlobalTypes.ContentKind.XApiObject,
+              GlobalTypes.ContentKind.Webinar,
+              GlobalTypes.ContentKind.Webinar,
+              GlobalTypes.ContentKind.InPersonEvent,
+              GlobalTypes.ContentKind.InPersonEventCourse)
+            }
           />
         );
       case TabKey.Archived:
