@@ -1,6 +1,5 @@
 import { GlobalTypes } from '@thoughtindustries/content';
-import { SortColumn } from '@thoughtindustries/content/src/graphql/global-types';
-import { SortDirection } from '../../../../src/core/utilities';
+import { SortColumn, SortDirection } from '@thoughtindustries/content/src/graphql/global-types';
 import { CatalogURLManager } from '../../../../src/core/utilities/manage-catalog-url';
 
 const setup = ({

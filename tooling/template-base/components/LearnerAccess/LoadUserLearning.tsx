@@ -14,7 +14,12 @@ import LearnerAccessGridView from './Views/GridView';
 import LearnerAccessDisplayListView from './Views/DisplayListView';
 import clsx from 'clsx';
 
-const LoadUserLearning = ({ query, kind, sort }: LoadedComponentProps): JSX.Element => {
+const LoadUserLearning = ({
+  query,
+  kind,
+  sortColumn,
+  sortDirection
+}: LoadedComponentProps): JSX.Element => {
   const [gridViewActive, setGridActive] = useState(true);
 
   const handleResize = () => {
@@ -31,7 +36,8 @@ const LoadUserLearning = ({ query, kind, sort }: LoadedComponentProps): JSX.Elem
     variables: {
       query,
       kind,
-      sort
+      sortColumn,
+      sortDirection
     },
     fetchPolicy: 'network-only'
   });

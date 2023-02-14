@@ -1,5 +1,6 @@
 import { GlobalTypes, CatalogContentQuery } from '@thoughtindustries/content';
-import { CatalogParams, Sort, SortColumn, SortDirection } from './types';
+import { SortColumn, SortDirection } from '@thoughtindustries/content/src/graphql/global-types';
+import { CatalogParams, Sort } from './types';
 
 const toEnabledSorts = ({
   sortUpdatedAtEnabled,
@@ -16,21 +17,33 @@ const toEnabledSorts = ({
   sortCourseStartDateEnabled: boolean;
   sortRelevanceEnabled: boolean;
 }): Sort[] => {
-  const sorts = [];
+  const sorts: Sort[] = [];
   if (sortUpdatedAtEnabled) {
-    sorts.push({ field: SortColumn.UpdatedAt, direction: SortDirection.Desc });
+    sorts.push({
+      field: SortColumn.UpdatedAt,
+      direction: SortDirection.Desc
+    });
   }
   if (sortCreatedAtEnabled) {
-    sorts.push({ field: SortColumn.CreatedAt, direction: SortDirection.Desc });
+    sorts.push({
+      field: SortColumn.CreatedAt,
+      direction: SortDirection.Desc
+    });
   }
   if (sortTitleEnabled) {
     sorts.push({ field: SortColumn.Title, direction: SortDirection.Asc });
   }
   if (sortPublishDateEnabled) {
-    sorts.push({ field: SortColumn.PublishDate, direction: SortDirection.Desc });
+    sorts.push({
+      field: SortColumn.PublishDate,
+      direction: SortDirection.Desc
+    });
   }
   if (sortCourseStartDateEnabled) {
-    sorts.push({ field: SortColumn.CourseStartDate, direction: SortDirection.Asc });
+    sorts.push({
+      field: SortColumn.CourseStartDate,
+      direction: SortDirection.Asc
+    });
   }
   if (sortRelevanceEnabled) {
     sorts.push({ field: SortColumn.Relevance });

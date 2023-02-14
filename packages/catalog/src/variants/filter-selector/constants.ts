@@ -1,15 +1,11 @@
-import { SortColumn } from '../../core';
+import { SortField } from '../../core';
+import { GlobalTypes } from '@thoughtindustries/content';
 
-export const localizedSortMapping: { [key in SortColumn]: string } = {
-  [SortColumn.UpdatedAt]: 'catalog.sort-updated',
-  [SortColumn.CreatedAt]: 'catalog.sort-created',
-  [SortColumn.Title]: 'catalog.sort-title',
-  [SortColumn.PublishDate]: 'catalog.sort-publish-date',
-  [SortColumn.CourseStartDate]: 'catalog.sort-course-start-date',
-  [SortColumn.Relevance]: 'catalog.sort-relevance',
-  [SortColumn.DisplayDate]: 'catalog.sort-display-date',
-  [SortColumn.Label]: 'catalog.sort-label',
-  [SortColumn.LastActiveAt]: 'catalog.sort-last-active-at',
-  [SortColumn.Name]: 'catalog.sort-name',
-  [SortColumn.ParentName]: 'catalog.sort-parent-name'
+export const localizedSortMapping: { [key in SortField]: string } = {
+  [GlobalTypes.SortColumn.UpdatedAt]: 'catalog.sort-updated',
+  [GlobalTypes.SortColumn.CreatedAt]: 'catalog.sort-created',
+  [GlobalTypes.SortColumn.Title]: 'catalog.sort-title',
+  [GlobalTypes.SortColumn.PublishDate]: 'catalog.sort-publish-date',
+  [GlobalTypes.SortColumn.CourseStartDate]: 'catalog.sort-course-start-date',
+  [GlobalTypes.SortColumn.Relevance]: 'catalog.sort-relevance'
 };

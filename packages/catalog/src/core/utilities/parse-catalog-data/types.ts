@@ -5,36 +5,18 @@ export type AggregationFilter = {
   value: string;
 };
 
-export enum SortField {
-  UpdatedAt = 'updatedAt',
-  CreatedAt = 'createdAt',
-  Title = 'title',
-  PublishDate = 'publishDate',
-  CourseStartDate = 'courseStartDate',
-  Relevance = 'relevance'
-}
+export type SortField =
+  | GlobalTypes.SortColumn.UpdatedAt
+  | GlobalTypes.SortColumn.CreatedAt
+  | GlobalTypes.SortColumn.Title
+  | GlobalTypes.SortColumn.PublishDate
+  | GlobalTypes.SortColumn.CourseStartDate
+  | GlobalTypes.SortColumn.Relevance;
 
-export enum SortColumn {
-  CourseStartDate = 'courseStartDate',
-  CreatedAt = 'createdAt',
-  DisplayDate = 'displayDate',
-  Label = 'label',
-  LastActiveAt = 'lastActiveAt',
-  Name = 'name',
-  ParentName = 'parentName',
-  PublishDate = 'publishDate',
-  Relevance = 'relevance',
-  Title = 'title',
-  UpdatedAt = 'updatedAt'
-}
-
-export enum SortDirection {
-  Desc = 'desc',
-  Asc = 'asc'
-}
+export type SortDirection = GlobalTypes.SortDirection.Desc | GlobalTypes.SortDirection.Asc;
 
 export type Sort = {
-  field: SortColumn;
+  field: SortField;
   direction?: SortDirection;
 };
 
