@@ -1,57 +1,10 @@
-import { Story } from '@storybook/react';
 import React from 'react';
 import { TestimonialMultiCarousel, TestimonialItemProps } from '../src';
+import { StoryObj } from '@storybook/react';
 
-export default {
-  title: 'Example/Testimonial',
-  component: TestimonialMultiCarousel,
-  argTypes: {
-    quote: {
-      name: 'quote',
-      type: { name: 'string', required: false },
-      description: 'Quote',
-      control: { type: 'text' }
-    },
-    username: {
-      name: 'username',
-      type: { name: 'string', required: false },
-      description: 'User Name',
-      control: { type: 'text' }
-    },
-    description: {
-      name: 'description',
-      type: { name: 'string', required: false },
-      description: 'User Description',
-      control: { type: 'text' }
-    },
-    backgroundColor: {
-      controls: {
-        matchers: {
-          color: /(background|color)$/i
-        }
-      }
-    },
-    textColor: {
-      controls: {
-        matchers: {
-          color: /(text|color)$/i
-        }
-      }
-    },
-    alignment: {
-      name: 'alignment',
-      options: ['Left', 'Center', 'Right'],
-      control: { type: 'select' },
-      defaultValue: 'Center'
-    },
-    asset: {
-      name: 'asset',
-      type: { name: 'string', required: false },
-      description: 'Add asset to background of testimonial.',
-      control: { type: 'text' }
-    }
-  }
-};
+export default { component: TestimonialMultiCarousel };
+
+type Testimonial = StoryObj<TestimonialItemProps>;
 
 const Item = ({ ...args }: TestimonialItemProps) => (
   <TestimonialMultiCarousel {...args} desktopColumnCount={1}>
@@ -59,14 +12,16 @@ const Item = ({ ...args }: TestimonialItemProps) => (
   </TestimonialMultiCarousel>
 );
 
-export const Single: Story<TestimonialItemProps> = Item.bind({});
-Single.args = {
-  quote: 'Si hortum in bibliotheca habes, nihil deerit.',
-  username: 'Marcus Tullius Cicero',
-  description: 'Statesman',
-  backgroundColor: '#FFFFFF',
-  textColor: '#000000',
-  alignment: 'Center'
+export const Single: Testimonial = {
+  render: args => <Item {...args} />,
+  args: {
+    quote: 'Si hortum in bibliotheca habes, nihil deerit.',
+    username: 'Marcus Tullius Cicero',
+    description: 'Statesman',
+    backgroundColor: '#FFFFFF',
+    textColor: '#000000',
+    alignment: 'Center'
+  }
 };
 
 const Multi = ({ ...args }: TestimonialItemProps) => (
@@ -77,12 +32,14 @@ const Multi = ({ ...args }: TestimonialItemProps) => (
   </TestimonialMultiCarousel>
 );
 
-export const List: Story<TestimonialItemProps> = Multi.bind({});
-List.args = {
-  quote: 'Si hortum in bibliotheca habes, nihil deerit.',
-  username: 'Marcus Tullius Cicero',
-  description: 'Statesman',
-  backgroundColor: '#FFFFFF',
-  textColor: '#000000',
-  alignment: 'Left'
+export const List: Testimonial = {
+  render: args => <Multi {...args} />,
+  args: {
+    quote: 'Si hortum in bibliotheca habes, nihil deerit.',
+    username: 'Marcus Tullius Cicero',
+    description: 'Statesman',
+    backgroundColor: '#FFFFFF',
+    textColor: '#000000',
+    alignment: 'Left'
+  }
 };
