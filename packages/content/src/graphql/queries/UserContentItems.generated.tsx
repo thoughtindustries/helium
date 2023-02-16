@@ -5,8 +5,9 @@ import * as Apollo from '@apollo/client';
 const defaultOptions = {} as const;
 export type UserContentItemsQueryVariables = Types.Exact<{
   query?: Types.InputMaybe<Types.Scalars['String']>;
-  kind?: Types.InputMaybe<Array<Types.Scalars['String']> | Types.Scalars['String']>;
-  sort?: Types.InputMaybe<Types.Scalars['String']>;
+  kind?: Types.InputMaybe<Array<Types.ContentKind> | Types.ContentKind>;
+  sortColumn?: Types.InputMaybe<Types.SortColumn>;
+  sortDirection?: Types.InputMaybe<Types.SortDirection>;
 }>;
 
 export type UserContentItemsQuery = {
@@ -48,8 +49,18 @@ export type UserContentItemsQuery = {
 };
 
 export const UserContentItemsDocument = gql`
-  query UserContentItems($query: String, $kind: [String!], $sort: String) {
-    UserContentItems(query: $query, kind: $kind, sort: $sort) {
+  query UserContentItems(
+    $query: String
+    $kind: [ContentKind!]
+    $sortColumn: SortColumn
+    $sortDirection: SortDirection
+  ) {
+    UserContentItems(
+      query: $query
+      kind: $kind
+      sortColumn: $sortColumn
+      sortDirection: $sortDirection
+    ) {
       asset
       title
       sessionTitle
@@ -99,7 +110,8 @@ export const UserContentItemsDocument = gql`
  *   variables: {
  *      query: // value for 'query'
  *      kind: // value for 'kind'
- *      sort: // value for 'sort'
+ *      sortColumn: // value for 'sortColumn'
+ *      sortDirection: // value for 'sortDirection'
  *   },
  * });
  */

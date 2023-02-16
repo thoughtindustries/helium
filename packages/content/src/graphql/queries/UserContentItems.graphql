@@ -1,5 +1,15 @@
-query UserContentItems($query: String, $kind: [String!], $sort: String) {
-  UserContentItems(query: $query, kind: $kind, sort: $sort) {
+query UserContentItems(
+  $query: String
+  $kind: [ContentKind!]
+  $sortColumn: SortColumn
+  $sortDirection: SortDirection
+) {
+  UserContentItems(
+    query: $query
+    kind: $kind
+    sortColumn: $sortColumn
+    sortDirection: $sortDirection
+  ) {
     asset
     title
     sessionTitle

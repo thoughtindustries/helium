@@ -15,7 +15,8 @@ export type CatalogMetaFragmentFragment = {
   isCurated: boolean;
   queryCustomFields: any;
   resultsDisplayType: Types.ContentItemDisplayType;
-  selectedSort: string;
+  selectedSortColumn: Types.SortColumn;
+  selectedSortDirection: Types.SortDirection;
   sortCourseStartDateEnabled: boolean;
   sortCreatedAtEnabled: boolean;
   sortPublishDateEnabled: boolean;
@@ -79,7 +80,8 @@ export const CatalogMetaFragmentFragmentDoc = gql`
     isCurated
     queryCustomFields
     resultsDisplayType
-    selectedSort
+    selectedSortColumn
+    selectedSortDirection
     sortCourseStartDateEnabled
     sortCreatedAtEnabled
     sortPublishDateEnabled

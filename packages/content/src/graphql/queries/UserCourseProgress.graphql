@@ -1,7 +1,5 @@
 query UserCourseProgress($id: ID!) {
   UserCourseProgress(id: $id) {
-    user
-    course
     totalViews
     totalTime
     percentComplete

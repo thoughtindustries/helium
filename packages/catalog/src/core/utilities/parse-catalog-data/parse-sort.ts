@@ -1,6 +1,6 @@
-import { SortDirection } from '../..';
+import { SortDirection, SortField } from '../..';
 import { SORT_DELIMITER } from './constants';
-import { Sort, SortField } from './types';
+import { Sort } from './types';
 
 const parseSort = (sort: string): Sort | undefined => {
   if (!sort) {

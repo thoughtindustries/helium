@@ -29,7 +29,8 @@ fragment CatalogMetaFragment on CatalogMeta {
   isCurated
   queryCustomFields
   resultsDisplayType
-  selectedSort
+  selectedSortColumn
+  selectedSortDirection
   sortCourseStartDateEnabled
   sortCreatedAtEnabled
   sortPublishDateEnabled
