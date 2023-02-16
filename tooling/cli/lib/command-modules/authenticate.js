@@ -1,13 +1,7 @@
-const inquirer = require('inquirer');
 const { INSTANCE_QUESTIONS } = require('../prompts');
 const { isInstance } = require('../validations');
 const { initProject } = require('../file-generators');
-
-const promptQuestions = async questions => {
-  return new Promise((resolve, reject) => {
-    inquirer.prompt(questions).then(resolve).catch(reject);
-  });
-};
+const { promptQuestions } = require('../helpers/prompts');
 
 const gatherInstances = async (instances = []) => {
   const newInstanceAnswers = await promptQuestions(INSTANCE_QUESTIONS);

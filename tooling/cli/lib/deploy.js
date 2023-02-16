@@ -57,6 +57,19 @@ const JOB_QUERY = /* GraphQL */ `
   }
 `;
 
+class DeploymentError extends Error {
+  #payload;
+  constructor(message, payload) {
+    super(message);
+    // Ensure the name of this error is the same as the class name
+    this.name = this.constructor.name;
+    this.#payload = { ...payload };
+  }
+  getPayload() {
+    return this.#payload;
+  }
+}
+
 (async function () {
   const instance = findTIInstance();
 
@@ -64,51 +77,47 @@ const JOB_QUERY = /* GraphQL */ `
     throw new Error('Could not locate instance in configuration file.');
   }
 
-  try {
-    const policyData = await getHeliumUploadData(instance);
-    const { key } = policyData;
+  const policyData = await getHeliumUploadData(instance);
+  const { key } = policyData;
 
-    if (!policyData.key || !policyData.signedUrl) {
-      throw new Error('Could not retrieve helium keys.');
-    }
-    // ensure translations are up to date
-    await generateTranslationFile(OP_DIR, [instance], true);
-    // trim translations file down to only keys used in project
-    await gatherUsedTranslations();
-    // build project
-    const hasAtoms = await dirHasAtoms(OP_DIR);
-    await buildProject(hasAtoms);
-
-    let atomsScriptHash;
-    let atomsStyleHash;
-    if (hasAtoms) {
-      atomsScriptHash = await getAtomsHash(OP_DIR, 'script');
-      const possibleStyleHash = (await getAtomsHash(OP_DIR, 'style')) || atomsScriptHash;
-      atomsStyleHash = await compileStyles(OP_DIR, possibleStyleHash);
-    }
-
-    // hash queries for whitelisting
-    await writeGraphqlManifest();
-    await uploadHeliumProject(policyData);
-    // reset translations file to include all keys for local development
-    await resetTranslationFile();
-    const batchJobId = await triggerBatch(instance, key);
-
-    const fetchStatus = () =>
-      checkDeploymentJobStatus(instance, batchJobId, key, atomsScriptHash, atomsStyleHash);
-
-    const processing = result => {
-      if (result === 'FAILED') {
-        throw new Error('Batch deployment failed');
-      }
-
-      return result !== 'SUCCEEDED';
-    };
-
-    await poll(fetchStatus, processing, 3000);
-  } catch (e) {
-    throw new Error(e);
+  if (!policyData.key || !policyData.signedUrl) {
+    throw new Error('Could not retrieve helium keys.');
   }
+  // ensure translations are up to date
+  await generateTranslationFile(OP_DIR, [instance], true);
+  // trim translations file down to only keys used in project
+  await gatherUsedTranslations();
+  // build project
+  const hasAtoms = await dirHasAtoms(OP_DIR);
+  await buildProject(hasAtoms);
+
+  let atomsScriptHash;
+  let atomsStyleHash;
+  if (hasAtoms) {
+    atomsScriptHash = await getAtomsHash(OP_DIR, 'script');
+    const possibleStyleHash = (await getAtomsHash(OP_DIR, 'style')) || atomsScriptHash;
+    atomsStyleHash = await compileStyles(OP_DIR, possibleStyleHash);
+  }
+
+  // hash queries for whitelisting
+  await writeGraphqlManifest();
+  await uploadHeliumProject(policyData);
+  // reset translations file to include all keys for local development
+  await resetTranslationFile();
+  const batchJobId = await triggerBatch(instance, key);
+
+  const fetchStatus = () =>
+    checkDeploymentJobStatus(instance, batchJobId, key, atomsScriptHash, atomsStyleHash);
+
+  const processing = result => {
+    if (result === 'FAILED') {
+      throw new DeploymentError('Batch deployment failed', { jobId: batchJobId, instance });
+    }
+
+    return result !== 'SUCCEEDED';
+  };
+
+  await poll(fetchStatus, processing, 3000);
 })()
   .then(() => {
     console.log('>>> Deploy successful!');
@@ -116,8 +125,17 @@ const JOB_QUERY = /* GraphQL */ `
   })
   .catch(err => {
     console.error('>>> Error deploying: ', err);
-    process.exit(1);
+    if (err instanceof DeploymentError) {
+      process.send(err.getPayload());
+    } else {
+      process.exit(1);
+    }
   });
+
+// Add message event handler to keep the process running until manually closed
+process.on('message', message => {
+  console.log('>>> Deploy process receive message', message);
+});
 
 async function buildProject(hasAtoms) {
   return new Promise((resolve, reject) => {
