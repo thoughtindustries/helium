@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.2.0-beta.4](https://github.com/thoughtindustries/helium/compare/@thoughtindustries/helium@1.2.0-beta.3...@thoughtindustries/helium@1.2.0-beta.4) (2023-02-16)
+
+
+### Features
+
+* add cli function to fetch deploy log when deployment fails ([#183](https://github.com/thoughtindustries/helium/issues/183)) ([762500d](https://github.com/thoughtindustries/helium/commit/762500d526dadd4e2b4926f6ef608d48ccfb92eb))
+
+
+
+
+
 # [1.2.0-beta.3](https://github.com/thoughtindustries/helium/compare/@thoughtindustries/helium@1.2.0-beta.2...@thoughtindustries/helium@1.2.0-beta.3) (2023-02-09)
 
 
