@@ -1,21 +1,15 @@
-import { Meta, Story } from '@storybook/react';
+import { Meta, StoryObj } from '@storybook/react';
 import React from 'react';
 import { Cart, CartButton, CartItem, CartProps, RelatedProductsDocument } from '../src';
 import { CART_COOKIE_NAME } from '../src/core/components/cart-provider/constants';
 import { serializeCart } from '../src/core/components/cart-provider/utilities';
 
-export default {
-  title: 'Example/Cart',
-  component: Cart,
-  argTypes: {
-    checkoutUrl: {
-      name: 'checkoutUrl',
-      type: { name: 'string', required: false },
-      description: 'URL for checkout link.',
-      control: { type: 'text' }
-    }
-  }
-} as Meta;
+const meta: Meta<CartProps> = {
+  component: Cart
+};
+
+export default meta;
+type Cart = StoryObj<CartProps>;
 
 const mockCartProductItem = {
   purchasableType: 'product',
@@ -107,21 +101,21 @@ const mockedApolloProviderOptions = {
   query: { fetchPolicy: 'no-cache' as const }
 };
 
-const Template: Story<CartProps> = args => (
-  <Cart {...args}>
-    <CartButton />
-  </Cart>
-);
-
-export const Base = Template.bind({});
-Base.args = {
-  checkoutUrl: '/checkout'
-};
-Base.parameters = {
-  cookie: { ...mockCookie },
-  apolloClient: {
-    addTypename: false,
-    defaultOptions: mockedApolloProviderOptions,
-    mocks: mockApolloResults
+export const Base: Cart = {
+  render: args => (
+    <Cart {...args}>
+      <CartButton />
+    </Cart>
+  ),
+  args: {
+    checkoutUrl: '/checkout'
+  },
+  parameters: {
+    cookie: { ...mockCookie },
+    apolloClient: {
+      addTypename: false,
+      defaultOptions: mockedApolloProviderOptions,
+      mocks: mockApolloResults
+    }
   }
 };
