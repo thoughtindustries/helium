@@ -8,13 +8,15 @@ import {
   ContentTileDescriptiveLayout,
   ContentMultiCarousel,
   ContentCarousel,
-  ContentTileImageOverlay
+  ContentTileImageOverlay,
+  FeaturedContentProps
 } from '../src';
 import { RssItemsDocument } from '@thoughtindustries/content';
+import { StoryObj } from '@storybook/react';
 
-export default {
-  title: 'Example/FeaturedContent'
-};
+export default { component: FeaturedContent };
+
+type FeaturedContent = StoryObj<FeaturedContentProps>;
 
 const headerOptions = {
   title: 'Feature Content Header'
@@ -99,108 +101,122 @@ const handleAddedToQueue = (): Promise<void> => {
   return Promise.resolve();
 };
 
-export const TileStandardLayout = () => (
-  <FeaturedContent>
-    <ContentTileStandardLayout
-      headerOptions={headerOptions}
-      desktopColumnCount={2}
-      onAddedToQueue={handleAddedToQueue}
-    >
-      <ContentTileStandardLayout.Item {...mockItems.dynamic} />
-      <ContentTileStandardLayout.Item {...mockItems.manual} />
-      <ContentTileStandardLayout.Item {...mockItems.manual} />
-      <ContentTileStandardLayout.Item {...mockItems.manual} />
-    </ContentTileStandardLayout>
-  </FeaturedContent>
-);
+export const TileStandardLayout: FeaturedContent = {
+  render: () => (
+    <FeaturedContent>
+      <ContentTileStandardLayout
+        headerOptions={headerOptions}
+        desktopColumnCount={2}
+        onAddedToQueue={handleAddedToQueue}
+      >
+        <ContentTileStandardLayout.Item {...mockItems.dynamic} />
+        <ContentTileStandardLayout.Item {...mockItems.manual} />
+        <ContentTileStandardLayout.Item {...mockItems.manual} />
+        <ContentTileStandardLayout.Item {...mockItems.manual} />
+      </ContentTileStandardLayout>
+    </FeaturedContent>
+  )
+};
 
-export const TileDescriptiveLayout = () => (
-  <FeaturedContent>
-    <ContentTileDescriptiveLayout
-      headerOptions={headerOptions}
-      desktopColumnCount={2}
-      onAddedToQueue={handleAddedToQueue}
-    >
-      <ContentTileDescriptiveLayout.Item {...mockItems.dynamic} />
-      <ContentTileDescriptiveLayout.Item {...mockItems.manual} />
-      <ContentTileDescriptiveLayout.Item {...mockItems.manual} />
-      <ContentTileDescriptiveLayout.Item {...mockItems.manual} />
-    </ContentTileDescriptiveLayout>
-  </FeaturedContent>
-);
+export const TileDescriptiveLayout: FeaturedContent = {
+  render: () => (
+    <FeaturedContent>
+      <ContentTileDescriptiveLayout
+        headerOptions={headerOptions}
+        desktopColumnCount={2}
+        onAddedToQueue={handleAddedToQueue}
+      >
+        <ContentTileDescriptiveLayout.Item {...mockItems.dynamic} />
+        <ContentTileDescriptiveLayout.Item {...mockItems.manual} />
+        <ContentTileDescriptiveLayout.Item {...mockItems.manual} />
+        <ContentTileDescriptiveLayout.Item {...mockItems.manual} />
+      </ContentTileDescriptiveLayout>
+    </FeaturedContent>
+  )
+};
 
-export const MultiCarousel = () => (
-  <FeaturedContent>
-    <ContentMultiCarousel
-      headerOptions={headerOptions}
-      desktopColumnCount={2}
-      onAddedToQueue={handleAddedToQueue}
-    >
-      <ContentMultiCarousel.Item {...mockItems.dynamic} />
-      <ContentMultiCarousel.Item {...mockItems.manual} />
-      <ContentMultiCarousel.Item {...mockItems.manual} />
-      <ContentMultiCarousel.Item {...mockItems.manual} />
-    </ContentMultiCarousel>
-  </FeaturedContent>
-);
+export const MultiCarousel: FeaturedContent = {
+  render: () => (
+    <FeaturedContent>
+      <ContentMultiCarousel
+        headerOptions={headerOptions}
+        desktopColumnCount={2}
+        onAddedToQueue={handleAddedToQueue}
+      >
+        <ContentMultiCarousel.Item {...mockItems.dynamic} />
+        <ContentMultiCarousel.Item {...mockItems.manual} />
+        <ContentMultiCarousel.Item {...mockItems.manual} />
+        <ContentMultiCarousel.Item {...mockItems.manual} />
+      </ContentMultiCarousel>
+    </FeaturedContent>
+  )
+};
 
-export const Carousel = () => (
-  <FeaturedContent>
-    <ContentCarousel headerOptions={headerOptions}>
-      <ContentCarousel.Item {...mockItems.dynamic} />
-      <ContentCarousel.Item {...mockItems.dynamicTwo} />
-    </ContentCarousel>
-  </FeaturedContent>
-);
+export const Carousel: FeaturedContent = {
+  render: () => (
+    <FeaturedContent>
+      <ContentCarousel headerOptions={headerOptions}>
+        <ContentCarousel.Item {...mockItems.dynamic} />
+        <ContentCarousel.Item {...mockItems.dynamicTwo} />
+      </ContentCarousel>
+    </FeaturedContent>
+  )
+};
 
-export const TileImageOverlay = () => (
-  <FeaturedContent>
-    <ContentTileImageOverlay
-      headerOptions={headerOptions}
-      desktopColumnCount={2}
-      onAddedToQueue={handleAddedToQueue}
-    >
-      <ContentTileImageOverlay.Item {...mockItems.dynamic} />
-      <ContentTileImageOverlay.Item {...mockItems.dynamicTwo} />
-    </ContentTileImageOverlay>
-  </FeaturedContent>
-);
+export const TileImageOverlay: FeaturedContent = {
+  render: () => (
+    <FeaturedContent>
+      <ContentTileImageOverlay
+        headerOptions={headerOptions}
+        desktopColumnCount={2}
+        onAddedToQueue={handleAddedToQueue}
+      >
+        <ContentTileImageOverlay.Item {...mockItems.dynamic} />
+        <ContentTileImageOverlay.Item {...mockItems.dynamicTwo} />
+      </ContentTileImageOverlay>
+    </FeaturedContent>
+  )
+};
 
-export const WithLeftSidebar = () => (
-  <FeaturedContent
-    sidebar={<SidebarRss title="RSS" feedUrl={mockFeedUrl} />}
-    sidebarPosition={SidebarPosition.Left}
-  >
-    <ContentTileStandardLayout
-      headerOptions={headerOptions}
-      desktopColumnCount={2}
-      onAddedToQueue={handleAddedToQueue}
+export const WithLeftSidebar: FeaturedContent = {
+  render: () => (
+    <FeaturedContent
+      sidebar={<SidebarRss title="RSS" feedUrl={mockFeedUrl} />}
+      sidebarPosition={SidebarPosition.Left}
     >
-      <ContentTileStandardLayout.Item {...mockItems.manual} />
-      <ContentTileStandardLayout.Item {...mockItems.manual} />
-      <ContentTileStandardLayout.Item {...mockItems.manual} />
-    </ContentTileStandardLayout>
-  </FeaturedContent>
-);
-WithLeftSidebar.parameters = {
-  apolloClient: {
-    mocks: [mockApolloResults.sidebarRss]
+      <ContentTileStandardLayout
+        headerOptions={headerOptions}
+        desktopColumnCount={2}
+        onAddedToQueue={handleAddedToQueue}
+      >
+        <ContentTileStandardLayout.Item {...mockItems.manual} />
+        <ContentTileStandardLayout.Item {...mockItems.manual} />
+        <ContentTileStandardLayout.Item {...mockItems.manual} />
+      </ContentTileStandardLayout>
+    </FeaturedContent>
+  ),
+  parameters: {
+    apolloClient: {
+      mocks: [mockApolloResults.sidebarRss]
+    }
   }
 };
 
-export const WithRightSidebar = () => (
-  <FeaturedContent
-    sidebar={<SidebarDefault title="Default">Static sidebar content</SidebarDefault>}
-    sidebarPosition={SidebarPosition.Right}
-  >
-    <ContentTileStandardLayout
-      headerOptions={headerOptions}
-      desktopColumnCount={2}
-      onAddedToQueue={handleAddedToQueue}
+export const WithRightSidebar: FeaturedContent = {
+  render: () => (
+    <FeaturedContent
+      sidebar={<SidebarDefault title="Default">Static sidebar content</SidebarDefault>}
+      sidebarPosition={SidebarPosition.Right}
     >
-      <ContentTileStandardLayout.Item {...mockItems.manual} />
-      <ContentTileStandardLayout.Item {...mockItems.manual} />
-      <ContentTileStandardLayout.Item {...mockItems.manual} />
-    </ContentTileStandardLayout>
-  </FeaturedContent>
-);
+      <ContentTileStandardLayout
+        headerOptions={headerOptions}
+        desktopColumnCount={2}
+        onAddedToQueue={handleAddedToQueue}
+      >
+        <ContentTileStandardLayout.Item {...mockItems.manual} />
+        <ContentTileStandardLayout.Item {...mockItems.manual} />
+        <ContentTileStandardLayout.Item {...mockItems.manual} />
+      </ContentTileStandardLayout>
+    </FeaturedContent>
+  )
+};
