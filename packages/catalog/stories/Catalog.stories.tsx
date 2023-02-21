@@ -16,7 +16,7 @@ import {
 } from '@thoughtindustries/content/src/graphql/global-types';
 import { Catalog, CatalogProvider, CatalogResultItem, CatalogProps } from '../src';
 
-export default { component: Catalog };
+export default { component: Catalog, title: 'Packages/Catalog' };
 
 type Catalog = StoryObj<CatalogProps>;
 

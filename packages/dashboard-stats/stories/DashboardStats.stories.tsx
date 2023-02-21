@@ -1,7 +1,7 @@
 import { DashboardStatsProps, DashboardStats, UserStatsDocument } from '../src';
 import { StoryObj } from '@storybook/react';
 
-export default { component: DashboardStats };
+export default { component: DashboardStats, title: 'Packages/Dashboard Stats' };
 
 type Dashboard = StoryObj<DashboardStatsProps>;
 

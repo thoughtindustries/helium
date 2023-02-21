@@ -2,7 +2,7 @@ import React from 'react';
 import { StoryObj } from '@storybook/react';
 import { NavigationBar, NavigationBarLink, NavigationBarProps } from '../src';
 
-export default { component: NavigationBar };
+export default { component: NavigationBar, title: 'Packages/Navigation Bar' };
 
 type NavigationBar = StoryObj<NavigationBarProps>;
 

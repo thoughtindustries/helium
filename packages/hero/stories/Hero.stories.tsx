@@ -3,7 +3,8 @@ import React from 'react';
 import { HeroProps, Hero } from '../src';
 
 const meta: Meta<HeroProps> = {
-  component: Hero
+  component: Hero,
+  title: 'Packages/Hero'
 };
 
 export default meta;

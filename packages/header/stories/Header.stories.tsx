@@ -3,7 +3,8 @@ import React from 'react';
 import { HeaderProps, Header } from '../src';
 
 const meta: Meta<HeaderProps> = {
-  component: Header
+  component: Header,
+  title: 'Packages/Header'
 };
 
 export default meta;

@@ -2,7 +2,7 @@ import React from 'react';
 import { StoryObj } from '@storybook/react';
 import { LinkLists, LinkList, LinkListsProps } from '../src';
 
-export default { component: LinkLists };
+export default { component: LinkLists, title: 'Packages/Link Lists' };
 
 type LinkLists = StoryObj<LinkListsProps>;
 

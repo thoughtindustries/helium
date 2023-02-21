@@ -5,7 +5,8 @@ import { CART_COOKIE_NAME } from '../src/core/components/cart-provider/constants
 import { serializeCart } from '../src/core/components/cart-provider/utilities';
 
 const meta: Meta<CartProps> = {
-  component: Cart
+  component: Cart,
+  title: 'Packages/Cart'
 };
 
 export default meta;

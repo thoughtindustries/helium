@@ -3,7 +3,8 @@ import React from 'react';
 import { VideoPlayer, VideoPlayerProps } from '../src';
 
 const meta: Meta<VideoPlayerProps> = {
-  component: VideoPlayer
+  component: VideoPlayer,
+  title: 'Packages/Video Player'
 };
 
 export default meta;

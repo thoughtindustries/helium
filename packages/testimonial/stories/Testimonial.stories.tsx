@@ -2,7 +2,7 @@ import React from 'react';
 import { TestimonialMultiCarousel, TestimonialItemProps } from '../src';
 import { StoryObj } from '@storybook/react';
 
-export default { component: TestimonialMultiCarousel };
+export default { component: TestimonialMultiCarousel, title: 'Packages/Testimonial' };
 
 type Testimonial = StoryObj<TestimonialItemProps>;
 
