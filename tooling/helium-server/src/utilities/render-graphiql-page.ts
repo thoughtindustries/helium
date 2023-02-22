@@ -42,13 +42,13 @@ function render({ endpoint }: Options) {
       include them directly in your favored resource bundler.
     -->
     <script
-      src="https://unpkg.com/react@17/umd/react.development.js"
-      integrity="sha512-Vf2xGDzpqUOEIKO+X2rgTLWPY+65++WPwCHkX2nFMu9IcstumPsf/uKKRd5prX3wOu8Q0GBylRpsDB26R6ExOg=="
+      src="https://unpkg.com/react@18.2.0/umd/react.development.js"
+      integrity="sha512-m7nhpWHotpucPI37I4lPovL28Bm2BhAMV8poF3F8Z9oOEZ3jlxGzkgvG0EMt1mVL1xydr1erlBbmN90js/ssUw=="
       crossorigin="anonymous"
     ></script>
     <script
-      src="https://unpkg.com/react-dom@17/umd/react-dom.development.js"
-      integrity="sha512-Wr9OKCTtq1anK0hq5bY3X/AvDI5EflDSAh0mE9gma+4hl+kXdTJPKZ3TwLMBcrgUeoY0s3dq9JjhCQc7vddtFg=="
+      src="https://unpkg.com/react-dom@18.2.0/umd/react-dom.development.js"
+      integrity="sha512-SKTL5rMewKkHVooCoONgJHCICK1otCPqPFduipyXVLWgtHHmsQgzXXHUP+SPyL4eU/knSpDkMXKlLedcHmWJpQ=="
       crossorigin="anonymous"
     ></script>
 
@@ -57,24 +57,25 @@ function render({ endpoint }: Options) {
       copy them directly into your environment, or perhaps include them in your
       favored resource bundler.
      -->
-    <link rel="stylesheet" href="https://unpkg.com/graphiql/graphiql.min.css" />
+    <link rel="stylesheet" href="https://unpkg.com/graphiql@2.2.0/graphiql.min.css" />
   </head>
 
   <body>
     <div id="graphiql">Loading...</div>
     <script
-      src="https://unpkg.com/graphiql/graphiql.min.js"
+      src="https://unpkg.com/graphiql@2.2.0/graphiql.min.js"
+      integrity="sha512-FVCV2//UVo1qJ3Kg6kkHLe0Hg+IJhjrGa+aYHh8xD4KmwbbjthIzvaAcCJsQgA43+k+6u7HqORKXMyMt82Srfw=="
+      crossorigin="anonymous"
       type="application/javascript"
     ></script>
     <script>
-      ReactDOM.render(
+      ReactDOM.createRoot(document.getElementById('graphiql')).render(
         React.createElement(GraphiQL, {
           fetcher: GraphiQL.createFetcher({
             url: '${endpoint}',
           }),
           defaultEditorToolsVisibility: true,
-        }),
-        document.getElementById('graphiql'),
+        })
       );
     </script>
   </body>
