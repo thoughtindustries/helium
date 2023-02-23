@@ -1,4 +1,4 @@
-import { StoryObj } from '@storybook/react';
+import { StoryObj, Meta } from '@storybook/react';
 import React from 'react';
 import {
   ValidateRedemptionCodeDocument,
@@ -8,9 +8,13 @@ import {
   ResponseProps
 } from '../src';
 
-export default { component: Registration, title: 'Packages/User/Registration' };
+const meta: Meta<typeof Registration> = {
+  component: Registration,
+  title: 'Packages/User/Registration'
+};
 
-type Registration = StoryObj<ResponseProps | undefined>;
+export default meta;
+type Registration = StoryObj<ResponseProps>;
 
 const mockApolloResultsFactory = (
   code: string,

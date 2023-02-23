@@ -1,11 +1,15 @@
-import { StoryObj } from '@storybook/react';
+import { StoryObj, Meta } from '@storybook/react';
 import React from 'react';
 import { ApolloError } from '@apollo/client';
 import { GraphQLError } from 'graphql';
 import { TermsAndConditionsDocument, Login, LoginDocument, ValidationProps } from '../src';
 
-export default { component: Login, title: 'Packages/User/Login' };
+const meta: Meta<ValidationProps> = {
+  component: Login,
+  title: 'Packages/User/Login'
+};
 
+export default meta;
 type Login = StoryObj<ValidationProps>;
 
 const mockTermsAndConditionsResults = (globalTerms: string) => ({

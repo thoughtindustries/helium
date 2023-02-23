@@ -1,9 +1,13 @@
 import React from 'react';
-import { StoryObj } from '@storybook/react';
+import { StoryObj, Meta } from '@storybook/react';
 import { LinkLists, LinkList, LinkListsProps } from '../src';
 
-export default { component: LinkLists, title: 'Packages/Link Lists' };
+const meta: Meta<LinkListsProps> = {
+  component: LinkLists,
+  title: 'Packages/Link Lists'
+};
 
+export default meta;
 type LinkLists = StoryObj<LinkListsProps>;
 
 export const Base: LinkLists = {

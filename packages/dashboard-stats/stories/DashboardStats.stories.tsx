@@ -1,8 +1,12 @@
 import { DashboardStatsProps, DashboardStats, UserStatsDocument } from '../src';
-import { StoryObj } from '@storybook/react';
+import { StoryObj, Meta } from '@storybook/react';
 
-export default { component: DashboardStats, title: 'Packages/Dashboard Stats' };
+const meta: Meta<DashboardStatsProps> = {
+  component: DashboardStats,
+  title: 'Packages/Dashboard Stats'
+};
 
+export default meta;
 type Dashboard = StoryObj<DashboardStatsProps>;
 
 export const Dashboard: Dashboard = {

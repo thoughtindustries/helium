@@ -1,5 +1,5 @@
 import React from 'react';
-import { StoryObj } from '@storybook/react';
+import { StoryObj, Meta } from '@storybook/react';
 import {
   AddResourceToQueueDocument,
   CatalogContentDocument,
@@ -16,8 +16,12 @@ import {
 } from '@thoughtindustries/content/src/graphql/global-types';
 import { Catalog, CatalogProvider, CatalogResultItem, CatalogProps } from '../src';
 
-export default { component: Catalog, title: 'Packages/Catalog' };
+const meta: Meta<CatalogProps> = {
+  component: Catalog,
+  title: 'Packages/Catalog'
+};
 
+export default meta;
 type Catalog = StoryObj<CatalogProps>;
 
 type MockQueryProps = {

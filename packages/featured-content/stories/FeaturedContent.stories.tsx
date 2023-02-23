@@ -12,13 +12,14 @@ import {
   FeaturedContentProps
 } from '../src';
 import { RssItemsDocument } from '@thoughtindustries/content';
-import { StoryObj } from '@storybook/react';
+import { StoryObj, Meta } from '@storybook/react';
 
-export default {
+const meta: Meta<FeaturedContentProps> = {
   component: FeaturedContent,
-  title: 'Packages/Featured Content/Base'
+  title: 'Packages/Featured Content'
 };
 
+export default meta;
 type FeaturedContent = StoryObj<FeaturedContentProps>;
 
 const headerOptions = {

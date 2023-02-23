@@ -1,9 +1,13 @@
 import React from 'react';
-import { StoryObj } from '@storybook/react';
+import { StoryObj, Meta } from '@storybook/react';
 import { NavigationBar, NavigationBarLink, NavigationBarProps } from '../src';
 
-export default { component: NavigationBar, title: 'Packages/Navigation Bar' };
+const meta: Meta<NavigationBarProps> = {
+  component: NavigationBar,
+  title: 'Packages/Navigation Bar'
+};
 
+export default meta;
 type NavigationBar = StoryObj<NavigationBarProps>;
 
 export const Base: NavigationBar = {

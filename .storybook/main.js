@@ -14,8 +14,7 @@ const config = {
         }
       }
     },
-    'storybook-addon-apollo-client',
-    'storybook-react-i18next'
+    'storybook-addon-apollo-client'
   ],
   framework: {
     name: '@storybook/react-vite',

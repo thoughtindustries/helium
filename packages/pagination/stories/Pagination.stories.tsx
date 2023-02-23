@@ -1,9 +1,13 @@
-import { StoryObj } from '@storybook/react';
+import { StoryObj, Meta } from '@storybook/react';
 import React from 'react';
 import { Pagination, PaginationProps } from '../src';
 
-export default { component: Pagination, title: 'Packages/Pagination' };
+const meta: Meta<PaginationProps> = {
+  component: Pagination,
+  title: 'Packages/Pagination'
+};
 
+export default meta;
 type Pagination = StoryObj<PaginationProps>;
 
 export const Base: Pagination = {

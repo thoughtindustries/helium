@@ -1,9 +1,13 @@
 import React from 'react';
-import { TestimonialMultiCarousel, TestimonialItemProps } from '../src';
-import { StoryObj } from '@storybook/react';
+import { TestimonialMultiCarousel, TestimonialItemProps, TestimonialCarouselProps } from '../src';
+import { Meta, StoryObj } from '@storybook/react';
 
-export default { component: TestimonialMultiCarousel, title: 'Packages/Testimonial' };
+const meta: Meta<TestimonialCarouselProps> = {
+  component: TestimonialMultiCarousel,
+  title: 'Packages/Testimonial'
+};
 
+export default meta;
 type Testimonial = StoryObj<TestimonialItemProps>;
 
 const Item = ({ ...args }: TestimonialItemProps) => (
