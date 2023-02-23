@@ -20,7 +20,7 @@ import {
 } from '../src';
 
 export default {
-  title: 'Example/FeaturedContent (data fetching)'
+  title: 'Packages/Featured Content/Data Fetching'
 };
 
 const headerOptions = {

@@ -14,7 +14,10 @@ import {
 import { RssItemsDocument } from '@thoughtindustries/content';
 import { StoryObj } from '@storybook/react';
 
-export default { component: FeaturedContent, title: 'Packages/Featured Content' };
+export default {
+  component: FeaturedContent,
+  title: 'Packages/Featured Content/Base'
+};
 
 type FeaturedContent = StoryObj<FeaturedContentProps>;
 
