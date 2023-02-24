@@ -16,7 +16,7 @@ import { StoryObj, Meta } from '@storybook/react';
 
 const meta: Meta<FeaturedContentProps> = {
   component: FeaturedContent,
-  title: 'Packages/Featured Content'
+  title: 'Packages/Featured Content/Base'
 };
 
 export default meta;
