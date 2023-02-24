@@ -10,9 +10,8 @@ import { CatalogMetaFragmentFragmentDoc } from './CatalogMetaFragment.generated'
 import * as Apollo from '@apollo/client';
 const defaultOptions = {} as const;
 export type CatalogContentQueryVariables = Types.Exact<{
-  layoutId?: Types.InputMaybe<Types.Scalars['ID']>;
-  widgetId?: Types.InputMaybe<Types.Scalars['ID']>;
-  sort?: Types.InputMaybe<Types.Scalars['String']>;
+  sortColumn?: Types.InputMaybe<Types.SortColumn>;
+  sortDirection?: Types.InputMaybe<Types.SortDirection>;
   resultsDisplayType?: Types.InputMaybe<Types.ContentItemDisplayType>;
   page: Types.Scalars['Int'];
   token?: Types.InputMaybe<Types.Scalars['String']>;
@@ -38,9 +37,8 @@ export type CatalogContentQuery = {
 
 export const CatalogContentDocument = gql`
   query CatalogContent(
-    $layoutId: ID
-    $widgetId: ID
-    $sort: String
+    $sortColumn: SortColumn
+    $sortDirection: SortDirection
     $resultsDisplayType: ContentItemDisplayType
     $page: Int!
     $token: String
@@ -50,9 +48,8 @@ export const CatalogContentDocument = gql`
     $query: String
   ) {
     CatalogContent(
-      layoutId: $layoutId
-      widgetId: $widgetId
-      sort: $sort
+      sortColumn: $sortColumn
+      sortDirection: $sortDirection
       resultsDisplayType: $resultsDisplayType
       page: $page
       token: $token
@@ -89,9 +86,8 @@ export const CatalogContentDocument = gql`
  * @example
  * const { data, loading, error } = useCatalogContentQuery({
  *   variables: {
- *      layoutId: // value for 'layoutId'
- *      widgetId: // value for 'widgetId'
- *      sort: // value for 'sort'
+ *      sortColumn: // value for 'sortColumn'
+ *      sortDirection: // value for 'sortDirection'
  *      resultsDisplayType: // value for 'resultsDisplayType'
  *      page: // value for 'page'
  *      token: // value for 'token'

@@ -25,8 +25,6 @@ const config = {
     pathname: '/catalog',
     searchString: '?query=test'
   },
-  layoutId: 'layout-id',
-  widgetId: 'widget-id'
 }
 
 <CatalogProvider config={config}>
@@ -35,7 +33,7 @@ const config = {
 
 # Or use custom pagination
 <CatalogProvider config={config}>
-  <Catalog 
+  <Catalog
     onAddedToQueue={(item) => Promise.resolve()}
     pagination={({page, pageSize, total, getPageLink}) => <>...</>} />
 </CatalogProvider>
@@ -49,7 +47,7 @@ const priceFormat = (priceInCents) => {
   return formatter.format(priceInCents / 100);
 }
 <CatalogProvider config={config}>
-  <Catalog 
+  <Catalog
     onAddedToQueue={(item) => Promise.resolve()}
     priceFormat={priceFormat} />
 </CatalogProvider>

@@ -8,8 +8,6 @@ export type CatalogContextType = {
 };
 
 export type CatalogProviderConfig = {
-  layoutId?: string;
-  widgetId?: string;
   parsedUrl: CatalogParsedURL;
 };
 

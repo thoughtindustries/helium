@@ -3,6 +3,76 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.2.0-beta.5](https://github.com/thoughtindustries/helium/compare/@thoughtindustries/helium-template@1.2.0-beta.3...@thoughtindustries/helium-template@1.2.0-beta.5) (2023-02-16)
+
+
+### Bug Fixes
+
+* CLM-7401 Update Package Generated Queries ([#185](https://github.com/thoughtindustries/helium/issues/185)) ([19caf8c](https://github.com/thoughtindustries/helium/commit/19caf8c5c07cd63908b69ad4c2c1b2144bd08b28))
+* remove unused props ([f5192b1](https://github.com/thoughtindustries/helium/commit/f5192b1aa3321c28c4e4eff84715aff6e4a997e3))
+* tailwind.css ([5dd07c5](https://github.com/thoughtindustries/helium/commit/5dd07c567934566ceccc07fa670e6df3d4bd7c87))
+
+
+### Features
+
+* add handler for data using State hook ([285e0d1](https://github.com/thoughtindustries/helium/commit/285e0d14986b92d2af67dca331dd16631fdfc443))
+* clear fields after submission ([e20d4d7](https://github.com/thoughtindustries/helium/commit/e20d4d71a4df50b2760cfe0d147f23e729732def))
+* complete signin page ([#172](https://github.com/thoughtindustries/helium/issues/172)) ([d514c34](https://github.com/thoughtindustries/helium/commit/d514c343f4e1d02376b38635c9580f1581397b0e))
+* refactor of sign in button ([66b5aaa](https://github.com/thoughtindustries/helium/commit/66b5aaa20c2ddcd6a64a564a7e66d591a156245a))
+* refactoring of sign in page ([1474ff3](https://github.com/thoughtindustries/helium/commit/1474ff3fdec997adf9cac848ce33ba0d6ccd68aa))
+* removing button from inside anchor tag ([154e2a5](https://github.com/thoughtindustries/helium/commit/154e2a59f74ecd5468e7b924d2cc74c907b8aa91))
+* removing props from sign in comp ([942dca5](https://github.com/thoughtindustries/helium/commit/942dca5f3c233571aa1cd7c4dc80a3b10e790e4f))
+* removing validation ([74148a6](https://github.com/thoughtindustries/helium/commit/74148a6f3312bef25b1b7dab6888c6c79c2f786d))
+* tailwind ([24833f4](https://github.com/thoughtindustries/helium/commit/24833f49328f26fba4b33f185833b19d5d6e5cd0))
+* tailwind ([499f562](https://github.com/thoughtindustries/helium/commit/499f56252293db8394e0ef1e5b71ccb06ad0e1b5))
+* tailwind ([358477c](https://github.com/thoughtindustries/helium/commit/358477c703bfe2d9ba8bcc99623999cb03225d7d))
+* tailwind.css ([6d9f5f9](https://github.com/thoughtindustries/helium/commit/6d9f5f90256b1b5b1bc9be0ff1caf33353904357))
+* update component structure ([3e159db](https://github.com/thoughtindustries/helium/commit/3e159dbe3b93839a4104a457a86542829a9b5701))
+* update sign in page paths ([f585367](https://github.com/thoughtindustries/helium/commit/f585367bc33705ec99a2c82996a94616903ba049))
+
+
+
+
+
+# [1.2.0-beta.4](https://github.com/thoughtindustries/helium/compare/@thoughtindustries/helium-template@1.2.0-beta.3...@thoughtindustries/helium-template@1.2.0-beta.4) (2023-02-16)
+
+
+### Bug Fixes
+
+* CLM-7401 Update Package Generated Queries ([#185](https://github.com/thoughtindustries/helium/issues/185)) ([19caf8c](https://github.com/thoughtindustries/helium/commit/19caf8c5c07cd63908b69ad4c2c1b2144bd08b28))
+* remove unused props ([f5192b1](https://github.com/thoughtindustries/helium/commit/f5192b1aa3321c28c4e4eff84715aff6e4a997e3))
+* tailwind.css ([5dd07c5](https://github.com/thoughtindustries/helium/commit/5dd07c567934566ceccc07fa670e6df3d4bd7c87))
+
+
+### Features
+
+* add handler for data using State hook ([285e0d1](https://github.com/thoughtindustries/helium/commit/285e0d14986b92d2af67dca331dd16631fdfc443))
+* clear fields after submission ([e20d4d7](https://github.com/thoughtindustries/helium/commit/e20d4d71a4df50b2760cfe0d147f23e729732def))
+* complete signin page ([#172](https://github.com/thoughtindustries/helium/issues/172)) ([d514c34](https://github.com/thoughtindustries/helium/commit/d514c343f4e1d02376b38635c9580f1581397b0e))
+* refactor of sign in button ([66b5aaa](https://github.com/thoughtindustries/helium/commit/66b5aaa20c2ddcd6a64a564a7e66d591a156245a))
+* refactoring of sign in page ([1474ff3](https://github.com/thoughtindustries/helium/commit/1474ff3fdec997adf9cac848ce33ba0d6ccd68aa))
+* removing button from inside anchor tag ([154e2a5](https://github.com/thoughtindustries/helium/commit/154e2a59f74ecd5468e7b924d2cc74c907b8aa91))
+* removing props from sign in comp ([942dca5](https://github.com/thoughtindustries/helium/commit/942dca5f3c233571aa1cd7c4dc80a3b10e790e4f))
+* removing validation ([74148a6](https://github.com/thoughtindustries/helium/commit/74148a6f3312bef25b1b7dab6888c6c79c2f786d))
+* tailwind ([24833f4](https://github.com/thoughtindustries/helium/commit/24833f49328f26fba4b33f185833b19d5d6e5cd0))
+* tailwind ([499f562](https://github.com/thoughtindustries/helium/commit/499f56252293db8394e0ef1e5b71ccb06ad0e1b5))
+* tailwind ([358477c](https://github.com/thoughtindustries/helium/commit/358477c703bfe2d9ba8bcc99623999cb03225d7d))
+* tailwind.css ([6d9f5f9](https://github.com/thoughtindustries/helium/commit/6d9f5f90256b1b5b1bc9be0ff1caf33353904357))
+* update component structure ([3e159db](https://github.com/thoughtindustries/helium/commit/3e159dbe3b93839a4104a457a86542829a9b5701))
+* update sign in page paths ([f585367](https://github.com/thoughtindustries/helium/commit/f585367bc33705ec99a2c82996a94616903ba049))
+
+
+
+
+
+# [1.2.0-beta.3](https://github.com/thoughtindustries/helium/compare/@thoughtindustries/helium-template@1.2.0-beta.2...@thoughtindustries/helium-template@1.2.0-beta.3) (2023-02-09)
+
+**Note:** Version bump only for package @thoughtindustries/helium-template
+
+
+
+
+
 # [1.2.0-beta.2](https://github.com/thoughtindustries/helium/compare/@thoughtindustries/helium-template@1.2.0-beta.1...@thoughtindustries/helium-template@1.2.0-beta.2) (2023-01-25)
 
 **Note:** Version bump only for package @thoughtindustries/helium-template

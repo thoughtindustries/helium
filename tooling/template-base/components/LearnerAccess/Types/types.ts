@@ -1,4 +1,9 @@
 import { ContentGroupsQueryHookResult } from '@thoughtindustries/content';
+import {
+  ContentKind,
+  SortColumn,
+  SortDirection
+} from '@thoughtindustries/content/src/graphql/global-types';
 
 export interface LearnerAccessProps {
   /** Determines if the learner access widget should collapse */
@@ -23,8 +28,9 @@ export interface LearnerAccessProps {
 
 export interface LoadedComponentProps {
   query?: string;
-  kind?: string[];
-  sort?: string;
+  kind?: ContentKind;
+  sortColumn?: SortColumn;
+  sortDirection?: SortDirection;
 }
 
 export type LearnerAccessContextType = {

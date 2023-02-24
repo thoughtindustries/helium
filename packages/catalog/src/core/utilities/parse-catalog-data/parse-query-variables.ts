@@ -1,7 +1,6 @@
 import { CatalogContentQueryVariables } from '@thoughtindustries/content';
 import { DEFAULT_PAGE } from './constants';
 import parseAggregationFilters from './parse-aggregation-filters';
-import serializeSort from './serialize-sort';
 import { CatalogParams } from './types';
 
 const parseQueryVariables = (params: CatalogParams): CatalogContentQueryVariables => {
@@ -15,12 +14,14 @@ const parseQueryVariables = (params: CatalogParams): CatalogContentQueryVariable
     searchTerm,
     contentTypes
   } = params;
-  const sortParam = sort && serializeSort(sort);
+  const sortColumn = sort?.field;
+  const sortDirection = sort?.direction;
   const displayTypeParam = displayType || resultsDisplayType;
   const transformedFilters = parseAggregationFilters(aggregationFilters);
   return {
     page,
-    sort: sortParam,
+    sortColumn,
+    sortDirection,
     resultsDisplayType: displayTypeParam,
     token,
     contentTypes,

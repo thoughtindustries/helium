@@ -3,6 +3,28 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.2.0-beta.3](https://github.com/thoughtindustries/helium/compare/@thoughtindustries/catalog@1.2.0-beta.1...@thoughtindustries/catalog@1.2.0-beta.3) (2023-02-16)
+
+
+### Bug Fixes
+
+* CLM-7401 Update Package Generated Queries ([#185](https://github.com/thoughtindustries/helium/issues/185)) ([19caf8c](https://github.com/thoughtindustries/helium/commit/19caf8c5c07cd63908b69ad4c2c1b2144bd08b28))
+
+
+
+
+
+# [1.2.0-beta.2](https://github.com/thoughtindustries/helium/compare/@thoughtindustries/catalog@1.2.0-beta.1...@thoughtindustries/catalog@1.2.0-beta.2) (2023-02-16)
+
+
+### Bug Fixes
+
+* CLM-7401 Update Package Generated Queries ([#185](https://github.com/thoughtindustries/helium/issues/185)) ([19caf8c](https://github.com/thoughtindustries/helium/commit/19caf8c5c07cd63908b69ad4c2c1b2144bd08b28))
+
+
+
+
+
 # [1.2.0-beta.1](https://github.com/thoughtindustries/helium/compare/@thoughtindustries/catalog@1.2.0-beta.0...@thoughtindustries/catalog@1.2.0-beta.1) (2023-01-25)
 
 

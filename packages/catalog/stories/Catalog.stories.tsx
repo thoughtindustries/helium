@@ -26,6 +26,8 @@ type Catalog = StoryObj<CatalogProps>;
 
 type MockQueryProps = {
   displayType: GlobalTypes.ContentItemDisplayType;
+  sortColumn: GlobalTypes.SortColumn;
+  sortDirection: GlobalTypes.SortDirection;
 };
 
 const mockBundle: Bundle = {
@@ -122,7 +124,9 @@ const mockContentItemFactory = (length: number) =>
     id: `${mockContentItem.id}-${index}`
   }));
 const mockCatalogContentFactory = ({
-  displayType
+  displayType,
+  sortColumn,
+  sortDirection
 }: MockQueryProps): CatalogContentQuery['CatalogContent'] => ({
   contentItems: [...mockContentItemFactory(6)],
   meta: {
@@ -134,7 +138,8 @@ const mockCatalogContentFactory = ({
     aggregations: mockAggregations,
     contentTypes: mockContentTypes,
     resultsDisplayType: displayType,
-    selectedSort: 'displayDate:asc',
+    selectedSortColumn: sortColumn,
+    selectedSortDirection: sortDirection,
     sortUpdatedAtEnabled: true,
     sortCreatedAtEnabled: true,
     sortTitleEnabled: true,
@@ -163,15 +168,14 @@ const mockApolloResultsFactory = (props: MockQueryProps) => [
       query: CatalogContentDocument,
       variables: {
         page: 1,
-        sort: undefined,
+        sortColumn: undefined,
+        sortDirection: undefined,
         resultsDisplayType: undefined,
         token: 'test-token',
         contentTypes: [],
         query: 'test search term',
         labels: [],
-        values: [],
-        layoutId: undefined,
-        widgetId: undefined
+        values: []
       }
     },
     result: {
@@ -246,7 +250,13 @@ export const List: Catalog = {
   parameters: {
     apolloClient: {
       ...apolloBaseParams,
-      mocks: [...mockApolloResultsFactory({ displayType: GlobalTypes.ContentItemDisplayType.List })]
+      mocks: [
+        ...mockApolloResultsFactory({
+          displayType: GlobalTypes.ContentItemDisplayType.List,
+          sortColumn: GlobalTypes.SortColumn.DisplayDate,
+          sortDirection: GlobalTypes.SortDirection.Asc
+        })
+      ]
     }
   }
 };
@@ -256,7 +266,13 @@ export const Grid: Catalog = {
   parameters: {
     apolloClient: {
       ...apolloBaseParams,
-      mocks: [...mockApolloResultsFactory({ displayType: GlobalTypes.ContentItemDisplayType.Grid })]
+      mocks: [
+        ...mockApolloResultsFactory({
+          displayType: GlobalTypes.ContentItemDisplayType.Grid,
+          sortColumn: GlobalTypes.SortColumn.DisplayDate,
+          sortDirection: GlobalTypes.SortDirection.Asc
+        })
+      ]
     }
   }
 };
@@ -267,7 +283,11 @@ export const Calendar: Catalog = {
     apolloClient: {
       ...apolloBaseParams,
       mocks: [
-        ...mockApolloResultsFactory({ displayType: GlobalTypes.ContentItemDisplayType.Calendar })
+        ...mockApolloResultsFactory({
+          displayType: GlobalTypes.ContentItemDisplayType.Calendar,
+          sortColumn: GlobalTypes.SortColumn.DisplayDate,
+          sortDirection: GlobalTypes.SortDirection.Asc
+        })
       ]
     }
   }

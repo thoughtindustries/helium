@@ -5,9 +5,9 @@
 ## Import
 
 ```
-import { 
-  GlobalTypes, 
-  useCatalogContentQuery, 
+import {
+  GlobalTypes,
+  useCatalogContentQuery,
   LoadingDots,
   hydrateContent
 } from '@thoughtindustries/content';
@@ -19,7 +19,8 @@ import {
 // run hook to query catalog content
 const { data, loading, error } = useCatalogContentQuery({
   variables: {
-     sort: 'publishDate:desc',
+     sortColumn: GlobalTypes.SortColumn.PublishDate,
+     sortDirection: GlobalTypes.SortDirection.Desc,
      resultsDisplayType: GlobalTypes.ContentItemDisplayType.Grid,
      page: 2
   },

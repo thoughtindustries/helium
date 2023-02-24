@@ -1,10 +1,11 @@
 import { SortField } from '../../core';
+import { GlobalTypes } from '@thoughtindustries/content';
 
 export const localizedSortMapping: { [key in SortField]: string } = {
-  [SortField.UpdatedAt]: 'catalog.sort-updated',
-  [SortField.CreatedAt]: 'catalog.sort-created',
-  [SortField.Title]: 'catalog.sort-title',
-  [SortField.PublishedDate]: 'catalog.sort-publish-date',
-  [SortField.CourseStartDate]: 'catalog.sort-course-start-date',
-  [SortField.Relevance]: 'catalog.sort-relevance'
+  [GlobalTypes.SortColumn.UpdatedAt]: 'catalog.sort-updated',
+  [GlobalTypes.SortColumn.CreatedAt]: 'catalog.sort-created',
+  [GlobalTypes.SortColumn.Title]: 'catalog.sort-title',
+  [GlobalTypes.SortColumn.PublishDate]: 'catalog.sort-publish-date',
+  [GlobalTypes.SortColumn.CourseStartDate]: 'catalog.sort-course-start-date',
+  [GlobalTypes.SortColumn.Relevance]: 'catalog.sort-relevance'
 };

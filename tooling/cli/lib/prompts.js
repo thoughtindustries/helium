@@ -32,6 +32,13 @@ const INSTANCE_QUESTIONS = [
   }
 ];
 
+const DEPLOYMENT_LOG_FETCH_QUESTION = {
+  type: 'confirm',
+  name: 'shouldFetchLogs',
+  message: 'Would you like to fetch logs for the deployment?'
+};
+
 module.exports = {
-  INSTANCE_QUESTIONS
+  INSTANCE_QUESTIONS,
+  DEPLOYMENT_LOG_FETCH_QUESTION
 };
