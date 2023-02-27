@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [2.3.0](https://github.com/thoughtindustries/helium/compare/@thoughtindustries/helium-server@2.2.0...@thoughtindustries/helium-server@2.3.0) (2023-02-27)
+
+
+### Features
+
+* update to graphiql2 ([#186](https://github.com/thoughtindustries/helium/issues/186)) ([c8306b0](https://github.com/thoughtindustries/helium/commit/c8306b06c7c16cc147c72d0398be0281defd6d12))
+
+
+
+
+
 # [2.2.0](https://github.com/thoughtindustries/helium/compare/@thoughtindustries/helium-server@2.0.1...@thoughtindustries/helium-server@2.2.0) (2023-02-16)
 
 
