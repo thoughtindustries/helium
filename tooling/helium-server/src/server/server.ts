@@ -5,13 +5,22 @@ import findTiInstance from './../utilities/find-ti-instance';
 import { fetchUserAndAppearance, fetchUser } from './../utilities/fetch-user-and-appearance';
 import initPageContext from './../utilities/init-page-context';
 import fetch from 'isomorphic-unfetch';
-import expressPlayground from 'graphql-playground-middleware-express';
+import path from 'path';
 
 const isProduction = process.env.NODE_ENV === 'production';
 const instanceName = process.env.INSTANCE || '';
 const heliumEndpoint = process.env.HELIUM_ENDPOINT;
 const COOKIE_OR_HEADER_NAME_AUTHTOKEN = 'authToken';
 const cookieAuthTokenRegexp = /authToken=/;
+
+/**
+ * GraphiQL is a single-page-app which is built in the same out dir
+ * as the `/src` directory. All of the GraphiQL assets are built under
+ * sub directory `graphiql`.
+ */
+const graphiqlDistPath = path.join(__dirname, 'graphiql');
+const graphiqlStaticAssets = express.static(path.join(graphiqlDistPath, 'assets'));
+const graphiqlIndexPath = path.join(graphiqlDistPath, 'index.html');
 
 export default async function setupHeliumServer(root: string, viteDevServer: any, port: number) {
   if (!heliumEndpoint) {
@@ -31,7 +40,10 @@ export default async function setupHeliumServer(root: string, viteDevServer: any
     app.use(viteDevServer.middlewares);
     app.use(express.json());
 
-    app.get('/graphiql', expressPlayground({ endpoint: '/graphql' }));
+    app.use('/graphiql/assets', graphiqlStaticAssets);
+    app.get('/graphiql', async (_, res) => {
+      res.sendFile(graphiqlIndexPath);
+    });
     // proxying graphql requests in dev environment because of CORS errors
     app.post('/graphql', async (req, res) => {
       const { body: reqBody, headers: reqHeaders } = req;
