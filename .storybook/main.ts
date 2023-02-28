@@ -4,8 +4,7 @@ const config: StorybookConfig = {
   addons: [
     '@storybook/addon-links',
     '@storybook/addon-controls',
-    'storybook-addon-apollo-client',
-    'storybook-react-i18next'
+    'storybook-addon-apollo-client'
   ],
   framework: '@storybook/react-vite',
   docs: {

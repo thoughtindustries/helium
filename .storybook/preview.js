@@ -1,6 +1,6 @@
 import './style.css';
 import { MockedProvider } from '@apollo/client/testing';
-import { i18n } from './i18next';
+import './i18next';
 import { cookieDecorator } from 'storybook-addon-cookie';
 
 export const parameters = {
@@ -13,9 +13,7 @@ export const parameters = {
   },
   apolloClient: {
     MockedProvider
-  },
-  i18n,
-  locale: 'en'
+  }
 };
 
 export const decorators = [cookieDecorator];
