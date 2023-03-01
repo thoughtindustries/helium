@@ -75,5 +75,8 @@
   "volta": {
     "node": "16.18.1",
     "npm": "8.19.2"
+  },
+  "dependencies": {
+    "@storybook/addon-toolbars": "^6.5.16"
   }
 }

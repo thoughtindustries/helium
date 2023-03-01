@@ -1,11 +1,12 @@
 import type { StorybookConfig } from '@storybook/types';
 const config: StorybookConfig = {
   stories: ['../packages/'],
+  staticDirs: ['./public'],
   addons: [
     '@storybook/addon-links',
     '@storybook/addon-controls',
     'storybook-addon-apollo-client',
-    'storybook-react-i18next'
+    '@storybook/addon-toolbars'
   ],
   framework: '@storybook/react-vite',
   docs: {
