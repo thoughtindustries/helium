@@ -1,3 +1,5 @@
+import React from 'react';
+import { StoryObj, Meta } from '@storybook/react';
 import {
   AddResourceToQueueDocument,
   CatalogContentDocument,
@@ -6,27 +8,36 @@ import {
   LanguagesQueryDocument,
   useAddResourceToQueueMutation
 } from '@thoughtindustries/content';
-import React from 'react';
-import { Catalog, CatalogProvider, CatalogResultItem } from '../src';
+import {
+  Bundle,
+  Aggregation,
+  Content,
+  Language
+} from '@thoughtindustries/content/src/graphql/global-types';
+import { Catalog, CatalogProvider, CatalogResultItem, CatalogProps } from '../src';
 
-export default {
-  title: 'Example/Catalog',
-  component: Catalog
+const meta: Meta<CatalogProps> = {
+  component: Catalog,
+  title: 'Packages/Catalog'
 };
+
+export default meta;
+type Catalog = StoryObj<CatalogProps>;
 
 type MockQueryProps = {
   displayType: GlobalTypes.ContentItemDisplayType;
   sortColumn: GlobalTypes.SortColumn;
   sortDirection: GlobalTypes.SortDirection;
 };
-const mockBundle = {
+
+const mockBundle: Bundle = {
   id: 'uuid-bundle',
   name: 'test bundle',
   priceInCents: 100,
   annualPriceInCents: 1000,
   slug: 'test-bundle'
 };
-const mockAggregations = [
+const mockAggregations: Aggregation[] = [
   {
     label: 'Label 1',
     buckets: [
@@ -65,8 +76,8 @@ const mockAggregations = [
     ]
   }
 ];
-const mockContentTypes = ['type 1', 'type 2'];
-const mockContentItem = {
+const mockContentTypes: string[] = ['type 1', 'type 2'];
+const mockContentItem: Content = {
   asset:
     'https://d36ai2hkxl16us.cloudfront.net/thoughtindustries/image/upload/a_exif,c_fill,w_800/v1416438573/placeholder_kcjvxm.jpg',
   authors: ['Test Author'],
@@ -84,7 +95,6 @@ const mockContentItem = {
   hideCourseDescription: false,
   id: 'uuid',
   isActive: true,
-  isCompleted: true,
   location: {
     id: 'uuid-location',
     name: 'test location',
@@ -146,7 +156,7 @@ const mockCatalogContentFactory = ({
     queryCustomFields: '{}'
   }
 });
-const mockLanguages = [
+const mockLanguages: Language[] = [
   {
     label: 'English',
     code: 'en'
@@ -235,44 +245,50 @@ const Template = () => {
   );
 };
 
-export const List = () => <Template />;
-List.parameters = {
-  apolloClient: {
-    ...apolloBaseParams,
-    mocks: [
-      ...mockApolloResultsFactory({
-        displayType: GlobalTypes.ContentItemDisplayType.List,
-        sortColumn: GlobalTypes.SortColumn.DisplayDate,
-        sortDirection: GlobalTypes.SortDirection.Asc
-      })
-    ]
+export const List: Catalog = {
+  render: () => <Template />,
+  parameters: {
+    apolloClient: {
+      ...apolloBaseParams,
+      mocks: [
+        ...mockApolloResultsFactory({
+          displayType: GlobalTypes.ContentItemDisplayType.List,
+          sortColumn: GlobalTypes.SortColumn.DisplayDate,
+          sortDirection: GlobalTypes.SortDirection.Asc
+        })
+      ]
+    }
   }
 };
 
-export const Grid = () => <Template />;
-Grid.parameters = {
-  apolloClient: {
-    ...apolloBaseParams,
-    mocks: [
-      ...mockApolloResultsFactory({
-        displayType: GlobalTypes.ContentItemDisplayType.Grid,
-        sortColumn: GlobalTypes.SortColumn.DisplayDate,
-        sortDirection: GlobalTypes.SortDirection.Asc
-      })
-    ]
+export const Grid: Catalog = {
+  render: () => <Template />,
+  parameters: {
+    apolloClient: {
+      ...apolloBaseParams,
+      mocks: [
+        ...mockApolloResultsFactory({
+          displayType: GlobalTypes.ContentItemDisplayType.Grid,
+          sortColumn: GlobalTypes.SortColumn.DisplayDate,
+          sortDirection: GlobalTypes.SortDirection.Asc
+        })
+      ]
+    }
   }
 };
 
-export const Calendar = () => <Template />;
-Calendar.parameters = {
-  apolloClient: {
-    ...apolloBaseParams,
-    mocks: [
-      ...mockApolloResultsFactory({
-        displayType: GlobalTypes.ContentItemDisplayType.Calendar,
-        sortColumn: GlobalTypes.SortColumn.DisplayDate,
-        sortDirection: GlobalTypes.SortDirection.Asc
-      })
-    ]
+export const Calendar: Catalog = {
+  render: () => <Template />,
+  parameters: {
+    apolloClient: {
+      ...apolloBaseParams,
+      mocks: [
+        ...mockApolloResultsFactory({
+          displayType: GlobalTypes.ContentItemDisplayType.Calendar,
+          sortColumn: GlobalTypes.SortColumn.DisplayDate,
+          sortDirection: GlobalTypes.SortDirection.Asc
+        })
+      ]
+    }
   }
 };
