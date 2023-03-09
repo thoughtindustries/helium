@@ -30,6 +30,22 @@ async function init() {
     targetDir = dir;
   }
 
+  const { theme } = await prompt([
+    {
+      type: 'list',
+      name: 'theme',
+      message: 'Which theme would you like?',
+      choices: ['Starter App', 'Hello World']
+    }
+  ]);
+
+  let template;
+  if (theme === 'Starter App') {
+    template = 'template-base';
+  } else if (theme === 'Hello World') {
+    template = 'template-base-essentials';
+  }
+
   const packageName = await getValidPackageName(targetDir);
   const root = path.join(cwd, targetDir);
   console.log(`\nScaffolding Helium app in ${root}...`);
@@ -53,7 +69,7 @@ async function init() {
     }
   }
 
-  const templateDir = path.join(__dirname, `template-base`);
+  const templateDir = path.join(__dirname, `${template}`);
 
   const write = (file, content) => {
     const targetPath = renameFiles[file]
