@@ -13,6 +13,6 @@ type Pagination = StoryObj<PaginationProps>;
 export const Base: Pagination = {
   render: args => <Pagination {...args} />,
   args: {
-    total: 100
+    total: 50
   }
 };

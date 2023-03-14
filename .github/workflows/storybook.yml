@@ -4,7 +4,7 @@ on:
   push:
     branches:
       - staging
-    paths: ["packages/**/stories/**", "packages/**/src/**"]
+    paths: ['packages/**/stories/**', 'packages/**/src/**']
 
 jobs:
   build-and-deploy:
@@ -19,6 +19,7 @@ jobs:
         run: |
           npm ci
           npm run build-storybook-ci
+          touch .nojekyll
 
       - name: Deploy
         uses: JamesIves/github-pages-deploy-action@3.6.2
