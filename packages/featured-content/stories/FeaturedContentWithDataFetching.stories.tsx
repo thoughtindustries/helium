@@ -16,12 +16,18 @@ import {
   FeaturedContent,
   ContentTileStandardLayout,
   FeaturedContentContentItem,
-  FeaturedContentHydratedContentItem
+  FeaturedContentHydratedContentItem,
+  FeaturedContentProps
 } from '../src';
+import { StoryObj, Meta } from '@storybook/react';
 
-export default {
+const meta: Meta<FeaturedContentProps> = {
+  component: FeaturedContent,
   title: 'Packages/Featured Content/Data Fetching'
 };
+
+export default meta;
+type FeaturedContentStory = StoryObj<FeaturedContentProps>;
 
 const headerOptions = {
   title: 'Feature Content Header'
@@ -145,7 +151,7 @@ const apolloBaseParams = {
   defaultOptions: mockedApolloProviderOptions
 };
 
-export const WithCatalogQuery = () => {
+const CatalogQueryTemplate = () => {
   const { i18n } = useTranslation();
   const [addResourceToQueue] = useAddResourceToQueueMutation();
   const handleAddedToQueue = (item: FeaturedContentContentItem): Promise<void> => {
@@ -184,14 +190,18 @@ export const WithCatalogQuery = () => {
     </FeaturedContent>
   );
 };
-WithCatalogQuery.parameters = {
-  apolloClient: {
-    ...apolloBaseParams,
-    mocks: [mockApolloResults.catalogQuery, mockApolloResults.addCourseToQueueMutation]
+
+export const WithCatalogQuery: FeaturedContentStory = {
+  render: () => <CatalogQueryTemplate />,
+  parameters: {
+    apolloClient: {
+      ...apolloBaseParams,
+      mocks: [mockApolloResults.catalogQuery, mockApolloResults.addCourseToQueueMutation]
+    }
   }
 };
 
-export const WithQueryContentsQuery = () => {
+const QueryContentsQueryTemplate = () => {
   const { i18n } = useTranslation();
   const [addResourceToQueue] = useAddResourceToQueueMutation();
   const handleAddedToQueue = (item: FeaturedContentContentItem): Promise<void> => {
@@ -235,14 +245,21 @@ export const WithQueryContentsQuery = () => {
     </FeaturedContent>
   );
 };
-WithQueryContentsQuery.parameters = {
-  apolloClient: {
-    ...apolloBaseParams,
-    mocks: [mockApolloResults.queryContentsQuery, mockApolloResults.addLearningPathToQueueMutation]
+
+export const WithQueryContentsQuery: FeaturedContentStory = {
+  render: () => <QueryContentsQueryTemplate />,
+  parameters: {
+    apolloClient: {
+      ...apolloBaseParams,
+      mocks: [
+        mockApolloResults.queryContentsQuery,
+        mockApolloResults.addLearningPathToQueueMutation
+      ]
+    }
   }
 };
 
-export const WithUserRecentContentQuery = () => {
+const UserRecentContentQueryTemplate = () => {
   const { i18n } = useTranslation();
   const { data, loading, error } = useUserRecentContentQuery({
     variables: { ...mockUserRecentContentQueryVariables }
@@ -276,9 +293,13 @@ export const WithUserRecentContentQuery = () => {
     </FeaturedContent>
   );
 };
-WithUserRecentContentQuery.parameters = {
-  apolloClient: {
-    ...apolloBaseParams,
-    mocks: [mockApolloResults.userRecentContentQuery]
+
+export const WithUserRecentContentQuery: FeaturedContentStory = {
+  render: () => <UserRecentContentQueryTemplate />,
+  parameters: {
+    apolloClient: {
+      ...apolloBaseParams,
+      mocks: [mockApolloResults.userRecentContentQuery]
+    }
   }
 };

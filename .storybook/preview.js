@@ -28,11 +28,6 @@ export const globalTypes = {
       icon: 'globe',
       items: [{ value: 'en', right: '🇺🇸', title: 'English' }]
     }
-  },
-  ['addon-apolloClient/queries']: {
-    name: 'Apollo client addon queries',
-    description: 'Apollo client addon queries',
-    defaultValue: []
   }
 };
 

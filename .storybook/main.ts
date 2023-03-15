@@ -5,7 +5,7 @@ const config: StorybookConfig = {
   addons: [
     '@storybook/addon-links',
     '@storybook/addon-controls',
-    'storybook-addon-apollo-client',
+    '@thoughtindustries/storybook-addon-apollo-client',
     '@storybook/addon-toolbars'
   ],
   framework: '@storybook/react-vite',
