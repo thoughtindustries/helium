@@ -37,6 +37,7 @@ export default async function setupHeliumServer(root: string, viteDevServer: any
   if (isProduction) {
     app.use(express.static(`${root}/dist/client`, { index: false }));
   } else {
+    (await import('dotenv')).config();
     app.use(viteDevServer.middlewares);
     app.use(express.json());
 
