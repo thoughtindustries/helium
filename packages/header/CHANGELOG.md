@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.1.0-beta.2](https://github.com/thoughtindustries/helium/compare/@thoughtindustries/header@1.1.0-beta.1...@thoughtindustries/header@1.1.0-beta.2) (2023-03-27)
+
+
+### Features
+
+* header ([e09e524](https://github.com/thoughtindustries/helium/commit/e09e5246043d3178dc18abf128f090abd8610a4a))
+
+
+
+
+
 # [1.1.0-beta.1](https://github.com/thoughtindustries/helium/compare/@thoughtindustries/header@1.1.0-beta.0...@thoughtindustries/header@1.1.0-beta.1) (2023-01-25)
 
 

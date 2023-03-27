@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.1.0-beta.2](https://github.com/thoughtindustries/helium/compare/@thoughtindustries/contact-block@1.1.0-beta.1...@thoughtindustries/contact-block@1.1.0-beta.2) (2023-03-27)
+
+
+### Features
+
+* contact block ([a0c1000](https://github.com/thoughtindustries/helium/commit/a0c10006bc8c805f1aaf5d24ac3e880da6c76179))
+
+
+
+
+
 # [1.1.0-beta.1](https://github.com/thoughtindustries/helium/compare/@thoughtindustries/contact-block@1.1.0-beta.0...@thoughtindustries/contact-block@1.1.0-beta.1) (2023-01-25)
 
 

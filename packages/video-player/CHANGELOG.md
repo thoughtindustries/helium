@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.1.0-beta.4](https://github.com/thoughtindustries/helium/compare/@thoughtindustries/video-player@1.1.0-beta.3...@thoughtindustries/video-player@1.1.0-beta.4) (2023-03-27)
+
+
+### Features
+
+* video player ([6408ec2](https://github.com/thoughtindustries/helium/commit/6408ec29be15cc647d8576fb87d17208e8c8bffb))
+
+
+
+
+
 # [1.1.0-beta.3](https://github.com/thoughtindustries/helium/compare/@thoughtindustries/video-player@1.1.0-beta.1...@thoughtindustries/video-player@1.1.0-beta.3) (2023-02-16)
 
 **Note:** Version bump only for package @thoughtindustries/video-player

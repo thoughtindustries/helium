@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.2.0-beta.2](https://github.com/thoughtindustries/helium/compare/@thoughtindustries/hooks@1.2.0-beta.1...@thoughtindustries/hooks@1.2.0-beta.2) (2023-03-27)
+
+
+### Features
+
+* port over storybook addon apollo client ([#194](https://github.com/thoughtindustries/helium/issues/194)) ([7845b55](https://github.com/thoughtindustries/helium/commit/7845b55144e452b8baab4e9bdae9510ebfb91819))
+
+
+
+
+
 # [1.2.0-beta.1](https://github.com/thoughtindustries/helium/compare/@thoughtindustries/hooks@1.2.0-beta.0...@thoughtindustries/hooks@1.2.0-beta.1) (2023-01-25)
 
 
