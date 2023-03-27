@@ -3,6 +3,22 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.2.0-beta.2](https://github.com/thoughtindustries/helium/compare/@thoughtindustries/user@1.2.0-beta.1...@thoughtindustries/user@1.2.0-beta.2) (2023-03-27)
+
+
+### Bug Fixes
+
+* add meta ([9e1855a](https://github.com/thoughtindustries/helium/commit/9e1855a035237e4005cb4cfeca0a62983c7d079e))
+
+
+### Features
+
+* user ([ef52f5b](https://github.com/thoughtindustries/helium/commit/ef52f5b8c670ac3004c501834ad3255269c06573))
+
+
+
+
+
 # [1.2.0-beta.1](https://github.com/thoughtindustries/helium/compare/@thoughtindustries/user@1.2.0-beta.0...@thoughtindustries/user@1.2.0-beta.1) (2023-01-25)
 
 

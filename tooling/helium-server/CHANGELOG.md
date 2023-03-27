@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [2.4.0](https://github.com/thoughtindustries/helium/compare/@thoughtindustries/helium-server@2.3.0...@thoughtindustries/helium-server@2.4.0) (2023-03-27)
+
+
+### Features
+
+* enable env vars ([#192](https://github.com/thoughtindustries/helium/issues/192)) ([795a4cd](https://github.com/thoughtindustries/helium/commit/795a4cde9c0c51b6a928ae9b1cca5d704095f8aa))
+
+
+
+
+
 # [2.3.0](https://github.com/thoughtindustries/helium/compare/@thoughtindustries/helium-server@2.2.0...@thoughtindustries/helium-server@2.3.0) (2023-02-27)
 
 
