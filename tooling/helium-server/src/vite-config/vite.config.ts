@@ -5,7 +5,8 @@ const tiConfig: Record<any, any> = {
   plugins: [react(), ssr()],
   optimizeDeps: {
     include: ['dayjs', 'universal-cookie']
-  }
+  },
+  envPrefix: 'HELIUM_PUBLIC_'
 };
 
 export default tiConfig;

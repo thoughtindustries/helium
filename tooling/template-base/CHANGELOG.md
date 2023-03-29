@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.2.0-beta.7](https://github.com/thoughtindustries/helium/compare/@thoughtindustries/helium-template@1.2.0-beta.6...@thoughtindustries/helium-template@1.2.0-beta.7) (2023-03-27)
+
+
+### Features
+
+* enable env vars ([#192](https://github.com/thoughtindustries/helium/issues/192)) ([795a4cd](https://github.com/thoughtindustries/helium/commit/795a4cde9c0c51b6a928ae9b1cca5d704095f8aa))
+
+
+
+
+
 # [1.2.0-beta.6](https://github.com/thoughtindustries/helium/compare/@thoughtindustries/helium-template@1.2.0-beta.5...@thoughtindustries/helium-template@1.2.0-beta.6) (2023-02-27)
 
 **Note:** Version bump only for package @thoughtindustries/helium-template

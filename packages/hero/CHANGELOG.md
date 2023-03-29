@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.1.0-beta.2](https://github.com/thoughtindustries/helium/compare/@thoughtindustries/hero@1.1.0-beta.1...@thoughtindustries/hero@1.1.0-beta.2) (2023-03-27)
+
+
+### Features
+
+* hero ([42be648](https://github.com/thoughtindustries/helium/commit/42be648df0469cdd4e346e2cea5444f2e24ff775))
+
+
+
+
+
 # [1.1.0-beta.1](https://github.com/thoughtindustries/helium/compare/@thoughtindustries/hero@1.1.0-beta.0...@thoughtindustries/hero@1.1.0-beta.1) (2023-01-25)
 
 

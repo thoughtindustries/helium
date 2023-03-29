@@ -3,6 +3,24 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.3.0-beta.4](https://github.com/thoughtindustries/helium/compare/@thoughtindustries/featured-content@1.3.0-beta.3...@thoughtindustries/featured-content@1.3.0-beta.4) (2023-03-27)
+
+
+### Bug Fixes
+
+* add meta ([9e1855a](https://github.com/thoughtindustries/helium/commit/9e1855a035237e4005cb4cfeca0a62983c7d079e))
+
+
+### Features
+
+* featured content ([bfc15bc](https://github.com/thoughtindustries/helium/commit/bfc15bcffdce8187012f128ba3fe2a68b951c4b0))
+* featured content (data) ([9a4a144](https://github.com/thoughtindustries/helium/commit/9a4a1445eea154edd07db3428fbd7872974b106d))
+* port over storybook addon apollo client ([#194](https://github.com/thoughtindustries/helium/issues/194)) ([7845b55](https://github.com/thoughtindustries/helium/commit/7845b55144e452b8baab4e9bdae9510ebfb91819))
+
+
+
+
+
 # [1.3.0-beta.3](https://github.com/thoughtindustries/helium/compare/@thoughtindustries/featured-content@1.3.0-beta.1...@thoughtindustries/featured-content@1.3.0-beta.3) (2023-02-16)
 
 **Note:** Version bump only for package @thoughtindustries/featured-content

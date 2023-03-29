@@ -3,6 +3,23 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.2.0-beta.4](https://github.com/thoughtindustries/helium/compare/@thoughtindustries/dashboard-stats@1.2.0-beta.3...@thoughtindustries/dashboard-stats@1.2.0-beta.4) (2023-03-27)
+
+
+### Bug Fixes
+
+* add meta ([9e1855a](https://github.com/thoughtindustries/helium/commit/9e1855a035237e4005cb4cfeca0a62983c7d079e))
+
+
+### Features
+
+* dashboard stats ([f54ded1](https://github.com/thoughtindustries/helium/commit/f54ded159aad712ea91ef07bbd0e2b81bf63caf8))
+* init ([a9e240c](https://github.com/thoughtindustries/helium/commit/a9e240c1dd472ba2fc6b6ced72492614abcbf6c9))
+
+
+
+
+
 # [1.2.0-beta.3](https://github.com/thoughtindustries/helium/compare/@thoughtindustries/dashboard-stats@1.2.0-beta.1...@thoughtindustries/dashboard-stats@1.2.0-beta.3) (2023-02-16)
 
 **Note:** Version bump only for package @thoughtindustries/dashboard-stats

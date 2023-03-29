@@ -10,6 +10,12 @@ const meta: Meta<PaginationProps> = {
 export default meta;
 type Pagination = StoryObj<PaginationProps>;
 
+const getPageLink: PaginationProps['getPageLink'] = page => `/sample?page=${page}`;
+
 export const Base: Pagination = {
-  render: args => <Pagination {...args} />
+  render: args => <Pagination {...args} />,
+  args: {
+    total: 100,
+    getPageLink
+  }
 };

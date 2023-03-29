@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.2.0-beta.4](https://github.com/thoughtindustries/helium/compare/@thoughtindustries/cart@1.2.0-beta.3...@thoughtindustries/cart@1.2.0-beta.4) (2023-03-27)
+
+
+### Features
+
+* cart ([4d45777](https://github.com/thoughtindustries/helium/commit/4d457773f28d84e0e41dc84f8e34add5232b0e9b))
+
+
+
+
+
 # [1.2.0-beta.3](https://github.com/thoughtindustries/helium/compare/@thoughtindustries/cart@1.2.0-beta.1...@thoughtindustries/cart@1.2.0-beta.3) (2023-02-16)
 
 **Note:** Version bump only for package @thoughtindustries/cart
