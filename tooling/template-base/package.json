@@ -11,8 +11,7 @@
     "dev:server": "tsup ./server/index.ts && node ./dist/index.js",
     "build": "npm run build:css && npm run build:vite",
     "build:css": "tailwindcss -o ./renderer/tailwind.css",
-    "build:vite": "vite build",
-    "build:atoms": "vite build -c vite.atoms.config.ts && vite build"
+    "build:vite": "vite build"
   },
   "publishConfig": {
     "access": "public",
@@ -45,7 +44,6 @@
     "react-i18next": "^11.18.6",
     "remark-frontmatter": "^4.0.1",
     "remark-mdx-frontmatter": "^2.0.3",
-    "rollup-plugin-external-globals": "^0.7.1",
     "tailwindcss": "^3.0.9",
     "vite": "^3.1.8",
     "vite-plugin-ssr": "^0.4.43"

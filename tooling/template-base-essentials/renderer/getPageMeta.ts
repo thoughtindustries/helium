@@ -1,4 +1,4 @@
-import { PageContext } from '../types';
+import { PageContext } from './../types';
 
 export { getPageMeta };
 

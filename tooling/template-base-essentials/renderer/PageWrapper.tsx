@@ -2,7 +2,7 @@ import React from 'react';
 import './tailwind.css';
 import './PageWrapper.css';
 import { PageContextProvider } from './usePageContext';
-import { PageWrapperProps } from '../types';
+import { PageWrapperProps } from './../types';
 
 export { PageWrapper };
 
