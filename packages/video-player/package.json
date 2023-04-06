@@ -1,6 +1,6 @@
 {
   "name": "@thoughtindustries/video-player",
-  "version": "1.1.0-beta.4",
+  "version": "1.1.0-beta.5",
   "description": "",
   "main": "src/index.ts",
   "files": [
@@ -25,7 +25,7 @@
   "homepage": "https://github.com/thoughtindustries/helium#readme",
   "dependencies": {
     "@thoughtindustries/content": "^1.2.0-beta.3",
-    "@thoughtindustries/hooks": "^1.2.0-beta.2",
+    "@thoughtindustries/hooks": "^1.2.0-beta.3",
     "react": "^18.2.0",
     "react-dom": "^18.2.0"
   },

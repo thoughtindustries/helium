@@ -1,6 +1,6 @@
 {
   "name": "@thoughtindustries/helium-server",
-  "version": "2.4.0",
+  "version": "2.4.1",
   "description": "Packages needed for running Helium Server",
   "publishConfig": {
     "access": "public"
