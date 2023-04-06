@@ -1,5 +1,5 @@
 {
-  "name": "@thoughtindustries/helium-template",
+  "name": "@thoughtindustries/helium-template-essentials",
   "version": "1.2.0-beta.7",
   "scripts": {
     "authenticate": "helium authenticate",
