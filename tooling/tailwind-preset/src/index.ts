@@ -1,6 +1,9 @@
 import type { Config } from 'tailwindcss';
 
 module.exports = {
+  corePlugins: {
+    visibility: false
+  },
   content: [
     './atoms/**/*.{js,jsx,ts,tsx}',
     './pages/**/*.{js,jsx,ts,tsx}',
