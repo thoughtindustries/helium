@@ -1,0 +1,42 @@
+{
+  "name": "@thoughtindustries/helium-tailwind-preset",
+  "version": "1.0.0",
+  "description": "Tailwindcss Preset for use in Helium projects.",
+  "homepage": "https://github.com/thoughtindustries/helium#readme",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/thoughtindustries/helium.git"
+  },
+  "author": "",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/thoughtindustries/helium/issues"
+  },
+  "files": [
+    "dist"
+  ],
+  "main": "./dist/index.js",
+  "scripts": {
+    "build": "tsup src/index.ts --format cjs --clean",
+    "watch": "npm run build -- --watch src",
+    "prepublishOnly": "npm run build"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "dependencies": {
+    "@tailwindcss/line-clamp": "^0.4.4"
+  },
+  "devDependencies": {
+    "tsup": "^6.7.0",
+    "typescript": "^5.0.4"
+  },
+  "volta": {
+    "node": "16.18.1",
+    "npm": "8.19.2"
+  },
+  "engines": {
+    "node": ">=16.18.1",
+    "npm": ">=8.19.2"
+  }
+}
