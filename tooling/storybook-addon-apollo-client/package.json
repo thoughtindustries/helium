@@ -1,7 +1,7 @@
 {
   "name": "@thoughtindustries/storybook-addon-apollo-client",
   "private": true,
-  "version": "1.1.1",
+  "version": "1.1.2",
   "description": "Custom Storybook Addon for Apollo Client.",
   "main": "preset.js",
   "types": "dist/index.d.ts",

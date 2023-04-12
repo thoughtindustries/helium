@@ -1,6 +1,6 @@
 {
   "name": "@thoughtindustries/catalog",
-  "version": "1.2.0-beta.5",
+  "version": "1.2.0-beta.6",
   "description": "A base component for catalog",
   "author": "Lu Jiang <lu.jiang@thoughtindustries.com>",
   "homepage": "https://github.com/thoughtindustries/helium#readme",
@@ -24,9 +24,9 @@
   "dependencies": {
     "@apollo/client": "^3.7.0",
     "@thoughtindustries/content": "^1.2.0-beta.3",
-    "@thoughtindustries/header": "^1.1.0-beta.3",
-    "@thoughtindustries/hooks": "^1.2.0-beta.3",
-    "@thoughtindustries/pagination": "^1.2.0-beta.3",
+    "@thoughtindustries/header": "^1.1.0-beta.4",
+    "@thoughtindustries/hooks": "^1.2.0-beta.4",
+    "@thoughtindustries/pagination": "^1.2.0-beta.4",
     "clsx": "^1.1.1",
     "dayjs": "^1.10.8",
     "graphql": "^16.6.0",

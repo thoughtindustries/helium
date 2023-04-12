@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.3.0-beta.6](https://github.com/thoughtindustries/helium/compare/@thoughtindustries/featured-content@1.3.0-beta.4...@thoughtindustries/featured-content@1.3.0-beta.6) (2023-04-12)
+
+**Note:** Version bump only for package @thoughtindustries/featured-content
+
+
+
+
+
 # [1.3.0-beta.5](https://github.com/thoughtindustries/helium/compare/@thoughtindustries/featured-content@1.3.0-beta.4...@thoughtindustries/featured-content@1.3.0-beta.5) (2023-04-06)
 
 **Note:** Version bump only for package @thoughtindustries/featured-content
