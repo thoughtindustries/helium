@@ -56,6 +56,11 @@ export default async function setupHeliumServer(root: string, viteDevServer: any
       const headers: any = { 'Content-Type': 'application/json' };
       if (reqAuthToken) {
         headers[COOKIE_OR_HEADER_NAME_AUTHTOKEN] = reqAuthToken;
+      } else if (!isProduction && tiInstance?.email) {
+        // primarily for SSO-configured schools utilizing local delevopment,
+        // as the auth cookie set via Thought Industries SSO flow will be set
+        // for that domain and will not be included in requests coming from localhost
+        reqBody.user = tiInstance.email;
       }
 
       const options = {
