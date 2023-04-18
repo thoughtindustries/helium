@@ -69,7 +69,6 @@ export default async function setupHeliumServer(root: string, viteDevServer: any
         body: JSON.stringify(reqBody)
       };
 
-      console.log('>>> reqBody', reqBody);
       fetch(heliumEndpoint, options)
         /**
          * since this runs in node env, 'isomorphic-unfetch` proxies to 'node-fetch`.
