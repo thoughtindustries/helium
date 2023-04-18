@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.4.3](https://github.com/thoughtindustries/helium/compare/@thoughtindustries/helium-server@2.4.2...@thoughtindustries/helium-server@2.4.3) (2023-04-18)
+
+
+### Bug Fixes
+
+* append ti-config user to request body in local dev ([#198](https://github.com/thoughtindustries/helium/issues/198)) ([1f07cc2](https://github.com/thoughtindustries/helium/commit/1f07cc259789ae6a44945b4e22f1bb0132c583eb))
+
+
+
+
+
 ## [2.4.2](https://github.com/thoughtindustries/helium/compare/@thoughtindustries/helium-server@2.4.0...@thoughtindustries/helium-server@2.4.2) (2023-04-12)
 
 **Note:** Version bump only for package @thoughtindustries/helium-server
