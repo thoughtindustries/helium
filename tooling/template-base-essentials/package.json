@@ -1,6 +1,6 @@
 {
   "name": "@thoughtindustries/helium-template-essentials",
-  "version": "1.2.0-beta.10",
+  "version": "1.2.0-beta.11",
   "scripts": {
     "authenticate": "helium authenticate",
     "deploy": "helium deploy",
@@ -49,7 +49,7 @@
   },
   "devDependencies": {
     "@thoughtindustries/helium": "^1.2.0-beta.5",
-    "@thoughtindustries/helium-tailwind-preset": "^1.0.1",
+    "@thoughtindustries/helium-tailwind-preset": "^1.0.2",
     "@types/node": "^17.0.23",
     "@types/react": "^18.0.21",
     "@types/react-dom": "^18.0.6",

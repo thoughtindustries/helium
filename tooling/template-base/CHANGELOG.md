@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.2.0-beta.11](https://github.com/thoughtindustries/helium/compare/@thoughtindustries/helium-template@1.2.0-beta.10...@thoughtindustries/helium-template@1.2.0-beta.11) (2023-04-19)
+
+
+### Bug Fixes
+
+* move content paths to template tailwind config ([#199](https://github.com/thoughtindustries/helium/issues/199)) ([8352e01](https://github.com/thoughtindustries/helium/commit/8352e01f770f8a9699fa4a4a696d2fc51b5d3ee1))
+
+
+
+
+
 # [1.2.0-beta.10](https://github.com/thoughtindustries/helium/compare/@thoughtindustries/helium-template@1.2.0-beta.9...@thoughtindustries/helium-template@1.2.0-beta.10) (2023-04-18)
 
 **Note:** Version bump only for package @thoughtindustries/helium-template
