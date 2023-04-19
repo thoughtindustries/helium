@@ -4,12 +4,6 @@ module.exports = {
   corePlugins: {
     visibility: false
   },
-  content: [
-    './atoms/**/*.{js,jsx,ts,tsx}',
-    './pages/**/*.{js,jsx,ts,tsx}',
-    './components/**/*.{js,jsx,ts,tsx}',
-    './dist/**/*.{js,jsx,ts,tsx}'
-  ],
   theme: {
     screens: {
       sm: '640px',
