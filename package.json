@@ -77,7 +77,6 @@
     "npm": "8.19.2"
   },
   "dependencies": {
-    "@storybook/addon-toolbars": "^6.5.16",
-    "react-error-boundary": "^4.0.4"
+    "@storybook/addon-toolbars": "^6.5.16"
   }
 }

@@ -45,7 +45,8 @@
     "remark-mdx-frontmatter": "^2.0.3",
     "tailwindcss": "^3.0.9",
     "vite": "^3.1.8",
-    "vite-plugin-ssr": "^0.4.43"
+    "vite-plugin-ssr": "^0.4.43",
+    "react-error-boundary": "^4.0.4"
   },
   "devDependencies": {
     "@thoughtindustries/helium": "^1.2.0-beta.5",
