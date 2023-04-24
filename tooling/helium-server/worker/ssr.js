@@ -1,4 +1,4 @@
-import { renderPage } from 'vite-plugin-ssr';
+import { renderPage } from 'vite-plugin-ssr/server';
 import jwt_decode from 'jwt-decode';
 import initPageContext from './init-page-context';
 import tiConfig from 'tiConfig';
