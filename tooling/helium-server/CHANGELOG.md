@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.4.4](https://github.com/thoughtindustries/helium/compare/@thoughtindustries/helium-server@2.4.3...@thoughtindustries/helium-server@2.4.4) (2023-04-21)
+
+
+### Bug Fixes
+
+* batched queries compatibility ([#202](https://github.com/thoughtindustries/helium/issues/202)) ([13bc19f](https://github.com/thoughtindustries/helium/commit/13bc19f49a0f238a9494b30edcd9f4b419c71b01))
+
+
+
+
+
 ## [2.4.3](https://github.com/thoughtindustries/helium/compare/@thoughtindustries/helium-server@2.4.2...@thoughtindustries/helium-server@2.4.3) (2023-04-18)
 
 
