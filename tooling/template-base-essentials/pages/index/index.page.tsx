@@ -13,19 +13,30 @@ const documentProps = {
 };
 
 function Page() {
-  const BUILDING_LINKS = {
-    'https://developer.thoughtindustries.com/build/developer-guide': 'Developer Guide',
-    'https://thoughtindustries.github.io/helium/?path=/docs/packages-cart': 'Storybook Docs',
-    'https://thoughtindustries.github.io/helium-graphql/': 'GraphQL API',
-    '/graphiql': 'GraphQL Playground'
-  };
+  const BUILDING_LINKS = [
+    {
+      href: 'https://developer.thoughtindustries.com/build/developer-guide',
+      label: 'Developer Guide'
+    },
+    {
+      href: 'https://thoughtindustries.github.io/helium/?path=/docs/packages-cart',
+      label: 'Storybook Docs'
+    },
+    { href: 'https://thoughtindustries.github.io/helium-graphql/', label: 'GraphQL API' },
+    { href: '/graphiql', label: 'GraphQL Playground' }
+  ];
 
-  const RESOURCE_LINKS = {
-    'https://www.youtube.com/watch?v=sIUreFrmdLA': 'Youtube Developer Series',
-    'https://developer.thoughtindustries.com/build/developer-guide#routing': 'Guide to Routing',
-    'https://developer.thoughtindustries.com/build/developer-guide#project-breakdown':
-      'Project Breakdown'
-  };
+  const RESOURCE_LINKS = [
+    { href: 'https://www.youtube.com/watch?v=sIUreFrmdLA', label: 'Youtube Developer Series' },
+    {
+      href: 'https://developer.thoughtindustries.com/build/developer-guide#routing',
+      label: 'Guide to Routing'
+    },
+    {
+      href: 'https://developer.thoughtindustries.com/build/developer-guide#project-breakdown',
+      label: 'Project Breakdown'
+    }
+  ];
 
   const RenderLinksContainerStyling = 'flex flex-col justify-center py-9 px-20 lg:px-80';
   const LinkStyling = 'flex flex-col space-y-5 font-thin text-link-rgba';
@@ -45,9 +56,8 @@ function Page() {
       <div className={RenderLinksContainerStyling}>
         <RenderLinks links={BUILDING_LINKS} linkStyling={LinkStyling} title="Start building" />
       </div>
-      {/* RenderLinks */}
       <div className={RenderLinksContainerStyling}>
-        <RenderLinks links={RESOURCE_LINKS} linkStyling={LinkStyling} title="Start building" />
+        <RenderLinks links={RESOURCE_LINKS} linkStyling={LinkStyling} title="Resources" />
       </div>
     </>
   );

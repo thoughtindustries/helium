@@ -6,15 +6,16 @@ const RenderLinks = (props: {
   title: string | undefined;
 }) => {
   const LINKS_ARRAY = [];
-  if (typeof props.links === 'object' && !Array.isArray(props.links) && props.links !== null) {
-    Object.entries(props.links).forEach(([key, value]) => {
+  if (props.links !== null) {
+    console.log(props.links);
+    for (let i = 0; i < props.links.length; i++) {
       LINKS_ARRAY.push(
-        <a href={key} className="flex">
+        <a href={props.links[i].href} className="flex">
           <img src="./renderer/single-dot.svg" className="h-6" />
-          {value}
+          {props.links[i].label}
         </a>
       );
-    });
+    }
   } else {
     throw new Error('props.links must be an Object');
   }

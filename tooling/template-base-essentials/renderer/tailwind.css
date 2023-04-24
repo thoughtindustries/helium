@@ -606,6 +606,11 @@ video {
   padding-right: 0.25rem;
 }
 
+.px-20 {
+  padding-left: 5rem;
+  padding-right: 5rem;
+}
+
 .px-80 {
   padding-left: 20rem;
   padding-right: 20rem;
@@ -614,16 +619,6 @@ video {
 .py-9 {
   padding-top: 2.25rem;
   padding-bottom: 2.25rem;
-}
-
-.px-40 {
-  padding-left: 10rem;
-  padding-right: 10rem;
-}
-
-.px-20 {
-  padding-left: 5rem;
-  padding-right: 5rem;
 }
 
 .pb-2 {
@@ -638,28 +633,12 @@ video {
   padding-bottom: 0.875rem;
 }
 
-.pr-\[320px\] {
-  padding-right: 320px;
+.pr-10 {
+  padding-right: 2.5rem;
 }
 
 .pt-16 {
   padding-top: 4rem;
-}
-
-.pt-4 {
-  padding-top: 1rem;
-}
-
-.pb-20 {
-  padding-bottom: 5rem;
-}
-
-.pt-9 {
-  padding-top: 2.25rem;
-}
-
-.pr-10 {
-  padding-right: 2.5rem;
 }
 
 .text-5xl {
@@ -696,9 +675,8 @@ video {
   color: rgb(0 0 0 / var(--tw-text-opacity));
 }
 
-.text-blue-700 {
-  --tw-text-opacity: 1;
-  color: rgb(29 78 216 / var(--tw-text-opacity));
+.text-link-rgba {
+  color: rgba(0, 159, 180, 1);
 }
 
 .text-slate-500 {
@@ -709,10 +687,6 @@ video {
 .text-slate-600 {
   --tw-text-opacity: 1;
   color: rgb(71 85 105 / var(--tw-text-opacity));
-}
-
-.text-link-rgba {
-  color: rgba(0, 159, 180, 1);
 }
 
 .underline {
@@ -735,17 +709,6 @@ video {
   transition-property: color, background-color, border-color, text-decoration-color, fill, stroke, opacity, box-shadow, transform, filter, backdrop-filter, -webkit-text-decoration-color, -webkit-backdrop-filter;
   transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
   transition-duration: 150ms;
-}
-
-@media (min-width: 768px) {
-  .md\:px-80 {
-    padding-left: 20rem;
-    padding-right: 20rem;
-  }
-
-  .md\:pr-80 {
-    padding-right: 20rem;
-  }
 }
 
 @media (min-width: 1024px) {
