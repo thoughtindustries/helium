@@ -66,6 +66,11 @@ type FetchRequest = {
   options: RequestInit;
 };
 
+type QueryReqBody = {
+  query: string;
+  user?: string;
+};
+
 const composeFetchRequest = (tiInstance: TiInstance, authToken?: string): FetchRequest => {
   const requestHeaders: any = { 'Content-Type': 'application/json' };
   if (authToken) {
@@ -79,10 +84,17 @@ const composeFetchRequest = (tiInstance: TiInstance, authToken?: string): FetchR
   return { endpoint, options };
 };
 
-const fetchUser = async (tiInstance: TiInstance, authToken: string) => {
+const fetchUser = async (tiInstance: TiInstance, authToken?: string, isProduction = true) => {
   let currentUser = {};
 
   const { endpoint, options } = composeFetchRequest(tiInstance, authToken);
+
+  const body = { query: USER_QUERY } as QueryReqBody;
+
+  if (!authToken && !isProduction && tiInstance.email) {
+    body.user = tiInstance.email;
+  }
+
   options.body = JSON.stringify({
     query: USER_QUERY
   });
@@ -100,14 +112,22 @@ const fetchUser = async (tiInstance: TiInstance, authToken: string) => {
   return currentUser;
 };
 
-const fetchUserAndAppearance = async (tiInstance: TiInstance, authToken?: string) => {
+const fetchUserAndAppearance = async (
+  tiInstance: TiInstance,
+  authToken?: string,
+  isProduction = true
+) => {
   let currentUser = {};
   let appearanceBlock = {};
 
   const { endpoint, options } = composeFetchRequest(tiInstance, authToken);
-  options.body = JSON.stringify({
-    query: USER_AND_APPEARANCE_QUERY
-  });
+  const body = { query: USER_AND_APPEARANCE_QUERY } as QueryReqBody;
+
+  if (!authToken && !isProduction && tiInstance.email) {
+    body.user = tiInstance.email;
+  }
+
+  options.body = JSON.stringify(body);
 
   const userDataResponse = await fetch(endpoint, options).then(r => r.json());
 

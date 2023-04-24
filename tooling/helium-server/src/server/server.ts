@@ -109,15 +109,22 @@ export default async function setupHeliumServer(root: string, viteDevServer: any
 
     // fetch appearance (batch operation to fetch current user if applied)
     if (shouldFetchAppearance) {
-      const userAndAppearance = await fetchUserAndAppearance(tiInstance, requestCookieAuthToken);
+      const userAndAppearance = await fetchUserAndAppearance(
+        tiInstance,
+        requestCookieAuthToken,
+        isProduction
+      );
       currentUser = userAndAppearance.currentUser;
       appearanceBlock = userAndAppearance.appearanceBlock;
     }
 
     // fetch current user
-    const shouldFetchUser = !!requestCookieAuthToken && !Object.keys(currentUser).length;
+    const canUseConfigEmail = !isProduction && tiInstance.email;
+    const shouldFetchUser =
+      (!!requestCookieAuthToken || canUseConfigEmail) && !Object.keys(currentUser).length;
+
     if (shouldFetchUser) {
-      currentUser = await fetchUser(tiInstance, requestCookieAuthToken);
+      currentUser = await fetchUser(tiInstance, requestCookieAuthToken, isProduction);
     }
 
     const url = req.originalUrl;
