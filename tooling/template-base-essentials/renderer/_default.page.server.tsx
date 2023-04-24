@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Suspense } from 'react';
 import { PageWrapper } from './PageWrapper';
 import { escapeInject, dangerouslySkipEscape } from 'vite-plugin-ssr/server';
 import { getDataFromTree } from '@apollo/client/react/ssr';
@@ -42,18 +42,20 @@ const render: RenderFn = async pageContext => {
   }
 
   const tree = (
-    <ApolloProvider client={apolloClient}>
-      <I18nextProvider i18n={i18n}>
-        <PageWrapper pageContext={pageContext}>
-          <Page
-            {...pageProps}
-            appearance={appearance}
-            currentUser={currentUser}
-            queryParams={queryParams}
-          />
-        </PageWrapper>
-      </I18nextProvider>
-    </ApolloProvider>
+    <Suspense fallback="Loading...">
+      <ApolloProvider client={apolloClient}>
+        <I18nextProvider i18n={i18n}>
+          <PageWrapper pageContext={pageContext}>
+            <Page
+              {...pageProps}
+              appearance={appearance}
+              currentUser={currentUser}
+              queryParams={queryParams}
+            />
+          </PageWrapper>
+        </I18nextProvider>
+      </ApolloProvider>
+    </Suspense>
   );
 
   const pageHtml = await getDataFromTree(tree);
