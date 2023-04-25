@@ -14,19 +14,21 @@ const CommunityNav = () => {
     }
   ];
 
-  const RenderNavElements = props => {
+  const RenderNavElements = (props: {
+    elements: Array<{ text: string; image?: string; link: string }>;
+  }) => {
     const ElementsArray = [];
     for (let i = 0; i < props.elements.length; i++) {
       ElementsArray.push(
         <a href={props.elements[i].link} className="flex">
-          <img src={props.elements[i].image} />
+          {props.elements[i].image && <img src={props.elements[i].image} />}
           <div className="text-slate-600 underline px-1 font-semibold">
             {props.elements[i].text}
           </div>
         </a>
       );
     }
-    return ElementsArray;
+    return <>ElementsArray</>;
   };
 
   return (

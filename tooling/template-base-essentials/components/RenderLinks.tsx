@@ -1,16 +1,15 @@
 import React from 'react';
 
 const RenderLinks = (props: {
-  links: { [s: string]: unknown } | ArrayLike<unknown> | null;
-  linkStyling: string | undefined;
-  title: string | undefined;
+  links: Array<{ href: string; label: string }>;
+  linkStyling?: string;
+  title?: string;
 }) => {
   const LINKS_ARRAY = [];
   if (props.links !== null) {
-    console.log(props.links);
-    for (let i = 0; i < props.links.length; i++) {
+    for (let i = 0; i < props?.links.length; i++) {
       LINKS_ARRAY.push(
-        <a href={props.links[i].href} className="flex">
+        <a href={props?.links[i].href} className="flex">
           <img src="./renderer/single-dot.svg" className="h-6" />
           {props.links[i].label}
         </a>
