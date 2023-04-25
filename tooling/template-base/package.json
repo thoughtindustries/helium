@@ -11,7 +11,8 @@
     "dev:server": "tsup ./server/index.ts && node ./dist/index.js",
     "build": "npm run build:css && npm run build:vite",
     "build:css": "tailwindcss -o ./renderer/tailwind.css",
-    "build:vite": "vite build"
+    "build:vite": "vite build",
+    "build:atoms": "vite build -c vite.atoms.config.ts && vite build"
   },
   "publishConfig": {
     "access": "public",
@@ -38,6 +39,7 @@
     "jwt-decode": "^3.1.2",
     "node-html-parser": "^4.1.5",
     "react": "^18.2.0",
+    "react-audio-player": "^0.17.0",
     "react-dom": "^18.2.0",
     "react-h5-audio-player": "^3.8.6",
     "react-i18next": "^11.18.6",
