@@ -70,6 +70,15 @@ const AudioPlayer = () => {
     return `${returnedMinutes}:${returnedSeconds}`;
   };
 
+  const CalculateTimeRemaining = () => {
+    const timeleft = duration - currentTime;
+    const seconds = timeleft % 60;
+    const minutes = Math.floor(timeleft / 60) % 60;
+    const returnedSeconds = seconds < 10 ? `0${seconds}` : `${seconds}`;
+    const returnedMinutes = minutes < 10 ? `0${minutes}` : `${minutes}`;
+    return `${returnedMinutes}:${returnedSeconds}`;
+  };
+
   const togglePlayPause = () => {
     const prevValue = isPlaying;
     setIsPlaying(!prevValue);
@@ -150,7 +159,7 @@ const AudioPlayer = () => {
               {/* current time */}
               <div className="w-12">{CalculateTime(currentTime)}</div>
               {/* duration */}
-              <div className="w-12">{CalculateTime(duration)}</div>
+              <div className="w-12">{CalculateTimeRemaining()}</div>
             </div>
           </div>
 
