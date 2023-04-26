@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.4.6](https://github.com/thoughtindustries/helium/compare/@thoughtindustries/helium-server@2.4.5...@thoughtindustries/helium-server@2.4.6) (2023-04-26)
+
+
+### Bug Fixes
+
+* stringify updated body ([ba26726](https://github.com/thoughtindustries/helium/commit/ba2672684325cfb020fcb9a6eed7b91d232bb9ce))
+
+
+
+
+
 ## [2.4.5](https://github.com/thoughtindustries/helium/compare/@thoughtindustries/helium-server@2.4.4...@thoughtindustries/helium-server@2.4.5) (2023-04-24)
 
 

@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.2.0-beta.14](https://github.com/thoughtindustries/helium/compare/@thoughtindustries/helium-template-essentials@1.2.0-beta.13...@thoughtindustries/helium-template-essentials@1.2.0-beta.14) (2023-04-26)
+
+
+### Bug Fixes
+
+* order in package.json ([7346885](https://github.com/thoughtindustries/helium/commit/7346885585fb7acacbbe0cc661c1d8da68c4e5b9))
+* place "react-error-boundary": "^4.0.4" in correct package files ([78f3cb2](https://github.com/thoughtindustries/helium/commit/78f3cb2fb11e35df14f6b03bb6879a576b9b49bc))
+
+
+
+
+
 # [1.2.0-beta.13](https://github.com/thoughtindustries/helium/compare/@thoughtindustries/helium-template-essentials@1.2.0-beta.12...@thoughtindustries/helium-template-essentials@1.2.0-beta.13) (2023-04-24)
 
 **Note:** Version bump only for package @thoughtindustries/helium-template-essentials
