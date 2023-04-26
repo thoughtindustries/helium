@@ -1,6 +1,6 @@
 import express from 'express';
 import cookieParser from 'cookie-parser';
-import { renderPage } from 'vite-plugin-ssr';
+import { renderPage } from 'vite-plugin-ssr/server';
 import findTiInstance from './../utilities/find-ti-instance';
 import { fetchUserAndAppearance, fetchUser } from './../utilities/fetch-user-and-appearance';
 import initPageContext from './../utilities/init-page-context';
@@ -54,13 +54,18 @@ export default async function setupHeliumServer(root: string, viteDevServer: any
         reqHeaders[COOKIE_OR_HEADER_NAME_AUTHTOKEN] ||
         reqHeaders[COOKIE_OR_HEADER_NAME_AUTHTOKEN.toLowerCase()];
       const headers: any = { 'Content-Type': 'application/json' };
+
       if (reqAuthToken) {
         headers[COOKIE_OR_HEADER_NAME_AUTHTOKEN] = reqAuthToken;
       } else if (!isProduction && tiInstance?.email) {
         // primarily for SSO-configured schools utilizing local delevopment,
         // as the auth cookie set via Thought Industries SSO flow will be set
         // for that domain and will not be included in requests coming from localhost
-        reqBody.user = tiInstance.email;
+        if (Array.isArray(reqBody)) {
+          reqBody.push({ user: tiInstance.email });
+        } else {
+          reqBody.user = tiInstance.email;
+        }
       }
 
       const options = {
@@ -104,15 +109,22 @@ export default async function setupHeliumServer(root: string, viteDevServer: any
 
     // fetch appearance (batch operation to fetch current user if applied)
     if (shouldFetchAppearance) {
-      const userAndAppearance = await fetchUserAndAppearance(tiInstance, requestCookieAuthToken);
+      const userAndAppearance = await fetchUserAndAppearance(
+        tiInstance,
+        requestCookieAuthToken,
+        isProduction
+      );
       currentUser = userAndAppearance.currentUser;
       appearanceBlock = userAndAppearance.appearanceBlock;
     }
 
     // fetch current user
-    const shouldFetchUser = !!requestCookieAuthToken && !Object.keys(currentUser).length;
+    const canUseConfigEmail = !isProduction && tiInstance.email;
+    const shouldFetchUser =
+      (!!requestCookieAuthToken || canUseConfigEmail) && !Object.keys(currentUser).length;
+
     if (shouldFetchUser) {
-      currentUser = await fetchUser(tiInstance, requestCookieAuthToken);
+      currentUser = await fetchUser(tiInstance, requestCookieAuthToken, isProduction);
     }
 
     const url = req.originalUrl;
