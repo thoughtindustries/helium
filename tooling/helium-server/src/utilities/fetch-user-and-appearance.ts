@@ -95,9 +95,7 @@ const fetchUser = async (tiInstance: TiInstance, authToken?: string, isProductio
     body.user = tiInstance.email;
   }
 
-  options.body = JSON.stringify({
-    query: USER_QUERY
-  });
+  options.body = JSON.stringify(body);
 
   const userDataResponse = await fetch(endpoint, options).then(r => r.json());
 
