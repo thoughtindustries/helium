@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.4.5](https://github.com/thoughtindustries/helium/compare/@thoughtindustries/helium-server@2.4.4...@thoughtindustries/helium-server@2.4.5) (2023-04-24)
+
+
+### Bug Fixes
+
+* allow use of config email when fetching user for page context ([#203](https://github.com/thoughtindustries/helium/issues/203)) ([f58a83f](https://github.com/thoughtindustries/helium/commit/f58a83f8ecc8a0eed7014e26c9ee406b7a49bc1e))
+
+
+
+
+
 ## [2.4.4](https://github.com/thoughtindustries/helium/compare/@thoughtindustries/helium-server@2.4.3...@thoughtindustries/helium-server@2.4.4) (2023-04-21)
 
 
