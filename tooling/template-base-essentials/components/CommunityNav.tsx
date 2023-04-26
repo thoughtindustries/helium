@@ -1,15 +1,17 @@
 import React from 'react';
+import DiscordLogo from '../renderer/discord.svg';
+import GitHubLogo from '../renderer/github.svg';
 
 const CommunityNav = () => {
   const NavElementArray = [
     {
       text: 'View Repo',
-      image: './renderer/github.svg',
+      image: DiscordLogo,
       link: 'https://github.com/thoughtindustries/helium'
     },
     {
       text: 'Join Community',
-      image: './renderer/discord.svg',
+      image: GitHubLogo,
       link: 'https://discord.gg/cTJBX4muVn'
     }
   ];

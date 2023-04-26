@@ -3,6 +3,7 @@ import TitleAndBody from '../../components/TitleAndBody';
 import CommunityNav from '../../components/CommunityNav';
 import HomepageHeader from '../../components/HomepageHeader';
 import RenderLinks from '../../components/RenderLinks';
+import WavyHand from '../../renderer/wavyHand.svg';
 
 export { Page };
 export { documentProps };
@@ -47,7 +48,7 @@ function Page() {
       <HomepageHeader
         title="Hello, World"
         body="Welcome to your new custom webpage."
-        image="./renderer/wavyHand.svg"
+        image={WavyHand}
       />
       <TitleAndBody
         title="Configure your page"

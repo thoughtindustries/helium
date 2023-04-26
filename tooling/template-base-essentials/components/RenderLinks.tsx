@@ -1,4 +1,5 @@
 import React from 'react';
+import dot from '../renderer/single-dot.svg';
 
 const RenderLinks = (props: {
   links: Array<{ href: string; label: string }>;
@@ -10,7 +11,7 @@ const RenderLinks = (props: {
     for (let i = 0; i < props?.links.length; i++) {
       LINKS_ARRAY.push(
         <a href={props?.links[i].href} className="flex">
-          <img src="./renderer/single-dot.svg" className="h-6" />
+          <img src={dot} className="h-6" />
           {props.links[i].label}
         </a>
       );
