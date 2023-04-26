@@ -9,10 +9,8 @@ const RenderLinks = (props: {
   if (props.links !== null) {
     for (let i = 0; i < props?.links.length; i++) {
       LINKS_ARRAY.push(
-        <li>
-          <a href={props?.links[i].href} className="">
-            {props.links[i].label}
-          </a>
+        <li key={i}>
+          <a href={props?.links[i].href}>{props.links[i].label}</a>
         </li>
       );
     }
