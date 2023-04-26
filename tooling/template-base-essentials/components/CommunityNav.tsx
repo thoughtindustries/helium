@@ -28,7 +28,7 @@ const CommunityNav = () => {
         </a>
       );
     }
-    return <>ElementsArray</>;
+    return <>{ElementsArray}</>;
   };
 
   return (
