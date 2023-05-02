@@ -1,0 +1,12 @@
+# dependencies
+node_modules
+
+# env
+.env
+
+# misc
+.DS_Store
+dist
+*.local
+renderer/tailwind.css
+ti-config.json
