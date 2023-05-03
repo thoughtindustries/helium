@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.1.16](https://github.com/thoughtindustries/helium/compare/create-helium-app@1.1.15...create-helium-app@1.1.16) (2023-05-03)
+
+
+### Bug Fixes
+
+* add template-base-essentials to package.json files ([#205](https://github.com/thoughtindustries/helium/issues/205)) ([24fd2d6](https://github.com/thoughtindustries/helium/commit/24fd2d68e4adb142ae844bdaac641b56674e0548))
+
+
+
+
+
 ## [1.1.15](https://github.com/thoughtindustries/helium/compare/create-helium-app@1.1.14...create-helium-app@1.1.15) (2023-04-26)
 
 **Note:** Version bump only for package create-helium-app

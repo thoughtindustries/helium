@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.2.0-beta.15](https://github.com/thoughtindustries/helium/compare/@thoughtindustries/helium-template-essentials@1.2.0-beta.14...@thoughtindustries/helium-template-essentials@1.2.0-beta.15) (2023-05-03)
+
+
+### Bug Fixes
+
+* remove react-key warning ([#204](https://github.com/thoughtindustries/helium/issues/204)) ([d0c4b44](https://github.com/thoughtindustries/helium/commit/d0c4b44aba3a7612423ff09114013f9a72daeaff))
+
+
+
+
+
 # [1.2.0-beta.14](https://github.com/thoughtindustries/helium/compare/@thoughtindustries/helium-template-essentials@1.2.0-beta.13...@thoughtindustries/helium-template-essentials@1.2.0-beta.14) (2023-04-26)
 
 
