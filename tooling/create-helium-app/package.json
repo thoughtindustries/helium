@@ -13,7 +13,8 @@
   "files": [
     "index.js",
     "scripts",
-    "template-base"
+    "template-base",
+    "template-base-essentials"
   ],
   "scripts": {
     "prepublishOnly": "node ./scripts/tmp-copy-template-from-tooling.js"
