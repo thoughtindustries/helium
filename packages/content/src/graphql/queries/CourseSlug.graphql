@@ -1,0 +1,9 @@
+query CourseGroupBySlug($Slug: Slug!) {
+  CourseGroupBySlug(slug: $Slug) {
+    asset
+    description
+    title
+    rating
+    ratingsCount
+  }
+}

@@ -42,3 +42,30 @@ if (data) {
   });
 }
 ```
+
+## Content Header
+
+The `Content Header` component is used to add a title, description, rating and image to a course quickly. This is done by passing props to a component that is already created, rather than creating a new one from scratch.
+
+### Example code
+
+```tsx
+import { ContentHeader } from '@thoughtindustries/content';
+
+export function MyComponent() {
+  // ...
+
+  return (
+    <ContentHeader contentKind={contentKind} slug={courseSlug} showStars={true} showImage={true} />
+  );
+}
+```
+
+## Props
+
+| Name        | Required | Type                 | Description                                                    |
+| ----------- | -------- | -------------------- | -------------------------------------------------------------- |
+| contentKind | Yes      | <code>string</code>  | The contentKind of the Content. LearningPath, Course elements. |
+| slug        | Yes      | <code>slug</code>    | Content Slug cart.                                             |
+| showStars   | No       | <code>boolean</code> | If false, hide the stars. If true, show the stars              |
+| showImage   | No       | <code>boolean</code> | If false, hide the image. If true, show the image              |
