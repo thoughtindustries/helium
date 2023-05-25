@@ -2,12 +2,9 @@ import React from 'react';
 import { Meta, StoryObj } from '@storybook/react';
 import { ContentHeader } from '../src/components/content-header';
 import { ContentHeaderProps } from '../src/components/content-header/types';
-import { GlobalTypes } from '../src/graphql';
-import { Content, ContentKind, CourseGroup } from '../src/graphql/global-types';
 import {
   CourseGroupBySlugDocument,
-  CourseGroupBySlugQuery,
-  useCourseGroupBySlugQuery
+  CourseGroupBySlugQuery
 } from '../src/graphql/queries/CourseSlug.generated';
 
 const meta: Meta<ContentHeaderProps> = {
