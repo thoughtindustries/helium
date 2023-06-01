@@ -46,13 +46,18 @@ async function handleSsr(url, authToken = null, userAndAppearanceToken = null) {
     sha256,
     authToken
   );
-  const { httpResponse } = pageContext;
+
+  const { httpResponse, redirectTo } = pageContext;
 
   if (!httpResponse) {
     return null;
   } else {
     const { statusCode, body } = httpResponse;
     const headers = assembleHeaders(pageContext);
+
+    if (redirectTo) {
+      url = redirectTo;
+    }
 
     return new Response(resolveAssetUrls(url, body), {
       headers,
