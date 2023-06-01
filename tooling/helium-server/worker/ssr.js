@@ -49,27 +49,27 @@ async function handleSsr(url, authToken = null, userAndAppearanceToken = null) {
 
   const { httpResponse, redirectTo } = pageContext;
 
+  let { statusCode, body } = httpResponse;
+  const headers = assembleHeaders(pageContext);
+
+  if (!statusCode) {
+    //set default if code not provided
+    statusCode = 302;
+  }
+
+  if (redirectTo) {
+    body = `Redirecting to ${redirectTo}.`;
+
+    return new Response(body, {
+      headers,
+      status: statusCode,
+      url: redirectTo
+    });
+  }
+
   if (!httpResponse) {
     return null;
   } else {
-    let { statusCode, body } = httpResponse;
-    const headers = assembleHeaders(pageContext);
-
-    if (!statusCode) {
-      //set default if code not provided
-      statusCode = 302;
-    }
-
-    if (redirectTo) {
-      body = `Redirecting to ${redirectTo}.`;
-
-      return new Response(body, {
-        headers,
-        status: statusCode,
-        url: redirectTo
-      });
-    }
-
     return new Response(resolveAssetUrls(url, body), {
       headers,
       status: statusCode
