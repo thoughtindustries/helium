@@ -52,13 +52,20 @@ async function handleSsr(url, authToken = null, userAndAppearanceToken = null) {
   if (!httpResponse) {
     return null;
   } else {
-    const { statusCode, body } = httpResponse;
+    let { statusCode, body } = httpResponse;
     const headers = assembleHeaders(pageContext);
 
+    if (!statusCode) {
+      //set default if code not provided
+      statusCode = 302;
+    }
+
     if (redirectTo) {
-      return new Response(null, {
+      body = `Redirecting to ${redirectTo}.`;
+
+      return new Response(body, {
         headers,
-        status: 301,
+        status: statusCode,
         url: redirectTo
       });
     }
