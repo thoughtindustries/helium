@@ -56,7 +56,11 @@ async function handleSsr(url, authToken = null, userAndAppearanceToken = null) {
     const headers = assembleHeaders(pageContext);
 
     if (redirectTo) {
-      url = redirectTo;
+      return new Response(null, {
+        headers,
+        status: 301,
+        url: redirectTo
+      });
     }
 
     return new Response(resolveAssetUrls(url, body), {
