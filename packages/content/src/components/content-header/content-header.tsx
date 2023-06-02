@@ -49,6 +49,12 @@ const ContentHeader = (props: {
     variables: { Slug: props.slug }
   });
 
+  let title, description, rating, ratingsCount, asset;
+
+  if (data && data.CourseGroupBySlug) {
+    ({ title, description, rating, ratingsCount, asset } = data.CourseGroupBySlug);
+  }
+
   if (error) {
     console.log(error);
   }
@@ -58,28 +64,20 @@ const ContentHeader = (props: {
     <div className="py-24 px-20">
       <div className="px-1">
         {/* header */}
-        <div className="text-5xl font-bold pb-2 font-primary">{data?.CourseGroupBySlug?.title}</div>
+        <div className="text-5xl font-bold pb-2 font-primary">{title}</div>
         {/* description */}
-        <div className="text-lg text-slate-400 pb-2.5 font-primary">
-          {data?.CourseGroupBySlug?.description}
-        </div>
+        <div className="text-lg text-slate-400 pb-2.5 font-primary">{description}</div>
         {/* stars */}
         {props.showStars && (
           <div className="flex pb-8">
-            {data?.CourseGroupBySlug?.rating && <Stars score={data?.CourseGroupBySlug?.rating} />}
-            {data?.CourseGroupBySlug?.rating && (
-              <div className="font-bold px-1">
-                {(data?.CourseGroupBySlug?.rating / 20).toFixed(1)}
-              </div>
-            )}
-            <div>({data?.CourseGroupBySlug?.ratingsCount} Reviews)</div>
+            {rating && <Stars score={rating} />}
+            {rating && <div className="font-bold px-1">{(rating / 20).toFixed(1)}</div>}
+            {ratingsCount && <div>({ratingsCount} Reviews)</div>}
           </div>
         )}
       </div>
       {/* image */}
-      {props.showImage && data?.CourseGroupBySlug?.asset && (
-        <img src={data.CourseGroupBySlug.asset} className="w-[600px]" />
-      )}
+      {props.showImage && asset && <img src={asset} className="w-[600px]" />}
     </div>
   );
 };
