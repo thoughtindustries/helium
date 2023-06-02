@@ -46,7 +46,12 @@ async function handleSsr(url, authToken = null, userAndAppearanceToken = null) {
     sha256,
     authToken
   );
-  const { httpResponse } = pageContext;
+
+  const { httpResponse, redirectTo } = pageContext;
+
+  if (redirectTo) {
+    return Response.redirect(redirectTo, 302);
+  }
 
   if (!httpResponse) {
     return null;
