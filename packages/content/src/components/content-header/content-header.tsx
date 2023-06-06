@@ -68,12 +68,14 @@ const ContentHeader = (props: {
         {/* description */}
         <div className="text-lg text-slate-400 pb-2.5 font-primary">{description}</div>
         {/* stars */}
-        {props.showStars && (
-          <div className="flex pb-8">
-            {rating && <Stars score={rating} />}
-            {rating && <div className="font-bold px-1">{(rating / 20).toFixed(1)}</div>}
-            {ratingsCount && <div>({ratingsCount} Reviews)</div>}
-          </div>
+        {props.showStars && rating && (
+          <>
+            <div className="flex pb-8">
+              <Stars score={rating} />
+              <div className="font-bold px-1">{(rating / 20).toFixed(1)}</div>
+              <div>({ratingsCount} Reviews)</div>
+            </div>
+          </>
         )}
       </div>
       {/* image */}
