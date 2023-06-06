@@ -4,7 +4,7 @@ import { gql } from '@apollo/client';
 import * as Apollo from '@apollo/client';
 const defaultOptions = {} as const;
 export type CourseGroupBySlugQueryVariables = Types.Exact<{
-  Slug: Types.Scalars['Slug'];
+  slug: Types.Scalars['Slug'];
 }>;
 
 export type CourseGroupBySlugQuery = {
@@ -20,8 +20,8 @@ export type CourseGroupBySlugQuery = {
 };
 
 export const CourseGroupBySlugDocument = gql`
-  query CourseGroupBySlug($Slug: Slug!) {
-    CourseGroupBySlug(slug: $Slug) {
+  query CourseGroupBySlug($slug: Slug!) {
+    CourseGroupBySlug(slug: $slug) {
       asset
       description
       title

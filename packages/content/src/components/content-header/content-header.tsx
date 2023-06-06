@@ -46,7 +46,7 @@ const ContentHeader = (props: {
   showImage: boolean;
 }): JSX.Element => {
   const { data, error } = useCourseGroupBySlugQuery({
-    variables: { Slug: props.slug }
+    variables: { slug: props.slug }
   });
 
   let title, description, rating, ratingsCount, asset;
