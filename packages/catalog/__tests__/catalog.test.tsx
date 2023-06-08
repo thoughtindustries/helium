@@ -646,9 +646,7 @@ describe('@thoughtindustries/catalog', () => {
                           <span
                             class="text-xs text-gray-700 pl-1"
                           >
-                            (
-                            10
-                            )
+                            (10)
                           </span>
                         </a>
                       </li>
@@ -661,9 +659,7 @@ describe('@thoughtindustries/catalog', () => {
                           <span
                             class="text-xs text-gray-700 pl-1"
                           >
-                            (
-                            20
-                            )
+                            (20)
                           </span>
                         </a>
                       </li>
@@ -715,9 +711,7 @@ describe('@thoughtindustries/catalog', () => {
                           <span
                             class="text-xs text-gray-700 pl-1"
                           >
-                            (
-                            20
-                            )
+                            (20)
                           </span>
                         </a>
                       </li>
@@ -769,9 +763,7 @@ describe('@thoughtindustries/catalog', () => {
                           <span
                             class="text-xs text-gray-700 pl-1"
                           >
-                            (
-                            30
-                            )
+                            (30)
                           </span>
                         </a>
                       </li>
@@ -784,9 +776,7 @@ describe('@thoughtindustries/catalog', () => {
                           <span
                             class="text-xs text-gray-700 pl-1"
                           >
-                            (
-                            40
-                            )
+                            (40)
                           </span>
                         </a>
                       </li>
@@ -912,8 +902,7 @@ describe('@thoughtindustries/catalog', () => {
                                         />
                                       </svg>
                                     </i>
-                                     
-                                    course-add-to-queue
+                                     course-add-to-queue
                                   </span>
                                 </button>
                               </div>
@@ -931,17 +920,12 @@ describe('@thoughtindustries/catalog', () => {
                     >
                       <span>
                         Showing
-                         
                         <strong>
-                          1
-                          -
-                          48
+                           1-48 
                         </strong>
-                         
-                        of 
+                        of
                         <strong>
-                          100
-                           items
+                           100 items
                         </strong>
                       </span>
                     </div>
@@ -1487,9 +1471,7 @@ describe('@thoughtindustries/catalog', () => {
                           <span
                             class="text-xs text-gray-700 pl-1"
                           >
-                            (
-                            10
-                            )
+                            (10)
                           </span>
                         </a>
                       </li>
@@ -1502,9 +1484,7 @@ describe('@thoughtindustries/catalog', () => {
                           <span
                             class="text-xs text-gray-700 pl-1"
                           >
-                            (
-                            20
-                            )
+                            (20)
                           </span>
                         </a>
                       </li>
@@ -1556,9 +1536,7 @@ describe('@thoughtindustries/catalog', () => {
                           <span
                             class="text-xs text-gray-700 pl-1"
                           >
-                            (
-                            20
-                            )
+                            (20)
                           </span>
                         </a>
                       </li>
@@ -1610,9 +1588,7 @@ describe('@thoughtindustries/catalog', () => {
                           <span
                             class="text-xs text-gray-700 pl-1"
                           >
-                            (
-                            30
-                            )
+                            (30)
                           </span>
                         </a>
                       </li>
@@ -1625,9 +1601,7 @@ describe('@thoughtindustries/catalog', () => {
                           <span
                             class="text-xs text-gray-700 pl-1"
                           >
-                            (
-                            40
-                            )
+                            (40)
                           </span>
                         </a>
                       </li>
@@ -1777,8 +1751,7 @@ describe('@thoughtindustries/catalog', () => {
                                           />
                                         </svg>
                                       </i>
-                                       
-                                      course-add-to-queue
+                                       course-add-to-queue
                                     </span>
                                   </button>
                                 </span>
@@ -1849,17 +1822,12 @@ describe('@thoughtindustries/catalog', () => {
                     >
                       <span>
                         Showing
-                         
                         <strong>
-                          1
-                          -
-                          48
+                           1-48 
                         </strong>
-                         
-                        of 
+                        of
                         <strong>
-                          100
-                           items
+                           100 items
                         </strong>
                       </span>
                     </div>
@@ -2251,9 +2219,7 @@ describe('@thoughtindustries/catalog', () => {
                           <span
                             class="text-xs text-gray-700 pl-1"
                           >
-                            (
-                            10
-                            )
+                            (10)
                           </span>
                         </a>
                       </li>
@@ -2266,9 +2232,7 @@ describe('@thoughtindustries/catalog', () => {
                           <span
                             class="text-xs text-gray-700 pl-1"
                           >
-                            (
-                            20
-                            )
+                            (20)
                           </span>
                         </a>
                       </li>
@@ -2320,9 +2284,7 @@ describe('@thoughtindustries/catalog', () => {
                           <span
                             class="text-xs text-gray-700 pl-1"
                           >
-                            (
-                            20
-                            )
+                            (20)
                           </span>
                         </a>
                       </li>
@@ -2374,9 +2336,7 @@ describe('@thoughtindustries/catalog', () => {
                           <span
                             class="text-xs text-gray-700 pl-1"
                           >
-                            (
-                            30
-                            )
+                            (30)
                           </span>
                         </a>
                       </li>
@@ -2389,9 +2349,7 @@ describe('@thoughtindustries/catalog', () => {
                           <span
                             class="text-xs text-gray-700 pl-1"
                           >
-                            (
-                            40
-                            )
+                            (40)
                           </span>
                         </a>
                       </li>
@@ -2544,8 +2502,7 @@ describe('@thoughtindustries/catalog', () => {
                                       />
                                     </svg>
                                   </i>
-                                   
-                                  course-add-to-queue
+                                   course-add-to-queue
                                 </span>
                               </button>
                             </div>
@@ -2562,17 +2519,12 @@ describe('@thoughtindustries/catalog', () => {
                     >
                       <span>
                         Showing
-                         
                         <strong>
-                          1
-                          -
-                          48
+                           1-48 
                         </strong>
-                         
-                        of 
+                        of
                         <strong>
-                          100
-                           items
+                           100 items
                         </strong>
                       </span>
                     </div>
