@@ -5,7 +5,7 @@ import { ContentHeaderProps } from '../src/components/content-header/types';
 import {
   CourseGroupBySlugDocument,
   CourseGroupBySlugQuery
-} from '../src/graphql/queries/CourseSlug.generated';
+} from '../src/graphql/queries/CourseGroupBySlug.generated';
 
 const meta: Meta<ContentHeaderProps> = {
   component: ContentHeader,
@@ -29,7 +29,7 @@ const mockApolloResultsFactory = () => [
     request: {
       query: CourseGroupBySlugDocument,
       variables: {
-        Slug: 'test-ribbon'
+        slug: 'test-ribbon'
       }
     },
     result: {
