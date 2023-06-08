@@ -18,17 +18,12 @@ describe('@thoughtindustries/pagination', () => {
             >
               <span>
                 Showing
-                 
                 <strong>
-                  1
-                  -
-                  50
+                   1-50 
                 </strong>
-                 
-                of 
+                of
                 <strong>
-                  100
-                   items
+                   100 items
                 </strong>
               </span>
             </div>
