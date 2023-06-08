@@ -73,11 +73,7 @@ const Pagination = ({
     <div className="mx-2 my-4 flex flex-wrap-reverse items-center justify-between">
       <div className="mt-2 flex items-center justify-start">
         <span>
-          Showing{' '}
-          <strong>
-            {start}-{end}
-          </strong>{' '}
-          of <strong>{total} items</strong>
+          Showing<strong>{` ${start}-${end} `}</strong>of<strong>{` ${total} items`}</strong>
         </span>
       </div>
       {!!visiblePages.length && (

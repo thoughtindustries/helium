@@ -52,16 +52,16 @@ const ItemQueueButton = ({
         <span className="flex items-center gap-x-1">
           <i className="inline-block w-3 h-3 text-green-600" aria-label="check">
             <CheckCircleIcon />
-          </i>{' '}
-          {t('course-added-to-queue')}
+          </i>
+          {` (${t('course-added-to-queue')})`}
         </span>
       )}
       {!wasAddedToQueue && (
         <span className="flex items-center gap-x-1">
           <i className="inline-block w-3 h-3" aria-label="plus">
             <PlusIcon />
-          </i>{' '}
-          {t('course-add-to-queue')}
+          </i>
+          {` ${t('course-add-to-queue')}`}
         </span>
       )}
     </button>

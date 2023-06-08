@@ -24,7 +24,7 @@ const AggregationBucket = ({ href, value, count }: AggregationBucketProps): JSX.
       className="inline-block leading-normal py-1.5 px-4 text-link hover:text-link-hover"
     >
       {value}
-      {count && <span className="text-xs text-gray-700 pl-1">({count})</span>}
+      {count && <span className="text-xs text-gray-700 pl-1">{`(${count})`}</span>}
     </a>
   </li>
 );
