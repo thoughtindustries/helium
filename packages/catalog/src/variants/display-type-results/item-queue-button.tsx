@@ -53,7 +53,7 @@ const ItemQueueButton = ({
           <i className="inline-block w-3 h-3 text-green-600" aria-label="check">
             <CheckCircleIcon />
           </i>
-          {` (${t('course-added-to-queue')})`}
+          {` ${t('course-added-to-queue')}`}
         </span>
       )}
       {!wasAddedToQueue && (
