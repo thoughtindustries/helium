@@ -7,13 +7,40 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
 
     
-      <link rel="icon" type="image/x-icon" href="./favicon.ico">
+    <link rel="icon" type="image/x-icon" href="./favicon.ico" />
     
+    <link
+      rel="prefetch"
+      href="./sb-common-assets/nunito-sans-regular.woff2"
+      as="font"
+      type="font/woff2"
+      crossorigin
+    />
+    <link
+      rel="prefetch"
+      href="./sb-common-assets/nunito-sans-bold.woff2"
+      as="font"
+      type="font/woff2"
+      crossorigin
+    />
+    <link rel="stylesheet" href="./sb-common-assets/fonts.css" />
 
-     <link rel="favicon" href="/favicon.ico"> 
+    <link href="./sb-manager/runtime.mjs" rel="modulepreload" />
+
+    
+    <link href="./sb-addons/links-0/manager-bundle.mjs" rel="modulepreload" />
+    
+    <link href="./sb-addons/controls-1/manager-bundle.mjs" rel="modulepreload" />
+    
+    <link href="./sb-addons/tooling-apollo-client-2/register-bundle.mjs" rel="modulepreload" />
+    
+    <link href="./sb-addons/toolbars-3/manager-bundle.mjs" rel="modulepreload" />
+    
+    <link href="./sb-addons/storybook-4/manager-bundle.mjs" rel="modulepreload" />
+      <link rel="favicon" href="/favicon.ico"> 
 
     <style>
-      #storybook-root[hidden]{
+      #storybook-root[hidden] {
         display: none !important;
       }
     </style>
@@ -31,9 +58,8 @@
   "warnOnLegacyHierarchySeparator": true,
   "buildStoriesJson": false,
   "storyStoreV7": true,
-  "breakingChangesV7": true,
-  "interactionsDebugger": false,
-  "argTypeTargetsV7": true
+  "argTypeTargetsV7": true,
+  "legacyDecoratorFileOrder": false
 };
         
       
@@ -79,9 +105,9 @@
       import './sb-addons/toolbars-3/manager-bundle.mjs';
       
       import './sb-addons/storybook-4/manager-bundle.mjs';
-           
-    </script>    
+      
+    </script>
 
-    <link href="./sb-preview/runtime.mjs" rel="preload" as="script">
+    <link href="./sb-preview/runtime.mjs" rel="prefetch" as="script" />
   </body>
 </html>

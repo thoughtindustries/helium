@@ -1,0 +1,2 @@
+import{_ as a}from"./tslib.es6-14bf6d9f.js";import{R as n}from"./index-64f120e9.js";const s="apolloClient",{makeDecorator:c}=__STORYBOOK_MODULE_PREVIEW_API__,l=c({name:"withApolloClient",parameterName:s,wrapper:(o,e,{parameters:r})=>{const{MockedProvider:t}=r,i=a(r,["MockedProvider"]);return t?n.createElement(t,Object.assign({},i),o(e)):(console.warn("storybook-addon-apollo-client: MockedProvider is missing from parameters in preview.js"),o(e))}}),_=[l];export{_ as decorators};
+//# sourceMappingURL=addDecorator-7d2cf216.js.map
