@@ -49,7 +49,11 @@ const ContentHeader = (props: {
     variables: { slug: props.slug }
   });
 
-  let title, description, rating, ratingsCount, asset;
+  let title,
+    description,
+    rating,
+    ratingsCount = 0,
+    asset;
 
   if (data && data.CourseGroupBySlug) {
     ({ title, description, rating, ratingsCount, asset } = data.CourseGroupBySlug);
@@ -70,15 +74,15 @@ const ContentHeader = (props: {
         {/* stars */}
         {props.showStars && (
           <div className="flex pb-8">
-            {rating ? (
-              <>
-                <Stars score={rating} />
-                <div className="font-bold px-1">{(rating / 20).toFixed(1)}</div>
-                <div>({ratingsCount} Reviews)</div>
-              </>
-            ) : (
-              `0 Reviews`
-            )}
+            <>
+              {rating && (
+                <>
+                  <Stars score={rating} />
+                  <div className="font-bold px-1">{(rating / 20).toFixed(1)}</div>
+                </>
+              )}
+              {`(${ratingsCount} Reviews)`}
+            </>
           </div>
         )}
       </div>
