@@ -49,11 +49,7 @@ const ContentHeader = (props: {
     variables: { slug: props.slug }
   });
 
-  let title,
-    description,
-    rating,
-    ratingsCount = 0,
-    asset;
+  let title, description, rating, ratingsCount, asset;
 
   if (data && data.CourseGroupBySlug) {
     ({ title, description, rating, ratingsCount, asset } = data.CourseGroupBySlug);
