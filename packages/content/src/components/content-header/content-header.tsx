@@ -1,6 +1,7 @@
 import React from 'react';
 import { ContentKind } from '../../graphql/global-types';
 import { useCourseGroupBySlugQuery } from '../../graphql/queries';
+import { useLearningPathBySlugQuery } from '../../graphql/queries/LearningPathBySlug.generated';
 
 const Stars = (props: { score: number }) => {
   const maskWidth = `${props.score}%`;
@@ -45,18 +46,44 @@ const ContentHeader = (props: {
   showStars: boolean;
   showImage: boolean;
 }): JSX.Element => {
-  const { data, error } = useCourseGroupBySlugQuery({
-    variables: { slug: props.slug }
-  });
+  let title: string | undefined,
+    description: string | undefined,
+    rating: number | undefined,
+    ratingsCount: number | undefined,
+    asset: string | undefined,
+    name: string | undefined,
+    shortDescription: string | undefined;
 
-  let title, description, rating, ratingsCount, asset;
-
-  if (data && data.CourseGroupBySlug) {
-    ({ title, description, rating, ratingsCount, asset } = data.CourseGroupBySlug);
+  function LearningPathContentKind() {
+    const { data, error } = useLearningPathBySlugQuery({
+      variables: { slug: props.slug }
+    });
+    if (error) {
+      console.log(error);
+    }
+    if (data && data.LearningPathBySlug) {
+      ({ name, shortDescription, asset } = data.LearningPathBySlug);
+    }
+    return { title: name, description: shortDescription, asset };
   }
 
-  if (error) {
-    console.log(error);
+  function CourseGroupContentKind() {
+    const { data, error } = useCourseGroupBySlugQuery({
+      variables: { slug: props.slug }
+    });
+    if (error) {
+      console.log(error);
+    }
+    if (data && data.CourseGroupBySlug) {
+      ({ title, description, rating, ratingsCount, asset } = data.CourseGroupBySlug);
+    }
+    return { title, description, rating, ratingsCount, asset };
+  }
+
+  if (props.contentKind === 'learningPath') {
+    ({ title, description, asset } = LearningPathContentKind());
+  } else {
+    ({ title, description, rating, ratingsCount, asset } = CourseGroupContentKind());
   }
 
   return (
@@ -68,7 +95,7 @@ const ContentHeader = (props: {
         {/* description */}
         <div className="text-lg text-slate-400 pb-2.5 font-primary">{description}</div>
         {/* stars */}
-        {props.showStars && (
+        {props.showStars && props.contentKind !== 'learningPath' && (
           <div className="flex pb-8">
             <>
               {rating && (
