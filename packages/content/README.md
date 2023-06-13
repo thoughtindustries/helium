@@ -65,7 +65,7 @@ export function MyComponent() {
 
 | Name        | Required | Type                 | Description                                                    |
 | ----------- | -------- | -------------------- | -------------------------------------------------------------- |
-| contentKind | Yes      | <code>string</code>  | The contentKind of the Content. LearningPath, Course elements. |
+| contentKind | Yes      | <code>string</code>  | The contentKind of the Content, e.g., `learningPath`, `course`. |
 | slug        | Yes      | <code>slug</code>    | Content Slug cart.                                             |
 | showStars   | No       | <code>boolean</code> | If false, hide the stars. If true, show the stars              |
 | showImage   | No       | <code>boolean</code> | If false, hide the image. If true, show the image              |
