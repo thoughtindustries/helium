@@ -47,7 +47,7 @@ if (data) {
 
 The `Content Header` component is used to display the `title`, `description`, `rating`, `ratingsCount` and image of a Course or Learning Path.
 
-### Example code
+## Example code
 
 ```tsx
 import { ContentHeader } from '@thoughtindustries/content';
