@@ -45,7 +45,7 @@ if (data) {
 
 ## Content Header
 
-The `Content Header` component is used to add a title, description, rating and image to a course quickly. This is done by passing props to a component that is already created, rather than creating a new one from scratch.
+The `Content Header` component is used to display the `title`, `description`, `rating`, `ratingsCount` and image of a Course or Learning Path.
 
 ### Example code
 
