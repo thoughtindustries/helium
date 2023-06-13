@@ -6,10 +6,14 @@ import {
   CourseGroupBySlugDocument,
   CourseGroupBySlugQuery
 } from '../src/graphql/queries/CourseGroupBySlug.generated';
+import {
+  LearningPathBySlugDocument,
+  LearningPathBySlugQuery
+} from '../src/graphql/queries/LearningPathBySlug.generated';
 
 const meta: Meta<ContentHeaderProps> = {
   component: ContentHeader,
-  title: 'Packages/ContentHeader'
+  title: 'Packages/Content Header'
 };
 
 export default meta;
@@ -24,17 +28,37 @@ const mockCatalogContentFactory = (): CourseGroupBySlugQuery['CourseGroupBySlug'
   ratingsCount: 4
 });
 
+const mockLearningPathFactory = (): LearningPathBySlugQuery['LearningPathBySlug'] => ({
+  asset:
+    'https://d36ai2hkxl16us.cloudfront.net/thoughtindustries/image/upload/a_exif,c_fill,w_800/v1416438573/placeholder_kcjvxm.jpg',
+  shortDescription: 'Content description',
+  name: 'Content'
+});
+
 const mockApolloResultsFactory = () => [
   {
     request: {
       query: CourseGroupBySlugDocument,
       variables: {
-        slug: 'test-ribbon'
+        slug: 'test-course'
       }
     },
     result: {
       data: {
         CourseGroupBySlug: mockCatalogContentFactory()
+      }
+    }
+  },
+  {
+    request: {
+      query: LearningPathBySlugDocument,
+      variables: {
+        slug: 'test-learning-path'
+      }
+    },
+    result: {
+      data: {
+        LearningPathBySlug: mockLearningPathFactory()
       }
     }
   }
@@ -58,9 +82,17 @@ export const Base: ContentHeader = {
       mocks: [...mockApolloResultsFactory()]
     }
   },
-  args: {
+  argTypes: {
     contentKind: 'course',
-    slug: 'test-ribbon',
+    slug: {
+      options: ['test-course', 'test-learning-path'],
+      control: { type: 'select' },
+      //use table to set default value for select
+      table: {
+        type: { summary: 'select' },
+        defaultValue: { summary: 'test-course' }
+      }
+    },
     showStars: true,
     showImage: true
   }
