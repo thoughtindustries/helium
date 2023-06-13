@@ -45,9 +45,9 @@ if (data) {
 
 ## Content Header
 
-The `Content Header` component is used to add a title, description, rating and image to a course quickly. This is done by passing props to a component that is already created, rather than creating a new one from scratch.
+The `Content Header` component is used to display the `title`, `description`, and `image` of a Course or Learning Path. All content types, except learning paths, can also display `rating` and `ratingsCount` information.
 
-### Example code
+## Example code
 
 ```tsx
 import { ContentHeader } from '@thoughtindustries/content';
@@ -63,9 +63,9 @@ export function MyComponent() {
 
 ## Props
 
-| Name        | Required | Type                 | Description                                                    |
-| ----------- | -------- | -------------------- | -------------------------------------------------------------- |
-| contentKind | Yes      | <code>string</code>  | The contentKind of the Content. LearningPath, Course elements. |
-| slug        | Yes      | <code>slug</code>    | Content Slug cart.                                             |
-| showStars   | No       | <code>boolean</code> | If false, hide the stars. If true, show the stars              |
-| showImage   | No       | <code>boolean</code> | If false, hide the image. If true, show the image              |
+| Name        | Required | Type                 | Description                                                      |
+| ----------- | -------- | -------------------- | ---------------------------------------------------------------- |
+| contentKind | Yes      | <code>string</code>  | The contentKind of the Content, e.g., `learningPath`, `course`.  |
+| slug        | Yes      | <code>slug</code>    | The slug of the content that should be displayed.                |
+| showStars   | No       | <code>boolean</code> | Controls whether a course's rating is displayed, shown in stars. |
+| showImage   | No       | <code>boolean</code> | Controls whether a piece of content's Detail Image is displayed. |
