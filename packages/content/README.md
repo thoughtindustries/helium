@@ -68,4 +68,4 @@ export function MyComponent() {
 | contentKind | Yes      | <code>string</code>  | The contentKind of the Content, e.g., `learningPath`, `course`. |
 | slug        | Yes      | <code>slug</code>    | The slug of the content that should be displayed.                                             |
 | showStars   | No       | <code>boolean</code> | Controls whether a course's rating is displayed, shown in stars.              |
-| showImage   | No       | <code>boolean</code> | If false, hide the image. If true, show the image              |
+| showImage   | No       | <code>boolean</code> | Controls whether a piece of content's Detail Image is displayed.              |
