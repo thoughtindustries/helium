@@ -9,15 +9,15 @@
     "@graphql-codegen/near-operation-file-preset": "^2.2.9",
     "@graphql-codegen/typescript-operations": "^2.3.5",
     "@graphql-codegen/typescript-react-apollo": "^3.2.11",
-    "@storybook/addon-actions": "^7.0.0-beta.40",
-    "@storybook/addon-controls": "^7.0.0-beta.40",
-    "@storybook/addon-links": "^7.0.0-beta.40",
+    "@storybook/addon-actions": "^7.0.21",
+    "@storybook/addon-controls": "^7.0.21",
+    "@storybook/addon-links": "^7.0.21",
     "@storybook/addon-postcss": "^2.0.0",
-    "@storybook/addon-storysource": "^7.0.0-beta.40",
-    "@storybook/addons": "^6.5.16",
-    "@storybook/react": "^7.0.0-beta.40",
-    "@storybook/react-vite": "^7.0.0-alpha.25",
-    "@storybook/theming": "^6.5.16",
+    "@storybook/addon-storysource": "^7.0.21",
+    "@storybook/addons": "^7.0.21",
+    "@storybook/react": "^7.0.21",
+    "@storybook/react-vite": "^7.0.21",
+    "@storybook/theming": "^7.0.21",
     "@tailwindcss/line-clamp": "^0.3.1",
     "@testing-library/jest-dom": "^5.14.1",
     "@testing-library/react": "^13.4.0",
@@ -32,7 +32,7 @@
     "eslint-plugin-prettier": "^4.0.0",
     "eslint-plugin-react": "^7.30.0",
     "eslint-plugin-react-hooks": "^4.3.0",
-    "eslint-plugin-storybook": "^0.6.11",
+    "eslint-plugin-storybook": "^0.6.12",
     "husky": "^7.0.4",
     "i18next": "^21.10.0",
     "jest": "^28.1.1",
@@ -44,8 +44,8 @@
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-i18next": "^11.18.6",
-    "storybook": "^7.0.0-beta.40",
-    "storybook-addon-cookie": "^1.0.6",
+    "storybook": "^7.0.21",
+    "storybook-addon-cookie": "^3.0.0",
     "storybook-react-i18next": "^1.1.2",
     "tailwindcss": "^2.2.16",
     "ts-jest": "^28.0.5",
@@ -77,6 +77,6 @@
     "npm": "8.19.2"
   },
   "dependencies": {
-    "@storybook/addon-toolbars": "^6.5.16"
+    "@storybook/addon-toolbars": "^7.0.21"
   }
 }
