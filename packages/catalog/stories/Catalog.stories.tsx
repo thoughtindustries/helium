@@ -230,23 +230,26 @@ const apolloBaseParams = {
   defaultOptions: mockedApolloProviderOptions
 };
 
-const Template = () => {
-  const [addResourceToQueue] = useAddResourceToQueueMutation();
-  const handleAddedToQueue = ({ slug, kind, displayCourse }: CatalogResultItem): Promise<void> => {
-    const resourceId = displayCourse || slug;
-    return resourceId
-      ? addResourceToQueue({ variables: { resourceId, resourceType: kind } }).then()
-      : Promise.resolve();
-  };
-  return (
-    <CatalogProvider config={config}>
-      <Catalog onAddedToQueue={handleAddedToQueue} />
-    </CatalogProvider>
-  );
-};
-
 export const List: Catalog = {
-  render: () => <Template />,
+  render: () =>
+    React.createElement(() => {
+      const [addResourceToQueue] = useAddResourceToQueueMutation();
+      const handleAddedToQueue = ({
+        slug,
+        kind,
+        displayCourse
+      }: CatalogResultItem): Promise<void> => {
+        const resourceId = displayCourse || slug;
+        return resourceId
+          ? addResourceToQueue({ variables: { resourceId, resourceType: kind } }).then()
+          : Promise.resolve();
+      };
+      return (
+        <CatalogProvider config={config}>
+          <Catalog onAddedToQueue={handleAddedToQueue} />
+        </CatalogProvider>
+      );
+    }),
   parameters: {
     apolloClient: {
       ...apolloBaseParams,
@@ -262,7 +265,25 @@ export const List: Catalog = {
 };
 
 export const Grid: Catalog = {
-  render: () => <Template />,
+  render: () =>
+    React.createElement(() => {
+      const [addResourceToQueue] = useAddResourceToQueueMutation();
+      const handleAddedToQueue = ({
+        slug,
+        kind,
+        displayCourse
+      }: CatalogResultItem): Promise<void> => {
+        const resourceId = displayCourse || slug;
+        return resourceId
+          ? addResourceToQueue({ variables: { resourceId, resourceType: kind } }).then()
+          : Promise.resolve();
+      };
+      return (
+        <CatalogProvider config={config}>
+          <Catalog onAddedToQueue={handleAddedToQueue} />
+        </CatalogProvider>
+      );
+    }),
   parameters: {
     apolloClient: {
       ...apolloBaseParams,
@@ -278,7 +299,25 @@ export const Grid: Catalog = {
 };
 
 export const Calendar: Catalog = {
-  render: () => <Template />,
+  render: () =>
+    React.createElement(() => {
+      const [addResourceToQueue] = useAddResourceToQueueMutation();
+      const handleAddedToQueue = ({
+        slug,
+        kind,
+        displayCourse
+      }: CatalogResultItem): Promise<void> => {
+        const resourceId = displayCourse || slug;
+        return resourceId
+          ? addResourceToQueue({ variables: { resourceId, resourceType: kind } }).then()
+          : Promise.resolve();
+      };
+      return (
+        <CatalogProvider config={config}>
+          <Catalog onAddedToQueue={handleAddedToQueue} />
+        </CatalogProvider>
+      );
+    }),
   parameters: {
     apolloClient: {
       ...apolloBaseParams,
