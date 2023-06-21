@@ -151,48 +151,47 @@ const apolloBaseParams = {
   defaultOptions: mockedApolloProviderOptions
 };
 
-const CatalogQueryTemplate = () => {
-  const { i18n } = useTranslation();
-  const [addResourceToQueue] = useAddResourceToQueueMutation();
-  const handleAddedToQueue = (item: FeaturedContentContentItem): Promise<void> => {
-    const { displayCourse } = item as FeaturedContentHydratedContentItem;
-    return displayCourse
-      ? addResourceToQueue({ variables: { resourceId: displayCourse } }).then()
-      : Promise.resolve();
-  };
-
-  const { data, loading, error } = useCatalogQuery({
-    variables: { ...mockCatalogQueryVariables }
-  });
-  let content;
-  if (loading) {
-    content = <p>Loading content</p>;
-  }
-  if (error) {
-    content = <p>Error loading content</p>;
-  }
-  if (data?.CatalogQuery.contentItems) {
-    content = data.CatalogQuery.contentItems.map((item, index) => {
-      const hydratedItem = hydrateContent(i18n, item);
-      return <ContentTileStandardLayout.Item key={`item-${index}`} {...hydratedItem} />;
-    });
-  }
-  return (
-    <FeaturedContent>
-      <ContentTileStandardLayout
-        headerOptions={headerOptions}
-        desktopColumnCount={3}
-        onAddedToQueue={handleAddedToQueue}
-        onClick={handleClick}
-      >
-        {content}
-      </ContentTileStandardLayout>
-    </FeaturedContent>
-  );
-};
-
 export const WithCatalogQuery: FeaturedContentStory = {
-  render: () => <CatalogQueryTemplate />,
+  render: () =>
+    React.createElement(() => {
+      const { i18n } = useTranslation();
+      const [addResourceToQueue] = useAddResourceToQueueMutation();
+      const handleAddedToQueue = (item: FeaturedContentContentItem): Promise<void> => {
+        const { displayCourse } = item as FeaturedContentHydratedContentItem;
+        return displayCourse
+          ? addResourceToQueue({ variables: { resourceId: displayCourse } }).then()
+          : Promise.resolve();
+      };
+
+      const { data, loading, error } = useCatalogQuery({
+        variables: { ...mockCatalogQueryVariables }
+      });
+      let content;
+      if (loading) {
+        content = <p>Loading content</p>;
+      }
+      if (error) {
+        content = <p>Error loading content</p>;
+      }
+      if (data?.CatalogQuery.contentItems) {
+        content = data.CatalogQuery.contentItems.map((item, index) => {
+          const hydratedItem = hydrateContent(i18n, item);
+          return <ContentTileStandardLayout.Item key={`item-${index}`} {...hydratedItem} />;
+        });
+      }
+      return (
+        <FeaturedContent>
+          <ContentTileStandardLayout
+            headerOptions={headerOptions}
+            desktopColumnCount={3}
+            onAddedToQueue={handleAddedToQueue}
+            onClick={handleClick}
+          >
+            {content}
+          </ContentTileStandardLayout>
+        </FeaturedContent>
+      );
+    }),
   parameters: {
     apolloClient: {
       ...apolloBaseParams,
@@ -201,53 +200,52 @@ export const WithCatalogQuery: FeaturedContentStory = {
   }
 };
 
-const QueryContentsQueryTemplate = () => {
-  const { i18n } = useTranslation();
-  const [addResourceToQueue] = useAddResourceToQueueMutation();
-  const handleAddedToQueue = (item: FeaturedContentContentItem): Promise<void> => {
-    const { slug, kind } = item as FeaturedContentHydratedContentItem;
-    return slug
-      ? addResourceToQueue({
-          variables: {
-            resourceType: kind,
-            resourceId: slug
-          }
-        }).then()
-      : Promise.resolve();
-  };
-
-  const { data, loading, error } = useContentsQuery({
-    variables: { ...mockQueryContentsQueryVariables }
-  });
-  let content;
-  if (loading) {
-    content = <p>Loading content</p>;
-  }
-  if (error) {
-    content = <p>Error loading content</p>;
-  }
-  if (data) {
-    content = data.QueryContents.map((item, index) => {
-      const hydratedItem = hydrateContent(i18n, item);
-      return <ContentTileStandardLayout.Item key={`item-${index}`} {...hydratedItem} />;
-    });
-  }
-  return (
-    <FeaturedContent>
-      <ContentTileStandardLayout
-        headerOptions={headerOptions}
-        desktopColumnCount={3}
-        onAddedToQueue={handleAddedToQueue}
-        onClick={handleClick}
-      >
-        {content}
-      </ContentTileStandardLayout>
-    </FeaturedContent>
-  );
-};
-
 export const WithQueryContentsQuery: FeaturedContentStory = {
-  render: () => <QueryContentsQueryTemplate />,
+  render: () =>
+    React.createElement(() => {
+      const { i18n } = useTranslation();
+      const [addResourceToQueue] = useAddResourceToQueueMutation();
+      const handleAddedToQueue = (item: FeaturedContentContentItem): Promise<void> => {
+        const { slug, kind } = item as FeaturedContentHydratedContentItem;
+        return slug
+          ? addResourceToQueue({
+              variables: {
+                resourceType: kind,
+                resourceId: slug
+              }
+            }).then()
+          : Promise.resolve();
+      };
+
+      const { data, loading, error } = useContentsQuery({
+        variables: { ...mockQueryContentsQueryVariables }
+      });
+      let content;
+      if (loading) {
+        content = <p>Loading content</p>;
+      }
+      if (error) {
+        content = <p>Error loading content</p>;
+      }
+      if (data) {
+        content = data.QueryContents.map((item, index) => {
+          const hydratedItem = hydrateContent(i18n, item);
+          return <ContentTileStandardLayout.Item key={`item-${index}`} {...hydratedItem} />;
+        });
+      }
+      return (
+        <FeaturedContent>
+          <ContentTileStandardLayout
+            headerOptions={headerOptions}
+            desktopColumnCount={3}
+            onAddedToQueue={handleAddedToQueue}
+            onClick={handleClick}
+          >
+            {content}
+          </ContentTileStandardLayout>
+        </FeaturedContent>
+      );
+    }),
   parameters: {
     apolloClient: {
       ...apolloBaseParams,
@@ -259,43 +257,42 @@ export const WithQueryContentsQuery: FeaturedContentStory = {
   }
 };
 
-const UserRecentContentQueryTemplate = () => {
-  const { i18n } = useTranslation();
-  const { data, loading, error } = useUserRecentContentQuery({
-    variables: { ...mockUserRecentContentQueryVariables }
-  });
-  const handleAddedToQueue = (): Promise<void> => {
-    return Promise.resolve();
-  };
-  let content;
-  if (loading) {
-    content = <p>Loading content</p>;
-  }
-  if (error) {
-    content = <p>Error loading content</p>;
-  }
-  if (data) {
-    content = data.UserRecentContent.map((item, index) => {
-      const hydratedItem = hydrateContent(i18n, item);
-      return <ContentTileStandardLayout.Item key={`item-${index}`} {...hydratedItem} />;
-    });
-  }
-  return (
-    <FeaturedContent>
-      <ContentTileStandardLayout
-        headerOptions={headerOptions}
-        desktopColumnCount={3}
-        onAddedToQueue={handleAddedToQueue}
-        onClick={handleClick}
-      >
-        {content}
-      </ContentTileStandardLayout>
-    </FeaturedContent>
-  );
-};
-
 export const WithUserRecentContentQuery: FeaturedContentStory = {
-  render: () => <UserRecentContentQueryTemplate />,
+  render: () =>
+    React.createElement(() => {
+      const { i18n } = useTranslation();
+      const { data, loading, error } = useUserRecentContentQuery({
+        variables: { ...mockUserRecentContentQueryVariables }
+      });
+      const handleAddedToQueue = (): Promise<void> => {
+        return Promise.resolve();
+      };
+      let content;
+      if (loading) {
+        content = <p>Loading content</p>;
+      }
+      if (error) {
+        content = <p>Error loading content</p>;
+      }
+      if (data) {
+        content = data.UserRecentContent.map((item, index) => {
+          const hydratedItem = hydrateContent(i18n, item);
+          return <ContentTileStandardLayout.Item key={`item-${index}`} {...hydratedItem} />;
+        });
+      }
+      return (
+        <FeaturedContent>
+          <ContentTileStandardLayout
+            headerOptions={headerOptions}
+            desktopColumnCount={3}
+            onAddedToQueue={handleAddedToQueue}
+            onClick={handleClick}
+          >
+            {content}
+          </ContentTileStandardLayout>
+        </FeaturedContent>
+      );
+    }),
   parameters: {
     apolloClient: {
       ...apolloBaseParams,

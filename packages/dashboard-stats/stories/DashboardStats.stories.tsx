@@ -1,15 +1,17 @@
-import { DashboardStatsProps, DashboardStats, UserStatsDocument } from '../src';
+import React from 'react';
+import { DashboardStats, UserStatsDocument } from '../src';
 import { StoryObj, Meta } from '@storybook/react';
 
-const meta: Meta<DashboardStatsProps> = {
+const meta: Meta = {
   component: DashboardStats,
   title: 'Packages/Dashboard Stats'
 };
 
 export default meta;
-type Dashboard = StoryObj<DashboardStatsProps>;
+type Dashboard = StoryObj;
 
 export const Dashboard: Dashboard = {
+  render: () => <DashboardStats />,
   parameters: {
     apolloClient: {
       mocks: [

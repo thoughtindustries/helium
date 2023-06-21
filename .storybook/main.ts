@@ -6,7 +6,8 @@ const config: StorybookConfig = {
     '@storybook/addon-links',
     '@storybook/addon-controls',
     '@thoughtindustries/storybook-addon-apollo-client',
-    '@storybook/addon-toolbars'
+    '@storybook/addon-toolbars',
+    '@storybook/addon-storysource'
   ],
   framework: '@storybook/react-vite',
   docs: {
