@@ -55,13 +55,18 @@ const ItemLocationBlock = ({
   const iconClassnames = 'w-4 h-4';
 
   if (address1) {
+    let compiledAddress = city;
+    if (state) {
+      compiledAddress += `, ${state}`;
+    }
+    if (country) {
+      compiledAddress += `, ${country}`;
+    }
     return (
       <>
         {name && <strong>{name}</strong>}
         <br />
-        {city && `${city}, `}
-        {state && `${state}, `}
-        {country}
+        {compiledAddress}
       </>
     );
   }

@@ -98,7 +98,7 @@ const ItemSourceBlock = ({
 }) => (
   <HeightEqualizerElementWrapper name="source" className="text-xs text-gray-700 leading-4">
     {contentTypeLabel && <strong>{contentTypeLabel}</strong>}
-    {contentTypeLabel && source && <>|{source}</>}
+    {contentTypeLabel && source && <>{`|${source}`}</>}
     {!contentTypeLabel && source && <strong>{source}</strong>}
   </HeightEqualizerElementWrapper>
 );
@@ -200,14 +200,14 @@ const ItemBundleBlock = ({
           {priceInCents && (
             <div>
               <span className={planCurrencyClassnames}>{priceFormatFn(priceInCents)}</span>
-              <span className={planIntervalClassnames}>/ {t('course.per-month')}</span>
+              <span className={planIntervalClassnames}>{`/ ${t('course.per-month')}`}</span>
             </div>
           )}
 
           {annualPriceInCents && (
             <div>
               <span className={planCurrencyClassnames}>{priceFormatFn(annualPriceInCents)}</span>
-              <span className={planIntervalClassnames}>/ {t('course.per-year')}</span>
+              <span className={planIntervalClassnames}>{`/ ${t('course.per-year')}`}</span>
             </div>
           )}
         </div>
