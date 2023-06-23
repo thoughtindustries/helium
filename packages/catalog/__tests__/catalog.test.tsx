@@ -830,7 +830,7 @@ describe('@thoughtindustries/catalog', () => {
                           Test ribbon
                         </div>
                         <div
-                          class="row collapse grid grid-cols-12 gap-4"
+                          class="grid grid-cols-12 gap-4"
                         >
                           <div
                             class="col-span-full md:col-span-4"

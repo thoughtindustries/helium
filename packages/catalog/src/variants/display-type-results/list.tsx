@@ -150,7 +150,7 @@ const DisplayTypeResultsListItem = ({
           {showCallToAction && ribbon && (
             <ItemRibbon ribbon={ribbon} attached attachedClassnames={ribbonAttachedClassnames} />
           )}
-          <div className="row collapse grid grid-cols-12 gap-4">
+          <div className="grid grid-cols-12 gap-4">
             {asset && (
               <div className={imageColumnClassnames}>
                 <ItemAssetBlock asset={asset} />
