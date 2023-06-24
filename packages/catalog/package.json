@@ -31,10 +31,10 @@
     "dayjs": "^1.10.8",
     "graphql": "^16.6.0",
     "i18next": "^21.10.0",
-    "react": "^18.2.0",
-    "react-dom": "^18.2.0",
+    "react": "^17 || ^18",
+    "react-dom": "^17 || ^18",
     "react-i18next": "^11.18.6",
-    "use-debounce": "^7.0.1"
+    "use-debounce": "^9.0.4"
   },
   "peerDependencies": {
     "react": "^17 || ^18",
