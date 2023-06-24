@@ -22,7 +22,13 @@ export default function usePersistReducer(cookieName: string, cookieManager: Coo
       const { cart } = newState;
       // skip persisting cookie during initialization
       if (action.type !== CartActionType.InitializeCart) {
-        updateCookie(serializeCart(cart), { secure: false, httpOnly: false });
+        // disable default encoder encodeURIComponent
+        const encode = (value: string) => value;
+        updateCookie(serializeCart(cart), {
+          secure: false,
+          httpOnly: false,
+          encode
+        });
       }
       return newState;
     },
