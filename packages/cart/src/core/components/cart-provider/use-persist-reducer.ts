@@ -27,6 +27,7 @@ export default function usePersistReducer(cookieName: string, cookieManager: Coo
         updateCookie(serializeCart(cart), {
           secure: false,
           httpOnly: false,
+          path: '/',
           encode
         });
       }
