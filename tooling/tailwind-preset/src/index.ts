@@ -1,4 +1,5 @@
 import type { Config } from 'tailwindcss';
+import plugin from 'tailwindcss/plugin';
 
 module.exports = {
   corePlugins: {
@@ -57,5 +58,16 @@ module.exports = {
       }
     }
   },
-  plugins: [require('@tailwindcss/line-clamp')]
+  plugins: [
+    require('@tailwindcss/line-clamp'),
+    plugin(function ({ addUtilities }) {
+      // Since visibility is disabled in core plugin config,
+      // will add back partial utilities except for 'collapse'.
+      addUtilities({
+        '.visible': { visibility: 'visible' },
+        '.invisible': { visibility: 'hidden' }
+        //'.collapse': { visibility: 'collapse' },
+      });
+    })
+  ]
 } satisfies Config;

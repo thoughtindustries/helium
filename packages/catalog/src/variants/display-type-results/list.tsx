@@ -30,11 +30,11 @@ const ItemSourceBlock = ({
 }) => {
   const sourceWithAuthors = !!authors?.length && (
     <>
-      | {authors.join(', ')}
+      {`| ${authors.join(', ')}`}
       {source && <p className="mb-1 text-gray-700">{source}</p>}
     </>
   );
-  const sourceWithoutAuthors = !authors?.length && <>| {source}</>;
+  const sourceWithoutAuthors = !authors?.length && source && <>{`| ${source}`}</>;
   return (
     <div className="mt-3 text-xs">
       <strong>{contentTypeLabel}</strong>
@@ -126,7 +126,7 @@ const DisplayTypeResultsListItem = ({
                 <div className="pb-1 flex items-center gap-x-1">
                   <i className="inline-block w-4 h-4 text-green-500" aria-label="Completed">
                     <CheckIcon />
-                  </i>{' '}
+                  </i>
                   {t('course-completed-decal')}
                 </div>
               )}
@@ -150,7 +150,7 @@ const DisplayTypeResultsListItem = ({
           {showCallToAction && ribbon && (
             <ItemRibbon ribbon={ribbon} attached attachedClassnames={ribbonAttachedClassnames} />
           )}
-          <div className="row collapse grid grid-cols-12 gap-4">
+          <div className="grid grid-cols-12 gap-4">
             {asset && (
               <div className={imageColumnClassnames}>
                 <ItemAssetBlock asset={asset} />

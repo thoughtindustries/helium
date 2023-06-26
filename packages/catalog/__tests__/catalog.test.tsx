@@ -830,7 +830,7 @@ describe('@thoughtindustries/catalog', () => {
                           Test ribbon
                         </div>
                         <div
-                          class="row collapse grid grid-cols-12 gap-4"
+                          class="grid grid-cols-12 gap-4"
                         >
                           <div
                             class="col-span-full md:col-span-4"
@@ -849,8 +849,7 @@ describe('@thoughtindustries/catalog', () => {
                               <strong>
                                 Course
                               </strong>
-                              | 
-                              Test Author
+                              | Test Author
                               <p
                                 class="mb-1 text-gray-700"
                               >
@@ -1670,8 +1669,7 @@ describe('@thoughtindustries/catalog', () => {
                               <strong>
                                 Course
                               </strong>
-                              |
-                              Test source
+                              |Test source
                             </div>
                             <p
                               class="text-xs mb-1 text-gray-700 leading-4 overflow-hidden block transition-all"
@@ -1786,8 +1784,7 @@ describe('@thoughtindustries/catalog', () => {
                               <span
                                 class="text-xs"
                               >
-                                / 
-                                course.per-month
+                                / course.per-month
                               </span>
                             </div>
                             <div>
@@ -1799,8 +1796,7 @@ describe('@thoughtindustries/catalog', () => {
                               <span
                                 class="text-xs"
                               >
-                                / 
-                                course.per-year
+                                / course.per-year
                               </span>
                             </div>
                           </div>
@@ -2451,7 +2447,7 @@ describe('@thoughtindustries/catalog', () => {
                               test location
                             </strong>
                             <br />
-                            test city, 
+                            test city
                           </td>
                           <td
                             class="p-0 text-right block mb-1 md:py-4 md:px-5 md:text-left md:table-cell md:mb-0 border-none md:border-b md:border-solid md:border-gray-400"
