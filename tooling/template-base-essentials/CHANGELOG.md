@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.2.0-beta.19](https://github.com/thoughtindustries/helium/compare/@thoughtindustries/helium-template-essentials@1.2.0-beta.18...@thoughtindustries/helium-template-essentials@1.2.0-beta.19) (2023-06-26)
+
+
+### Bug Fixes
+
+* catalog component malfunctioning ([#211](https://github.com/thoughtindustries/helium/issues/211)) ([f592950](https://github.com/thoughtindustries/helium/commit/f5929503e68f368bb3ceb882ea3d279148e0f090))
+
+
+
+
+
 # [1.2.0-beta.18](https://github.com/thoughtindustries/helium/compare/@thoughtindustries/helium-template-essentials@1.2.0-beta.17...@thoughtindustries/helium-template-essentials@1.2.0-beta.18) (2023-06-21)
 
 **Note:** Version bump only for package @thoughtindustries/helium-template-essentials

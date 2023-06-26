@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.2.0-beta.9](https://github.com/thoughtindustries/helium/compare/@thoughtindustries/catalog@1.2.0-beta.8...@thoughtindustries/catalog@1.2.0-beta.9) (2023-06-26)
+
+
+### Bug Fixes
+
+* catalog component malfunctioning ([#211](https://github.com/thoughtindustries/helium/issues/211)) ([f592950](https://github.com/thoughtindustries/helium/commit/f5929503e68f368bb3ceb882ea3d279148e0f090))
+
+
+
+
+
 # [1.2.0-beta.8](https://github.com/thoughtindustries/helium/compare/@thoughtindustries/catalog@1.2.0-beta.7...@thoughtindustries/catalog@1.2.0-beta.8) (2023-06-21)
 
 

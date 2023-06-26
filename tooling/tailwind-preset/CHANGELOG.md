@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.0.3](https://github.com/thoughtindustries/helium/compare/@thoughtindustries/helium-tailwind-preset@1.0.2...@thoughtindustries/helium-tailwind-preset@1.0.3) (2023-06-26)
+
+
+### Bug Fixes
+
+* catalog component malfunctioning ([#211](https://github.com/thoughtindustries/helium/issues/211)) ([f592950](https://github.com/thoughtindustries/helium/commit/f5929503e68f368bb3ceb882ea3d279148e0f090))
+
+
+
+
+
 ## [1.0.2](https://github.com/thoughtindustries/helium/compare/@thoughtindustries/helium-tailwind-preset@1.0.1...@thoughtindustries/helium-tailwind-preset@1.0.2) (2023-04-19)
 
 
