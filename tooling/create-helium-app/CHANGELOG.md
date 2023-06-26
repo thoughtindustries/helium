@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.1.19](https://github.com/thoughtindustries/helium/compare/create-helium-app@1.1.18...create-helium-app@1.1.19) (2023-06-21)
+
+**Note:** Version bump only for package create-helium-app
+
+
+
+
+
 ## [1.1.18](https://github.com/thoughtindustries/helium/compare/create-helium-app@1.1.17...create-helium-app@1.1.18) (2023-06-12)
 
 **Note:** Version bump only for package create-helium-app

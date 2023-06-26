@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.2.0-beta.8](https://github.com/thoughtindustries/helium/compare/@thoughtindustries/catalog@1.2.0-beta.7...@thoughtindustries/catalog@1.2.0-beta.8) (2023-06-21)
+
+
+### Features
+
+* add story source ([#210](https://github.com/thoughtindustries/helium/issues/210)) ([8464d76](https://github.com/thoughtindustries/helium/commit/8464d768f557e74e61bf9e1ebf43605e9bcbd6bd))
+
+
+
+
+
 # [1.2.0-beta.7](https://github.com/thoughtindustries/helium/compare/@thoughtindustries/catalog@1.2.0-beta.6...@thoughtindustries/catalog@1.2.0-beta.7) (2023-06-12)
 
 **Note:** Version bump only for package @thoughtindustries/catalog
