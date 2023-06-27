@@ -14,8 +14,7 @@
     "build:vite": "vite build"
   },
   "publishConfig": {
-    "access": "public",
-    "tag": "beta"
+    "access": "public"
   },
   "dependencies": {
     "@apollo/client": "^3.7.0",
