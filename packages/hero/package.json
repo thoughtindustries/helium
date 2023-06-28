@@ -10,8 +10,7 @@
     "src"
   ],
   "publishConfig": {
-    "access": "public",
-    "tag": "beta"
+    "access": "public"
   },
   "repository": {
     "type": "git",
