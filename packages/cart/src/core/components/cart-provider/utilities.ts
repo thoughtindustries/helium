@@ -10,6 +10,7 @@ import {
   VariationLabel
 } from './types';
 import { totalDueNow, totalRecurring } from 'couponable';
+import { Buffer as BufferForBrowser } from 'buffer';
 
 export const parseCartCookie = (cookie?: string): Cart => {
   const defaultCart: Cart = { id: CART_ID, items: [] };
@@ -18,9 +19,8 @@ export const parseCartCookie = (cookie?: string): Cart => {
   }
 
   try {
-    const base64Url = cookie.split('.')[0];
-    const base64 = base64Url.replace('-', '+').replace('_', '/');
-    const { cartItems: items = [] } = JSON.parse(window.atob(base64));
+    const cartPayload = BufferForBrowser.from(cookie, 'base64').toString('utf8');
+    const { cartItems: items = [] } = JSON.parse(cartPayload);
     return {
       ...defaultCart,
       items
@@ -35,7 +35,7 @@ export const serializeCart = (cart: Cart): string => {
     id: CART_ID,
     cartItems: [...cart.items]
   };
-  return window.btoa(JSON.stringify(clonedCart));
+  return BufferForBrowser.from(JSON.stringify(clonedCart)).toString('base64');
 };
 
 const findPackagePrice = (
