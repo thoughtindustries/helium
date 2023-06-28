@@ -1,4 +1,4 @@
-# create-helium-app (ALPHA)
+# create-helium-app
 
 Create a new [Helium](https://github.com/thoughtindustries/helium/tree/main/tooling/template_base) app:
 

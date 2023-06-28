@@ -1,4 +1,4 @@
-# Helium (ALPHA)
+# Helium
 
 ## About
 

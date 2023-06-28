@@ -1,4 +1,4 @@
-# Helium Base Template (ALPHA)
+# Helium Base Template
 
 ## About
 
