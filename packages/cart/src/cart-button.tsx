@@ -16,7 +16,7 @@ const CartButton = (): JSX.Element => {
       onClick={handleClick}
     >
       {t('header-cart')}
-      <span>({items.length})</span>
+      <span>{`(${items.length})`}</span>
     </button>
   );
 };
