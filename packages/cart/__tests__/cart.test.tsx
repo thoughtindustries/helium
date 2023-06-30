@@ -131,9 +131,7 @@ describe('@thoughtindustries/cart', () => {
           >
             header-cart
             <span>
-              (
-              4
-              )
+              (4)
             </span>
           </button>
         </div>
