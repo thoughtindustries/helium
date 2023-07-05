@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.2.0](https://github.com/thoughtindustries/helium/compare/@thoughtindustries/user@1.2.0-beta.4...@thoughtindustries/user@1.2.0) (2023-06-28)
+
+
+### Features
+
+* add user readme ([#209](https://github.com/thoughtindustries/helium/issues/209)) ([d2cbc12](https://github.com/thoughtindustries/helium/commit/d2cbc12f4fce5680050b29c3c76807ec1ef23412))
+* remove dist tags ([#215](https://github.com/thoughtindustries/helium/issues/215)) ([7ec2bca](https://github.com/thoughtindustries/helium/commit/7ec2bca0750325fe2d6c2528973846d86c082844))
+
+
+
+
+
 # [1.2.0-beta.4](https://github.com/thoughtindustries/helium/compare/@thoughtindustries/user@1.2.0-beta.2...@thoughtindustries/user@1.2.0-beta.4) (2023-04-12)
 
 **Note:** Version bump only for package @thoughtindustries/user
