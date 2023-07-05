@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.2.1](https://github.com/thoughtindustries/helium/compare/@thoughtindustries/cart@1.2.0...@thoughtindustries/cart@1.2.1) (2023-07-05)
+
+
+### Bug Fixes
+
+* hydration error ([#217](https://github.com/thoughtindustries/helium/issues/217)) ([6d27048](https://github.com/thoughtindustries/helium/commit/6d27048385eca0c6932f3d6c270ac9d9b522a8d1))
+
+
+
+
+
 # [1.2.0](https://github.com/thoughtindustries/helium/compare/@thoughtindustries/cart@1.2.0-beta.6...@thoughtindustries/cart@1.2.0) (2023-06-28)
 
 

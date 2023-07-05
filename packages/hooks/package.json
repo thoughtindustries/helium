@@ -1,6 +1,6 @@
 {
   "name": "@thoughtindustries/hooks",
-  "version": "1.2.0",
+  "version": "1.2.1",
   "description": "Common hooks shared throughout @thoughtindustries/helium packages",
   "author": "Lu Jiang <lu.jiang@thoughtindustries.com>",
   "homepage": "https://github.com/thoughtindustries/helium#readme",
