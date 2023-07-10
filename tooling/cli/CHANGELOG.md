@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.2.2](https://github.com/thoughtindustries/helium/compare/@thoughtindustries/helium@1.2.1...@thoughtindustries/helium@1.2.2) (2023-07-10)
+
+
+### Bug Fixes
+
+* allow to cleanup atoms ([#218](https://github.com/thoughtindustries/helium/issues/218)) ([c02271e](https://github.com/thoughtindustries/helium/commit/c02271efabb43ecb6b6b317489c5877353bfdea3))
+
+
+
+
+
 ## [1.2.1](https://github.com/thoughtindustries/helium/compare/@thoughtindustries/helium@1.2.0...@thoughtindustries/helium@1.2.1) (2023-07-05)
 
 **Note:** Version bump only for package @thoughtindustries/helium

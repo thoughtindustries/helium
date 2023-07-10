@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.2.2](https://github.com/thoughtindustries/helium/compare/@thoughtindustries/testimonial@1.2.1...@thoughtindustries/testimonial@1.2.2) (2023-07-10)
+
+**Note:** Version bump only for package @thoughtindustries/testimonial
+
+
+
+
+
 ## [1.2.1](https://github.com/thoughtindustries/helium/compare/@thoughtindustries/testimonial@1.2.0...@thoughtindustries/testimonial@1.2.1) (2023-07-05)
 
 **Note:** Version bump only for package @thoughtindustries/testimonial

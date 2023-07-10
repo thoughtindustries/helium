@@ -1,6 +1,6 @@
 {
   "name": "@thoughtindustries/helium-tailwind-preset",
-  "version": "1.0.5",
+  "version": "1.0.6",
   "description": "Tailwindcss Preset for use in Helium projects.",
   "homepage": "https://github.com/thoughtindustries/helium#readme",
   "repository": {

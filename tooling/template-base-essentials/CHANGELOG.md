@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.2.2](https://github.com/thoughtindustries/helium/compare/@thoughtindustries/helium-template-essentials@1.2.1...@thoughtindustries/helium-template-essentials@1.2.2) (2023-07-10)
+
+
+### Bug Fixes
+
+* use exact graphql ([#219](https://github.com/thoughtindustries/helium/issues/219)) ([6816208](https://github.com/thoughtindustries/helium/commit/68162083b8e3df31cf040afacf3eda3089da364f))
+
+
+
+
+
 ## [1.2.1](https://github.com/thoughtindustries/helium/compare/@thoughtindustries/helium-template-essentials@1.2.0...@thoughtindustries/helium-template-essentials@1.2.1) (2023-07-05)
 
 **Note:** Version bump only for package @thoughtindustries/helium-template-essentials

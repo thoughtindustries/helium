@@ -1,6 +1,6 @@
 {
   "name": "@thoughtindustries/testimonial",
-  "version": "1.2.1",
+  "version": "1.2.2",
   "description": "A base component for testimonials",
   "author": "Blake Reimer <blake.reimer@thoughtindustries>",
   "homepage": "https://github.com/thoughtindustries/helium#readme",
@@ -21,7 +21,7 @@
     "url": "https://github.com/thoughtindustries/helium/issues"
   },
   "dependencies": {
-    "@thoughtindustries/hooks": "^1.2.1",
+    "@thoughtindustries/hooks": "^1.2.2",
     "react": "^18.2.0",
     "react-dom": "^18.2.0"
   },
