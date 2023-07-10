@@ -341,10 +341,9 @@ function findTIInstance() {
 async function checkDeploymentJobStatus(instance, jobId, key, atomsScriptHash, atomsStyleHash) {
   return new Promise((resolve, reject) => {
     const endpoint = instanceEndpoint(instance);
-    const variables = { jobId };
+    const variables = { jobId, key };
 
-    if (key && atomsScriptHash && atomsStyleHash) {
-      variables.key = key;
+    if (atomsScriptHash && atomsStyleHash) {
       variables.atomsScriptHash = atomsScriptHash;
       variables.atomsStyleHash = atomsStyleHash;
     }
