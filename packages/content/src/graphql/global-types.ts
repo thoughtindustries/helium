@@ -987,6 +987,7 @@ export type CourseGroup = {
   metaTitle?: Maybe<Scalars['String']>;
   ownedByActiveScope: Scalars['Boolean'];
   rating?: Maybe<Scalars['Int']>;
+  ratingsCount?: Maybe<Scalars['Int']>;
   relatedCourseGroups?: Maybe<Array<Maybe<CourseGroup>>>;
   relatedQuery?: Maybe<Scalars['String']>;
   relatedQueryLimit?: Maybe<Scalars['Int']>;

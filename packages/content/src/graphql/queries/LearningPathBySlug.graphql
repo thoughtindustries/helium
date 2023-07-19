@@ -1,0 +1,7 @@
+query LearningPathBySlug($slug: Slug!) {
+  LearningPathBySlug(slug: $slug) {
+    name
+    shortDescription
+    asset
+  }
+}

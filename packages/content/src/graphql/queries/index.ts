@@ -2,6 +2,8 @@ export * from './CatalogContent.generated';
 export * from './CatalogMetaFragment.generated';
 export * from './CatalogQuery.generated';
 export * from './ContentFragment.generated';
+export * from './CourseGroupBySlug.generated';
+export * from './LearningPathBySlug.generated';
 export * from './Languages.generated';
 export * from './LocationFragment.generated';
 export * from './QueryContents.generated';
