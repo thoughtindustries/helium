@@ -25,7 +25,7 @@ const KEYS_WITH_PLURALS = [];
   for (const filePath of compiledProjectFiles) {
     if (filePathIsValid(filePath)) {
       const fileContents = await readFile(filePath, 'utf8');
-      parser.parseFuncFromString(fileContents, { list: ['t'] });
+      parser.parseFuncFromString(fileContents, { list: ['t', 'o', 'i18n', 'p', 'f'] });
     }
   }
 
@@ -34,10 +34,14 @@ const KEYS_WITH_PLURALS = [];
 
   gatherPluralizedKeys();
 
-  const usedTranslationKeys = Object.keys(sourceDefaultNamespace);
+  const i18nStore = parser.get();
+
+  // en is default lang and lms is default namespace, so all keys used should be in that object
+  const i18nNSObject = i18nStore.en && i18nStore.en.lms ? i18nStore.en.lms : {};
+  const usedTranslationKeys = Object.keys(i18nNSObject);
 
   for (const key of usedTranslationKeys) {
-    const translationValue = usedTranslationKeys[key];
+    const translationValue = i18nNSObject[key];
 
     // while the keys are saved in TI files as home.meta-title, the parser will automatically
     // turn that to `home: { 'meta-title': translationValue }`
