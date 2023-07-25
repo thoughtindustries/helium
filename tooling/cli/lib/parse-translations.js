@@ -31,7 +31,7 @@ const { getFilePaths, filePathIsValid } = require('./helpers/filepaths');
     for (const filePath of compiledProjectFiles) {
       if (filePathIsValid(filePath)) {
         const fileContents = await readFile(filePath, 'utf8');
-        parser.parseFuncFromString(fileContents, { list: ['t', 'o', 'i18n', 'p', 'f'] });
+        parser.parseFuncFromString(fileContents, { list: ['t'] });
       }
     }
 

@@ -26,7 +26,8 @@ const filePathIsValid = filePath => {
     filePath.endsWith('.js') ||
     filePath.endsWith('.jsx') ||
     filePath.endsWith('.ts') ||
-    filePath.endsWith('.tsx')
+    filePath.endsWith('.tsx') ||
+    filePath.endsWith('.mjs')
   );
 };
 
