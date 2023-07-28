@@ -64,7 +64,7 @@ export default function CurrentUserNavBar() {
                   My Account
                 </li>
               </a>
-              <a href="learn/transcript">
+              <a href="/learn/transcript">
                 <li className="md:hover:bg-white hover:bg-slate-100 rounded pl-2 py-2">
                   Transcript
                 </li>
