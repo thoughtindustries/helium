@@ -20,7 +20,7 @@ export default function CurrentUserNavBar() {
         <div className={`flex basis-1/2 md:block ${navbar ? 'block' : 'hidden'}`}>
           <ul className="flex justify-center items-center md:flex">
             <li className="flex justify-start md:hover:bg-white hover:bg-slate-100 rounded py-1.5 pr-4">
-              <a href="/dashboard">Dashboard</a>
+              <a href="/learn/dashboard">Dashboard</a>
             </li>
             <li className="flex justify-center md:hover:bg-white hover:bg-slate-100 rounded py-2 px-4">
               <a href="/catalog">Catalog</a>
