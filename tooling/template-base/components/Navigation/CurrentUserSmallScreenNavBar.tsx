@@ -60,16 +60,16 @@ export default function CurrentUserSmallScreenNavBar() {
               <Avatar size="" />
               <div className="mx-3 my-auto">
                 <button className="hover:text-blue-700">
-                  <a href="learn/account?tab=dashboard.account_profile">My Profile</a>
+                  <a href="/learn/account?tab=dashboard.account_profile">My Profile</a>
                 </button>
               </div>
             </div>
             <hr></hr>
             <li className="md:hover:bg-white hover:bg-slate-100 rounded pl-2 py-1.5">
-              <a href="learn/account?tab=dashboard.account">Account</a>
+              <a href="/learn/account?tab=dashboard.account">Account</a>
             </li>
             <li className="md:hover:bg-white hover:bg-slate-100 rounded pl-2 py-2">
-              <a href="learn/transcript">Transcript</a>
+              <a href="/learn/transcript">Transcript</a>
             </li>
             <li className="md:hover:bg-white hover:bg-slate-100 rounded pl-2 py-2">
               <a href="/support">Support</a>

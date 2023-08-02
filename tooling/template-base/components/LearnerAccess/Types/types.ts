@@ -28,7 +28,7 @@ export interface LearnerAccessProps {
 
 export interface LoadedComponentProps {
   query?: string;
-  kind?: ContentKind;
+  kind?: ContentKind | ContentKind[];
   sortColumn?: SortColumn;
   sortDirection?: SortDirection;
 }
