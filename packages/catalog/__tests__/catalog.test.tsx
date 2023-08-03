@@ -209,10 +209,8 @@ const resolveQueriesAsync = async () => {
 
 describe('@thoughtindustries/catalog', () => {
   describe('Catalog', () => {
-    const config = {
-      parsedUrl: {
-        pathname: '/catalog'
-      }
+    const props = {
+      pathName: '/catalog'
     };
 
     it('should error when rendered without a parent <CatalogProvider />', () => {
@@ -232,7 +230,7 @@ describe('@thoughtindustries/catalog', () => {
           addTypename={false}
           defaultOptions={mockedApolloProviderOptions}
         >
-          <CatalogProvider config={config}>
+          <CatalogProvider {...props}>
             <Catalog onAddedToQueue={handleAddedToQueue} />
           </CatalogProvider>
         </MockedProvider>
@@ -1056,7 +1054,7 @@ describe('@thoughtindustries/catalog', () => {
           addTypename={false}
           defaultOptions={mockedApolloProviderOptions}
         >
-          <CatalogProvider config={config}>
+          <CatalogProvider {...props}>
             <Catalog onAddedToQueue={handleAddedToQueue} />
           </CatalogProvider>
         </MockedProvider>
@@ -1955,7 +1953,7 @@ describe('@thoughtindustries/catalog', () => {
           addTypename={false}
           defaultOptions={mockedApolloProviderOptions}
         >
-          <CatalogProvider config={config}>
+          <CatalogProvider {...props}>
             <Catalog onAddedToQueue={handleAddedToQueue} />
           </CatalogProvider>
         </MockedProvider>

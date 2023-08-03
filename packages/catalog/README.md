@@ -11,30 +11,26 @@ import { Catalog, CatalogProvider } from '@thoughtindustries/catalog';
 ## Usage
 
 ```
-# CatalogProvider takes a config object to parse URL search params and/or handle custom catalog configurations
-# Sample config object
-const config = {
-  parsedUrl: {
-    pathname: '/catalog',
-    searchString: '?query=test'
-  }
+# CatalogProvider takes some props to parse URL search params and/or handle custom catalog configurations
+# Sample props
+const props = {
+  pathName: '/catalog',
+  searchString: '?query=test'
 }
-# Sample config object with custom catalog configurations
-const config = {
-  parsedUrl: {
-    pathname: '/catalog',
-    searchString: '?query=test'
-  },
+# Sample props with custom catalog configurations
+const props = {
+  pathName: '/catalog',
+  searchString: '?query=test'
   layoutId: 'layout-id',
   widgetId: 'widget-id'
 }
 
-<CatalogProvider config={config}>
+<CatalogProvider {...props}>
   <Catalog onAddedToQueue={(item) => Promise.resolve()} />
 </CatalogProvider>
 
 # Or use custom pagination
-<CatalogProvider config={config}>
+<CatalogProvider {...props}>
   <Catalog
     onAddedToQueue={(item) => Promise.resolve()}
     pagination={({page, pageSize, total, getPageLink}) => <>...</>} />
@@ -48,7 +44,7 @@ const priceFormat = (priceInCents) => {
     });
   return formatter.format(priceInCents / 100);
 }
-<CatalogProvider config={config}>
+<CatalogProvider {...props}>
   <Catalog
     onAddedToQueue={(item) => Promise.resolve()}
     priceFormat={priceFormat} />

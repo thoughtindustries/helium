@@ -19,8 +19,9 @@ import { CatalogProviderProps } from './types';
  *
  * User interface will allow user to do server side navigation.
  */
-const CatalogProvider: FC<CatalogProviderProps> = ({ children, config }) => {
-  const { layoutId, widgetId, parsedUrl } = config;
+const CatalogProvider: FC<CatalogProviderProps> = ({ children, ...restProps }) => {
+  const { layoutId, widgetId, pathName, searchString } = restProps;
+  const parsedUrl = { pathName, searchString };
 
   const [urlManager] = useState<CatalogURLManager>(new CatalogURLManager(parsedUrl));
   const [params, setParams] = useState<CatalogParams | undefined>(undefined);

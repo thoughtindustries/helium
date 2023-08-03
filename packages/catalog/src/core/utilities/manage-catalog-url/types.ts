@@ -1,7 +1,7 @@
 import { AggregationFilter } from '../parse-catalog-data';
 
 export type CatalogParsedURL = {
-  pathname: string;
+  pathName: string;
   searchString?: string;
 };
 

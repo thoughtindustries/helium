@@ -33,8 +33,8 @@ export default class CatalogURLManager {
   private _selectedDisplayType: GlobalTypes.ContentItemDisplayType | undefined;
 
   constructor(parsedUrl: CatalogParsedURL) {
-    const { pathname, searchString } = parsedUrl;
-    this._pathname = pathname;
+    const { pathName, searchString } = parsedUrl;
+    this._pathname = pathName;
     this._searchParams = new URLSearchParams(searchString || undefined);
     this._parsedRequestParams = toRequestParams(this._searchParams);
   }

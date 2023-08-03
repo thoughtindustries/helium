@@ -12,7 +12,7 @@ const setup = ({
   displayType?: GlobalTypes.ContentItemDisplayType;
 }): CatalogURLManager => {
   const parsedUrl = {
-    pathname: '/base',
+    pathName: '/base',
     searchString
   };
   const manager = new CatalogURLManager(parsedUrl);
@@ -25,7 +25,7 @@ const setup = ({
 
 describe('@thoughtindustries/catalog/core/CatalogURLManager', () => {
   it('should create new instance', () => {
-    const urlManager = new CatalogURLManager({ pathname: '/' });
+    const urlManager = new CatalogURLManager({ pathName: '/' });
     expect(urlManager).toBeInstanceOf(CatalogURLManager);
   });
 

@@ -7,13 +7,8 @@ export type CatalogContextType = {
   urlManager: CatalogURLManager;
 };
 
-export type CatalogProviderConfig = {
+export type CatalogProviderProps = CatalogParsedURL & {
+  children: ReactNode;
   layoutId?: string;
   widgetId?: string;
-  parsedUrl: CatalogParsedURL;
-};
-
-export type CatalogProviderProps = {
-  config: CatalogProviderConfig;
-  children: ReactNode;
 };
