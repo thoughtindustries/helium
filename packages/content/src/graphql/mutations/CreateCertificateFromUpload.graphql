@@ -1,0 +1,10 @@
+mutation CreateCertificateFromUpload(
+  $asset: URL!
+  $certificateUploadFields: [CertificateUploadField!]
+) {
+  CreateCertificateFromUpload(asset: $asset, certificateUploadFields: $certificateUploadFields) {
+    __typename
+    id
+    externalResourceTitle
+  }
+}

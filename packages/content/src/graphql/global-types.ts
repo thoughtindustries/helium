@@ -598,6 +598,15 @@ export enum CertificateTemplateResourceType {
   LearningPath = 'learningPath'
 }
 
+export type CertificateUploadField = {
+  awardAmount?: InputMaybe<Scalars['Float']>;
+  awardTypeId?: InputMaybe<Scalars['ID']>;
+  certificateFieldId: Scalars['ID'];
+  date?: InputMaybe<Scalars['Date']>;
+  type: CertificateFieldType;
+  value?: InputMaybe<Scalars['String']>;
+};
+
 export type Client = {
   __typename?: 'Client';
   allocatedCredits?: Maybe<Scalars['Float']>;
