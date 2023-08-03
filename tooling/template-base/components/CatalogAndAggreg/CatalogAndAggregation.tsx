@@ -10,22 +10,20 @@ const CatalogAndAggregation: FC<CatalogProps> = ({
 }: CatalogProps): JSX.Element => {
   const pageContext = usePageContext();
   const {
-    urlParsed: { pathname, searchOriginal: searchString }
+    urlParsed: { pathname: pathName, searchOriginal: searchString }
   } = pageContext;
-  const config = useMemo(
+  const props = useMemo(
     () => ({
-      parsedUrl: {
-        pathname,
-        searchString
-      }
+      pathName,
+      searchString
     }),
-    [pathname, searchString]
+    [pathName, searchString]
   );
 
   return (
     <div className="grid md:grid-cols-3 grid-cols-1 py-24 px-12 md:px-20 bg-slate-100">
       <div className="col-span-3">
-        <CatalogProvider config={config}>
+        <CatalogProvider {...props}>
           <div className="w-full pt-6">
             <div className="w-full">
               <CatalogError>

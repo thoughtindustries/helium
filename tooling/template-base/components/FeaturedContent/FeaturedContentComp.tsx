@@ -13,16 +13,14 @@ const FeaturedContentComp: FC<CatalogResultsWithLimitProps> = ({
 }: CatalogProps): JSX.Element => {
   const pageContext = usePageContext();
   const {
-    urlParsed: { pathname, searchOriginal: searchString }
+    urlParsed: { pathname: pathName, searchOriginal: searchString }
   } = pageContext;
-  const config = useMemo(
+  const props = useMemo(
     () => ({
-      parsedUrl: {
-        pathname,
-        searchString
-      }
+      pathName,
+      searchString
     }),
-    [pathname, searchString]
+    [pathName, searchString]
   );
   return (
     <section id="featuredcomp" className="bg-slate-50 py-24 px-12">
@@ -34,7 +32,7 @@ const FeaturedContentComp: FC<CatalogResultsWithLimitProps> = ({
         </h4>
         <div className="grid md:grid-cols-3 grid-cols-1 py-24 px-12 md:px-20 ">
           <div className="col-span-3">
-            <CatalogProvider config={config}>
+            <CatalogProvider {...props}>
               <CatalogResults {...restResultsProps} />
             </CatalogProvider>
           </div>
