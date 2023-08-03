@@ -20,7 +20,7 @@ import { CatalogProviderProps } from './types';
  * User interface will allow user to do server side navigation.
  */
 const CatalogProvider: FC<CatalogProviderProps> = ({ children, config }) => {
-  const { parsedUrl } = config;
+  const { layoutId, widgetId, parsedUrl } = config;
 
   const [urlManager] = useState<CatalogURLManager>(new CatalogURLManager(parsedUrl));
   const [params, setParams] = useState<CatalogParams | undefined>(undefined);
@@ -35,7 +35,9 @@ const CatalogProvider: FC<CatalogProviderProps> = ({ children, config }) => {
   // On server side, the query hook will wait till the loading stops
   const { data, error, loading } = useCatalogContentQuery({
     variables: {
-      ...queryVariables
+      ...queryVariables,
+      layoutId,
+      widgetId
     }
   });
 

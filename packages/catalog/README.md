@@ -25,6 +25,8 @@ const config = {
     pathname: '/catalog',
     searchString: '?query=test'
   },
+  layoutId: 'layout-id',
+  widgetId: 'widget-id'
 }
 
 <CatalogProvider config={config}>

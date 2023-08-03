@@ -175,7 +175,9 @@ const mockApolloResultsFactory = (props: MockQueryProps) => [
         contentTypes: [],
         query: 'test search term',
         labels: [],
-        values: []
+        values: [],
+        layoutId: undefined,
+        widgetId: undefined
       }
     },
     result: {

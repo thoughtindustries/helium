@@ -167,7 +167,9 @@ const mockApolloResultsFactory = (props: MockQueryProps) => [
         contentTypes: [],
         query: undefined,
         labels: [],
-        values: []
+        values: [],
+        layoutId: undefined,
+        widgetId: undefined
       }
     },
     result: {
