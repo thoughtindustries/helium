@@ -218,7 +218,8 @@ const mockApolloResultsFactory = (props: MockQueryProps) => [
 ];
 const props = {
   pathName: '/catalog',
-  searchString: '?token=test-token&query=test%20search%20term'
+  searchString: '?token=test-token&query=test%20search%20term',
+  ssr: true
 };
 // use the options to bypass mocking full payload of responses
 const mockedApolloProviderOptions = {
