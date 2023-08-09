@@ -4,7 +4,8 @@ import {
   CatalogRequestURLParams,
   parseAggregationFilters,
   Sort,
-  serializeSort
+  serializeSort,
+  CatalogRequestParams
 } from '../parse-catalog-data';
 import {
   AggregationFilterWithComposedURL,
@@ -26,13 +27,26 @@ import { toRequestParams } from './utilities';
  */
 
 export default class CatalogURLManager {
-  private readonly _pathname;
-  private readonly _searchParams;
-  private readonly _parsedRequestParams;
+  private _pathname = '';
+  private _searchParams: URLSearchParams | undefined;
+  private _parsedRequestParams: Partial<CatalogRequestParams> = {};
   private _isCurated: boolean | undefined;
   private _selectedDisplayType: GlobalTypes.ContentItemDisplayType | undefined;
 
   constructor(parsedUrl: CatalogParsedURL) {
+    this._parseUrl(parsedUrl);
+  }
+
+  updateUrl(url: string) {
+    const { pathname, search } = new URL(url, 'http://dummy.com');
+    const parsedUrl = {
+      pathName: pathname,
+      searchString: search
+    };
+    this._parseUrl(parsedUrl);
+  }
+
+  private _parseUrl(parsedUrl: CatalogParsedURL) {
     const { pathName, searchString } = parsedUrl;
     this._pathname = pathName;
     this._searchParams = new URLSearchParams(searchString || undefined);
