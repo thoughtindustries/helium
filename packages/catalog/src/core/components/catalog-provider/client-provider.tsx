@@ -66,6 +66,7 @@ const CatalogClientProvider: FC<CatalogProviderProps> = ({ children, ...restProp
       widgetId
     },
     ssr: false,
+    notifyOnNetworkStatusChange: true,
     onCompleted: data => {
       postDataFetchOperations(data, undefined);
     },
@@ -116,7 +117,6 @@ const CatalogClientProvider: FC<CatalogProviderProps> = ({ children, ...restProp
   // Event listener for 'popstate' to capture browser navigations
   const historyHandler = useCallback(
     (event: PopStateEvent) => {
-      console.log(`...history.scrollRestoration`, window.history.scrollRestoration);
       const { pathname, search } = window.location;
       const newUrl = pathname + search;
       navigateClientSideAsync({ url: newUrl, pushToUrl: false });
