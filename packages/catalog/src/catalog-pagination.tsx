@@ -1,5 +1,5 @@
 import React, { cloneElement } from 'react';
-import { useCatalog } from './core';
+import { CatalogLinkButton, useCatalog } from './core';
 import { CatalogProps } from './types';
 import { Pagination } from '@thoughtindustries/pagination';
 
@@ -19,7 +19,8 @@ const CatalogPagination = ({ pagination }: CatalogPaginationProps): JSX.Element 
     page,
     pageSize,
     total,
-    getPageLink
+    getPageLink,
+    linkComponent: CatalogLinkButton
   };
 
   if (pagination) {

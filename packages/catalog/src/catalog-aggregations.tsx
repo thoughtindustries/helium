@@ -1,5 +1,5 @@
 import React, { ReactNode, useState } from 'react';
-import { useCatalog } from './core';
+import { CatalogLinkButton, useCatalog } from './core';
 import clsx from 'clsx';
 import { ArrowDownIcon, ArrowRightIcon } from './icons';
 import { useLanguagesQueryQuery } from '@thoughtindustries/content';
@@ -19,13 +19,13 @@ type AggregationProps = {
 
 const AggregationBucket = ({ href, value, count }: AggregationBucketProps): JSX.Element => (
   <li>
-    <a
+    <CatalogLinkButton
       href={href}
       className="inline-block leading-normal py-1.5 px-4 text-link hover:text-link-hover"
     >
       {value}
       {count && <span className="text-xs text-gray-700 pl-1">{`(${count})`}</span>}
-    </a>
+    </CatalogLinkButton>
   </li>
 );
 

@@ -2,6 +2,7 @@ import React, { createRef, useState } from 'react';
 import clsx from 'clsx';
 import { useOnClickOutside } from '@thoughtindustries/hooks';
 import { ArrowDownIcon, ArrowRightIcon, CheckIcon } from '../../icons';
+import { CatalogLinkButton } from '../../core';
 
 const DropdownMenu = ({
   id,
@@ -71,10 +72,10 @@ const DropdownMenu = ({
       >
         {options.map(({ isSelected, link, name }, index) => (
           <li key={`${id}-item-${index}`} className={listItemClassnames}>
-            <a href={link} className={listItemLinkClassnames}>
+            <CatalogLinkButton href={link} className={listItemLinkClassnames}>
               {isSelected && selectedMarker}
               {name}
-            </a>
+            </CatalogLinkButton>
           </li>
         ))}
       </ul>

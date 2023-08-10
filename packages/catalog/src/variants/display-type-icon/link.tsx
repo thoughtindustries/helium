@@ -1,5 +1,6 @@
 import React, { ReactNode } from 'react';
 import clsx from 'clsx';
+import { CatalogLinkButton } from '../../core';
 
 const DisplayTypeIconLink = ({
   isActive,
@@ -16,9 +17,9 @@ const DisplayTypeIconLink = ({
     ? 'cursor-default pointer-events-none bg-accent hover:bg-accent-hover border-accent hover:border-accent-hover text-accent-contrast hover:text-accent-contrast md:text-black md:hover:text-black md:hover:bg-transparent'
     : '';
   return (
-    <a className={clsx(baseClassnames, activeClassnames)} href={link}>
+    <CatalogLinkButton className={clsx(baseClassnames, activeClassnames)} href={link}>
       {children}
-    </a>
+    </CatalogLinkButton>
   );
 };
 

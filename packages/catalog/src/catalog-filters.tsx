@@ -88,7 +88,7 @@ const CatalogFilters = (): JSX.Element => {
         <div className="grid grid-cols-2 md:grid-cols-12 md:h-full">
           <div className={clsx(['px-4 mb-2 col-span-full md:bg-white md:mb-0', columnClassnames])}>
             <SearchInput
-              formAction={urlManager.composeURLForSetSearchTermForm()}
+              formAction={urlManager.composeActionURLForSetSearchTermForm()}
               hiddenFields={urlManager.composeSearchTermFormHiddenFields()}
             />
           </div>
