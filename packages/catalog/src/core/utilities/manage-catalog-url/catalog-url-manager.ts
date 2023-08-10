@@ -200,8 +200,14 @@ export default class CatalogURLManager {
     });
   }
 
-  composeURLForSetSearchTermForm(): string {
+  composeActionURLForSetSearchTermForm(): string {
     return this._composeURL('');
+  }
+
+  composeURLForSetSearchTermForm(searchTerm: string): string {
+    const clonedParams = this._resetOrDefaultClonedParams();
+    clonedParams.set(CatalogURLSearchParams.SearchTerm, searchTerm);
+    return this._composeURL(clonedParams.toString());
   }
 
   composeSearchTermFormHiddenFields(): SearchTermFormHiddenField[] {

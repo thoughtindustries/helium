@@ -316,14 +316,27 @@ describe('@thoughtindustries/catalog/core/CatalogURLManager', () => {
     });
   });
 
-  describe('composeURLForSetSearchTermForm', () => {
-    it('should set form url', () => {
+  describe('composeActionURLForSetSearchTermForm', () => {
+    it('should set form action url', () => {
       const searchString =
         '?labels=%5B%22label1%22%2C%22label2%22%5D&values=%5B%22value1%22%2C%22value2%22%5D&page=3&token=abc&query=test&content-types=%5B%22type1%22%5D&display-type=calendar&sort=createdAt%3Adesc';
       const manager = setup({ searchString });
 
-      const actual = manager.composeURLForSetSearchTermForm();
+      const actual = manager.composeActionURLForSetSearchTermForm();
       expect(actual).toMatchInlineSnapshot(`"/base"`);
+    });
+  });
+
+  describe('composeURLForSetSearchTermForm', () => {
+    it('should set search term', () => {
+      const searchString =
+        '?labels=%5B%22label1%22%2C%22label2%22%5D&values=%5B%22value1%22%2C%22value2%22%5D&page=3&token=abc&query=test&content-types=%5B%22type1%22%5D&display-type=calendar&sort=createdAt%3Adesc';
+      const manager = setup({ searchString });
+
+      const actual = manager.composeURLForSetSearchTermForm('new search term');
+      expect(actual).toMatchInlineSnapshot(
+        `"/base?labels=%5B%22label1%22%2C%22label2%22%5D&values=%5B%22value1%22%2C%22value2%22%5D&page=3&token=abc&query=new+search+term&content-types=%5B%22type1%22%5D&display-type=calendar&sort=createdAt%3Adesc"`
+      );
     });
   });
 
