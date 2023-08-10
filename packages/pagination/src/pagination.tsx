@@ -10,7 +10,8 @@ const Pagination = ({
   total,
   pageSize = DEFAULT_PAGE_SIZE,
   getPageLink,
-  hidePageList = DEFAULT_HIDE_PAGE_LIST
+  hidePageList = DEFAULT_HIDE_PAGE_LIST,
+  linkComponent
 }: PaginationProps): JSX.Element => {
   // derived values
   const lastPage = Math.ceil(total / pageSize) || 1;
@@ -45,6 +46,7 @@ const Pagination = ({
   );
 
   // components
+  const PaginationLinkComponent = linkComponent || 'a';
   const visiblePagesContent = !hidePageList
     ? visiblePages.map(({ number, label, isActive, isFirst, isLast }) => {
         const firstLastBorderClassnames = isFirst
@@ -53,7 +55,7 @@ const Pagination = ({
         const borderClassnames =
           isFirst || isLast ? clsx('rounded', firstLastBorderClassnames) : 'border-x-0';
         return (
-          <a
+          <PaginationLinkComponent
             key={`catalog-page-${label}`}
             href={getPageLink(number)}
             className={clsx(
@@ -64,7 +66,7 @@ const Pagination = ({
             )}
           >
             {label}
-          </a>
+          </PaginationLinkComponent>
         );
       })
     : null;
@@ -79,27 +81,35 @@ const Pagination = ({
       {!!visiblePages.length && (
         <div className="mt-2 flex items-center justify-end">
           <div className="flex justify-center">
-            <a href={getPageLink(1)} className={firstPageClassnames} aria-label="rewind">
+            <PaginationLinkComponent
+              href={getPageLink(1)}
+              className={firstPageClassnames}
+              aria-label="rewind"
+            >
               <DoubleArrowLeftIcon />
-            </a>
-            <a
+            </PaginationLinkComponent>
+            <PaginationLinkComponent
               href={getPageLink(prevPage)}
               className={prevPageClassnames}
               aria-label="navigateleft"
             >
               <ArrowLeftIcon />
-            </a>
+            </PaginationLinkComponent>
             {visiblePagesContent}
-            <a
+            <PaginationLinkComponent
               href={getPageLink(nextPage)}
               className={nextPageClassnames}
               aria-label="navigateright"
             >
               <ArrowRightIcon />
-            </a>
-            <a href={getPageLink(lastPage)} className={lastPageClassnames} aria-label="fastforward">
+            </PaginationLinkComponent>
+            <PaginationLinkComponent
+              href={getPageLink(lastPage)}
+              className={lastPageClassnames}
+              aria-label="fastforward"
+            >
               <DoubleArrowRightIcon />
-            </a>
+            </PaginationLinkComponent>
           </div>
         </div>
       )}
