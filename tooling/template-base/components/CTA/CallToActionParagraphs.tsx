@@ -34,7 +34,7 @@ const CallToActionParagraphs = (props: {
             {props.item.content}
           </div>
           <a href={props.item.buttonUrl} className="text-blue-900 py-10">
-            {props.item.buttonText} &#x2192;
+            {`${props.item.buttonText} \u2192`}
           </a>
         </div>
         <div className="flex flex-col space-y-8 md:w-1/2 md:hidden">
@@ -62,7 +62,7 @@ const CallToActionParagraphs = (props: {
             {props.item.content}
           </div>
           <a href={props.item.buttonUrl} className="text-blue-900 py-10">
-            {props.item.buttonText} &#x2192;
+            {`${props.item.buttonText} \u2192`}
           </a>
         </div>
 

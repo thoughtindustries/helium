@@ -15,7 +15,8 @@ const CatalogAndAggregation: FC<CatalogProps> = ({
   const props = useMemo(
     () => ({
       pathName,
-      searchString
+      searchString,
+      ssr: true
     }),
     [pathName, searchString]
   );

@@ -18,7 +18,8 @@ const FeaturedContentComp: FC<CatalogResultsWithLimitProps> = ({
   const props = useMemo(
     () => ({
       pathName,
-      searchString
+      searchString,
+      ssr: true
     }),
     [pathName, searchString]
   );
