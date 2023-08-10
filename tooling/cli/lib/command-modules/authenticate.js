@@ -39,10 +39,10 @@ exports.handler = async function (argv) {
   if (instances.length) {
     console.log('Initializing project...');
     await initProject(process.cwd(), instances);
+
+    const pkgManager = /yarn/.test(process.env.npm_execpath) ? 'yarn' : 'npm';
+
+    console.log('\nReady to get started? Just run:\n');
+    console.log(`$ ${pkgManager} run dev`);
   }
-
-  const pkgManager = /yarn/.test(process.env.npm_execpath) ? 'yarn' : 'npm';
-
-  console.log('\nReady to get started? Just run:\n');
-  console.log(`$ ${pkgManager} run dev`);
 };

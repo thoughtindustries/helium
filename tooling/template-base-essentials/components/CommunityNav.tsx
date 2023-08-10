@@ -21,12 +21,12 @@ const CommunityNav = () => {
   const NavElementArray = [
     {
       text: 'View Repo',
-      image: DiscordLogo,
+      image: GitHubLogo,
       link: 'https://github.com/thoughtindustries/helium'
     },
     {
       text: 'Join Community',
-      image: GitHubLogo,
+      image: DiscordLogo,
       link: 'https://discord.gg/cTJBX4muVn'
     }
   ];
