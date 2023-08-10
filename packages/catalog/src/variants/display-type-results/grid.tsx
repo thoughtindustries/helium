@@ -12,7 +12,7 @@ import ItemLinkWrapper from './item-link-wrapper';
 import ItemAssetBlock from './item-asset-block';
 import ItemQueueButton from './item-queue-button';
 import ItemRibbon from './item-ribbon';
-import clsx from 'clsx';
+import { twMerge } from 'tailwind-merge';
 import { limitText } from './utilities';
 
 type DisplayTypeResultsGridProps = Pick<CatalogResultsProps, 'onClick' | 'onAddedToQueue'> &
@@ -33,7 +33,7 @@ const HeightEqualizerElementWrapper = ({
   // stylings
   const baseClassnames = 'overflow-hidden block transition-all';
   return (
-    <HeightEqualizerElement className={clsx(className, baseClassnames)} {...restProps}>
+    <HeightEqualizerElement className={twMerge(className, baseClassnames)} {...restProps}>
       {children}
     </HeightEqualizerElement>
   );

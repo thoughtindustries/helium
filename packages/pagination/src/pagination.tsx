@@ -1,5 +1,5 @@
 import React from 'react';
-import clsx from 'clsx';
+import { twMerge } from 'tailwind-merge';
 import { DEFAULT_HIDE_PAGE_LIST, DEFAULT_PAGE, DEFAULT_PAGE_SIZE } from './constants';
 import { ArrowLeftIcon, ArrowRightIcon, DoubleArrowLeftIcon, DoubleArrowRightIcon } from './icons';
 import { PaginationProps } from './types';
@@ -28,19 +28,19 @@ const Pagination = ({
   const disabledClassnames =
     'cursor-default pointer-events-none text-gray-400 bg-gray-300 border-gray-300';
   const enabledClassnames = 'text-gray-600';
-  const firstPageClassnames = clsx(
+  const firstPageClassnames = twMerge(
     [pageBaseClassnames, 'rounded rounded-r-none border-r-0'],
     !hasPrevPage ? disabledClassnames : enabledClassnames
   );
-  const prevPageClassnames = clsx(
+  const prevPageClassnames = twMerge(
     [pageBaseClassnames, 'rounded rounded-l-none border-r-1 mr-2'],
     !hasPrevPage ? disabledClassnames : enabledClassnames
   );
-  const nextPageClassnames = clsx(
+  const nextPageClassnames = twMerge(
     [pageBaseClassnames, 'rounded rounded-r-none border-r-0 ml-2'],
     !hasNextPage ? disabledClassnames : enabledClassnames
   );
-  const lastPageClassnames = clsx(
+  const lastPageClassnames = twMerge(
     [pageBaseClassnames, 'rounded rounded-l-none border-r-1'],
     !hasNextPage ? disabledClassnames : enabledClassnames
   );
@@ -53,12 +53,12 @@ const Pagination = ({
           ? 'border-l-1 border-r-0 rounded-r-none'
           : 'border-r-1 border-l-0 rounded-l-none';
         const borderClassnames =
-          isFirst || isLast ? clsx('rounded', firstLastBorderClassnames) : 'border-x-0';
+          isFirst || isLast ? twMerge('rounded', firstLastBorderClassnames) : 'border-x-0';
         return (
           <PaginationLinkComponent
             key={`catalog-page-${label}`}
             href={getPageLink(number)}
-            className={clsx(
+            className={twMerge(
               [pageBaseClassnames, borderClassnames],
               isActive
                 ? 'cursor-default pointer-events-none bg-accent border-accent text-accent-contrast'

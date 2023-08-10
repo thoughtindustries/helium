@@ -1,5 +1,5 @@
 import React, { SyntheticEvent, useCallback, useState } from 'react';
-import clsx from 'clsx';
+import { twMerge } from 'tailwind-merge';
 import { useTranslation } from 'react-i18next';
 import { CatalogResultsProps, CatalogResultItem } from '../../types';
 import { PlusIcon, CheckCircleIcon } from './icons';
@@ -40,7 +40,7 @@ const ItemQueueButton = ({
     [wasAddedToQueue, isLoading, item, onAddedToQueue]
   );
 
-  const btnClassNames = clsx([
+  const btnClassNames = twMerge([
     'pl-0 mb-1 text-xs border-none rounded-sm cursor-pointer font-normal leading-normal m-0 p-0 relative text-center no-underline transition-colors ease-in-out duration-200 hover:text-link-hover',
     { 'cursor-default': wasAddedToQueue },
     classNames
