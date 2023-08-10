@@ -44,5 +44,9 @@ exports.handler = async function (argv) {
 
     console.log('\nReady to get started? Just run:\n');
     console.log(`$ ${pkgManager} run dev`);
+  } else {
+    console.log(
+      'Error authenticating instance: Please check your instance URL and API key and try again.'
+    );
   }
 };
