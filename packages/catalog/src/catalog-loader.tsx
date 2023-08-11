@@ -2,7 +2,11 @@ import React, { ReactElement } from 'react';
 import { LoadingDots } from '@thoughtindustries/content';
 import { useCatalog } from './core';
 
-const CatalogLoader = ({ children }: { children: ReactElement }): JSX.Element => {
+interface CatalogLoaderProps {
+  children: ReactElement;
+}
+
+const CatalogLoader = ({ children }: CatalogLoaderProps): JSX.Element => {
   const { isLoading } = useCatalog();
 
   if (isLoading) {
