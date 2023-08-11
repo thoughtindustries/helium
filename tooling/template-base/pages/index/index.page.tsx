@@ -23,7 +23,7 @@ function Page() {
       <Hero
         headline="Making Learning Successful"
         body="Learning is a gateway to success. We aim to provide motivational content, strategies and courses to help you become successful and achieve your goals."
-        buttonUrl="/signin"
+        buttonUrl="/learn/sign_in"
         buttonText="Sign in"
       />
       <FeaturedContentComp
@@ -78,7 +78,7 @@ function Page() {
       <CTA
         headline="Are you ready to learn?"
         body="Whether youre looking to grow your business, launch a new product, or simply want to improve certain aspects of your life, we have the tools you need to achieve your goals."
-        buttonUrl="/signin"
+        buttonUrl="/learn/sign_in"
         buttonText="Sign in"
       />
       <Footer />
