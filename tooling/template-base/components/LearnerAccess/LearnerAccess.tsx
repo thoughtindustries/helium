@@ -170,25 +170,25 @@ const LearnerAccess = ({
         return (
           <LoadUserLearning
             query={query}
-            kind={
-              (GlobalTypes.ContentKind.CourseGroup,
+            kind={[
+              GlobalTypes.ContentKind.CourseGroup,
               GlobalTypes.ContentKind.Article,
               GlobalTypes.ContentKind.Video,
               GlobalTypes.ContentKind.ShareableContentObject,
-              GlobalTypes.ContentKind.XApiObject)
-            }
+              GlobalTypes.ContentKind.XApiObject
+            ]}
           />
         );
       case TabKey.Events:
         return (
           <LoadUserLearning
             query={query}
-            kind={
-              (GlobalTypes.ContentKind.Webinar,
+            kind={[
+              GlobalTypes.ContentKind.Webinar,
               GlobalTypes.ContentKind.Webinar,
               GlobalTypes.ContentKind.InPersonEvent,
-              GlobalTypes.ContentKind.InPersonEventCourse)
-            }
+              GlobalTypes.ContentKind.InPersonEventCourse
+            ]}
             sortColumn={GlobalTypes.SortColumn.DisplayDate}
           />
         );
@@ -198,8 +198,8 @@ const LearnerAccess = ({
         return (
           <LoadUserLearning
             query={query}
-            kind={
-              (GlobalTypes.ContentKind.LearningPath,
+            kind={[
+              GlobalTypes.ContentKind.LearningPath,
               GlobalTypes.ContentKind.CourseGroup,
               GlobalTypes.ContentKind.Article,
               GlobalTypes.ContentKind.Video,
@@ -208,8 +208,8 @@ const LearnerAccess = ({
               GlobalTypes.ContentKind.Webinar,
               GlobalTypes.ContentKind.Webinar,
               GlobalTypes.ContentKind.InPersonEvent,
-              GlobalTypes.ContentKind.InPersonEventCourse)
-            }
+              GlobalTypes.ContentKind.InPersonEventCourse
+            ]}
           />
         );
       case TabKey.Archived:
