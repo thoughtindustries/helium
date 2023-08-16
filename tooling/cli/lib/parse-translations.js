@@ -3,33 +3,9 @@ const { readFile, writeFile } = require('fs/promises');
 const Parser = require('i18next-scanner').Parser;
 const { getFilePaths, filePathIsValid } = require('./helpers/filepaths');
 
-const FINAL_TRANSLATIONS = {};
-const KEYS_WITH_PLURALS = [];
-const OP_DIR = process.cwd();
-let TI_TRANSLATIONS = {};
-
-async function processTranslations(TI_TRANSLATIONS) {
-  function addToTranslations(key) {
-    console.log('Adding to translation');
-    const translatedLanguages = Object.keys(TI_TRANSLATIONS);
-    for (const lang of translatedLanguages) {
-      if (!FINAL_TRANSLATIONS[lang]) {
-        FINAL_TRANSLATIONS[lang] = { lms: {} };
-      }
-
-      if (translationExists(lang, key)) {
-        const sourceTranslation = TI_TRANSLATIONS[lang].lms[key];
-        FINAL_TRANSLATIONS[lang].lms[key] = sourceTranslation;
-
-        if (KEYS_WITH_PLURALS.includes(key)) {
-          const pluralizedKey = `${key}_other`;
-          if (translationExists(lang, pluralizedKey)) {
-            FINAL_TRANSLATIONS[lang].lms[pluralizedKey] = TI_TRANSLATIONS[lang].lms[pluralizedKey];
-          }
-        }
-      }
-    }
-  }
+async function processTranslations(TI_TRANSLATIONS, OP_DIR) {
+  const FINAL_TRANSLATIONS = {};
+  const KEYS_WITH_PLURALS = [];
   const compiledProjectPath = path.join(OP_DIR, 'dist');
   const compiledProjectFiles = await getFilePaths(compiledProjectPath);
 
@@ -61,8 +37,6 @@ async function processTranslations(TI_TRANSLATIONS) {
   const i18nNSObject = i18nStore.en && i18nStore.en.lms ? i18nStore.en.lms : {};
   const usedTranslationKeys = Object.keys(i18nNSObject);
 
-  console.log('usedTranslationKeys: ', usedTranslationKeys);
-
   for (const key of usedTranslationKeys) {
     const translationValue = i18nNSObject[key];
 
@@ -83,15 +57,44 @@ async function processTranslations(TI_TRANSLATIONS) {
     }
   }
   return FINAL_TRANSLATIONS;
+
+  function addToTranslations(key) {
+    const translatedLanguages = Object.keys(TI_TRANSLATIONS);
+    for (const lang of translatedLanguages) {
+      if (!FINAL_TRANSLATIONS[lang]) {
+        FINAL_TRANSLATIONS[lang] = { lms: {} };
+      }
+
+      if (translationExists(lang, key)) {
+        const sourceTranslation = TI_TRANSLATIONS[lang].lms[key];
+        FINAL_TRANSLATIONS[lang].lms[key] = sourceTranslation;
+
+        if (KEYS_WITH_PLURALS.includes(key)) {
+          const pluralizedKey = `${key}_other`;
+          if (translationExists(lang, pluralizedKey)) {
+            FINAL_TRANSLATIONS[lang].lms[pluralizedKey] = TI_TRANSLATIONS[lang].lms[pluralizedKey];
+          }
+        }
+      }
+    }
+  }
+  function gatherPluralizedKeys() {
+    const pluralizedKeys = Object.keys(TI_TRANSLATIONS.en.lms).filter(key =>
+      key.includes('_other')
+    );
+    for (const pluralKey of pluralizedKeys) {
+      KEYS_WITH_PLURALS.push(pluralKey.replace('_other', ''));
+    }
+  }
 }
 
-function readTranslations() {
+async function readTranslations(OP_DIR) {
   const TI_TRANSLATIONS_PATH = path.join(OP_DIR, 'locales/translations.json');
-  TI_TRANSLATIONS = require(TI_TRANSLATIONS_PATH);
+  TI_TRANSLATIONS = await require(TI_TRANSLATIONS_PATH);
   return TI_TRANSLATIONS;
 }
 
-async function writeTranslations(FINAL_TRANSLATIONS) {
+async function writeTranslations(FINAL_TRANSLATIONS, OP_DIR) {
   await writeFile(
     path.join(OP_DIR, 'locales/translations.json'),
     JSON.stringify(FINAL_TRANSLATIONS, null, 2)
@@ -102,18 +105,12 @@ function translationExists(lang, key) {
   return TI_TRANSLATIONS[lang] && TI_TRANSLATIONS[lang].lms[key];
 }
 
-function gatherPluralizedKeys() {
-  const pluralizedKeys = Object.keys(TI_TRANSLATIONS.en.lms).filter(key => key.includes('_other'));
-  for (const pluralKey of pluralizedKeys) {
-    KEYS_WITH_PLURALS.push(pluralKey.replace('_other', ''));
-  }
-}
-
 (async function () {
-  const TI_TRANSLATIONS = await readTranslations();
-  const translation_to_write = await processTranslations(TI_TRANSLATIONS);
+  const OP_DIR = process.cwd();
+  const TI_TRANSLATIONS = await readTranslations(OP_DIR);
+  const translation_to_write = await processTranslations(TI_TRANSLATIONS, OP_DIR);
   if (Object.keys(translation_to_write).length !== 0) {
-    await writeTranslations(translation_to_write);
+    await writeTranslations(translation_to_write, OP_DIR);
   } else {
     throw Error('No translations exist!');
   }
