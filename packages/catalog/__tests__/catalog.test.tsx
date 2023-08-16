@@ -473,7 +473,7 @@ describe('@thoughtindustries/catalog', () => {
                     class="flex flex-wrap gap-x-1 justify-end"
                   >
                     <a
-                      class="bg-gray-100 hover:bg-white md:bg-transparent border border-solid border-gray-400 rounded-sm hover:border-gray-500 md:rounded-none font-normal font-secondary text-gray-800 text-sm text-center no-underline leading-none hover:text-gray-800 md:text-gray-400 cursor-pointer inline-block relative py-1 px-4 mb-4 transition-colors ease-in-out duration-200 md:h-12 md:w-12 md:mb-0 md:p-0 flex justify-center items-center cursor-default pointer-events-none bg-accent hover:bg-accent-hover border-accent hover:border-accent-hover text-accent-contrast hover:text-accent-contrast md:text-black md:hover:text-black md:hover:bg-transparent"
+                      class="md:bg-transparent border border-solid rounded-sm md:rounded-none font-normal font-secondary text-sm text-center no-underline leading-none relative py-1 px-4 mb-4 transition-colors ease-in-out duration-200 md:h-12 md:w-12 md:mb-0 md:p-0 flex justify-center items-center cursor-default pointer-events-none bg-accent hover:bg-accent-hover border-accent hover:border-accent-hover text-accent-contrast hover:text-accent-contrast md:text-black md:hover:text-black md:hover:bg-transparent"
                       href="/catalog?display-type=list"
                     >
                       <i
@@ -514,7 +514,7 @@ describe('@thoughtindustries/catalog', () => {
                       </i>
                     </a>
                     <a
-                      class="bg-gray-100 hover:bg-white md:bg-transparent border border-solid border-gray-400 rounded-sm hover:border-gray-500 md:rounded-none font-normal font-secondary text-gray-800 text-sm text-center no-underline leading-none hover:text-gray-800 md:text-gray-400 cursor-pointer inline-block relative py-1 px-4 mb-4 transition-colors ease-in-out duration-200 md:h-12 md:w-12 md:mb-0 md:p-0 flex justify-center items-center"
+                      class="bg-gray-100 hover:bg-white md:bg-transparent border border-solid border-gray-400 rounded-sm hover:border-gray-500 md:rounded-none font-normal font-secondary text-gray-800 text-sm text-center no-underline leading-none hover:text-gray-800 md:text-gray-400 cursor-pointer relative py-1 px-4 mb-4 transition-colors ease-in-out duration-200 md:h-12 md:w-12 md:mb-0 md:p-0 flex justify-center items-center"
                       href="/catalog?display-type=grid"
                     >
                       <i
@@ -551,7 +551,7 @@ describe('@thoughtindustries/catalog', () => {
                       </i>
                     </a>
                     <a
-                      class="bg-gray-100 hover:bg-white md:bg-transparent border border-solid border-gray-400 rounded-sm hover:border-gray-500 md:rounded-none font-normal font-secondary text-gray-800 text-sm text-center no-underline leading-none hover:text-gray-800 md:text-gray-400 cursor-pointer inline-block relative py-1 px-4 mb-4 transition-colors ease-in-out duration-200 md:h-12 md:w-12 md:mb-0 md:p-0 flex justify-center items-center"
+                      class="bg-gray-100 hover:bg-white md:bg-transparent border border-solid border-gray-400 rounded-sm hover:border-gray-500 md:rounded-none font-normal font-secondary text-gray-800 text-sm text-center no-underline leading-none hover:text-gray-800 md:text-gray-400 cursor-pointer relative py-1 px-4 mb-4 transition-colors ease-in-out duration-200 md:h-12 md:w-12 md:mb-0 md:p-0 flex justify-center items-center"
                       href="/catalog?display-type=calendar"
                     >
                       <i
@@ -824,7 +824,7 @@ describe('@thoughtindustries/catalog', () => {
                           class="relative"
                         >
                           <div
-                            class="text-xs font-normal leading-none absolute right-0 uppercase max-w-1/2 overflow-ellipsis z-10 px-1.5 py-1 whitespace-no-wrap -right-2 -top-5"
+                            class="text-xs font-normal leading-none absolute uppercase max-w-1/2 overflow-ellipsis z-10 px-1.5 py-1 whitespace-no-wrap -right-2 -top-5"
                             style="color: rgb(255, 255, 255); background-color: rgb(57, 173, 57);"
                           >
                             <div
@@ -881,7 +881,7 @@ describe('@thoughtindustries/catalog', () => {
                                     course-view-details
                                   </span>
                                   <button
-                                    class="pl-0 mb-1 text-xs border-none rounded-sm cursor-pointer font-normal leading-normal m-0 p-0 relative text-center no-underline transition-colors ease-in-out duration-200 hover:text-link-hover mt-3 mx-auto block"
+                                    class="text-xs border-none rounded-sm cursor-pointer font-normal leading-normal m-0 p-0 relative text-center no-underline transition-colors ease-in-out duration-200 hover:text-link-hover mt-3 mx-auto block"
                                   >
                                     <span
                                       class="flex items-center gap-x-1"
@@ -940,7 +940,7 @@ describe('@thoughtindustries/catalog', () => {
                         >
                           <a
                             aria-label="rewind"
-                            class="w-7 h-7 rounded-none border border-solid border-gray-400 bg-white flex items-center justify-center p-1 rounded rounded-r-none border-r-0 cursor-default pointer-events-none text-gray-400 bg-gray-300 border-gray-300"
+                            class="w-7 h-7 border border-solid flex items-center justify-center p-1 rounded rounded-r-none border-r-0 cursor-default pointer-events-none text-gray-400 bg-gray-300 border-gray-300"
                             href="/catalog?page=1"
                           >
                             <svg
@@ -960,7 +960,7 @@ describe('@thoughtindustries/catalog', () => {
                           </a>
                           <a
                             aria-label="navigateleft"
-                            class="w-7 h-7 rounded-none border border-solid border-gray-400 bg-white flex items-center justify-center p-1 rounded rounded-l-none border-r-1 mr-2 cursor-default pointer-events-none text-gray-400 bg-gray-300 border-gray-300"
+                            class="w-7 h-7 border border-solid flex items-center justify-center p-1 rounded rounded-l-none border-r-1 mr-2 cursor-default pointer-events-none text-gray-400 bg-gray-300 border-gray-300"
                             href="/catalog?page=0"
                           >
                             <svg
@@ -979,7 +979,7 @@ describe('@thoughtindustries/catalog', () => {
                             </svg>
                           </a>
                           <a
-                            class="w-7 h-7 rounded-none border border-solid border-gray-400 bg-white flex items-center justify-center p-1 rounded border-l-1 border-r-0 rounded-r-none cursor-default pointer-events-none bg-accent border-accent text-accent-contrast"
+                            class="w-7 h-7 border border-solid flex items-center justify-center p-1 rounded border-l-1 border-r-0 rounded-r-none cursor-default pointer-events-none bg-accent border-accent text-accent-contrast"
                             href="/catalog?page=1"
                           >
                             1
@@ -991,14 +991,14 @@ describe('@thoughtindustries/catalog', () => {
                             2
                           </a>
                           <a
-                            class="w-7 h-7 rounded-none border border-solid border-gray-400 bg-white flex items-center justify-center p-1 rounded border-r-1 border-l-0 rounded-l-none text-gray-600"
+                            class="w-7 h-7 border border-solid border-gray-400 bg-white flex items-center justify-center p-1 rounded border-r-1 border-l-0 rounded-l-none text-gray-600"
                             href="/catalog?page=3"
                           >
                             3
                           </a>
                           <a
                             aria-label="navigateright"
-                            class="w-7 h-7 rounded-none border border-solid border-gray-400 bg-white flex items-center justify-center p-1 rounded rounded-r-none border-r-0 ml-2 text-gray-600"
+                            class="w-7 h-7 border border-solid border-gray-400 bg-white flex items-center justify-center p-1 rounded rounded-r-none border-r-0 ml-2 text-gray-600"
                             href="/catalog?page=2"
                           >
                             <svg
@@ -1018,7 +1018,7 @@ describe('@thoughtindustries/catalog', () => {
                           </a>
                           <a
                             aria-label="fastforward"
-                            class="w-7 h-7 rounded-none border border-solid border-gray-400 bg-white flex items-center justify-center p-1 rounded rounded-l-none border-r-1 text-gray-600"
+                            class="w-7 h-7 border border-solid border-gray-400 bg-white flex items-center justify-center p-1 rounded rounded-l-none border-r-1 text-gray-600"
                             href="/catalog?page=3"
                           >
                             <svg
@@ -1301,7 +1301,7 @@ describe('@thoughtindustries/catalog', () => {
                     class="flex flex-wrap gap-x-1 justify-end"
                   >
                     <a
-                      class="bg-gray-100 hover:bg-white md:bg-transparent border border-solid border-gray-400 rounded-sm hover:border-gray-500 md:rounded-none font-normal font-secondary text-gray-800 text-sm text-center no-underline leading-none hover:text-gray-800 md:text-gray-400 cursor-pointer inline-block relative py-1 px-4 mb-4 transition-colors ease-in-out duration-200 md:h-12 md:w-12 md:mb-0 md:p-0 flex justify-center items-center"
+                      class="bg-gray-100 hover:bg-white md:bg-transparent border border-solid border-gray-400 rounded-sm hover:border-gray-500 md:rounded-none font-normal font-secondary text-gray-800 text-sm text-center no-underline leading-none hover:text-gray-800 md:text-gray-400 cursor-pointer relative py-1 px-4 mb-4 transition-colors ease-in-out duration-200 md:h-12 md:w-12 md:mb-0 md:p-0 flex justify-center items-center"
                       href="/catalog?display-type=list"
                     >
                       <i
@@ -1342,7 +1342,7 @@ describe('@thoughtindustries/catalog', () => {
                       </i>
                     </a>
                     <a
-                      class="bg-gray-100 hover:bg-white md:bg-transparent border border-solid border-gray-400 rounded-sm hover:border-gray-500 md:rounded-none font-normal font-secondary text-gray-800 text-sm text-center no-underline leading-none hover:text-gray-800 md:text-gray-400 cursor-pointer inline-block relative py-1 px-4 mb-4 transition-colors ease-in-out duration-200 md:h-12 md:w-12 md:mb-0 md:p-0 flex justify-center items-center cursor-default pointer-events-none bg-accent hover:bg-accent-hover border-accent hover:border-accent-hover text-accent-contrast hover:text-accent-contrast md:text-black md:hover:text-black md:hover:bg-transparent"
+                      class="md:bg-transparent border border-solid rounded-sm md:rounded-none font-normal font-secondary text-sm text-center no-underline leading-none relative py-1 px-4 mb-4 transition-colors ease-in-out duration-200 md:h-12 md:w-12 md:mb-0 md:p-0 flex justify-center items-center cursor-default pointer-events-none bg-accent hover:bg-accent-hover border-accent hover:border-accent-hover text-accent-contrast hover:text-accent-contrast md:text-black md:hover:text-black md:hover:bg-transparent"
                       href="/catalog?display-type=grid"
                     >
                       <i
@@ -1379,7 +1379,7 @@ describe('@thoughtindustries/catalog', () => {
                       </i>
                     </a>
                     <a
-                      class="bg-gray-100 hover:bg-white md:bg-transparent border border-solid border-gray-400 rounded-sm hover:border-gray-500 md:rounded-none font-normal font-secondary text-gray-800 text-sm text-center no-underline leading-none hover:text-gray-800 md:text-gray-400 cursor-pointer inline-block relative py-1 px-4 mb-4 transition-colors ease-in-out duration-200 md:h-12 md:w-12 md:mb-0 md:p-0 flex justify-center items-center"
+                      class="bg-gray-100 hover:bg-white md:bg-transparent border border-solid border-gray-400 rounded-sm hover:border-gray-500 md:rounded-none font-normal font-secondary text-gray-800 text-sm text-center no-underline leading-none hover:text-gray-800 md:text-gray-400 cursor-pointer relative py-1 px-4 mb-4 transition-colors ease-in-out duration-200 md:h-12 md:w-12 md:mb-0 md:p-0 flex justify-center items-center"
                       href="/catalog?display-type=calendar"
                     >
                       <i
@@ -1630,7 +1630,7 @@ describe('@thoughtindustries/catalog', () => {
                             class="grid grid-cols-1 border border-solid border-gray-300 relative"
                           >
                             <div
-                              class="text-xs font-normal leading-none absolute right-0 uppercase max-w-1/2 overflow-ellipsis z-10 px-1.5 py-1 whitespace-no-wrap -right-2 -top-1"
+                              class="text-xs font-normal leading-none absolute uppercase max-w-1/2 overflow-ellipsis z-10 px-1.5 py-1 whitespace-no-wrap -right-2 -top-1"
                               style="color: rgb(255, 255, 255); background-color: rgb(57, 173, 57);"
                             >
                               <div
@@ -1733,7 +1733,7 @@ describe('@thoughtindustries/catalog', () => {
                                 >
                                   <span>
                                     <button
-                                      class="pl-0 mb-1 text-xs border-none rounded-sm cursor-pointer font-normal leading-normal m-0 p-0 relative text-center no-underline transition-colors ease-in-out duration-200 hover:text-link-hover"
+                                      class="text-xs border-none rounded-sm cursor-pointer font-normal leading-normal m-0 p-0 relative text-center no-underline transition-colors ease-in-out duration-200 hover:text-link-hover"
                                     >
                                       <span
                                         class="flex items-center gap-x-1"
@@ -1843,7 +1843,7 @@ describe('@thoughtindustries/catalog', () => {
                         >
                           <a
                             aria-label="rewind"
-                            class="w-7 h-7 rounded-none border border-solid border-gray-400 bg-white flex items-center justify-center p-1 rounded rounded-r-none border-r-0 cursor-default pointer-events-none text-gray-400 bg-gray-300 border-gray-300"
+                            class="w-7 h-7 border border-solid flex items-center justify-center p-1 rounded rounded-r-none border-r-0 cursor-default pointer-events-none text-gray-400 bg-gray-300 border-gray-300"
                             href="/catalog?page=1"
                           >
                             <svg
@@ -1863,7 +1863,7 @@ describe('@thoughtindustries/catalog', () => {
                           </a>
                           <a
                             aria-label="navigateleft"
-                            class="w-7 h-7 rounded-none border border-solid border-gray-400 bg-white flex items-center justify-center p-1 rounded rounded-l-none border-r-1 mr-2 cursor-default pointer-events-none text-gray-400 bg-gray-300 border-gray-300"
+                            class="w-7 h-7 border border-solid flex items-center justify-center p-1 rounded rounded-l-none border-r-1 mr-2 cursor-default pointer-events-none text-gray-400 bg-gray-300 border-gray-300"
                             href="/catalog?page=0"
                           >
                             <svg
@@ -1882,7 +1882,7 @@ describe('@thoughtindustries/catalog', () => {
                             </svg>
                           </a>
                           <a
-                            class="w-7 h-7 rounded-none border border-solid border-gray-400 bg-white flex items-center justify-center p-1 rounded border-l-1 border-r-0 rounded-r-none cursor-default pointer-events-none bg-accent border-accent text-accent-contrast"
+                            class="w-7 h-7 border border-solid flex items-center justify-center p-1 rounded border-l-1 border-r-0 rounded-r-none cursor-default pointer-events-none bg-accent border-accent text-accent-contrast"
                             href="/catalog?page=1"
                           >
                             1
@@ -1894,14 +1894,14 @@ describe('@thoughtindustries/catalog', () => {
                             2
                           </a>
                           <a
-                            class="w-7 h-7 rounded-none border border-solid border-gray-400 bg-white flex items-center justify-center p-1 rounded border-r-1 border-l-0 rounded-l-none text-gray-600"
+                            class="w-7 h-7 border border-solid border-gray-400 bg-white flex items-center justify-center p-1 rounded border-r-1 border-l-0 rounded-l-none text-gray-600"
                             href="/catalog?page=3"
                           >
                             3
                           </a>
                           <a
                             aria-label="navigateright"
-                            class="w-7 h-7 rounded-none border border-solid border-gray-400 bg-white flex items-center justify-center p-1 rounded rounded-r-none border-r-0 ml-2 text-gray-600"
+                            class="w-7 h-7 border border-solid border-gray-400 bg-white flex items-center justify-center p-1 rounded rounded-r-none border-r-0 ml-2 text-gray-600"
                             href="/catalog?page=2"
                           >
                             <svg
@@ -1921,7 +1921,7 @@ describe('@thoughtindustries/catalog', () => {
                           </a>
                           <a
                             aria-label="fastforward"
-                            class="w-7 h-7 rounded-none border border-solid border-gray-400 bg-white flex items-center justify-center p-1 rounded rounded-l-none border-r-1 text-gray-600"
+                            class="w-7 h-7 border border-solid border-gray-400 bg-white flex items-center justify-center p-1 rounded rounded-l-none border-r-1 text-gray-600"
                             href="/catalog?page=3"
                           >
                             <svg
@@ -2050,7 +2050,7 @@ describe('@thoughtindustries/catalog', () => {
                     class="flex flex-wrap gap-x-1 justify-end"
                   >
                     <a
-                      class="bg-gray-100 hover:bg-white md:bg-transparent border border-solid border-gray-400 rounded-sm hover:border-gray-500 md:rounded-none font-normal font-secondary text-gray-800 text-sm text-center no-underline leading-none hover:text-gray-800 md:text-gray-400 cursor-pointer inline-block relative py-1 px-4 mb-4 transition-colors ease-in-out duration-200 md:h-12 md:w-12 md:mb-0 md:p-0 flex justify-center items-center"
+                      class="bg-gray-100 hover:bg-white md:bg-transparent border border-solid border-gray-400 rounded-sm hover:border-gray-500 md:rounded-none font-normal font-secondary text-gray-800 text-sm text-center no-underline leading-none hover:text-gray-800 md:text-gray-400 cursor-pointer relative py-1 px-4 mb-4 transition-colors ease-in-out duration-200 md:h-12 md:w-12 md:mb-0 md:p-0 flex justify-center items-center"
                       href="/catalog?display-type=list"
                     >
                       <i
@@ -2091,7 +2091,7 @@ describe('@thoughtindustries/catalog', () => {
                       </i>
                     </a>
                     <a
-                      class="bg-gray-100 hover:bg-white md:bg-transparent border border-solid border-gray-400 rounded-sm hover:border-gray-500 md:rounded-none font-normal font-secondary text-gray-800 text-sm text-center no-underline leading-none hover:text-gray-800 md:text-gray-400 cursor-pointer inline-block relative py-1 px-4 mb-4 transition-colors ease-in-out duration-200 md:h-12 md:w-12 md:mb-0 md:p-0 flex justify-center items-center"
+                      class="bg-gray-100 hover:bg-white md:bg-transparent border border-solid border-gray-400 rounded-sm hover:border-gray-500 md:rounded-none font-normal font-secondary text-gray-800 text-sm text-center no-underline leading-none hover:text-gray-800 md:text-gray-400 cursor-pointer relative py-1 px-4 mb-4 transition-colors ease-in-out duration-200 md:h-12 md:w-12 md:mb-0 md:p-0 flex justify-center items-center"
                       href="/catalog?display-type=grid"
                     >
                       <i
@@ -2128,7 +2128,7 @@ describe('@thoughtindustries/catalog', () => {
                       </i>
                     </a>
                     <a
-                      class="bg-gray-100 hover:bg-white md:bg-transparent border border-solid border-gray-400 rounded-sm hover:border-gray-500 md:rounded-none font-normal font-secondary text-gray-800 text-sm text-center no-underline leading-none hover:text-gray-800 md:text-gray-400 cursor-pointer inline-block relative py-1 px-4 mb-4 transition-colors ease-in-out duration-200 md:h-12 md:w-12 md:mb-0 md:p-0 flex justify-center items-center cursor-default pointer-events-none bg-accent hover:bg-accent-hover border-accent hover:border-accent-hover text-accent-contrast hover:text-accent-contrast md:text-black md:hover:text-black md:hover:bg-transparent"
+                      class="md:bg-transparent border border-solid rounded-sm md:rounded-none font-normal font-secondary text-sm text-center no-underline leading-none relative py-1 px-4 mb-4 transition-colors ease-in-out duration-200 md:h-12 md:w-12 md:mb-0 md:p-0 flex justify-center items-center cursor-default pointer-events-none bg-accent hover:bg-accent-hover border-accent hover:border-accent-hover text-accent-contrast hover:text-accent-contrast md:text-black md:hover:text-black md:hover:bg-transparent"
                       href="/catalog?display-type=calendar"
                     >
                       <i
@@ -2486,7 +2486,7 @@ describe('@thoughtindustries/catalog', () => {
                                   course-view-details
                                 </a>
                                 <button
-                                  class="pl-0 mb-1 text-xs border-none rounded-sm cursor-pointer font-normal leading-normal m-0 p-0 relative text-center no-underline transition-colors ease-in-out duration-200 hover:text-link-hover"
+                                  class="text-xs border-none rounded-sm cursor-pointer font-normal leading-normal m-0 p-0 relative text-center no-underline transition-colors ease-in-out duration-200 hover:text-link-hover"
                                 >
                                   <span
                                     class="flex items-center gap-x-1"
@@ -2544,7 +2544,7 @@ describe('@thoughtindustries/catalog', () => {
                         >
                           <a
                             aria-label="rewind"
-                            class="w-7 h-7 rounded-none border border-solid border-gray-400 bg-white flex items-center justify-center p-1 rounded rounded-r-none border-r-0 cursor-default pointer-events-none text-gray-400 bg-gray-300 border-gray-300"
+                            class="w-7 h-7 border border-solid flex items-center justify-center p-1 rounded rounded-r-none border-r-0 cursor-default pointer-events-none text-gray-400 bg-gray-300 border-gray-300"
                             href="/catalog?page=1"
                           >
                             <svg
@@ -2564,7 +2564,7 @@ describe('@thoughtindustries/catalog', () => {
                           </a>
                           <a
                             aria-label="navigateleft"
-                            class="w-7 h-7 rounded-none border border-solid border-gray-400 bg-white flex items-center justify-center p-1 rounded rounded-l-none border-r-1 mr-2 cursor-default pointer-events-none text-gray-400 bg-gray-300 border-gray-300"
+                            class="w-7 h-7 border border-solid flex items-center justify-center p-1 rounded rounded-l-none border-r-1 mr-2 cursor-default pointer-events-none text-gray-400 bg-gray-300 border-gray-300"
                             href="/catalog?page=0"
                           >
                             <svg
@@ -2583,7 +2583,7 @@ describe('@thoughtindustries/catalog', () => {
                             </svg>
                           </a>
                           <a
-                            class="w-7 h-7 rounded-none border border-solid border-gray-400 bg-white flex items-center justify-center p-1 rounded border-l-1 border-r-0 rounded-r-none cursor-default pointer-events-none bg-accent border-accent text-accent-contrast"
+                            class="w-7 h-7 border border-solid flex items-center justify-center p-1 rounded border-l-1 border-r-0 rounded-r-none cursor-default pointer-events-none bg-accent border-accent text-accent-contrast"
                             href="/catalog?page=1"
                           >
                             1
@@ -2595,14 +2595,14 @@ describe('@thoughtindustries/catalog', () => {
                             2
                           </a>
                           <a
-                            class="w-7 h-7 rounded-none border border-solid border-gray-400 bg-white flex items-center justify-center p-1 rounded border-r-1 border-l-0 rounded-l-none text-gray-600"
+                            class="w-7 h-7 border border-solid border-gray-400 bg-white flex items-center justify-center p-1 rounded border-r-1 border-l-0 rounded-l-none text-gray-600"
                             href="/catalog?page=3"
                           >
                             3
                           </a>
                           <a
                             aria-label="navigateright"
-                            class="w-7 h-7 rounded-none border border-solid border-gray-400 bg-white flex items-center justify-center p-1 rounded rounded-r-none border-r-0 ml-2 text-gray-600"
+                            class="w-7 h-7 border border-solid border-gray-400 bg-white flex items-center justify-center p-1 rounded rounded-r-none border-r-0 ml-2 text-gray-600"
                             href="/catalog?page=2"
                           >
                             <svg
@@ -2622,7 +2622,7 @@ describe('@thoughtindustries/catalog', () => {
                           </a>
                           <a
                             aria-label="fastforward"
-                            class="w-7 h-7 rounded-none border border-solid border-gray-400 bg-white flex items-center justify-center p-1 rounded rounded-l-none border-r-1 text-gray-600"
+                            class="w-7 h-7 border border-solid border-gray-400 bg-white flex items-center justify-center p-1 rounded rounded-l-none border-r-1 text-gray-600"
                             href="/catalog?page=3"
                           >
                             <svg

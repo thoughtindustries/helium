@@ -42,7 +42,7 @@ const ItemQueueButton = ({
 
   const btnClassNames = twMerge([
     'pl-0 mb-1 text-xs border-none rounded-sm cursor-pointer font-normal leading-normal m-0 p-0 relative text-center no-underline transition-colors ease-in-out duration-200 hover:text-link-hover',
-    { 'cursor-default': wasAddedToQueue },
+    wasAddedToQueue ? 'cursor-default' : null,
     classNames
   ]);
 
