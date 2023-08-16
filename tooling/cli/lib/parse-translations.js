@@ -124,4 +124,4 @@ function translationExists(lang, key) {
     process.exit(1);
   });
 
-module.exports = { processTranslations, readTranslations };
+module.exports = { processTranslations, readTranslations, writeTranslations };
