@@ -169,12 +169,14 @@ describe('writeTranslations', () => {
         }
       };
 
+      const TI_TRANSLATIONS_PATH = path.join(OP_DIR, 'locales/translations.json');
+
+      // Empty the translations file
+      await fsPromises.writeFile(TI_TRANSLATIONS_PATH, '');
+
       await writeTranslations(translation_to_write, OP_DIR);
 
-      const writtenContent = await fsPromises.readFile(
-        path.join(OP_DIR, 'locales/translations.json'),
-        'utf8'
-      );
+      const writtenContent = await fsPromises.readFile(path.join(TI_TRANSLATIONS_PATH), 'utf8');
       const parsedContent = JSON.parse(writtenContent);
 
       expect(parsedContent).toEqual(translation_to_write);
