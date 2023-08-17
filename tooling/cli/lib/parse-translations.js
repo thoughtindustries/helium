@@ -2,6 +2,7 @@ const path = require('path');
 const { readFile, writeFile } = require('fs/promises');
 const Parser = require('i18next-scanner').Parser;
 const { getFilePaths, filePathIsValid } = require('./helpers/filepaths');
+const fsPromises = require('fs/promises');
 
 async function processTranslations(TI_TRANSLATIONS, OP_DIR) {
   const FINAL_TRANSLATIONS = {};
@@ -65,13 +66,13 @@ async function processTranslations(TI_TRANSLATIONS, OP_DIR) {
         FINAL_TRANSLATIONS[lang] = { lms: {} };
       }
 
-      if (translationExists(lang, key)) {
+      if (translationExists(lang, key, TI_TRANSLATIONS)) {
         const sourceTranslation = TI_TRANSLATIONS[lang].lms[key];
         FINAL_TRANSLATIONS[lang].lms[key] = sourceTranslation;
 
         if (KEYS_WITH_PLURALS.includes(key)) {
           const pluralizedKey = `${key}_other`;
-          if (translationExists(lang, pluralizedKey)) {
+          if (translationExists(lang, pluralizedKey, TI_TRANSLATIONS)) {
             FINAL_TRANSLATIONS[lang].lms[pluralizedKey] = TI_TRANSLATIONS[lang].lms[pluralizedKey];
           }
         }
@@ -90,7 +91,8 @@ async function processTranslations(TI_TRANSLATIONS, OP_DIR) {
 
 async function readTranslations(OP_DIR) {
   const TI_TRANSLATIONS_PATH = path.join(OP_DIR, 'locales/translations.json');
-  TI_TRANSLATIONS = await require(TI_TRANSLATIONS_PATH);
+  const fileContent = await fsPromises.readFile(TI_TRANSLATIONS_PATH, 'utf8');
+  const TI_TRANSLATIONS = JSON.parse(fileContent);
   return TI_TRANSLATIONS;
 }
 
@@ -101,27 +103,24 @@ async function writeTranslations(FINAL_TRANSLATIONS, OP_DIR) {
   );
 }
 
-function translationExists(lang, key) {
+function translationExists(lang, key, TI_TRANSLATIONS) {
   return TI_TRANSLATIONS[lang] && TI_TRANSLATIONS[lang].lms[key];
 }
 
-(async function () {
-  const OP_DIR = process.cwd();
-  const TI_TRANSLATIONS = await readTranslations(OP_DIR);
-  const translation_to_write = await processTranslations(TI_TRANSLATIONS, OP_DIR);
-  if (Object.keys(translation_to_write).length !== 0) {
-    await writeTranslations(translation_to_write, OP_DIR);
-  } else {
-    throw Error('No translations exist!');
-  }
-})()
-  .then(() => {
-    console.log('>>> Translations parsed');
-    process.exit(0);
-  })
-  .catch(err => {
-    console.error('>>> Error parsing translations:', err.message);
+async function mainFunction() {
+  try {
+    const OP_DIR = process.cwd();
+    const TI_TRANSLATIONS = await readTranslations(OP_DIR);
+    const translation_to_write = await processTranslations(TI_TRANSLATIONS, OP_DIR);
+    if (Object.keys(translation_to_write).length !== 0) {
+      await writeTranslations(translation_to_write, OP_DIR);
+      console.log('>>> Translations parsed');
+      process.exit(0);
+    }
+  } catch (err) {
+    console.log('>>> Error parsing translations:', err.message);
     process.exit(1);
-  });
+  }
+}
 
-module.exports = { processTranslations, readTranslations, writeTranslations };
+module.exports = { processTranslations, readTranslations, writeTranslations, mainFunction };

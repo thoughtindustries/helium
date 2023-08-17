@@ -9,7 +9,7 @@ const { writeFile } = require('fs/promises');
 
 describe('readTranslations', () => {
   it('should read translations file correctly', async () => {
-    const OP_DIR = process.cwd();
+    const OP_DIR = path.join(process.cwd(), 'tooling/cli');
 
     const expectedTranslations = {
       en: {
@@ -56,15 +56,15 @@ describe('readTranslations', () => {
       }
     };
 
-    readTranslations(OP_DIR).then(translations => {
-      expect(translations).toEqual(expectedTranslations);
-    });
+    const translations = await readTranslations(OP_DIR);
+
+    expect(translations).toEqual(expectedTranslations);
   });
 });
 
 describe('processTranslations', () => {
   it('should process translations correctly', async () => {
-    const OP_DIR = process.cwd();
+    const OP_DIR = path.join(process.cwd(), 'tooling/cli');
 
     const expectedTranslations = {
       en: {
@@ -121,7 +121,7 @@ describe('processTranslations', () => {
 
 describe('writeTranslations', () => {
   it('should write translations to a file', async () => {
-    const OP_DIR = process.cwd();
+    const OP_DIR = path.join(process.cwd(), 'tooling/cli');
 
     try {
       const translation_to_write = {
