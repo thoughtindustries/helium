@@ -113,7 +113,11 @@ describe('processTranslations', () => {
 
     const translations = await readTranslations(OP_DIR);
 
+    console.log('translations: ', translations);
+
     const proccessedResults = await processTranslations(translations, OP_DIR);
+
+    console.log('proccessedResults: ', proccessedResults);
 
     expect(proccessedResults).toEqual(expectedTranslations);
   });
@@ -174,7 +178,7 @@ describe('writeTranslations', () => {
       const TRANSLATIONS_FILE = path.join(OP_DIR, 'locales/translations.json');
 
       // Empty the translations file
-      await fsPromises.writeFile(TRANSLATIONS_FILE, '');
+      await writeFile(TRANSLATIONS_FILE, '');
 
       await writeTranslations(translation_to_write, OP_DIR);
 
