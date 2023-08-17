@@ -5,7 +5,7 @@ const {
 } = require('../lib/parse-translations');
 const fsPromises = require('fs/promises');
 const path = require('path');
-const { writeFile } = require('fs/promises');
+const { writeFile, access } = require('fs/promises');
 
 describe('readTranslations', () => {
   it('should read translations file correctly', async () => {
@@ -169,6 +169,8 @@ describe('writeTranslations', () => {
         }
       };
 
+      await access(OP_DIR);
+
       const TRANSLATIONS_FILE = path.join(OP_DIR, 'locales/translations.json');
 
       // Empty the translations file
@@ -180,6 +182,8 @@ describe('writeTranslations', () => {
       const parsedContent = JSON.parse(writtenContent);
 
       expect(parsedContent).toEqual(translation_to_write);
+    } catch (error) {
+      console.log(error.message);
     } finally {
       const originalTranslations = {
         en: {
