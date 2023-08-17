@@ -67,6 +67,7 @@ async function processTranslations(TI_TRANSLATIONS, OP_DIR) {
       }
 
       if (translationExists(lang, key, TI_TRANSLATIONS)) {
+        console.log('TRANSLATIONS_EXIST');
         const sourceTranslation = TI_TRANSLATIONS[lang].lms[key];
         FINAL_TRANSLATIONS[lang].lms[key] = sourceTranslation;
 
