@@ -111,17 +111,15 @@ describe('processTranslations', () => {
       }
     };
 
-    // const translations = await readTranslations(OP_DIR);
+    const translations = await readTranslations(OP_DIR);
 
-    // console.log('translations: ', translations);
+    console.log('translations: ', translations);
 
-    // const proccessedResults = await processTranslations(translations, OP_DIR);
+    const proccessedResults = await processTranslations(translations, OP_DIR);
 
-    // console.log('proccessedResults: ', proccessedResults);
-    const TI_TRANSLATIONS = await readTranslations(OP_DIR);
-    const translation_to_write = await processTranslations(TI_TRANSLATIONS, OP_DIR);
+    console.log('proccessedResults: ', proccessedResults);
 
-    expect(translation_to_write).toEqual(expectedProcessedTranslations);
+    expect(proccessedResults).toEqual(expectedProcessedTranslations);
   });
 });
 

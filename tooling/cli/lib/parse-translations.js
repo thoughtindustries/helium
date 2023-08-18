@@ -8,7 +8,12 @@ async function processTranslations(TI_TRANSLATIONS, OP_DIR) {
   const FINAL_TRANSLATIONS = {};
   const KEYS_WITH_PLURALS = [];
   const compiledProjectPath = path.join(OP_DIR, 'dist');
+
+  console.log('compiledProjectPath: ', compiledProjectPath);
+
   const compiledProjectFiles = await getFilePaths(compiledProjectPath);
+
+  console.log('compiledProjectPath: ', compiledProjectPath);
 
   // i18next-scanner's pluralization uses the `_plural` suffix,
   // which isn't supported in our version of react-i18next,
@@ -22,7 +27,7 @@ async function processTranslations(TI_TRANSLATIONS, OP_DIR) {
   for (const filePath of compiledProjectFiles) {
     if (filePathIsValid(filePath)) {
       const fileContents = await readFile(filePath, 'utf8');
-      // console.log('fileContents: ', fileContents)
+      console.log('fileContents: ', fileContents);
       parser.parseFuncFromString(fileContents, { list: ['t'] });
     }
   }
@@ -30,12 +35,17 @@ async function processTranslations(TI_TRANSLATIONS, OP_DIR) {
   const sourceDefaultNamespace =
     TI_TRANSLATIONS.en && TI_TRANSLATIONS.en.lms ? TI_TRANSLATIONS.en.lms : {};
 
+  console.log('sourceDefaultNamespace: ', sourceDefaultNamespace);
+
   gatherPluralizedKeys();
 
   const i18nStore = parser.get();
 
   // en is default lang and lms is default namespace, so all keys used should be in that object
   const i18nNSObject = i18nStore.en && i18nStore.en.lms ? i18nStore.en.lms : {};
+
+  console.log('i18nNSObject: ', i18nNSObject);
+
   const usedTranslationKeys = Object.keys(i18nNSObject);
 
   console.log('usedTranslationsKeys: ', usedTranslationKeys);
@@ -59,6 +69,7 @@ async function processTranslations(TI_TRANSLATIONS, OP_DIR) {
       }
     }
   }
+  console.log('FINAL_TRANSLATIONS: ', FINAL_TRANSLATIONS);
   return FINAL_TRANSLATIONS;
 
   function addToTranslations(key) {
