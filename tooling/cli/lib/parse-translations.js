@@ -7,13 +7,13 @@ const fsPromises = require('fs/promises');
 async function processTranslations(TI_TRANSLATIONS, OP_DIR) {
   const FINAL_TRANSLATIONS = {};
   const KEYS_WITH_PLURALS = [];
-  const compiledProjectPath = '/home/runner/work/helium/tooling/cli/dist';
+  const compiledProjectPath = path.join(OP_DIR, 'dist');
 
   console.log('compiledProjectPath: ', compiledProjectPath);
 
   const compiledProjectFiles = await getFilePaths(compiledProjectPath);
 
-  console.log('compiledProjectPath: ', compiledProjectPath);
+  console.log('compiledProjectFiles: ', compiledProjectFiles);
 
   // i18next-scanner's pluralization uses the `_plural` suffix,
   // which isn't supported in our version of react-i18next,
