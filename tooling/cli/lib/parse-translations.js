@@ -7,7 +7,7 @@ const fsPromises = require('fs/promises');
 async function processTranslations(TI_TRANSLATIONS, OP_DIR) {
   const FINAL_TRANSLATIONS = {};
   const KEYS_WITH_PLURALS = [];
-  const compiledProjectPath = path.join(OP_DIR, 'dist');
+  const compiledProjectPath = '/home/runner/work/helium/tooling/cli/dist';
 
   console.log('compiledProjectPath: ', compiledProjectPath);
 
