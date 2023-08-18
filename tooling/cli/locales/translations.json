@@ -34,7 +34,27 @@
       "remove": "Remove",
       "wysiwyg.image": "Image",
       "certificate.issued-date": "Issue Date",
-      "certificate.expiration-date": "Expiration Date"
+      "certificate.expiration-date": "Expiration Date",
+      "course-enroll-head": "Enroll Today",
+      "please-wait": "Please Wait…",
+      "not-found.title": "Not Found",
+      "comment-label": "Comments",
+      "discussion-label": "Discussion",
+      "back-link-lesson": "Back to Lesson",
+      "back-link-course": "Back to Course",
+      "list-expand": "Expand",
+      "list-close": "Close",
+      "slideshow-prev-slide": "Prev",
+      "survey-complete-button": "Complete Survey",
+      "workbook-complete-button": "Complete Workbook",
+      "tally-start-button": "Start Quiz",
+      "quiz-start-button": "Start Quiz",
+      "test-start-button": "Start Test",
+      "survey-summary-title": "Survey Answers",
+      "workbook-summary-title": "Workbook Answers",
+      "tally-start-message": "Quiz",
+      "quiz-start-message": "Quiz",
+      "test-start-message": "Test"
     }
   }
 }
