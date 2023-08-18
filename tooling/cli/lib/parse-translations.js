@@ -38,6 +38,8 @@ async function processTranslations(TI_TRANSLATIONS, OP_DIR) {
   const i18nNSObject = i18nStore.en && i18nStore.en.lms ? i18nStore.en.lms : {};
   const usedTranslationKeys = Object.keys(i18nNSObject);
 
+  console.log('usedTranslationsKeys: ', usedTranslationKeys);
+
   for (const key of usedTranslationKeys) {
     const translationValue = i18nNSObject[key];
 
@@ -66,14 +68,14 @@ async function processTranslations(TI_TRANSLATIONS, OP_DIR) {
         FINAL_TRANSLATIONS[lang] = { lms: {} };
       }
 
-      if (translationExists(lang, key, TI_TRANSLATIONS)) {
+      if (translationExists(lang, key)) {
         console.log('TRANSLATIONS_EXIST');
         const sourceTranslation = TI_TRANSLATIONS[lang].lms[key];
         FINAL_TRANSLATIONS[lang].lms[key] = sourceTranslation;
 
         if (KEYS_WITH_PLURALS.includes(key)) {
           const pluralizedKey = `${key}_other`;
-          if (translationExists(lang, pluralizedKey, TI_TRANSLATIONS)) {
+          if (translationExists(lang, pluralizedKey)) {
             FINAL_TRANSLATIONS[lang].lms[pluralizedKey] = TI_TRANSLATIONS[lang].lms[pluralizedKey];
           }
         }
@@ -87,6 +89,9 @@ async function processTranslations(TI_TRANSLATIONS, OP_DIR) {
     for (const pluralKey of pluralizedKeys) {
       KEYS_WITH_PLURALS.push(pluralKey.replace('_other', ''));
     }
+  }
+  function translationExists(lang, key) {
+    return TI_TRANSLATIONS[lang] && TI_TRANSLATIONS[lang].lms[key];
   }
 }
 
@@ -102,10 +107,6 @@ async function writeTranslations(FINAL_TRANSLATIONS, OP_DIR) {
     path.join(OP_DIR, 'locales/translations.json'),
     JSON.stringify(FINAL_TRANSLATIONS, null, 2)
   );
-}
-
-function translationExists(lang, key, TI_TRANSLATIONS) {
-  return TI_TRANSLATIONS[lang] && TI_TRANSLATIONS[lang].lms[key];
 }
 
 async function mainFunction() {
