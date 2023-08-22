@@ -1,6 +1,7 @@
 const { writeFile } = require('fs/promises');
 const path = require('path');
 const { fetchTranslations, writeTranslationFile } = require('./helpers/translations');
+const { DEFAULT_GRAPHQL_SOURCE_PATHS } = require('./helpers/constants');
 
 const initProject = async (dir, instances) => {
   console.log('Generating env file...');
@@ -54,7 +55,17 @@ const generateConfigFile = async (dir, instances) => {
     });
   }
 
-  return writeFile(fileName, JSON.stringify({ instances: data }, null, 2));
+  return writeFile(
+    fileName,
+    JSON.stringify(
+      {
+        content: DEFAULT_GRAPHQL_SOURCE_PATHS,
+        instances: data
+      },
+      null,
+      2
+    )
+  );
 };
 
 module.exports = { initProject, generateTranslationFile };
