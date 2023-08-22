@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.2.4](https://github.com/thoughtindustries/helium/compare/@thoughtindustries/helium-template@1.2.3...@thoughtindustries/helium-template@1.2.4) (2023-08-22)
+
+
+### Bug Fixes
+
+* page path and link refs in starter app ([#222](https://github.com/thoughtindustries/helium/issues/222)) ([1554cfb](https://github.com/thoughtindustries/helium/commit/1554cfb040fd28f09b7776dc218bb524d8691f33))
+
+
+
+
+
 ## [1.2.3](https://github.com/thoughtindustries/helium/compare/@thoughtindustries/helium-template@1.2.2...@thoughtindustries/helium-template@1.2.3) (2023-07-19)
 
 **Note:** Version bump only for package @thoughtindustries/helium-template

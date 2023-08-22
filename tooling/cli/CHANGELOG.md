@@ -3,6 +3,27 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [2.0.0](https://github.com/thoughtindustries/helium/compare/@thoughtindustries/helium@1.2.2...@thoughtindustries/helium@2.0.0) (2023-08-22)
+
+
+### Bug Fixes
+
+* helium init fixes ([#224](https://github.com/thoughtindustries/helium/issues/224)) ([12248ec](https://github.com/thoughtindustries/helium/commit/12248ec48a121e5c6b129e3810dd1a7ed9b01a7b))
+
+
+### Features
+
+* add ability to configure paths to be searched for graphQL operations ([#225](https://github.com/thoughtindustries/helium/issues/225)) ([6ac7413](https://github.com/thoughtindustries/helium/commit/6ac741358d38d6ac60ddb02ae65625e53087f5d1))
+
+
+### BREAKING CHANGES
+
+* Force Lerna major ver bump
+
+
+
+
+
 ## [1.2.2](https://github.com/thoughtindustries/helium/compare/@thoughtindustries/helium@1.2.1...@thoughtindustries/helium@1.2.2) (2023-07-10)
 
 
