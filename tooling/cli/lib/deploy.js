@@ -18,6 +18,8 @@ const {
   hashQuery
 } = require('./helpers/graphql');
 const { dirHasAtoms, getAtomsHash, compileStyles } = require('./helpers/atoms');
+const { minimatch } = require('minimatch');
+const { DEFAULT_GRAPHQL_SOURCE_PATHS } = require('./helpers/constants');
 
 const OP_DIR = process.cwd();
 const TMP_DIR = os.tmpdir();
@@ -179,13 +181,32 @@ async function writeGraphqlManifest() {
 }
 
 async function hashGraphqlQueries() {
-  const pagesFilePaths = await getFilePaths(path.join(OP_DIR, 'pages'));
-  const componentsFilePaths = await getFilePaths(path.join(OP_DIR, 'components'));
-  const tiFilepaths = await getFilePaths(path.join(OP_DIR, 'node_modules/@thoughtindustries'));
-  const filePaths = pagesFilePaths.concat(componentsFilePaths).concat(tiFilepaths);
+  let pathMatchPatterns = DEFAULT_GRAPHQL_SOURCE_PATHS;
+  const { content = [] } = config;
+
+  if (content.length) {
+    pathMatchPatterns = content;
+  }
+
+  const projectFilePaths = await getFilePaths(path.join(OP_DIR, '/'));
+  let sourcePaths = [];
+
+  pathMatchPatterns.forEach(matchPattern => {
+    const absoluteMatchPattern = path.join(OP_DIR, matchPattern);
+    const matches = minimatch.match(projectFilePaths, absoluteMatchPattern);
+    sourcePaths = sourcePaths.concat(matches);
+  });
+
+  const tiFilePaths = await getFilePaths(
+    path.join(OP_DIR, 'node_modules/@thoughtindustries'),
+    [],
+    false
+  );
+
+  sourcePaths = sourcePaths.concat(tiFilePaths);
 
   const queryHashMap = {};
-  const querySources = await gatherQuerySources(filePaths, '__tests__');
+  const querySources = await gatherQuerySources(sourcePaths, '__tests__');
 
   if (querySources.length > 0) {
     const fragmentMap = buildFragmentMap(querySources);

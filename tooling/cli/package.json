@@ -19,6 +19,7 @@
     "i18next-scanner": "^3.1.0",
     "inquirer": "^8.1.2",
     "isomorphic-unfetch": "^3.1.0",
+    "minimatch": "^9.0.3",
     "tar": "^6.1.11",
     "yargs": "^17.1.1"
   },

@@ -1,7 +1,7 @@
 const { readdir, stat } = require('fs/promises');
 const path = require('path');
 
-const getFilePaths = async (dir, filePaths = []) => {
+const getFilePaths = async (dir, filePaths = [], skipNodeModules = true) => {
   const newFilePaths = filePaths;
 
   try {
@@ -14,6 +14,12 @@ const getFilePaths = async (dir, filePaths = []) => {
       if (fileStat.isFile()) {
         newFilePaths.push(filePath);
       } else {
+        if (skipNodeModules) {
+          if (filePath.includes('node_modules') && !filePath.includes('@thoughtindustries')) {
+            continue;
+          }
+        }
+
         await getFilePaths(filePath, newFilePaths);
       }
     }
