@@ -1,7 +1,8 @@
 import React, { createRef, useState } from 'react';
-import clsx from 'clsx';
+import { twMerge } from 'tailwind-merge';
 import { useOnClickOutside } from '@thoughtindustries/hooks';
 import { ArrowDownIcon, ArrowRightIcon, CheckIcon } from '../../icons';
+import { CatalogLinkButton } from '../../core';
 
 const DropdownMenu = ({
   id,
@@ -54,7 +55,7 @@ const DropdownMenu = ({
   return (
     <div className={wrapperClassnames} ref={wrapperRef}>
       <button
-        className={clsx(buttonBaseClassnames, buttonStatusClassnames)}
+        className={twMerge(buttonBaseClassnames, buttonStatusClassnames)}
         onClick={handleClick}
         disabled={!hasOptions}
       >
@@ -66,15 +67,15 @@ const DropdownMenu = ({
       </button>
       <ul
         id={id}
-        className={clsx(dropdownWrapperBaseClassnames, dropdownWrapperClassnames)}
+        className={twMerge(dropdownWrapperBaseClassnames, dropdownWrapperClassnames)}
         style={dropdownWrapperStyles}
       >
         {options.map(({ isSelected, link, name }, index) => (
           <li key={`${id}-item-${index}`} className={listItemClassnames}>
-            <a href={link} className={listItemLinkClassnames}>
+            <CatalogLinkButton href={link} className={listItemLinkClassnames}>
               {isSelected && selectedMarker}
               {name}
-            </a>
+            </CatalogLinkButton>
           </li>
         ))}
       </ul>

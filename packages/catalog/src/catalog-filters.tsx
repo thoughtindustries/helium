@@ -1,5 +1,5 @@
 import React from 'react';
-import clsx from 'clsx';
+import { twMerge } from 'tailwind-merge';
 import { useCatalog } from './core';
 import { GlobalTypes } from '@thoughtindustries/content';
 import {
@@ -86,9 +86,11 @@ const CatalogFilters = (): JSX.Element => {
     <div className="mb-6 w-full flex flex-col md:flex-row md:gap-x-1">
       <div className="md:flex-1 md:border md:border-solid md:border-gray-400 md:bg-gray-100">
         <div className="grid grid-cols-2 md:grid-cols-12 md:h-full">
-          <div className={clsx(['px-4 mb-2 col-span-full md:bg-white md:mb-0', columnClassnames])}>
+          <div
+            className={twMerge(['px-4 mb-2 col-span-full md:bg-white md:mb-0', columnClassnames])}
+          >
             <SearchInput
-              formAction={urlManager.composeURLForSetSearchTermForm()}
+              formAction={urlManager.composeActionURLForSetSearchTermForm()}
               hiddenFields={urlManager.composeSearchTermFormHiddenFields()}
             />
           </div>

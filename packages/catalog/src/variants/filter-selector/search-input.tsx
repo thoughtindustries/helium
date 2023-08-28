@@ -1,6 +1,6 @@
 import React, { ChangeEvent, createRef, SyntheticEvent, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { CatalogURLSearchParams, SearchTermFormHiddenField } from '../../core';
+import { CatalogURLSearchParams, SearchTermFormHiddenField, useCatalog } from '../../core';
 
 const SearchInput = ({
   formAction,
@@ -9,15 +9,22 @@ const SearchInput = ({
   formAction: string;
   hiddenFields: SearchTermFormHiddenField[];
 }): JSX.Element => {
+  const { ssr, navigateClientSideAsync, urlManager } = useCatalog();
   const [inputValue, setInputValue] = useState<string>('');
   const formRef = createRef<HTMLFormElement>();
   const { t } = useTranslation();
   const handleChange = (evt: ChangeEvent<HTMLInputElement>) => {
     setInputValue(evt.target.value);
   };
-  const handleSearch = (evt: SyntheticEvent) => {
+  const handleSearch = async (evt: SyntheticEvent) => {
     evt.preventDefault();
     if (inputValue) {
+      if (!ssr && navigateClientSideAsync) {
+        await navigateClientSideAsync({
+          url: urlManager.composeURLForSetSearchTermForm(inputValue)
+        });
+        return;
+      }
       formRef.current?.submit();
     }
   };

@@ -35,7 +35,7 @@ describe('@thoughtindustries/pagination', () => {
               >
                 <a
                   aria-label="rewind"
-                  class="w-7 h-7 rounded-none border border-solid border-gray-400 bg-white flex items-center justify-center p-1 rounded rounded-r-none border-r-0 cursor-default pointer-events-none text-gray-400 bg-gray-300 border-gray-300"
+                  class="w-7 h-7 border border-solid flex items-center justify-center p-1 rounded rounded-r-none border-r-0 cursor-default pointer-events-none text-gray-400 bg-gray-300 border-gray-300"
                   href="/sample?page=1"
                 >
                   <svg
@@ -55,7 +55,7 @@ describe('@thoughtindustries/pagination', () => {
                 </a>
                 <a
                   aria-label="navigateleft"
-                  class="w-7 h-7 rounded-none border border-solid border-gray-400 bg-white flex items-center justify-center p-1 rounded rounded-l-none border-r-1 mr-2 cursor-default pointer-events-none text-gray-400 bg-gray-300 border-gray-300"
+                  class="w-7 h-7 border border-solid flex items-center justify-center p-1 rounded rounded-l-none border-r-1 mr-2 cursor-default pointer-events-none text-gray-400 bg-gray-300 border-gray-300"
                   href="/sample?page=0"
                 >
                   <svg
@@ -74,20 +74,20 @@ describe('@thoughtindustries/pagination', () => {
                   </svg>
                 </a>
                 <a
-                  class="w-7 h-7 rounded-none border border-solid border-gray-400 bg-white flex items-center justify-center p-1 rounded border-l-1 border-r-0 rounded-r-none cursor-default pointer-events-none bg-accent border-accent text-accent-contrast"
+                  class="w-7 h-7 border border-solid flex items-center justify-center p-1 rounded border-l-1 border-r-0 rounded-r-none cursor-default pointer-events-none bg-accent border-accent text-accent-contrast"
                   href="/sample?page=1"
                 >
                   1
                 </a>
                 <a
-                  class="w-7 h-7 rounded-none border border-solid border-gray-400 bg-white flex items-center justify-center p-1 rounded border-r-1 border-l-0 rounded-l-none text-gray-600"
+                  class="w-7 h-7 border border-solid border-gray-400 bg-white flex items-center justify-center p-1 rounded border-r-1 border-l-0 rounded-l-none text-gray-600"
                   href="/sample?page=2"
                 >
                   2
                 </a>
                 <a
                   aria-label="navigateright"
-                  class="w-7 h-7 rounded-none border border-solid border-gray-400 bg-white flex items-center justify-center p-1 rounded rounded-r-none border-r-0 ml-2 text-gray-600"
+                  class="w-7 h-7 border border-solid border-gray-400 bg-white flex items-center justify-center p-1 rounded rounded-r-none border-r-0 ml-2 text-gray-600"
                   href="/sample?page=2"
                 >
                   <svg
@@ -107,7 +107,7 @@ describe('@thoughtindustries/pagination', () => {
                 </a>
                 <a
                   aria-label="fastforward"
-                  class="w-7 h-7 rounded-none border border-solid border-gray-400 bg-white flex items-center justify-center p-1 rounded rounded-l-none border-r-1 text-gray-600"
+                  class="w-7 h-7 border border-solid border-gray-400 bg-white flex items-center justify-center p-1 rounded rounded-l-none border-r-1 text-gray-600"
                   href="/sample?page=2"
                 >
                   <svg

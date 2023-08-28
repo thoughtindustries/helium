@@ -1,4 +1,6 @@
 query CatalogContent(
+  $layoutId: ID
+  $widgetId: ID
   $sortColumn: SortColumn
   $sortDirection: SortDirection
   $resultsDisplayType: ContentItemDisplayType
@@ -10,6 +12,8 @@ query CatalogContent(
   $query: String
 ) {
   CatalogContent(
+    layoutId: $layoutId
+    widgetId: $widgetId
     sortColumn: $sortColumn
     sortDirection: $sortDirection
     resultsDisplayType: $resultsDisplayType

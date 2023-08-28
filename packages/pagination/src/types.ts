@@ -1,3 +1,5 @@
+import { ElementType } from 'react';
+
 export type VisiblePage = {
   number: number;
   label: number | string;
@@ -22,4 +24,6 @@ export interface PaginationProps {
   getPageLink: (page: number) => string;
   /** Optional setting to hide page list */
   hidePageList?: boolean;
+  /** Optional link component to override default HTMLAnchorElement */
+  linkComponent?: ElementType;
 }

@@ -43,7 +43,7 @@ export const CourseGroupBySlugDocument = gql`
  * @example
  * const { data, loading, error } = useCourseGroupBySlugQuery({
  *   variables: {
- *      Slug: // value for 'Slug'
+ *      slug: // value for 'slug'
  *   },
  * });
  */

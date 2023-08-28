@@ -22,6 +22,5 @@ export const DEFAULT_PARAMS: CatalogParams = {
   displayAuthorsEnabled: false,
   displayDescriptionOnCalendar: false,
   // default general params
-  isLoading: false,
   pageSize: DEFAULT_PAGE_SIZE
 };

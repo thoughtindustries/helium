@@ -175,7 +175,9 @@ const mockApolloResultsFactory = (props: MockQueryProps) => [
         contentTypes: [],
         query: 'test search term',
         labels: [],
-        values: []
+        values: [],
+        layoutId: undefined,
+        widgetId: undefined
       }
     },
     result: {
@@ -214,11 +216,10 @@ const mockApolloResultsFactory = (props: MockQueryProps) => [
     })
   }
 ];
-const config = {
-  parsedUrl: {
-    pathname: '/catalog',
-    searchString: '?token=test-token&query=test%20search%20term'
-  }
+const props = {
+  pathName: '/catalog',
+  searchString: '?token=test-token&query=test%20search%20term',
+  ssr: true
 };
 // use the options to bypass mocking full payload of responses
 const mockedApolloProviderOptions = {
@@ -245,7 +246,7 @@ export const List: Catalog = {
           : Promise.resolve();
       };
       return (
-        <CatalogProvider config={config}>
+        <CatalogProvider {...props}>
           <Catalog onAddedToQueue={handleAddedToQueue} />
         </CatalogProvider>
       );
@@ -279,7 +280,7 @@ export const Grid: Catalog = {
           : Promise.resolve();
       };
       return (
-        <CatalogProvider config={config}>
+        <CatalogProvider {...props}>
           <Catalog onAddedToQueue={handleAddedToQueue} />
         </CatalogProvider>
       );
@@ -313,7 +314,7 @@ export const Calendar: Catalog = {
           : Promise.resolve();
       };
       return (
-        <CatalogProvider config={config}>
+        <CatalogProvider {...props}>
           <Catalog onAddedToQueue={handleAddedToQueue} />
         </CatalogProvider>
       );

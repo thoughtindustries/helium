@@ -15,6 +15,7 @@ config:
     HexColor: 'string'
     RelativeURL: 'string'
     URL: 'string'
+    UUID: 'string'
   strictScalars: true
   omitObjectTypes: true
   preResolveTypes: true

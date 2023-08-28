@@ -32,6 +32,6 @@ export interface HeightEqualizerElementProps {
   name: string;
   /** An HTML tag to be rendered as the base element wrapper. The default is `div`.  */
   as?: string;
-  /** A string of classes to apply to the `div` that wraps the Shop Pay button. */
+  /** A string of styling class names to apply to the underlying element. */
   className?: string;
 }

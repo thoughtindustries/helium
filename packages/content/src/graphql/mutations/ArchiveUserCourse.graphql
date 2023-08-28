@@ -1,0 +1,3 @@
+mutation ArchiveUserCourse($id: ID!) {
+  ArchiveUserCourse(id: $id)
+}

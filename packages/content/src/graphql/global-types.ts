@@ -10,20 +10,14 @@ export type Scalars = {
   Boolean: boolean;
   Int: number;
   Float: number;
-  /** A valid absolute (starting with either a valid protocol or a leading www) or relative (with a leading slash) URL string */
   AbsoluteOrRelativeURL: string;
-  /** Date scalar type */
   Date: string;
-  /** Hex Color scalar type */
   HexColor: string;
-  /** The `JSON` scalar type represents JSON values as specified by [ECMA-404](http://www.ecma-international.org/publications/files/ECMA-ST/ECMA-404.pdf). */
   JSON: any;
-  /** A valid relative URL string with a leading slash (/) */
   RelativeURL: string;
-  /** Slug scalar type */
   Slug: string;
-  /** A valid absolute URL string starting with either a valid protocol or a leading www */
   URL: string;
+  UUID: string;
 };
 
 export enum AccessLevel {
@@ -52,6 +46,7 @@ export type AllocatedLearningPath = {
   __typename?: 'AllocatedLearningPath';
   learningPath?: Maybe<LearningPath>;
   learningPathId: Scalars['ID'];
+  status?: Maybe<Scalars['String']>;
 };
 
 export type AllocatedLicense = {
@@ -79,6 +74,7 @@ export type AppearanceSettings = {
   backgroundAssetTiled?: Maybe<Scalars['Boolean']>;
   company?: Maybe<Company>;
   customCss?: Maybe<Scalars['String']>;
+  favicon?: Maybe<Scalars['URL']>;
   font?: Maybe<Scalars['String']>;
   globalNavigationLinks?: Maybe<Array<Maybe<GlobalNavigationLink>>>;
   id: Scalars['ID'];
@@ -282,28 +278,50 @@ export type Block = {
   id: Scalars['ID'];
 };
 
+/** Contains data for a bookmark. */
 export type Bookmark = {
   __typename?: 'Bookmark';
+  /** The bookmark folder associated with the bookmark. */
   bookmarkFolder: BookmarkFolder;
+  /** The course associated with the bookmark. */
   course: Course;
+  /** The time the bookmark was created. */
   createdAt: Scalars['Date'];
+  /** Returns true when the bookmark is deleted. */
   deleted: Scalars['Boolean'];
+  /** The id of the bookmark. */
   id: Scalars['ID'];
+  /** The note of the bookmark. */
   note?: Maybe<Scalars['String']>;
+  /** The topic associated with the bookmark. */
   topic?: Maybe<Topic>;
+  /** The id of the topic. */
   topicId?: Maybe<Scalars['ID']>;
+  /** The user who owns the bookmark. */
   user: User;
 };
 
+/** Contains data for a bookmark folder. */
 export type BookmarkFolder = {
   __typename?: 'BookmarkFolder';
+  /** The count of bookmarks associated with the bookmark folder. */
   bookmarkCount?: Maybe<Scalars['Int']>;
+  /**
+   * The list of bookmarks associated with the bookmark folder.
+   * @deprecated Use query `UserBookmarksByFolder`
+   */
   bookmarks?: Maybe<Array<Bookmark>>;
+  /** Returns true when it is the default bookmark folder. */
   defaultFolder?: Maybe<Scalars['Boolean']>;
+  /** Returns true when the bookmark folder is deleted. */
   deleted: Scalars['Boolean'];
+  /** The id of external resource. */
   externalResourceId?: Maybe<Scalars['ID']>;
+  /** The id of the bookmark folder. */
   id: Scalars['ID'];
+  /** The name of the bookmark folder. */
   name: Scalars['String'];
+  /** The user who owns the bookmark folder. */
   user: User;
 };
 
@@ -342,10 +360,12 @@ export type CatalogContent = {
   meta: CatalogMeta;
 };
 
+/** Contains metadata about a requested Catalog. */
 export type CatalogMeta = {
   __typename?: 'CatalogMeta';
   aggregations?: Maybe<Array<Aggregation>>;
   contentTypeFilterEnabled: Scalars['Boolean'];
+  /** Content Types requested in the Catalog. */
   contentTypes?: Maybe<Array<Scalars['String']>>;
   debug?: Maybe<Scalars['Boolean']>;
   displayAuthorsEnabled: Scalars['Boolean'];
@@ -488,6 +508,8 @@ export enum CertificateFieldType {
   NameLabel = 'nameLabel',
   /** Session Custom Content Field */
   SessionCustomContentField = 'sessionCustomContentField',
+  /** Link to Add Certificate to LinkedIn */
+  ShareToLinkedIn = 'shareToLinkedIn',
   /** Short Text */
   TextLabel = 'textLabel',
   /** Custom Learner Field */
@@ -591,6 +613,7 @@ export type Client = {
   appearance?: Maybe<AppearanceSettings>;
   autoFilterForSelectedLanguage?: Maybe<Scalars['Boolean']>;
   catalog?: Maybe<CatalogSettings>;
+  clientAdminAllocatableLearningPaths: Array<Scalars['ID']>;
   clientSubscriptionNeedsSetup?: Maybe<Scalars['Boolean']>;
   courseIds?: Maybe<Array<Scalars['ID']>>;
   courseTagIds?: Maybe<Array<Scalars['ID']>>;
@@ -720,6 +743,7 @@ export type Content = {
   courseStartDate?: Maybe<Scalars['Date']>;
   createdAt?: Maybe<Scalars['Date']>;
   credlyBadgeExpiresAt?: Maybe<Scalars['Date']>;
+  currentUserDueDate?: Maybe<Scalars['Date']>;
   currentUserMayReschedule: Scalars['Boolean'];
   currentUserUnmetCoursePrerequisites?: Maybe<Array<Maybe<Scalars['ID']>>>;
   currentUserUnmetLearningPathPrerequisites?: Maybe<Array<Maybe<Scalars['ID']>>>;
@@ -733,6 +757,7 @@ export type Content = {
   enrollmentEndDate?: Maybe<Scalars['Date']>;
   enrollmentStartDate?: Maybe<Scalars['Date']>;
   expiresAt?: Maybe<Scalars['Date']>;
+  freeWithRegistration?: Maybe<Scalars['Boolean']>;
   hasChildren: Scalars['Boolean'];
   hideCourseDescription: Scalars['Boolean'];
   id: Scalars['ID'];
@@ -814,7 +839,11 @@ export enum ContentKind {
 export type ContentType = {
   __typename?: 'ContentType';
   assetAspectRatio?: Maybe<Scalars['String']>;
+  description?: Maybe<Scalars['String']>;
+  kind: Scalars['String'];
   label?: Maybe<Scalars['String']>;
+  templateName?: Maybe<Scalars['String']>;
+  usageCount?: Maybe<Scalars['Int']>;
 };
 
 export type Course = {
@@ -833,6 +862,7 @@ export type Course = {
   confirmationBlock?: Maybe<Scalars['ID']>;
   courseEndDate?: Maybe<Scalars['Date']>;
   courseGroup?: Maybe<CourseGroup>;
+  courseGroupTitle?: Maybe<Scalars['String']>;
   courseStartDate?: Maybe<Scalars['Date']>;
   createdAt?: Maybe<Scalars['Date']>;
   currentUserHasAccess: Scalars['Boolean'];
@@ -901,7 +931,8 @@ export type Course = {
   taxable?: Maybe<Scalars['Boolean']>;
   termsBlock?: Maybe<Scalars['ID']>;
   title?: Maybe<Scalars['String']>;
-  topicGroup?: Maybe<Scalars['ID']>;
+  topicGroup?: Maybe<TopicGroup>;
+  topicGroupId?: Maybe<Scalars['ID']>;
   updatedAt?: Maybe<Scalars['Date']>;
   waitlistActive?: Maybe<Scalars['Boolean']>;
   waitlistCount?: Maybe<Scalars['Int']>;
@@ -1024,8 +1055,10 @@ export type CourseTab = {
   instructors?: Maybe<Array<Maybe<Instructor>>>;
   label?: Maybe<Scalars['String']>;
   products?: Maybe<Array<Maybe<Product>>>;
+  /** @deprecated No longer supported. */
   sections?: Maybe<Array<Maybe<Section>>>;
   tabType?: Maybe<Scalars['String']>;
+  /** @deprecated Use query `CourseGroupTestimonials` */
   testimonials?: Maybe<Array<Maybe<Testimonial>>>;
 };
 
@@ -1070,12 +1103,21 @@ export type EmailLayoutSettings = {
   id: Scalars['ID'];
 };
 
+export type ExpandableList = {
+  __typename?: 'ExpandableList';
+  expandableListItems: Array<ExpandableListItem>;
+  title: Scalars['String'];
+};
+
 export type ExpandableListItem = {
   __typename?: 'ExpandableListItem';
   altText?: Maybe<Scalars['String']>;
   asset?: Maybe<Scalars['String']>;
   description?: Maybe<Scalars['String']>;
+  dropdownIcon?: Maybe<Scalars['String']>;
+  externalResourceIcon?: Maybe<Scalars['String']>;
   title: Scalars['String'];
+  topicId?: Maybe<Scalars['ID']>;
 };
 
 export type FlipCardPage = PageEntity & {
@@ -1118,16 +1160,111 @@ export type FlipCards = {
   title?: Maybe<Scalars['String']>;
 };
 
+export type FulfillmentCenter = {
+  __typename?: 'FulfillmentCenter';
+  address1?: Maybe<Scalars['String']>;
+  address2?: Maybe<Scalars['String']>;
+  city?: Maybe<Scalars['String']>;
+  country?: Maybe<Scalars['String']>;
+  id: Scalars['ID'];
+  latitude?: Maybe<Scalars['String']>;
+  longitude?: Maybe<Scalars['String']>;
+  name: Scalars['String'];
+  state?: Maybe<Scalars['String']>;
+  zipCode?: Maybe<Scalars['String']>;
+};
+
+export type GeneralPage = PageEntity & {
+  __typename?: 'GeneralPage';
+  accessibilityAudioAsset?: Maybe<Scalars['String']>;
+  accessibilityAudioAssetTitle?: Maybe<Scalars['String']>;
+  accessibilityAudioAssetUrl?: Maybe<Scalars['AbsoluteOrRelativeURL']>;
+  catalogAsset?: Maybe<Scalars['String']>;
+  clientId?: Maybe<Scalars['ID']>;
+  companyId: Scalars['ID'];
+  completionTimeSeconds?: Maybe<Scalars['Int']>;
+  contentDescription?: Maybe<Scalars['String']>;
+  contentEstimate?: Maybe<Scalars['String']>;
+  contentTime?: Maybe<Scalars['String']>;
+  createdAt: Scalars['Date'];
+  editableByChildren?: Maybe<Scalars['Boolean']>;
+  id: Scalars['ID'];
+  indentationLevel?: Maybe<Scalars['Int']>;
+  lessonId: Scalars['ID'];
+  title?: Maybe<Scalars['String']>;
+  type: TopicType;
+  updatedAt: Scalars['Date'];
+};
+
 export type GlobalNavigationLink = {
   __typename?: 'GlobalNavigationLink';
   href?: Maybe<Scalars['String']>;
   label: Scalars['String'];
 };
 
+export type HighlightZone = {
+  __typename?: 'HighlightZone';
+  altText?: Maybe<Scalars['String']>;
+  asset?: Maybe<Scalars['String']>;
+  caption: Scalars['String'];
+  height: Scalars['Int'];
+  title: Scalars['String'];
+  width: Scalars['Int'];
+  x: Scalars['Int'];
+  y: Scalars['Int'];
+};
+
+export type HighlightZonePage = PageEntity & {
+  __typename?: 'HighlightZonePage';
+  accessibilityAudioAsset?: Maybe<Scalars['String']>;
+  accessibilityAudioAssetTitle?: Maybe<Scalars['String']>;
+  accessibilityAudioAssetUrl?: Maybe<Scalars['AbsoluteOrRelativeURL']>;
+  altText?: Maybe<Scalars['String']>;
+  asset?: Maybe<Scalars['String']>;
+  catalogAsset?: Maybe<Scalars['String']>;
+  clientId?: Maybe<Scalars['ID']>;
+  companyId: Scalars['ID'];
+  completionTimeSeconds?: Maybe<Scalars['Int']>;
+  contentDescription?: Maybe<Scalars['String']>;
+  contentEstimate?: Maybe<Scalars['String']>;
+  contentTime?: Maybe<Scalars['String']>;
+  createdAt: Scalars['Date'];
+  description?: Maybe<Scalars['String']>;
+  editableByChildren?: Maybe<Scalars['Boolean']>;
+  highlightZones?: Maybe<Array<Maybe<HighlightZone>>>;
+  id: Scalars['ID'];
+  indentationLevel?: Maybe<Scalars['Int']>;
+  lessonId: Scalars['ID'];
+  postTextBlock?: Maybe<Scalars['String']>;
+  preTextBlock?: Maybe<Scalars['String']>;
+  sidebarIsHidden?: Maybe<Scalars['Boolean']>;
+  title?: Maybe<Scalars['String']>;
+  type: TopicType;
+  updatedAt: Scalars['Date'];
+};
+
 export type InPersonEventInfo = {
   __typename?: 'InPersonEventInfo';
   heroAsset?: Maybe<Scalars['URL']>;
   subtitle?: Maybe<Scalars['String']>;
+};
+
+export type Ingredient = {
+  __typename?: 'Ingredient';
+  postTextBlock?: Maybe<Scalars['String']>;
+  preTextBlock?: Maybe<Scalars['String']>;
+  value: Scalars['String'];
+};
+
+export type IngredientGroup = {
+  __typename?: 'IngredientGroup';
+  ingredients: Array<Ingredient>;
+  label: Scalars['String'];
+};
+
+export type IngredientStep = {
+  __typename?: 'IngredientStep';
+  body: Scalars['String'];
 };
 
 export type Instructor = {
@@ -1198,6 +1335,7 @@ export type LearningPath = {
   alternativePricingRef?: Maybe<Scalars['Int']>;
   alternativePricingType?: Maybe<AlternativePricingType>;
   asset?: Maybe<Scalars['URL']>;
+  authoringClient?: Maybe<Scalars['ID']>;
   authors?: Maybe<Array<Scalars['String']>>;
   availabilityStatus?: Maybe<Scalars['String']>;
   bulkPurchasingEnabled: Scalars['Boolean'];
@@ -1205,17 +1343,20 @@ export type LearningPath = {
   confirmationHtml?: Maybe<Scalars['String']>;
   contentType?: Maybe<Scalars['String']>;
   createdAt?: Maybe<Scalars['Date']>;
+  currentUserDueDate?: Maybe<Scalars['Date']>;
   currentUserEarnedCertificate: Scalars['Boolean'];
   currentUserPendingCertificate: Scalars['Boolean'];
   currentUserStartActionDate?: Maybe<Scalars['Date']>;
   customFields?: Maybe<Scalars['JSON']>;
   detailAsset?: Maybe<Scalars['URL']>;
+  dueDate?: Maybe<Scalars['Date']>;
+  dueDateDays?: Maybe<Scalars['Int']>;
   endDate?: Maybe<Scalars['Date']>;
   enrollmentEndDate?: Maybe<Scalars['Date']>;
   enrollmentStartDate?: Maybe<Scalars['Date']>;
   externalDetailUrl?: Maybe<Scalars['String']>;
   freeWithRegistration?: Maybe<Scalars['Boolean']>;
-  fulfillmentCenter?: Maybe<Scalars['ID']>;
+  fulfillmentCenter?: Maybe<FulfillmentCenter>;
   futurePublishDate?: Maybe<Scalars['Date']>;
   hasMultipleCurrencies: Scalars['Boolean'];
   heroAsset?: Maybe<Scalars['URL']>;
@@ -1353,7 +1494,7 @@ export type ListRollPage = PageEntity & {
   createdAt: Scalars['Date'];
   description?: Maybe<Scalars['String']>;
   editableByChildren?: Maybe<Scalars['Boolean']>;
-  expandableLists: Array<ExpandableListItem>;
+  expandableLists: Array<ExpandableList>;
   id: Scalars['ID'];
   indentationLevel?: Maybe<Scalars['Int']>;
   lessonId: Scalars['ID'];
@@ -1572,6 +1713,29 @@ export enum MilestoneRequirement {
   Required = 'required'
 }
 
+export type NotebookPage = PageEntity & {
+  __typename?: 'NotebookPage';
+  accessibilityAudioAsset?: Maybe<Scalars['String']>;
+  accessibilityAudioAssetTitle?: Maybe<Scalars['String']>;
+  accessibilityAudioAssetUrl?: Maybe<Scalars['AbsoluteOrRelativeURL']>;
+  body?: Maybe<Scalars['String']>;
+  catalogAsset?: Maybe<Scalars['String']>;
+  clientId?: Maybe<Scalars['ID']>;
+  companyId: Scalars['ID'];
+  completionTimeSeconds?: Maybe<Scalars['Int']>;
+  contentDescription?: Maybe<Scalars['String']>;
+  contentEstimate?: Maybe<Scalars['String']>;
+  contentTime?: Maybe<Scalars['String']>;
+  createdAt: Scalars['Date'];
+  editableByChildren?: Maybe<Scalars['Boolean']>;
+  id: Scalars['ID'];
+  indentationLevel?: Maybe<Scalars['Int']>;
+  lessonId: Scalars['ID'];
+  title?: Maybe<Scalars['String']>;
+  type: TopicType;
+  updatedAt: Scalars['Date'];
+};
+
 export type Organization = {
   __typename?: 'Organization';
   id: Scalars['ID'];
@@ -1630,12 +1794,16 @@ export type PageResource =
   | AssignmentPage
   | AudioPage
   | FlipCardPage
+  | GeneralPage
+  | HighlightZonePage
   | ListRollPage
   | MatchPairPage
   | MeetingPage
+  | NotebookPage
   | PdfViewerPage
   | PresentationPage
   | QuizPage
+  | RecipePage
   | ScormPage
   | SlideshowPage
   | SurveyPage
@@ -1768,6 +1936,7 @@ export type QuizPage = AssessmentPageEntity &
     passMessage?: Maybe<Scalars['String']>;
     preventProgression?: Maybe<Scalars['Boolean']>;
     questionSkipEnabled?: Maybe<Scalars['Boolean']>;
+    /** This field has an additional cost of 3 points. */
     questions: Array<QuizQuestion>;
     showAnswerAfterPass?: Maybe<Scalars['Boolean']>;
     startMessage?: Maybe<Scalars['String']>;
@@ -1828,6 +1997,40 @@ export type QuizQuestion = {
   table?: Maybe<QuestionTable>;
   tableResponse?: Maybe<QuestionTable>;
   type?: Maybe<Scalars['String']>;
+};
+
+export type RecipePage = PageEntity & {
+  __typename?: 'RecipePage';
+  accessibilityAudioAsset?: Maybe<Scalars['String']>;
+  accessibilityAudioAssetTitle?: Maybe<Scalars['String']>;
+  accessibilityAudioAssetUrl?: Maybe<Scalars['AbsoluteOrRelativeURL']>;
+  asset?: Maybe<Scalars['String']>;
+  catalogAsset?: Maybe<Scalars['String']>;
+  client?: Maybe<Scalars['String']>;
+  clientId?: Maybe<Scalars['ID']>;
+  companyId: Scalars['ID'];
+  completionTimeSeconds?: Maybe<Scalars['Int']>;
+  contentDescription?: Maybe<Scalars['String']>;
+  contentEstimate?: Maybe<Scalars['String']>;
+  contentTime?: Maybe<Scalars['String']>;
+  createdAt: Scalars['Date'];
+  description?: Maybe<Scalars['String']>;
+  editableByChildren?: Maybe<Scalars['Boolean']>;
+  id: Scalars['ID'];
+  indentationLevel?: Maybe<Scalars['Int']>;
+  ingredientGroups: Array<IngredientGroup>;
+  lessonId: Scalars['ID'];
+  nutrition?: Maybe<Scalars['String']>;
+  pairing?: Maybe<Scalars['String']>;
+  pairingIcon?: Maybe<Scalars['String']>;
+  postTextBlock?: Maybe<Scalars['String']>;
+  preTextBlock?: Maybe<Scalars['String']>;
+  steps: Array<IngredientStep>;
+  time?: Maybe<Scalars['String']>;
+  title?: Maybe<Scalars['String']>;
+  type: TopicType;
+  updatedAt: Scalars['Date'];
+  yield?: Maybe<Scalars['String']>;
 };
 
 export type Resource = {
@@ -2048,6 +2251,7 @@ export type SurveyPage = AssessmentPageEntity &
     isGraded?: Maybe<Scalars['Boolean']>;
     lessonId: Scalars['ID'];
     preventProgression?: Maybe<Scalars['Boolean']>;
+    /** This field has an additional cost of 3 points. */
     questions: Array<QuizQuestion>;
     resultsMessage?: Maybe<Scalars['String']>;
     title?: Maybe<Scalars['String']>;
@@ -2088,6 +2292,7 @@ export type TallyPage = AssessmentPageEntity &
     instructorAssessment?: Maybe<Scalars['Boolean']>;
     lessonId: Scalars['ID'];
     questionSkipEnabled?: Maybe<Scalars['Boolean']>;
+    /** This field has an additional cost of 3 points. */
     questions: Array<QuizQuestion>;
     resultsMessage?: Maybe<Scalars['String']>;
     scoreTiers: Array<TallyPageScoreTier>;
@@ -2136,6 +2341,7 @@ export type TestPage = AssessmentPageEntity &
     passMessage?: Maybe<Scalars['String']>;
     preventProgression?: Maybe<Scalars['Boolean']>;
     questionSkipEnabled?: Maybe<Scalars['Boolean']>;
+    /** This field has an additional cost of 3 points. */
     questions: Array<QuizQuestion>;
     randomizeChoices: Scalars['Boolean'];
     startMessage?: Maybe<Scalars['String']>;
@@ -2147,12 +2353,18 @@ export type TestPage = AssessmentPageEntity &
     updatedAt: Scalars['Date'];
   };
 
+/** Contains data for a testimonial. */
 export type Testimonial = {
   __typename?: 'Testimonial';
+  /** The body of the testimonial. */
   body?: Maybe<Scalars['String']>;
+  /** The time the testimonial was created. */
   createdAt?: Maybe<Scalars['Date']>;
+  /** The id of the testimonial. */
   id?: Maybe<Scalars['ID']>;
+  /** The rating of the testimonial. */
   rating?: Maybe<Scalars['Int']>;
+  /** The user who submits the testimonial. */
   user?: Maybe<User>;
 };
 
@@ -2213,6 +2425,40 @@ export type Topic = {
   updatedAt?: Maybe<Scalars['Date']>;
 };
 
+export type TopicGroup = {
+  __typename?: 'TopicGroup';
+  categories: Array<TopicGroupCategory>;
+  companyId: Scalars['ID'];
+  id: Scalars['ID'];
+};
+
+export type TopicGroupCategory = {
+  __typename?: 'TopicGroupCategory';
+  kind: Scalars['String'];
+  label: Scalars['String'];
+  subcategories: Array<TopicGroupSubcategory>;
+};
+
+export type TopicGroupFile = {
+  __typename?: 'TopicGroupFile';
+  asset: Scalars['String'];
+  isCentralLibraryItem?: Maybe<Scalars['Boolean']>;
+  name: Scalars['String'];
+};
+
+export type TopicGroupSubcategory = {
+  __typename?: 'TopicGroupSubcategory';
+  files: Array<TopicGroupFile>;
+  label: Scalars['String'];
+  topics: Array<TopicGroupTopic>;
+};
+
+export type TopicGroupTopic = {
+  __typename?: 'TopicGroupTopic';
+  id: Scalars['ID'];
+  type: TopicType;
+};
+
 export enum TopicType {
   Ad = 'ad',
   Article = 'article',
@@ -2256,9 +2502,11 @@ export type User = {
   address1?: Maybe<Scalars['String']>;
   address2?: Maybe<Scalars['String']>;
   adminClients?: Maybe<Array<Maybe<Client>>>;
+  /** This field has an additional cost of 3 points. */
   allocatedLearningPaths?: Maybe<Array<AllocatedLearningPath>>;
   allocatedLicenses?: Maybe<Array<AllocatedLicense>>;
   asset?: Maybe<Scalars['String']>;
+  /** This field has an additional cost of 3 points. */
   attendedMeetings?: Maybe<Array<UserAttendedMeeting>>;
   availableCoursesCount: Scalars['Int'];
   balance?: Maybe<Scalars['Float']>;
@@ -2286,7 +2534,9 @@ export type User = {
   managerUserId?: Maybe<Scalars['ID']>;
   mustVerifyEmail: Scalars['Boolean'];
   name?: Maybe<Scalars['String']>;
+  /** This field has an additional cost of 3 points. */
   purchasedBundles?: Maybe<Array<PurchasedBundle>>;
+  /** This field has an additional cost of 3 points. */
   purchasedCourses?: Maybe<Array<PurchasedCourse>>;
   recommendedSlugs?: Maybe<Array<UserRecommendedSlug>>;
   recommendedTags?: Maybe<Array<UserRecommendedTag>>;
@@ -2459,6 +2709,7 @@ export type WorkbookPage = AssessmentPageEntity &
     lessonId: Scalars['ID'];
     linked?: Maybe<Scalars['Boolean']>;
     preventProgression?: Maybe<Scalars['Boolean']>;
+    /** This field has an additional cost of 3 points. */
     questions: Array<QuizQuestion>;
     resultsMessage?: Maybe<Scalars['String']>;
     startMessage?: Maybe<Scalars['String']>;
