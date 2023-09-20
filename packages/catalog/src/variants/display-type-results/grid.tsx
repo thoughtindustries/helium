@@ -1,29 +1,14 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { GlobalTypes, formatTime } from '@thoughtindustries/content';
-import {
-  CatalogParams,
-  HeightEqualizer,
-  HeightEqualizerElement,
-  HeightEqualizerElementProps
-} from '../../core';
-import { CatalogResultItem, CatalogResultsProps, PriceFormatFn } from '../../types';
+import { HeightEqualizer, HeightEqualizerElement, HeightEqualizerElementProps } from '../../core';
+import { DisplayTypeResultsGridProps, DisplayTypeResultsGridItemProps } from '../../types';
 import ItemLinkWrapper from './item-link-wrapper';
 import ItemAssetBlock from './item-asset-block';
 import ItemQueueButton from './item-queue-button';
 import ItemRibbon from './item-ribbon';
 import { twMerge } from 'tailwind-merge';
 import { limitText } from './utilities';
-
-type DisplayTypeResultsGridProps = Pick<CatalogResultsProps, 'onClick' | 'onAddedToQueue'> &
-  Pick<CatalogParams, 'displayAuthorsEnabled' | 'displayStartDateEnabled' | 'displayBundle'> & {
-    items: CatalogResultItem[];
-    priceFormatFn: PriceFormatFn;
-  };
-
-type DisplayTypeResultsGridItemProps = Omit<DisplayTypeResultsGridProps, 'items'> & {
-  item: CatalogResultItem;
-};
 
 const HeightEqualizerElementWrapper = ({
   className,
@@ -332,13 +317,20 @@ const DisplayTypeResultsGridItem = ({
 
 const DisplayTypeResultsGrid = ({
   items,
+  ItemWrapperComponent,
   ...restProps
 }: DisplayTypeResultsGridProps): JSX.Element => {
   const contentItems = items
     .filter(({ isNotCompleted }) => !isNotCompleted)
-    .map((item, index) => (
-      <DisplayTypeResultsGridItem key={`result-item-${index}`} item={item} {...restProps} />
-    ));
+    .map((item, index) =>
+      ItemWrapperComponent ? (
+        <ItemWrapperComponent key={`wrapper-result-item-${index}`} item={item} {...restProps}>
+          <DisplayTypeResultsGridItem key={`result-item-${index}`} item={item} {...restProps} />
+        </ItemWrapperComponent>
+      ) : (
+        <DisplayTypeResultsGridItem key={`result-item-${index}`} item={item} {...restProps} />
+      )
+    );
   return (
     <HeightEqualizer>
       <ul className="grid gap-5 grid-cols-1 md:grid-cols-2 lg:grid-cols-3">{contentItems}</ul>
