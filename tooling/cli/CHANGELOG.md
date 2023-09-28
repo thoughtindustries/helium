@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.0.1](https://github.com/thoughtindustries/helium/compare/@thoughtindustries/helium@2.0.0...@thoughtindustries/helium@2.0.1) (2023-09-28)
+
+
+### Bug Fixes
+
+* tooling constants module exports fix ([#226](https://github.com/thoughtindustries/helium/issues/226)) ([db0cba1](https://github.com/thoughtindustries/helium/commit/db0cba1f85cc8dc04b348e72cf85aa3ec7c0ff94))
+
+
+
+
+
 # [2.0.0](https://github.com/thoughtindustries/helium/compare/@thoughtindustries/helium@1.2.2...@thoughtindustries/helium@2.0.0) (2023-08-22)
 
 
