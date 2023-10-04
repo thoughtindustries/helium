@@ -1,11 +1,11 @@
-const { mainFunction } = require('../../cli/lib/update-translations.js');
-const { fetchTranslations, writeTranslationFile } = require('../../cli/lib/helpers/translations');
-const { instanceTranslations } = require('./locales/instance-translations');
-
 jest.mock('../../cli/lib/helpers/translations', () => ({
   fetchTranslations: jest.fn(),
   writeTranslationFile: jest.fn()
 }));
+
+const { mainFunction } = require('../../cli/lib/update-translations.js');
+const { fetchTranslations, writeTranslationFile } = require('../../cli/lib/helpers/translations');
+const { instanceTranslations } = require('./locales/instance-translations');
 
 describe('updateTranslations', () => {
   it('should update translations successfully', async () => {
