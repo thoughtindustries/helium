@@ -16,6 +16,7 @@ describe('updateTranslations', () => {
 
     //mock the exit to stop the process.exit from terminating the test
     const mockExit = jest.spyOn(process, 'exit').mockImplementation(() => {});
+    console.log('____dirname: ', __dirname);
     await mainFunction(__dirname);
     expect(mockExit).toHaveBeenCalledWith(0);
 
