@@ -42,4 +42,4 @@ async function mainFunction(pathToWrite) {
   }
 }
 
-module.exports = { mainFunction };
+module.exports = { mainFunction, findTIInstance };

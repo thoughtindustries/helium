@@ -3,13 +3,19 @@ jest.mock('../../cli/lib/helpers/translations', () => ({
   writeTranslationFile: jest.fn()
 }));
 
-const { mainFunction } = require('../../cli/lib/update-translations.js');
+jest.mock('../../cli/lib/update-translations.js', () => ({
+  ...jest.requireActual('../../cli/lib/update-translations.js'),
+  findTIInstance: jest.fn()
+}));
+
+const { mainFunction, findTIInstance } = require('../../cli/lib/update-translations.js');
 const { fetchTranslations, writeTranslationFile } = require('../../cli/lib/helpers/translations');
 const { instanceTranslations } = require('./locales/instance-translations');
 
 describe('updateTranslations', () => {
   it('should update translations successfully', async () => {
     const writeFileMock = writeTranslationFile;
+    const findInstanceMock = findTIInstance;
 
     //mock the response of fetchTranslations
     fetchTranslations.mockResolvedValue(instanceTranslations);
