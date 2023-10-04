@@ -43,7 +43,7 @@ const fetchTranslations = async instance => {
   });
 };
 
-const writeTranslationFile = async (dir, translations, generateBackup = false) => {
+async function writeTranslationFile(dir, translations, generateBackup = false) {
   const dirPath = path.join(dir, 'locales');
 
   const translationsHash = translations.reduce((hash, translationObj) => {
@@ -62,8 +62,9 @@ const writeTranslationFile = async (dir, translations, generateBackup = false) =
   }
 
   const devFileName = path.join(dirPath, 'translations.json');
-  return writeFile(devFileName, stringifiedTranslations);
-};
+
+  await writeFile(devFileName, stringifiedTranslations);
+}
 
 // react-i18next handles pluralizations differently than the
 // i18n library used in the TI app, so plurals have to be reformatted

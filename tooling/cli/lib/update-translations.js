@@ -1,29 +1,7 @@
 const { fetchTranslations, writeTranslationFile } = require('./helpers/translations');
 const path = require('path');
 
-const OP_DIR = process.cwd();
-const configPath = path.join(OP_DIR, '/ti-config');
-const config = require(configPath);
-const INSTANCE_NAME = process.env.INSTANCE_NAME;
-
-(async function () {
-  const instance = findTIInstance();
-  const instanceTranslations = await fetchTranslations(instance);
-
-  if (instanceTranslations && instanceTranslations.length) {
-    await writeTranslationFile(OP_DIR, instanceTranslations);
-  }
-})()
-  .then(() => {
-    console.log('>>> Translations updated successfully');
-    process.exit(0);
-  })
-  .catch(err => {
-    console.error('>>> Error updating translations: ', err);
-    process.exit(1);
-  });
-
-function findTIInstance() {
+function findTIInstance(config, INSTANCE_NAME) {
   const { instances = [] } = config;
   let instance;
 
@@ -40,3 +18,28 @@ function findTIInstance() {
 
   return instance;
 }
+
+async function mainFunction(pathToWrite) {
+  const OP_DIR = process.cwd();
+  if (pathToWrite === undefined) {
+    pathToWrite = OP_DIR;
+  }
+  const configPath = path.join(OP_DIR, '/ti-config');
+  const config = require(configPath);
+  const INSTANCE_NAME = process.env.INSTANCE_NAME;
+  try {
+    const instance = await findTIInstance(config, INSTANCE_NAME);
+    const instanceTranslations = await fetchTranslations(instance);
+
+    if (instanceTranslations) {
+      await writeTranslationFile(pathToWrite, instanceTranslations);
+      console.log('>>> Translations updated successfully');
+      process.exit(0);
+    }
+  } catch (err) {
+    console.error('>>> Error updating translations: ', err);
+    process.exit(1);
+  }
+}
+
+module.exports = { mainFunction };
