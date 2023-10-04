@@ -1,0 +1,10 @@
+{
+  "instances": [
+    {
+      "nickname": "test",
+      "instanceUrl": "https://test.thoughtindustries.com",
+      "email": "test@thoughtindustries.com",
+      "apiKey": "abcdefg123456789"
+    }
+  ]
+}
