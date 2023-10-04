@@ -7,12 +7,12 @@ jest.mock('../../cli/lib/helpers/translations', () => ({
   writeTranslationFile: jest.fn()
 }));
 
-//mock the response of fetchTranslations
-fetchTranslations.mockResolvedValue(instanceTranslations);
-
 describe('updateTranslations', () => {
   it('should update translations successfully', async () => {
     const writeFileMock = writeTranslationFile;
+
+    //mock the response of fetchTranslations
+    fetchTranslations.mockResolvedValue(instanceTranslations);
 
     //mock the exit to stop the process.exit from terminating the test
     const mockExit = jest.spyOn(process, 'exit').mockImplementation(() => {});
