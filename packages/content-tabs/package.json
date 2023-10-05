@@ -1,7 +1,7 @@
 {
-  "name": "@thoughtindustries/content-tab",
+  "name": "@thoughtindustries/content-tabs",
   "version": "1.0.0",
-  "description": "A base component for content tab",
+  "description": "A base component for content tabs",
   "main": "src/index.ts",
   "files": [
     "src"
