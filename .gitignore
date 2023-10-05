@@ -109,3 +109,6 @@ dist
 **/worker/worker
 **/worker/script.js
 .DS_Store
+
+# IntelliJ
+.idea
