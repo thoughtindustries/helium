@@ -1,0 +1,84 @@
+{
+  "data": {
+    "CourseGroupBySlug": {
+      "tabs": [{
+          "id": "enubzul",
+          "label": "Outline",
+          "body": null,
+          "tabType": "syllabus",
+          "instructors": [],
+          "products": [],
+          "testimonials": null
+        },
+        {
+          "id": "z5gsnzt",
+          "label": "Free Text Tab",
+          "body": "<p>This is the tab content</p>\n<p></p>\n<h1># Heading 1</h1><h2># Heading 2</h2><h3># Heading 3</h3>",
+          "tabType": "free-text",
+          "instructors": [],
+          "products": [],
+          "testimonials": null
+        },
+        {
+          "id": "1vo0oph",
+          "label": "Instructor Title",
+          "body": null,
+          "tabType": "instructors",
+          "instructors": [{
+            "asset": "https://d36ai2hkxl16us.cloudfront.net/thoughtindustries/image/upload/q_100,a_exif,c_crop,x_62,y_60,w_278,h_278/v1/course-uploads/71dba74a-e335-4c35-a04b-18ab05fa436a/varidc515546-ScreenShot2023-08-29at1.54.59PM.png",
+            "bio": "<p>Lelsie holds a Bachelor of Science degree in communciation from James Madision Univerisity... blah blah blah blah blah&nbsp;blah blah blah blah blah&nbsp;blah blah blah blah blah&nbsp;blah blah blah blah blah&nbsp;blah blah blah blah blah&nbsp;blah blah blah blah blah&nbsp;blah blah blah blah blah&nbsp;</p>",
+            "fullName": "James Bond"
+          }],
+          "products": [],
+          "testimonials": null
+        },
+        {
+          "id": "gk3rh5b",
+          "label": "Testimonials",
+          "body": null,
+          "tabType": "testimonials",
+          "instructors": [],
+          "products": [],
+          "testimonials": null
+        },
+        {
+          "id": "xsvvcq3",
+          "label": "Products",
+          "body": null,
+          "tabType": "products",
+          "instructors": [],
+          "products": [{
+              "id": "7f68c6f5-2a10-4d32-baec-64997102fecd",
+              "asset": "https://d36ai2hkxl16us.cloudfront.net/thoughtindustries/image/upload/q_100,a_exif,c_crop,x_73,y_74,w_584,h_584/v1/course-uploads/71dba74a-e335-4c35-a04b-18ab05fa436a/t8teq5t3aywo-ScreenShot2023-10-03at8.06.36AM.png",
+              "status": "draft",
+              "purchasable": true,
+              "name": "Cookbook 2",
+              "longDescription": null,
+              "priceInCents": 4800,
+              "language": null,
+              "suggestedRetailPriceInCents": null,
+              "alternativePricingType": null,
+              "alternativePricingRef": null,
+              "relatedProducts": []
+            },
+            {
+              "id": "29460563-b53a-4524-8c99-a876b20e2cd2",
+              "asset": "https://d36ai2hkxl16us.cloudfront.net/thoughtindustries/image/upload/q_100,a_exif,c_crop,x_73,y_74,w_584,h_584/v1/course-uploads/71dba74a-e335-4c35-a04b-18ab05fa436a/qlfn0l0542am-ScreenShot2023-10-03at8.06.36AM.png",
+              "status": "published",
+              "purchasable": true,
+              "name": "Cookbook",
+              "longDescription": null,
+              "priceInCents": 4800,
+              "language": "en",
+              "suggestedRetailPriceInCents": null,
+              "alternativePricingType": null,
+              "alternativePricingRef": null,
+              "relatedProducts": []
+            }
+          ],
+          "testimonials": null
+        }
+      ]
+    }
+  }
+}
