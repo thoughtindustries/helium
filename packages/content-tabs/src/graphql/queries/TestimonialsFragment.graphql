@@ -1,0 +1,8 @@
+fragment TestimonialsFragment on Testimonial {
+  createdAt
+  user {
+    name
+  }
+  body
+  rating
+}

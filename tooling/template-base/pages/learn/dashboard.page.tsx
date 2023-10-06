@@ -6,6 +6,7 @@ import LearnerAccess from '../../components/LearnerAccess/LearnerAccess';
 import FeaturedContentComp from '../../components/FeaturedContent/FeaturedContentComp';
 import { HydratedContentItem } from '@thoughtindustries/content';
 import { ContentTabs } from '@thoughtindustries/content-tabs';
+import { ContentKind } from '@thoughtindustries/content/src/graphql/global-types';
 
 export { Page };
 export { documentProps };
@@ -24,7 +25,7 @@ function Page() {
           heading="My Dashboard"
           subtext="Your Dashboard is your game-changing collaborative space where you can view all your learning in one place."
         />
-        <ContentTabs tabsView={true} slug="course-example" />
+        <ContentTabs tabsView={true} slug="course-example" contentKind={ContentKind.Course} />
         <LearnerAccess companyHasWaitlistingFeature={true} />
         <FeaturedContentComp
           onAddedToQueue={function (item: HydratedContentItem): Promise<boolean | void> {

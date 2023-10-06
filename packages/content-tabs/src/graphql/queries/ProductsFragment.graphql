@@ -1,0 +1,26 @@
+fragment ProductsFragment on Product {
+  id
+  asset
+  status
+  purchasable
+  name
+  longDescription
+  priceInCents
+  language
+  suggestedRetailPriceInCents
+  alternativePricingType
+  alternativePricingRef
+  relatedProducts {
+    id
+    asset
+    status
+    purchasable
+    name
+    longDescription
+    priceInCents
+    language
+    suggestedRetailPriceInCents
+    alternativePricingType
+    alternativePricingRef
+  }
+}

@@ -914,19 +914,19 @@ export type Instructor = {
 
 export type ItemPrice = {
   __typename?: 'ItemPrice';
-  annualPriceInCents?: Maybe<Scalars['Int']>;
+  annualUnitAmount?: Maybe<Scalars['Int']>;
   currencyCode: Scalars['String'];
   id: Scalars['ID'];
-  instructorAccessPriceInCents?: Maybe<Scalars['Int']>;
-  priceInCents?: Maybe<Scalars['Int']>;
-  suggestedRetailPriceInCents?: Maybe<Scalars['Int']>;
+  instructorAccessUnitAmount?: Maybe<Scalars['Int']>;
+  suggestedRetailUnitAmount?: Maybe<Scalars['Int']>;
+  unitAmount?: Maybe<Scalars['Int']>;
   variations: Array<ItemPriceVariation>;
 };
 
 export type ItemPriceVariation = {
   __typename?: 'ItemPriceVariation';
   label: Scalars['String'];
-  priceInCents: Scalars['Int'];
+  unitAmount: Scalars['Int'];
 };
 
 export type Layout = {

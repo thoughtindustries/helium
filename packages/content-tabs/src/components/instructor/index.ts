@@ -1,0 +1,4 @@
+import Instructor from './instructor';
+
+export * from './types';
+export { Instructor };

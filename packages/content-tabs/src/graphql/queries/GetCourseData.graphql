@@ -6,43 +6,13 @@ query GetCourseData($slug: Slug!) {
       body
       tabType
       instructors {
-        asset
-        bio
-        fullName
+        ...InstructorsFragment
       }
       products {
-        id
-        asset
-        status
-        purchasable
-        name
-        longDescription
-        priceInCents
-        language
-        suggestedRetailPriceInCents
-        alternativePricingType
-        alternativePricingRef
-        relatedProducts {
-          id
-          asset
-          status
-          purchasable
-          name
-          longDescription
-          priceInCents
-          language
-          suggestedRetailPriceInCents
-          alternativePricingType
-          alternativePricingRef
-        }
+        ...ProductsFragment
       }
       testimonials {
-        createdAt
-        user {
-          name
-        }
-        body
-        rating
+        ...TestimonialsFragment
       }
     }
   }

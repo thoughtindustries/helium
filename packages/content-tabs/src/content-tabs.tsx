@@ -1,21 +1,52 @@
 import React, { createRef, useState } from 'react';
-import { ContentTabsProps } from './types';
+import { ContentTabsProps, TabType } from './types';
 import { useOnClickOutside } from '@thoughtindustries/hooks';
 import { ArrowDownIcon, CheckIcon } from './icons';
 import { useGetCourseDataQuery } from './graphql/queries/GetCourseData.generated';
+import { FreeText } from './components/free-text';
+import { Instructor } from './components/instructor';
+import {
+  ProductsFragmentFragment,
+  TestimonialsFragmentFragment,
+  InstructorsFragmentFragment
+} from './graphql';
 
 const ContentTabs = (props: ContentTabsProps): JSX.Element => {
-  const { tabsView, slug } = props;
+  const { tabsView, slug, contentKind } = props;
   const { data: dataGraphql } = useGetCourseDataQuery({
     variables: { slug: slug }
   });
 
   const tabsToRender = dataGraphql?.CourseGroupBySlug?.tabs?.slice(1) || [];
+
   const wrapperRef = createRef<HTMLUListElement>();
   const [selectedTab, setSelectedTab] = useState(tabsToRender[0]);
   const [mobileSelect, setMobileSelect] = useState(false);
 
   useOnClickOutside(wrapperRef, () => setMobileSelect(false));
+
+  const handleTabContentToRender = (
+    type: TabType,
+    content: {
+      __typename?: 'CourseTab' | undefined;
+      id?: string | undefined;
+      label?: string | undefined;
+      body?: string;
+      tabType?: string | undefined;
+      instructors?: InstructorsFragmentFragment[];
+      products?: ProductsFragmentFragment[];
+      testimonials?: TestimonialsFragmentFragment[];
+    }
+  ) => {
+    const componentsToRender = {
+      'free-text': <FreeText body={content.body} />,
+      instructors: <Instructor instructors={content.instructors} />,
+      testimonials: '',
+      products: ''
+    };
+
+    return componentsToRender[type];
+  };
 
   return (
     <>
@@ -94,11 +125,8 @@ const ContentTabs = (props: ContentTabsProps): JSX.Element => {
                   if (selectedTab.id === content.id) {
                     return (
                       <React.Fragment key={content.id}>
-                        {content.tabType === 'free-text' ? (
-                          <div dangerouslySetInnerHTML={{ __html: content.body as string }} />
-                        ) : (
-                          <div className="shadow-sm">{content.tabType}</div>
-                        )}
+                        {content.tabType &&
+                          handleTabContentToRender(content.tabType as TabType, content)}
                       </React.Fragment>
                     );
                   }

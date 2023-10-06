@@ -1,6 +1,12 @@
 import * as Types from '../global-types';
 
+import { InstructorsFragmentFragment } from './InstructorsFragment.generated';
+import { ProductsFragmentFragment } from './ProductsFragment.generated';
+import { TestimonialsFragmentFragment } from './TestimonialsFragment.generated';
 import { gql } from '@apollo/client';
+import { InstructorsFragmentFragmentDoc } from './InstructorsFragment.generated';
+import { ProductsFragmentFragmentDoc } from './ProductsFragment.generated';
+import { TestimonialsFragmentFragmentDoc } from './TestimonialsFragment.generated';
 import * as Apollo from '@apollo/client';
 const defaultOptions = {} as const;
 export type GetCourseDataQueryVariables = Types.Exact<{
@@ -17,47 +23,9 @@ export type GetCourseDataQuery = {
       label?: string;
       body?: string;
       tabType?: string;
-      instructors?: Array<{
-        __typename?: 'Instructor';
-        asset?: string;
-        bio?: string;
-        fullName?: string;
-      }>;
-      products?: Array<{
-        __typename?: 'Product';
-        id: string;
-        asset?: string;
-        status?: Types.Status;
-        purchasable?: boolean;
-        name?: string;
-        longDescription?: string;
-        priceInCents?: number;
-        language?: string;
-        suggestedRetailPriceInCents?: number;
-        alternativePricingType?: Types.AlternativePricingType;
-        alternativePricingRef?: number;
-        relatedProducts?: Array<{
-          __typename?: 'Product';
-          id: string;
-          asset?: string;
-          status?: Types.Status;
-          purchasable?: boolean;
-          name?: string;
-          longDescription?: string;
-          priceInCents?: number;
-          language?: string;
-          suggestedRetailPriceInCents?: number;
-          alternativePricingType?: Types.AlternativePricingType;
-          alternativePricingRef?: number;
-        }>;
-      }>;
-      testimonials?: Array<{
-        __typename?: 'Testimonial';
-        createdAt?: string;
-        body?: string;
-        rating?: number;
-        user?: { __typename?: 'User'; name?: string };
-      }>;
+      instructors?: Array<{ __typename?: 'Instructor' } & InstructorsFragmentFragment>;
+      products?: Array<{ __typename?: 'Product' } & ProductsFragmentFragment>;
+      testimonials?: Array<{ __typename?: 'Testimonial' } & TestimonialsFragmentFragment>;
     }>;
   };
 };
@@ -71,47 +39,20 @@ export const GetCourseDataDocument = gql`
         body
         tabType
         instructors {
-          asset
-          bio
-          fullName
+          ...InstructorsFragment
         }
         products {
-          id
-          asset
-          status
-          purchasable
-          name
-          longDescription
-          priceInCents
-          language
-          suggestedRetailPriceInCents
-          alternativePricingType
-          alternativePricingRef
-          relatedProducts {
-            id
-            asset
-            status
-            purchasable
-            name
-            longDescription
-            priceInCents
-            language
-            suggestedRetailPriceInCents
-            alternativePricingType
-            alternativePricingRef
-          }
+          ...ProductsFragment
         }
         testimonials {
-          createdAt
-          user {
-            name
-          }
-          body
-          rating
+          ...TestimonialsFragment
         }
       }
     }
   }
+  ${InstructorsFragmentFragmentDoc}
+  ${ProductsFragmentFragmentDoc}
+  ${TestimonialsFragmentFragmentDoc}
 `;
 
 /**
