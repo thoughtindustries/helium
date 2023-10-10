@@ -1,5 +1,6 @@
 query GetCourseData($slug: Slug!) {
   CourseGroupBySlug(slug: $slug) {
+    id
     tabs {
       id
       label
@@ -10,9 +11,6 @@ query GetCourseData($slug: Slug!) {
       }
       products {
         ...ProductsFragment
-      }
-      testimonials {
-        ...TestimonialsFragment
       }
     }
   }

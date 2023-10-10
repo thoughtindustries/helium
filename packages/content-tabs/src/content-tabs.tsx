@@ -1,52 +1,66 @@
-import React, { createRef, useMemo, useState } from 'react';
+import React, { createRef, useState } from 'react';
 import { ContentTabsProps, TabType } from './types';
 import { useOnClickOutside } from '@thoughtindustries/hooks';
 import { ArrowDownIcon, CheckIcon } from './icons';
-import {
-  GetCourseDataQuery,
-  useGetCourseDataQuery
-} from './graphql/queries/GetCourseData.generated';
+import { useGetCourseDataQuery } from './graphql/queries/GetCourseData.generated';
 import { FreeText } from './components/free-text';
 import { Instructor } from './components/instructor';
-import {
-  ProductsFragmentFragment,
-  TestimonialsFragmentFragment,
-  InstructorsFragmentFragment
-} from './graphql';
+import { ProductsFragmentFragment, InstructorsFragmentFragment } from './graphql';
 import { Product } from './components/product';
 import { Testimonial } from './components/testimonial';
-import {
-  GetLearningPathDataQuery,
-  useGetLearningPathDataQuery
-} from './graphql/queries/GetLearningPathData.generated';
+import { useGetLearningPathDataQuery } from './graphql/queries/GetLearningPathData.generated';
 import { ContentKind } from '@thoughtindustries/content/src/graphql/global-types';
 
 const ContentTabs = (props: ContentTabsProps): JSX.Element => {
   const { tabsView, slug, contentKind } = props;
 
-  const useQueryHook =
-    contentKind === ContentKind.Course ? useGetCourseDataQuery : useGetLearningPathDataQuery;
+  const handleFetchData = () => {
+    function LearningPathContentKind() {
+      const { data, error } = useGetLearningPathDataQuery({
+        variables: { slug: slug }
+      });
+      if (error) {
+        console.log(error);
+      }
 
-  const { data: dataGraphql } = useQueryHook({
-    variables: { slug: slug }
-  });
+      return data && data.LearningPathBySlug;
+    }
 
-  const tabsToRender = useMemo(() => {
-    if (dataGraphql === undefined) {
-      return [];
+    function CourseGroupContentKind() {
+      const { data: data, error } = useGetCourseDataQuery({
+        variables: { slug: slug }
+      });
+      if (error) {
+        console.log(error);
+      }
+
+      return data && data.CourseGroupBySlug;
     }
 
     if (contentKind === ContentKind.Course) {
-      const data = dataGraphql as GetCourseDataQuery;
-      return data.CourseGroupBySlug?.tabs?.slice(1) || [];
+      const data = CourseGroupContentKind();
+
+      if (data) {
+        return {
+          id: data.id,
+          tabs: data.tabs
+        };
+      }
     }
 
-    const data = dataGraphql as GetLearningPathDataQuery;
-    return data.LearningPathBySlug?.tabs?.tabs || [];
-  }, [contentKind, dataGraphql]);
+    const data = LearningPathContentKind();
 
-  console.log('dataGraphql', dataGraphql);
+    if (data) {
+      return {
+        id: data.id,
+        tabs: data.tabs?.tabs
+      };
+    }
 
+    return { id: undefined, tabs: [] };
+  };
+
+  const tabsToRender = handleFetchData().tabs ?? [];
   const wrapperRef = createRef<HTMLUListElement>();
   const [selectedTab, setSelectedTab] = useState(tabsToRender[0]);
   const [mobileSelect, setMobileSelect] = useState(false);
@@ -63,13 +77,14 @@ const ContentTabs = (props: ContentTabsProps): JSX.Element => {
       tabType?: string | undefined;
       instructors?: InstructorsFragmentFragment[];
       products?: ProductsFragmentFragment[];
-      testimonials?: TestimonialsFragmentFragment[];
     }
   ) => {
+    const courseId = handleFetchData().id;
+
     const componentsToRender = {
       'free-text': <FreeText body={content.body} />,
       instructors: <Instructor instructors={content.instructors} />,
-      testimonials: <Testimonial />,
+      testimonials: <Testimonial id={courseId || ''} />,
       products: <Product products={content.products} />
     };
 

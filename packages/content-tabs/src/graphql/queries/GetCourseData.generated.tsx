@@ -2,11 +2,9 @@ import * as Types from '../global-types';
 
 import { InstructorsFragmentFragment } from './InstructorsFragment.generated';
 import { ProductsFragmentFragment } from './ProductsFragment.generated';
-import { TestimonialsFragmentFragment } from './TestimonialsFragment.generated';
 import { gql } from '@apollo/client';
 import { InstructorsFragmentFragmentDoc } from './InstructorsFragment.generated';
 import { ProductsFragmentFragmentDoc } from './ProductsFragment.generated';
-import { TestimonialsFragmentFragmentDoc } from './TestimonialsFragment.generated';
 import * as Apollo from '@apollo/client';
 const defaultOptions = {} as const;
 export type GetCourseDataQueryVariables = Types.Exact<{
@@ -17,6 +15,7 @@ export type GetCourseDataQuery = {
   __typename?: 'Query';
   CourseGroupBySlug?: {
     __typename?: 'CourseGroup';
+    id: string;
     tabs?: Array<{
       __typename?: 'CourseTab';
       id?: string;
@@ -25,7 +24,6 @@ export type GetCourseDataQuery = {
       tabType?: string;
       instructors?: Array<{ __typename?: 'Instructor' } & InstructorsFragmentFragment>;
       products?: Array<{ __typename?: 'Product' } & ProductsFragmentFragment>;
-      testimonials?: Array<{ __typename?: 'Testimonial' } & TestimonialsFragmentFragment>;
     }>;
   };
 };
@@ -33,6 +31,7 @@ export type GetCourseDataQuery = {
 export const GetCourseDataDocument = gql`
   query GetCourseData($slug: Slug!) {
     CourseGroupBySlug(slug: $slug) {
+      id
       tabs {
         id
         label
@@ -44,15 +43,11 @@ export const GetCourseDataDocument = gql`
         products {
           ...ProductsFragment
         }
-        testimonials {
-          ...TestimonialsFragment
-        }
       }
     }
   }
   ${InstructorsFragmentFragmentDoc}
   ${ProductsFragmentFragmentDoc}
-  ${TestimonialsFragmentFragmentDoc}
 `;
 
 /**

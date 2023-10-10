@@ -15,9 +15,8 @@ export type GetLearningPathDataQuery = {
   __typename?: 'Query';
   LearningPathBySlug?: {
     __typename?: 'LearningPath';
+    id: string;
     name: string;
-    source?: string;
-    milestones?: Array<{ __typename?: 'Milestone'; name: string; kind: Types.MilestoneKind }>;
     tabs?: {
       __typename?: 'LearningPathTabs';
       tabs?: Array<{
@@ -36,12 +35,8 @@ export type GetLearningPathDataQuery = {
 export const GetLearningPathDataDocument = gql`
   query GetLearningPathData($slug: Slug!) {
     LearningPathBySlug(slug: $slug) {
+      id
       name
-      milestones {
-        name
-        kind
-      }
-      source
       tabs {
         tabs {
           id

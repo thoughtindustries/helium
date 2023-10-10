@@ -22,7 +22,7 @@ const Product = (props: ProductProps): JSX.Element => {
         products.length > 0 &&
         products.map((product: ProductsFragmentFragment) => {
           return (
-            <a href="#" key={product.id} className="w-80 rounded-md shadow-lg">
+            <div key={product.id} className="w-80 rounded-md shadow-lg">
               <img src={product.asset} alt={product.name} className="rounded-t" />
               <div className="p-10 border border-t-0 rounded-b border-gray-300">
                 <h3
@@ -31,16 +31,23 @@ const Product = (props: ProductProps): JSX.Element => {
                 >
                   {product.name}
                 </h3>
-                <div>
+
+                {product.alternativePricingRef ? (
+                  <div>
+                    <span className="font-normal text-base leading-6 mr-2">
+                      {handleFormatPrice(product.alternativePricingRef as number)}
+                    </span>
+                    <span className="text-gray-500 line-through">
+                      {handleFormatPrice(product.priceInCents as number)}
+                    </span>
+                  </div>
+                ) : (
                   <span className="font-normal text-base leading-6 mr-2">
                     {handleFormatPrice(product.priceInCents as number)}
                   </span>
-                  <span className="text-gray-500 line-through">
-                    {handleFormatPrice(product.priceInCents as number)}
-                  </span>
-                </div>
+                )}
               </div>
-            </a>
+            </div>
           );
         })}
     </div>

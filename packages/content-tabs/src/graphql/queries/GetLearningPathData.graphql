@@ -1,11 +1,7 @@
 query GetLearningPathData($slug: Slug!) {
   LearningPathBySlug(slug: $slug) {
+    id
     name
-    milestones {
-      name
-      kind
-    }
-    source
     tabs {
       tabs {
         id
