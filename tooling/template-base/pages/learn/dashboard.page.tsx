@@ -25,7 +25,11 @@ function Page() {
           heading="My Dashboard"
           subtext="Your Dashboard is your game-changing collaborative space where you can view all your learning in one place."
         />
-        <ContentTabs tabsView={true} slug="course-example" contentKind={ContentKind.Course} />
+        <ContentTabs
+          tabsView={true}
+          slug="example-learning-path"
+          contentKind={ContentKind.LearningPath}
+        />
         <LearnerAccess companyHasWaitlistingFeature={true} />
         <FeaturedContentComp
           onAddedToQueue={function (item: HydratedContentItem): Promise<boolean | void> {

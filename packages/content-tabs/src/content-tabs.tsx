@@ -56,7 +56,7 @@ const ContentTabs = (props: ContentTabsProps): JSX.Element => {
   const handleTabContentToRender = (
     type: TabType,
     content: {
-      __typename?: 'CourseTab' | undefined;
+      __typename?: 'CourseTab' | 'LearningPathTab' | undefined;
       id?: string | undefined;
       label?: string | undefined;
       body?: string;
@@ -167,7 +167,7 @@ const ContentTabs = (props: ContentTabsProps): JSX.Element => {
               <>
                 {tabsToRender.map(content => {
                   return (
-                    <div key={content.id} className="mb-10 pb-10 pt-10border-b border-gray-500">
+                    <div key={content.id} className="mb-10 pb-10 pt-10 border-b border-gray-300">
                       {handleTabContentToRender(content.tabType as TabType, content)}
                     </div>
                   );
