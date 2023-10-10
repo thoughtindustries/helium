@@ -24,8 +24,10 @@ async function mainFunction(pathToWrite) {
   if (pathToWrite === undefined) {
     pathToWrite = OP_DIR;
   }
-  const configPath = path.resolve(process.cwd(), 'ti-config');
+  const configPath = path.resolve(pathToWrite, 'ti-config');
+  console.log(configPath);
   const config = require(configPath);
+  console.log('config: ', config);
   const INSTANCE_NAME = process.env.INSTANCE_NAME;
   try {
     const instance = await findTIInstance(config, INSTANCE_NAME);
