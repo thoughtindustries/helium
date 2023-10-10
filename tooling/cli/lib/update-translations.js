@@ -24,7 +24,7 @@ async function mainFunction(pathToWrite) {
   if (pathToWrite === undefined) {
     pathToWrite = OP_DIR;
   }
-  const configPath = path.resolve(pathToWrite, 'ti-config');
+  const configPath = path.resolve(pathToWrite, 'ti-config.json');
   console.log(configPath);
   const config = require(configPath);
   console.log('config: ', config);
