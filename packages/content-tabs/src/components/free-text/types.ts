@@ -1,4 +1,4 @@
 export interface FreeTextProps {
-  /** title that appears on the header */
+  /** body of the HTML content to render */
   body?: string;
 }

@@ -1,8 +1,11 @@
-import React, { createRef, useState } from 'react';
+import React, { createRef, useMemo, useState } from 'react';
 import { ContentTabsProps, TabType } from './types';
 import { useOnClickOutside } from '@thoughtindustries/hooks';
 import { ArrowDownIcon, CheckIcon } from './icons';
-import { useGetCourseDataQuery } from './graphql/queries/GetCourseData.generated';
+import {
+  GetCourseDataQuery,
+  useGetCourseDataQuery
+} from './graphql/queries/GetCourseData.generated';
 import { FreeText } from './components/free-text';
 import { Instructor } from './components/instructor';
 import {
@@ -10,14 +13,39 @@ import {
   TestimonialsFragmentFragment,
   InstructorsFragmentFragment
 } from './graphql';
+import { Product } from './components/product';
+import { Testimonial } from './components/testimonial';
+import {
+  GetLearningPathDataQuery,
+  useGetLearningPathDataQuery
+} from './graphql/queries/GetLearningPathData.generated';
+import { ContentKind } from '@thoughtindustries/content/src/graphql/global-types';
 
 const ContentTabs = (props: ContentTabsProps): JSX.Element => {
   const { tabsView, slug, contentKind } = props;
-  const { data: dataGraphql } = useGetCourseDataQuery({
+
+  const useQueryHook =
+    contentKind === ContentKind.Course ? useGetCourseDataQuery : useGetLearningPathDataQuery;
+
+  const { data: dataGraphql } = useQueryHook({
     variables: { slug: slug }
   });
 
-  const tabsToRender = dataGraphql?.CourseGroupBySlug?.tabs?.slice(1) || [];
+  const tabsToRender = useMemo(() => {
+    if (dataGraphql === undefined) {
+      return [];
+    }
+
+    if (contentKind === ContentKind.Course) {
+      const data = dataGraphql as GetCourseDataQuery;
+      return data.CourseGroupBySlug?.tabs?.slice(1) || [];
+    }
+
+    const data = dataGraphql as GetLearningPathDataQuery;
+    return data.LearningPathBySlug?.tabs?.tabs || [];
+  }, [contentKind, dataGraphql]);
+
+  console.log('dataGraphql', dataGraphql);
 
   const wrapperRef = createRef<HTMLUListElement>();
   const [selectedTab, setSelectedTab] = useState(tabsToRender[0]);
@@ -41,8 +69,8 @@ const ContentTabs = (props: ContentTabsProps): JSX.Element => {
     const componentsToRender = {
       'free-text': <FreeText body={content.body} />,
       instructors: <Instructor instructors={content.instructors} />,
-      testimonials: '',
-      products: ''
+      testimonials: <Testimonial />,
+      products: <Product products={content.products} />
     };
 
     return componentsToRender[type];
@@ -54,7 +82,10 @@ const ContentTabs = (props: ContentTabsProps): JSX.Element => {
         <div>
           {tabsView && (
             <>
-              <ul className="gap-x-6 border-b border-gray-300 px-8 sm:flex hidden" role="tablist">
+              <ul
+                className="gap-x-6 border-b border-gray-300 px-8 sm:flex hidden pt-4"
+                role="tablist"
+              >
                 {tabsToRender.map(headTab => (
                   <li
                     key={headTab.id}
@@ -136,13 +167,9 @@ const ContentTabs = (props: ContentTabsProps): JSX.Element => {
               <>
                 {tabsToRender.map(content => {
                   return (
-                    <React.Fragment key={content.id}>
-                      {content.tabType === 'free-text' ? (
-                        <div dangerouslySetInnerHTML={{ __html: content.body as string }} />
-                      ) : (
-                        <div>{content.tabType}</div>
-                      )}
-                    </React.Fragment>
+                    <div key={content.id} className="mb-10 pb-10 pt-10border-b border-gray-500">
+                      {handleTabContentToRender(content.tabType as TabType, content)}
+                    </div>
                   );
                 })}
               </>

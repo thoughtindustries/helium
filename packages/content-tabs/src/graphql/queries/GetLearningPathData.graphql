@@ -1,0 +1,24 @@
+query GetLearningPathData($slug: Slug!) {
+  LearningPathBySlug(slug: $slug) {
+    name
+    milestones {
+      name
+      kind
+    }
+    source
+    tabs {
+      tabs {
+        id
+        label
+        body
+        tabType
+        instructors {
+          ...InstructorsFragment
+        }
+        products {
+          ...ProductsFragment
+        }
+      }
+    }
+  }
+}
