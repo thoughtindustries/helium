@@ -24,7 +24,7 @@ async function mainFunction(pathToWrite) {
   if (pathToWrite === undefined) {
     pathToWrite = OP_DIR;
   }
-  const configPath = path.join(pathToWrite, '/ti-config');
+  const configPath = path.resolve(pathToWrite, 'ti-config');
   const config = require(configPath);
   const INSTANCE_NAME = process.env.INSTANCE_NAME;
   try {
