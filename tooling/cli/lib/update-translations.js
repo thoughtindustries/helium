@@ -19,15 +19,12 @@ function findTIInstance(config, INSTANCE_NAME) {
   return instance;
 }
 
-async function mainFunction(pathToWrite) {
-  const OP_DIR = process.cwd();
+async function updateTranslations(pathToWrite) {
   if (pathToWrite === undefined) {
-    pathToWrite = OP_DIR;
+    pathToWrite = process.cwd();
   }
   const configPath = path.resolve(pathToWrite, 'ti-config.json');
-  console.log(configPath);
   const config = require(configPath);
-  console.log('config: ', config);
   const INSTANCE_NAME = process.env.INSTANCE_NAME;
   try {
     const instance = await findTIInstance(config, INSTANCE_NAME);
@@ -44,4 +41,4 @@ async function mainFunction(pathToWrite) {
   }
 }
 
-module.exports = { mainFunction, findTIInstance };
+module.exports = { updateTranslations, findTIInstance };
