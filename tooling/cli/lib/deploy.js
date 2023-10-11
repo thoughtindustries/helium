@@ -155,7 +155,7 @@ async function gatherUsedTranslations() {
     const parserScript = path.join(__dirname, 'parse-translations.js');
     const exec = childProcess.exec;
 
-    const parseProcess = exec(`node -e "require('${parserScript}').mainFunction()"`);
+    const parseProcess = exec(`node -e "require('${parserScript}').updateTranslations()"`);
 
     parseProcess.stdout.pipe(process.stdout);
     parseProcess.stderr.pipe(process.stderr);
