@@ -1,3 +1,4 @@
+import { InstructorsFragmentFragment, ProductsFragmentFragment } from './graphql';
 import { ContentKind } from './graphql/global-types';
 
 export interface ContentTabsProps {
@@ -12,3 +13,13 @@ export enum TabType {
   Testimonials = 'testimonials',
   Products = 'products'
 }
+
+export type ContentTabType = {
+  __typename?: 'CourseTab' | 'LearningPathTab' | undefined;
+  id?: string | undefined;
+  label?: string | undefined;
+  body?: string;
+  tabType?: string | undefined;
+  instructors?: InstructorsFragmentFragment[];
+  products?: ProductsFragmentFragment[];
+};

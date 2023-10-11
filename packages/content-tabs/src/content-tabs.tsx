@@ -1,85 +1,69 @@
-import React, { createRef, useState } from 'react';
-import { ContentTabsProps, TabType } from './types';
+import React, { createRef, useEffect, useState } from 'react';
+import { ContentTabType, ContentTabsProps, TabType } from './types';
 import { useOnClickOutside } from '@thoughtindustries/hooks';
 import { ArrowDownIcon, CheckIcon } from './icons';
 import { useGetCourseDataQuery } from './graphql/queries/GetCourseData.generated';
 import { FreeText } from './components/free-text';
 import { Instructor } from './components/instructor';
-import { ProductsFragmentFragment, InstructorsFragmentFragment } from './graphql';
 import { Product } from './components/product';
 import { Testimonial } from './components/testimonial';
 import { useGetLearningPathDataQuery } from './graphql/queries/GetLearningPathData.generated';
-import { ContentKind } from '@thoughtindustries/content/src/graphql/global-types';
 
 const ContentTabs = (props: ContentTabsProps): JSX.Element => {
   const { tabsView, slug, contentKind } = props;
+  let id: string | undefined, tabs: ContentTabType[] | undefined;
 
-  const handleFetchData = () => {
-    function LearningPathContentKind() {
-      const { data, error } = useGetLearningPathDataQuery({
-        variables: { slug: slug }
-      });
-      if (error) {
-        console.log(error);
-      }
-
-      return data && data.LearningPathBySlug;
+  function CourseGroupContentKind() {
+    const { data, error } = useGetCourseDataQuery({
+      variables: { slug: slug }
+    });
+    if (error) {
+      console.log(error);
     }
-
-    function CourseGroupContentKind() {
-      const { data: data, error } = useGetCourseDataQuery({
-        variables: { slug: slug }
-      });
-      if (error) {
-        console.log(error);
-      }
-
-      return data && data.CourseGroupBySlug;
+    if (data && data.CourseGroupBySlug) {
+      return data.CourseGroupBySlug;
     }
+    return { id: '', tabs: [] };
+  }
 
-    if (contentKind === ContentKind.Course) {
-      const data = CourseGroupContentKind();
+  function LearningPathContentKind() {
+    const { data, error } = useGetLearningPathDataQuery({
+      variables: { slug: slug }
+    });
 
-      if (data) {
-        return {
-          id: data.id,
-          tabs: data.tabs
-        };
-      }
+    if (error) {
+      console.log(error);
     }
-
-    const data = LearningPathContentKind();
-
-    if (data) {
-      return {
-        id: data.id,
-        tabs: data.tabs?.tabs
-      };
+    if (data && data.LearningPathBySlug) {
+      return data.LearningPathBySlug;
     }
+    return { id: '', tabs: { tabs: [] } };
+  }
 
-    return { id: undefined, tabs: [] };
-  };
+  if (contentKind === 'learningPath') {
+    const learningGroupData = LearningPathContentKind();
 
-  const tabsToRender = handleFetchData().tabs ?? [];
+    id = learningGroupData.id;
+    tabs = learningGroupData?.tabs?.tabs;
+  } else {
+    const courseGroupData = CourseGroupContentKind();
+    ({ id, tabs } = courseGroupData);
+  }
+
   const wrapperRef = createRef<HTMLUListElement>();
-  const [selectedTab, setSelectedTab] = useState(tabsToRender[0]);
+  const [selectedTab, setSelectedTab] = useState<ContentTabType | undefined>(undefined);
   const [mobileSelect, setMobileSelect] = useState(false);
 
   useOnClickOutside(wrapperRef, () => setMobileSelect(false));
 
-  const handleTabContentToRender = (
-    type: TabType,
-    content: {
-      __typename?: 'CourseTab' | 'LearningPathTab' | undefined;
-      id?: string | undefined;
-      label?: string | undefined;
-      body?: string;
-      tabType?: string | undefined;
-      instructors?: InstructorsFragmentFragment[];
-      products?: ProductsFragmentFragment[];
+  useEffect(() => {
+    if (tabs) {
+      setSelectedTab(tabs[0]);
     }
-  ) => {
-    const courseId = handleFetchData().id;
+  }, [tabs]);
+
+  const handleTabContentToRender = (type: TabType, content: ContentTabType) => {
+    const courseId = id;
 
     const componentsToRender = {
       'free-text': <FreeText body={content.body} />,
@@ -93,7 +77,7 @@ const ContentTabs = (props: ContentTabsProps): JSX.Element => {
 
   return (
     <>
-      {tabsToRender.length > 0 && (
+      {true && selectedTab && tabs && tabs.length > 0 && (
         <div>
           {tabsView && (
             <>
@@ -101,7 +85,7 @@ const ContentTabs = (props: ContentTabsProps): JSX.Element => {
                 className="gap-x-6 border-b border-gray-300 px-8 sm:flex hidden pt-4"
                 role="tablist"
               >
-                {tabsToRender.map(headTab => (
+                {tabs.map((headTab: ContentTabType) => (
                   <li
                     key={headTab.id}
                     className={`pb-4 px-2 border-b-2 ${
@@ -140,7 +124,7 @@ const ContentTabs = (props: ContentTabsProps): JSX.Element => {
                   } absolute bg-gray-50 w-full mt-1 rounded border border-gray-300 pt-2 pb-0 px-2`}
                   ref={wrapperRef}
                 >
-                  {tabsToRender.map(headTab => (
+                  {tabs.map((headTab: ContentTabType) => (
                     <li
                       key={headTab.id}
                       className="pb-3 px-2 flex items-center justify-between cursor-pointer"
@@ -167,7 +151,7 @@ const ContentTabs = (props: ContentTabsProps): JSX.Element => {
           <div className="px-8 pt-8">
             {tabsView ? (
               <>
-                {tabsToRender.map(content => {
+                {tabs.map((content: ContentTabType) => {
                   if (selectedTab.id === content.id) {
                     return (
                       <React.Fragment key={content.id}>
@@ -180,7 +164,7 @@ const ContentTabs = (props: ContentTabsProps): JSX.Element => {
               </>
             ) : (
               <>
-                {tabsToRender.map(content => {
+                {tabs.map((content: ContentTabType) => {
                   return (
                     <div key={content.id} className="mb-10 pb-10 pt-10 border-b border-gray-300">
                       {handleTabContentToRender(content.tabType as TabType, content)}
