@@ -77,7 +77,7 @@ const ContentTabs = (props: ContentTabsProps): JSX.Element => {
 
   return (
     <>
-      {true && selectedTab && tabs && tabs.length > 0 && (
+      {selectedTab && tabs && tabs.length > 0 && (
         <div>
           {tabsView && (
             <>
