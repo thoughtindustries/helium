@@ -4,7 +4,7 @@ jest.mock('../../cli/lib/helpers/translations', () => ({
 }));
 
 jest.mock('../../cli/lib/update-translations.js', () => ({
-  //requireActual prevents mainFunction from being mocked
+  //requireActual prevents updateTranslations function from being mocked
   ...jest.requireActual('../../cli/lib/update-translations.js'),
   findTIInstance: jest.fn()
 }));
