@@ -25,7 +25,6 @@
     "@thoughtindustries/cart": "^1.2.4",
     "@thoughtindustries/catalog": "^1.2.4",
     "@thoughtindustries/content": "^1.2.4",
-    "@thoughtindustries/content-tab": "1.0.0",
     "@thoughtindustries/featured-content": "^1.3.4",
     "@thoughtindustries/helium-server": "^2.4.7",
     "@thoughtindustries/hero": "^1.1.2",
