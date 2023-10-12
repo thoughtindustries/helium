@@ -8,7 +8,6 @@ import {
   GetLearningPathDataQuery
 } from '../src/graphql';
 import { ContentKind } from '../src/graphql/global-types';
-import * as Types from '../src/graphql/global-types';
 
 const mockGetCourseContentFactory = (): GetCourseDataQuery['CourseGroupBySlug'] => ({
   __typename: 'CourseGroup',
@@ -18,7 +17,7 @@ const mockGetCourseContentFactory = (): GetCourseDataQuery['CourseGroupBySlug'] 
       __typename: 'CourseTab',
       id: 'enubzul',
       label: 'Outline',
-      body: undefined,
+      body: '',
       tabType: 'syllabus',
       instructors: [],
       products: []
@@ -36,7 +35,7 @@ const mockGetCourseContentFactory = (): GetCourseDataQuery['CourseGroupBySlug'] 
       __typename: 'CourseTab',
       id: '1vo0oph',
       label: 'Instructor Title',
-      body: undefined,
+      body: '',
       tabType: 'instructors',
       instructors: [
         {
@@ -53,7 +52,7 @@ const mockGetCourseContentFactory = (): GetCourseDataQuery['CourseGroupBySlug'] 
       __typename: 'CourseTab',
       id: 'gk3rh5b',
       label: 'Testimonials',
-      body: undefined,
+      body: '',
       tabType: 'testimonials',
       instructors: [],
       products: []
@@ -62,7 +61,7 @@ const mockGetCourseContentFactory = (): GetCourseDataQuery['CourseGroupBySlug'] 
       __typename: 'CourseTab',
       id: 'xsvvcq3',
       label: 'Products',
-      body: undefined,
+      body: '',
       tabType: 'products',
       instructors: [],
       products: [
@@ -73,7 +72,7 @@ const mockGetCourseContentFactory = (): GetCourseDataQuery['CourseGroupBySlug'] 
             'https://d36ai2hkxl16us.cloudfront.net/thoughtindustries/image/upload/q_100,a_exif,c_crop,x_73,y_74,w_584,h_584/v1/course-uploads/71dba74a-e335-4c35-a04b-18ab05fa436a/t8teq5t3aywo-ScreenShot2023-10-03at8.06.36AM.png',
           name: 'Cookbook 2',
           priceInCents: 4800,
-          alternativePricingRef: undefined
+          alternativePricingRef: 0
         },
         {
           __typename: 'Product',
@@ -82,7 +81,7 @@ const mockGetCourseContentFactory = (): GetCourseDataQuery['CourseGroupBySlug'] 
             'https://d36ai2hkxl16us.cloudfront.net/thoughtindustries/image/upload/q_100,a_exif,c_crop,x_73,y_74,w_584,h_584/v1/course-uploads/71dba74a-e335-4c35-a04b-18ab05fa436a/qlfn0l0542am-ScreenShot2023-10-03at8.06.36AM.png',
           name: 'Cookbook',
           priceInCents: 4800,
-          alternativePricingRef: undefined
+          alternativePricingRef: 0
         }
       ]
     }
@@ -123,7 +122,7 @@ const mockGetLearningPathContentFactory = (): GetLearningPathDataQuery['Learning
         __typename: 'LearningPathTab',
         id: 'a5tw8xt',
         label: 'Products Tab Title',
-        body: undefined,
+        body: '',
         tabType: 'products',
         instructors: [],
         products: [
@@ -134,7 +133,7 @@ const mockGetLearningPathContentFactory = (): GetLearningPathDataQuery['Learning
               'https://d36ai2hkxl16us.cloudfront.net/thoughtindustries/image/upload/q_100,a_exif,c_crop,x_73,y_74,w_584,h_584/v1/course-uploads/71dba74a-e335-4c35-a04b-18ab05fa436a/qlfn0l0542am-ScreenShot2023-10-03at8.06.36AM.png',
             name: 'Cookbook',
             priceInCents: 4800,
-            alternativePricingRef: undefined
+            alternativePricingRef: 0
           }
         ]
       },
@@ -142,12 +141,12 @@ const mockGetLearningPathContentFactory = (): GetLearningPathDataQuery['Learning
         __typename: 'LearningPathTab',
         id: 'dgq1k1c',
         label: 'Instructors',
-        body: undefined,
+        body: '',
         tabType: 'instructors',
         instructors: [
           {
             __typename: 'Instructor',
-            asset: undefined,
+            asset: '',
             bio: '<p>Jack is a great teacher!!</p>',
             fullName: 'Jack Antico'
           }
