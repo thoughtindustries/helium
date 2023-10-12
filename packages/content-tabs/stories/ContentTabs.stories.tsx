@@ -9,7 +9,7 @@ import {
 } from '../src/graphql';
 import { ContentKind } from '../src/graphql/global-types';
 
-const mockGetCourseContentFactory = (): GetCourseDataQuery['CourseGroupBySlug'] => ({
+export const MockGetCourseContentFactory = (): GetCourseDataQuery['CourseGroupBySlug'] => ({
   __typename: 'CourseGroup',
   id: '6648119f-9628-4c73-a45a-873c8ae2cda9',
   tabs: [
@@ -97,65 +97,66 @@ const mockGetCourseResults = ({ slug }: { slug: string }) => ({
   },
   result: {
     data: {
-      CourseGroupBySlug: mockGetCourseContentFactory()
+      CourseGroupBySlug: MockGetCourseContentFactory()
     }
   }
 });
 
-const mockGetLearningPathContentFactory = (): GetLearningPathDataQuery['LearningPathBySlug'] => ({
-  __typename: 'LearningPath',
-  id: '59f09b0f-0e92-4d7f-844a-97b29a756a96',
-  name: 'Example Learning Path',
-  tabs: {
-    __typename: 'LearningPathTabs',
-    tabs: [
-      {
-        __typename: 'LearningPathTab',
-        id: 'wv7xy3d',
-        label: 'Free Text Example',
-        body: '<p>This is a free text tab blah blah blah</p><ul><li>list 1</li><li>list 2</li><li>list 3</li></ul>\n<p><em>this is italic text</em><br></p>',
-        tabType: 'free-text',
-        instructors: [],
-        products: []
-      },
-      {
-        __typename: 'LearningPathTab',
-        id: 'a5tw8xt',
-        label: 'Products Tab Title',
-        body: '',
-        tabType: 'products',
-        instructors: [],
-        products: [
-          {
-            __typename: 'Product',
-            id: '29460563-b53a-4524-8c99-a876b20e2cd2',
-            asset:
-              'https://d36ai2hkxl16us.cloudfront.net/thoughtindustries/image/upload/q_100,a_exif,c_crop,x_73,y_74,w_584,h_584/v1/course-uploads/71dba74a-e335-4c35-a04b-18ab05fa436a/qlfn0l0542am-ScreenShot2023-10-03at8.06.36AM.png',
-            name: 'Cookbook',
-            priceInCents: 4800,
-            alternativePricingRef: 0
-          }
-        ]
-      },
-      {
-        __typename: 'LearningPathTab',
-        id: 'dgq1k1c',
-        label: 'Instructors',
-        body: '',
-        tabType: 'instructors',
-        instructors: [
-          {
-            __typename: 'Instructor',
-            asset: '',
-            bio: '<p>Jack is a great teacher!!</p>',
-            fullName: 'Jack Antico'
-          }
-        ],
-        products: []
-      }
-    ]
-  }
-});
+export const MockGetLearningPathContentFactory =
+  (): GetLearningPathDataQuery['LearningPathBySlug'] => ({
+    __typename: 'LearningPath',
+    id: '59f09b0f-0e92-4d7f-844a-97b29a756a96',
+    name: 'Example Learning Path',
+    tabs: {
+      __typename: 'LearningPathTabs',
+      tabs: [
+        {
+          __typename: 'LearningPathTab',
+          id: 'wv7xy3d',
+          label: 'Free Text Example',
+          body: '<p>This is a free text tab blah blah blah</p><ul><li>list 1</li><li>list 2</li><li>list 3</li></ul>\n<p><em>this is italic text</em><br></p>',
+          tabType: 'free-text',
+          instructors: [],
+          products: []
+        },
+        {
+          __typename: 'LearningPathTab',
+          id: 'a5tw8xt',
+          label: 'Products Tab Title',
+          body: '',
+          tabType: 'products',
+          instructors: [],
+          products: [
+            {
+              __typename: 'Product',
+              id: '29460563-b53a-4524-8c99-a876b20e2cd2',
+              asset:
+                'https://d36ai2hkxl16us.cloudfront.net/thoughtindustries/image/upload/q_100,a_exif,c_crop,x_73,y_74,w_584,h_584/v1/course-uploads/71dba74a-e335-4c35-a04b-18ab05fa436a/qlfn0l0542am-ScreenShot2023-10-03at8.06.36AM.png',
+              name: 'Cookbook',
+              priceInCents: 4800,
+              alternativePricingRef: 0
+            }
+          ]
+        },
+        {
+          __typename: 'LearningPathTab',
+          id: 'dgq1k1c',
+          label: 'Instructors',
+          body: '',
+          tabType: 'instructors',
+          instructors: [
+            {
+              __typename: 'Instructor',
+              asset: '',
+              bio: '<p>Jack is a great teacher!!</p>',
+              fullName: 'Jack Antico'
+            }
+          ],
+          products: []
+        }
+      ]
+    }
+  });
 
 const mockGetLearningPathResults = ({ slug }: { slug: string }) => ({
   request: {
@@ -166,7 +167,7 @@ const mockGetLearningPathResults = ({ slug }: { slug: string }) => ({
   },
   result: {
     data: {
-      LearningPathBySlug: mockGetLearningPathContentFactory()
+      LearningPathBySlug: MockGetLearningPathContentFactory()
     }
   }
 });
