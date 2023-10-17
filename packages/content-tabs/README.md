@@ -1,15 +1,15 @@
-# `@thoughtindustries/header`
+# `@thoughtindustries/content-tabs`
 
-> The Header displays a user-provided title, commonly used above another component.
+> ContentTabs component displays a set of tabs and their corresponding content. The component allows users to navigate between different sections of content using the provided tabs.
 
 ## Import component
 
 ```
-import { Header } from '@thoughtindustries/header';
+import { ContentTabs } from '@thoughtindustries/content-tabs';
 ```
 
 ## Usage
 
 ```
-<Header title="Dolor Nullam Mattis Sem" />
+ <ContentTabs tabsView={true} slug="course-example" contentKind={ContentKind.Course} />
 ```

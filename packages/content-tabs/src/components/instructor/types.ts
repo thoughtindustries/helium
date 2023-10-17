@@ -6,5 +6,6 @@ export type InstructorType = {
 };
 
 export type InstructorProps = {
+  /** array containing instructors to show */
   instructors: InstructorType[] | undefined;
 };
