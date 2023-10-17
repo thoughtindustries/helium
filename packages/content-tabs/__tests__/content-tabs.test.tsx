@@ -2,12 +2,17 @@ import React from 'react';
 import { render, screen } from '@testing-library/react';
 import { MockedProvider } from '@apollo/client/testing';
 import { ContentTabs } from '../src';
-import { GetCourseDataDocument, GetLearningPathDataDocument } from '../src/graphql';
+import {
+  GetCourseDataDocument,
+  GetLearningPathDataDocument,
+  CourseGroupTestimonialsDocument
+} from '../src/graphql';
 import { ContentKind } from '../src/graphql/global-types';
 import {
   MockGetCourseContentFactory,
-  MockGetLearningPathContentFactory
-} from '../stories/ContentTabs.stories';
+  MockGetLearningPathContentFactory,
+  MockedGetTestimonialsContentFactory
+} from '../src/factory';
 
 Object.defineProperty(window, 'matchMedia', {
   writable: true,
@@ -45,11 +50,26 @@ const mockApolloLearningPathResults = {
   }
 };
 
+const mockApolloCourseGroupTestimonialsResults = {
+  request: {
+    query: CourseGroupTestimonialsDocument,
+    variables: {
+      id: '6648119f-9628-4c73-a45a-873c8ae2cda9'
+    }
+  },
+  result: {
+    data: { CourseGroupTestimonials: MockedGetTestimonialsContentFactory() }
+  }
+};
+
 describe('@thoughtindustries/content-tabs', () => {
   describe('Content Tabs', () => {
     it('should render content-tabs component with Course content', async () => {
       const { container } = render(
-        <MockedProvider mocks={[mockApolloCourseResults]} addTypename={false}>
+        <MockedProvider
+          mocks={[mockApolloCourseResults, mockApolloCourseGroupTestimonialsResults]}
+          addTypename={false}
+        >
           <ContentTabs tabsView={true} contentKind={ContentKind.Course} slug="course-example" />
         </MockedProvider>
       );
@@ -228,7 +248,10 @@ describe('@thoughtindustries/content-tabs', () => {
 
     it('should render content-tabs component with Course content without Tabs', async () => {
       const { container } = render(
-        <MockedProvider mocks={[mockApolloCourseResults]} addTypename={false}>
+        <MockedProvider
+          mocks={[mockApolloCourseResults, mockApolloCourseGroupTestimonialsResults]}
+          addTypename={false}
+        >
           <ContentTabs tabsView={false} contentKind={ContentKind.Course} slug="course-example" />
         </MockedProvider>
       );
@@ -395,7 +418,10 @@ describe('@thoughtindustries/content-tabs', () => {
 
     it('should render content-tabs component with Learning Path content', async () => {
       const { container } = render(
-        <MockedProvider mocks={[mockApolloLearningPathResults]} addTypename={false}>
+        <MockedProvider
+          mocks={[mockApolloLearningPathResults, mockApolloCourseGroupTestimonialsResults]}
+          addTypename={false}
+        >
           <ContentTabs
             tabsView={true}
             contentKind={ContentKind.LearningPath}

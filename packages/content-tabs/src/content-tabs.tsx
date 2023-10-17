@@ -59,7 +59,7 @@ const ContentTabs = (props: ContentTabsProps): JSX.Element => {
     if (tabs) {
       setSelectedTab(tabs[0]);
     }
-  }, [selectedTab, tabs]);
+  }, [tabs]);
 
   const handleTabContentToRender = (type: TabType, content: ContentTabType) => {
     const componentsToRender = {
