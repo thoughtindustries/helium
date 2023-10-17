@@ -8,6 +8,10 @@ import {
   GetLearningPathDataQuery
 } from '../src/graphql';
 import { ContentKind } from '../src/graphql/global-types';
+import {
+  CourseGroupTestimonialsDocument,
+  CourseGroupTestimonialsQuery
+} from '../src/graphql/queries/CourseGroupTestimonials.generated';
 
 export const MockGetCourseContentFactory = (): GetCourseDataQuery['CourseGroupBySlug'] => ({
   __typename: 'CourseGroup',
@@ -172,6 +176,128 @@ const mockGetLearningPathResults = ({ slug }: { slug: string }) => ({
   }
 });
 
+const MockedGetTestimonialsContentFactory =
+  (): CourseGroupTestimonialsQuery['CourseGroupTestimonials'] => [
+    {
+      __typename: 'Testimonial',
+      id: '4724501b-68aa-4116-9c77-27964eed6c270',
+      createdAt: '2023-10-02T15:38:47.369Z',
+      user: {
+        __typename: 'User',
+        name: 'GRANT Antico7',
+        asset:
+          'https://d36ai2hkxl16us.cloudfront.net/thoughtindustries/image/upload/q_100,a_exif,c_crop,x_64,y_42,w_339,h_339/v1/course-uploads/71dba74a-e335-4c35-a04b-18ab05fa436a/nkc8erqyn1ow-ScreenShot2023-10-02at11.40.34AM.png'
+      },
+      body: "estimated 200 charecters. I love this course so much it's so good! blah blah blah",
+      rating: 80
+    },
+    {
+      __typename: 'Testimonial',
+      id: '4724501b-68aa-4116-9c77-27964eed6c271',
+      createdAt: '2023-10-02T15:38:47.369Z',
+      user: {
+        __typename: 'User',
+        name: 'GRANT Antico7',
+        asset:
+          'https://d36ai2hkxl16us.cloudfront.net/thoughtindustries/image/upload/q_100,a_exif,c_crop,x_64,y_42,w_339,h_339/v1/course-uploads/71dba74a-e335-4c35-a04b-18ab05fa436a/nkc8erqyn1ow-ScreenShot2023-10-02at11.40.34AM.png'
+      },
+      body: "estimated 200 charecters. I love this course so much it's so good! blah blah blah",
+      rating: 40
+    },
+    {
+      __typename: 'Testimonial',
+      id: '4724501b-68aa-4116-9c77-27964eed6c272',
+      createdAt: '2023-10-02T15:38:47.369Z',
+      user: {
+        __typename: 'User',
+        name: 'GRANT Antico7',
+        asset:
+          'https://d36ai2hkxl16us.cloudfront.net/thoughtindustries/image/upload/q_100,a_exif,c_crop,x_64,y_42,w_339,h_339/v1/course-uploads/71dba74a-e335-4c35-a04b-18ab05fa436a/nkc8erqyn1ow-ScreenShot2023-10-02at11.40.34AM.png'
+      },
+      body: "estimated 200 charecters. I love this course so much it's so good! blah blah blah",
+      rating: 20
+    },
+    {
+      __typename: 'Testimonial',
+      id: '4724501b-68aa-4116-9c77-27964eed6c273',
+      createdAt: '2023-10-02T15:38:47.369Z',
+      user: {
+        __typename: 'User',
+        name: 'GRANT Antico7',
+        asset:
+          'https://d36ai2hkxl16us.cloudfront.net/thoughtindustries/image/upload/q_100,a_exif,c_crop,x_64,y_42,w_339,h_339/v1/course-uploads/71dba74a-e335-4c35-a04b-18ab05fa436a/nkc8erqyn1ow-ScreenShot2023-10-02at11.40.34AM.png'
+      },
+      body: "estimated 200 charecters. I love this course so much it's so good! blah blah blah",
+      rating: 20
+    },
+    {
+      __typename: 'Testimonial',
+      id: '4724501b-68aa-4116-9c77-27964eed6c274',
+      createdAt: '2023-10-02T15:38:47.369Z',
+      user: {
+        __typename: 'User',
+        name: 'GRANT Antico7',
+        asset:
+          'https://d36ai2hkxl16us.cloudfront.net/thoughtindustries/image/upload/q_100,a_exif,c_crop,x_64,y_42,w_339,h_339/v1/course-uploads/71dba74a-e335-4c35-a04b-18ab05fa436a/nkc8erqyn1ow-ScreenShot2023-10-02at11.40.34AM.png'
+      },
+      body: "estimated 200 charecters. I love this course so much it's so good! blah blah blah",
+      rating: 20
+    },
+    {
+      __typename: 'Testimonial',
+      id: '4724501b-68aa-4116-9c77-27964eed6c275',
+      createdAt: '2023-10-02T15:38:47.369Z',
+      user: {
+        __typename: 'User',
+        name: 'GRANT Antico7',
+        asset:
+          'https://d36ai2hkxl16us.cloudfront.net/thoughtindustries/image/upload/q_100,a_exif,c_crop,x_64,y_42,w_339,h_339/v1/course-uploads/71dba74a-e335-4c35-a04b-18ab05fa436a/nkc8erqyn1ow-ScreenShot2023-10-02at11.40.34AM.png'
+      },
+      body: "estimated 200 charecters. I love this course so much it's so good! blah blah blah",
+      rating: 40
+    },
+    {
+      __typename: 'Testimonial',
+      id: '4724501b-68aa-4116-9c77-27964eed6c276',
+      createdAt: '2023-10-02T15:38:47.369Z',
+      user: {
+        __typename: 'User',
+        name: 'GRANT Antico7',
+        asset:
+          'https://d36ai2hkxl16us.cloudfront.net/thoughtindustries/image/upload/q_100,a_exif,c_crop,x_64,y_42,w_339,h_339/v1/course-uploads/71dba74a-e335-4c35-a04b-18ab05fa436a/nkc8erqyn1ow-ScreenShot2023-10-02at11.40.34AM.png'
+      },
+      body: "estimated 200 charecters. I love this course so much it's so good! blah blah blah",
+      rating: 80
+    },
+    {
+      __typename: 'Testimonial',
+      id: '4724501b-68aa-4116-9c77-27964eed6c277',
+      createdAt: '2023-10-02T15:38:47.369Z',
+      user: {
+        __typename: 'User',
+        name: 'GRANT Antico7',
+        asset:
+          'https://d36ai2hkxl16us.cloudfront.net/thoughtindustries/image/upload/q_100,a_exif,c_crop,x_64,y_42,w_339,h_339/v1/course-uploads/71dba74a-e335-4c35-a04b-18ab05fa436a/nkc8erqyn1ow-ScreenShot2023-10-02at11.40.34AM.png'
+      },
+      body: "estimated 200 charecters. I love this course so much it's so good! blah blah blah",
+      rating: 100
+    }
+  ];
+
+const mockGetTestimonialsResults = ({ id }: { id: string }) => ({
+  request: {
+    query: CourseGroupTestimonialsDocument,
+    variables: {
+      id
+    }
+  },
+  result: {
+    data: {
+      CourseGroupTestimonials: MockedGetTestimonialsContentFactory()
+    }
+  }
+});
+
 const meta: Meta<ContentTabsProps> = {
   component: ContentTabs,
   title: 'Packages/Content Tabs'
@@ -182,7 +308,8 @@ type ContentTabs = StoryObj<ContentTabsProps>;
 
 const mockApolloResults = [
   mockGetCourseResults({ slug: 'course-example' }),
-  mockGetLearningPathResults({ slug: 'example-learning-path' })
+  mockGetLearningPathResults({ slug: 'example-learning-path' }),
+  mockGetTestimonialsResults({ id: '6648119f-9628-4c73-a45a-873c8ae2cda9' })
 ];
 export const Base: ContentTabs = {
   render: args => <ContentTabs {...args} />,
@@ -190,6 +317,16 @@ export const Base: ContentTabs = {
     tabsView: true,
     slug: 'course-example',
     contentKind: ContentKind.Course
+  },
+  argTypes: {
+    contentKind: {
+      options: [ContentKind.Course, ContentKind.LearningPath],
+      control: { type: 'select' }
+    },
+    slug: {
+      options: ['course-example', 'example-learning-path'],
+      control: { type: 'select' }
+    }
   },
   parameters: {
     apolloClient: {
