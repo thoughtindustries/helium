@@ -42,7 +42,7 @@ export const MockGetCourseContentFactory = (): GetCourseDataQuery['CourseGroupBy
           __typename: 'Instructor',
           asset:
             'https://d36ai2hkxl16us.cloudfront.net/thoughtindustries/image/upload/q_100,a_exif,c_crop,x_62,y_60,w_278,h_278/v1/course-uploads/71dba74a-e335-4c35-a04b-18ab05fa436a/varidc515546-ScreenShot2023-08-29at1.54.59PM.png',
-          bio: '<p>Lelsie holds a Bachelor of Science degree in communciation from James Madision Univerisity... blah blah blah blah blah&nbsp;blah blah blah blah blah&nbsp;blah blah blah blah blah&nbsp;blah blah blah blah blah&nbsp;blah blah blah blah blah&nbsp;blah blah blah blah blah&nbsp;blah blah blah blah blah&nbsp;</p>',
+          bio: '<p>Lelsie holds a Bachelor of Science degree in communciation from James Madision Univerisity... blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah</p>',
           fullName: 'James Bond'
         }
       ],

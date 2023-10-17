@@ -1,13 +1,12 @@
 import React, { createRef, useEffect, useState } from 'react';
-import { ContentTabType, ContentTabsProps, TabType } from './types';
+import { ContentTabsProps, ContentTabType, TabType } from './types';
 import { useOnClickOutside } from '@thoughtindustries/hooks';
 import { ArrowDownIcon, CheckIcon } from './icons';
-import { useGetCourseDataQuery } from './graphql/queries/GetCourseData.generated';
+import { useGetCourseDataQuery, useGetLearningPathDataQuery } from './graphql';
 import { FreeText } from './components/free-text';
 import { Instructor } from './components/instructor';
 import { Product } from './components/product';
 import { Testimonial } from './components/testimonial';
-import { useGetLearningPathDataQuery } from './graphql/queries/GetLearningPathData.generated';
 
 const ContentTabs = (props: ContentTabsProps): JSX.Element => {
   const { tabsView, slug, contentKind } = props;
@@ -60,15 +59,13 @@ const ContentTabs = (props: ContentTabsProps): JSX.Element => {
     if (tabs) {
       setSelectedTab(tabs[0]);
     }
-  }, [tabs]);
+  }, [selectedTab, tabs]);
 
   const handleTabContentToRender = (type: TabType, content: ContentTabType) => {
-    const courseId = id;
-
     const componentsToRender = {
       'free-text': <FreeText body={content.body} />,
       instructors: <Instructor instructors={content.instructors} />,
-      testimonials: <Testimonial id={courseId || ''} />,
+      testimonials: <Testimonial id={id || ''} />,
       products: <Product products={content.products} />
     };
 
@@ -78,7 +75,7 @@ const ContentTabs = (props: ContentTabsProps): JSX.Element => {
   return (
     <>
       {selectedTab && tabs && tabs.length > 0 && (
-        <div>
+        <div data-testid="content-tabs">
           {tabsView && (
             <>
               <ul
