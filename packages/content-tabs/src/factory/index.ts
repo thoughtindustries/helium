@@ -37,7 +37,7 @@ export const MockGetCourseContentFactory = (): GetCourseDataQuery['CourseGroupBy
           __typename: 'Instructor',
           asset:
             'https://d36ai2hkxl16us.cloudfront.net/thoughtindustries/image/upload/q_100,a_exif,c_crop,x_62,y_60,w_278,h_278/v1/course-uploads/71dba74a-e335-4c35-a04b-18ab05fa436a/varidc515546-ScreenShot2023-08-29at1.54.59PM.png',
-          bio: '<p>Lelsie holds a Bachelor of Science degree in communciation from James Madision Univerisity... blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah</p>',
+          bio: '<p>Lelsie holds a Bachelor of Science degree in communciation from James Madision Univerisity...</p>',
           fullName: 'James Bond'
         }
       ],
@@ -95,7 +95,7 @@ export const MockGetLearningPathContentFactory =
           __typename: 'LearningPathTab',
           id: 'wv7xy3d',
           label: 'Free Text Example',
-          body: '<p>This is a free text tab blah blah blah</p><ul><li>list 1</li><li>list 2</li><li>list 3</li></ul>\n<p><em>this is italic text</em><br></p>',
+          body: '<p>This is a free text tab</p><ul><li>list 1</li><li>list 2</li><li>list 3</li></ul>\n<p><em>this is italic text</em><br></p>',
           tabType: 'free-text',
           instructors: [],
           products: []
@@ -151,7 +151,7 @@ export const MockedGetTestimonialsContentFactory =
         asset:
           'https://d36ai2hkxl16us.cloudfront.net/thoughtindustries/image/upload/q_100,a_exif,c_crop,x_64,y_42,w_339,h_339/v1/course-uploads/71dba74a-e335-4c35-a04b-18ab05fa436a/nkc8erqyn1ow-ScreenShot2023-10-02at11.40.34AM.png'
       },
-      body: "estimated 200 charecters. I love this course so much it's so good! blah blah blah",
+      body: "estimated 200 charecters. I love this course so much it's so good!",
       rating: 80
     },
     {
@@ -164,7 +164,7 @@ export const MockedGetTestimonialsContentFactory =
         asset:
           'https://d36ai2hkxl16us.cloudfront.net/thoughtindustries/image/upload/q_100,a_exif,c_crop,x_64,y_42,w_339,h_339/v1/course-uploads/71dba74a-e335-4c35-a04b-18ab05fa436a/nkc8erqyn1ow-ScreenShot2023-10-02at11.40.34AM.png'
       },
-      body: "estimated 200 charecters. I love this course so much it's so good! blah blah blah",
+      body: "estimated 200 charecters. I love this course so much it's so good!",
       rating: 40
     },
     {
@@ -177,7 +177,7 @@ export const MockedGetTestimonialsContentFactory =
         asset:
           'https://d36ai2hkxl16us.cloudfront.net/thoughtindustries/image/upload/q_100,a_exif,c_crop,x_64,y_42,w_339,h_339/v1/course-uploads/71dba74a-e335-4c35-a04b-18ab05fa436a/nkc8erqyn1ow-ScreenShot2023-10-02at11.40.34AM.png'
       },
-      body: "estimated 200 charecters. I love this course so much it's so good! blah blah blah",
+      body: "estimated 200 charecters. I love this course so much it's so good!",
       rating: 20
     },
     {
@@ -190,7 +190,7 @@ export const MockedGetTestimonialsContentFactory =
         asset:
           'https://d36ai2hkxl16us.cloudfront.net/thoughtindustries/image/upload/q_100,a_exif,c_crop,x_64,y_42,w_339,h_339/v1/course-uploads/71dba74a-e335-4c35-a04b-18ab05fa436a/nkc8erqyn1ow-ScreenShot2023-10-02at11.40.34AM.png'
       },
-      body: "estimated 200 charecters. I love this course so much it's so good! blah blah blah",
+      body: "estimated 200 charecters. I love this course so much it's so good!",
       rating: 20
     },
     {
@@ -203,7 +203,7 @@ export const MockedGetTestimonialsContentFactory =
         asset:
           'https://d36ai2hkxl16us.cloudfront.net/thoughtindustries/image/upload/q_100,a_exif,c_crop,x_64,y_42,w_339,h_339/v1/course-uploads/71dba74a-e335-4c35-a04b-18ab05fa436a/nkc8erqyn1ow-ScreenShot2023-10-02at11.40.34AM.png'
       },
-      body: "estimated 200 charecters. I love this course so much it's so good! blah blah blah",
+      body: "estimated 200 charecters. I love this course so much it's so good!",
       rating: 20
     },
     {
@@ -216,7 +216,7 @@ export const MockedGetTestimonialsContentFactory =
         asset:
           'https://d36ai2hkxl16us.cloudfront.net/thoughtindustries/image/upload/q_100,a_exif,c_crop,x_64,y_42,w_339,h_339/v1/course-uploads/71dba74a-e335-4c35-a04b-18ab05fa436a/nkc8erqyn1ow-ScreenShot2023-10-02at11.40.34AM.png'
       },
-      body: "estimated 200 charecters. I love this course so much it's so good! blah blah blah",
+      body: "estimated 200 charecters. I love this course so much it's so good!",
       rating: 40
     },
     {
@@ -229,7 +229,7 @@ export const MockedGetTestimonialsContentFactory =
         asset:
           'https://d36ai2hkxl16us.cloudfront.net/thoughtindustries/image/upload/q_100,a_exif,c_crop,x_64,y_42,w_339,h_339/v1/course-uploads/71dba74a-e335-4c35-a04b-18ab05fa436a/nkc8erqyn1ow-ScreenShot2023-10-02at11.40.34AM.png'
       },
-      body: "estimated 200 charecters. I love this course so much it's so good! blah blah blah",
+      body: "estimated 200 charecters. I love this course so much it's so good!",
       rating: 80
     },
     {
@@ -242,7 +242,7 @@ export const MockedGetTestimonialsContentFactory =
         asset:
           'https://d36ai2hkxl16us.cloudfront.net/thoughtindustries/image/upload/q_100,a_exif,c_crop,x_64,y_42,w_339,h_339/v1/course-uploads/71dba74a-e335-4c35-a04b-18ab05fa436a/nkc8erqyn1ow-ScreenShot2023-10-02at11.40.34AM.png'
       },
-      body: "estimated 200 charecters. I love this course so much it's so good! blah blah blah",
+      body: "estimated 200 charecters. I love this course so much it's so good!",
       rating: 100
     }
   ];

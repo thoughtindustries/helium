@@ -322,7 +322,7 @@ describe('@thoughtindustries/content-tabs', () => {
                         class="max-w-screen-lg font-normal text-base leading-7 text-gray-500"
                       >
                         <p>
-                          Lelsie holds a Bachelor of Science degree in communciation from James Madision Univerisity... blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah
+                          Lelsie holds a Bachelor of Science degree in communciation from James Madision Univerisity...
                         </p>
                       </div>
                     </div>
@@ -558,7 +558,7 @@ describe('@thoughtindustries/content-tabs', () => {
             >
               <div>
                 <p>
-                  This is a free text tab blah blah blah
+                  This is a free text tab
                 </p>
                 <ul>
                   <li>
@@ -611,7 +611,7 @@ describe('@thoughtindustries/content-tabs', () => {
               >
                 <div>
                   <p>
-                    This is a free text tab blah blah blah
+                    This is a free text tab
                   </p>
                   <ul>
                     <li>
