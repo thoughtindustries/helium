@@ -83,17 +83,15 @@ export const Base: ContentHeader = {
     }
   },
   argTypes: {
-    contentKind: 'course',
     slug: {
       options: ['test-course', 'test-learning-path'],
-      control: { type: 'select' },
-      //use table to set default value for select
-      table: {
-        type: { summary: 'select' },
-        defaultValue: { summary: 'test-course' }
-      }
+      control: { type: 'select' }
     },
     showStars: true,
     showImage: true
+  },
+  args: {
+    contentKind: 'course',
+    slug: 'test-course'
   }
 };
