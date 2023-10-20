@@ -10,7 +10,8 @@ import { Testimonial } from './components/testimonial';
 
 const ContentTabs = (props: ContentTabsProps): JSX.Element => {
   const { tabsView, slug, contentKind } = props;
-  let id: string | undefined, tabs: ContentTabType[] | undefined;
+  let id: string | undefined;
+  let tabs: ContentTabType[] | undefined;
 
   function CourseGroupContentKind() {
     const { data, error } = useGetCourseDataQuery({
