@@ -10,6 +10,22 @@ import { ContentTabs } from '@thoughtindustries/content-tabs';
 
 ## Usage
 
+```tsx
+import { ContentTabs } from '@thoughtindustries/content-tabs';
+
+export function MyComponent() {
+  // ...
+
+  return (
+    <ContentTabs tabsView={true} slug="course-example" contentKind="course" />
+  );
+}
 ```
- <ContentTabs tabsView={true} slug="course-example" contentKind={ContentKind.Course} />
-```
+
+## Props
+
+| Name        | Required | Type                     | Description                                      |
+|-------------|----------|--------------------------|--------------------------------------------------|
+| tabsView    | Yes      | <code>boolean</code>     | Determine whether to show or hide the tabs.      |
+| slug        | Yes      | <code>slug</code>        | The slug of the content that should be displayed. |
+| contentKind | Yes      | <code>ContentKind</code> | The contentKind of the Content, e.g., `learningPath`, `course`. |
