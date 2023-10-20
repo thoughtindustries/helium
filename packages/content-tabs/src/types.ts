@@ -1,13 +1,21 @@
 import { InstructorsFragmentFragment, ProductsFragmentFragment } from './graphql';
 import { ContentKind } from './graphql/global-types';
 
+export type PriceFormatFn = (priceInCents: number) => string;
+
 export interface ContentTabsProps {
-  /** Determine whether to show or hide the tabs */
+  /** determine whether to show or hide the tabs */
   tabsView: boolean;
-  /** The slug for the Course Group or Learning Path */
+  /** the slug for the Course Group or Learning Path */
   slug: string;
-  /**  Specifies the type of content to be displayed. It can be set to "course" or "learningPath" */
+  /**  specifies the type of content to be displayed. It can be set to "course" or "learningPath" */
   contentKind: ContentKind.Course | ContentKind.LearningPath;
+  /** optional function for prioritized price formatting */
+  priceFormat?: PriceFormatFn;
+  /** company property to format price */
+  companyDefaultLocale?: string;
+  /** currency code to format price */
+  currencyCode?: string;
 }
 
 export enum TabType {

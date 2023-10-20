@@ -9,7 +9,7 @@ import { Product } from './components/product';
 import { Testimonial } from './components/testimonial';
 
 const ContentTabs = (props: ContentTabsProps): JSX.Element => {
-  const { tabsView, slug, contentKind } = props;
+  const { tabsView, slug, contentKind, priceFormat, companyDefaultLocale, currencyCode } = props;
   let id: string | undefined;
   let tabs: ContentTabType[] | undefined;
 
@@ -62,12 +62,18 @@ const ContentTabs = (props: ContentTabsProps): JSX.Element => {
     }
   }, [tabs]);
 
+  const currencyProps = {
+    priceFormat,
+    companyDefaultLocale,
+    currencyCode
+  };
+
   const handleTabContentToRender = (type: TabType, content: ContentTabType) => {
     const componentsToRender = {
       'free-text': <FreeText body={content.body} />,
       instructors: <Instructor instructors={content.instructors} />,
       testimonials: <Testimonial id={id || ''} />,
-      products: <Product products={content.products} />
+      products: <Product products={content.products} {...currencyProps} />
     };
 
     return componentsToRender[type];

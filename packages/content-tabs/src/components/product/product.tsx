@@ -1,20 +1,21 @@
 import React from 'react';
 import { ProductProps } from './types';
 import { ProductsFragmentFragment } from '../../graphql';
+import { DEFAULT_CURRENCY_CODE, DEFAULT_LOCALE } from '../../constants';
 
 const Product = (props: ProductProps): JSX.Element => {
-  const { products } = props;
+  const { products, priceFormat, companyDefaultLocale, currencyCode } = props;
 
-  const handleFormatPrice = (value: number) => {
-    const resultingPrice = (value / 100).toLocaleString('en-US', {
+  let priceFormatFn = priceFormat;
+  if (!priceFormatFn) {
+    const locale = companyDefaultLocale ?? DEFAULT_LOCALE;
+    const currency = currencyCode ?? DEFAULT_CURRENCY_CODE;
+    const formatter = new Intl.NumberFormat(locale, {
       style: 'currency',
-      currency: 'USD',
-      minimumFractionDigits: 2,
-      maximumFractionDigits: 2
+      currency
     });
-
-    return resultingPrice;
-  };
+    priceFormatFn = (priceInCents: number) => formatter.format(priceInCents / 100);
+  }
 
   return (
     <div className="flex flex-wrap gap-5">
@@ -35,15 +36,15 @@ const Product = (props: ProductProps): JSX.Element => {
                 {product.alternativePricingRef ? (
                   <div>
                     <span className="font-normal text-base leading-6 mr-2">
-                      {handleFormatPrice(product.alternativePricingRef as number)}
+                      {priceFormatFn && priceFormatFn(product.alternativePricingRef as number)}
                     </span>
                     <span className="text-gray-500 line-through">
-                      {handleFormatPrice(product.priceInCents as number)}
+                      {priceFormatFn && priceFormatFn(product.priceInCents as number)}
                     </span>
                   </div>
                 ) : (
                   <span className="font-normal text-base leading-6 mr-2">
-                    {handleFormatPrice(product.priceInCents as number)}
+                    {priceFormatFn && priceFormatFn(product.priceInCents as number)}
                   </span>
                 )}
               </div>

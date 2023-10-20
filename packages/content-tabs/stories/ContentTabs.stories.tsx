@@ -70,19 +70,44 @@ export const Base: ContentTabs = {
   args: {
     tabsView: true,
     slug: 'course-example',
-    contentKind: ContentKind.Course
+    contentKind: ContentKind.Course,
+    priceFormat: undefined,
+    companyDefaultLocale: 'us-US',
+    currencyCode: 'USD'
   },
   argTypes: {
+    tabsView: {
+      description: 'Determine whether to show or hide the tabs',
+      control: { type: 'boolean' }
+    },
     contentKind: {
       options: [ContentKind.Course, ContentKind.LearningPath],
-      control: { type: 'select' }
+      control: { type: 'select' },
+      description:
+        'Specifies the type of content to be displayed. It can be set to "course" or "learningPath"'
     },
     slug: {
       options: ['course-example', 'example-learning-path'],
-      control: { type: 'select' }
+      control: { type: 'select' },
+      description: 'The slug for the Course Group or Learning Path'
+    },
+    priceFormat: {
+      description: 'Optional function for prioritized price formatting',
+      control: { type: 'function' }
+    },
+    companyDefaultLocale: {
+      options: ['us-US', 'es-ES', 'es-UY'],
+      control: { type: 'select' },
+      description: 'Company property to format price'
+    },
+    currencyCode: {
+      options: ['USD', 'EUR', 'UYU'],
+      control: { type: 'select' },
+      description: 'Currency code to format price'
     }
   },
   parameters: {
+    controls: { expanded: true },
     apolloClient: {
       mocks: mockApolloResults
     }
