@@ -24,11 +24,11 @@ export function MyComponent() {
 
 ## Props
 
-| Name        | Required      | Type                     | Description                                      |
-|-------------|----------|--------------------------|--------------------------------------------------|
-| tabsView    | Yes      | <code>boolean</code>     | Determine whether to show or hide the tabs.      |
-| slug        | Yes      | <code>slug</code>        | The slug of the content that should be displayed. |
-| contentKind | Yes      | <code>ContentKind</code> | The contentKind of the Content, e.g., `learningPath`, `course`. |
-| priceFormat | No       | <code>function</code>    | Function for prioritized price formatting.     |
-| companyDefaultLocale   | No  | <code>string</code>        | Company property to format price. |
-| currencyCode | No      | <code>string</code> | Currency code to format price |
+| Name                   | Required | Type                     | Description                                                     |
+|------------------------|----------|--------------------------|-----------------------------------------------------------------|
+| tabsView               | Yes      | <code>boolean</code>     | Determine whether to show or hide the tabs.                     |
+| slug                   | Yes      | <code>slug</code>        | The slug of the content that should be displayed.               |
+| contentKind            | Yes      | <code>ContentKind</code> | The contentKind of the Content, e.g., `learningPath`, `course`. |
+| priceFormat            | No       | <code>function</code>    | Function for prioritized price formatting.                      |
+| companyDefaultLocale   | No       | <code>string</code>      | Company property to format price.                               |
+| currencyCode           | No       | <code>string</code>      | Currency code to format price                                   |
