@@ -1,4 +1,4 @@
-import{a as n,j as t,F as x}from"./jsx-runtime-b91f6123.js";import{g as U,u as z,a as S}from"./content-header-ff645187.js";import{L as _}from"./course-run-626bc4d7.js";import{u as H}from"./useTranslation-ee3e1c6a.js";import"./index-64f120e9.js";import"./tslib.es6-14bf6d9f.js";import"./ApolloContext-43df6d1c.js";import"./nonIterableRest-d1264b94.js";const y={},u=U`
+import{a as n,j as t,F as x}from"./jsx-runtime-b91f6123.js";import{g as U,u as z,a as S}from"./content-header-5dd6a3a7.js";import{L as _}from"./course-run-ce009bd6.js";import{u as H}from"./useTranslation-ee3e1c6a.js";import"./index-64f120e9.js";import"./tslib.es6-14bf6d9f.js";import"./ApolloContext-43df6d1c.js";import"./nonIterableRest-d1264b94.js";const y={},u=U`
   query UserStats {
     CurrentUser {
       certificatesCount
@@ -31,4 +31,4 @@ import{a as n,j as t,F as x}from"./jsx-runtime-b91f6123.js";import{g as U,u as z
     }
   }
 }`,...(C=(m=o.parameters)==null?void 0:m.docs)==null?void 0:C.source}}};const F=["Dashboard"];export{o as Dashboard,F as __namedExportsOrder,E as default};
-//# sourceMappingURL=DashboardStats.stories-214f05db.js.map
+//# sourceMappingURL=DashboardStats.stories-6244a3b9.js.map
