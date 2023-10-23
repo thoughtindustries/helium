@@ -1,4 +1,4 @@
-import { ContentKind } from '@thoughtindustries/content/src/graphql/global-types';
+import { ContentKind } from '../../graphql/global-types';
 
 export type ContentHeaderProps = {
   /** Content Kind for content header */
