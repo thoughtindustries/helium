@@ -1,0 +1,17 @@
+query GetCourseData($slug: Slug!) {
+  CourseGroupBySlug(slug: $slug) {
+    id
+    tabs {
+      id
+      label
+      body
+      tabType
+      instructors {
+        ...InstructorsFragment
+      }
+      products {
+        ...ProductsFragment
+      }
+    }
+  }
+}

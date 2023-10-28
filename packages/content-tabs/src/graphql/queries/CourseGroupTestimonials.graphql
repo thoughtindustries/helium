@@ -1,0 +1,11 @@
+query CourseGroupTestimonials($id: UUID!) {
+ CourseGroupTestimonials(id: $id) {
+   id
+   createdAt
+   user {
+     ...UserFragment
+   }
+   body
+   rating
+ }
+}

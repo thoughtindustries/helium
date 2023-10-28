@@ -1,0 +1,5 @@
+fragment InstructorsFragment on Instructor {
+  asset
+  bio
+  fullName
+}

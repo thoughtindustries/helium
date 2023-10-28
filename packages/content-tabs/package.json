@@ -1,0 +1,27 @@
+{
+  "name": "@thoughtindustries/content-tabs",
+  "version": "1.0.0",
+  "description": "A base component for content tabs",
+  "main": "src/index.ts",
+  "files": [
+    "src"
+  ],
+  "devDependencies": {},
+  "scripts": {
+    "generate": "graphql-codegen --config codegen.yml"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/thoughtindustries/helium.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/thoughtindustries/helium/issues"
+  },
+  "homepage": "https://github.com/thoughtindustries/helium#readme",
+  "dependencies": {
+    "@apollo/client": "^3.7.0",
+    "graphql": "^16.6.0"
+  }
+}

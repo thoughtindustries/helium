@@ -1,0 +1,7 @@
+fragment ProductsFragment on Product {
+  id
+  asset
+  name
+  priceInCents
+  alternativePricingRef
+}

@@ -1,0 +1,39 @@
+overwrite: true
+schema: 'https://heliumhackathon11.thoughtindustries.com/helium?apiKey=qft5fqpjny980t09vit74622ad4io16q'
+# # use the local copy of schema introspected from remote schema
+# schema: "graphql.schema.json"
+documents: './src/graphql/**/*.graphql'
+config:
+  avoidOptionals: false
+  maybeValue: T
+  inlineFragmentTypes: 'combine'
+  scalars:
+    Slug: 'string'
+    Date: 'string'
+    JSON: 'any'
+    AbsoluteOrRelativeURL: 'string'
+    HexColor: 'string'
+    RelativeURL: 'string'
+    URL: 'string'
+    UUID: 'string'
+  strictScalars: true
+  omitObjectTypes: false
+  preResolveTypes: true
+generates:
+  # use this to re-generate global types from schema
+  src/graphql/global-types.ts:
+    plugins:
+      - '@thoughtindustries/graphql-codegen-plugin'
+  src/:
+    preset: near-operation-file
+    presetConfig:
+      # use a reduced global types scoped for content
+      baseTypesPath: graphql/global-types.ts
+      extension: .generated.tsx
+    plugins:
+      - 'typescript-operations'
+      - 'typescript-react-apollo'
+  # # use this to re-generate schema from remote schema
+  # ./graphql.schema.json:
+  #   plugins:
+  #     - "introspection"
