@@ -5,5 +5,6 @@ module.exports = {
     './pages/**/*.{js,jsx,ts,tsx}',
     './components/**/*.{js,jsx,ts,tsx}',
     './dist/**/*.{js,jsx,ts,tsx}'
-  ]
+  ],
+  plugins: [require('tw-elements/dist/plugin.cjs')]
 };

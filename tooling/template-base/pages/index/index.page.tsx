@@ -5,9 +5,8 @@ import Footer from '../../components/Footer/Footer';
 import Hero from '../../components/Hero/Hero';
 import CallToActionWithLinks from '../../components/CTA/CallToActionWithLinks';
 import CallToActionParagraphs from '../../components/CTA/CallToActionParagraphs';
-import NavBar from '../../components/Navigation/NavBar';
+// import NavBar from '../../components/Navigation/NavBar';
 import { HydratedContentItem } from '@thoughtindustries/content';
-
 export { Page };
 export { documentProps };
 
@@ -16,10 +15,70 @@ const documentProps = {
   description: 'The home page'
 };
 
+function NavBar() {
+  const [navbarOpen, setNavbarOpen] = React.useState(false);
+  return (
+    <>
+      <nav className="w-0 h-0 relative">
+        <div className="absolute z-10 bg-teal-900 flex-col flex flex-wrap items-start justify-between">
+          <div className="w-full relative flex justify-between lg:w-auto lg:static lg:block lg:justify-start">
+            <button
+              className="text-white hover:bg-teal-900 cursor-pointer text-xl leading-none px-3 py-1 border border-solid border-transparent rounded bg-transparent block outline-none focus:outline-none"
+              type="button"
+              onClick={() => setNavbarOpen(!navbarOpen)}
+            >
+              <div className="w-8 h-8 flex justify-around flex-col">
+                <div className="w-8 h-0.5 bg-white rounded-lg border-white" />
+                <div className="w-8 h-0.5 bg-white rounded-lg border-white" />
+                <div className="w-8 h-0.5 bg-white rounded-lg border-white" />
+              </div>
+            </button>
+          </div>
+          <div
+            className={'flex-grow items-center' + (navbarOpen ? ' flex' : ' hidden')}
+            id="example-navbar-danger"
+          >
+            <ul className="flex flex-col list-none lg:ml-auto">
+              <li className="nav-item">
+                <a
+                  className="px-3 py-2 flex items-center text-lg uppercase font-bold leading-snug text-white hover:opacity-75"
+                  href="#pablo"
+                >
+                  <i className="fab fa-facebook-square text-lg leading-lg text-white opacity-75"></i>
+                  <span className="ml-2">Share</span>
+                </a>
+              </li>
+              <li className="nav-item">
+                <a
+                  className="px-3 py-2 flex items-center text-lg uppercase font-bold leading-snug text-white hover:opacity-75"
+                  href="#pablo"
+                >
+                  <i className="fab fa-twitter text-lg leading-lg text-white opacity-75"></i>
+                  <span className="ml-2">Tweet</span>
+                </a>
+              </li>
+              <li className="nav-item">
+                <a
+                  className="px-3 py-2 flex items-center text-lg uppercase font-bold leading-snug text-white hover:opacity-75"
+                  href="#pablo"
+                >
+                  <i className="fab fa-pinterest text-lg leading-lg text-white opacity-75"></i>
+                  <span className="ml-2">Pin</span>
+                </a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </nav>
+    </>
+  );
+}
+
 function Page() {
   return (
     <>
       <NavBar />
+
       <Hero
         headline="Making Learning Successful"
         body="Learning is a gateway to success. We aim to provide motivational content, strategies and courses to help you become successful and achieve your goals."

@@ -27,6 +27,7 @@ const configPath = path.join(OP_DIR, '/ti-config');
 const config = require(configPath);
 
 const INSTANCE_NAME = process.env.INSTANCE_NAME;
+const DEBUG_BUILD = process.env.DEBUG_BUILD;
 
 const KEY_QUERY = /* GraphQL */ `
   query CompanyDetailsQuery($nickname: String!) {
@@ -92,7 +93,7 @@ class DeploymentError extends Error {
   // build project
   const hasAtoms = await dirHasAtoms(OP_DIR);
   await buildProject(hasAtoms);
-
+  return;
   let atomsScriptHash;
   let atomsStyleHash;
   if (hasAtoms) {
@@ -142,7 +143,12 @@ process.on('message', message => {
 async function buildProject(hasAtoms) {
   return new Promise((resolve, reject) => {
     const exec = childProcess.exec;
-    const buildCommandSuffix = hasAtoms ? 'atoms' : 'vite';
+
+    let buildCommandSuffix = hasAtoms ? 'atoms' : 'vite';
+    if (buildCommandSuffix === 'vite' && DEBUG_BUILD === true) {
+      buildCommandSuffix = 'development';
+    }
+
     const parseProcess = exec(`npm run build:css && npm run build:${buildCommandSuffix}`);
 
     parseProcess.stdout.pipe(process.stdout);
