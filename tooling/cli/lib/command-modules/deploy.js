@@ -13,6 +13,12 @@ exports.builder = cmd => {
       type: 'string',
       describe: 'Nickname of instance to deploy'
     })
+    .option('d', {
+      alias: 'debug',
+      type: 'boolean',
+      describe: 'Build and deploy Development build of application',
+      default: false
+    })
     .option('k', {
       alias: 'insecure',
       type: 'boolean',
@@ -25,6 +31,7 @@ exports.handler = function (argv) {
   const env = {
     ...process.env,
     INSTANCE_NAME: argv.instance,
+    DEBUG_BUILD: argv.debug,
     NODE_TLS_REJECT_UNAUTHORIZED: argv.insecure ? '0' : '1'
   };
 
