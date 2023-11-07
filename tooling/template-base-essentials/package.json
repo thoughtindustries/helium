@@ -11,7 +11,8 @@
     "dev:server": "tsup ./server/index.ts && node ./dist/index.js",
     "build": "npm run build:css && npm run build:vite",
     "build:css": "tailwindcss -o ./renderer/tailwind.css",
-    "build:vite": "vite build"
+    "build:vite": "vite build",
+    "build:development": "vite build --mode development"
   },
   "publishConfig": {
     "access": "public"
