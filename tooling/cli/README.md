@@ -76,6 +76,10 @@ Which instance from your `ti-config.json` file to be used, as noted by the insta
 
 Used when the Thought Industries instance is behind an untrusted SSL certificate (e.g., local development).
 
+`-d`, `-development` (optional)
+
+Used to deploy a Development build of the Helium project to unobfuscate errors.
+
 ### `update-translations`
 
 ```sh

@@ -27,7 +27,7 @@ const configPath = path.join(OP_DIR, '/ti-config');
 const config = require(configPath);
 
 const INSTANCE_NAME = process.env.INSTANCE_NAME;
-const DEBUG_BUILD = process.env.DEBUG_BUILD;
+const DEVELOPMENT_BUILD = process.env.DEVELOPMENT_BUILD;
 
 const KEY_QUERY = /* GraphQL */ `
   query CompanyDetailsQuery($nickname: String!) {
@@ -145,7 +145,7 @@ async function buildProject(hasAtoms) {
     const exec = childProcess.exec;
 
     let buildCommandSuffix = hasAtoms ? 'atoms' : 'vite';
-    if (buildCommandSuffix === 'vite' && !!DEBUG_BUILD) {
+    if (buildCommandSuffix === 'vite' && !!DEVELOPMENT_BUILD) {
       buildCommandSuffix = 'development';
     }
 
