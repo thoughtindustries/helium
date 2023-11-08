@@ -145,7 +145,7 @@ async function buildProject(hasAtoms) {
     const exec = childProcess.exec;
 
     let buildCommandSuffix = hasAtoms ? 'atoms' : 'vite';
-    if (buildCommandSuffix === 'vite' && !!DEVELOPMENT_BUILD) {
+    if (buildCommandSuffix === 'vite' && String(DEVELOPMENT_BUILD) === 'true') {
       buildCommandSuffix = 'development';
     }
 
