@@ -3,6 +3,23 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [2.1.0-alpha.2](https://github.com/thoughtindustries/helium/compare/@thoughtindustries/helium@2.0.1...@thoughtindustries/helium@2.1.0-alpha.2) (2023-11-09)
+
+
+### Bug Fixes
+
+* fix check where development build env var assigned as string ([#232](https://github.com/thoughtindustries/helium/issues/232)) ([d58f2e5](https://github.com/thoughtindustries/helium/commit/d58f2e5863b85813637be4a8195fab303d3918d0))
+* temporarily rename env files when using development build commands ([#233](https://github.com/thoughtindustries/helium/issues/233)) ([493b1ba](https://github.com/thoughtindustries/helium/commit/493b1bae356ad666655bb15bb34fa0e3caab5358))
+
+
+### Features
+
+* allow deployment of development builds ([#231](https://github.com/thoughtindustries/helium/issues/231)) ([ed06e65](https://github.com/thoughtindustries/helium/commit/ed06e65bd62b964f002bed03295ca6a6fcfbb5f9))
+
+
+
+
+
 # [2.1.0-alpha.1](https://github.com/thoughtindustries/helium/compare/@thoughtindustries/helium@2.0.1...@thoughtindustries/helium@2.1.0-alpha.1) (2023-11-08)
 
 

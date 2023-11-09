@@ -1,6 +1,6 @@
 {
   "name": "@thoughtindustries/helium",
-  "version": "2.1.0-alpha.1",
+  "version": "2.1.0-alpha.2",
   "description": "The Helium CLI",
   "main": "lib/index.js",
   "scripts": {
