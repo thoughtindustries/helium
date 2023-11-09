@@ -174,7 +174,7 @@ async function swapEnvFiles(target, source, newFilePath) {
 
   if (hasTarget && hasSource) {
     const newPath = path.join(OP_DIR, newFilePath);
-    await rename(target, newPath);
+    await rename(targetPath, newPath);
     await rename(sourcePath, targetPath);
   }
 
