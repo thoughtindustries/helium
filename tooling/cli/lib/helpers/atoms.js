@@ -1,6 +1,6 @@
-const { getFilePaths } = require('./filepaths');
+const { getFilePaths, getFileContents } = require('./filepaths');
 const path = require('path');
-const { access, readFile, writeFile } = require('fs/promises');
+const { writeFile } = require('fs/promises');
 const crypto = require('crypto');
 
 const dirHasAtoms = async dir => {
@@ -52,16 +52,6 @@ const compileStyles = async (dir, atomsStyleHash) => {
   await writeFile(updatedStylePath, styles, { encoding: 'utf8' });
 
   return updatedStyleHash;
-};
-
-const getFileContents = async path => {
-  try {
-    await access(path);
-    const contents = await readFile(path);
-    return contents;
-  } catch {
-    return null;
-  }
 };
 
 module.exports = { dirHasAtoms, getAtomsHash, compileStyles };

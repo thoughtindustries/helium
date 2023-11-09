@@ -8,7 +8,7 @@ const childProcess = require('child_process');
 const tar = require('tar');
 const os = require('os');
 
-const { getFilePaths } = require('./helpers/filepaths');
+const { getFilePaths, getFileContents } = require('./helpers/filepaths');
 const { instanceEndpoint } = require('./helpers/urls');
 const { generateTranslationFile } = require('./file-generators');
 const {
@@ -104,8 +104,13 @@ class DeploymentError extends Error {
 
   // hash queries for whitelisting
   await writeGraphqlManifest();
+
+  await maybeRenameEnvFile();
+
   await uploadHeliumProject(policyData);
-  // reset translations file to include all keys for local development
+
+  await maybeResetEnvFile();
+  // // reset translations file to include all keys for local development
   await resetTranslationFile();
   const batchJobId = await triggerBatch(instance, key);
 
@@ -140,12 +145,52 @@ process.on('message', message => {
   console.log('>>> Deploy process receive message', message);
 });
 
+async function maybeRenameEnvFile() {
+  // temporarily swap env files if it's a dev build.
+  // the CF Worker still loads an env file into process.env if it's present
+  // so we could end up with a project built with .env.development running
+  // w/ vars passed from .env instead.
+  if (isDevelopmentBuild()) {
+    await swapEnvFiles('.env', '.env.development', '.env.backup');
+  }
+
+  return;
+}
+
+async function maybeResetEnvFile() {
+  if (isDevelopmentBuild()) {
+    await swapEnvFiles('.env', '.env.backup', '.env.development');
+  }
+
+  return;
+}
+
+async function swapEnvFiles(target, source, newFilePath) {
+  const targetPath = path.join(OP_DIR, target);
+  const sourcePath = path.join(OP_DIR, source);
+
+  const hasTarget = await getFileContents(targetPath);
+  const hasSource = await getFileContents(sourcePath);
+
+  if (hasTarget && hasSource) {
+    const newPath = path.join(OP_DIR, newFilePath);
+    await rename(targetPath, newPath);
+    await rename(sourcePath, targetPath);
+  }
+
+  return;
+}
+
+function isDevelopmentBuild() {
+  return String(DEVELOPMENT_BUILD) === 'true';
+}
+
 async function buildProject(hasAtoms) {
   return new Promise((resolve, reject) => {
     const exec = childProcess.exec;
 
     let buildCommandSuffix = hasAtoms ? 'atoms' : 'vite';
-    if (buildCommandSuffix === 'vite' && String(DEVELOPMENT_BUILD) === 'true') {
+    if (buildCommandSuffix === 'vite' && isDevelopmentBuild()) {
       buildCommandSuffix = 'development';
     }
 
