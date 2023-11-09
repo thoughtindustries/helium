@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.3.0](https://github.com/thoughtindustries/helium/compare/@thoughtindustries/helium-template-essentials@1.3.0-alpha.2...@thoughtindustries/helium-template-essentials@1.3.0) (2023-11-09)
+
+**Note:** Version bump only for package @thoughtindustries/helium-template-essentials
+
+
+
+
+
 # [1.3.0-alpha.2](https://github.com/thoughtindustries/helium/compare/@thoughtindustries/helium-template-essentials@1.2.7...@thoughtindustries/helium-template-essentials@1.3.0-alpha.2) (2023-11-09)
 
 
