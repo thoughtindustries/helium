@@ -205,15 +205,6 @@ describe('@thoughtindustries/catalog/core/CatalogURLManager', () => {
       const actual = manager.composeURLForSetPage(2);
       expect(actual).toMatchInlineSnapshot(`"/base?token=abc&page=2"`);
     });
-
-    it('should reset existing params and set page when is curated', () => {
-      const searchString =
-        '?labels=%5B%22label1%22%2C%22label2%22%5D&values=%5B%22value1%22%2C%22value2%22%5D&page=3&token=abc&query=test&content-types=%5B%22type1%22%5D&display-type=calendar&sort=createdAt%3Adesc';
-      const manager = setup({ searchString, isCurated: true });
-
-      const actual = manager.composeURLForSetPage(2);
-      expect(actual).toMatchInlineSnapshot(`"/base?page=2"`);
-    });
   });
 
   describe('composeURLForRemoveToken', () => {

@@ -155,7 +155,7 @@ export default class CatalogURLManager {
   }
 
   composeURLForSetPage(page: number): string {
-    const clonedParams = this._resetOrDefaultClonedParams();
+    const clonedParams = new URLSearchParams(this._searchParams);
     clonedParams.set(CatalogURLSearchParams.Page, page.toString());
     return this._composeURL(clonedParams.toString());
   }
