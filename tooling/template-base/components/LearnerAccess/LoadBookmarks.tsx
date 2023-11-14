@@ -1,6 +1,7 @@
-import React, { useRef, useState, DragEvent } from 'react';
-import dropDownClosed from '../Assets/dropDownClosed';
-import dropDownOpen from '../Assets/dropDownOpen';
+import React, { useState } from 'react';
+import DropDownClosed from '../Assets/DropDownClosed';
+import DropDownOpen from '../Assets/DropDownOpen';
+
 import {
   useUserBookmarksQuery,
   useUserBookmarksByFolderQuery,
@@ -265,9 +266,9 @@ const LoadBookmarks = (): JSX.Element => {
                 onClick={() => setListViewDropDown(!listViewDropDown)}
               >
                 {listViewDropDown ? (
-                  <div className="h-2">{dropDownOpen}</div>
+                  <div className="h-2">{DropDownOpen}</div>
                 ) : (
-                  <div className="h-2">{dropDownClosed}</div>
+                  <div className="h-2">{DropDownClosed}</div>
                 )}
               </button>
             </div>

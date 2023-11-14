@@ -1,7 +1,7 @@
 import React from 'react';
 import { useState } from 'react';
 import Logo from '../Logo/Logo';
-import Xicon from '../Assets/xicon';
+import Xicon from '../Assets/Xicon';
 import Avatar from '../Avatar/Avatar';
 
 export default function CurrentUserSmallScreenNavBar() {
