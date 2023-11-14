@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.2.6](https://github.com/thoughtindustries/helium/compare/@thoughtindustries/catalog@1.2.5...@thoughtindustries/catalog@1.2.6) (2023-11-14)
+
+
+### Bug Fixes
+
+* catalog page composer ([#234](https://github.com/thoughtindustries/helium/issues/234)) ([0cdbec7](https://github.com/thoughtindustries/helium/commit/0cdbec7ef9ff331e121f1b0b5af2d5cdc6ce4819))
+
+
+
+
+
 ## [1.2.5](https://github.com/thoughtindustries/helium/compare/@thoughtindustries/catalog@1.2.4...@thoughtindustries/catalog@1.2.5) (2023-11-01)
 
 **Note:** Version bump only for package @thoughtindustries/catalog
