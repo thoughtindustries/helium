@@ -10,8 +10,8 @@ import { GlobalTypes, LoadingDots, useContentGroupsQuery } from '@thoughtindustr
 import LearnerAccessContext from './Context/context';
 import { getAvailableTabs } from './Utilities/utilities';
 import { useTranslation } from 'react-i18next';
-import dropDownClosed from '../Assets/dropDownClosed';
-import dropDownOpen from '../Assets/dropDownOpen';
+import DropDownClosed from '../Assets/DropDownClosed';
+import DropDownOpen from '../Assets/DropDownOpen';
 
 const localizedTabLabelMapping: { [key in TabKey]: string } = {
   [TabKey.Current]: 'dashboard.current',
@@ -99,9 +99,9 @@ const LearnerAccess = ({
         >
           {activeTabKey}
           {dropDownActive ? (
-            <div className="pt-2">{dropDownOpen}</div>
+            <div className="pt-2">{DropDownOpen}</div>
           ) : (
-            <div className="pt-2">{dropDownClosed}</div>
+            <div className="pt-2">{DropDownClosed}</div>
           )}
         </button>
         {dropDownActive && (
