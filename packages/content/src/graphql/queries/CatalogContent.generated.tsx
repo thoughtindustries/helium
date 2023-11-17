@@ -10,6 +10,8 @@ import { CatalogMetaFragmentFragmentDoc } from './CatalogMetaFragment.generated'
 import * as Apollo from '@apollo/client';
 const defaultOptions = {} as const;
 export type CatalogContentQueryVariables = Types.Exact<{
+  layoutId?: Types.InputMaybe<Types.Scalars['ID']>;
+  widgetId?: Types.InputMaybe<Types.Scalars['ID']>;
   sortColumn?: Types.InputMaybe<Types.SortColumn>;
   sortDirection?: Types.InputMaybe<Types.SortDirection>;
   resultsDisplayType?: Types.InputMaybe<Types.ContentItemDisplayType>;
@@ -37,6 +39,8 @@ export type CatalogContentQuery = {
 
 export const CatalogContentDocument = gql`
   query CatalogContent(
+    $layoutId: ID
+    $widgetId: ID
     $sortColumn: SortColumn
     $sortDirection: SortDirection
     $resultsDisplayType: ContentItemDisplayType
@@ -48,6 +52,8 @@ export const CatalogContentDocument = gql`
     $query: String
   ) {
     CatalogContent(
+      layoutId: $layoutId
+      widgetId: $widgetId
       sortColumn: $sortColumn
       sortDirection: $sortDirection
       resultsDisplayType: $resultsDisplayType
@@ -86,6 +92,8 @@ export const CatalogContentDocument = gql`
  * @example
  * const { data, loading, error } = useCatalogContentQuery({
  *   variables: {
+ *      layoutId: // value for 'layoutId'
+ *      widgetId: // value for 'widgetId'
  *      sortColumn: // value for 'sortColumn'
  *      sortDirection: // value for 'sortDirection'
  *      resultsDisplayType: // value for 'resultsDisplayType'

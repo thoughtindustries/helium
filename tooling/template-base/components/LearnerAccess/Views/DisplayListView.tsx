@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import dropDownClosed from '../../Assets/dropDownClosed';
-import dropDownOpen from '../../Assets/dropDownOpen';
+import DropDownClosed from '../../Assets/DropDownClosed';
+import DropDownOpen from '../../Assets/DropDownOpen';
 import LearnerAccessListDisplayDropDown from './ListDisplayDropDown';
 import defaultLogo from '../../Assets/logoImage';
 
@@ -72,9 +72,9 @@ const LearnerAccessDisplayListView = ({ item }: ContentUiProps) => {
               onClick={() => setListViewDropDown(!listViewDropDown)}
             >
               {listViewDropDown ? (
-                <div className="h-2">{dropDownOpen}</div>
+                <div className="h-2">{DropDownOpen}</div>
               ) : (
-                <div className="h-2">{dropDownClosed}</div>
+                <div className="h-2">{DropDownClosed}</div>
               )}
             </button>
           </div>

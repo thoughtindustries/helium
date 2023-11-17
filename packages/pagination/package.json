@@ -1,6 +1,6 @@
 {
   "name": "@thoughtindustries/pagination",
-  "version": "1.2.2",
+  "version": "1.2.3",
   "description": "A base component for pagination",
   "author": "Lu Jiang <lu.jiang@thoughtindustries.com>",
   "homepage": "https://github.com/thoughtindustries/helium#readme",
@@ -21,9 +21,9 @@
     "url": "https://github.com/thoughtindustries/helium/issues"
   },
   "dependencies": {
-    "clsx": "^1.1.1",
-    "react": "^18.2.0",
-    "react-dom": "^18.2.0"
+    "react": "^17 || ^18",
+    "react-dom": "^17 || ^18",
+    "tailwind-merge": "^1.14.0"
   },
   "peerDependencies": {
     "react": "^17 || ^18",

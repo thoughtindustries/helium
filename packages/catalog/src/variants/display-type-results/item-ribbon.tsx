@@ -1,5 +1,5 @@
 import React from 'react';
-import clsx from 'clsx';
+import { twMerge } from 'tailwind-merge';
 import { CatalogResultItemRibbon } from '../../types';
 
 type ItemRibbonProps = {
@@ -14,8 +14,8 @@ const ItemRibbon = ({ ribbon, attached, attachedClassnames = '' }: ItemRibbonPro
     color: contrastColor,
     backgroundColor: color
   };
-  const wrapperAttachedClassnames = attached ? clsx('-right-2', attachedClassnames) : '-top-1';
-  const wrapperClassnames = clsx(
+  const wrapperAttachedClassnames = attached ? twMerge('-right-2', attachedClassnames) : '-top-1';
+  const wrapperClassnames = twMerge(
     'text-xs font-normal leading-none absolute right-0 uppercase max-w-1/2 overflow-ellipsis z-10 px-1.5 py-1 whitespace-no-wrap',
     wrapperAttachedClassnames
   );

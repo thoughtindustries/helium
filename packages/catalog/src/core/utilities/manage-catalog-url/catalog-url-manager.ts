@@ -4,7 +4,8 @@ import {
   CatalogRequestURLParams,
   parseAggregationFilters,
   Sort,
-  serializeSort
+  serializeSort,
+  CatalogRequestParams
 } from '../parse-catalog-data';
 import {
   AggregationFilterWithComposedURL,
@@ -26,15 +27,28 @@ import { toRequestParams } from './utilities';
  */
 
 export default class CatalogURLManager {
-  private readonly _pathname;
-  private readonly _searchParams;
-  private readonly _parsedRequestParams;
+  private _pathname = '';
+  private _searchParams: URLSearchParams | undefined;
+  private _parsedRequestParams: Partial<CatalogRequestParams> = {};
   private _isCurated: boolean | undefined;
   private _selectedDisplayType: GlobalTypes.ContentItemDisplayType | undefined;
 
   constructor(parsedUrl: CatalogParsedURL) {
-    const { pathname, searchString } = parsedUrl;
-    this._pathname = pathname;
+    this._parseUrl(parsedUrl);
+  }
+
+  updateUrl(url: string) {
+    const { pathname, search } = new URL(url, 'http://dummy.com');
+    const parsedUrl = {
+      pathName: pathname,
+      searchString: search
+    };
+    this._parseUrl(parsedUrl);
+  }
+
+  private _parseUrl(parsedUrl: CatalogParsedURL) {
+    const { pathName, searchString } = parsedUrl;
+    this._pathname = pathName;
     this._searchParams = new URLSearchParams(searchString || undefined);
     this._parsedRequestParams = toRequestParams(this._searchParams);
   }
@@ -141,7 +155,7 @@ export default class CatalogURLManager {
   }
 
   composeURLForSetPage(page: number): string {
-    const clonedParams = this._resetOrDefaultClonedParams();
+    const clonedParams = new URLSearchParams(this._searchParams);
     clonedParams.set(CatalogURLSearchParams.Page, page.toString());
     return this._composeURL(clonedParams.toString());
   }
@@ -186,8 +200,14 @@ export default class CatalogURLManager {
     });
   }
 
-  composeURLForSetSearchTermForm(): string {
+  composeActionURLForSetSearchTermForm(): string {
     return this._composeURL('');
+  }
+
+  composeURLForSetSearchTermForm(searchTerm: string): string {
+    const clonedParams = this._resetOrDefaultClonedParams();
+    clonedParams.set(CatalogURLSearchParams.SearchTerm, searchTerm);
+    return this._composeURL(clonedParams.toString());
   }
 
   composeSearchTermFormHiddenFields(): SearchTermFormHiddenField[] {

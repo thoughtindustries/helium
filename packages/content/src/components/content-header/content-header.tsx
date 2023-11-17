@@ -1,7 +1,7 @@
 import React from 'react';
-import { ContentKind } from '../../graphql/global-types';
 import { useCourseGroupBySlugQuery } from '../../graphql/queries';
 import { useLearningPathBySlugQuery } from '../../graphql/queries/LearningPathBySlug.generated';
+import { ContentHeaderProps } from './types';
 
 const Stars = (props: { score: number }) => {
   const maskWidth = `${props.score}%`;
@@ -40,12 +40,7 @@ const Stars = (props: { score: number }) => {
   );
 };
 
-const ContentHeader = (props: {
-  contentKind: ContentKind;
-  slug: string;
-  showStars: boolean;
-  showImage: boolean;
-}): JSX.Element => {
+const ContentHeader = (props: ContentHeaderProps): JSX.Element => {
   let title: string | undefined,
     description: string | undefined,
     rating: number | undefined,

@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.2.3](https://github.com/thoughtindustries/helium/compare/@thoughtindustries/user@1.2.2...@thoughtindustries/user@1.2.3) (2023-08-28)
+
+**Note:** Version bump only for package @thoughtindustries/user
+
+
+
+
+
 ## [1.2.2](https://github.com/thoughtindustries/helium/compare/@thoughtindustries/user@1.2.1...@thoughtindustries/user@1.2.2) (2023-07-10)
 
 **Note:** Version bump only for package @thoughtindustries/user

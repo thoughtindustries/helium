@@ -1,10 +1,12 @@
 const { writeFile } = require('fs/promises');
 const path = require('path');
 const { fetchTranslations, writeTranslationFile } = require('./helpers/translations');
+const { DEFAULT_GRAPHQL_SOURCE_PATHS } = require('./helpers/constants');
 
 const initProject = async (dir, instances) => {
   console.log('Generating env file...');
-  await generateEnvFile(dir, instances);
+  await generateEnvFile(dir);
+  await generateEnvFile(dir, true);
 
   console.log('Generating translations file...');
   await generateTranslationFile(dir, instances);
@@ -13,13 +15,9 @@ const initProject = async (dir, instances) => {
   return generateConfigFile(dir, instances);
 };
 
-const generateEnvFile = async (dir, instances) => {
-  const fileName = path.resolve(dir, '.env');
-  let data = '';
-
-  instances.forEach(instance => {
-    data += `TI_${instance.nickname}_API_KEY=${instance.apiKey}\n`;
-  });
+const generateEnvFile = async (dir, development = false) => {
+  const fileName = path.resolve(dir, development ? '.env.development' : '.env');
+  const data = `NODE_ENV=${development ? 'development' : 'production'}`;
 
   return writeFile(fileName, data);
 };
@@ -54,7 +52,17 @@ const generateConfigFile = async (dir, instances) => {
     });
   }
 
-  return writeFile(fileName, JSON.stringify({ instances: data }, null, 2));
+  return writeFile(
+    fileName,
+    JSON.stringify(
+      {
+        content: DEFAULT_GRAPHQL_SOURCE_PATHS,
+        instances: data
+      },
+      null,
+      2
+    )
+  );
 };
 
 module.exports = { initProject, generateTranslationFile };

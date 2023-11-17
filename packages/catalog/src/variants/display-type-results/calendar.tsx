@@ -1,5 +1,5 @@
 import React, { useCallback, useState } from 'react';
-import clsx from 'clsx';
+import { twMerge } from 'tailwind-merge';
 import dayjs from 'dayjs';
 import { useTranslation } from 'react-i18next';
 import { formatTime } from '@thoughtindustries/content';
@@ -145,19 +145,21 @@ const DisplayTypeResultsCalendarMonthlyItem = ({
   const trBaseClassnames =
     'border border-solid border-gray-400 rounded block p-3 md:border-none md:rounded-none md:table-row';
   const trClassnames = expanded
-    ? clsx(trBaseClassnames, 'border-b-0 rounded-bl-none rounded-br-none pb-0 mb-0')
-    : clsx(trBaseClassnames, 'mb-3');
-  const expandedTrClassnames = clsx(
+    ? twMerge(trBaseClassnames, 'border-b-0 rounded-bl-none rounded-br-none pb-0 mb-0')
+    : twMerge(trBaseClassnames, 'mb-3');
+  const expandedTrClassnames = twMerge(
     trBaseClassnames,
     'mb-3 border-t-0 rounded-tl-none rounded-tr-none'
   );
   const tdBaseClassnames =
     'p-0 text-right block mb-1 md:py-4 md:px-5 md:text-left md:table-cell md:mb-0';
-  const borderedTdClassnames = clsx(
+  const borderedTdClassnames = twMerge(
     tdBaseClassnames,
     'border-none md:border-b md:border-solid md:border-gray-400'
   );
-  const tdClassnames = expanded ? clsx(tdBaseClassnames, 'pb-0 last:mb-0') : borderedTdClassnames;
+  const tdClassnames = expanded
+    ? twMerge(tdBaseClassnames, 'pb-0 last:mb-0')
+    : borderedTdClassnames;
   const buttonLinkClassnames =
     'w-full leading-normal text-left transition-colors ease-in-out duration-200 bg-none text-accent hover:text-accent-hover flex items-center gap-4';
   const ctaLinkClassnames =
@@ -262,11 +264,13 @@ const DisplayTypeResultsCalendarMonthlyItems = ({
       <caption className="font-secondary text-xl leading-tight text-left mb-5">{heading}</caption>
       <thead className={theadClassnames}>
         <tr>
-          <th className={clsx(thBaseClassnames, 'w-1/4')}>{t('course')}</th>
-          <th className={clsx(thBaseClassnames, 'w-1/6')}>{t('catalog.location')}</th>
-          <th className={clsx(thBaseClassnames, 'w-1/4')}>{t('catalog.date-time')}</th>
-          {hasPrices && <th className={clsx(thBaseClassnames, 'w-1/12')}>{t('catalog.price')}</th>}
-          <th className={clsx(thBaseClassnames, 'w-1/4')}></th>
+          <th className={twMerge(thBaseClassnames, 'w-1/4')}>{t('course')}</th>
+          <th className={twMerge(thBaseClassnames, 'w-1/6')}>{t('catalog.location')}</th>
+          <th className={twMerge(thBaseClassnames, 'w-1/4')}>{t('catalog.date-time')}</th>
+          {hasPrices && (
+            <th className={twMerge(thBaseClassnames, 'w-1/12')}>{t('catalog.price')}</th>
+          )}
+          <th className={twMerge(thBaseClassnames, 'w-1/4')}></th>
         </tr>
       </thead>
       <tbody>

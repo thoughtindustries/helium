@@ -53,7 +53,6 @@ export type CatalogResponseData = {
 
 export type CatalogGeneralParams = {
   error?: string;
-  isLoading: boolean;
   pageSize: number;
 };
 

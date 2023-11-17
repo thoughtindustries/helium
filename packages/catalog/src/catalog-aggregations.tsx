@@ -1,6 +1,6 @@
 import React, { ReactNode, useState } from 'react';
-import { useCatalog } from './core';
-import clsx from 'clsx';
+import { CatalogLinkButton, useCatalog } from './core';
+import { twMerge } from 'tailwind-merge';
 import { ArrowDownIcon, ArrowRightIcon } from './icons';
 import { useLanguagesQueryQuery } from '@thoughtindustries/content';
 
@@ -19,13 +19,13 @@ type AggregationProps = {
 
 const AggregationBucket = ({ href, value, count }: AggregationBucketProps): JSX.Element => (
   <li>
-    <a
+    <CatalogLinkButton
       href={href}
       className="inline-block leading-normal py-1.5 px-4 text-link hover:text-link-hover"
     >
       {value}
       {count && <span className="text-xs text-gray-700 pl-1">{`(${count})`}</span>}
-    </a>
+    </CatalogLinkButton>
   </li>
 );
 
@@ -45,7 +45,9 @@ const Aggregation = ({
   const listClassnames = !isExpanded ? 'hidden' : '';
   const ariaId = `catalog-aggregation-dropdown-${index}`;
   return (
-    <div className={clsx(['border-t border-solid border-gray-400 py-3 px-2'], wrapperClassnames)}>
+    <div
+      className={twMerge(['border-t border-solid border-gray-400 py-3 px-2'], wrapperClassnames)}
+    >
       <button
         className={buttonLinkClassnames}
         onClick={handleToggle}
@@ -58,7 +60,11 @@ const Aggregation = ({
         </span>
         <span className="font-semibold">{label}</span>
       </button>
-      <ul aria-hidden={!isExpanded} id={ariaId} className={clsx(['pl-6 text-sm'], listClassnames)}>
+      <ul
+        aria-hidden={!isExpanded}
+        id={ariaId}
+        className={twMerge(['pl-6 text-sm'], listClassnames)}
+      >
         {aggregationBuckets}
       </ul>
     </div>

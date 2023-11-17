@@ -1,0 +1,3 @@
+mutation DestroyBookmarkFolder($id: ID!) {
+  DestroyBookmarkFolder(id: $id)
+}

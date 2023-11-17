@@ -1,4 +1,4 @@
-import { SyntheticEvent, ReactElement } from 'react';
+import { SyntheticEvent, ReactElement, ElementType } from 'react';
 import { HydratedContentItem, GlobalTypes } from '@thoughtindustries/content';
 
 export type CatalogResultItemRibbon = GlobalTypes.Ribbon;
@@ -10,11 +10,11 @@ export type PriceFormatFn = (priceInCents: number) => string;
 export interface CatalogResultsProps {
   /** company feature flag for content hydration */
   companyHasSessionLevelCustomFieldsFeature?: boolean;
-  /** company property to override item timezone */
+  /** company property to override item's timezone */
   companyTimeZone?: string;
-  /** event handler for add to queue button */
+  /** event handler for add to queue button for each item */
   onAddedToQueue: (item: CatalogResultItem) => Promise<boolean | void>;
-  /** optional event handler for result item */
+  /** optional event handler for each item */
   onClick?: (evt: SyntheticEvent, item: CatalogResultItem) => void;
   /** optional function for prioritized price formatting */
   priceFormat?: PriceFormatFn;
@@ -31,11 +31,12 @@ export type PaginationFnArgs = {
   pageSize: number;
   total: number;
   getPageLink: (page: number) => string;
+  linkComponent?: ElementType;
 };
 export type PaginationFn = (args: PaginationFnArgs) => ReactElement;
 
 export interface CatalogProps extends CatalogResultsProps {
-  /** title that appears on top of the link lists */
+  /** title that appears on top of the catalog */
   title?: string;
   /** display alternate title */
   alternateTitleDisplay?: boolean;

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
-import listViewSelector from '../Assets/listViewSelector';
-import gridSelected from '../Assets/gridSelector';
+import ListViewSelector from '../Assets/ListViewSelector';
+import GridSelector from '../Assets/GridSelector';
 
 import { LoadedComponentProps } from './Types/types';
 import {
@@ -81,7 +81,7 @@ const LoadUserLearning = ({
           )}
           onClick={() => setGridActive(false)}
         >
-          <div>{listViewSelector}</div>
+          <div>{ListViewSelector}</div>
         </button>
 
         {/* grid display button */}
@@ -92,7 +92,7 @@ const LoadUserLearning = ({
           )}
           onClick={() => setGridActive(true)}
         >
-          <div>{gridSelected}</div>
+          <div>{GridSelector}</div>
         </button>
       </div>
 
