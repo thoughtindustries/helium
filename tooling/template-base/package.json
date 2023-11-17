@@ -12,7 +12,7 @@
     "build": "npm run build:css && npm run build:vite",
     "build:css": "tailwindcss -o ./renderer/tailwind.css",
     "build:vite": "vite build",
-    "jest": "jest"
+    "jest": "jest",
     "build:development": "vite build --mode development"
   },
   "publishConfig": {
