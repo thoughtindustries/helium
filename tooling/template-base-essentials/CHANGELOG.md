@@ -3,6 +3,74 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.4.0](https://github.com/thoughtindustries/helium/compare/@thoughtindustries/helium-template-essentials@1.2.7...@thoughtindustries/helium-template-essentials@1.4.0) (2023-11-14)
+
+
+### Features
+
+* allow deployment of development builds ([#231](https://github.com/thoughtindustries/helium/issues/231)) ([ed06e65](https://github.com/thoughtindustries/helium/commit/ed06e65bd62b964f002bed03295ca6a6fcfbb5f9))
+
+
+
+
+
+# [1.3.0](https://github.com/thoughtindustries/helium/compare/@thoughtindustries/helium-template-essentials@1.3.0-alpha.2...@thoughtindustries/helium-template-essentials@1.3.0) (2023-11-09)
+
+**Note:** Version bump only for package @thoughtindustries/helium-template-essentials
+
+
+
+
+
+# [1.3.0-alpha.2](https://github.com/thoughtindustries/helium/compare/@thoughtindustries/helium-template-essentials@1.2.7...@thoughtindustries/helium-template-essentials@1.3.0-alpha.2) (2023-11-09)
+
+
+### Features
+
+* allow deployment of development builds ([#231](https://github.com/thoughtindustries/helium/issues/231)) ([ed06e65](https://github.com/thoughtindustries/helium/commit/ed06e65bd62b964f002bed03295ca6a6fcfbb5f9))
+
+
+
+
+
+# [1.3.0-alpha.1](https://github.com/thoughtindustries/helium/compare/@thoughtindustries/helium-template-essentials@1.2.7...@thoughtindustries/helium-template-essentials@1.3.0-alpha.1) (2023-11-08)
+
+
+### Features
+
+* allow deployment of development builds ([#231](https://github.com/thoughtindustries/helium/issues/231)) ([ed06e65](https://github.com/thoughtindustries/helium/commit/ed06e65bd62b964f002bed03295ca6a6fcfbb5f9))
+
+
+
+
+
+# [1.3.0-alpha.0](https://github.com/thoughtindustries/helium/compare/@thoughtindustries/helium-template-essentials@1.2.7...@thoughtindustries/helium-template-essentials@1.3.0-alpha.0) (2023-11-07)
+
+
+### Features
+
+* allow deployment of development builds ([#231](https://github.com/thoughtindustries/helium/issues/231)) ([ed06e65](https://github.com/thoughtindustries/helium/commit/ed06e65bd62b964f002bed03295ca6a6fcfbb5f9))
+
+
+
+
+
+## [1.2.7](https://github.com/thoughtindustries/helium/compare/@thoughtindustries/helium-template-essentials@1.2.6...@thoughtindustries/helium-template-essentials@1.2.7) (2023-11-01)
+
+**Note:** Version bump only for package @thoughtindustries/helium-template-essentials
+
+
+
+
+
+## [1.2.6](https://github.com/thoughtindustries/helium/compare/@thoughtindustries/helium-template-essentials@1.2.5...@thoughtindustries/helium-template-essentials@1.2.6) (2023-09-28)
+
+**Note:** Version bump only for package @thoughtindustries/helium-template-essentials
+
+
+
+
+
 ## [1.2.5](https://github.com/thoughtindustries/helium/compare/@thoughtindustries/helium-template-essentials@1.2.4...@thoughtindustries/helium-template-essentials@1.2.5) (2023-08-28)
 
 **Note:** Version bump only for package @thoughtindustries/helium-template-essentials

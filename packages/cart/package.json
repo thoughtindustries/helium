@@ -1,6 +1,6 @@
 {
   "name": "@thoughtindustries/cart",
-  "version": "1.2.4",
+  "version": "1.2.5",
   "description": "A base component for cart",
   "author": "Lu Jiang <lu.jiang@thoughtindustries.com>",
   "homepage": "https://github.com/thoughtindustries/helium#readme",
@@ -24,7 +24,7 @@
   },
   "dependencies": {
     "@headlessui/react": "~1.5.0",
-    "@thoughtindustries/content": "^1.2.4",
+    "@thoughtindustries/content": "^1.2.5",
     "buffer": "^6.0.3",
     "clsx": "^1.1.1",
     "couponable": "^7.0.0",

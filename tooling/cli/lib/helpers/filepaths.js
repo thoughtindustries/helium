@@ -1,5 +1,6 @@
 const { readdir, stat } = require('fs/promises');
 const path = require('path');
+const { access, readFile } = require('fs/promises');
 
 const getFilePaths = async (dir, filePaths = [], skipNodeModules = true) => {
   const newFilePaths = filePaths;
@@ -36,4 +37,14 @@ const filePathIsValid = filePath => {
   );
 };
 
-module.exports = { getFilePaths, filePathIsValid };
+const getFileContents = async path => {
+  try {
+    await access(path);
+    const contents = await readFile(path);
+    return contents;
+  } catch {
+    return null;
+  }
+};
+
+module.exports = { getFilePaths, filePathIsValid, getFileContents };

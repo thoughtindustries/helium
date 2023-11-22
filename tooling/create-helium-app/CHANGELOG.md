@@ -3,6 +3,62 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.1.30](https://github.com/thoughtindustries/helium/compare/create-helium-app@1.1.28...create-helium-app@1.1.30) (2023-11-14)
+
+**Note:** Version bump only for package create-helium-app
+
+
+
+
+
+## [1.1.29](https://github.com/thoughtindustries/helium/compare/create-helium-app@1.1.29-alpha.2...create-helium-app@1.1.29) (2023-11-09)
+
+**Note:** Version bump only for package create-helium-app
+
+
+
+
+
+## [1.1.29-alpha.2](https://github.com/thoughtindustries/helium/compare/create-helium-app@1.1.28...create-helium-app@1.1.29-alpha.2) (2023-11-09)
+
+**Note:** Version bump only for package create-helium-app
+
+
+
+
+
+## [1.1.29-alpha.1](https://github.com/thoughtindustries/helium/compare/create-helium-app@1.1.28...create-helium-app@1.1.29-alpha.1) (2023-11-08)
+
+**Note:** Version bump only for package create-helium-app
+
+
+
+
+
+## [1.1.29-alpha.0](https://github.com/thoughtindustries/helium/compare/create-helium-app@1.1.28...create-helium-app@1.1.29-alpha.0) (2023-11-07)
+
+**Note:** Version bump only for package create-helium-app
+
+
+
+
+
+## [1.1.28](https://github.com/thoughtindustries/helium/compare/create-helium-app@1.1.27...create-helium-app@1.1.28) (2023-11-01)
+
+**Note:** Version bump only for package create-helium-app
+
+
+
+
+
+## [1.1.27](https://github.com/thoughtindustries/helium/compare/create-helium-app@1.1.26...create-helium-app@1.1.27) (2023-09-28)
+
+**Note:** Version bump only for package create-helium-app
+
+
+
+
+
 ## [1.1.26](https://github.com/thoughtindustries/helium/compare/create-helium-app@1.1.25...create-helium-app@1.1.26) (2023-08-28)
 
 **Note:** Version bump only for package create-helium-app
