@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [2.5.0](https://github.com/thoughtindustries/helium/compare/@thoughtindustries/helium-server@2.4.8...@thoughtindustries/helium-server@2.5.0) (2024-02-12)
+
+
+### Features
+
+* add check for HELIUM_PRIVATE_ENABLE_ASSET_PROXY to determine if asset urls should be rewritten ([#237](https://github.com/thoughtindustries/helium/issues/237)) ([4d8a670](https://github.com/thoughtindustries/helium/commit/4d8a670edee5b84aa4e35b945f8435558962a59d))
+
+
+
+
+
 ## [2.4.8](https://github.com/thoughtindustries/helium/compare/@thoughtindustries/helium-server@2.4.7...@thoughtindustries/helium-server@2.4.8) (2024-01-24)
 
 **Note:** Version bump only for package @thoughtindustries/helium-server
