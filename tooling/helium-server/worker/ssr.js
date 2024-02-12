@@ -58,8 +58,10 @@ async function handleSsr(url, authToken = null, userAndAppearanceToken = null) {
   } else {
     const { statusCode, body } = httpResponse;
     const headers = assembleHeaders(pageContext);
+    const resBody =
+      HELIUM_PRIVATE_ENABLE_ASSET_PROXY === 'true' ? body : resolveAssetUrls(url, body);
 
-    return new Response(resolveAssetUrls(url, body), {
+    return new Response(resBody, {
       headers,
       status: statusCode
     });
