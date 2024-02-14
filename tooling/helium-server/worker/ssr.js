@@ -58,10 +58,8 @@ async function handleSsr(url, authToken = null, userAndAppearanceToken = null) {
   } else {
     const { statusCode, body } = httpResponse;
     const headers = assembleHeaders(pageContext);
-    const resBody =
-      HELIUM_PRIVATE_ENABLE_ASSET_PROXY === 'true' ? body : resolveAssetUrls(url, body);
 
-    return new Response(resBody, {
+    return new Response(body, {
       headers,
       status: statusCode
     });
@@ -87,15 +85,6 @@ function decryptUserAndAppearance(userAndAppearanceToken, tiInstance) {
   }
 
   return { currentUser, appearanceBlock };
-}
-
-function resolveAssetUrls(url, htmlString) {
-  const urlObj = new URL(url);
-  const resolvedString = htmlString.replace(
-    / (src|href)="\/assets\/(.*?)"/g,
-    ` $1="${urlObj.origin}/assets/$2"`
-  );
-  return resolvedString;
 }
 
 function assembleHeaders(pageContext) {
