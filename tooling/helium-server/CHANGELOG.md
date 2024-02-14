@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [2.6.0](https://github.com/thoughtindustries/helium/compare/@thoughtindustries/helium-server@2.5.0...@thoughtindustries/helium-server@2.6.0) (2024-02-14)
+
+
+### Features
+
+* make asset proxy permanent ([#238](https://github.com/thoughtindustries/helium/issues/238)) ([9ff8c93](https://github.com/thoughtindustries/helium/commit/9ff8c93983aa06ff9b045d68f6b275df156806b5))
+
+
+
+
+
 # [2.5.0](https://github.com/thoughtindustries/helium/compare/@thoughtindustries/helium-server@2.4.8...@thoughtindustries/helium-server@2.5.0) (2024-02-12)
 
 

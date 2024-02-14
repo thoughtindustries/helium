@@ -1,6 +1,6 @@
 {
   "name": "@thoughtindustries/helium-template",
-  "version": "1.4.2",
+  "version": "1.4.3",
   "scripts": {
     "authenticate": "helium authenticate",
     "deploy": "helium deploy",
@@ -27,7 +27,7 @@
     "@thoughtindustries/catalog": "^1.2.6",
     "@thoughtindustries/content": "^1.2.5",
     "@thoughtindustries/featured-content": "^1.3.5",
-    "@thoughtindustries/helium-server": "^2.5.0",
+    "@thoughtindustries/helium-server": "^2.6.0",
     "@thoughtindustries/hero": "^1.1.2",
     "@thoughtindustries/navigation-bar": "^1.2.2",
     "clsx": "^1.2.1",
