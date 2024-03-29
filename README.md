@@ -90,6 +90,9 @@ This command will deploy your Helium app to Cloudflare workers managed by Though
 npm run deploy [nickname]
 ```
 
+## Helium Development
+How to Manage your Helium App
+
 ### Workspaces
 The Helium Monorepo makes use of npm's [workspaces](https://docs.npmjs.com/cli/v8/using-npm/workspaces), so the majority of `npm` commands (such as adding or removing package dependencies) will take place in the root directory. After cloning the repository, running `npm install` will install all necessary dependencies as well as link any local dependencies.
 
