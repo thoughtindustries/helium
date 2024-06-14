@@ -59,7 +59,7 @@ async function handleSsr(url, authToken = null, userAndAppearanceToken = null) {
     const { statusCode, body } = httpResponse;
     const headers = assembleHeaders(pageContext);
 
-    return new Response(resolveAssetUrls(url, body), {
+    return new Response(body, {
       headers,
       status: statusCode
     });
@@ -85,15 +85,6 @@ function decryptUserAndAppearance(userAndAppearanceToken, tiInstance) {
   }
 
   return { currentUser, appearanceBlock };
-}
-
-function resolveAssetUrls(url, htmlString) {
-  const urlObj = new URL(url);
-  const resolvedString = htmlString.replace(
-    / (src|href)="\/assets\/(.*?)"/g,
-    ` $1="${urlObj.origin}/assets/$2"`
-  );
-  return resolvedString;
 }
 
 function assembleHeaders(pageContext) {

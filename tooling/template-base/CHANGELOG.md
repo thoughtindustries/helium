@@ -3,6 +3,30 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.4.3](https://github.com/thoughtindustries/helium/compare/@thoughtindustries/helium-template@1.4.2...@thoughtindustries/helium-template@1.4.3) (2024-02-14)
+
+**Note:** Version bump only for package @thoughtindustries/helium-template
+
+
+
+
+
+## [1.4.2](https://github.com/thoughtindustries/helium/compare/@thoughtindustries/helium-template@1.4.1...@thoughtindustries/helium-template@1.4.2) (2024-02-12)
+
+**Note:** Version bump only for package @thoughtindustries/helium-template
+
+
+
+
+
+## [1.4.1](https://github.com/thoughtindustries/helium/compare/@thoughtindustries/helium-template@1.4.0...@thoughtindustries/helium-template@1.4.1) (2024-01-24)
+
+**Note:** Version bump only for package @thoughtindustries/helium-template
+
+
+
+
+
 # [1.4.0](https://github.com/thoughtindustries/helium/compare/@thoughtindustries/helium-template@1.2.7...@thoughtindustries/helium-template@1.4.0) (2023-11-14)
 
 
