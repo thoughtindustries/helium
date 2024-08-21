@@ -5,7 +5,7 @@
     "authenticate": "helium authenticate",
     "deploy": "helium deploy",
     "dev": "helium dev",
-    "update-translations": "node -e \"require('../cli/lib/update-translations.js').updateTranslations()\"",
+    "update-translations": "helium update-translations",
     "dev:vite": "concurrently \"npm run dev:css\" \"npm run dev:server\"",
     "dev:css": "tailwindcss -o ./renderer/tailwind.css --watch",
     "dev:server": "tsup ./server/index.ts && node ./dist/index.js",
