@@ -27,7 +27,7 @@ async function updateTranslations(pathToWrite) {
   const config = require(configPath);
   const INSTANCE_NAME = process.env.INSTANCE_NAME;
   try {
-    const instance = await findTIInstance(config, INSTANCE_NAME);
+    const instance = findTIInstance(config, INSTANCE_NAME);
     const instanceTranslations = await fetchTranslations(instance);
 
     if (instanceTranslations && instanceTranslations.length) {

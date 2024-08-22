@@ -20,6 +20,38 @@ async function processTranslations(TI_TRANSLATIONS, OP_DIR) {
     interpolation: { prefix: '%{', suffix: '}' }
   });
 
+  function addToTranslations(key) {
+    const translatedLanguages = Object.keys(TI_TRANSLATIONS);
+    for (const lang of translatedLanguages) {
+      if (!FINAL_TRANSLATIONS[lang]) {
+        FINAL_TRANSLATIONS[lang] = { lms: {} };
+      }
+
+      if (translationExists(lang, key)) {
+        const sourceTranslation = TI_TRANSLATIONS[lang].lms[key];
+        FINAL_TRANSLATIONS[lang].lms[key] = sourceTranslation;
+
+        if (KEYS_WITH_PLURALS.includes(key)) {
+          const pluralizedKey = `${key}_other`;
+          if (translationExists(lang, pluralizedKey)) {
+            FINAL_TRANSLATIONS[lang].lms[pluralizedKey] = TI_TRANSLATIONS[lang].lms[pluralizedKey];
+          }
+        }
+      }
+    }
+  }
+  function gatherPluralizedKeys() {
+    const pluralizedKeys = Object.keys(TI_TRANSLATIONS.en.lms).filter(key =>
+      key.includes('_other')
+    );
+    for (const pluralKey of pluralizedKeys) {
+      KEYS_WITH_PLURALS.push(pluralKey.replace('_other', ''));
+    }
+  }
+  function translationExists(lang, key) {
+    return TI_TRANSLATIONS[lang] && TI_TRANSLATIONS[lang].lms[key];
+  }
+
   for (const filePath of compiledProjectFiles) {
     if (filePathIsValid(filePath)) {
       const fileContents = await readFile(filePath, 'utf8');
@@ -59,38 +91,6 @@ async function processTranslations(TI_TRANSLATIONS, OP_DIR) {
     }
   }
   return FINAL_TRANSLATIONS;
-
-  function addToTranslations(key) {
-    const translatedLanguages = Object.keys(TI_TRANSLATIONS);
-    for (const lang of translatedLanguages) {
-      if (!FINAL_TRANSLATIONS[lang]) {
-        FINAL_TRANSLATIONS[lang] = { lms: {} };
-      }
-
-      if (translationExists(lang, key)) {
-        const sourceTranslation = TI_TRANSLATIONS[lang].lms[key];
-        FINAL_TRANSLATIONS[lang].lms[key] = sourceTranslation;
-
-        if (KEYS_WITH_PLURALS.includes(key)) {
-          const pluralizedKey = `${key}_other`;
-          if (translationExists(lang, pluralizedKey)) {
-            FINAL_TRANSLATIONS[lang].lms[pluralizedKey] = TI_TRANSLATIONS[lang].lms[pluralizedKey];
-          }
-        }
-      }
-    }
-  }
-  function gatherPluralizedKeys() {
-    const pluralizedKeys = Object.keys(TI_TRANSLATIONS.en.lms).filter(key =>
-      key.includes('_other')
-    );
-    for (const pluralKey of pluralizedKeys) {
-      KEYS_WITH_PLURALS.push(pluralKey.replace('_other', ''));
-    }
-  }
-  function translationExists(lang, key) {
-    return TI_TRANSLATIONS[lang] && TI_TRANSLATIONS[lang].lms[key];
-  }
 }
 
 async function readTranslations(OP_DIR) {
