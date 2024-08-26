@@ -19,7 +19,7 @@ const SigninPage = () => {
       variables: { email: userEmail, password: userPassword }
     })
       .then(() => {
-        window.location.href = '/learn/';
+        window.location.href = '/learn/dashboard';
       })
       .catch(error => {
         console.log('Handle Login Mutation Error Here');
