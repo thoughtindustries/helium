@@ -5,7 +5,7 @@
     "@babel/preset-env": "^7.20.2",
     "@babel/preset-react": "^7.18.6",
     "@babel/preset-typescript": "^7.18.6",
-    "@graphql-codegen/cli": "^2.6.2",
+    "@graphql-codegen/cli": "^4.0.0",
     "@graphql-codegen/near-operation-file-preset": "^2.2.9",
     "@graphql-codegen/typescript-operations": "^2.3.5",
     "@graphql-codegen/typescript-react-apollo": "^3.2.11",
