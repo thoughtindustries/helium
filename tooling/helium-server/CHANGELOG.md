@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [2.7.0](https://github.com/thoughtindustries/helium/compare/@thoughtindustries/helium-server@2.6.0...@thoughtindustries/helium-server@2.7.0) (2025-04-01)
+
+
+### Features
+
+* support node 18 ([#243](https://github.com/thoughtindustries/helium/issues/243)) ([b4dc459](https://github.com/thoughtindustries/helium/commit/b4dc4597d1c08b3f5b86cfa93eada4ec01610176))
+
+
+
+
+
 # [2.6.0](https://github.com/thoughtindustries/helium/compare/@thoughtindustries/helium-server@2.5.0...@thoughtindustries/helium-server@2.6.0) (2024-02-14)
 
 

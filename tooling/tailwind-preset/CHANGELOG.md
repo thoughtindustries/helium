@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.1.0](https://github.com/thoughtindustries/helium/compare/@thoughtindustries/helium-tailwind-preset@1.0.6...@thoughtindustries/helium-tailwind-preset@1.1.0) (2025-04-01)
+
+
+### Features
+
+* support node 18 ([#243](https://github.com/thoughtindustries/helium/issues/243)) ([b4dc459](https://github.com/thoughtindustries/helium/commit/b4dc4597d1c08b3f5b86cfa93eada4ec01610176))
+
+
+
+
+
 ## [1.0.6](https://github.com/thoughtindustries/helium/compare/@thoughtindustries/helium-tailwind-preset@1.0.5...@thoughtindustries/helium-tailwind-preset@1.0.6) (2023-07-10)
 
 **Note:** Version bump only for package @thoughtindustries/helium-tailwind-preset
