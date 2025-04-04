@@ -2,7 +2,7 @@ import React from 'react';
 import { hydrateContent, GlobalTypes, HydratedContentItem } from '@thoughtindustries/content';
 import { useTranslation } from 'react-i18next';
 import { CatalogParams, useCatalog } from './core';
-import { CatalogResultsProps, PriceFormatFn } from './types';
+import { CatalogResultsProps, PriceFormatFn, ItemWrapper } from './types';
 import {
   DisplayTypeResultsList,
   DisplayTypeResultsGrid,
@@ -21,6 +21,7 @@ type DisplayTypeResultsProps = Pick<
     activeDisplayType: GlobalTypes.ContentItemDisplayType;
     hydratedResults: HydratedContentItem[];
     priceFormatFn: PriceFormatFn;
+    ItemWrapperComponent?: ItemWrapper;
   };
 
 const DisplayTypeResults = ({
@@ -33,7 +34,8 @@ const DisplayTypeResults = ({
   companyTimeZone,
   onClick,
   onAddedToQueue,
-  priceFormatFn
+  priceFormatFn,
+  ItemWrapperComponent
 }: DisplayTypeResultsProps): JSX.Element => {
   const baseProps = {
     items: hydratedResults,
@@ -54,7 +56,7 @@ const DisplayTypeResults = ({
         displayStartDateEnabled,
         displayBundle
       };
-      return <DisplayTypeResultsGrid {...props} />;
+      return <DisplayTypeResultsGrid {...props} ItemWrapperComponent={ItemWrapperComponent} />;
     }
     case GlobalTypes.ContentItemDisplayType.Calendar: {
       props = { ...baseProps, displayDescriptionOnCalendar, companyTimeZone };
@@ -74,7 +76,8 @@ const CatalogResults = ({
   onAddedToQueue,
   priceFormat,
   companyDefaultLocale,
-  currencyCode
+  currencyCode,
+  ItemWrapperComponent
 }: CatalogResultsProps): JSX.Element => {
   const { params } = useCatalog();
   const {
@@ -154,7 +157,11 @@ const CatalogResults = ({
       {activeFilter}
       {emptyResults}
       {hasResults && activeDisplayType && (
-        <DisplayTypeResults {...resultsProps} activeDisplayType={activeDisplayType} />
+        <DisplayTypeResults
+          {...resultsProps}
+          activeDisplayType={activeDisplayType}
+          ItemWrapperComponent={ItemWrapperComponent}
+        />
       )}
     </>
   );
