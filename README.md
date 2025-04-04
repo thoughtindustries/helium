@@ -42,6 +42,57 @@ $ npm run authenticate
 $ npm run dev
 ```
 
+
+## How to deploy a Helium App
+### Step 1: Create a Helium App
+Run the following command in your terminal
+```bash npm2yarn
+ npm init helium-app@latest
+ ```
+This will prompt you to install the `@thoughtindustries/helium` package if you do not already have it installed on your local machine.
+
+### Step 2: Choose a Theme
+Selete a theme to get started building your Helium app.
+```bash npm2yarn
+$  ? Which theme would you like to use (Use arrow keys)
+$  > Starter App
+$    Hello World
+``` 
+
+### Step 3: Install Packages
+`cd` in to the name of your Helium app and install the packages
+```bash npm2yarn
+npm install
+``` 
+
+### Step 4: Connect to a Learning Instance
+Next, you'll connect your learning instance to your Helium app with `npm run authenticate`
+
+```bash npm2yarn
+ npm run authenticate
+ ```
+
+After you run npm run authenticate, enter the following data:
+* The URL of your learning instance
+* The API key (located under Settings > Security > API Key)
+* A nickname for this instance (sandbox, production, test-one)
+* Determine if you want to add another instance
+
+### Step 5: Start Your Development Server
+This command will start a local develelopment server.
+```bash npm2yarn
+npm run dev
+ ```
+
+### Step 6: Deploy Your Helium App
+This command will deploy your Helium app to Cloudflare workers managed by Thought Industries. The Helium feature flag must be turned on for you to deploy succesfully.
+```bash npm2yarn
+npm run deploy [nickname]
+```
+
+## Helium Development
+How to Manage your Helium App
+
 ### Workspaces
 The Helium Monorepo makes use of npm's [workspaces](https://docs.npmjs.com/cli/v8/using-npm/workspaces), so the majority of `npm` commands (such as adding or removing package dependencies) will take place in the root directory. After cloning the repository, running `npm install` will install all necessary dependencies as well as link any local dependencies.
 
