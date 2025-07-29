@@ -93,8 +93,10 @@ async function onBeforeRender(pageContext: PageContext) {
     console.error('Error fetching course group:', error);
     return {
       pageContext: {
-        courseGroup: null,
-        error: error instanceof Error ? error.message : 'Unknown error occurred'
+        pageProps: {
+          courseGroup: null,
+          error: error instanceof Error ? error.message : 'Unknown error occurred'
+        }
       }
     };
   }
