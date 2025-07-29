@@ -44,7 +44,7 @@ async function onBeforeRender(pageContext: PageContext) {
     `;
 
     const response = await fetch(
-      `https://alexoneilsandbox.thoughtindustries.com/helium?apiKey=${process.env.HELIUM_SECRET_API_KEY}`,
+      `https://${process.env.INSTANCE_PUBLIC_DOMAIN}/helium?apiKey=${process.env.HELIUM_SECRET_API_KEY}`,
       {
         method: 'POST',
         headers: {

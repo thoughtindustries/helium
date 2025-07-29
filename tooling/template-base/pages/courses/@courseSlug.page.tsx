@@ -1,5 +1,5 @@
 import React from 'react';
-import NavBar from '../../components/Navigation/NavBar';
+import NavBar from '../../../../../helium-apps/2025/add-course-detail-to-template-base/components/Navigation/NavBar';
 import { ContentHeader, GlobalTypes } from '@thoughtindustries/content';
 import { CourseGroup } from '@thoughtindustries/content/src/graphql/global-types';
 
@@ -75,7 +75,14 @@ function Page({ courseGroup, error }: PageProps) {
               {/* Enroll Today Box */}
               <div className="bg-white border border-gray-200 rounded-lg p-6 shadow-sm">
                 <h3 className="text-xl font-bold text-gray-900 mb-4">ENROLL TODAY</h3>
-                {courseGroup.courses && courseGroup.courses.length > 0 ? (
+                {courseGroup.courses && courseGroup.courses.length === 1 ? (
+                  <a
+                    href={`/learn/enroll/${courseGroup.courses[0].id}`}
+                    className="w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3 px-6 rounded-lg transition-colors duration-200 inline-block text-center"
+                  >
+                    Enroll Now
+                  </a>
+                ) : courseGroup.courses && courseGroup.courses.length > 1 ? (
                   <div className="space-y-3">
                     {courseGroup.courses.map((course, index) => (
                       <div key={course.id} className="enroll-course-item">
@@ -99,13 +106,6 @@ function Page({ courseGroup, error }: PageProps) {
                       </div>
                     ))}
                   </div>
-                ) : courseGroup.courses && courseGroup.courses.length === 1 ? (
-                  <a
-                    href={`/learn/enroll/${courseGroup.courses[0].id}`}
-                    className="w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3 px-6 rounded-lg transition-colors duration-200 inline-block text-center"
-                  >
-                    Enroll Now
-                  </a>
                 ) : (
                   <div className="text-center text-gray-500">
                     <p>No courses available for enrollment</p>
