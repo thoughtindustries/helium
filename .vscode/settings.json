@@ -1,3 +1,10 @@
 {
-  "editor.tabSize": 2
+  "editor.tabSize": 2,
+  "i18n-ally.localesPaths": [
+    "i18n",
+    "tooling/template-base-essentials/locales",
+    "tooling/template-base/locales",
+    "tooling/create-helium-app/template-base/locales",
+    "tooling/create-helium-app/template-base-essentials/locales"
+  ]
 }

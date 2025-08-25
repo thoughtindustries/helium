@@ -8,7 +8,7 @@ function getPageMeta(pageContext: PageContext) {
   return { title, description };
 }
 
-function hasKey<O>(obj: O, key: PropertyKey): key is keyof O {
+function hasKey<O extends object>(obj: O, key: PropertyKey): key is keyof O {
   return key in obj;
 }
 

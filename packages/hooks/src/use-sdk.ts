@@ -32,7 +32,7 @@ export default function useSdk(src: string) {
         script.addEventListener('error', setAttributeFromEvent);
       } else {
         // Grab existing script status from attribute and set to state.
-        const currentStatus = 'loading' || script.getAttribute('data-status');
+        const currentStatus = script.getAttribute('data-status') || 'loading';
         setStatus(currentStatus);
       }
       // Script event handler to update status in state

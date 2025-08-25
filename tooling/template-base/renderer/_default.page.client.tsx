@@ -38,7 +38,7 @@ async function render(pageContext: PageContext) {
     console.log(error, info);
   };
 
-  function Fallback({ error }) {
+  function Fallback({ error }: { error: Error }) {
     // Call resetErrorBoundary() to reset the error boundary and retry the render.
 
     return (

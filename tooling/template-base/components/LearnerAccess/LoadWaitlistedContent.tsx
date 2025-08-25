@@ -3,16 +3,13 @@ import { NetworkStatus } from '@apollo/client';
 import {
   useUserWaitlistQuery,
   LoadingDots,
-  useUnenrollFromWaitlistMutation,
-  hydrateContent,
-  GlobalTypes
+  useUnenrollFromWaitlistMutation
 } from '@thoughtindustries/content';
 import useLearnerAccess from './Context/use-context';
-import { useTranslation } from 'react-i18next';
+
 import { t } from 'i18next';
 
 const LoadWaitlist = (): JSX.Element => {
-  const { i18n } = useTranslation();
   const {
     data,
     loading,
@@ -27,7 +24,7 @@ const LoadWaitlist = (): JSX.Element => {
   const [unenrollFromWaitlistMutation] = useUnenrollFromWaitlistMutation();
   const { refetchContentGroups, resetActiveTab } = useLearnerAccess();
   const handleUnenroll = useCallback(
-    async id => {
+    async (id: string) => {
       await unenrollFromWaitlistMutation({ variables: { id } });
       const { data: refetchData } = await refetchWaitlist();
       if (refetchData && !refetchData.UserWaitlist?.length) {
@@ -35,7 +32,7 @@ const LoadWaitlist = (): JSX.Element => {
       }
       await refetchContentGroups();
     },
-    [refetchContentGroups, refetchWaitlist, resetActiveTab]
+    [refetchContentGroups, refetchWaitlist, resetActiveTab, unenrollFromWaitlistMutation]
   );
   const isRefetching = networkStatus === NetworkStatus.refetch;
   if (loading || isRefetching) return <LoadingDots />;
@@ -66,7 +63,7 @@ const LoadWaitlist = (): JSX.Element => {
                       onClick={() => handleUnenroll(item.id)}
                       className="bg-active-blue text-accent-contrast bg-accent rounded-sm cursor-pointer inline-block font-normal text-xs m-0 py-[0.15rem] px-4 relative text-center no-underline ease-in-out border-active-blue font-sans transition duration-200 leading-5"
                     >
-                      {t('dashboard.unenroll-waitlist')}
+                      {t('dashboard.unenroll-waitlist') as string}
                     </button>
                   </div>
                 </div>

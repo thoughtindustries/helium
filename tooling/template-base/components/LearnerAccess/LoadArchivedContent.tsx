@@ -53,7 +53,7 @@ const LoadArchivedContent = (): JSX.Element => {
                     />
                   )}
                   <small className="block text-gray-mid text-xs z-[-1] relative">
-                    {t('dashboard.archived')}{' '}
+                    {t('dashboard.archived') as string}{' '}
                     {item.archivedAt && formatTime(item.archivedAt, undefined, 'MMM D, YYYY')}
                   </small>
                 </div>

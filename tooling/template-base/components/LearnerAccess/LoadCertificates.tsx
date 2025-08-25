@@ -12,8 +12,7 @@ import {
 import useLearnerAccess from './Context/use-context';
 import { t } from 'i18next';
 import LearnerAccessGridView from './Views/GridView';
-import { usePageContext } from '../../renderer/usePageContext';
-import clsx from 'clsx';
+
 import { useTranslation } from 'react-i18next';
 import { Content } from '@thoughtindustries/content/src/graphql/global-types';
 
@@ -41,7 +40,7 @@ const CertificateUploader = ({ setShowForm }: CertificateUploaderProps) => {
           className="rounded-sm cursor-pointer inline-block font-normal text-sm mx-0 mt-0 mb-4 py-2 px-5 relative text-center no-underline bg-grey-light duration-200 transition ease-in-out bg-active-blue border-active-blue text-accent-contrast leading-5"
         >
           <UploadIcon />
-          <span className="ml-4">{t('external-certificate.upload')}</span>
+          <span className="ml-4">{t('external-certificate.upload') as string}</span>
         </button>
       </div>
     </div>
@@ -86,7 +85,9 @@ const CertificateUploadForm = ({ setShowForm }: CertificateUploadFormProps) => {
     <div className="border-solid p-4 text-black-light border-gray-light border-b last:border-b-0">
       <form className="">
         <p className="font-normal mb-4 leading-[1.45rem]">
-          {!showFileImage && <span id="i18n-323">{t('external-certificate.instructions')}</span>}
+          {!showFileImage && (
+            <span id="i18n-323">{t('external-certificate.instructions') as string}</span>
+          )}
         </p>
         <div className="flex justify-evenly">
           <div className="w-full">
@@ -127,7 +128,7 @@ const CertificateUploadForm = ({ setShowForm }: CertificateUploadFormProps) => {
             <div className="row">
               <div className="float-left px-4 relative w-full">
                 <div className="ember-view">
-                  <label>{t('certificate.issued-date')}</label>
+                  <label>{t('certificate.issued-date') as string}</label>
                   <div className="ember-view input__wrapper input__wrapper--clear">
                     <input
                       className="focus:outline-none h-10 mb-4 text-base py-2 px-4 w-full bg-white rounded-none border-solid border box-border block mx-0 mt-0 p-2 text-black cursor-pointer"
@@ -138,7 +139,7 @@ const CertificateUploadForm = ({ setShowForm }: CertificateUploadFormProps) => {
                   </div>
                 </div>
                 <div className="ember-view">
-                  <label>{t('certificate.expiration-date')}</label>
+                  <label>{t('certificate.expiration-date') as string}</label>
 
                   <div className="mb-4">
                     <input
@@ -161,13 +162,13 @@ const CertificateUploadForm = ({ setShowForm }: CertificateUploadFormProps) => {
                   data-ember-action="28579"
                   className="bg-white text-xs box-border cursor-pointer block h-10 mx-0 mt-0 mb-4 py-1 px-4 text-black w-full"
                 >
-                  {t('external-certificate.cancel')}
+                  {t('external-certificate.cancel') as string}
                 </button>
                 <button
                   onClick={() => createCertificateFromUploadMutation()}
                   className="bg-active-blue rounded-sm text-xs box-border cursor-pointer block h-10 mx-0 mt-0 mb-4 py-1 px-4 text-white w-full"
                 >
-                  {t('external-certificate.submit')}
+                  {t('external-certificate.submit') as string}
                 </button>
               </div>
             </div>
