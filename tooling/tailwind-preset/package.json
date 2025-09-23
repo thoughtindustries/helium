@@ -28,7 +28,7 @@
     "@tailwindcss/line-clamp": "^0.4.4"
   },
   "devDependencies": {
-    "tsup": "^6.7.0",
+    "tsup": "^8.5.0",
     "typescript": "^5.0.4"
   },
   "volta": {

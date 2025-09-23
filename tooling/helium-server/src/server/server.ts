@@ -1,11 +1,30 @@
 import express from 'express';
 import cookieParser from 'cookie-parser';
-import { renderPage } from 'vite-plugin-ssr/server';
 import findTiInstance from './../utilities/find-ti-instance';
 import { fetchUserAndAppearance, fetchUser } from './../utilities/fetch-user-and-appearance';
 import initPageContext from './../utilities/init-page-context';
 import fetch from 'isomorphic-unfetch';
 import path from 'path';
+
+// Lazy load vike/server to handle CJS/ESM compatibility issues
+let vikeModule: any = null;
+let viteDevServerRef: any = null;
+
+async function getRenderPage() {
+  if (!vikeModule) {
+    const isProduction = process.env.NODE_ENV === 'production';
+
+    if (!isProduction && viteDevServerRef) {
+      // In development, load vike through Vite's SSR module loader
+      // This is crucial for proper Vike/Vite integration
+      vikeModule = await viteDevServerRef.ssrLoadModule('vike/server');
+    } else {
+      // In production or when no Vite server, use dynamic import
+      vikeModule = await import('vike/server');
+    }
+  }
+  return vikeModule.renderPage;
+}
 
 const isProduction = process.env.NODE_ENV === 'production';
 const instanceName = process.env.INSTANCE || '';
@@ -29,6 +48,9 @@ export default async function setupHeliumServer(root: string, viteDevServer: any
     The development server should be started 'helium dev'
     `);
   }
+
+  // Store the viteDevServer reference for getRenderPage to use
+  viteDevServerRef = viteDevServer;
 
   const app = express();
   app.use(cookieParser());
@@ -128,6 +150,7 @@ export default async function setupHeliumServer(root: string, viteDevServer: any
     }
 
     const url = req.originalUrl;
+    const renderPage = await getRenderPage();
     const result = await initPageContext(
       url,
       renderPage,

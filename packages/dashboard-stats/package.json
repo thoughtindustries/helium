@@ -26,6 +26,6 @@
     "@apollo/client": "^3.7.0",
     "@thoughtindustries/content": "^1.2.5",
     "graphql": "^16.6.0",
-    "react-i18next": "^11.18.6"
+    "react-i18next": "^13.5.0"
   }
 }

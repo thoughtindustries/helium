@@ -1348,7 +1348,7 @@
             : {}
         );
         module.exports && (module.exports = Prism), void 0 !== global && (global.Prism = Prism);
-      }.call(this, __webpack_require__(105)));
+      }).call(this, __webpack_require__(105));
     },
     1020: function (module, exports, __webpack_require__) {
       'use strict';
@@ -3837,7 +3837,7 @@
               )
             );
           });
-      }.call(this, __webpack_require__(105)));
+      }).call(this, __webpack_require__(105));
     },
     996: function (module, exports, __webpack_require__) {
       'use strict';
