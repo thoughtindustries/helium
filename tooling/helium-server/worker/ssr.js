@@ -2,7 +2,6 @@ import { renderPage } from 'vike/server';
 import jwt_decode from 'jwt-decode';
 import initPageContext from './init-page-context';
 import tiConfig from 'tiConfig';
-import manifestJSON from '__STATIC_CONTENT_MANIFEST';
 
 export { handleSsr };
 
@@ -38,9 +37,16 @@ async function handleSsr(url, authToken = null, userAndAppearanceToken = null) {
     tiInstance
   );
 
-  // Parse asset manifest from Wrangler
-  const assetManifest = JSON.parse(manifestJSON);
-  const assetUrls = getAssetUrls(assetManifest);
+  // Parse asset manifest from Wrangler if available (in production)
+  let assetUrls = null;
+  if (typeof __STATIC_CONTENT_MANIFEST !== 'undefined') {
+    try {
+      const assetManifest = JSON.parse(__STATIC_CONTENT_MANIFEST);
+      assetUrls = getAssetUrls(assetManifest);
+    } catch (error) {
+      console.error('Failed to parse asset manifest:', error);
+    }
+  }
 
   const pageContext = await initPageContext(
     url,
