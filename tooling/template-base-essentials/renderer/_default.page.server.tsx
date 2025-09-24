@@ -20,7 +20,8 @@ export const passToClient = [
   'currentUser',
   'isProduction',
   'queryParams',
-  'authToken'
+  'authToken',
+  'assetUrls'
 ];
 
 export { render };
@@ -30,7 +31,8 @@ type RenderFn = (pageContext: PageContext) => Promise<{
   pageContext: Record<string, any>;
 }>;
 const render: RenderFn = async pageContext => {
-  const { Page, pageProps, apolloClient, appearance, currentUser, queryParams } = pageContext;
+  const { Page, pageProps, apolloClient, appearance, currentUser, queryParams, assetUrls } =
+    pageContext;
 
   // See https://vike.dev/html-head
   const documentProps = getPageMeta(pageContext);
@@ -61,6 +63,21 @@ const render: RenderFn = async pageContext => {
   const pageHtml = await getDataFromTree(tree);
   const apolloInitialState = apolloClient.extract();
 
+  // Build asset tags if provided (from Worker environment)
+  let assetTags = '';
+  if (assetUrls) {
+    // Add CSS files
+    if (assetUrls.styles && assetUrls.styles.length > 0) {
+      assetTags += assetUrls.styles.map(url => `<link rel="stylesheet" href="${url}">`).join('\n');
+    }
+    // Add JavaScript files
+    if (assetUrls.scripts && assetUrls.scripts.length > 0) {
+      assetTags +=
+        '\n' +
+        assetUrls.scripts.map(url => `<script type="module" src="${url}"></script>`).join('\n');
+    }
+  }
+
   const documentHtml = escapeInject`<!DOCTYPE html>
     <html>
       <head>
@@ -68,6 +85,7 @@ const render: RenderFn = async pageContext => {
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <meta name="description" content="${desc}" />
         <title>${title}</title>
+        ${dangerouslySkipEscape(assetTags)}
       </head>
       <body>
         <div id="page-view">${dangerouslySkipEscape(pageHtml)}</div>

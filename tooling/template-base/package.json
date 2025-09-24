@@ -11,7 +11,7 @@
     "dev:server": "tsup ./server/index.ts && NODE_ENV=development node ./dist/index.js",
     "build": "npm run build:css && npm run build:vite",
     "build:css": "tailwindcss -o ./renderer/tailwind.css",
-    "build:vite": "vite build && node scripts/generate-manifest.js",
+    "build:vite": "vite build && node scripts/generate-manifest.js && node scripts/generate-asset-tags.js",
     "build:development": "vite build --mode development"
   },
   "publishConfig": {

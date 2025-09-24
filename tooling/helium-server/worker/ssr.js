@@ -2,6 +2,7 @@ import { renderPage } from 'vike/server';
 import jwt_decode from 'jwt-decode';
 import initPageContext from './init-page-context';
 import tiConfig from 'tiConfig';
+import manifestJSON from '__STATIC_CONTENT_MANIFEST';
 
 export { handleSsr };
 
@@ -36,6 +37,11 @@ async function handleSsr(url, authToken = null, userAndAppearanceToken = null) {
     userAndAppearanceToken,
     tiInstance
   );
+
+  // Parse asset manifest from Wrangler
+  const assetManifest = JSON.parse(manifestJSON);
+  const assetUrls = getAssetUrls(assetManifest);
+
   const pageContext = await initPageContext(
     url,
     renderPage,
@@ -44,7 +50,9 @@ async function handleSsr(url, authToken = null, userAndAppearanceToken = null) {
     HELIUM_ENDPOINT,
     true,
     sha256,
-    authToken
+    authToken,
+    null,
+    assetUrls
   );
 
   const { httpResponse, redirectTo } = pageContext;
@@ -111,4 +119,43 @@ function findTiInstance(instanceName) {
   }
 
   return instance;
+}
+
+function getAssetUrls(manifest) {
+  const assetUrls = {
+    scripts: [],
+    styles: []
+  };
+
+  // Find main client entry and CSS files from the manifest
+  // The manifest maps original paths to hashed paths
+  for (const [originalPath, hashedPath] of Object.entries(manifest)) {
+    // Look for main client entry scripts
+    if (
+      originalPath.includes('entry-client-routing') ||
+      originalPath.includes('renderer_default.page.client')
+    ) {
+      assetUrls.scripts.push(`/${hashedPath}`);
+    }
+
+    // Look for CSS files
+    if (originalPath.endsWith('.css')) {
+      assetUrls.styles.push(`/${hashedPath}`);
+    }
+
+    // Also check for the main entry point
+    if (originalPath.includes('assets/entries/') && originalPath.endsWith('.js')) {
+      // Make sure we get the entry-client-routing file
+      if (originalPath.includes('entry-client-routing')) {
+        // Put it first as it's the main entry
+        assetUrls.scripts.unshift(`/${hashedPath}`);
+      }
+    }
+  }
+
+  // Remove duplicates
+  assetUrls.scripts = [...new Set(assetUrls.scripts)];
+  assetUrls.styles = [...new Set(assetUrls.styles)];
+
+  return assetUrls;
 }

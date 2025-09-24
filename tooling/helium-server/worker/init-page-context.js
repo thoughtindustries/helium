@@ -13,7 +13,8 @@ export default async function initPageContext(
   isProduction,
   sha256,
   authToken,
-  port
+  port,
+  assetUrls
 ) {
   const apolloClient = makeApolloServerClient(
     heliumEndpoint,
@@ -30,7 +31,8 @@ export default async function initPageContext(
     appearance,
     currentUser,
     isProduction,
-    authToken
+    authToken,
+    assetUrls
   };
 
   const pageContext = await renderPage(pageContextInit);

@@ -12,6 +12,7 @@ type PageContextInit = {
   currentUser: Record<string, unknown>;
   isProduction: boolean;
   authToken: string | undefined;
+  assetUrls?: { scripts: string[]; styles: string[] } | null;
   httpResponse?: {
     statusCode: number;
     body: string;
@@ -30,7 +31,8 @@ export default async function initPageContext(
   isProduction: boolean,
   sha256?: SHA256 | null,
   authToken?: string | null,
-  port?: number | undefined
+  port?: number | undefined,
+  assetUrls?: { scripts: string[]; styles: string[] } | null
 ) {
   const apolloClient = makeApolloServerClient(
     heliumEndpoint,
@@ -47,7 +49,8 @@ export default async function initPageContext(
     appearance,
     currentUser,
     isProduction,
-    authToken
+    authToken,
+    assetUrls
   };
 
   const pageContext = await renderPage(pageContextInit as PageContextInit);
