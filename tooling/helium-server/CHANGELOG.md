@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [3.0.0-beta.7](https://github.com/thoughtindustries/helium/compare/@thoughtindustries/helium-server@3.0.0-beta.6...@thoughtindustries/helium-server@3.0.0-beta.7) (2025-09-25)
+
+### Bug Fixes
+
+- enhance Cloudflare Worker asset resolution for relative imports ([06cfc11](https://github.com/thoughtindustries/helium/commit/06cfc11575e21c05f6cf6847da766509cb2ec33a))
+
 # [3.0.0-beta.6](https://github.com/thoughtindustries/helium/compare/@thoughtindustries/helium-server@3.0.0-beta.5...@thoughtindustries/helium-server@3.0.0-beta.6) (2025-09-25)
 
 **Note:** Version bump only for package @thoughtindustries/helium-server

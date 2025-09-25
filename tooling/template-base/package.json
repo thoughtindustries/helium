@@ -1,6 +1,6 @@
 {
   "name": "@thoughtindustries/helium-template",
-  "version": "2.0.0-beta.6",
+  "version": "2.0.0-beta.7",
   "scripts": {
     "authenticate": "helium authenticate",
     "deploy": "helium deploy",
@@ -27,7 +27,7 @@
     "@thoughtindustries/catalog": "^2.0.0-beta.0",
     "@thoughtindustries/content": "^2.0.0-beta.0",
     "@thoughtindustries/featured-content": "^2.0.0-beta.0",
-    "@thoughtindustries/helium-server": "^3.0.0-beta.6",
+    "@thoughtindustries/helium-server": "^3.0.0-beta.7",
     "@thoughtindustries/hero": "^1.1.2",
     "@thoughtindustries/navigation-bar": "^2.0.0-beta.0",
     "clsx": "^1.2.1",
