@@ -22,44 +22,59 @@ const DEBUG = false;
 // Custom asset mapper to handle Vike asset URLs
 function mapVikeAssets(request) {
   const url = new URL(request.url);
-  const pathname = url.pathname;
+  let pathname = url.pathname;
 
-  // If this is an asset request that Vike generated (without full hash)
-  // We need to find the matching file in the manifest
-  if (pathname.startsWith('/assets/')) {
-    // Try to get the manifest to find the correct hashed filename
-    if (typeof __STATIC_CONTENT_MANIFEST !== 'undefined') {
-      try {
-        const manifest = JSON.parse(__STATIC_CONTENT_MANIFEST);
+  // Try to get the manifest to find the correct hashed filename
+  if (typeof __STATIC_CONTENT_MANIFEST !== 'undefined') {
+    try {
+      const manifest = JSON.parse(__STATIC_CONTENT_MANIFEST);
 
-        // Look for an exact match first
-        const cleanPath = pathname.replace(/^\/+/, '');
-        if (manifest[cleanPath]) {
-          // Found exact match, use the hashed version
-          url.pathname = '/' + manifest[cleanPath];
+      // Handle bare chunk requests (e.g., "/chunk-C97W_Hzk.js")
+      // These come from relative imports in the JS files
+      if (!pathname.startsWith('/assets/') && pathname.includes('chunk-')) {
+        pathname = '/assets/chunks' + pathname;
+      }
+
+      // Handle bare entry requests
+      if (
+        !pathname.startsWith('/assets/') &&
+        (pathname.includes('entry-') || pathname.includes('renderer_'))
+      ) {
+        pathname = '/assets/entries' + pathname;
+      }
+
+      // Handle CSS requests
+      if (!pathname.startsWith('/assets/') && pathname.endsWith('.css')) {
+        pathname = '/assets/static' + pathname;
+      }
+
+      // Remove any Cloudflare-added hash (e.g., ".e2f69899ef")
+      // Pattern: filename.originalhash.cloudflarehash.js -> filename.originalhash.js
+      pathname = pathname.replace(/\.[a-f0-9]{8,12}\.js$/, '.js');
+      pathname = pathname.replace(/\.[a-f0-9]{8,12}\.css$/, '.css');
+
+      // Clean the path
+      const cleanPath = pathname.replace(/^\/+/, '');
+
+      // Look for an exact match first
+      if (manifest[cleanPath]) {
+        url.pathname = '/' + manifest[cleanPath];
+        return new Request(url.toString(), request);
+      }
+
+      // Try to find a match by looking for the file without considering hashes
+      const fileName = pathname.split('/').pop();
+      const baseFileName = fileName.split('.')[0];
+
+      for (const [originalPath, hashedPath] of Object.entries(manifest)) {
+        // Check if this manifest entry matches our file
+        if (originalPath.includes(baseFileName)) {
+          url.pathname = '/' + hashedPath;
           return new Request(url.toString(), request);
         }
-
-        // Try to find a match by removing the existing hash and looking for the base name
-        // e.g., "chunk-C97W_Hzk.js" -> look for entries starting with "assets/chunks/chunk-C97W_Hzk"
-        for (const [originalPath, hashedPath] of Object.entries(manifest)) {
-          // Check if this is the file we're looking for
-          if (originalPath.includes(cleanPath.replace('.js', '').replace('.css', ''))) {
-            url.pathname = '/' + hashedPath;
-            return new Request(url.toString(), request);
-          }
-
-          // Also check if the requested path without extension matches
-          const requestedBase = cleanPath.split('.')[0];
-          const manifestBase = originalPath.split('.')[0];
-          if (manifestBase === requestedBase) {
-            url.pathname = '/' + hashedPath;
-            return new Request(url.toString(), request);
-          }
-        }
-      } catch (e) {
-        console.error('Error parsing manifest:', e);
       }
+    } catch (e) {
+      console.error('Error parsing manifest:', e);
     }
   }
 
