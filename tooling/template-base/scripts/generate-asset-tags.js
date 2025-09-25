@@ -27,14 +27,33 @@ try {
     const asset = assets[key];
     if (!asset.file) return;
 
-    // Check if it's a client-side entry file - Vike puts these under node_modules
-    if (
-      (key.includes('/client-routing-runtime/entry') ||
+    // Check if it's a client-side JavaScript file
+    // Include: entry files, renderer client, and essential page bundles
+    if (asset.file.endsWith('.js')) {
+      // Always include entry-client-routing (main entry)
+      if (key.includes('entry-client-routing') || key.includes('/client-routing-runtime/entry')) {
+        // Add first (main entry)
+        const scriptPath = asset.file.startsWith('assets/')
+          ? `/${asset.file}`
+          : `/assets/${asset.file}`;
+        if (!assetTags.scripts.includes(scriptPath)) {
+          assetTags.scripts.unshift(scriptPath);
+        }
+      }
+      // Always include the renderer default page client (main React bundle)
+      else if (
         key.includes('renderer_default.page.client') ||
-        key.includes('entry-client-routing')) &&
-      asset.file.endsWith('.js')
-    ) {
-      assetTags.scripts.push(`/assets/${asset.file}`);
+        key.includes('renderer/default.page.client') ||
+        asset.file.includes('renderer_default.page.client')
+      ) {
+        // Add after entry
+        const scriptPath = asset.file.startsWith('assets/')
+          ? `/${asset.file}`
+          : `/assets/${asset.file}`;
+        if (!assetTags.scripts.includes(scriptPath)) {
+          assetTags.scripts.push(scriptPath);
+        }
+      }
     }
   });
 
@@ -42,7 +61,10 @@ try {
   Object.keys(assets).forEach(key => {
     const asset = assets[key];
     if (asset.file && asset.file.endsWith('.css')) {
-      assetTags.styles.push(`/assets/${asset.file}`);
+      const stylePath = asset.file.startsWith('assets/')
+        ? `/${asset.file}`
+        : `/assets/${asset.file}`;
+      assetTags.styles.push(stylePath);
     }
   });
 
