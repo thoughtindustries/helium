@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [2.0.0-beta.6](https://github.com/thoughtindustries/helium/compare/@thoughtindustries/helium-template@2.0.0-beta.5...@thoughtindustries/helium-template@2.0.0-beta.6) (2025-09-25)
+
+### Bug Fixes
+
+- ensure asset-tags.json includes all critical client bundles ([79f5fd1](https://github.com/thoughtindustries/helium/commit/79f5fd1ce53557421a5b3dde7d735c58d3be4d93))
+
 # [2.0.0-beta.5](https://github.com/thoughtindustries/helium/compare/@thoughtindustries/helium-template@2.0.0-beta.4...@thoughtindustries/helium-template@2.0.0-beta.5) (2025-09-25)
 
 **Note:** Version bump only for package @thoughtindustries/helium-template
