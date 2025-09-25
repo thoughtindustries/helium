@@ -2,7 +2,11 @@
 // This code was provided by Cloudflare Workers
 // ********************************************
 
-import { getAssetFromKV, serveSinglePageApp } from '@cloudflare/kv-asset-handler';
+import {
+  getAssetFromKV,
+  serveSinglePageApp,
+  mapRequestToAsset
+} from '@cloudflare/kv-asset-handler';
 
 export { handleStaticAssets };
 
@@ -15,8 +19,56 @@ export { handleStaticAssets };
  */
 const DEBUG = false;
 
+// Custom asset mapper to handle Vike asset URLs
+function mapVikeAssets(request) {
+  const url = new URL(request.url);
+  const pathname = url.pathname;
+
+  // If this is an asset request that Vike generated (without full hash)
+  // We need to find the matching file in the manifest
+  if (pathname.startsWith('/assets/')) {
+    // Try to get the manifest to find the correct hashed filename
+    if (typeof __STATIC_CONTENT_MANIFEST !== 'undefined') {
+      try {
+        const manifest = JSON.parse(__STATIC_CONTENT_MANIFEST);
+
+        // Look for an exact match first
+        const cleanPath = pathname.replace(/^\/+/, '');
+        if (manifest[cleanPath]) {
+          // Found exact match, use the hashed version
+          url.pathname = '/' + manifest[cleanPath];
+          return new Request(url.toString(), request);
+        }
+
+        // Try to find a match by removing the existing hash and looking for the base name
+        // e.g., "chunk-C97W_Hzk.js" -> look for entries starting with "assets/chunks/chunk-C97W_Hzk"
+        for (const [originalPath, hashedPath] of Object.entries(manifest)) {
+          // Check if this is the file we're looking for
+          if (originalPath.includes(cleanPath.replace('.js', '').replace('.css', ''))) {
+            url.pathname = '/' + hashedPath;
+            return new Request(url.toString(), request);
+          }
+
+          // Also check if the requested path without extension matches
+          const requestedBase = cleanPath.split('.')[0];
+          const manifestBase = originalPath.split('.')[0];
+          if (manifestBase === requestedBase) {
+            url.pathname = '/' + hashedPath;
+            return new Request(url.toString(), request);
+          }
+        }
+      } catch (e) {
+        console.error('Error parsing manifest:', e);
+      }
+    }
+  }
+
+  // Fall back to the default single page app behavior
+  return serveSinglePageApp(request);
+}
+
 async function handleStaticAssets(event) {
-  let options = { mapRequestToAsset: serveSinglePageApp };
+  let options = { mapRequestToAsset: mapVikeAssets };
 
   /**
    * You can add custom logic to how we fetch your assets
