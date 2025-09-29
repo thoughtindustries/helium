@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [2.0.0-beta.8](https://github.com/thoughtindustries/helium/compare/@thoughtindustries/helium-template-essentials@2.0.0-beta.7...@thoughtindustries/helium-template-essentials@2.0.0-beta.8) (2025-09-29)
+
+### Bug Fixes
+
+- **manifest:** exclude server-routing entry to prevent runtime conflicts ([b9d0ea3](https://github.com/thoughtindustries/helium/commit/b9d0ea36b0f88b1f19fddbf67144ee3f0488d11d))
+
 # [2.0.0-beta.7](https://github.com/thoughtindustries/helium/compare/@thoughtindustries/helium-template-essentials@2.0.0-beta.6...@thoughtindustries/helium-template-essentials@2.0.0-beta.7) (2025-09-29)
 
 ### Bug Fixes
