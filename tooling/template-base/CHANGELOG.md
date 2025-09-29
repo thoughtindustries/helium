@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [2.0.0-beta.8](https://github.com/thoughtindustries/helium/compare/@thoughtindustries/helium-template@2.0.0-beta.7...@thoughtindustries/helium-template@2.0.0-beta.8) (2025-09-29)
+
+### Bug Fixes
+
+- **manifest:** include all assets for TI proxy routing ([20b9750](https://github.com/thoughtindustries/helium/commit/20b975014a8e42b89ae08868371468c61a4a5e50))
+
 # [2.0.0-beta.7](https://github.com/thoughtindustries/helium/compare/@thoughtindustries/helium-template@2.0.0-beta.6...@thoughtindustries/helium-template@2.0.0-beta.7) (2025-09-25)
 
 **Note:** Version bump only for package @thoughtindustries/helium-template
