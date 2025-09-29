@@ -16,15 +16,68 @@ try {
   // Read assets.json
   const assets = JSON.parse(fs.readFileSync(assetsPath, 'utf-8'));
 
-  // Create manifest.json with the same structure
-  // The deployment script checks for page routes with pattern /(^pages\/).+(\.tsx|\.jsx)/
+  // Create manifest.json with all necessary assets for the TI proxy
   const manifest = {};
+  const includedAssets = new Set();
 
-  // Copy all entries that match page routes
+  // Function to recursively include an asset and its dependencies
+  function includeAsset(key) {
+    if (!assets[key] || includedAssets.has(key)) {
+      return;
+    }
+
+    includedAssets.add(key);
+    manifest[key] = assets[key];
+
+    // Include imported chunks
+    if (assets[key].imports) {
+      assets[key].imports.forEach(importKey => {
+        includeAsset(importKey);
+      });
+    }
+
+    // Include dynamic imports
+    if (assets[key].dynamicImports) {
+      assets[key].dynamicImports.forEach(dynamicImportKey => {
+        includeAsset(dynamicImportKey);
+      });
+    }
+  }
+
+  // Include all page routes and their dependencies
   Object.keys(assets).forEach(key => {
-    // Include all page entries
+    // Include page entries
     if (key.startsWith('pages/') && (key.endsWith('.tsx') || key.endsWith('.jsx'))) {
-      manifest[key] = assets[key];
+      includeAsset(key);
+    }
+
+    // Include renderer entries (critical for client-side hydration)
+    if (key.startsWith('renderer/')) {
+      includeAsset(key);
+    }
+
+    // Include entry files (Vike's entry points)
+    if (assets[key] && assets[key].isEntry) {
+      includeAsset(key);
+    }
+  });
+
+  // Also include CSS files and other static assets referenced by included assets
+  Object.keys(manifest).forEach(key => {
+    const asset = manifest[key];
+
+    // Ensure CSS files are included as separate entries for the proxy
+    if (asset.css) {
+      asset.css.forEach(cssFile => {
+        // Create a synthetic entry for CSS files so the proxy knows about them
+        const cssKey = cssFile.replace('assets/', '');
+        if (!manifest[cssKey]) {
+          manifest[cssKey] = {
+            file: cssFile,
+            css: true
+          };
+        }
+      });
     }
   });
 
@@ -36,7 +89,22 @@ try {
 
   // Write manifest.json
   fs.writeFileSync(manifestPath, JSON.stringify(manifest, null, 2));
-  console.log('Generated manifest.json with', Object.keys(manifest).length, 'page routes');
+
+  // Log statistics
+  const stats = {
+    pages: Object.keys(manifest).filter(k => k.startsWith('pages/')).length,
+    renderer: Object.keys(manifest).filter(k => k.startsWith('renderer/')).length,
+    chunks: Object.keys(manifest).filter(k => k.startsWith('_chunk-')).length,
+    css: Object.keys(manifest).filter(k => manifest[k].css === true).length,
+    total: Object.keys(manifest).length
+  };
+
+  console.log('Generated manifest.json with:');
+  console.log(`  - ${stats.pages} page routes`);
+  console.log(`  - ${stats.renderer} renderer entries`);
+  console.log(`  - ${stats.chunks} chunk files`);
+  console.log(`  - ${stats.css} CSS files`);
+  console.log(`  - ${stats.total} total entries`);
 } catch (error) {
   console.error('Error generating manifest.json:', error);
   process.exit(1);
