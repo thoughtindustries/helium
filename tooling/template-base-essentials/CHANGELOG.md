@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [2.0.0-beta.9](https://github.com/thoughtindustries/helium/compare/@thoughtindustries/helium-template-essentials@2.0.0-beta.8...@thoughtindustries/helium-template-essentials@2.0.0-beta.9) (2025-09-29)
+
+### Bug Fixes
+
+- **vike:** remove urlParsed/urlPathname from passToClient for client routing ([641bc78](https://github.com/thoughtindustries/helium/commit/641bc78dbc5c2683e9a428dda10c07faf8f34ceb))
+
 # [2.0.0-beta.8](https://github.com/thoughtindustries/helium/compare/@thoughtindustries/helium-template-essentials@2.0.0-beta.7...@thoughtindustries/helium-template-essentials@2.0.0-beta.8) (2025-09-29)
 
 ### Bug Fixes
