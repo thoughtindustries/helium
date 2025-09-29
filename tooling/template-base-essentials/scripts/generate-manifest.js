@@ -56,9 +56,13 @@ try {
       includeAsset(key);
     }
 
-    // Include entry files (Vike's entry points)
+    // Include entry files (Vike's entry points) - but exclude server-routing
+    // Server-routing runtime should never be loaded in the browser
     if (assets[key] && assets[key].isEntry) {
-      includeAsset(key);
+      // Exclude server-routing entry - it causes conflicts when loaded in browser
+      if (!key.includes('server-routing-runtime')) {
+        includeAsset(key);
+      }
     }
   });
 
