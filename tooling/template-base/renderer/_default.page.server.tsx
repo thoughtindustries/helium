@@ -11,8 +11,8 @@ import { PageContext } from '../types';
 // See https://vike.dev/data-fetching
 export const passToClient = [
   'pageProps',
-  'urlParsed',
-  'urlPathname',
+  // 'urlParsed', // Automatically available with Client Routing - don't pass
+  // 'urlPathname', // Automatically available with Client Routing - don't pass
   'apolloInitialState',
   'heliumEndpoint',
   'appearance',
