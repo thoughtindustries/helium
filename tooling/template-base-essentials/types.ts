@@ -76,6 +76,7 @@ export type PageContext = {
   currentUser?: CurrentUser;
   appearance?: Appearance;
   apolloClient: ApolloClient<NormalizedCacheObject>;
+  assetUrls?: { scripts: string[]; styles: string[] };
 };
 
 export type PageWrapperProps = {

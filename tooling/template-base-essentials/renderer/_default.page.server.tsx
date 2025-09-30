@@ -64,19 +64,21 @@ const render: RenderFn = async pageContext => {
   const apolloInitialState = apolloClient.extract();
 
   // Build asset tags if provided (from Worker environment)
+  // IMPORTANT: In Server Routing mode, Vike automatically injects JavaScript during SSR
+  // We should ONLY manually inject CSS files to avoid "client runtime loaded twice" errors
+  // The mapVikeAssets function in static-assets.js handles URL resolution for JavaScript
   let assetTags = '';
-  if (assetUrls) {
-    // Add CSS files
-    if (assetUrls.styles && assetUrls.styles.length > 0) {
-      assetTags += assetUrls.styles.map(url => `<link rel="stylesheet" href="${url}">`).join('\n');
-    }
-    // Add JavaScript files
-    if (assetUrls.scripts && assetUrls.scripts.length > 0) {
-      assetTags +=
-        '\n' +
-        assetUrls.scripts.map(url => `<script type="module" src="${url}"></script>`).join('\n');
-    }
+
+  if (assetUrls && assetUrls.styles && assetUrls.styles.length > 0) {
+    // Only inject CSS files - these are safe and don't cause runtime duplication
+    assetTags += assetUrls.styles
+      .map((url: string) => `<link rel="stylesheet" href="${url}">`)
+      .join('\n');
   }
+
+  // DO NOT manually inject JavaScript files in Server Routing mode
+  // Vike handles JavaScript injection automatically during SSR
+  // The mapVikeAssets function in static-assets.js will resolve the URLs
 
   const documentHtml = escapeInject`<!DOCTYPE html>
     <html>

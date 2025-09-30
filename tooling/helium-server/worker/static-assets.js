@@ -48,12 +48,7 @@ function mapVikeAssets(request) {
         pathname = '/assets/static' + pathname;
       }
 
-      // Remove any Cloudflare-added hash (e.g., ".e2f69899ef")
-      // Pattern: filename.originalhash.cloudflarehash.js -> filename.originalhash.js
-      pathname = pathname.replace(/\.[a-f0-9]{8,12}\.js$/, '.js');
-      pathname = pathname.replace(/\.[a-f0-9]{8,12}\.css$/, '.css');
-
-      // Clean the path
+      // Clean the path for matching
       const cleanPath = pathname.replace(/^\/+/, '');
 
       // Look for an exact match first
@@ -62,7 +57,31 @@ function mapVikeAssets(request) {
         return new Request(url.toString(), request);
       }
 
-      // Try to find a match by looking for the file without considering hashes
+      // CRITICAL: Handle Vike's asset URLs that don't have Cloudflare's hash
+      // Vike generates: /assets/entry-server-routing.DTgIhraB.js
+      // Cloudflare has: /assets/entry-server-routing.DTgIhraB.6edf2d3208.js
+      // We need to find the Cloudflare version by matching the Vike pattern
+
+      // Try to match by removing the extension and looking for similar files
+      const pathWithoutExt = cleanPath.replace(/\.(js|css)$/, '');
+
+      for (const [originalPath, hashedPath] of Object.entries(manifest)) {
+        // Check if this is the file Vike is looking for
+        // Match if the original path starts with what Vike requested (minus extension)
+        const origWithoutExt = originalPath.replace(/\.(js|css)$/, '');
+
+        if (
+          origWithoutExt === pathWithoutExt ||
+          originalPath === cleanPath ||
+          // Also try matching if Vike's hash is part of the Cloudflare path
+          hashedPath.includes(pathWithoutExt)
+        ) {
+          url.pathname = '/' + hashedPath;
+          return new Request(url.toString(), request);
+        }
+      }
+
+      // Fallback: Try to find a match by looking for the file without considering hashes
       const fileName = pathname.split('/').pop();
       const baseFileName = fileName.split('.')[0];
 
