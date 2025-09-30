@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [3.0.0-beta.9](https://github.com/thoughtindustries/helium/compare/@thoughtindustries/helium-server@3.0.0-beta.8...@thoughtindustries/helium-server@3.0.0-beta.9) (2025-09-30)
+
+### Bug Fixes
+
+- **renderer:** prevent double script injection in Server Routing ([0cc466d](https://github.com/thoughtindustries/helium/commit/0cc466dcd368e8f0bbbeb50d79644cee8200d876))
+
 # [3.0.0-beta.8](https://github.com/thoughtindustries/helium/compare/@thoughtindustries/helium-server@3.0.0-beta.7...@thoughtindustries/helium-server@3.0.0-beta.8) (2025-09-30)
 
 ### Bug Fixes

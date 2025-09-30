@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [2.0.0-beta.12](https://github.com/thoughtindustries/helium/compare/@thoughtindustries/helium-template-essentials@2.0.0-beta.11...@thoughtindustries/helium-template-essentials@2.0.0-beta.12) (2025-09-30)
+
+### Bug Fixes
+
+- **renderer:** prevent double script injection in Server Routing ([0cc466d](https://github.com/thoughtindustries/helium/commit/0cc466dcd368e8f0bbbeb50d79644cee8200d876))
+
 # [2.0.0-beta.11](https://github.com/thoughtindustries/helium/compare/@thoughtindustries/helium-template-essentials@2.0.0-beta.10...@thoughtindustries/helium-template-essentials@2.0.0-beta.11) (2025-09-30)
 
 ### Bug Fixes
