@@ -3,6 +3,13 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [2.0.0-beta.14](https://github.com/thoughtindustries/helium/compare/@thoughtindustries/helium-template@2.0.0-beta.13...@thoughtindustries/helium-template@2.0.0-beta.14) (2025-09-30)
+
+### Bug Fixes
+
+- **dashboard:** replace error-throwing function with proper handler ([a37c289](https://github.com/thoughtindustries/helium/commit/a37c28901d3cdfc594cf9de6ce100d4f47b3703c))
+- **ssr:** add window guards to prevent hydration mismatches ([8e90962](https://github.com/thoughtindustries/helium/commit/8e90962378bec0093e211e1fb7ab0f665515b005)), closes [#418](https://github.com/thoughtindustries/helium/issues/418) [#423](https://github.com/thoughtindustries/helium/issues/423)
+
 # [2.0.0-beta.13](https://github.com/thoughtindustries/helium/compare/@thoughtindustries/helium-template@2.0.0-beta.12...@thoughtindustries/helium-template@2.0.0-beta.13) (2025-09-30)
 
 ### Bug Fixes
