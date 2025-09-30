@@ -30,8 +30,9 @@ try {
     // Check if it's a client-side JavaScript file
     // Include: entry files, renderer client, and essential page bundles
     if (asset.file.endsWith('.js')) {
-      // Always include entry-client-routing (main entry)
-      if (key.includes('entry-client-routing') || key.includes('/client-routing-runtime/entry')) {
+      // Include the appropriate entry based on routing mode
+      // For Server Routing, we need entry-server-routing
+      if (key.includes('entry-server-routing') || key.includes('/server-routing-runtime/entry')) {
         // Add first (main entry)
         const scriptPath = asset.file.startsWith('assets/')
           ? `/${asset.file}`

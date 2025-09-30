@@ -9,7 +9,6 @@ import makeApolloClient from '@thoughtindustries/helium-server/make-apollo-clien
 import { ErrorBoundary } from 'react-error-boundary';
 
 export { render };
-export const clientRouting = true;
 
 async function render(pageContext: PageContext) {
   const {

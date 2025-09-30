@@ -59,10 +59,8 @@ try {
     // Include entry files (Vike's entry points) - but exclude server-routing
     // Server-routing runtime should never be loaded in the browser
     if (assets[key] && assets[key].isEntry) {
-      // Exclude server-routing entry - it causes conflicts when loaded in browser
-      if (!key.includes('server-routing-runtime')) {
-        includeAsset(key);
-      }
+      // Include all entry files for Server Routing mode
+      includeAsset(key);
     }
   });
 

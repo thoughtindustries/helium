@@ -153,7 +153,7 @@ function getAssetUrls(manifest) {
     }
 
     // Collect entry points and CSS files
-    if (originalPath.includes('entry-client-routing') && originalPath.endsWith('.js')) {
+    if (originalPath.includes('entry-server-routing') && originalPath.endsWith('.js')) {
       assetUrls.scripts.unshift(`/${hashedPath}`); // Main entry first
     } else if (
       originalPath.includes('renderer_default.page.client') &&
