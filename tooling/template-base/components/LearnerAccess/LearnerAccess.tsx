@@ -64,11 +64,18 @@ const LearnerAccess = ({
 
   // update state to display button only on mobile
   const handleResize = () => {
-    setButton(window.innerWidth < 640);
+    if (typeof window !== 'undefined') {
+      setButton(window.innerWidth < 640);
+    }
   };
 
   useEffect(() => {
-    window.addEventListener('resize', handleResize);
+    // Only run on client side
+    if (typeof window !== 'undefined') {
+      handleResize(); // Set initial state
+      window.addEventListener('resize', handleResize);
+      return () => window.removeEventListener('resize', handleResize);
+    }
   }, []);
 
   const { t } = useTranslation();

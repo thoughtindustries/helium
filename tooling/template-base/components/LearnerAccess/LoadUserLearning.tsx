@@ -23,13 +23,18 @@ const LoadUserLearning = ({
   const [gridViewActive, setGridActive] = useState(true);
 
   const handleResize = () => {
-    if (window.innerWidth < 640) {
+    if (typeof window !== 'undefined' && window.innerWidth < 640) {
       setGridActive(true);
     }
   };
 
   useEffect(() => {
-    window.addEventListener('resize', handleResize);
+    // Only run on client side
+    if (typeof window !== 'undefined') {
+      handleResize(); // Set initial state
+      window.addEventListener('resize', handleResize);
+      return () => window.removeEventListener('resize', handleResize);
+    }
   }, []);
 
   const { data, loading, error } = useUserContentItemsQuery({
