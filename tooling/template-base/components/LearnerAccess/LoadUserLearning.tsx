@@ -29,11 +29,20 @@ const LoadUserLearning = ({
   };
 
   useEffect(() => {
-    // Only run on client side
+    // Only run on client side after hydration
     if (typeof window !== 'undefined') {
-      handleResize(); // Set initial state
+      // Don't set initial state here to avoid hydration mismatch
       window.addEventListener('resize', handleResize);
-      return () => window.removeEventListener('resize', handleResize);
+
+      // Only update state after a small delay to ensure hydration is complete
+      const timer = setTimeout(() => {
+        handleResize();
+      }, 0);
+
+      return () => {
+        clearTimeout(timer);
+        window.removeEventListener('resize', handleResize);
+      };
     }
   }, []);
 

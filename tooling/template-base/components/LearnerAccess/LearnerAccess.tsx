@@ -33,6 +33,8 @@ const LearnerAccess = ({
 }: LearnerAccessProps): JSX.Element => {
   const [activeTabKey, setActiveTabKey] = useState<TabKey | undefined>(undefined);
   const [availableTabs, setAvailableTabs] = useState<AvailableTab[]>([]);
+  // Initialize button state based on SSR-safe default (desktop view)
+  // Will be updated in useEffect on client
   const [button, setButton] = useState(false);
   const [dropDownActive, setDropDownActive] = useState(false);
   const {
@@ -70,11 +72,21 @@ const LearnerAccess = ({
   };
 
   useEffect(() => {
-    // Only run on client side
+    // Only run on client side after hydration
     if (typeof window !== 'undefined') {
-      handleResize(); // Set initial state
+      // Don't set initial state here to avoid hydration mismatch
+      // The component will use the default state (false) for both SSR and initial client render
       window.addEventListener('resize', handleResize);
-      return () => window.removeEventListener('resize', handleResize);
+
+      // Only update state after a small delay to ensure hydration is complete
+      const timer = setTimeout(() => {
+        handleResize();
+      }, 0);
+
+      return () => {
+        clearTimeout(timer);
+        window.removeEventListener('resize', handleResize);
+      };
     }
   }, []);
 
