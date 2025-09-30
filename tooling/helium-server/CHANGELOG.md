@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [3.0.0-beta.8](https://github.com/thoughtindustries/helium/compare/@thoughtindustries/helium-server@3.0.0-beta.7...@thoughtindustries/helium-server@3.0.0-beta.8) (2025-09-30)
+
+### Bug Fixes
+
+- **vike:** switch to Server Routing to resolve runtime conflicts ([d66aad0](https://github.com/thoughtindustries/helium/commit/d66aad0d8ff4ee3b37e45d8795e66935c103554d))
+
 # [3.0.0-beta.7](https://github.com/thoughtindustries/helium/compare/@thoughtindustries/helium-server@3.0.0-beta.6...@thoughtindustries/helium-server@3.0.0-beta.7) (2025-09-25)
 
 ### Bug Fixes

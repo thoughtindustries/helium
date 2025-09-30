@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [2.0.0-beta.12](https://github.com/thoughtindustries/helium/compare/@thoughtindustries/helium-template@2.0.0-beta.11...@thoughtindustries/helium-template@2.0.0-beta.12) (2025-09-30)
+
+### Bug Fixes
+
+- **vike:** switch to Server Routing to resolve runtime conflicts ([d66aad0](https://github.com/thoughtindustries/helium/commit/d66aad0d8ff4ee3b37e45d8795e66935c103554d))
+
 # [2.0.0-beta.11](https://github.com/thoughtindustries/helium/compare/@thoughtindustries/helium-template@2.0.0-beta.10...@thoughtindustries/helium-template@2.0.0-beta.11) (2025-09-29)
 
 ### Bug Fixes
