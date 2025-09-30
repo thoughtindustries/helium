@@ -1,6 +1,6 @@
 {
   "name": "@thoughtindustries/helium-template",
-  "version": "2.0.0-beta.14",
+  "version": "2.0.0-beta.15",
   "scripts": {
     "authenticate": "helium authenticate",
     "deploy": "helium deploy",

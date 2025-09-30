@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [2.0.0-beta.15](https://github.com/thoughtindustries/helium/compare/@thoughtindustries/helium-template@2.0.0-beta.14...@thoughtindustries/helium-template@2.0.0-beta.15) (2025-09-30)
+
+### Bug Fixes
+
+- **hydration:** delay initial state updates to avoid mismatches ([810edb1](https://github.com/thoughtindustries/helium/commit/810edb169c0d1224ea5629a73a987984d9336b06)), closes [#418](https://github.com/thoughtindustries/helium/issues/418) [#423](https://github.com/thoughtindustries/helium/issues/423)
+
 # [2.0.0-beta.14](https://github.com/thoughtindustries/helium/compare/@thoughtindustries/helium-template@2.0.0-beta.13...@thoughtindustries/helium-template@2.0.0-beta.14) (2025-09-30)
 
 ### Bug Fixes
