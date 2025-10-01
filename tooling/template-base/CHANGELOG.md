@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [2.0.0-beta.16](https://github.com/thoughtindustries/helium/compare/@thoughtindustries/helium-template@2.0.0-beta.15...@thoughtindustries/helium-template@2.0.0-beta.16) (2025-10-01)
+
+### Bug Fixes
+
+- resolve course page issues and improve placeholder error messages ([8840c6d](https://github.com/thoughtindustries/helium/commit/8840c6d83e4353292a76bc1a497abcb60e5b6c7d))
+
 # [2.0.0-beta.15](https://github.com/thoughtindustries/helium/compare/@thoughtindustries/helium-template@2.0.0-beta.14...@thoughtindustries/helium-template@2.0.0-beta.15) (2025-09-30)
 
 ### Bug Fixes
