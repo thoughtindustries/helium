@@ -2,9 +2,7 @@ import React from 'react';
 import { ContentHeader, GlobalTypes } from '@thoughtindustries/content';
 import { CourseGroup } from '@thoughtindustries/content/src/graphql/global-types';
 
-// In production, this path exists in the deployed environment
-// In development, Vite config will alias this to the local NavBar
-import NavBar from '../../../../../helium-apps/2025/add-course-detail-to-template-base/components/Navigation/NavBar';
+import NavBar from '../../components/Navigation/NavBar';
 
 export { Page };
 export { documentProps };

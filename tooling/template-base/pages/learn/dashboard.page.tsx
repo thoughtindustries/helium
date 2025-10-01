@@ -27,7 +27,11 @@ function Page() {
         <FeaturedContentComp
           onAddedToQueue={async function (item: HydratedContentItem): Promise<boolean | void> {
             // TODO: Implement queue functionality
-            console.log('Added to queue:', item);
+            console.warn(
+              '[PLACEHOLDER] onAddedToQueue is not yet implemented. Item that would be queued:',
+              item
+            );
+            // Return true to indicate success for now
             return true;
           }}
           numberOfContentItems={3}

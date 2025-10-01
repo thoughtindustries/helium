@@ -27,8 +27,14 @@ function Page() {
         buttonText="Sign in"
       />
       <FeaturedContentComp
-        onAddedToQueue={function (item: HydratedContentItem): Promise<boolean | void> {
-          throw new Error('Function not implemented.');
+        onAddedToQueue={async function (item: HydratedContentItem): Promise<boolean | void> {
+          // TODO: Implement queue functionality
+          console.warn(
+            '[PLACEHOLDER] onAddedToQueue is not yet implemented. Item that would be queued:',
+            item
+          );
+          // Return true to indicate success for now
+          return true;
         }}
         numberOfContentItems={3}
       />
