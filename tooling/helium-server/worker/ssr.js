@@ -152,8 +152,13 @@ function getAssetUrls(manifest) {
       assetUrls.assetMap[withoutHash] = `/${hashedPath}`;
     }
 
-    // Collect entry points and CSS files
-    if (originalPath.includes('entry-server-routing') && originalPath.endsWith('.js')) {
+    // Collect entry points and CSS files - include BOTH routing entries
+    // The correct one will be loaded based on the build configuration
+    if (
+      (originalPath.includes('entry-server-routing') ||
+        originalPath.includes('entry-client-routing')) &&
+      originalPath.endsWith('.js')
+    ) {
       assetUrls.scripts.unshift(`/${hashedPath}`); // Main entry first
     } else if (
       originalPath.includes('renderer_default.page.client') &&

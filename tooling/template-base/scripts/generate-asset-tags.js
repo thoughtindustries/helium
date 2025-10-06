@@ -22,6 +22,39 @@ try {
     styles: []
   };
 
+  // Detect which routing mode is being used based on entry file sizes
+  // Client routing entry is ~10x larger than server routing entry
+  let useClientRouting = false;
+  let clientEntrySize = 0;
+  let serverEntrySize = 0;
+
+  Object.keys(assets).forEach(key => {
+    const asset = assets[key];
+    if (!asset.file) return;
+
+    if (key.includes('entry-client-routing')) {
+      const filePath = path.join(__dirname, '..', 'dist', 'client', asset.file);
+      if (fs.existsSync(filePath)) {
+        clientEntrySize = fs.statSync(filePath).size;
+      }
+    } else if (key.includes('entry-server-routing')) {
+      const filePath = path.join(__dirname, '..', 'dist', 'client', asset.file);
+      if (fs.existsSync(filePath)) {
+        serverEntrySize = fs.statSync(filePath).size;
+      }
+    }
+  });
+
+  // Client routing entry is significantly larger (contains full routing logic)
+  // Server routing entry is small (just hydration)
+  if (clientEntrySize > 0 && serverEntrySize > 0) {
+    useClientRouting = clientEntrySize > serverEntrySize * 5; // Client entry is at least 5x larger
+  }
+
+  console.log(`Detected routing mode: ${useClientRouting ? 'Client' : 'Server'} Routing`);
+  console.log(`  Client entry size: ${clientEntrySize} bytes`);
+  console.log(`  Server entry size: ${serverEntrySize} bytes`);
+
   // Look for the main client entry and other entry files
   Object.keys(assets).forEach(key => {
     const asset = assets[key];
@@ -30,9 +63,13 @@ try {
     // Check if it's a client-side JavaScript file
     // Include: entry files, renderer client, and essential page bundles
     if (asset.file.endsWith('.js')) {
-      // Include the appropriate entry based on routing mode
-      // For Server Routing, we need entry-server-routing
-      if (key.includes('entry-server-routing') || key.includes('/server-routing-runtime/entry')) {
+      // Include ONLY the appropriate entry based on detected routing mode
+      const isClientEntry =
+        key.includes('entry-client-routing') || key.includes('/client-routing-runtime/entry');
+      const isServerEntry =
+        key.includes('entry-server-routing') || key.includes('/server-routing-runtime/entry');
+
+      if ((useClientRouting && isClientEntry) || (!useClientRouting && isServerEntry)) {
         // Add first (main entry)
         const scriptPath = asset.file.startsWith('assets/')
           ? `/${asset.file}`

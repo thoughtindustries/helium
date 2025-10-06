@@ -10,6 +10,9 @@ import { ErrorBoundary } from 'react-error-boundary';
 
 export { render };
 
+// Enable Client Routing (set to false for Server Routing)
+export const clientRouting = false; // defaults to false to enable Server Routing as the default
+
 async function render(pageContext: PageContext) {
   const {
     Page,
