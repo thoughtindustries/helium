@@ -1,6 +1,6 @@
 {
   "name": "@thoughtindustries/helium-server",
-  "version": "3.0.0-beta.11",
+  "version": "3.0.0-beta.12",
   "description": "Packages needed for running Helium Server",
   "publishConfig": {
     "access": "public"
@@ -65,5 +65,6 @@
   "engines": {
     "node": ">=16.18.1",
     "npm": ">=8.19.2"
-  }
+  },
+  "gitHead": "8974c20a302c8cc403568cc88ec180ee74c2eb80"
 }

@@ -1,6 +1,6 @@
 {
   "name": "@thoughtindustries/helium-template",
-  "version": "2.0.0-beta.18",
+  "version": "2.0.0-beta.19",
   "scripts": {
     "authenticate": "helium authenticate",
     "deploy": "helium deploy",
@@ -27,7 +27,7 @@
     "@thoughtindustries/catalog": "^2.0.0-beta.0",
     "@thoughtindustries/content": "^2.0.0-beta.0",
     "@thoughtindustries/featured-content": "^2.0.0-beta.0",
-    "@thoughtindustries/helium-server": "^3.0.0-beta.11",
+    "@thoughtindustries/helium-server": "^3.0.0-beta.12",
     "@thoughtindustries/hero": "^1.1.2",
     "@thoughtindustries/navigation-bar": "^2.0.0-beta.0",
     "clsx": "^1.2.1",
@@ -65,5 +65,5 @@
     "node": "18.20.7",
     "npm": "10.8.2"
   },
-  "gitHead": "8abf5581b82fd2ab47d0d25bd87667ae41f1f562"
+  "gitHead": "8974c20a302c8cc403568cc88ec180ee74c2eb80"
 }

@@ -3,6 +3,10 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [3.0.0-beta.12](https://github.com/thoughtindustries/helium/compare/@thoughtindustries/helium-server@3.0.0-beta.11...@thoughtindustries/helium-server@3.0.0-beta.12) (2025-10-06)
+
+**Note:** Version bump only for package @thoughtindustries/helium-server
+
 # [3.0.0-beta.11](https://github.com/thoughtindustries/helium/compare/@thoughtindustries/helium-server@3.0.0-beta.9...@thoughtindustries/helium-server@3.0.0-beta.11) (2025-10-06)
 
 ### Bug Fixes
