@@ -3,6 +3,16 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [3.0.0-beta.13](https://github.com/thoughtindustries/helium/compare/@thoughtindustries/helium-server@3.0.0-beta.12...@thoughtindustries/helium-server@3.0.0-beta.13) (2025-10-06)
+
+### Features
+
+- Add support for Client Routing alongside Server Routing ([1bdf06e](https://github.com/thoughtindustries/helium/commit/1bdf06e51b947c28ae8c211053c9a2f81793a07a))
+
+### BREAKING CHANGES
+
+- None - Server Routing remains the default
+
 # [3.0.0-beta.12](https://github.com/thoughtindustries/helium/compare/@thoughtindustries/helium-server@3.0.0-beta.11...@thoughtindustries/helium-server@3.0.0-beta.12) (2025-10-06)
 
 **Note:** Version bump only for package @thoughtindustries/helium-server

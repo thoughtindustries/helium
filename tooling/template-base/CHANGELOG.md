@@ -3,6 +3,16 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [2.0.0-beta.20](https://github.com/thoughtindustries/helium/compare/@thoughtindustries/helium-template@2.0.0-beta.19...@thoughtindustries/helium-template@2.0.0-beta.20) (2025-10-06)
+
+### Features
+
+- Add support for Client Routing alongside Server Routing ([1bdf06e](https://github.com/thoughtindustries/helium/commit/1bdf06e51b947c28ae8c211053c9a2f81793a07a))
+
+### BREAKING CHANGES
+
+- None - Server Routing remains the default
+
 # [2.0.0-beta.19](https://github.com/thoughtindustries/helium/compare/@thoughtindustries/helium-template@2.0.0-beta.18...@thoughtindustries/helium-template@2.0.0-beta.19) (2025-10-06)
 
 **Note:** Version bump only for package @thoughtindustries/helium-template
