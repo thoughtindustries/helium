@@ -22,38 +22,31 @@ try {
     styles: []
   };
 
-  // Detect which routing mode is being used based on entry file sizes
-  // Client routing entry is ~10x larger than server routing entry
+  // Detect which routing mode is being used by reading the server bundle
   let useClientRouting = false;
-  let clientEntrySize = 0;
-  let serverEntrySize = 0;
 
-  Object.keys(assets).forEach(key => {
-    const asset = assets[key];
-    if (!asset.file) return;
-
-    if (key.includes('entry-client-routing')) {
-      const filePath = path.join(__dirname, '..', 'dist', 'client', asset.file);
-      if (fs.existsSync(filePath)) {
-        clientEntrySize = fs.statSync(filePath).size;
-      }
-    } else if (key.includes('entry-server-routing')) {
-      const filePath = path.join(__dirname, '..', 'dist', 'client', asset.file);
-      if (fs.existsSync(filePath)) {
-        serverEntrySize = fs.statSync(filePath).size;
-      }
+  // Try to read the actual routing mode from the server bundle
+  const serverEntryPath = path.join(process.cwd(), 'dist', 'server', 'entry.mjs');
+  if (fs.existsSync(serverEntryPath)) {
+    const serverEntry = fs.readFileSync(serverEntryPath, 'utf-8');
+    const match = serverEntry.match(/"usesClientRouter":\s*(true|false)/);
+    if (match) {
+      useClientRouting = match[1] === 'true';
+      console.log(
+        `Detected routing mode from server bundle: ${
+          useClientRouting ? 'Client' : 'Server'
+        } Routing`
+      );
     }
-  });
-
-  // Client routing entry is significantly larger (contains full routing logic)
-  // Server routing entry is small (just hydration)
-  if (clientEntrySize > 0 && serverEntrySize > 0) {
-    useClientRouting = clientEntrySize > serverEntrySize * 5; // Client entry is at least 5x larger
   }
 
-  console.log(`Detected routing mode: ${useClientRouting ? 'Client' : 'Server'} Routing`);
-  console.log(`  Client entry size: ${clientEntrySize} bytes`);
-  console.log(`  Server entry size: ${serverEntrySize} bytes`);
+  // Fallback: Check if both entry files exist (they always do in Vike)
+  if (!fs.existsSync(serverEntryPath)) {
+    console.log(
+      'Warning: Could not detect routing mode from server bundle, defaulting to Server Routing'
+    );
+    useClientRouting = false;
+  }
 
   // Look for the main client entry and other entry files
   Object.keys(assets).forEach(key => {

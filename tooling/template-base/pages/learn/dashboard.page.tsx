@@ -5,6 +5,7 @@ import NavBar from '../../components/Navigation/NavBar';
 import LearnerAccess from '../../components/LearnerAccess/LearnerAccess';
 import FeaturedContentComp from '../../components/FeaturedContent/FeaturedContentComp';
 import { HydratedContentItem } from '@thoughtindustries/content';
+import { usePageContext } from '../../renderer/usePageContext';
 
 export { Page };
 export { documentProps };
@@ -15,6 +16,10 @@ const documentProps = {
 };
 
 function Page() {
+  const pageContext = usePageContext();
+  // Key for forcing component remount if needed
+  const key = pageContext.urlPathname || 'dashboard';
+
   return (
     <>
       <div className="font-primary">
@@ -23,8 +28,9 @@ function Page() {
           heading="My Dashboard"
           subtext="Your Dashboard is your game-changing collaborative space where you can view all your learning in one place."
         />
-        <LearnerAccess companyHasWaitlistingFeature={true} />
+        <LearnerAccess key={`${key}-learner`} companyHasWaitlistingFeature={true} />
         <FeaturedContentComp
+          key={`${key}-featured`}
           onAddedToQueue={async function (item: HydratedContentItem): Promise<boolean | void> {
             // TODO: Implement queue functionality
             console.warn(

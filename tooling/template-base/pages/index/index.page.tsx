@@ -7,6 +7,7 @@ import CallToActionWithLinks from '../../components/CTA/CallToActionWithLinks';
 import CallToActionParagraphs from '../../components/CTA/CallToActionParagraphs';
 import NavBar from '../../components/Navigation/NavBar';
 import { HydratedContentItem } from '@thoughtindustries/content';
+import { usePageContext } from '../../renderer/usePageContext';
 
 export { Page };
 export { documentProps };
@@ -17,6 +18,10 @@ const documentProps = {
 };
 
 function Page() {
+  const pageContext = usePageContext();
+  // Key for forcing component remount if needed
+  const key = pageContext.urlPathname || 'home';
+
   return (
     <>
       <NavBar />
@@ -27,6 +32,7 @@ function Page() {
         buttonText="Sign in"
       />
       <FeaturedContentComp
+        key={key}
         onAddedToQueue={async function (item: HydratedContentItem): Promise<boolean | void> {
           // TODO: Implement queue functionality
           console.warn(

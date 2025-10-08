@@ -77,6 +77,7 @@ export type PageContext = {
   appearance?: Appearance;
   apolloClient: ApolloClient<NormalizedCacheObject>;
   assetUrls?: { scripts: string[]; styles: string[] };
+  isHydration?: boolean;
 };
 
 export type PageWrapperProps = {

@@ -4,6 +4,8 @@ import CatalogError from './CatalogError';
 import CatalogResults from './CatalogResults';
 import { CatalogProvider, CatalogProps } from '@thoughtindustries/catalog';
 import { usePageContext } from '../../renderer/usePageContext';
+// Check if Client Routing is enabled
+import { clientRouting } from '../../renderer/_default.page.client';
 
 const CatalogAndAggregation: FC<CatalogProps> = ({
   ...restResultsProps
@@ -12,13 +14,21 @@ const CatalogAndAggregation: FC<CatalogProps> = ({
   const {
     urlParsed: { pathname: pathName, searchOriginal: searchString }
   } = pageContext;
+
+  // If Client Routing is enabled: Use SSR for initial page load, client-side fetching for navigation
+  // If Server Routing (no clientRouting export): Always use SSR
+  const isClientRoutingEnabled = clientRouting !== undefined;
+  const shouldUseSSR = isClientRoutingEnabled
+    ? pageContext.isHydration !== false // Client Routing: SSR only on initial load
+    : true; // Server Routing: Always SSR
+
   const props = useMemo(
     () => ({
       pathName,
       searchString,
-      ssr: true
+      ssr: shouldUseSSR
     }),
-    [pathName, searchString]
+    [pathName, searchString, shouldUseSSR]
   );
 
   return (

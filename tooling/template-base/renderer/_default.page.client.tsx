@@ -1,5 +1,5 @@
 import React from 'react';
-import { hydrateRoot } from 'react-dom/client';
+import { hydrateRoot, createRoot } from 'react-dom/client';
 import { PageWrapper } from './PageWrapper';
 import { ApolloProvider } from '@apollo/client';
 import { I18nextProvider } from 'react-i18next';
@@ -10,8 +10,13 @@ import { ErrorBoundary } from 'react-error-boundary';
 
 export { render };
 
-// Enable Client Routing (set to false for Server Routing)
-export const clientRouting = false; // defaults to false to enable Server Routing as the default
+// IMPORTANT: The mere PRESENCE of this export enables Client Routing!
+// To use Server Routing: Comment out or remove the export entirely
+// To use Client Routing: Uncomment the export (any value works, but true is conventional)
+export const clientRouting = true;
+
+// Keep track of the React root for Client Routing
+let root: ReturnType<typeof createRoot> | null = null;
 
 async function render(pageContext: PageContext) {
   const {
@@ -26,6 +31,7 @@ async function render(pageContext: PageContext) {
     authToken
   } = pageContext;
 
+  // Create Apollo Client - with hybrid SSR, we don't need aggressive cleanup
   const apolloClient = await makeApolloClient(
     heliumEndpoint,
     apolloInitialState,
@@ -54,12 +60,11 @@ async function render(pageContext: PageContext) {
 
   const pageViewElement = document.getElementById('page-view');
   if (!pageViewElement) {
-    console.error('Could not find page-view element for hydration');
+    console.error('Could not find page-view element');
     return;
   }
 
-  hydrateRoot(
-    pageViewElement,
+  const app = (
     <ErrorBoundary FallbackComponent={Fallback} onError={logError}>
       <ApolloProvider client={apolloClient}>
         <I18nextProvider i18n={i18n}>
@@ -75,4 +80,17 @@ async function render(pageContext: PageContext) {
       </ApolloProvider>
     </ErrorBoundary>
   );
+
+  // For Client Routing: check if this is the first render or a navigation
+  if (pageContext.isHydration !== false) {
+    // Initial page load - hydrate the server-rendered HTML
+    root = hydrateRoot(pageViewElement, app);
+  } else {
+    // Client-side navigation - with hybrid SSR approach, we can reuse the root
+    // Components will fetch data client-side when ssr: false
+    if (!root) {
+      root = createRoot(pageViewElement);
+    }
+    root.render(app);
+  }
 }
