@@ -9,10 +9,12 @@ import i18n from './i18n';
 import { PageContext } from '../types';
 
 // See https://vike.dev/data-fetching
-// Note: urlParsed and urlPathname are automatically available in Client Routing
+// Note: urlParsed and urlPathname are automatically available in Client Routing,
+// but we must explicitly pass them for Server Routing compatibility
 export const passToClient = [
   'pageProps',
-  // Don't pass urlParsed and urlPathname - Vike provides them automatically
+  'urlParsed', // Required for Server Routing (used in catalog components)
+  'urlPathname', // Required for Server Routing (used for key props and Link active state)
   'apolloInitialState',
   'heliumEndpoint',
   'appearance',

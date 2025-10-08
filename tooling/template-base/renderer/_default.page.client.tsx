@@ -13,7 +13,7 @@ export { render };
 // IMPORTANT: The mere PRESENCE of this export enables Client Routing!
 // To use Server Routing: Comment out or remove the export entirely
 // To use Client Routing: Uncomment the export (any value works, but true is conventional)
-export const clientRouting = true;
+// export const clientRouting = true;
 
 // Keep track of the React root for Client Routing
 let root: ReturnType<typeof createRoot> | null = null;
