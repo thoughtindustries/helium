@@ -17,6 +17,7 @@ export { render };
 
 // Keep track of the React root for Client Routing
 let root: ReturnType<typeof createRoot> | null = null;
+let isHydrated = false; // Track if we've already hydrated
 
 async function render(pageContext: PageContext) {
   const {
@@ -82,13 +83,14 @@ async function render(pageContext: PageContext) {
   );
 
   // For Client Routing: check if this is the first render or a navigation
-  if (pageContext.isHydration !== false) {
-    // Initial page load - hydrate the server-rendered HTML
+  if (pageContext.isHydration !== false && !isHydrated) {
+    // Initial page load - hydrate the server-rendered HTML (only once)
     root = hydrateRoot(pageViewElement, app);
+    isHydrated = true;
   } else {
-    // Client-side navigation - with hybrid SSR approach, we can reuse the root
-    // Components will fetch data client-side when ssr: false
+    // Client-side navigation - reuse the root for all subsequent renders
     if (!root) {
+      // Fallback: create root if somehow it doesn't exist
       root = createRoot(pageViewElement);
     }
     root.render(app);
