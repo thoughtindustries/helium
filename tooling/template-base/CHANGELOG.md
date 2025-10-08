@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [2.0.0-beta.24](https://github.com/thoughtindustries/helium/compare/@thoughtindustries/helium-template@2.0.0-beta.23...@thoughtindustries/helium-template@2.0.0-beta.24) (2025-10-08)
+
+### Bug Fixes
+
+- restore urlParsed and urlPathname to passToClient for Server Routing ([844dd80](https://github.com/thoughtindustries/helium/commit/844dd8025fc39ea9e9782ad07a87804956c62587))
+
 # [2.0.0-beta.23](https://github.com/thoughtindustries/helium/compare/@thoughtindustries/helium-template@2.0.0-beta.22...@thoughtindustries/helium-template@2.0.0-beta.23) (2025-10-08)
 
 **Note:** Version bump only for package @thoughtindustries/helium-template
