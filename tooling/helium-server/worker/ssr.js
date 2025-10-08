@@ -71,7 +71,9 @@ async function handleSsr(url, authToken = null, userAndAppearanceToken = null) {
     return null;
   } else {
     const { statusCode, body } = httpResponse;
-    const headers = assembleHeaders(pageContext);
+    // Check if this is a Client Routing pageContext.json request
+    const isClientRoutingRequest = url.includes('.pageContext.json');
+    const headers = assembleHeaders(pageContext, isClientRoutingRequest);
 
     return new Response(body, {
       headers,
@@ -101,8 +103,11 @@ function decryptUserAndAppearance(userAndAppearanceToken, tiInstance) {
   return { currentUser, appearanceBlock };
 }
 
-function assembleHeaders(pageContext) {
-  const headers = { 'content-type': 'text/html' };
+function assembleHeaders(pageContext, isClientRoutingRequest = false) {
+  // For Client Routing navigation requests, return JSON
+  // For regular page loads, return HTML
+  const contentType = isClientRoutingRequest ? 'application/json' : 'text/html';
+  const headers = { 'content-type': contentType };
 
   if (pageContext && pageContext.documentProps) {
     for (const key of Object.keys(pageContext.documentProps)) {
