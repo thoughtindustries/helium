@@ -2,8 +2,6 @@ import { CatalogProps, CatalogProvider, CatalogResultsProps } from '@thoughtindu
 import React, { FC, useMemo } from 'react';
 import { usePageContext } from '../../renderer/usePageContext';
 import CatalogResults from '../CatalogAndAggreg/CatalogResults';
-// Check if Client Routing is enabled
-import { clientRouting } from '../../renderer/_default.page.client';
 
 interface CatalogResultsWithLimitProps extends CatalogResultsProps {
   /** number of items to return */
@@ -18,20 +16,17 @@ const FeaturedContentComp: FC<CatalogResultsWithLimitProps> = ({
     urlParsed: { pathname: pathName, searchOriginal: searchString }
   } = pageContext;
 
-  // If Client Routing is enabled: Use SSR for initial page load, client-side fetching for navigation
-  // If Server Routing (no clientRouting export): Always use SSR
-  const isClientRoutingEnabled = clientRouting !== undefined;
-  const shouldUseSSR = isClientRoutingEnabled
-    ? pageContext.isHydration !== false // Client Routing: SSR only on initial load
-    : true; // Server Routing: Always SSR
+  // Use SSR for initial page load, client-side fetching for navigation
+  // isHydration is undefined/true for initial SSR, false for client-side navigation
+  const isInitialRender = pageContext.isHydration !== false;
 
   const props = useMemo(
     () => ({
       pathName,
       searchString,
-      ssr: shouldUseSSR
+      ssr: isInitialRender
     }),
-    [pathName, searchString, shouldUseSSR]
+    [pathName, searchString, isInitialRender]
   );
   return (
     <section id="featuredcomp" className="bg-slate-50 py-24 px-12">
