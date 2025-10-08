@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { ContentHeader, GlobalTypes } from '@thoughtindustries/content';
 import { CourseGroup } from '@thoughtindustries/content/src/graphql/global-types';
 import { gql, useQuery } from '@apollo/client';
@@ -49,19 +49,6 @@ const COURSE_GROUP_QUERY = gql`
 function Page(props: PageProps) {
   const pageContext = usePageContext();
   const courseSlug = pageContext.routeParams?.courseSlug;
-
-  // Debug logging
-  useEffect(() => {
-    console.log('Course Page Rendered:', {
-      courseSlug,
-      propsReceived: props,
-      hasCourseGroup: !!props.courseGroup,
-      hasError: !!props.error,
-      isHydration: pageContext.isHydration,
-      routeParams: pageContext.routeParams,
-      pagePropsFromContext: pageContext.pageProps
-    });
-  }, [courseSlug, props, pageContext]);
 
   // For Client Routing: ALWAYS fetch data on the client
   // pageProps will be empty {} during client navigation
