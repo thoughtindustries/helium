@@ -38,6 +38,7 @@ const LearnerAccess = ({
   const [button, setButton] = useState(false);
   const [dropDownActive, setDropDownActive] = useState(false);
   const {
+    data,
     loading,
     error,
     refetch: refetchContentGroups
@@ -45,8 +46,12 @@ const LearnerAccess = ({
     variables: {
       query,
       includeExpiredCertificates: displayExpiredCertificateInformation
-    },
-    onCompleted: data => {
+    }
+  });
+
+  // Handle available tabs update in useEffect to avoid state updates during render
+  useEffect(() => {
+    if (data?.UserContentGroups) {
       const newAvailableTabs = getAvailableTabs(
         data.UserContentGroups || [],
         userHasManagerInterfaceAccess,
@@ -62,7 +67,13 @@ const LearnerAccess = ({
       }
       setAvailableTabs(newAvailableTabs);
     }
-  });
+  }, [
+    data,
+    activeTabKey,
+    userHasManagerInterfaceAccess,
+    companyEnableExternalCertificateUploads,
+    companyHasWaitlistingFeature
+  ]);
 
   // update state to display button only on mobile
   const handleResize = () => {
