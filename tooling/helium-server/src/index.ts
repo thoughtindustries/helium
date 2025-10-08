@@ -1,7 +1,7 @@
 import { fetchUserAndAppearance, fetchUser } from './utilities/fetch-user-and-appearance';
 import findTiInstance from './utilities/find-ti-instance';
 import initPageContext from './utilities/init-page-context';
-import tiConfig from './vite-config/vite.config';
+import { tiConfig, createTiConfig } from './vite-config/vite.config';
 import makeApolloClient from './utilities/make-apollo-client';
 import setupHeliumServer from './server/server';
 
@@ -12,5 +12,6 @@ export {
   initPageContext,
   setupHeliumServer,
   makeApolloClient,
-  tiConfig
+  tiConfig,
+  createTiConfig
 };

@@ -1,11 +1,30 @@
 import express from 'express';
 import cookieParser from 'cookie-parser';
-import { renderPage } from 'vite-plugin-ssr/server';
 import findTiInstance from './../utilities/find-ti-instance';
 import { fetchUserAndAppearance, fetchUser } from './../utilities/fetch-user-and-appearance';
 import initPageContext from './../utilities/init-page-context';
 import fetch from 'isomorphic-unfetch';
 import path from 'path';
+
+// Lazy load vike/server to handle CJS/ESM compatibility issues
+let vikeModule: any = null;
+let viteDevServerRef: any = null;
+
+async function getRenderPage() {
+  if (!vikeModule) {
+    const isProduction = process.env.NODE_ENV === 'production';
+
+    if (!isProduction && viteDevServerRef) {
+      // In development, load vike through Vite's SSR module loader
+      // This is crucial for proper Vike/Vite integration
+      vikeModule = await viteDevServerRef.ssrLoadModule('vike/server');
+    } else {
+      // In production or when no Vite server, use dynamic import
+      vikeModule = await import('vike/server');
+    }
+  }
+  return vikeModule.renderPage;
+}
 
 const isProduction = process.env.NODE_ENV === 'production';
 const instanceName = process.env.INSTANCE || '';
@@ -30,6 +49,9 @@ export default async function setupHeliumServer(root: string, viteDevServer: any
     `);
   }
 
+  // Store the viteDevServer reference for getRenderPage to use
+  viteDevServerRef = viteDevServer;
+
   const app = express();
   app.use(cookieParser());
   const tiInstance = await findTiInstance(instanceName);
@@ -38,7 +60,18 @@ export default async function setupHeliumServer(root: string, viteDevServer: any
     app.use(express.static(`${root}/dist/client`, { index: false }));
   } else {
     (await import('dotenv')).config();
-    app.use(viteDevServer.middlewares);
+
+    // IMPORTANT: Don't let Vite handle .pageContext.json requests
+    // We need to handle them ourselves for Client Routing
+    app.use((req, res, next) => {
+      if (req.originalUrl.includes('.pageContext.json')) {
+        // Skip Vite middleware for Client Routing requests
+        return next();
+      }
+      // Let Vite handle everything else
+      viteDevServer.middlewares(req, res, next);
+    });
+
     app.use(express.json());
 
     app.use('/graphiql/assets', graphiqlStaticAssets);
@@ -128,6 +161,11 @@ export default async function setupHeliumServer(root: string, viteDevServer: any
     }
 
     const url = req.originalUrl;
+    const renderPage = await getRenderPage();
+
+    // Check if this is a Client Routing JSON request
+    const isClientRoutingRequest = url.includes('.pageContext.json');
+
     const result = await initPageContext(
       url,
       renderPage,
@@ -144,7 +182,22 @@ export default async function setupHeliumServer(root: string, viteDevServer: any
 
     if (redirectTo) {
       res.redirect(redirectTo);
+    } else if (isClientRoutingRequest) {
+      // Client Routing: Handle JSON request
+      // Vike returns the pageContext in httpResponse.body for .pageContext.json requests
+      if (httpResponse) {
+        const { statusCode, body } = httpResponse;
+        // Set proper content type for JSON responses
+        if (body && (body.startsWith('{') || body.startsWith('['))) {
+          res.setHeader('Content-Type', 'application/json');
+        }
+        res.status(statusCode).send(body);
+      } else {
+        // Fallback if no response
+        res.status(404).json({ error: 'Page context not found' });
+      }
     } else {
+      // Regular HTML response (Server Routing or initial Client Routing load)
       if (!httpResponse) return next();
 
       const { statusCode, body } = httpResponse;

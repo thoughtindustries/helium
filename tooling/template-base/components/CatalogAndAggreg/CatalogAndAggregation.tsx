@@ -12,13 +12,18 @@ const CatalogAndAggregation: FC<CatalogProps> = ({
   const {
     urlParsed: { pathname: pathName, searchOriginal: searchString }
   } = pageContext;
+
+  // Use SSR for initial page load, client-side fetching for navigation
+  // isHydration is undefined/true for initial SSR, false for client-side navigation
+  const isInitialRender = pageContext.isHydration !== false;
+
   const props = useMemo(
     () => ({
       pathName,
       searchString,
-      ssr: true
+      ssr: isInitialRender
     }),
-    [pathName, searchString]
+    [pathName, searchString, isInitialRender]
   );
 
   return (

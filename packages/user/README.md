@@ -14,9 +14,7 @@ import { Login } from '@thoughtindustries/user';
 export function MyComponent() {
   // ...
 
-  return (
-    <Login />
-  );
+  return <Login />;
 }
 ```
 

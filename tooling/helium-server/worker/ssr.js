@@ -1,4 +1,4 @@
-import { renderPage } from 'vite-plugin-ssr/server';
+import { renderPage } from 'vike/server';
 import jwt_decode from 'jwt-decode';
 import initPageContext from './init-page-context';
 import tiConfig from 'tiConfig';
@@ -36,6 +36,18 @@ async function handleSsr(url, authToken = null, userAndAppearanceToken = null) {
     userAndAppearanceToken,
     tiInstance
   );
+
+  // Parse asset manifest from Wrangler if available (in production)
+  let assetUrls = null;
+  if (typeof __STATIC_CONTENT_MANIFEST !== 'undefined') {
+    try {
+      const assetManifest = JSON.parse(__STATIC_CONTENT_MANIFEST);
+      assetUrls = getAssetUrls(assetManifest);
+    } catch (error) {
+      console.error('Failed to parse asset manifest:', error);
+    }
+  }
+
   const pageContext = await initPageContext(
     url,
     renderPage,
@@ -44,7 +56,9 @@ async function handleSsr(url, authToken = null, userAndAppearanceToken = null) {
     HELIUM_ENDPOINT,
     true,
     sha256,
-    authToken
+    authToken,
+    null,
+    assetUrls
   );
 
   const { httpResponse, redirectTo } = pageContext;
@@ -57,7 +71,9 @@ async function handleSsr(url, authToken = null, userAndAppearanceToken = null) {
     return null;
   } else {
     const { statusCode, body } = httpResponse;
-    const headers = assembleHeaders(pageContext);
+    // Check if this is a Client Routing pageContext.json request
+    const isClientRoutingRequest = url.includes('.pageContext.json');
+    const headers = assembleHeaders(pageContext, isClientRoutingRequest);
 
     return new Response(body, {
       headers,
@@ -87,8 +103,11 @@ function decryptUserAndAppearance(userAndAppearanceToken, tiInstance) {
   return { currentUser, appearanceBlock };
 }
 
-function assembleHeaders(pageContext) {
-  const headers = { 'content-type': 'text/html' };
+function assembleHeaders(pageContext, isClientRoutingRequest = false) {
+  // For Client Routing navigation requests, return JSON
+  // For regular page loads, return HTML
+  const contentType = isClientRoutingRequest ? 'application/json' : 'text/html';
+  const headers = { 'content-type': contentType };
 
   if (pageContext && pageContext.documentProps) {
     for (const key of Object.keys(pageContext.documentProps)) {
@@ -111,4 +130,54 @@ function findTiInstance(instanceName) {
   }
 
   return instance;
+}
+
+function getAssetUrls(manifest) {
+  // The manifest maps original asset paths to their hashed versions
+  // We need to build a complete list of all assets Vike needs
+  const assetUrls = {
+    scripts: [],
+    styles: [],
+    // Keep a mapping for chunk resolution
+    assetMap: {}
+  };
+
+  // Build a complete asset map for runtime resolution
+  for (const [originalPath, hashedPath] of Object.entries(manifest)) {
+    // Store the mapping for runtime resolution
+    const cleanPath = originalPath.replace(/^\/+/, '');
+    assetUrls.assetMap[cleanPath] = `/${hashedPath}`;
+
+    // Extract the actual asset filename from the hashed path
+    // e.g., "assets/chunks/chunk-B5g9DQMI.8f2f937207.js" -> "assets/chunks/chunk-B5g9DQMI.js"
+    const parts = hashedPath.split('.');
+    if (parts.length > 2 && parts[parts.length - 2].match(/^[a-f0-9]+$/)) {
+      // Remove the hash part to get the original filename
+      const withoutHash = [...parts.slice(0, -2), parts[parts.length - 1]].join('.');
+      assetUrls.assetMap[withoutHash] = `/${hashedPath}`;
+    }
+
+    // Collect entry points and CSS files - include BOTH routing entries
+    // The correct one will be loaded based on the build configuration
+    if (
+      (originalPath.includes('entry-server-routing') ||
+        originalPath.includes('entry-client-routing')) &&
+      originalPath.endsWith('.js')
+    ) {
+      assetUrls.scripts.unshift(`/${hashedPath}`); // Main entry first
+    } else if (
+      originalPath.includes('renderer_default.page.client') &&
+      originalPath.endsWith('.js')
+    ) {
+      assetUrls.scripts.push(`/${hashedPath}`);
+    } else if (originalPath.endsWith('.css')) {
+      assetUrls.styles.push(`/${hashedPath}`);
+    }
+  }
+
+  // Remove duplicates
+  assetUrls.scripts = [...new Set(assetUrls.scripts)];
+  assetUrls.styles = [...new Set(assetUrls.styles)];
+
+  return assetUrls;
 }

@@ -5,9 +5,11 @@ const config: StorybookConfig = {
   addons: [
     '@storybook/addon-links',
     '@storybook/addon-controls',
-    '@thoughtindustries/storybook-addon-apollo-client',
+    '@storybook/addon-docs',
+    '@thoughtindustries/storybook-addon-apollo-client/preset',
     '@storybook/addon-toolbars',
-    '@storybook/addon-storysource'
+    '@storybook/addon-storysource',
+    'storybook-addon-cookie'
   ],
   framework: '@storybook/react-vite',
   docs: {

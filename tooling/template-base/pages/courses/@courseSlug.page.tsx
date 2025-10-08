@@ -1,13 +1,16 @@
 import React from 'react';
-import NavBar from '../../../../../helium-apps/2025/add-course-detail-to-template-base/components/Navigation/NavBar';
 import { ContentHeader, GlobalTypes } from '@thoughtindustries/content';
 import { CourseGroup } from '@thoughtindustries/content/src/graphql/global-types';
+import { gql, useQuery } from '@apollo/client';
+import { usePageContext } from '../../renderer/usePageContext';
+
+import NavBar from '../../components/Navigation/NavBar';
 
 export { Page };
 export { documentProps };
 
 interface PageProps {
-  courseGroup: CourseGroup | null;
+  courseGroup?: CourseGroup | null;
   error?: string;
 }
 
@@ -16,7 +19,71 @@ const documentProps = {
   description: 'Course detail page'
 };
 
-function Page({ courseGroup, error }: PageProps) {
+// Use the same query as the server-side for consistency
+const COURSE_GROUP_QUERY = gql`
+  query CourseGroupBySlug($slug: Slug!) {
+    CourseGroupBySlug(slug: $slug) {
+      id
+      title
+      description
+      slug
+      asset
+      detailAsset
+      videoAsset
+      rating
+      ratingsCount
+      language
+      archived
+      metaTitle
+      metaDescription
+      authors
+      courses {
+        id
+        title
+      }
+      customFields
+    }
+  }
+`;
+
+function Page(props: PageProps) {
+  const pageContext = usePageContext();
+  const courseSlug = pageContext.routeParams?.courseSlug;
+
+  // For Client Routing: ALWAYS fetch data on the client
+  // pageProps will be empty {} during client navigation
+  // Only skip if we have SSR data from initial page load
+  const hasSSRData = props.courseGroup !== undefined && props.courseGroup !== null;
+
+  const {
+    data,
+    loading,
+    error: queryError
+  } = useQuery(COURSE_GROUP_QUERY, {
+    variables: { slug: courseSlug },
+    skip: !courseSlug || (hasSSRData && pageContext.isHydration !== false),
+    fetchPolicy: 'cache-first', // Use cache if available
+    notifyOnNetworkStatusChange: true
+  });
+
+  // Use SSR data if available, otherwise use client-fetched data
+  const courseGroup = hasSSRData ? props.courseGroup : data?.CourseGroupBySlug ?? null;
+  const error = props.error || queryError?.message;
+
+  // Show loading state during client-side data fetching
+  if (loading) {
+    return (
+      <div className="min-h-screen bg-white">
+        <NavBar />
+        <div className="flex items-center justify-center min-h-screen">
+          <div className="text-center">
+            <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600 mx-auto mb-4"></div>
+            <p className="text-gray-600">Loading course...</p>
+          </div>
+        </div>
+      </div>
+    );
+  }
   if (error) {
     return (
       <div className="min-h-screen bg-white">
@@ -115,7 +182,7 @@ function Page({ courseGroup, error }: PageProps) {
 
               {/* What's Included Box */}
               <div className="bg-white border border-gray-200 rounded-lg p-6 shadow-sm">
-                <h3 className="text-xl font-bold text-gray-900 mb-4">WHAT'S INCLUDED</h3>
+                <h3 className="text-xl font-bold text-gray-900 mb-4">WHAT&apos;S INCLUDED</h3>
                 <div className="space-y-4">
                   <div className="flex items-start space-x-3">
                     <div className="flex-shrink-0 w-6 h-6 bg-blue-600 rounded-full flex items-center justify-center">

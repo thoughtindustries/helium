@@ -1,4 +1,4 @@
-import { useParameter } from '@storybook/api';
+import { useParameter } from '@storybook/manager-api';
 import type { Parameters } from './types';
 import { PARAM_KEY } from './constants';
 
