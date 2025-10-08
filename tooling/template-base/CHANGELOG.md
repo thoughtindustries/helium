@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [2.0.0-beta.21](https://github.com/thoughtindustries/helium/compare/@thoughtindustries/helium-template@2.0.0-beta.20...@thoughtindustries/helium-template@2.0.0-beta.21) (2025-10-08)
+
+### Bug Fixes
+
+- properly support Client Routing mode in Vike ([2927d37](https://github.com/thoughtindustries/helium/commit/2927d37948e4fa46a71b980c493f4dfb3c3824f6))
+
 # [2.0.0-beta.20](https://github.com/thoughtindustries/helium/compare/@thoughtindustries/helium-template@2.0.0-beta.19...@thoughtindustries/helium-template@2.0.0-beta.20) (2025-10-06)
 
 ### Features

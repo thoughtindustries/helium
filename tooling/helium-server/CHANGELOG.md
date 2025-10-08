@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [3.0.0-beta.14](https://github.com/thoughtindustries/helium/compare/@thoughtindustries/helium-server@3.0.0-beta.13...@thoughtindustries/helium-server@3.0.0-beta.14) (2025-10-08)
+
+### Bug Fixes
+
+- properly support Client Routing mode in Vike ([2927d37](https://github.com/thoughtindustries/helium/commit/2927d37948e4fa46a71b980c493f4dfb3c3824f6))
+
 # [3.0.0-beta.13](https://github.com/thoughtindustries/helium/compare/@thoughtindustries/helium-server@3.0.0-beta.12...@thoughtindustries/helium-server@3.0.0-beta.13) (2025-10-06)
 
 ### Features
