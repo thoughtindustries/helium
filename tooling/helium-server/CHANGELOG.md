@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [3.0.0-beta.15](https://github.com/thoughtindustries/helium/compare/@thoughtindustries/helium-server@3.0.0-beta.14...@thoughtindustries/helium-server@3.0.0-beta.15) (2025-10-08)
+
+### Bug Fixes
+
+- set correct Content-Type for Client Routing pageContext.json in production worker ([d385c4f](https://github.com/thoughtindustries/helium/commit/d385c4febd44cbea1dc98c9fe28a2f5ee8a6edfe))
+
 # [3.0.0-beta.14](https://github.com/thoughtindustries/helium/compare/@thoughtindustries/helium-server@3.0.0-beta.13...@thoughtindustries/helium-server@3.0.0-beta.14) (2025-10-08)
 
 ### Bug Fixes

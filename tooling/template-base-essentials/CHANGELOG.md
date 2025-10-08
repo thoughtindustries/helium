@@ -3,6 +3,10 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [2.0.0-beta.18](https://github.com/thoughtindustries/helium/compare/@thoughtindustries/helium-template-essentials@2.0.0-beta.17...@thoughtindustries/helium-template-essentials@2.0.0-beta.18) (2025-10-08)
+
+**Note:** Version bump only for package @thoughtindustries/helium-template-essentials
+
 # [2.0.0-beta.17](https://github.com/thoughtindustries/helium/compare/@thoughtindustries/helium-template-essentials@2.0.0-beta.16...@thoughtindustries/helium-template-essentials@2.0.0-beta.17) (2025-10-08)
 
 **Note:** Version bump only for package @thoughtindustries/helium-template-essentials
