@@ -3,6 +3,13 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [2.0.0-beta.25](https://github.com/thoughtindustries/helium/compare/@thoughtindustries/helium-template@2.0.0-beta.24...@thoughtindustries/helium-template@2.0.0-beta.25) (2025-10-08)
+
+### Bug Fixes
+
+- prevent multiple hydration calls in Client Routing ([b937de8](https://github.com/thoughtindustries/helium/commit/b937de8ddd8026169c183086e825c331042f17a5)), closes [#418](https://github.com/thoughtindustries/helium/issues/418) [#423](https://github.com/thoughtindustries/helium/issues/423) [#418](https://github.com/thoughtindustries/helium/issues/418) [#423](https://github.com/thoughtindustries/helium/issues/423)
+- prevent state updates during render in LearnerAccess component ([0d4a4d3](https://github.com/thoughtindustries/helium/commit/0d4a4d364b432f1652e74f9890f4305f2f61cc65)), closes [#418](https://github.com/thoughtindustries/helium/issues/418) [#423](https://github.com/thoughtindustries/helium/issues/423)
+
 # [2.0.0-beta.24](https://github.com/thoughtindustries/helium/compare/@thoughtindustries/helium-template@2.0.0-beta.23...@thoughtindustries/helium-template@2.0.0-beta.24) (2025-10-08)
 
 ### Bug Fixes
