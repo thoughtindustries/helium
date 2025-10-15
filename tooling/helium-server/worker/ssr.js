@@ -1,9 +1,16 @@
-import { renderPage } from 'vike/server';
 import jwt_decode from 'jwt-decode';
 import initPageContext from './init-page-context';
 import tiConfig from 'tiConfig';
 
 export { handleSsr };
+
+// Dynamic import of renderPage to avoid CJS require() of ESM modules
+// Load it immediately at module level (runs once when worker starts)
+let renderPage = null;
+(async () => {
+  const vikeModule = await import('vike/server');
+  renderPage = vikeModule.renderPage;
+})();
 
 const bufferToHex = buffer => {
   const view = new DataView(buffer);
@@ -44,6 +51,12 @@ if (typeof __STATIC_CONTENT_MANIFEST !== 'undefined') {
 }
 
 async function handleSsr(url, authToken = null, userAndAppearanceToken = null) {
+  // Ensure renderPage is loaded (should already be loaded at module init)
+  if (!renderPage) {
+    const vikeModule = await import('vike/server');
+    renderPage = vikeModule.renderPage;
+  }
+
   const tiInstance = findTiInstance(INSTANCE_NAME);
   const { currentUser, appearanceBlock } = decryptUserAndAppearance(
     userAndAppearanceToken,
