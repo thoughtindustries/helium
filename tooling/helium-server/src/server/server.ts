@@ -6,25 +6,9 @@ import initPageContext from './../utilities/init-page-context';
 import fetch from 'isomorphic-unfetch';
 import path from 'path';
 
-// Lazy load vike/server to handle CJS/ESM compatibility issues
-let vikeModule: any = null;
-let viteDevServerRef: any = null;
-
-async function getRenderPage() {
-  if (!vikeModule) {
-    const isProduction = process.env.NODE_ENV === 'production';
-
-    if (!isProduction && viteDevServerRef) {
-      // In development, load vike through Vite's SSR module loader
-      // This is crucial for proper Vike/Vite integration
-      vikeModule = await viteDevServerRef.ssrLoadModule('vike/server');
-    } else {
-      // In production or when no Vite server, use dynamic import
-      vikeModule = await import('vike/server');
-    }
-  }
-  return vikeModule.renderPage;
-}
+// Dynamic import to avoid CJS require() of ESM modules
+// This variable will be set on first use
+let renderPage: any = null;
 
 const isProduction = process.env.NODE_ENV === 'production';
 const instanceName = process.env.INSTANCE || '';
@@ -49,8 +33,16 @@ export default async function setupHeliumServer(root: string, viteDevServer: any
     `);
   }
 
-  // Store the viteDevServer reference for getRenderPage to use
-  viteDevServerRef = viteDevServer;
+  // Load renderPage dynamically to avoid CJS/ESM issues
+  if (!isProduction && viteDevServer) {
+    // In development, use dev server's module loader for HMR support
+    const vikeDevModule = await viteDevServer.ssrLoadModule('vike/server');
+    renderPage = vikeDevModule.renderPage;
+  } else if (!renderPage) {
+    // In production or first time, dynamically import vike
+    const vikeModule = await import('vike/server');
+    renderPage = vikeModule.renderPage;
+  }
 
   const app = express();
   app.use(cookieParser());
@@ -161,8 +153,6 @@ export default async function setupHeliumServer(root: string, viteDevServer: any
     }
 
     const url = req.originalUrl;
-    const renderPage = await getRenderPage();
-
     // Check if this is a Client Routing JSON request
     const isClientRoutingRequest = url.includes('.pageContext.json');
 

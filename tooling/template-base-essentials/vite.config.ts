@@ -1,17 +1,9 @@
+import { createVikeConfig } from '@thoughtindustries/helium-server';
 import { defineConfig } from 'vite';
-import react from '@vitejs/plugin-react';
 
 export default defineConfig(async () => {
-  const plugins = [react()];
-
-  try {
-    // Try to load vike dynamically
-    const vikeModule = await import('vike/plugin');
-    const vike = vikeModule.default || vikeModule;
-    plugins.push(vike());
-  } catch (error) {
-    console.warn('Vike plugin could not be loaded, continuing without SSR:', error);
-  }
+  // Get base config with vike plugin (uses dynamic import to avoid ESM/CJS issues)
+  const config = await createVikeConfig();
 
   // Load MDX plugins
   const remarkFrontmatter = await import('remark-frontmatter');
@@ -22,22 +14,8 @@ export default defineConfig(async () => {
     rehypePlugins: []
   };
 
-  plugins.push(mdx.default(mdxOptions));
+  // Add MDX plugin
+  config.plugins.push(mdx.default(mdxOptions));
 
-  return {
-    plugins,
-    build: {
-      manifest: true // Generate manifest.json for deployment
-    },
-    optimizeDeps: {
-      include: ['dayjs', 'universal-cookie']
-    },
-    envPrefix: 'HELIUM_PUBLIC_',
-    ssr: {
-      noExternal: ['@apollo/client', 'graphql', 'use-debounce']
-    },
-    resolve: {
-      dedupe: ['@apollo/client']
-    }
-  };
+  return config;
 });
