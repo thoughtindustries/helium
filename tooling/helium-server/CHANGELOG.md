@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [3.0.0-beta.18](https://github.com/thoughtindustries/helium/compare/@thoughtindustries/helium-server@3.0.0-beta.17...@thoughtindustries/helium-server@3.0.0-beta.18) (2025-10-15)
+
+### Bug Fixes
+
+- prevent race condition in worker renderPage loading ([fa090a8](https://github.com/thoughtindustries/helium/commit/fa090a8baa3e863243ac4904cdc38448a0b4a0b0))
+
 # [3.0.0-beta.17](https://github.com/thoughtindustries/helium/compare/@thoughtindustries/helium-server@3.0.0-beta.16...@thoughtindustries/helium-server@3.0.0-beta.17) (2025-10-15)
 
 ### Bug Fixes
