@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [3.0.0-beta.17](https://github.com/thoughtindustries/helium/compare/@thoughtindustries/helium-server@3.0.0-beta.16...@thoughtindustries/helium-server@3.0.0-beta.17) (2025-10-15)
+
+### Bug Fixes
+
+- use dynamic import for renderPage in worker to avoid ESM/CJS errors ([31a04c4](https://github.com/thoughtindustries/helium/commit/31a04c46d5f2a304f19ff37ad5155e43651e8bb2))
+
 # [3.0.0-beta.16](https://github.com/thoughtindustries/helium/compare/@thoughtindustries/helium-server@2.7.0...@thoughtindustries/helium-server@3.0.0-beta.16) (2025-10-15)
 
 **Note:** Version bump only for package @thoughtindustries/helium-server
