@@ -5,12 +5,18 @@ import tiConfig from 'tiConfig';
 export { handleSsr };
 
 // Dynamic import of renderPage to avoid CJS require() of ESM modules
-// Load it immediately at module level (runs once when worker starts)
+// We use a promise to ensure it's loaded before use
+let renderPagePromise = import('vike/server').then(m => m.renderPage);
 let renderPage = null;
-(async () => {
-  const vikeModule = await import('vike/server');
-  renderPage = vikeModule.renderPage;
-})();
+
+// Pre-load renderPage at module level
+renderPagePromise
+  .then(rp => {
+    renderPage = rp;
+  })
+  .catch(error => {
+    console.error('Failed to load vike renderPage:', error);
+  });
 
 const bufferToHex = buffer => {
   const view = new DataView(buffer);
@@ -51,10 +57,9 @@ if (typeof __STATIC_CONTENT_MANIFEST !== 'undefined') {
 }
 
 async function handleSsr(url, authToken = null, userAndAppearanceToken = null) {
-  // Ensure renderPage is loaded (should already be loaded at module init)
+  // Ensure renderPage is loaded - await the promise if not yet resolved
   if (!renderPage) {
-    const vikeModule = await import('vike/server');
-    renderPage = vikeModule.renderPage;
+    renderPage = await renderPagePromise;
   }
 
   const tiInstance = findTiInstance(INSTANCE_NAME);
