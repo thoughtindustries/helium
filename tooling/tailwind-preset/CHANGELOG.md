@@ -3,6 +3,10 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [2.0.0-beta.1](https://github.com/thoughtindustries/helium/compare/@thoughtindustries/helium-tailwind-preset@1.1.0...@thoughtindustries/helium-tailwind-preset@2.0.0-beta.1) (2025-10-15)
+
+**Note:** Version bump only for package @thoughtindustries/helium-tailwind-preset
+
 # [2.0.0-beta.0](https://github.com/thoughtindustries/helium/compare/@thoughtindustries/helium-tailwind-preset@1.1.0...@thoughtindustries/helium-tailwind-preset@2.0.0-beta.0) (2025-09-24)
 
 ### chore
