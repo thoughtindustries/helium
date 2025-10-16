@@ -3,6 +3,42 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [2.0.0-beta.34](https://github.com/thoughtindustries/helium/compare/@thoughtindustries/helium-template@2.0.0-beta.33...@thoughtindustries/helium-template@2.0.0-beta.34) (2025-10-16)
+
+**Note:** Version bump only for package @thoughtindustries/helium-template
+
+# [2.0.0-beta.33](https://github.com/thoughtindustries/helium/compare/@thoughtindustries/helium-template@2.0.0-beta.32...@thoughtindustries/helium-template@2.0.0-beta.33) (2025-10-16)
+
+**Note:** Version bump only for package @thoughtindustries/helium-template
+
+# [2.0.0-beta.32](https://github.com/thoughtindustries/helium/compare/@thoughtindustries/helium-template@2.0.0-beta.31...@thoughtindustries/helium-template@2.0.0-beta.32) (2025-10-16)
+
+**Note:** Version bump only for package @thoughtindustries/helium-template
+
+# [2.0.0-beta.31](https://github.com/thoughtindustries/helium/compare/@thoughtindustries/helium-template@2.0.0-beta.30...@thoughtindustries/helium-template@2.0.0-beta.31) (2025-10-16)
+
+**Note:** Version bump only for package @thoughtindustries/helium-template
+
+# [2.0.0-beta.30](https://github.com/thoughtindustries/helium/compare/@thoughtindustries/helium-template@2.0.0-beta.29...@thoughtindustries/helium-template@2.0.0-beta.30) (2025-10-16)
+
+**Note:** Version bump only for package @thoughtindustries/helium-template
+
+# [2.0.0-beta.29](https://github.com/thoughtindustries/helium/compare/@thoughtindustries/helium-template@2.0.0-beta.28...@thoughtindustries/helium-template@2.0.0-beta.29) (2025-10-16)
+
+**Note:** Version bump only for package @thoughtindustries/helium-template
+
+# [2.0.0-beta.28](https://github.com/thoughtindustries/helium/compare/@thoughtindustries/helium-template@2.0.0-beta.27...@thoughtindustries/helium-template@2.0.0-beta.28) (2025-10-15)
+
+**Note:** Version bump only for package @thoughtindustries/helium-template
+
+# [2.0.0-beta.27](https://github.com/thoughtindustries/helium/compare/@thoughtindustries/helium-template@2.0.0-beta.26...@thoughtindustries/helium-template@2.0.0-beta.27) (2025-10-15)
+
+**Note:** Version bump only for package @thoughtindustries/helium-template
+
+# [2.0.0-beta.26](https://github.com/thoughtindustries/helium/compare/@thoughtindustries/helium-template@1.5.0...@thoughtindustries/helium-template@2.0.0-beta.26) (2025-10-15)
+
+**Note:** Version bump only for package @thoughtindustries/helium-template
+
 # [2.0.0-beta.25](https://github.com/thoughtindustries/helium/compare/@thoughtindustries/helium-template@2.0.0-beta.24...@thoughtindustries/helium-template@2.0.0-beta.25) (2025-10-08)
 
 ### Bug Fixes

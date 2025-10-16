@@ -1,7 +1,11 @@
-import { renderPage } from 'vike/server';
 import jwt_decode from 'jwt-decode';
 import initPageContext from './init-page-context';
 import tiConfig from 'tiConfig';
+// Import the server production entry FIRST to initialize Vike
+// This must be imported before vike/server
+import '../dist/server/entry.mjs';
+// Now import renderPage from vike/server
+import { renderPage } from 'vike/server';
 
 export { handleSsr };
 
@@ -30,23 +34,25 @@ const create =
 
 const sha256 = create('SHA-256');
 
+// Parse asset manifest once at worker startup for better performance
+// Cloudflare Workers are long-lived, so this cache persists across requests
+let CACHED_ASSET_URLS = null;
+if (typeof __STATIC_CONTENT_MANIFEST !== 'undefined') {
+  try {
+    const assetManifest = JSON.parse(__STATIC_CONTENT_MANIFEST);
+    CACHED_ASSET_URLS = getAssetUrls(assetManifest);
+    console.log('Asset manifest parsed and cached at worker startup');
+  } catch (error) {
+    console.error('Failed to parse asset manifest at startup:', error);
+  }
+}
+
 async function handleSsr(url, authToken = null, userAndAppearanceToken = null) {
   const tiInstance = findTiInstance(INSTANCE_NAME);
   const { currentUser, appearanceBlock } = decryptUserAndAppearance(
     userAndAppearanceToken,
     tiInstance
   );
-
-  // Parse asset manifest from Wrangler if available (in production)
-  let assetUrls = null;
-  if (typeof __STATIC_CONTENT_MANIFEST !== 'undefined') {
-    try {
-      const assetManifest = JSON.parse(__STATIC_CONTENT_MANIFEST);
-      assetUrls = getAssetUrls(assetManifest);
-    } catch (error) {
-      console.error('Failed to parse asset manifest:', error);
-    }
-  }
 
   const pageContext = await initPageContext(
     url,
@@ -58,7 +64,7 @@ async function handleSsr(url, authToken = null, userAndAppearanceToken = null) {
     sha256,
     authToken,
     null,
-    assetUrls
+    CACHED_ASSET_URLS // Use pre-parsed asset URLs from startup
   );
 
   const { httpResponse, redirectTo } = pageContext;

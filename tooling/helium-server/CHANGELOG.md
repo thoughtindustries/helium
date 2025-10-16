@@ -3,6 +3,54 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [3.0.0-beta.24](https://github.com/thoughtindustries/helium/compare/@thoughtindustries/helium-server@3.0.0-beta.23...@thoughtindustries/helium-server@3.0.0-beta.24) (2025-10-16)
+
+### Bug Fixes
+
+- import server production entry to resolve Vike initialization ([dab1845](https://github.com/thoughtindustries/helium/commit/dab1845c0ad66ac48056f00fddbd763345794d99))
+
+# [3.0.0-beta.23](https://github.com/thoughtindustries/helium/compare/@thoughtindustries/helium-server@3.0.0-beta.22...@thoughtindustries/helium-server@3.0.0-beta.23) (2025-10-16)
+
+**Note:** Version bump only for package @thoughtindustries/helium-server
+
+# [3.0.0-beta.22](https://github.com/thoughtindustries/helium/compare/@thoughtindustries/helium-server@3.0.0-beta.21...@thoughtindustries/helium-server@3.0.0-beta.22) (2025-10-16)
+
+**Note:** Version bump only for package @thoughtindustries/helium-server
+
+# [3.0.0-beta.21](https://github.com/thoughtindustries/helium/compare/@thoughtindustries/helium-server@3.0.0-beta.20...@thoughtindustries/helium-server@3.0.0-beta.21) (2025-10-16)
+
+### Bug Fixes
+
+- ensure vike is available in worker deployment ([586cb15](https://github.com/thoughtindustries/helium/commit/586cb15e2603ca2d18cf63861959412109b97353))
+
+# [3.0.0-beta.20](https://github.com/thoughtindustries/helium/compare/@thoughtindustries/helium-server@3.0.0-beta.19...@thoughtindustries/helium-server@3.0.0-beta.20) (2025-10-16)
+
+### Bug Fixes
+
+- import renderPage from built SSR entry for Cloudflare Workers ([4acde33](https://github.com/thoughtindustries/helium/commit/4acde333e10bdb985aa589497f90b3b4e2a27511))
+
+# [3.0.0-beta.19](https://github.com/thoughtindustries/helium/compare/@thoughtindustries/helium-server@3.0.0-beta.18...@thoughtindustries/helium-server@3.0.0-beta.19) (2025-10-16)
+
+### Bug Fixes
+
+- simplify worker renderPage loading for Cloudflare Workers compatibility ([5576ee4](https://github.com/thoughtindustries/helium/commit/5576ee485c0f51c6967f07ea814003fea5a9ad41))
+
+# [3.0.0-beta.18](https://github.com/thoughtindustries/helium/compare/@thoughtindustries/helium-server@3.0.0-beta.17...@thoughtindustries/helium-server@3.0.0-beta.18) (2025-10-15)
+
+### Bug Fixes
+
+- prevent race condition in worker renderPage loading ([fa090a8](https://github.com/thoughtindustries/helium/commit/fa090a8baa3e863243ac4904cdc38448a0b4a0b0))
+
+# [3.0.0-beta.17](https://github.com/thoughtindustries/helium/compare/@thoughtindustries/helium-server@3.0.0-beta.16...@thoughtindustries/helium-server@3.0.0-beta.17) (2025-10-15)
+
+### Bug Fixes
+
+- use dynamic import for renderPage in worker to avoid ESM/CJS errors ([31a04c4](https://github.com/thoughtindustries/helium/commit/31a04c46d5f2a304f19ff37ad5155e43651e8bb2))
+
+# [3.0.0-beta.16](https://github.com/thoughtindustries/helium/compare/@thoughtindustries/helium-server@2.7.0...@thoughtindustries/helium-server@3.0.0-beta.16) (2025-10-15)
+
+**Note:** Version bump only for package @thoughtindustries/helium-server
+
 # [3.0.0-beta.15](https://github.com/thoughtindustries/helium/compare/@thoughtindustries/helium-server@3.0.0-beta.14...@thoughtindustries/helium-server@3.0.0-beta.15) (2025-10-08)
 
 ### Bug Fixes

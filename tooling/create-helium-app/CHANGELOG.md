@@ -3,6 +3,42 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [2.0.0-beta.29](https://github.com/thoughtindustries/helium/compare/create-helium-app@2.0.0-beta.28...create-helium-app@2.0.0-beta.29) (2025-10-16)
+
+**Note:** Version bump only for package create-helium-app
+
+# [2.0.0-beta.28](https://github.com/thoughtindustries/helium/compare/create-helium-app@2.0.0-beta.27...create-helium-app@2.0.0-beta.28) (2025-10-16)
+
+**Note:** Version bump only for package create-helium-app
+
+# [2.0.0-beta.27](https://github.com/thoughtindustries/helium/compare/create-helium-app@2.0.0-beta.26...create-helium-app@2.0.0-beta.27) (2025-10-16)
+
+**Note:** Version bump only for package create-helium-app
+
+# [2.0.0-beta.26](https://github.com/thoughtindustries/helium/compare/create-helium-app@2.0.0-beta.25...create-helium-app@2.0.0-beta.26) (2025-10-16)
+
+**Note:** Version bump only for package create-helium-app
+
+# [2.0.0-beta.25](https://github.com/thoughtindustries/helium/compare/create-helium-app@2.0.0-beta.24...create-helium-app@2.0.0-beta.25) (2025-10-16)
+
+**Note:** Version bump only for package create-helium-app
+
+# [2.0.0-beta.24](https://github.com/thoughtindustries/helium/compare/create-helium-app@2.0.0-beta.23...create-helium-app@2.0.0-beta.24) (2025-10-16)
+
+**Note:** Version bump only for package create-helium-app
+
+# [2.0.0-beta.23](https://github.com/thoughtindustries/helium/compare/create-helium-app@2.0.0-beta.22...create-helium-app@2.0.0-beta.23) (2025-10-15)
+
+**Note:** Version bump only for package create-helium-app
+
+# [2.0.0-beta.22](https://github.com/thoughtindustries/helium/compare/create-helium-app@2.0.0-beta.21...create-helium-app@2.0.0-beta.22) (2025-10-15)
+
+**Note:** Version bump only for package create-helium-app
+
+# [2.0.0-beta.21](https://github.com/thoughtindustries/helium/compare/create-helium-app@1.1.35...create-helium-app@2.0.0-beta.21) (2025-10-15)
+
+**Note:** Version bump only for package create-helium-app
+
 # [2.0.0-beta.20](https://github.com/thoughtindustries/helium/compare/create-helium-app@2.0.0-beta.19...create-helium-app@2.0.0-beta.20) (2025-10-08)
 
 **Note:** Version bump only for package create-helium-app
