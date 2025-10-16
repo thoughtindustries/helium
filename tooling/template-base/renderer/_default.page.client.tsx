@@ -18,6 +18,8 @@ export { render };
 // Keep track of the React root for Client Routing
 let root: ReturnType<typeof createRoot> | null = null;
 let isHydrated = false; // Track if we've already hydrated
+// Track current Apollo Client for proper cleanup
+let currentApolloClient: ReturnType<typeof makeApolloClient> | null = null;
 
 async function render(pageContext: PageContext) {
   const {
@@ -32,13 +34,25 @@ async function render(pageContext: PageContext) {
     authToken
   } = pageContext;
 
-  // Create Apollo Client - with hybrid SSR, we don't need aggressive cleanup
+  // Clean up previous Apollo Client to prevent memory leaks
+  if (currentApolloClient) {
+    // Stop all active queries and subscriptions
+    currentApolloClient.stop();
+    // Clear the store to free up memory
+    await currentApolloClient.clearStore();
+    currentApolloClient = null;
+  }
+
+  // Create Apollo Client - always create fresh on client side
   const apolloClient = await makeApolloClient(
     heliumEndpoint,
     apolloInitialState,
     isProduction,
     authToken
   );
+
+  // Track the current client
+  currentApolloClient = apolloClient;
 
   if (currentUser && currentUser.lang) {
     i18n.changeLanguage(currentUser.lang);
