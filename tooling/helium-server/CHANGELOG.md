@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [3.0.0-beta.19](https://github.com/thoughtindustries/helium/compare/@thoughtindustries/helium-server@3.0.0-beta.18...@thoughtindustries/helium-server@3.0.0-beta.19) (2025-10-16)
+
+### Bug Fixes
+
+- simplify worker renderPage loading for Cloudflare Workers compatibility ([5576ee4](https://github.com/thoughtindustries/helium/commit/5576ee485c0f51c6967f07ea814003fea5a9ad41))
+
 # [3.0.0-beta.18](https://github.com/thoughtindustries/helium/compare/@thoughtindustries/helium-server@3.0.0-beta.17...@thoughtindustries/helium-server@3.0.0-beta.18) (2025-10-15)
 
 ### Bug Fixes
