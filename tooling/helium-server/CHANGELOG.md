@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [3.0.0-beta.20](https://github.com/thoughtindustries/helium/compare/@thoughtindustries/helium-server@3.0.0-beta.19...@thoughtindustries/helium-server@3.0.0-beta.20) (2025-10-16)
+
+### Bug Fixes
+
+- import renderPage from built SSR entry for Cloudflare Workers ([4acde33](https://github.com/thoughtindustries/helium/commit/4acde333e10bdb985aa589497f90b3b4e2a27511))
+
 # [3.0.0-beta.19](https://github.com/thoughtindustries/helium/compare/@thoughtindustries/helium-server@3.0.0-beta.18...@thoughtindustries/helium-server@3.0.0-beta.19) (2025-10-16)
 
 ### Bug Fixes
