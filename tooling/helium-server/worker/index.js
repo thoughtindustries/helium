@@ -50,6 +50,32 @@ function handleOptions(event) {
 }
 
 async function handleFetchEvent(event) {
+  const url = new URL(event.request.url);
+
+  // Debug endpoint to check worker status
+  if (url.pathname === '/__debug__') {
+    return new Response(
+      JSON.stringify(
+        {
+          status: 'Worker is running',
+          timestamp: new Date().toISOString(),
+          url: event.request.url,
+          hasRenderPage: typeof handleSsr !== 'undefined',
+          environment: {
+            INSTANCE_NAME: typeof INSTANCE_NAME !== 'undefined' ? INSTANCE_NAME : 'undefined',
+            HELIUM_ENDPOINT: typeof HELIUM_ENDPOINT !== 'undefined' ? HELIUM_ENDPOINT : 'undefined',
+            NODE_ENV: typeof NODE_ENV !== 'undefined' ? NODE_ENV : 'undefined'
+          }
+        },
+        null,
+        2
+      ),
+      {
+        headers: { 'content-type': 'application/json' }
+      }
+    );
+  }
+
   if (!isAssetUrl(event.request.url)) {
     const { headers } = event.request;
     const authToken = headers.get('authToken') || null;
