@@ -1,6 +1,7 @@
 import jwt_decode from 'jwt-decode';
 import initPageContext from './init-page-context';
 import tiConfig from 'tiConfig';
+// Static import required for Cloudflare Workers - dynamic imports not supported
 import { renderPage } from 'vike/server';
 
 export { handleSsr };
