@@ -44,43 +44,105 @@ if (typeof __STATIC_CONTENT_MANIFEST !== 'undefined') {
 }
 
 async function handleSsr(url, authToken = null, userAndAppearanceToken = null) {
-  const tiInstance = findTiInstance(INSTANCE_NAME);
-  const { currentUser, appearanceBlock } = decryptUserAndAppearance(
-    userAndAppearanceToken,
-    tiInstance
-  );
-
-  const pageContext = await initPageContext(
+  // Debug information we'll include in response headers
+  const debugInfo = {
     url,
-    renderPage,
-    currentUser,
-    appearanceBlock,
-    HELIUM_ENDPOINT,
-    true,
-    sha256,
-    authToken,
-    null,
-    CACHED_ASSET_URLS // Use pre-parsed asset URLs from startup
-  );
+    renderPageDefined: !!renderPage,
+    timestamp: new Date().toISOString()
+  };
 
-  const { httpResponse, redirectTo } = pageContext;
+  try {
+    if (!renderPage) {
+      // Return debug info as HTML so it's visible in the browser
+      return new Response(
+        `<!DOCTYPE html>
+        <html>
+        <head><title>Worker Debug</title></head>
+        <body>
+          <h1>Worker Error: renderPage not defined</h1>
+          <pre>${JSON.stringify(debugInfo, null, 2)}</pre>
+        </body>
+        </html>`,
+        {
+          status: 500,
+          headers: {
+            'content-type': 'text/html;charset=UTF-8',
+            'x-debug-worker': 'renderPage-undefined'
+          }
+        }
+      );
+    }
 
-  if (redirectTo) {
-    return Response.redirect(redirectTo, 302);
-  }
+    const tiInstance = findTiInstance(INSTANCE_NAME);
+    const { currentUser, appearanceBlock } = decryptUserAndAppearance(
+      userAndAppearanceToken,
+      tiInstance
+    );
 
-  if (!httpResponse) {
-    return null;
-  } else {
-    const { statusCode, body } = httpResponse;
-    // Check if this is a Client Routing pageContext.json request
-    const isClientRoutingRequest = url.includes('.pageContext.json');
-    const headers = assembleHeaders(pageContext, isClientRoutingRequest);
+    const pageContext = await initPageContext(
+      url,
+      renderPage,
+      currentUser,
+      appearanceBlock,
+      HELIUM_ENDPOINT,
+      true,
+      sha256,
+      authToken,
+      null,
+      CACHED_ASSET_URLS // Use pre-parsed asset URLs from startup
+    );
 
-    return new Response(body, {
-      headers,
-      status: statusCode
-    });
+    debugInfo.pageContextStatus = pageContext?.httpResponse?.statusCode;
+
+    const { httpResponse, redirectTo } = pageContext;
+
+    if (redirectTo) {
+      return Response.redirect(redirectTo, 302);
+    }
+
+    if (!httpResponse) {
+      debugInfo.noHttpResponse = true;
+      return null;
+    } else {
+      const { statusCode, body } = httpResponse;
+      // Check if this is a Client Routing pageContext.json request
+      const isClientRoutingRequest = url.includes('.pageContext.json');
+      const headers = assembleHeaders(pageContext, isClientRoutingRequest);
+
+      // Add debug headers (visible in browser DevTools Network tab)
+      headers['x-debug-status'] = statusCode || '200';
+      headers['x-debug-url'] = url;
+      headers['x-debug-has-renderpage'] = renderPage ? 'true' : 'false';
+
+      return new Response(body, {
+        headers,
+        status: statusCode
+      });
+    }
+  } catch (error) {
+    // Return error details as HTML so they're visible in the browser
+    return new Response(
+      `<!DOCTYPE html>
+      <html>
+      <head><title>Worker Error</title></head>
+      <body>
+        <h1>Worker SSR Error</h1>
+        <h2>Error Message:</h2>
+        <pre>${error.message}</pre>
+        <h2>Error Stack:</h2>
+        <pre>${error.stack}</pre>
+        <h2>Debug Info:</h2>
+        <pre>${JSON.stringify(debugInfo, null, 2)}</pre>
+      </body>
+      </html>`,
+      {
+        status: 500,
+        headers: {
+          'content-type': 'text/html;charset=UTF-8',
+          'x-debug-worker-error': error.message
+        }
+      }
+    );
   }
 }
 
