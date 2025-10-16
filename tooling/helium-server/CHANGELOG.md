@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [3.0.0-beta.24](https://github.com/thoughtindustries/helium/compare/@thoughtindustries/helium-server@3.0.0-beta.23...@thoughtindustries/helium-server@3.0.0-beta.24) (2025-10-16)
+
+### Bug Fixes
+
+- import server production entry to resolve Vike initialization ([dab1845](https://github.com/thoughtindustries/helium/commit/dab1845c0ad66ac48056f00fddbd763345794d99))
+
 # [3.0.0-beta.23](https://github.com/thoughtindustries/helium/compare/@thoughtindustries/helium-server@3.0.0-beta.22...@thoughtindustries/helium-server@3.0.0-beta.23) (2025-10-16)
 
 **Note:** Version bump only for package @thoughtindustries/helium-server
