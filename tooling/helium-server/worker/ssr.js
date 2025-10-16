@@ -1,8 +1,7 @@
 import jwt_decode from 'jwt-decode';
 import initPageContext from './init-page-context';
 import tiConfig from 'tiConfig';
-// In production, renderPage comes from the built SSR entry point
-import { renderPage } from '../dist/server/entry.mjs';
+import { renderPage } from 'vike/server';
 
 export { handleSsr };
 
