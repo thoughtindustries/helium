@@ -1,12 +1,10 @@
 import jwt_decode from 'jwt-decode';
 import initPageContext from './init-page-context';
 import tiConfig from 'tiConfig';
+// In production, renderPage comes from the built SSR entry point
+import { renderPage } from '../dist/server/entry.mjs';
 
 export { handleSsr };
-
-// Dynamic import of renderPage to avoid CJS require() of ESM modules
-// Lazy load on first request (Cloudflare Workers friendly)
-let renderPage = null;
 
 const bufferToHex = buffer => {
   const view = new DataView(buffer);
@@ -47,12 +45,6 @@ if (typeof __STATIC_CONTENT_MANIFEST !== 'undefined') {
 }
 
 async function handleSsr(url, authToken = null, userAndAppearanceToken = null) {
-  // Lazy load renderPage on first request
-  if (!renderPage) {
-    const vikeModule = await import('vike/server');
-    renderPage = vikeModule.renderPage;
-  }
-
   const tiInstance = findTiInstance(INSTANCE_NAME);
   const { currentUser, appearanceBlock } = decryptUserAndAppearance(
     userAndAppearanceToken,
