@@ -28,9 +28,16 @@ export async function createVikeConfig() {
     const vikeModule = await import('vike/plugin');
     const vike = vikeModule.default || vikeModule;
 
+    // Deep clone baseConfig to prevent shared references between consumers
+    // Note: We can't clone plugins (they contain functions), so we handle them separately
+    // This ensures that if one consumer modifies nested objects (e.g., resolve.alias),
+    // it won't affect other consumers or the original baseConfig
+    const { plugins, ...serializableConfig } = baseConfig;
+    const clonedConfig = structuredClone(serializableConfig);
+
     return {
-      ...baseConfig,
-      plugins: [...baseConfig.plugins, vike()]
+      ...clonedConfig,
+      plugins: [...plugins, vike()] // Use original plugins array (safe - replaced not mutated)
     };
   } catch (error) {
     // FAIL FAST: If vike can't load, throw a clear error
