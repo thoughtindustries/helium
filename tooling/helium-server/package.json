@@ -1,6 +1,6 @@
 {
   "name": "@thoughtindustries/helium-server",
-  "version": "2.6.0",
+  "version": "2.7.0",
   "description": "Packages needed for running Helium Server",
   "publishConfig": {
     "access": "public"
@@ -59,8 +59,8 @@
     "tsup": "^5.11.13"
   },
   "volta": {
-    "node": "16.18.1",
-    "npm": "8.19.2"
+    "node": "18.20.7",
+    "npm": "10.8.2"
   },
   "engines": {
     "node": ">=16.18.1",

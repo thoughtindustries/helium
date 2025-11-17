@@ -73,8 +73,8 @@
     "tooling/*"
   ],
   "volta": {
-    "node": "16.18.1",
-    "npm": "8.19.2"
+    "node": "18.20.7",
+    "npm": "10.8.2"
   },
   "dependencies": {
     "@storybook/addon-toolbars": "^7.0.21"
