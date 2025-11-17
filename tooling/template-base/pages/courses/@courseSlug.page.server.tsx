@@ -43,22 +43,21 @@ async function onBeforeRender(pageContext: PageContext) {
       }
     `;
 
-    const response = await fetch(
-      `https://${process.env.INSTANCE_PUBLIC_DOMAIN}/helium?apiKey=${process.env.HELIUM_SECRET_API_KEY}`,
-      {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({
-          query,
-          variables: {
-            slug: courseSlug
-          }
-        }),
-        signal: AbortSignal.timeout(10000)
-      }
-    );
+    const url = `https://${process.env.HELIUM_PUBLIC_INSTANCE_PUBLIC_DOMAIN}/helium?apiKey=${process.env.HELIUM_SECRET_API_KEY}`;
+
+    const response = await fetch(url, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        query,
+        variables: {
+          slug: courseSlug
+        }
+      }),
+      signal: AbortSignal.timeout(10000)
+    });
 
     if (!response.ok) {
       const errorText = await response.text();
