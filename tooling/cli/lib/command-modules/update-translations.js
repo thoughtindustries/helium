@@ -27,7 +27,9 @@ exports.handler = argv => {
   };
 
   const updateScriptPath = path.resolve(__dirname, './../update-translations.js');
-  const updateProcess = exec(`node ${updateScriptPath}`, { env });
+  const updateProcess = exec(`node -e "require('${updateScriptPath}').updateTranslations()"`, {
+    env
+  });
 
   updateProcess.stdout.pipe(process.stdout);
   updateProcess.stderr.pipe(process.stderr);

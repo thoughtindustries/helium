@@ -115,7 +115,7 @@ function Page({ courseGroup, error }: PageProps) {
 
               {/* What's Included Box */}
               <div className="bg-white border border-gray-200 rounded-lg p-6 shadow-sm">
-                <h3 className="text-xl font-bold text-gray-900 mb-4">WHAT'S INCLUDED</h3>
+                <h3 className="text-xl font-bold text-gray-900 mb-4">WHATS INCLUDED</h3>
                 <div className="space-y-4">
                   <div className="flex items-start space-x-3">
                     <div className="flex-shrink-0 w-6 h-6 bg-blue-600 rounded-full flex items-center justify-center">

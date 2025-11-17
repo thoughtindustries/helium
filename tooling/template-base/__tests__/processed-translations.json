@@ -1,0 +1,72 @@
+{
+  "en": {
+    "lms": {
+      "catalog.meta-title": "Course Catalog - %{companyName}",
+      "not-found": "The page you are looking for could not be found",
+      "please-wait": "Please Wait…",
+      "checkout.corrected-address": "Our Corrected Address",
+      "checkout.choose-validated-address": "Choose Corrected Address",
+      "checkout.current-address-info": "Current Address Information"
+    }
+  },
+  "zh": {
+    "lms": {
+      "catalog.meta-title": "课程目录 - %{companyName}",
+      "not-found": "无法找到您正查找的页面",
+      "please-wait": "请稍候…",
+      "checkout.corrected-address": "我们更正后的地址",
+      "checkout.choose-validated-address": "请选择更正后的地址",
+      "checkout.current-address-info": "当前地址信息"
+    }
+  },
+  "pt": {
+    "lms": {
+      "catalog.meta-title": "Catálogo do curso - %{companyName}",
+      "not-found": "A página que você está procurando não foi encontrada",
+      "please-wait": "Aguarde…",
+      "checkout.corrected-address": "Nosso endereço corrigido",
+      "checkout.choose-validated-address": "Escolha o endereço corrigido",
+      "checkout.current-address-info": "Dados do endereço atual"
+    }
+  },
+  "de": {
+    "lms": {
+      "catalog.meta-title": "Kursverzeichnis - %{companyName}",
+      "not-found": "Die angeforderte Seite konnte nicht gefunden werden",
+      "please-wait": "Bitte warten …",
+      "checkout.corrected-address": "Unsere korrigierte Adresse",
+      "checkout.choose-validated-address": "Die korrigierte Adresse wählen",
+      "checkout.current-address-info": "Aktuelle Adressdaten"
+    }
+  },
+  "fr": {
+    "lms": {
+      "catalog.meta-title": "Catalogue de formation - %{companyName}",
+      "not-found": "La page que vous recherchez n'a pas pu être trouvée",
+      "please-wait": "Veuillez patienter…",
+      "checkout.corrected-address": "Notre adresse corrigée",
+      "checkout.choose-validated-address": "Choisir l'adresse corrigée",
+      "checkout.current-address-info": "Adresse actuelle"
+    }
+  },
+  "es": {
+    "lms": {
+      "catalog.meta-title": "Catálogo de cursos - %{companyName} ",
+      "not-found": "No se ha podido encontrar la página que buscas",
+      "please-wait": "Por favor, aguarda…",
+      "checkout.corrected-address": "Nuestra dirección corregida",
+      "checkout.choose-validated-address": "Elegir dirección corregida",
+      "checkout.current-address-info": "Información de dirección actual"
+    }
+  },
+  "ja": {
+    "lms": {
+      "catalog.meta-title": "コースカタログ-%{companyName}",
+      "not-found": "お探しのページは見つかりませんでした",
+      "please-wait": "しばらくお待ちください …",
+      "checkout.corrected-address": "当社の修正済住所",
+      "checkout.choose-validated-address": "修正した住所を選択します",
+      "checkout.current-address-info": "現在の住所情報"
+    }
+  }
+}

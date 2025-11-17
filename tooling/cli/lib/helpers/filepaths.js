@@ -24,7 +24,9 @@ const getFilePaths = async (dir, filePaths = [], skipNodeModules = true) => {
         await getFilePaths(filePath, newFilePaths);
       }
     }
-  } catch {}
+  } catch (error) {
+    console.log(error);
+  }
   return newFilePaths;
 };
 
@@ -33,7 +35,8 @@ const filePathIsValid = filePath => {
     filePath.endsWith('.js') ||
     filePath.endsWith('.jsx') ||
     filePath.endsWith('.ts') ||
-    filePath.endsWith('.tsx')
+    filePath.endsWith('.tsx') ||
+    filePath.endsWith('.mjs')
   );
 };
 

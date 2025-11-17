@@ -62,7 +62,8 @@ const writeTranslationFile = async (dir, translations, generateBackup = false) =
   }
 
   const devFileName = path.join(dirPath, 'translations.json');
-  return writeFile(devFileName, stringifiedTranslations);
+
+  await writeFile(devFileName, stringifiedTranslations);
 };
 
 // react-i18next handles pluralizations differently than the
