@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [2.0.0-beta.2](https://github.com/thoughtindustries/helium/compare/@thoughtindustries/cart@1.2.5...@thoughtindustries/cart@2.0.0-beta.2) (2025-12-05)
+
+### Bug Fixes
+
+- resolve Vike SSR issues and address code review feedback ([f9d9434](https://github.com/thoughtindustries/helium/commit/f9d94340bfa6427116c1c9d10e3ce6ac20de93b8))
+
 # [2.0.0-beta.1](https://github.com/thoughtindustries/helium/compare/@thoughtindustries/cart@1.2.5...@thoughtindustries/cart@2.0.0-beta.1) (2025-10-15)
 
 **Note:** Version bump only for package @thoughtindustries/cart

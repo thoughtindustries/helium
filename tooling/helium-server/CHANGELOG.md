@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [3.0.0-beta.25](https://github.com/thoughtindustries/helium/compare/@thoughtindustries/helium-server@2.7.0...@thoughtindustries/helium-server@3.0.0-beta.25) (2025-12-05)
+
+### Bug Fixes
+
+- resolve Vike SSR issues and address code review feedback ([f9d9434](https://github.com/thoughtindustries/helium/commit/f9d94340bfa6427116c1c9d10e3ce6ac20de93b8))
+- update Node.js requirement to 18.0.0+ for Helium 3.0 ([51e91d9](https://github.com/thoughtindustries/helium/commit/51e91d906a4c23096f9faa235b4037abf16c0ed1))
+- use structuredClone for deep cloning Vite config ([acb57a6](https://github.com/thoughtindustries/helium/commit/acb57a6c206ddfc7810bf3d1e2ebc4ecfd9537cf))
+
 # [3.0.0-beta.24](https://github.com/thoughtindustries/helium/compare/@thoughtindustries/helium-server@3.0.0-beta.23...@thoughtindustries/helium-server@3.0.0-beta.24) (2025-10-16)
 
 ### Bug Fixes
