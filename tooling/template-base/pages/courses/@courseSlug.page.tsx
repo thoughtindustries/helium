@@ -1,10 +1,9 @@
 import React from 'react';
+import NavBar from '../../components/Navigation/NavBar';
 import { ContentHeader, GlobalTypes } from '@thoughtindustries/content';
 import { CourseGroup } from '@thoughtindustries/content/src/graphql/global-types';
 import { gql, useQuery } from '@apollo/client';
 import { usePageContext } from '../../renderer/usePageContext';
-
-import NavBar from '../../components/Navigation/NavBar';
 
 export { Page };
 export { documentProps };
