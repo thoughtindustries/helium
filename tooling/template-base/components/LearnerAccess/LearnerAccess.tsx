@@ -33,9 +33,12 @@ const LearnerAccess = ({
 }: LearnerAccessProps): JSX.Element => {
   const [activeTabKey, setActiveTabKey] = useState<TabKey | undefined>(undefined);
   const [availableTabs, setAvailableTabs] = useState<AvailableTab[]>([]);
+  // Initialize button state based on SSR-safe default (desktop view)
+  // Will be updated in useEffect on client
   const [button, setButton] = useState(false);
   const [dropDownActive, setDropDownActive] = useState(false);
   const {
+    data,
     loading,
     error,
     refetch: refetchContentGroups
@@ -43,8 +46,12 @@ const LearnerAccess = ({
     variables: {
       query,
       includeExpiredCertificates: displayExpiredCertificateInformation
-    },
-    onCompleted: data => {
+    }
+  });
+
+  // Handle available tabs update in useEffect to avoid state updates during render
+  useEffect(() => {
+    if (data?.UserContentGroups) {
       const newAvailableTabs = getAvailableTabs(
         data.UserContentGroups || [],
         userHasManagerInterfaceAccess,
@@ -60,15 +67,38 @@ const LearnerAccess = ({
       }
       setAvailableTabs(newAvailableTabs);
     }
-  });
+  }, [
+    data,
+    activeTabKey,
+    userHasManagerInterfaceAccess,
+    companyEnableExternalCertificateUploads,
+    companyHasWaitlistingFeature
+  ]);
 
   // update state to display button only on mobile
   const handleResize = () => {
-    setButton(window.innerWidth < 640);
+    if (typeof window !== 'undefined') {
+      setButton(window.innerWidth < 640);
+    }
   };
 
   useEffect(() => {
-    window.addEventListener('resize', handleResize);
+    // Only run on client side after hydration
+    if (typeof window !== 'undefined') {
+      // Don't set initial state here to avoid hydration mismatch
+      // The component will use the default state (false) for both SSR and initial client render
+      window.addEventListener('resize', handleResize);
+
+      // Only update state after a small delay to ensure hydration is complete
+      const timer = setTimeout(() => {
+        handleResize();
+      }, 0);
+
+      return () => {
+        clearTimeout(timer);
+        window.removeEventListener('resize', handleResize);
+      };
+    }
   }, []);
 
   const { t } = useTranslation();

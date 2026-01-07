@@ -1,7 +1,7 @@
 {
   "name": "@thoughtindustries/storybook-addon-apollo-client",
   "private": true,
-  "version": "1.2.3",
+  "version": "2.0.0-beta.2",
   "description": "Custom Storybook Addon for Apollo Client.",
   "main": "preset.js",
   "types": "dist/index.d.ts",
@@ -25,8 +25,10 @@
   },
   "homepage": "https://github.com/thoughtindustries/helium#readme",
   "dependencies": {
-    "@storybook/addons": "^7.0.0-beta.56",
-    "@storybook/components": "^7.0.0-beta.56"
+    "@storybook/components": "^8.6.14",
+    "@storybook/core": "^8.6.14",
+    "@storybook/manager-api": "^8.6.14",
+    "@storybook/preview-api": "^8.6.14"
   },
   "devDependencies": {
     "@types/react": "^18.0.28",

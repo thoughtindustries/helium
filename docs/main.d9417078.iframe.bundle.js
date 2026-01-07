@@ -170,7 +170,7 @@
           module,
           !1
         );
-      }.call(this, __webpack_require__('./node_modules/webpack/buildin/module.js')(module)));
+      }).call(this, __webpack_require__('./node_modules/webpack/buildin/module.js')(module));
     },
     './node_modules/css-loader/dist/cjs.js!./node_modules/postcss-loader/dist/cjs.js?!./.storybook/style.css':
       function (module, exports, __webpack_require__) {

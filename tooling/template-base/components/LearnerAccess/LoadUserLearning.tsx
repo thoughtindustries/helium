@@ -23,13 +23,27 @@ const LoadUserLearning = ({
   const [gridViewActive, setGridActive] = useState(true);
 
   const handleResize = () => {
-    if (window.innerWidth < 640) {
+    if (typeof window !== 'undefined' && window.innerWidth < 640) {
       setGridActive(true);
     }
   };
 
   useEffect(() => {
-    window.addEventListener('resize', handleResize);
+    // Only run on client side after hydration
+    if (typeof window !== 'undefined') {
+      // Don't set initial state here to avoid hydration mismatch
+      window.addEventListener('resize', handleResize);
+
+      // Only update state after a small delay to ensure hydration is complete
+      const timer = setTimeout(() => {
+        handleResize();
+      }, 0);
+
+      return () => {
+        clearTimeout(timer);
+        window.removeEventListener('resize', handleResize);
+      };
+    }
   }, []);
 
   const { data, loading, error } = useUserContentItemsQuery({

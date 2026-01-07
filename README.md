@@ -15,34 +15,45 @@ Helium is a frontend web development framework for building highly contextual, d
 Helium utilizes a modern technology stack that includes React, GraphQL, and Tailwind CSS to provide an exceptional developer experience. The out-of-the-box UI components make getting started easy and with GraphQL getting to the data you need is intuitive and fast.
 
 ## Getting Started
+
 ### Requirements:
+
 `npm` and `node` are pinned to specific versions using [Volta](https://volta.sh/), so you will want to [install it](https://docs.volta.sh/guide/getting-started) before anything else.
 
 ### Installing Locally
+
 To install and run this Helium repo locally, run the following commands:
+
 ```bash
 $ git clone https://github.com/thoughtindustries/helium
 ```
+
 ```bash
 $ npm install
 ```
+
 ```bash
 $ cd tooling/helium-server
 ```
+
 ```bash
 $ npm run build
 ```
+
 ```bash
 $ cd ../template-base
 ```
+
 ```bash
 $ npm run authenticate
 ```
+
 ```bash
 $ npm run dev
 ```
 
 ### Workspaces
+
 The Helium Monorepo makes use of npm's [workspaces](https://docs.npmjs.com/cli/v8/using-npm/workspaces), so the majority of `npm` commands (such as adding or removing package dependencies) will take place in the root directory. After cloning the repository, running `npm install` will install all necessary dependencies as well as link any local dependencies.
 
 When installing/uninstalling a dependency within a specific component, you can specify which package the dependency should be installed to by utilizing the `-w` flag during install (Note: command should be run from root directory):
@@ -55,6 +66,7 @@ This is especially helpful for internal library components, as it will allow you
 to linked components without needing to publish changes.
 
 ### Developing in the Component Library
+
 When adding a new component you'll want to be sure to define a new workspace with `npm init` (Note: command should be run from root directory):
 
 ```bash

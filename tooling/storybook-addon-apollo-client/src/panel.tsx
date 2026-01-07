@@ -1,6 +1,6 @@
 import React, { Fragment, useEffect, useState } from 'react';
-import { useParameter, useStorybookApi } from '@storybook/api';
-import { STORY_CHANGED } from '@storybook/core-events';
+import { useParameter, useStorybookApi } from '@storybook/manager-api';
+import { STORY_CHANGED } from '@storybook/core/core-events';
 import {
   Form as _Form,
   Placeholder as _Placeholder,
@@ -50,7 +50,7 @@ export const ApolloClientPanel: React.FC = () => {
     return () => {
       api.off(STORY_CHANGED, onChange);
     };
-  });
+  }, [api]);
 
   if (mocks.length === 0) {
     return <Placeholder>No mocks for this story</Placeholder>;

@@ -1,7 +1,11 @@
-import { tiConfig } from '@thoughtindustries/helium-server';
+import { createVikeConfig } from '@thoughtindustries/helium-server';
 import { defineConfig } from 'vite';
 
 export default defineConfig(async () => {
+  // Get base config with vike plugin (uses dynamic import to avoid ESM/CJS issues)
+  const config = await createVikeConfig();
+
+  // Load MDX plugins
   const remarkFrontmatter = await import('remark-frontmatter');
   const remarkMdxFrontmatter = await import('remark-mdx-frontmatter');
   const mdx = await import('@mdx-js/rollup');
@@ -10,7 +14,8 @@ export default defineConfig(async () => {
     rehypePlugins: []
   };
 
-  tiConfig.plugins.push(mdx.default(mdxOptions));
+  // Add MDX plugin
+  config.plugins.push(mdx.default(mdxOptions));
 
-  return tiConfig;
+  return config;
 });

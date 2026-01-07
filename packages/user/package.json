@@ -1,6 +1,6 @@
 {
   "name": "@thoughtindustries/user",
-  "version": "1.2.3",
+  "version": "2.0.0-beta.2",
   "description": "A base component for user login and registration",
   "main": "src/index.ts",
   "scripts": {
@@ -25,6 +25,6 @@
     "@types/lodash": "^4.14.182",
     "graphql": "^16.6.0",
     "html-react-parser": "^3.0.1",
-    "i18next": "^21.10.0"
+    "i18next": "^23.16.8"
   }
 }

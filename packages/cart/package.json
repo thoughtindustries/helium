@@ -1,6 +1,6 @@
 {
   "name": "@thoughtindustries/cart",
-  "version": "1.2.5",
+  "version": "2.0.0-beta.2",
   "description": "A base component for cart",
   "author": "Lu Jiang <lu.jiang@thoughtindustries.com>",
   "homepage": "https://github.com/thoughtindustries/helium#readme",
@@ -24,15 +24,15 @@
   },
   "dependencies": {
     "@headlessui/react": "~1.5.0",
-    "@thoughtindustries/content": "^1.2.5",
+    "@thoughtindustries/content": "^2.0.0-beta.2",
     "buffer": "^6.0.3",
     "clsx": "^1.1.1",
     "couponable": "^7.0.0",
-    "i18next": "^21.10.0",
+    "i18next": "^23.16.8",
     "react": "^17 || ^18",
     "react-dom": "^17 || ^18",
-    "react-i18next": "^11.18.6",
-    "universal-cookie": "^4.0.4"
+    "react-i18next": "^13.5.0",
+    "universal-cookie": "^7.2.2"
   },
   "peerDependencies": {
     "react": "^17 || ^18",

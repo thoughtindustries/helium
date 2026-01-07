@@ -15,13 +15,18 @@ const FeaturedContentComp: FC<CatalogResultsWithLimitProps> = ({
   const {
     urlParsed: { pathname: pathName, searchOriginal: searchString }
   } = pageContext;
+
+  // Use SSR for initial page load, client-side fetching for navigation
+  // isHydration is undefined/true for initial SSR, false for client-side navigation
+  const isInitialRender = pageContext.isHydration !== false;
+
   const props = useMemo(
     () => ({
       pathName,
       searchString,
-      ssr: true
+      ssr: isInitialRender
     }),
-    [pathName, searchString]
+    [pathName, searchString, isInitialRender]
   );
   return (
     <section id="featuredcomp" className="bg-slate-50 py-24 px-12">

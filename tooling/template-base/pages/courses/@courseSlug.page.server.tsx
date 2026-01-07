@@ -1,84 +1,75 @@
-import { CourseGroup } from '@thoughtindustries/content/src/graphql/global-types';
+import { gql } from '@apollo/client';
 
 export { onBeforeRender };
+
+const COURSE_GROUP_QUERY = gql`
+  query CourseGroupBySlug($slug: Slug!) {
+    CourseGroupBySlug(slug: $slug) {
+      id
+      title
+      description
+      slug
+      asset
+      detailAsset
+      videoAsset
+      rating
+      ratingsCount
+      language
+      archived
+      metaTitle
+      metaDescription
+      authors
+      courses {
+        id
+        title
+      }
+      customFields
+    }
+  }
+`;
 
 interface PageContext {
   routeParams: {
     courseSlug: string;
   };
+  apolloClient: any;
 }
 
 async function onBeforeRender(pageContext: PageContext) {
   const { courseSlug } = pageContext.routeParams;
 
   if (!courseSlug) {
-    throw new Error('Course slug is required');
+    return {
+      pageContext: {
+        pageProps: {
+          courseGroup: null,
+          error: 'Course slug is required'
+        }
+      }
+    };
   }
 
   try {
-    // GraphQL query for course group by slug
-    const query = `
-      query CourseGroupBySlug($slug: Slug!) {
-        CourseGroupBySlug(slug: $slug) {
-          id
-          title
-          description
-          slug
-          asset
-          detailAsset
-          videoAsset
-          rating
-          ratingsCount
-          language
-          archived
-          metaTitle
-          metaDescription
-          authors
-          courses {
-            id
-            title
-          }
-          customFields
-        }
-      }
-    `;
+    // Use the Apollo Client from pageContext
+    const { apolloClient } = pageContext;
 
-    const url = `https://${process.env.HELIUM_PUBLIC_INSTANCE_PUBLIC_DOMAIN}/helium?apiKey=${process.env.HELIUM_SECRET_API_KEY}`;
+    if (!apolloClient) {
+      throw new Error('Apollo Client not available in pageContext');
+    }
 
-    const response = await fetch(url, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({
-        query,
-        variables: {
-          slug: courseSlug
-        }
-      }),
-      signal: AbortSignal.timeout(10000)
+    const { data, error } = await apolloClient.query({
+      query: COURSE_GROUP_QUERY,
+      variables: { slug: courseSlug }
     });
 
-    if (!response.ok) {
-      const errorText = await response.text();
-      console.error('GraphQL API Error Response:', {
-        status: response.status,
-        statusText: response.statusText,
-        body: errorText
-      });
-      throw new Error(`HTTP error! status: ${response.status} - ${errorText}`);
+    if (error) {
+      throw error;
     }
 
-    const result = await response.json();
-
-    if (result.errors) {
-      throw new Error(`GraphQL errors: ${JSON.stringify(result.errors)}`);
-    }
-
-    const courseGroup: CourseGroup = result.data?.CourseGroupBySlug;
+    const courseGroup = data?.CourseGroupBySlug;
 
     if (!courseGroup) {
-      throw new Error('Course group not found');
+      throw new Error('Course not found');
     }
 
     return {
@@ -94,7 +85,7 @@ async function onBeforeRender(pageContext: PageContext) {
       pageContext: {
         pageProps: {
           courseGroup: null,
-          error: error instanceof Error ? error.message : 'Unknown error occurred'
+          error: error instanceof Error ? error.message : 'Failed to load course'
         }
       }
     };
