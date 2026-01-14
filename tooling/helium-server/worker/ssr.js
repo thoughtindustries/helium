@@ -112,7 +112,10 @@ function decryptUserAndAppearance(userAndAppearanceToken, tiInstance) {
 function assembleHeaders(pageContext, isClientRoutingRequest = false) {
   // For Client Routing navigation requests, return JSON
   // For regular page loads, return HTML
-  const contentType = isClientRoutingRequest ? 'application/json' : 'text/html';
+  // Always include charset=utf-8 to ensure proper encoding of special characters
+  const contentType = isClientRoutingRequest
+    ? 'application/json; charset=utf-8'
+    : 'text/html; charset=utf-8';
   const headers = { 'content-type': contentType };
 
   if (pageContext && pageContext.documentProps) {

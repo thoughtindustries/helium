@@ -177,9 +177,9 @@ export default async function setupHeliumServer(root: string, viteDevServer: any
       // Vike returns the pageContext in httpResponse.body for .pageContext.json requests
       if (httpResponse) {
         const { statusCode, body } = httpResponse;
-        // Set proper content type for JSON responses
+        // Set proper content type for JSON responses with charset for proper encoding
         if (body && (body.startsWith('{') || body.startsWith('['))) {
-          res.setHeader('Content-Type', 'application/json');
+          res.setHeader('Content-Type', 'application/json; charset=utf-8');
         }
         res.status(statusCode).send(body);
       } else {
@@ -191,6 +191,8 @@ export default async function setupHeliumServer(root: string, viteDevServer: any
       if (!httpResponse) return next();
 
       const { statusCode, body } = httpResponse;
+      // Set proper content type with charset for proper encoding of special characters
+      res.setHeader('Content-Type', 'text/html; charset=utf-8');
       res.status(statusCode).send(body);
     }
   });
