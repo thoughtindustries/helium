@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [3.0.0-beta.26](https://github.com/thoughtindustries/helium/compare/@thoughtindustries/helium-server@3.0.0-beta.25...@thoughtindustries/helium-server@3.0.0-beta.26) (2026-01-22)
+
+### Bug Fixes
+
+- add charset=utf-8 to Content-Type headers for proper special character encoding ([b6dc989](https://github.com/thoughtindustries/helium/commit/b6dc98984c43a8ac9f39d23f709697446757a74a))
+
 # [3.0.0-beta.25](https://github.com/thoughtindustries/helium/compare/@thoughtindustries/helium-server@2.7.0...@thoughtindustries/helium-server@3.0.0-beta.25) (2025-12-05)
 
 ### Bug Fixes
