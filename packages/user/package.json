@@ -1,6 +1,6 @@
 {
   "name": "@thoughtindustries/user",
-  "version": "2.0.0-beta.2",
+  "version": "2.0.0",
   "description": "A base component for user login and registration",
   "main": "src/index.ts",
   "scripts": {
