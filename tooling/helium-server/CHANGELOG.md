@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [3.1.0](https://github.com/thoughtindustries/helium/compare/@thoughtindustries/helium-server@3.0.0-beta.25...@thoughtindustries/helium-server@3.1.0) (2026-02-06)
+
+### Features
+
+- support node 22 ([#250](https://github.com/thoughtindustries/helium/issues/250)) ([3fe34a3](https://github.com/thoughtindustries/helium/commit/3fe34a3e))
+
 # [3.0.0-beta.25](https://github.com/thoughtindustries/helium/compare/@thoughtindustries/helium-server@2.7.0...@thoughtindustries/helium-server@3.0.0-beta.25) (2025-12-05)
 
 ### Bug Fixes

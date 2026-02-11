@@ -1,6 +1,6 @@
 {
   "name": "@thoughtindustries/featured-content",
-  "version": "2.0.0-beta.2",
+  "version": "2.1.0",
   "description": "A base component for featured content",
   "author": "Rob Schillinger <robert.schillinger@thoughtindustries>",
   "homepage": "https://github.com/thoughtindustries/helium#readme",
