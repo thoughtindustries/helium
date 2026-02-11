@@ -109,3 +109,15 @@ dist
 **/worker/worker
 **/worker/script.js
 .DS_Store
+
+# Storybook build output
+storybook-static/
+
+# Backup files
+*.backup
+
+# Development environment files
+.env.development
+
+# VSCode workspace files
+.vscode/helium.code-workspace

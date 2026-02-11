@@ -1,7 +1,3 @@
-export function config(entry: unknown[] = []): unknown[] {
-  return [...entry, require.resolve('./addDecorator')];
-}
-
-export function managerEntries(entry: unknown[] = []): unknown[] {
+export const managerEntries = (entry: string[] = []) => {
   return [...entry, require.resolve('../register')];
-}
+};

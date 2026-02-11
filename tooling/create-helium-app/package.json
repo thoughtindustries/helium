@@ -3,7 +3,7 @@
   "publishConfig": {
     "access": "public"
   },
-  "version": "1.1.35",
+  "version": "2.1.0",
   "main": "index.js",
   "license": "MIT",
   "bin": {
@@ -27,5 +27,6 @@
   "engines": {
     "node": ">=16.18.1",
     "npm": ">=8.19.2"
-  }
+  },
+  "gitHead": "8974c20a302c8cc403568cc88ec180ee74c2eb80"
 }

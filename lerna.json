@@ -1,11 +1,9 @@
 {
   "npmClient": "npm",
-  "packages": [
-    "packages/*", "tooling/*"
-  ],
+  "packages": ["packages/*", "tooling/*"],
   "command": {
     "publish": {
-      "ignoreChanges": ["*.md"] 
+      "ignoreChanges": ["*.md"]
     }
   },
   "version": "independent"

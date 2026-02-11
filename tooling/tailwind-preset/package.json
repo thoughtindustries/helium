@@ -1,6 +1,6 @@
 {
   "name": "@thoughtindustries/helium-tailwind-preset",
-  "version": "1.1.0",
+  "version": "2.1.0",
   "description": "Tailwindcss Preset for use in Helium projects.",
   "homepage": "https://github.com/thoughtindustries/helium#readme",
   "repository": {
@@ -28,12 +28,12 @@
     "@tailwindcss/line-clamp": "^0.4.4"
   },
   "devDependencies": {
-    "tsup": "^6.7.0",
+    "tsup": "^8.5.0",
     "typescript": "^5.0.4"
   },
   "volta": {
-    "node": "18.20.7",
-    "npm": "10.8.2"
+    "node": "22.22.0",
+    "npm": "10.9.4"
   },
   "engines": {
     "node": ">=16.18.1",

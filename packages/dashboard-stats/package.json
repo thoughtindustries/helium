@@ -1,6 +1,6 @@
 {
   "name": "@thoughtindustries/dashboard-stats",
-  "version": "1.2.5",
+  "version": "2.1.0",
   "description": "User's dashboard stats",
   "author": "Blake Reimer <blake.reimer@thoughtindustries.com>",
   "homepage": "https://github.com/thoughtindustries/helium#readme",
@@ -24,8 +24,8 @@
   },
   "dependencies": {
     "@apollo/client": "^3.7.0",
-    "@thoughtindustries/content": "^1.2.5",
+    "@thoughtindustries/content": "^2.0.0-beta.2",
     "graphql": "^16.6.0",
-    "react-i18next": "^11.18.6"
+    "react-i18next": "^13.5.0"
   }
 }

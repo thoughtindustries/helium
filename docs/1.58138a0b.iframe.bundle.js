@@ -2290,7 +2290,7 @@
             : {}
         );
         module.exports && (module.exports = Prism), void 0 !== global && (global.Prism = Prism);
-      }.call(this, __webpack_require__('./node_modules/webpack/buildin/global.js')));
+      }).call(this, __webpack_require__('./node_modules/webpack/buildin/global.js'));
     },
     './node_modules/refractor/core.js': function (module, exports, __webpack_require__) {
       'use strict';
@@ -2430,7 +2430,7 @@
               )
             );
           });
-      }.call(this, __webpack_require__('./node_modules/webpack/buildin/global.js')));
+      }).call(this, __webpack_require__('./node_modules/webpack/buildin/global.js'));
     },
     './node_modules/refractor/lang/bash.js': function (module, exports, __webpack_require__) {
       'use strict';

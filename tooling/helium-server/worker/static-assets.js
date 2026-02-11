@@ -2,7 +2,11 @@
 // This code was provided by Cloudflare Workers
 // ********************************************
 
-import { getAssetFromKV, serveSinglePageApp } from '@cloudflare/kv-asset-handler';
+import {
+  getAssetFromKV,
+  serveSinglePageApp,
+  mapRequestToAsset
+} from '@cloudflare/kv-asset-handler';
 
 export { handleStaticAssets };
 
@@ -15,8 +19,90 @@ export { handleStaticAssets };
  */
 const DEBUG = false;
 
+// Custom asset mapper to handle Vike asset URLs
+function mapVikeAssets(request) {
+  const url = new URL(request.url);
+  let pathname = url.pathname;
+
+  // Try to get the manifest to find the correct hashed filename
+  if (typeof __STATIC_CONTENT_MANIFEST !== 'undefined') {
+    try {
+      const manifest = JSON.parse(__STATIC_CONTENT_MANIFEST);
+
+      // Handle bare chunk requests (e.g., "/chunk-C97W_Hzk.js")
+      // These come from relative imports in the JS files
+      if (!pathname.startsWith('/assets/') && pathname.includes('chunk-')) {
+        pathname = '/assets/chunks' + pathname;
+      }
+
+      // Handle bare entry requests
+      if (
+        !pathname.startsWith('/assets/') &&
+        (pathname.includes('entry-') || pathname.includes('renderer_'))
+      ) {
+        pathname = '/assets/entries' + pathname;
+      }
+
+      // Handle CSS requests
+      if (!pathname.startsWith('/assets/') && pathname.endsWith('.css')) {
+        pathname = '/assets/static' + pathname;
+      }
+
+      // Clean the path for matching
+      const cleanPath = pathname.replace(/^\/+/, '');
+
+      // Look for an exact match first
+      if (manifest[cleanPath]) {
+        url.pathname = '/' + manifest[cleanPath];
+        return new Request(url.toString(), request);
+      }
+
+      // CRITICAL: Handle Vike's asset URLs that don't have Cloudflare's hash
+      // Vike generates: /assets/entry-server-routing.DTgIhraB.js
+      // Cloudflare has: /assets/entry-server-routing.DTgIhraB.6edf2d3208.js
+      // We need to find the Cloudflare version by matching the Vike pattern
+
+      // Try to match by removing the extension and looking for similar files
+      const pathWithoutExt = cleanPath.replace(/\.(js|css)$/, '');
+
+      for (const [originalPath, hashedPath] of Object.entries(manifest)) {
+        // Check if this is the file Vike is looking for
+        // Match if the original path starts with what Vike requested (minus extension)
+        const origWithoutExt = originalPath.replace(/\.(js|css)$/, '');
+
+        if (
+          origWithoutExt === pathWithoutExt ||
+          originalPath === cleanPath ||
+          // Also try matching if Vike's hash is part of the Cloudflare path
+          hashedPath.includes(pathWithoutExt)
+        ) {
+          url.pathname = '/' + hashedPath;
+          return new Request(url.toString(), request);
+        }
+      }
+
+      // Fallback: Try to find a match by looking for the file without considering hashes
+      const fileName = pathname.split('/').pop();
+      const baseFileName = fileName.split('.')[0];
+
+      for (const [originalPath, hashedPath] of Object.entries(manifest)) {
+        // Check if this manifest entry matches our file
+        if (originalPath.includes(baseFileName)) {
+          url.pathname = '/' + hashedPath;
+          return new Request(url.toString(), request);
+        }
+      }
+    } catch (e) {
+      console.error('Error parsing manifest:', e);
+    }
+  }
+
+  // Fall back to the default single page app behavior
+  return serveSinglePageApp(request);
+}
+
 async function handleStaticAssets(event) {
-  let options = { mapRequestToAsset: serveSinglePageApp };
+  let options = { mapRequestToAsset: mapVikeAssets };
 
   /**
    * You can add custom logic to how we fetch your assets

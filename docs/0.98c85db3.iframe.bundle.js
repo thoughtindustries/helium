@@ -18754,7 +18754,7 @@
             result = allocUnsafe ? allocUnsafe(length) : new buffer.constructor(length);
           return buffer.copy(result), result;
         };
-      }.call(this, __webpack_require__('./node_modules/webpack/buildin/module.js')(module)));
+      }).call(this, __webpack_require__('./node_modules/webpack/buildin/module.js')(module));
     },
     './node_modules/lodash/_cloneDataView.js': function (module, exports, __webpack_require__) {
       var cloneArrayBuffer = __webpack_require__('./node_modules/lodash/_cloneArrayBuffer.js');

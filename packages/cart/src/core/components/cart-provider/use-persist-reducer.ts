@@ -10,7 +10,7 @@ export default function usePersistReducer(cookieName: string, cookieManager: Coo
     (newValue: string, options?: CookieSetOptions) => {
       cookieManager.set(cookieName, newValue, options);
     },
-    [cookieName]
+    [cookieName, cookieManager]
   );
 
   // Wrap `reducer` with a memoized function that
@@ -22,13 +22,11 @@ export default function usePersistReducer(cookieName: string, cookieManager: Coo
       const { cart } = newState;
       // skip persisting cookie during initialization
       if (action.type !== CartActionType.InitializeCart) {
-        // disable default encoder encodeURIComponent
-        const encode = (value: string) => value;
+        // Cart is already base64 encoded, which is cookie-safe
         updateCookie(serializeCart(cart), {
           secure: false,
           httpOnly: false,
-          path: '/',
-          encode
+          path: '/'
         });
       }
       return newState;

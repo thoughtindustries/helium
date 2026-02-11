@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import DropDownClosed from '../Assets/DropDownClosed';
 import DropDownOpen from '../Assets/DropDownOpen';
 
@@ -21,6 +21,11 @@ import { useTranslation } from 'react-i18next';
 const LoadBookmarks = (): JSX.Element => {
   const { t } = useTranslation();
 
+  const [selectedFolderId, setSelectedFolderId] = useState<string | undefined>(undefined);
+  const [bookmarkList, setBookmarkList] = useState<UserBookmarksQuery['UserBookmarks'] | undefined>(
+    undefined
+  );
+
   const {
     data: bookmarkFolders,
     loading,
@@ -28,21 +33,20 @@ const LoadBookmarks = (): JSX.Element => {
     refetch: refetchBookmarkFolders
   } = useUserBookmarksQuery({
     variables: {},
-    fetchPolicy: 'network-only',
-    onCompleted: data => {
-      if (data.UserBookmarks?.length && !selectedFolderId) {
-        setSelectedFolderId(data.UserBookmarks[0].id);
-      }
-    }
+    fetchPolicy: 'network-only'
   });
-  const [selectedFolderId, setSelectedFolderId] = useState<string | undefined>(undefined);
-  const [bookmarkList, setBookmarkList] = useState<UserBookmarksQuery['UserBookmarks'] | undefined>(
-    bookmarkFolders?.UserBookmarks
-  );
 
-  if (bookmarkList != bookmarkFolders?.UserBookmarks) {
-    setBookmarkList(bookmarkFolders?.UserBookmarks);
-  }
+  // Handle data updates in useEffect to avoid state updates during render
+  useEffect(() => {
+    if (bookmarkFolders?.UserBookmarks) {
+      // Set selected folder if not already set
+      if (!selectedFolderId && bookmarkFolders.UserBookmarks.length) {
+        setSelectedFolderId(bookmarkFolders.UserBookmarks[0].id);
+      }
+      // Update bookmark list when data changes
+      setBookmarkList(bookmarkFolders.UserBookmarks);
+    }
+  }, [bookmarkFolders, selectedFolderId]);
 
   type RequiredUserBookmarksQuery = Required<UserBookmarksQuery>;
   interface BookmarkFolderNameProps {
