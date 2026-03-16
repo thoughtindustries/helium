@@ -1,4 +1,5 @@
 import { SyntheticEvent, ReactElement, ElementType } from 'react';
+import { CatalogParams } from './core';
 import { HydratedContentItem, GlobalTypes } from '@thoughtindustries/content';
 
 export type CatalogResultItemRibbon = GlobalTypes.Ribbon;
@@ -24,7 +25,28 @@ export interface CatalogResultsProps {
   currencyCode?: string;
   /** specify number of items to return from catalog */
   numberOfContentItems?: number;
+  ItemWrapperComponent?: ItemWrapper;
 }
+
+export type ItemWrapper = (
+  props: Pick<CatalogResultsProps, 'onClick' | 'onAddedToQueue'> &
+    Pick<CatalogParams, 'displayAuthorsEnabled' | 'displayStartDateEnabled' | 'displayBundle'> & {
+      priceFormatFn: PriceFormatFn;
+      children: React.ReactNode;
+      item: HydratedContentItem;
+    }
+) => JSX.Element;
+
+export type DisplayTypeResultsGridProps = Pick<CatalogResultsProps, 'onClick' | 'onAddedToQueue'> &
+  Pick<CatalogParams, 'displayAuthorsEnabled' | 'displayStartDateEnabled' | 'displayBundle'> & {
+    items: CatalogResultItem[];
+    ItemWrapperComponent?: ItemWrapper;
+    priceFormatFn: PriceFormatFn;
+  };
+
+export type DisplayTypeResultsGridItemProps = Omit<DisplayTypeResultsGridProps, 'items'> & {
+  item: CatalogResultItem;
+};
 
 export type PaginationFnArgs = {
   page: number;

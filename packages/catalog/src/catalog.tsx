@@ -14,6 +14,7 @@ const Catalog: FC<CatalogProps> = ({
   title,
   alternateTitleDisplay,
   pagination,
+  ItemWrapperComponent,
   ...restResultsProps
 }: CatalogProps): JSX.Element => {
   const { t } = useTranslation();
@@ -36,7 +37,10 @@ const Catalog: FC<CatalogProps> = ({
                     <CatalogAggregations />
                   </div>
                   <div className="col-span-full md:col-span-3">
-                    <CatalogResults {...restResultsProps} />
+                    <CatalogResults
+                      {...restResultsProps}
+                      ItemWrapperComponent={ItemWrapperComponent}
+                    />
                     <CatalogPagination pagination={pagination} />
                   </div>
                 </div>
