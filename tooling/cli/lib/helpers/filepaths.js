@@ -29,6 +29,9 @@ const getFilePaths = async (dir, filePaths = [], skipNodeModules = true) => {
 };
 
 const filePathIsValid = filePath => {
+  if (filePath.endsWith('.d.ts') || filePath.endsWith('.d.tsx')) {
+    return false;
+  }
   return (
     filePath.endsWith('.js') ||
     filePath.endsWith('.jsx') ||
